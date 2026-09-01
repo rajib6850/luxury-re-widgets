@@ -17,7 +17,7 @@ use Elementor\Repeater;
 class LRE_Hero_Widget extends Widget_Base {
 
 	public function get_name()       { return 'lre_hero'; }
-	public function get_title()      { return __( 'LRE â€” Luxury Hero Banner', 'luxury-re-widgets' ); }
+	public function get_title()      { return __( 'LRE Ã¢â‚¬â€ Luxury Hero Banner', 'luxury-re-widgets' ); }
 	public function get_icon()       { return 'eicon-banner'; }
 	public function get_categories() { return array( 'luxury-re-widgets' ); }
 	public function get_keywords()   { return array( 'hero', 'banner', 'luxury', 'ken burns', 'video', 'slider', 'real estate' ); }
@@ -28,7 +28,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// â”€â”€ BACKGROUND MEDIA â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ BACKGROUND MEDIA Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->start_controls_section( 'section_bg_media', array( 'label' => __( 'Background Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$this->add_control( 'bg_media_type', array(
@@ -42,7 +42,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			),
 		) );
 
-		// â”€â”€ Single Image â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ Single Image Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->add_control( 'hero_bg_image', array(
 			'label'     => __( 'Background Image', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::MEDIA,
@@ -51,7 +51,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			'condition' => array( 'bg_media_type' => 'image' ),
 		) );
 
-		// â”€â”€ Image Slider â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ Image Slider Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->add_control( 'hero_bg_gallery', array(
 			'label'     => __( 'Slider Images', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::GALLERY,
@@ -73,7 +73,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			'condition' => array( 'bg_media_type' => 'slider' ),
 		) );
 
-		// â”€â”€ Ken Burns Settings â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ Ken Burns Settings Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->add_control( 'ken_burns', array(
 			'label'        => __( 'Enable Ken Burns Effect', 'luxury-re-widgets' ),
 			'type'         => Controls_Manager::SWITCHER,
@@ -117,7 +117,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			),
 		) );
 
-		// â”€â”€ Video Background â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ Video Background Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->add_control( 'video_source', array(
 			'label'     => __( 'Video Source', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::SELECT,
@@ -154,7 +154,7 @@ class LRE_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// â”€â”€ HEADLINES â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ HEADLINES Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->start_controls_section( 'section_headlines', array( 'label' => __( 'Headlines & Typography', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'headline_tag', array(
 			'label'   => __( 'HTML Heading Tag', 'luxury-re-widgets' ),
@@ -167,21 +167,21 @@ class LRE_Hero_Widget extends Widget_Base {
 		$this->add_control( 'subtitle',       array( 'label' => __( 'Subtitle', 'luxury-re-widgets' ),        'type' => Controls_Manager::TEXT, 'default' => 'Southern California\'s Premier Luxury Real Estate', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// â”€â”€ CALL TO ACTION BUTTONS â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ CALL TO ACTION BUTTONS Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->start_controls_section( 'section_cta', array( 'label' => __( 'Call To Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'btn_primary_text', array( 'label' => __( 'Button 1 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Your Guide To Buying', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn_primary_url',  array( 'label' => __( 'Button 1 Link', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#listings' ) ) );
 		$this->add_control( 'btn_secondary_text', array( 'label' => __( 'Button 2 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Your Guide To Selling', 'separator' => 'before', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn_secondary_url',  array( 'label' => __( 'Button 2 Link', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#contact' ) ) );
 		$this->add_control( 'show_scroll_cue',    array( 'label' => __( 'Show Scroll Indicator', 'luxury-re-widgets' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes', 'separator' => 'before' ) );
-		$this->add_control( 'scroll_cue_label',   array( 'label' => __( 'Scroll Cue Label', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Explore', 'condition' => array( 'show_scroll_cue' => 'yes' ) ) );
+		$this->add_control( 'scroll_cue_label',   array( 'label' => __( 'Scroll Cue Label', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'scroll down', 'condition' => array( 'show_scroll_cue' => 'yes' ) ) );
 		$this->end_controls_section();
 
 		// =================================================================
 		// TAB: STYLE
 		// =================================================================
 
-		// â”€â”€ STYLE: LAYOUT â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ STYLE: LAYOUT Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->start_controls_section( 'style_layout', array( 'label' => __( 'Hero Layout', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_responsive_control( 'section_min_height', array(
 			'label'      => __( 'Min Height', 'luxury-re-widgets' ),
@@ -197,7 +197,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		) );
 		$this->end_controls_section();
 
-		// â”€â”€ STYLE: OVERLAY â”€â”€
+		// Ã¢â€â‚¬Ã¢â€â‚¬ STYLE: OVERLAY Ã¢â€â‚¬Ã¢â€â‚¬
 		$this->start_controls_section( 'style_overlay', array( 'label' => __( 'Background Overlay', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'show_overlay', array( 'label' => __( 'Show Overlay', 'luxury-re-widgets' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
 		$this->add_control( 'overlay_bg', array( 'label' => __( 'Overlay Gradient / Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}};' ), 'condition' => array( 'show_overlay' => 'yes' ) ) );
@@ -333,11 +333,11 @@ class LRE_Hero_Widget extends Widget_Base {
 				</div>
 			</div>
 
-			<!-- Scroll Cue Indicator -->
+			<!-- Scroll Indicator -->
 			<?php if ( $show_cue ) : ?>
-			<div class="hero__scroll-cue" aria-hidden="true">
-				<span class="hero__scroll-text"><?php echo $cue_label; ?></span>
+			<div class="hero__scroll-indicator" aria-hidden="true">
 				<div class="hero__scroll-line"></div>
+				<span><?php echo esc_html( $cue_label ?: 'scroll down' ); ?></span>
 			</div>
 			<?php endif; ?>
 		</section>

@@ -17,7 +17,7 @@ use Elementor\Repeater;
 class LRE_Hero_Widget extends Widget_Base {
 
 	public function get_name()       { return 'lre_hero'; }
-	public function get_title()      { return __( 'LRE Ã¢â‚¬â€ Luxury Hero Banner', 'luxury-re-widgets' ); }
+	public function get_title()      { return __( 'LRE ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Luxury Hero Banner', 'luxury-re-widgets' ); }
 	public function get_icon()       { return 'eicon-banner'; }
 	public function get_categories() { return array( 'luxury-re-widgets' ); }
 	public function get_keywords()   { return array( 'hero', 'banner', 'luxury', 'ken burns', 'video', 'slider', 'real estate' ); }
@@ -28,7 +28,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ BACKGROUND MEDIA Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ BACKGROUND MEDIA ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->start_controls_section( 'section_bg_media', array( 'label' => __( 'Background Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$this->add_control( 'bg_media_type', array(
@@ -42,7 +42,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			),
 		) );
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ Single Image Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Single Image ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->add_control( 'hero_bg_image', array(
 			'label'     => __( 'Background Image', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::MEDIA,
@@ -51,7 +51,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			'condition' => array( 'bg_media_type' => 'image' ),
 		) );
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ Image Slider Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Image Slider ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->add_control( 'hero_bg_gallery', array(
 			'label'     => __( 'Slider Images', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::GALLERY,
@@ -73,7 +73,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			'condition' => array( 'bg_media_type' => 'slider' ),
 		) );
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ Ken Burns Settings Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Ken Burns Settings ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->add_control( 'ken_burns', array(
 			'label'        => __( 'Enable Ken Burns Effect', 'luxury-re-widgets' ),
 			'type'         => Controls_Manager::SWITCHER,
@@ -117,7 +117,7 @@ class LRE_Hero_Widget extends Widget_Base {
 			),
 		) );
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ Video Background Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Video Background ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->add_control( 'video_source', array(
 			'label'     => __( 'Video Source', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::SELECT,
@@ -154,7 +154,7 @@ class LRE_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ HEADLINES Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ HEADLINES ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->start_controls_section( 'section_headlines', array( 'label' => __( 'Headlines & Typography', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'headline_tag', array(
 			'label'   => __( 'HTML Heading Tag', 'luxury-re-widgets' ),
@@ -167,7 +167,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		$this->add_control( 'subtitle',       array( 'label' => __( 'Subtitle', 'luxury-re-widgets' ),        'type' => Controls_Manager::TEXT, 'default' => 'Southern California\'s Premier Luxury Real Estate', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ CALL TO ACTION BUTTONS Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ CALL TO ACTION BUTTONS ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->start_controls_section( 'section_cta', array( 'label' => __( 'Call To Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'btn_primary_text', array( 'label' => __( 'Button 1 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Your Guide To Buying', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn_primary_url',  array( 'label' => __( 'Button 1 Link', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#listings' ) ) );
@@ -181,7 +181,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ STYLE: LAYOUT Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ STYLE: LAYOUT ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->start_controls_section( 'style_layout', array( 'label' => __( 'Hero Layout', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_responsive_control( 'section_min_height', array(
 			'label'      => __( 'Min Height', 'luxury-re-widgets' ),
@@ -197,7 +197,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		) );
 		$this->end_controls_section();
 
-		// Ã¢â€â‚¬Ã¢â€â‚¬ STYLE: OVERLAY Ã¢â€â‚¬Ã¢â€â‚¬
+		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ STYLE: OVERLAY ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 		$this->start_controls_section( 'style_overlay', array( 'label' => __( 'Background Overlay', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'show_overlay', array( 'label' => __( 'Show Overlay', 'luxury-re-widgets' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
 		$this->add_control( 'overlay_bg', array( 'label' => __( 'Overlay Gradient / Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}};' ), 'condition' => array( 'show_overlay' => 'yes' ) ) );
@@ -308,17 +308,17 @@ class LRE_Hero_Widget extends Widget_Base {
 			<?php endif; ?>
 
 			<!-- Content -->
-			<div class="hero__content reveal">
+			<div class="hero__content">
 				<<?php echo $tag; ?> class="hero__title">
-					<span class="title-mask hero-mask"><span><?php echo esc_html( $line1 ); ?></span></span>
-					<span class="title-mask hero-mask"><span><?php echo esc_html( $line2 ); ?></span></span>
+					<span class="hero-mask"><span><?php echo esc_html( $line1 ); ?></span></span>
+					<span class="hero-mask"><span><?php echo esc_html( $line2 ); ?></span></span>
 				</<?php echo $tag; ?>>
 
 				<?php if ( $subtitle ) : ?>
-				<p class="hero__subtitle reveal"><?php echo esc_html( $subtitle ); ?></p>
+				<p class="hero__subtitle"><?php echo esc_html( $subtitle ); ?></p>
 				<?php endif; ?>
 
-				<div class="hero__cta-group reveal">
+				<div class="hero__cta-group">
 					<?php if ( $btn1_text ) : ?>
 					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white">
 						<span><?php echo esc_html( $btn1_text ); ?></span>

@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Luxury Real Estate Widgets
  * Plugin URI:        https://digitizegrowth.com/
- * Description:       10 premium Elementor section widgets for luxury real estate websites ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Header, Hero, About, Services, Featured Listings, Testimonials, Communities, CTA & Footer. Build a complete luxury real estate homepage block by block. By Digitize Growth ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Luxury Real Estate Website Design, from $1,499. https://digitizegrowth.com/
- * Version:           1.1.0
+ * Description:       10 premium Elementor section widgets for luxury real estate websites ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Header, Hero, About, Services, Featured Listings, Testimonials, Communities, CTA & Footer. Build a complete luxury real estate homepage block by block. By Digitize Growth ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Luxury Real Estate Website Design, from $1,499. https://digitizegrowth.com/
+ * Version:           1.1.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Elementor tested up to: 3.25
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // -- Plugin Constants --
-define( 'LRE_VERSION',     '1.1.0' );
+define( 'LRE_VERSION',     '1.1.1' );
 define( 'LRE_PATH',        plugin_dir_path( __FILE__ ) );
 define( 'LRE_URL',         plugin_dir_url( __FILE__ ) );
 define( 'LRE_ASSETS_URL',  LRE_URL  . 'assets/' );

@@ -1,0 +1,74 @@
+﻿# Luxury Real Estate Widgets
+# Copyright (C) 2025 Digitize Growth
+# This file is distributed under the same license as the Luxury Real Estate Widgets plugin.
+# Digitize Growth <hello@digitizegrowth.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxury Real Estate Widgets 1.0.0\n"
+"Report-Msgid-Bugs-To: https://digitizegrowth.com/\n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit\n"
+"X-Domain: luxury-re-widgets\n"
+
+#: luxury-re-widgets.php
+msgid "Luxury Real Estate Widgets"
+msgstr ""
+
+#: includes/class-lre-plugin.php
+msgid "%1$s requires PHP %2$s or later. You are running PHP %3$s. Please upgrade PHP."
+msgstr ""
+
+#: includes/class-lre-plugin.php
+msgid "%1$s requires %2$s to be installed and activated."
+msgstr ""
+
+#: includes/class-lre-plugin.php
+msgid "%1$s requires Elementor version %2$s or later. Please update Elementor."
+msgstr ""
+
+#: includes/class-lre-widgets-loader.php
+msgid "Luxury Real Estate Widgets"
+msgstr ""
+
+#: widgets/class-lre-header-widget.php
+msgid "LRE — Header & Luxury Drawer"
+msgstr ""
+
+#: widgets/class-lre-hero-widget.php
+msgid "LRE — Hero Banner"
+msgstr ""
+
+#: widgets/class-lre-about-widget.php
+msgid "LRE — About Our Story"
+msgstr ""
+
+#: widgets/class-lre-services-widget.php
+msgid "LRE — Our Services"
+msgstr ""
+
+#: widgets/class-lre-properties-widget.php
+msgid "LRE — Featured Listings"
+msgstr ""
+
+#: widgets/class-lre-testimonials-widget.php
+msgid "LRE — Client Testimonials"
+msgstr ""
+
+#: widgets/class-lre-communities-widget.php
+msgid "LRE — Featured Communities"
+msgstr ""
+
+#: widgets/class-lre-cta-widget.php
+msgid "LRE — Call To Action"
+msgstr ""
+
+#: widgets/class-lre-footer-widget.php
+msgid "LRE — Site Footer"
+msgstr ""

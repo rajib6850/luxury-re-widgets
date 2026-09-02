@@ -3,14 +3,16 @@
    Ultra-premium, editorial-grade design system
    ============================================================ */
 
-/* ── 0. CSS CUSTOM PROPERTIES (Design Tokens) ────────────── */
-:root {
-  /* Colors — Rich, deep luxury palette */
-  --color-primary: #16192b;
-  --color-secondary: #c5a047;
-  --color-secondary-light: #d4b565;
+/* ── 0. CSS CUSTOM PROPERTIES (Design Tokens & Elementor Global Bridge) ── */
+:root,
+body,
+[class*="elementor-kit-"] {
+  /* Colors ── Connected to Elementor Global Colors with Luxury Fallbacks */
+  --color-primary: var(--e-global-color-primary, #16192b);
+  --color-secondary: var(--e-global-color-secondary, #c5a047);
+  --color-secondary-light: var(--e-global-color-accent, #d4b565);
   --color-secondary-dark: #a8872e;
-  --color-dark: #0a0a0a;
+  --color-dark: var(--e-global-color-primary, #0a0a0a);
   --color-darker: #050505;
   --color-dark-card: #141414;
   --color-dark-section: #111318;
@@ -18,20 +20,25 @@
   --color-light-warm: #faf7f2;
   --color-cream: #f0ebe3;
   --color-white: #ffffff;
-  --color-text: #2c2c2c;
-  --color-text-muted: #6b6b6b;
+  --color-text: var(--e-global-color-text, #2c2c2c);
+  --color-text-muted: var(--e-global-color-text, #6b6b6b);
   --color-text-light: #999999;
   --color-border: rgba(255, 255, 255, 0.1);
   --color-border-light: rgba(0, 0, 0, 0.07);
   --color-overlay: rgba(8, 8, 12, 0.6);
   --color-overlay-heavy: rgba(5, 5, 8, 0.82);
 
-  /* Typography Families */
-  --font-serif: 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif;
-  --font-sans: 'Montserrat', 'Helvetica Neue', sans-serif;
-  --font-accent: 'Cormorant Garamond', 'Georgia', serif;
+  /* Typography Families ── Connected to Elementor Global Fonts with Luxury Fallbacks */
+  --font-serif: var(--e-global-typography-primary-font-family, 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif);
+  --font-sans: var(--e-global-typography-text-font-family, 'Montserrat', 'Helvetica Neue', sans-serif);
+  --font-accent: var(--e-global-typography-accent-font-family, 'Cormorant Garamond', 'Georgia', serif);
+  --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
 
-  /* Typography Sizing Scale — Centralized Design Tokens */
+  /* Typography Weights from Elementor Global System */
+  --font-weight-primary: var(--e-global-typography-primary-font-weight, 400);
+  --font-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
+  --font-weight-text: var(--e-global-typography-text-font-weight, 400);
+  --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
   --font-size-hero: clamp(2.2rem, 4.2vw, 3.6rem);
   --font-size-section-title: clamp(2rem, 3.6vw, 3rem);
   --font-size-section-subtitle: 0.92rem;
@@ -210,7 +217,7 @@ ol {
   top: 0;
 }
 
-/* ── 2. TYPOGRAPHY ───────────────────────────────────────── */
+/* ── 2. TYPOGRAPHY (Elementor Theme Style & Site Settings Cascade) ──── */
 h1,
 h2,
 h3,
@@ -218,28 +225,20 @@ h4,
 h5,
 h6 {
   font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1.1;
+  font-weight: var(--font-weight-primary, 400);
+  line-height: 1.15;
   color: var(--color-dark);
 }
 
-h1 {
-  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-}
-
-h3 {
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-}
-
-h4 {
-  font-size: 1.3rem;
-}
+h1 { font-size: clamp(2.6rem, 5vw, 4.2rem); }
+h2 { font-size: clamp(2rem, 3.8vw, 3.2rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
+h4 { font-size: 1.3rem; }
+h5 { font-size: 1.15rem; }
+h6 { font-size: 1rem; }
 
 p {
+  font-family: inherit;
   font-size: 0.92rem;
   line-height: 1.8;
   color: var(--color-text-muted);
@@ -1103,9 +1102,9 @@ p {
 }
 
 .hero__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-hero);
-  font-weight: 400;
+  font-weight: inherit;
   color: var(--color-white);
   line-height: 1.15;
   max-width: 920px;
@@ -1129,7 +1128,7 @@ p {
 }
 
 .hero__subtitle {
-  font-family: var(--font-sans);
+  font-family: inherit;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 4px;
@@ -1275,10 +1274,10 @@ p {
 }
 
 .about__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
-  font-weight: 400;
-  color: var(--color-dark);
+  font-weight: inherit;
+  color: inherit;
   line-height: 1.22;
   letter-spacing: 0.5px;
   margin-bottom: 1.5rem;
@@ -1483,9 +1482,9 @@ p {
 }
 
 .services__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
-  font-weight: 400;
+  font-weight: inherit;
   color: var(--color-white);
   line-height: 1.2;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95);
@@ -1613,10 +1612,10 @@ p {
 }
 
 .listings__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
-  font-weight: 400;
-  color: var(--color-dark);
+  font-weight: inherit;
+  color: inherit;
   letter-spacing: 5px;
   text-transform: uppercase;
 }
@@ -2017,10 +2016,10 @@ p {
 }
 
 .testimonial__heading-main {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
   color: #ffffff;
-  font-weight: 400;
+  font-weight: inherit;
   display: block;
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -2262,10 +2261,10 @@ p {
 }
 
 .communities__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
-  font-weight: 400;
-  color: #1a1a1a;
+  font-weight: inherit;
+  color: inherit;
   letter-spacing: 5px;
   text-transform: uppercase;
   margin: 0;
@@ -2483,9 +2482,9 @@ p {
 }
 
 .cta__title {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: var(--font-size-section-title);
-  font-weight: 400;
+  font-weight: inherit;
   color: var(--color-white);
   line-height: 1.18;
   margin: 0 auto 1.5rem;
@@ -2524,12 +2523,12 @@ p {
 }
 
 .footer__brand {
-  font-family: var(--font-serif);
+  font-family: inherit;
   font-size: clamp(1.5rem, 2.8vw, 2rem);
-  font-weight: 400;
+  font-weight: inherit;
   letter-spacing: 8px;
   text-transform: uppercase;
-  color: var(--color-dark);
+  color: inherit;
   margin-bottom: 0.25rem;
 }
 

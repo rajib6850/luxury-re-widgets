@@ -82,7 +82,11 @@ final class LRE_Plugin {
 		require_once LRE_PATH . 'includes/class-lre-ajax-handler.php';
 		new LRE_Ajax_Handler();
 
-		// 7. Enqueue assets.
+		// 7. Load Elementor Global System Bridge.
+		require_once LRE_PATH . 'includes/class-lre-global-system.php';
+		LRE_Global_System::instance();
+
+		// 8. Enqueue assets.
 		add_action( 'wp_enqueue_scripts',               array( $this, 'enqueue_styles' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );
 
@@ -109,11 +113,16 @@ final class LRE_Plugin {
 
 		$css_ver = file_exists( LRE_PATH . 'assets/css/lre-widgets.css' ) ? filemtime( LRE_PATH . 'assets/css/lre-widgets.css' ) : LRE_VERSION;
 
+		$deps = array( 'lre-google-fonts' );
+		if ( wp_style_is( 'elementor-frontend', 'registered' ) ) {
+			$deps[] = 'elementor-frontend';
+		}
+
 		// Plugin CSS with Cache Busting
 		wp_enqueue_style(
 			'lre-widgets',
 			LRE_ASSETS_URL . 'css/lre-widgets.css',
-			array( 'lre-google-fonts' ),
+			$deps,
 			$css_ver
 		);
 	}

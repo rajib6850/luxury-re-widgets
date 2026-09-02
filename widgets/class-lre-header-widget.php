@@ -973,9 +973,52 @@ class LRE_Header_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'heading_drawer_find_btn',
+			array(
+				'label'     => __( 'Find Button Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_drawer_btn_style' );
+
+		// Normal
+		$this->start_controls_tab(
+			'tab_drawer_btn_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_text_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn, {{WRAPPER}} .side-menu a.side-menu__find-btn span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'transparent',
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
 			'drawer_btn_border_color',
 			array(
-				'label'     => __( 'Find Button Border Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.35)',
 				'selectors' => array(
@@ -983,6 +1026,56 @@ class LRE_Header_Widget extends Widget_Base {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		// Hover
+		$this->start_controls_tab(
+			'tab_drawer_btn_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_text_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0c0c10',
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover, {{WRAPPER}} .side-menu a.side-menu__find-btn:hover span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->add_control(
 			'drawer_close_color',
@@ -1416,7 +1509,7 @@ class LRE_Header_Widget extends Widget_Base {
 								if ( ! empty( $box['btn_text'] ) ) {
 									$b_url = ! empty( $box['btn_url']['url'] ) ? $box['btn_url']['url'] : '#';
 									$b_tar = ! empty( $box['btn_url']['is_external'] ) ? '_blank' : '_self';
-									echo '<a href="' . esc_url( $b_url ) . '" target="' . esc_attr( $b_tar ) . '" class="side-menu__find-btn btn" style="text-decoration: none; display: inline-block;">' . esc_html( $box['btn_text'] ) . '</a>';
+									echo '<a href="' . esc_url( $b_url ) . '" target="' . esc_attr( $b_tar ) . '" class="side-menu__find-btn"><span>' . esc_html( $box['btn_text'] ) . '</span></a>';
 								}
 
 								echo '</div>';
@@ -1466,7 +1559,7 @@ class LRE_Header_Widget extends Widget_Base {
 									<a href="#communities" class="side-menu__link">Holmby Hills</a>
 									<a href="#communities" class="side-menu__link">Beverly Hills</a>
 								</div>
-								<a href="#communities" class="side-menu__find-btn btn" style="text-decoration: none; display: inline-block;">Find Your Neighborhood</a>
+								<a href="#communities" class="side-menu__find-btn"><span>Find Your Neighborhood</span></a>
 							</div>
 						</div>
 						<div class="side-menu__box side-menu__box--wide" data-delay="5">

@@ -983,30 +983,51 @@ p {
 .side-menu .side-menu__find-btn {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 0.5rem !important;
   margin-top: 1.6rem !important;
-  padding: 0.7rem 1.4rem !important;
+  padding: 0.75rem 1.6rem !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  background: rgba(0, 0, 0, 0.25) !important;
+  background: transparent !important;
   color: #ffffff !important;
   font-family: var(--font-sans) !important;
   font-size: 0.58rem !important;
   font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 2.5px !important;
   text-transform: uppercase !important;
   text-decoration: none !important;
-  backdrop-filter: blur(4px) !important;
-  -webkit-backdrop-filter: blur(4px) !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
   transition: all 0.4s var(--ease-out-expo) !important;
+}
+
+.side-menu a.side-menu__find-btn::before,
+.side-menu .side-menu__find-btn::before {
+  display: none !important;
+}
+
+.side-menu a.side-menu__find-btn span,
+.side-menu .side-menu__find-btn span {
+  position: relative;
+  z-index: 2;
+  color: inherit !important;
+  transition: color 0.3s ease;
 }
 
 .side-menu a.side-menu__find-btn:hover,
 .side-menu .side-menu__find-btn:hover {
   border-color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0c0c10 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.side-menu a.side-menu__find-btn:hover span,
+.side-menu .side-menu__find-btn:hover span {
+  color: #0c0c10 !important;
 }
 
 

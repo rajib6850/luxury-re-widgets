@@ -406,15 +406,37 @@ body,
   transition: all 0.4s var(--ease-out-expo) !important;
 }
 
+.side-menu a.side-menu__find-btn::before,
+.side-menu .side-menu__find-btn::before,
+[class*="elementor-kit-"] .side-menu a.side-menu__find-btn::before {
+  display: none !important;
+}
+
+.side-menu a.side-menu__find-btn span,
+.side-menu .side-menu__find-btn span,
+[class*="elementor-kit-"] .side-menu a.side-menu__find-btn span {
+  position: relative;
+  z-index: 2;
+  color: inherit !important;
+  transition: color 0.3s ease;
+}
+
 .side-menu a.side-menu__find-btn:hover,
 .side-menu .side-menu__find-btn:hover,
 [class*="elementor-kit-"] .side-menu a.side-menu__find-btn:hover,
 [class*="elementor-kit-"] .side-menu .side-menu__find-btn:hover {
   border-color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0c0c10 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.side-menu a.side-menu__find-btn:hover span,
+.side-menu .side-menu__find-btn:hover span,
+[class*="elementor-kit-"] .side-menu a.side-menu__find-btn:hover span {
+  color: #0c0c10 !important;
 }
 
 .side-menu .side-menu__close,

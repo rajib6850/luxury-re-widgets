@@ -93,7 +93,6 @@ body,
 /* Explicit unitless line-heights and spacing to prevent squishing or overlap */
 .hero__title,
 [class*="elementor-kit-"] .hero__title {
-  line-height: 1.15 !important;
   color: #ffffff !important;
   margin-top: 0 !important;
   margin-bottom: 1.2rem !important;
@@ -108,7 +107,7 @@ body,
 [class*="elementor-kit-"] .hero__title .hero-mask > span {
   margin: 0 !important;
   padding: 0 0 0.22em 0 !important;
-  line-height: 1.15 !important;
+  line-height: inherit;
   text-shadow: none !important;
   box-shadow: none !important;
 }

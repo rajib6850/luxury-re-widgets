@@ -1,14 +1,14 @@
-﻿=== Luxury Real Estate Widgets ===
+=== Luxury Real Estate Widgets ===
 Contributors: digitizegrowth
 Tags: elementor, real estate, luxury, widgets, sections
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-10 premium Elementor section widgets to build a complete luxury real estate homepage — by Digitize Growth.
+10 handcrafted, editorial-grade Elementor section widgets for building high-end luxury real estate websites block by block. By Digitize Growth.
 
 == Description ==
 
@@ -18,49 +18,20 @@ All widgets are found under the **"Luxury Real Estate Widgets"** category inside
 
 = Included Widgets =
 
-* **LRE — Header & Luxury Side Drawer** — Sticky navigation, fullscreen drawer with office info and interactive hover boxes.
-* **LRE — Floating Concierge & Back to Top** — Gold concierge capsule + smooth scroll-to-top button.
-* **LRE — Hero Banner** — Fullscreen Ken Burns background, clip-mask headline reveal, dual CTA buttons.
-* **LRE — About Our Story** — Parallax watermark, editorial typography, image with shutter-wipe reveal.
-* **LRE — Our Services** — Obsidian frosted grid layout with repeater-driven service items.
-* **LRE — Featured Listings** — Property card carousel/grid with price, specs, badges, and wishlist.
-* **LRE — Client Testimonials** — Touch-enabled slider with quote, client avatar, and transaction badge.
-* **LRE — Featured Communities** — Continuous infinite image reel with navigation.
-* **LRE — Call To Action** — Full-width cinematic CTA with overlay and dual action buttons.
-* **LRE — Site Footer** — 3-column info grid, social links, legal bar, copyright.
-
-= Features =
-* Rich Elementor controls — grouped by element with Normal & Hover state tabs.
-* Responsive controls for Desktop, Tablet, and Mobile.
-* Dynamic tag support (ACF, Pods, JetEngine compatible).
-* Scroll-triggered reveal animations (clip-mask title reveals + shutter wipe image reveals).
-* Fully translation-ready (text domain: luxury-re-widgets).
-* WordPress security best practices — nonces, sanitization, escaping throughout.
+* **LRE - Luxury Navigation Bar** - Transparent/light/dark navigation bar, 5-column fullscreen side drawer with interactive hover boxes.
+* **LRE - Floating Concierge & Back to Top** - Gold concierge capsule + smooth scroll-to-top button.
+* **LRE - Luxury Hero Banner** - Fullscreen Ken Burns slider, masked headline reveal, dual CTA buttons, and animated drop scroll indicator.
+* **LRE - Luxury About** - Parallax watermark, editorial typography, split layout image showcase.
+* **LRE - Luxury Services** - Obsidian frosted grid layout with repeater-driven advisory services.
+* **LRE - Luxury Featured Properties** - Interactive property card carousel with capsule dots and zero-pink circular navigation arrows.
+* **LRE - Luxury Testimonials** - Touch-enabled slider with quotes, avatars, and verified transaction badge.
+* **LRE - Luxury Communities** - Architectural neighborhood showcase carousel.
+* **LRE - Luxury Call To Action** - Full-width cinematic CTA with overlay and dual action buttons.
+* **LRE - Luxury Site Footer** - Multi-column info grid, social links, legal bar, copyright.
 
 == Installation ==
 
-1. Upload the `luxury-re-widgets` folder to `/wp-content/plugins/`.
+1. Upload the `luxury-re-widgets` folder to `/wp-content/plugins/` or install via **Plugins > Add Plugin > Upload Plugin**.
 2. Activate the plugin via **Plugins > Installed Plugins**.
 3. Make sure **Elementor** (free) is installed and activated.
 4. Open any page in Elementor and find the widgets under **"Luxury Real Estate Widgets"** in the panel.
-
-== Frequently Asked Questions ==
-
-= Does this require Elementor Pro? =
-No. The free version of Elementor is sufficient.
-
-= What is the minimum Elementor version? =
-Elementor 3.0.0 or later.
-
-= Are the widgets responsive? =
-Yes — all spacing, typography, and layout controls include Responsive mode (Desktop / Tablet / Mobile).
-
-== Changelog ==
-
-= 1.0.0 =
-* Initial release — 10 premium section widgets.
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-Initial release.

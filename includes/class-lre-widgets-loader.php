@@ -16,16 +16,22 @@ class LRE_Widgets_Loader {
 
 	/** Widget file => class name map. Easily scalable: just add a new entry. */
 	private static $widget_files = array(
-		'class-lre-header-widget.php'       => 'LRE_Header_Widget',
-		'class-lre-concierge-widget.php'    => 'LRE_Concierge_Widget',
-		'class-lre-hero-widget.php'         => 'LRE_Hero_Widget',
-		'class-lre-about-widget.php'        => 'LRE_About_Widget',
-		'class-lre-services-widget.php'     => 'LRE_Services_Widget',
-		'class-lre-properties-widget.php'   => 'LRE_Properties_Widget',
-		'class-lre-testimonials-widget.php' => 'LRE_Testimonials_Widget',
-		'class-lre-communities-widget.php'  => 'LRE_Communities_Widget',
-		'class-lre-cta-widget.php'          => 'LRE_CTA_Widget',
-		'class-lre-footer-widget.php'       => 'LRE_Footer_Widget',
+		'class-lre-header-widget.php'         => 'LRE_Header_Widget',
+		'class-lre-concierge-widget.php'      => 'LRE_Concierge_Widget',
+		'class-lre-hero-widget.php'           => 'LRE_Hero_Widget',
+		'class-lre-about-widget.php'          => 'LRE_About_Widget',
+		'class-lre-services-widget.php'       => 'LRE_Services_Widget',
+		'class-lre-properties-widget.php'     => 'LRE_Properties_Widget',
+		'class-lre-testimonials-widget.php'   => 'LRE_Testimonials_Widget',
+		'class-lre-communities-widget.php'    => 'LRE_Communities_Widget',
+		'class-lre-cta-widget.php'            => 'LRE_CTA_Widget',
+		'class-lre-footer-widget.php'         => 'LRE_Footer_Widget',
+		// About Page Suite
+		'class-lre-story-widget.php'          => 'LRE_Story_Widget',
+		'class-lre-team-widget.php'           => 'LRE_Team_Widget',
+		'class-lre-about-services-widget.php' => 'LRE_About_Services_Widget',
+		'class-lre-reviews-widget.php'        => 'LRE_Reviews_Widget',
+		'class-lre-press-widget.php'          => 'LRE_Press_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

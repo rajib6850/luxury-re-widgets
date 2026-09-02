@@ -4942,3 +4942,1407 @@ button.navbar__mobile-toggle:active,
   gap: 0.5rem;
   white-space: nowrap;
 }
+
+/* ==========================================================================
+   15. ABOUT PAGE SUITE — ULTRA-LUXURY DESIGN EXTENSIONS
+   (Our Story, Meet The Team, Comprehensive Services, Client Reviews, Press)
+   ========================================================================== */
+
+/* ── Common Container & Section Header Accents ── */
+.lre-story__container,
+.lre-team__container,
+.lre-aserv__container,
+.lre-reviews__container,
+.lre-press__container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.lre-story__eyebrow-wrap,
+.lre-team__eyebrow-wrap,
+.lre-aserv__eyebrow-wrap,
+.lre-reviews__eyebrow-wrap,
+.lre-press__eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lre-story__gold-bar,
+.lre-team__gold-bar,
+.lre-aserv__gold-bar,
+.lre-reviews__gold-bar,
+.lre-press__gold-bar {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background-color: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+}
+
+.lre-story__eyebrow,
+.lre-team__eyebrow,
+.lre-aserv__eyebrow,
+.lre-reviews__eyebrow,
+.lre-press__eyebrow {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-story__title,
+.lre-team__title,
+.lre-aserv__title,
+.lre-reviews__title,
+.lre-press__title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(2.1rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-dark, #0a0a0a);
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.lre-team__desc,
+.lre-aserv__desc,
+.lre-press__desc {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text-muted, #6b6b6b);
+  max-width: 680px;
+  margin: 0 0 3.5rem;
+}
+
+.lre-story__divider {
+  width: 44px;
+  height: 2px;
+  background-color: var(--color-secondary, #c5a047);
+  margin: 1.6rem 0 3rem;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   A. OUR STORY & HERITAGE (lre_story)
+   ────────────────────────────────────────────────────────────────────────── */
+.lre-story {
+  position: relative;
+  background-color: var(--color-light-warm, #faf7f2);
+  padding: 7rem 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.lre-story__watermark {
+  position: absolute;
+  top: 3%;
+  right: -3%;
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(5.5rem, 13vw, 12rem);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.025);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+}
+
+.lre-story__header {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+}
+
+.lre-story__grid {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  gap: 4.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-story__text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.lre-story__lead {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.lre-story__body {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: #4a4a4a;
+}
+
+.lre-story__body p {
+  margin-bottom: 1.25rem;
+}
+
+.lre-story__quote {
+  border-left: 2px solid var(--color-secondary, #c5a047);
+  padding: 0.6rem 0 0.6rem 1.8rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.lre-story__quote-mark {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3.8rem;
+  line-height: 0;
+  position: absolute;
+  left: 0.35rem;
+  top: 1.2rem;
+  color: var(--color-secondary, #c5a047);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.lre-story__quote-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.28rem;
+  line-height: 1.65;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+.lre-story__quote-author {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7a7a7a;
+  margin-top: 0.75rem;
+  display: block;
+  font-style: normal;
+}
+
+.lre-story__signature {
+  margin-top: 1.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.lre-story__sig-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 2.2rem;
+  color: #0a0a0a;
+  letter-spacing: 1px;
+}
+
+.lre-story__sig-img {
+  max-height: 55px;
+  width: auto;
+  object-fit: contain;
+}
+
+.lre-story__media-col {
+  position: relative;
+}
+
+.lre-story__img-composition {
+  position: relative;
+  padding: 1.5rem 0 2.5rem 2.5rem;
+}
+
+.lre-story__img-main {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.12);
+  position: relative;
+  background: #1a1a1a;
+}
+
+.lre-story__img-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-story:hover .lre-story__img-main img {
+  transform: scale(1.04);
+}
+
+.lre-story__img-secondary {
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  width: 46%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border: 5px solid #ffffff;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+  background: #1a1a1a;
+}
+
+.lre-story__img-secondary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lre-story__stamp {
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  background: #0a0a0a;
+  color: #ffffff;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-secondary, #c5a047);
+  z-index: 2;
+}
+
+.lre-story__stamp-top {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  color: var(--color-secondary, #c5a047);
+  text-transform: uppercase;
+}
+
+.lre-story__stamp-bot {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+}
+
+.lre-story__stats-wrap {
+  margin-top: 5rem;
+  background: #ffffff;
+  padding: 3.2rem 2.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 1;
+}
+
+.lre-story__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.2rem;
+}
+
+.lre-story__stat-num {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.lre-story__stat-lbl {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 0.35rem;
+}
+
+.lre-story__stat-sub {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.8rem;
+  color: #7a7a7a;
+  line-height: 1.55;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   B. MEET THE TEAM — Dark Luxury Cinematic Showcase
+   ────────────────────────────────────────────────────────────────────────── */
+.lre-team {
+  position: relative;
+  background: #08080a;
+  padding: 7rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Subtle radial glow behind the section */
+.lre-team::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lre-team__header {
+  position: relative;
+  z-index: 1;
+}
+
+.lre-team__eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lre-team__gold-bar {
+  background: linear-gradient(90deg, #c5a047, #f8eed3);
+}
+
+.lre-team__title {
+  color: #ffffff !important;
+}
+
+.lre-team__desc {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lre-team__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-team-grid--col-2 .lre-team__grid { grid-template-columns: repeat(2, 1fr); }
+.lre-team-grid--col-3 .lre-team__grid { grid-template-columns: repeat(3, 1fr); }
+.lre-team-grid--col-4 .lre-team__grid { grid-template-columns: repeat(4, 1fr); }
+
+.lre-team__card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  position: relative;
+  transition:
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s ease,
+    background 0.5s ease;
+}
+
+/* Card hover glow effect */
+.lre-team__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    145deg,
+    rgba(197, 160, 71, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+.lre-team__card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(197, 160, 71, 0.06);
+  border-color: rgba(197, 160, 71, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lre-team__card:hover::after {
+  opacity: 1;
+}
+
+.lre-team__media {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  position: relative;
+  background: #111116;
+}
+
+.lre-team__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.95) contrast(1.03);
+  transform: scale(1.0) translate3d(0, 0, 0);
+  transition:
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, filter;
+}
+
+.lre-team__card:hover .lre-team__media img {
+  transform: scale(1.08);
+  filter: grayscale(100%) brightness(0.85) contrast(1.08);
+}
+
+.lre-team__media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 10, 0.82) 0%,
+    rgba(8, 8, 10, 0.2) 40%,
+    rgba(8, 8, 10, 0.05) 100%
+  );
+  pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+.lre-team__card:hover .lre-team__media-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 10, 0.9) 0%,
+    rgba(8, 8, 10, 0.35) 40%,
+    rgba(8, 8, 10, 0.1) 100%
+  );
+}
+
+.lre-team__contact-bar {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-team__card:hover .lre-team__contact-bar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lre-team__contact-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-team__contact-link:hover {
+  background: var(--color-secondary, #c5a047);
+  border-color: var(--color-secondary, #c5a047);
+  color: #0a0a0a;
+  transform: scale(1.12);
+  box-shadow: 0 6px 20px rgba(197, 160, 71, 0.4);
+}
+
+.lre-team__info {
+  padding: 1.8rem 1.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-team__role {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 0.55rem;
+  transition: text-shadow 0.4s ease;
+}
+
+.lre-team__card:hover .lre-team__role {
+  text-shadow: 0 0 12px rgba(197, 160, 71, 0.4);
+}
+
+.lre-team__name {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.32rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 0.4rem;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+.lre-team__card:hover .lre-team__name {
+  color: #f8eed3;
+}
+
+.lre-team__lic {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.5px;
+  margin-bottom: 1.1rem;
+  transition: color 0.4s ease;
+}
+
+.lre-team__card:hover .lre-team__lic {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.lre-team__bio {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+  transition: color 0.4s ease;
+}
+
+.lre-team__card:hover .lre-team__bio {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   C. COMPREHENSIVE ADVISORY & SERVICES — Deep Obsidian Luxury
+   ────────────────────────────────────────────────────────────────────────── */
+.lre-aserv {
+  position: relative;
+  background: #0c0c10;
+  padding: 7rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow */
+.lre-aserv::before {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 60%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.03) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lre-aserv__header {
+  position: relative;
+  z-index: 1;
+}
+
+.lre-aserv__eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lre-aserv__gold-bar {
+  background: linear-gradient(90deg, #c5a047, #f8eed3);
+}
+
+.lre-aserv__title {
+  color: #ffffff !important;
+}
+
+.lre-aserv__desc {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lre-aserv__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-aserv-grid--col-2 .lre-aserv__grid { grid-template-columns: repeat(2, 1fr); }
+.lre-aserv-grid--col-3 .lre-aserv__grid { grid-template-columns: repeat(3, 1fr); }
+
+.lre-aserv__card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 3rem 2.4rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 4px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Gold accent line at top */
+.lre-aserv__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #c5a047, #f8eed3, #c5a047);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle luxury gradient glow on hover */
+.lre-aserv__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(197, 160, 71, 0.04) 50%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+.lre-aserv__card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(197, 160, 71, 0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5), 0 0 25px rgba(197, 160, 71, 0.05);
+}
+
+.lre-aserv__card:hover::before {
+  transform: scaleX(1);
+}
+
+.lre-aserv__card:hover::after {
+  opacity: 1;
+}
+
+.lre-aserv__card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-aserv__num {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.15);
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.lre-aserv__card:hover .lre-aserv__num {
+  color: rgba(197, 160, 71, 0.35);
+}
+
+.lre-aserv__cat {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-aserv__card-title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 0.85rem;
+  line-height: 1.35;
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.lre-aserv__card:hover .lre-aserv__card-title {
+  color: #f8eed3;
+  text-shadow: 0 0 15px rgba(248, 238, 211, 0.2);
+}
+
+.lre-aserv__card-desc {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.8rem;
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+.lre-aserv__card:hover .lre-aserv__card-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.lre-aserv__capabilities {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-aserv__capabilities li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 0.65rem;
+  transition: color 0.3s ease;
+}
+
+.lre-aserv__card:hover .lre-aserv__capabilities li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.lre-aserv__check-icon {
+  color: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.lre-aserv__card-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-aserv__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-aserv__link:hover {
+  color: #f8eed3;
+  gap: 0.9rem;
+  text-shadow: 0 0 10px rgba(248, 238, 211, 0.3);
+}
+
+.lre-aserv__link svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-aserv__link:hover svg {
+  transform: translate3d(4px, -2px, 0);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   D. CLIENT REVIEWS & TRUST — Dark Editorial Testimonials
+   ────────────────────────────────────────────────────────────────────────── */
+.lre-reviews {
+  position: relative;
+  background: #0a0a0e;
+  padding: 7rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Ambient gold glow */
+.lre-reviews::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.035) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lre-reviews__header {
+  position: relative;
+  z-index: 1;
+}
+
+.lre-reviews__eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lre-reviews__gold-bar {
+  background: linear-gradient(90deg, #c5a047, #f8eed3);
+}
+
+.lre-reviews__title {
+  color: #ffffff !important;
+}
+
+.lre-reviews__rating-summary {
+  margin-top: 0.5rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-reviews__rating-badge {
+  display: inline-block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 1.2rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.lre-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-reviews-grid--col-2 .lre-reviews__grid { grid-template-columns: repeat(2, 1fr); }
+.lre-reviews-grid--col-3 .lre-reviews__grid { grid-template-columns: repeat(3, 1fr); }
+
+.lre-reviews__card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 2.6rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card hover glass glow */
+.lre-reviews__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(
+    160deg,
+    rgba(197, 160, 71, 0.05) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.lre-reviews__card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(197, 160, 71, 0.22);
+  transform: translateY(-8px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45), 0 0 20px rgba(197, 160, 71, 0.05);
+}
+
+.lre-reviews__card:hover::after {
+  opacity: 1;
+}
+
+.lre-reviews__card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lre-reviews__badge {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.8rem;
+  border-radius: 2px;
+}
+
+.lre-reviews__stars {
+  color: var(--color-secondary, #c5a047);
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  filter: drop-shadow(0 0 6px rgba(197, 160, 71, 0.3));
+}
+
+.lre-reviews__quote-wrap {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.lre-reviews__quote-mark {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 4rem;
+  line-height: 0;
+  position: absolute;
+  left: -8px;
+  top: 18px;
+  color: var(--color-secondary, #c5a047);
+  opacity: 0.2;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(197, 160, 71, 0.25));
+}
+
+.lre-reviews__quote-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #f5f2eb;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.2px;
+}
+
+.lre-reviews__client-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 1.4rem;
+}
+
+.lre-reviews__avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(197, 160, 71, 0.15);
+  border: 1.5px solid rgba(197, 160, 71, 0.3);
+  color: var(--color-secondary, #c5a047);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lre-reviews__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lre-reviews__monogram {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.lre-reviews__client-info {
+  flex: 1;
+}
+
+.lre-reviews__client-name {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 2px;
+}
+
+.lre-reviews__client-title {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.lre-reviews__verified-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-secondary, #c5a047);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   E. PRESS & MEDIA — Dark Editorial Luxury
+   ────────────────────────────────────────────────────────────────────────── */
+.lre-press {
+  position: relative;
+  background: #08080c;
+  padding: 7rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.lre-press__header {
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press__eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lre-press__gold-bar {
+  background: linear-gradient(90deg, #c5a047, #f8eed3);
+}
+
+.lre-press__title {
+  color: #ffffff !important;
+}
+
+.lre-press__desc {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lre-press__logos-wrap {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 2.8rem 0;
+  margin-bottom: 4.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press__logos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem 4rem;
+}
+
+.lre-press__logo-item {
+  text-decoration: none;
+  opacity: 0.4;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.lre-press__logo-item:hover {
+  opacity: 0.9;
+  transform: translateY(-3px);
+}
+
+.lre-press__logo-text {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lre-press__logo-item img {
+  max-height: 28px;
+  width: auto;
+  filter: grayscale(1) brightness(2) contrast(0.8);
+}
+
+.lre-press__articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press__card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 4px;
+  padding: 2.6rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Gold top accent line */
+.lre-press__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #c5a047, #f8eed3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press__card:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(197, 160, 71, 0.22);
+  transform: translateY(-8px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45), 0 0 20px rgba(197, 160, 71, 0.04);
+}
+
+.lre-press__card:hover::before {
+  transform: scaleX(1);
+}
+
+.lre-press__tag {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 0.85rem;
+}
+
+.lre-press__card-title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.22rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ffffff;
+  margin: 0 0 1rem;
+  transition: color 0.4s ease;
+}
+
+.lre-press__card:hover .lre-press__card-title {
+  color: #f8eed3;
+}
+
+.lre-press__card-excerpt {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.84rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 1.8rem;
+  transition: color 0.4s ease;
+}
+
+.lre-press__card:hover .lre-press__card-excerpt {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.lre-press__card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.4rem;
+}
+
+.lre-press__read-link {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press__read-link:hover {
+  color: #f8eed3;
+  gap: 0.85rem;
+  text-shadow: 0 0 10px rgba(248, 238, 211, 0.25);
+}
+
+.lre-press__read-link svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press__read-link:hover svg {
+  transform: translate3d(3px, -2px, 0);
+}
+
+.lre-press__awards-wrap {
+  background: rgba(197, 160, 71, 0.05);
+  color: #ffffff;
+  padding: 3.2rem 2.8rem;
+  border: 1px solid rgba(197, 160, 71, 0.15);
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press__awards-title-wrap {
+  margin-bottom: 2.2rem;
+}
+
+.lre-press__awards-title {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-press__awards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem;
+}
+
+.lre-press__award-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.lre-press__award-badge {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-press__award-year {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 2px;
+}
+
+.lre-press__award-name {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.02rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.lre-press__award-issuer {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.45;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESPONSIVE ADJUSTMENTS FOR ABOUT PAGE WIDGETS
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .lre-story__grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+  .lre-story__stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  .lre-team__grid,
+  .lre-aserv__grid,
+  .lre-reviews__grid,
+  .lre-press__articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lre-press__awards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .lre-story,
+  .lre-team,
+  .lre-aserv,
+  .lre-reviews,
+  .lre-press {
+    padding: 5rem 1.25rem;
+  }
+  .lre-story__stats-grid,
+  .lre-team__grid,
+  .lre-aserv__grid,
+  .lre-reviews__grid,
+  .lre-press__articles-grid,
+  .lre-press__awards-grid {
+    grid-template-columns: 1fr;
+  }
+  .lre-story__img-composition {
+    padding: 0 0 2rem 1.5rem;
+  }
+  .lre-story__img-secondary {
+    width: 50%;
+  }
+  .lre-story__stats-wrap,
+  .lre-press__awards-wrap {
+    padding: 2.2rem 1.5rem;
+  }
+  .lre-aserv__card,
+  .lre-reviews__card,
+  .lre-press__card {
+    padding: 2.2rem 1.5rem;
+  }
+  .lre-press__logos-grid {
+    gap: 1.8rem 2.5rem;
+  }
+}

@@ -389,6 +389,23 @@ body,
   color: var(--color-secondary, #c5a047) !important;
 }
 
+/* ─── MOBILE DROPDOWN PROTECTION ─── */
+.navbar__mobile-link,
+[class*="elementor-kit-"] .navbar__mobile-link {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.navbar__mobile-sublink,
+[class*="elementor-kit-"] .navbar__mobile-sublink {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-decoration: none !important;
+}
+
+.navbar__mobile-sublink:hover,
+[class*="elementor-kit-"] .navbar__mobile-sublink:hover {
+  color: var(--color-secondary, #c5a047) !important;
+}
 /* Link typography & color reflection from Site Settings */
 [class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link):not(.side-menu__category-link):not(.side-menu__find-btn) {
   transition: color var(--transition-fast, 0.25s ease);

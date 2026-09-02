@@ -147,13 +147,15 @@
     };
 
     // =========================================================================
-    // 3. HEADER & SIDE DRAWER
+    // 3. HEADER, SIDE DRAWER & MOBILE DROPDOWN
     // =========================================================================
     LREWidgets.Header = {
         init: function ( $scope ) {
             var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var header = root.querySelector( '.site-header' ) || ( root.classList && root.classList.contains( 'site-header' ) ? root : document.querySelector( '.site-header' ) );
             var navbar = root.querySelector( '.navbar' ) || document.getElementById( 'navbar' );
             var sideMenu = root.querySelector( '.side-menu' ) || document.getElementById( 'side-menu' );
+            var mobileDropdown = root.querySelector( '.navbar__mobile-dropdown' ) || document.getElementById( 'navbar-mobile-dropdown' );
             var openBtn = root.querySelector( '#menu-open-btn' ) || document.getElementById( 'menu-open-btn' );
             var closeBtn = root.querySelector( '#menu-close-btn' ) || document.getElementById( 'menu-close-btn' );
 
@@ -171,26 +173,60 @@
                 onScroll();
             }
 
-            if ( sideMenu && openBtn ) {
-                var openSideMenu = function () {
-                    sideMenu.classList.add( 'active' );
-                    sideMenu.setAttribute( 'aria-hidden', 'false' );
-                    openBtn.setAttribute( 'aria-expanded', 'true' );
-                    document.body.classList.add( 'menu-open' );
-                    if ( closeBtn ) {
-                        setTimeout( function () { closeBtn.focus(); }, 400 );
-                    }
-                };
+            var mobileType = ( header && header.getAttribute( 'data-mobile-type' ) ) ? header.getAttribute( 'data-mobile-type' ) : 'drawer';
 
+            // Mobile Dropdown Accordion handling
+            if ( mobileDropdown ) {
+                var toggles = mobileDropdown.querySelectorAll( '.navbar__mobile-toggle' );
+                toggles.forEach( function ( toggle ) {
+                    toggle.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        var parent = toggle.closest( '.navbar__mobile-item' );
+                        if ( parent ) {
+                            parent.classList.toggle( 'open' );
+                        }
+                    } );
+                } );
+
+                mobileDropdown.querySelectorAll( 'a[href^="#"]' ).forEach( function ( link ) {
+                    link.addEventListener( 'click', function () {
+                        mobileDropdown.classList.remove( 'active' );
+                        if ( header ) header.classList.remove( 'mobile-menu-active' );
+                    } );
+                } );
+            }
+
+            if ( openBtn ) {
+                openBtn.addEventListener( 'click', function ( e ) {
+                    e.preventDefault();
+                    var isMobile = window.innerWidth <= 991;
+
+                    if ( isMobile && mobileType === 'dropdown' && mobileDropdown ) {
+                        var isActive = mobileDropdown.classList.toggle( 'active' );
+                        if ( header ) header.classList.toggle( 'mobile-menu-active', isActive );
+                        openBtn.setAttribute( 'aria-expanded', isActive ? 'true' : 'false' );
+                    } else if ( sideMenu ) {
+                        sideMenu.classList.add( 'active' );
+                        sideMenu.setAttribute( 'aria-hidden', 'false' );
+                        openBtn.setAttribute( 'aria-expanded', 'true' );
+                        document.body.classList.add( 'menu-open' );
+                        if ( closeBtn ) {
+                            setTimeout( function () { closeBtn.focus(); }, 400 );
+                        }
+                    }
+                } );
+            }
+
+            if ( sideMenu ) {
                 var closeSideMenu = function () {
                     sideMenu.classList.remove( 'active' );
                     sideMenu.setAttribute( 'aria-hidden', 'true' );
-                    openBtn.setAttribute( 'aria-expanded', 'false' );
+                    if ( openBtn ) openBtn.setAttribute( 'aria-expanded', 'false' );
                     document.body.classList.remove( 'menu-open' );
-                    openBtn.focus();
+                    if ( openBtn ) openBtn.focus();
                 };
 
-                openBtn.addEventListener( 'click', openSideMenu );
                 if ( closeBtn ) {
                     closeBtn.addEventListener( 'click', closeSideMenu );
                 }

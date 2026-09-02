@@ -163,21 +163,24 @@ button.btn,
   color: inherit !important;
 }
 
-/* 1. Hero Buttons (.btn--outline-white) */
+/* 1. Hero Buttons (.btn--outline-white) - Default White Hover */
 .hero__cta-group .btn,
 .hero__cta-group a.btn {
   color: #ffffff !important;
   background: transparent !important;
   background-color: transparent !important;
   border-color: rgba(255, 255, 255, 0.5) !important;
+  --btn-hover-bg: #ffffff !important;
+}
+
+.hero__cta-group .btn::before {
+  background: var(--btn-hover-bg, #ffffff) !important;
 }
 
 .hero__cta-group .btn:hover,
 .hero__cta-group a.btn:hover {
-  color: #0a0a0a !important;
-  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+  color: #0c0c10 !important;
+  border-color: #ffffff !important;
 }
 
 /* 2. About Button (.btn--outline) */

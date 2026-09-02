@@ -1258,13 +1258,22 @@ button.btn {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero__cta-group .btn::before {
-  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+.hero__cta-group .btn,
+.hero__cta-group a.btn {
+  color: #ffffff;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  --btn-hover-bg: #ffffff;
 }
 
-.hero__cta-group .btn:hover {
-  color: #0a0a0a !important;
-  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+.hero__cta-group .btn::before {
+  background: var(--btn-hover-bg, #ffffff);
+}
+
+.hero__cta-group .btn:hover,
+.hero__cta-group a.btn:hover {
+  color: #0c0c10;
+  border-color: #ffffff;
 }
 
 @keyframes heroMaskUp {

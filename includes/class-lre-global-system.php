@@ -468,6 +468,7 @@ body,
 [class*="elementor-kit-"] .navbar__mobile-sublink:hover {
   color: var(--color-secondary, #c5a047) !important;
 }
+
 button.navbar__mobile-toggle,
 .navbar__mobile-toggle,
 .navbar__mobile-item .navbar__mobile-toggle,
@@ -514,6 +515,7 @@ button.navbar__mobile-toggle:active,
 }
 
 .navbar__mobile-dropdown {
+  display: none !important;
   position: fixed !important;
   top: var(--nav-height, 64px) !important;
   left: 0 !important;
@@ -525,54 +527,22 @@ button.navbar__mobile-toggle:active,
   pointer-events: auto !important;
 }
 
-.navbar__mobile-dropdown.active,
-.site-header.mobile-menu-active button.navbar__mobile-toggle,
-.navbar__mobile-toggle,
-.navbar__mobile-item .navbar__mobile-toggle,
-[class*="elementor-kit-"] button.navbar__mobile-toggle,
-[class*="elementor-kit-"] .navbar__mobile-toggle {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
-  color: rgba(255, 255, 255, 0.7) !important;
-  padding: 0 !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
+/* Always hide on desktop screens */
+@media (min-width: 1025px) {
+  .navbar__mobile-dropdown,
+  .navbar__mobile-dropdown.active,
+  .site-header .navbar__mobile-dropdown,
+  .site-header.mobile-menu-active .navbar__mobile-dropdown {
+    display: none !important;
+  }
 }
 
-button.navbar__mobile-toggle:hover,
-button.navbar__mobile-toggle:focus,
-button.navbar__mobile-toggle:active,
-.navbar__mobile-toggle:hover,
-.navbar__mobile-toggle:focus,
-.navbar__mobile-toggle:active,
-[class*="elementor-kit-"] button.navbar__mobile-toggle:hover,
-[class*="elementor-kit-"] button.navbar__mobile-toggle:focus {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  color: var(--color-secondary, #c5a047) !important;
-}
-
-.navbar__mobile-item.open > button.navbar__mobile-toggle,
-.navbar__mobile-item.open > .navbar__mobile-toggle,
-[class*="elementor-kit-"] .navbar__mobile-item.open > button.navbar__mobile-toggle {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  transform: rotate(180deg) !important;
-  color: var(--color-secondary, #c5a047) !important;
-}
-
-.navbar__mobile-dropdown {
-  display: block !important;
+/* Show when active on mobile and tablet */
+@media (max-width: 1024px) {
+  .navbar__mobile-dropdown.active,
+  .site-header.mobile-menu-active .navbar__mobile-dropdown {
+    display: block !important;
+  }
 }
 
 .site-header.mobile-menu-active .navbar__menu-btn .hamburger span:nth-child(1),

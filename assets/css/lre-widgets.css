@@ -1144,16 +1144,15 @@ p {
   padding: 0 2rem;
 }
 
-.hero__title,
-.hero__title .hero-mask,
-.hero__title .hero-mask > span {
+.hero__title {
   font-family: inherit;
   font-size: var(--font-size-hero);
   font-weight: inherit;
   color: #ffffff !important;
-  line-height: 1.15 !important;
+  line-height: 1.08 !important;
   max-width: 920px;
-  margin-bottom: 1.2rem;
+  margin-top: 0 !important;
+  margin-bottom: 1.2rem !important;
   text-shadow: none !important;
   box-shadow: none !important;
   filter: none !important;
@@ -1162,12 +1161,23 @@ p {
 .hero__title .hero-mask {
   display: block;
   overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.08 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .hero__title .hero-mask > span {
   display: block;
   transform: translateY(115%);
   animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.3s forwards;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.08 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 .hero__title .hero-mask:nth-child(2) > span {

@@ -418,6 +418,24 @@ class LRE_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'title_line_height',
+			array(
+				'label'      => __( 'Line Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'em', 'px', '' ),
+				'range'      => array(
+					'em' => array( 'min' => 0.8, 'max' => 2, 'step' => 0.05 ),
+					''   => array( 'min' => 0.8, 'max' => 2, 'step' => 0.05 ),
+					'px' => array( 'min' => 20,  'max' => 120, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => '', 'size' => 1.08 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__title, {{WRAPPER}} .hero__title .hero-mask, {{WRAPPER}} .hero__title .hero-mask > span' => 'line-height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(

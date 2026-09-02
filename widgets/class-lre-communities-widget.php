@@ -30,7 +30,7 @@ class LRE_Communities_Widget extends Widget_Base {
 
 		// ── HEADER ──
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Explore Neighborhoods', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Discover Local', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading',     array( 'label' => __( 'Heading',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Featured Communities',   'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag', 'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT, 'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
 		$this->end_controls_section();
@@ -110,10 +110,10 @@ class LRE_Communities_Widget extends Widget_Base {
 
 				<div class="communities__arrows">
 					<button class="communities__arrow" id="communities-prev" aria-label="<?php esc_attr_e( 'Previous communities', 'luxury-re-widgets' ); ?>">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 					</button>
 					<button class="communities__arrow" id="communities-next" aria-label="<?php esc_attr_e( 'Next communities', 'luxury-re-widgets' ); ?>">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 					</button>
 				</div>
 			</div>

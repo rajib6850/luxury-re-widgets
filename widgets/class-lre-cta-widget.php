@@ -32,18 +32,18 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->add_control( 'bg_image', array(
 			'label'   => __( 'Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
-			'default' => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85' ),
+			'default' => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80' ),
 			'dynamic' => array( 'active' => true ),
 		) );
 		$this->end_controls_section();
 
 		// ── CONTENT ──
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Text Content', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Begin Your Journey', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'heading_1',   array( 'label' => __( 'Title Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Ready to Experience', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'heading_2',   array( 'label' => __( 'Title Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Exceptional Real Estate?', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Let''s Connect', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'heading_1',   array( 'label' => __( 'Title Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Your Next Chapter', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'heading_2',   array( 'label' => __( 'Title Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Starts Here', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag',  'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT,   'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
-		$this->add_control( 'description', array( 'label' => __( 'Description',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Whether you are seeking your next trophy home or exploring private acquisition opportunities, our team offers unmatched access and expertise.', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'description', array( 'label' => __( 'Description',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
 		// ── BUTTONS ──
@@ -96,7 +96,7 @@ class LRE_CTA_Widget extends Widget_Base {
 	protected function render() {
 		$settings    = $this->get_settings_for_display();
 		$tag         = esc_attr( $settings['heading_tag'] );
-		$img_url     = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85';
+		$img_url     = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80';
 		$btn1_url    = esc_url( $settings['btn1_url']['url'] ?? '#contact' );
 		$btn1_target = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
 		$btn2_url    = esc_url( $settings['btn2_url']['url'] ?? '#contact' );

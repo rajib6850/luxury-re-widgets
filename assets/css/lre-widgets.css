@@ -4020,3 +4020,366 @@ body.elementor-editor-active .hero__scroll-indicator {
 body.elementor-editor-active .hero__scroll-indicator {
   transform: translateX(-50%) !important;
 }
+
+
+/* ==========================================================================
+   ── 100% BULLETPROOF ZERO-PINK RESETS (HELLO ELEMENTOR & WP BUTTON OVERRIDES) ──
+   ========================================================================== */
+
+/* 1. Global Reset for ALL button elements anywhere inside LRE plugin */
+.elementor-widget-lre_header button,
+.elementor-widget-lre_hero button,
+.elementor-widget-lre_about button,
+.elementor-widget-lre_services button,
+.elementor-widget-lre_properties button,
+.elementor-widget-lre_testimonials button,
+.elementor-widget-lre_communities button,
+.elementor-widget-lre_cta button,
+.elementor-widget-lre_footer button,
+.elementor-widget-lre_concierge button,
+button.navbar__menu-btn,
+button#menu-open-btn,
+button.side-menu__close,
+button#menu-close-btn,
+button.testimonial__arrow,
+button#testimonial-prev,
+button#testimonial-next,
+button.testimonial__nav-dot,
+button.listings__arrow,
+button.listings__nav-dot,
+button.communities__arrow,
+button.communities__dot,
+button.communities__nav-dot,
+button.hero__scroll-cue,
+button.back-to-top {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  box-sizing: border-box !important;
+  text-shadow: none !important;
+  background-image: none !important;
+}
+
+/* 2. NAVBAR MENU BUTTON (#menu-open-btn) — Zero Pink Border / Box */
+button.navbar__menu-btn,
+button#menu-open-btn,
+.navbar__menu-btn,
+.navbar button.navbar__menu-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 2px !important;
+  color: #ffffff !important;
+  padding: 0.5rem 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.5px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  outline: none !important;
+  outline-color: transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+button.navbar__menu-btn:hover,
+button#menu-open-btn:hover,
+.navbar__menu-btn:hover {
+  color: #c5a047 !important;
+  border-color: #c5a047 !important;
+  background: rgba(197, 160, 71, 0.08) !important;
+  background-color: rgba(197, 160, 71, 0.08) !important;
+}
+
+button.navbar__menu-btn .hamburger,
+.navbar__menu-btn .hamburger {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  width: 20px !important;
+}
+
+button.navbar__menu-btn .hamburger span,
+.navbar__menu-btn .hamburger span {
+  display: block !important;
+  height: 1.5px !important;
+  background: currentColor !important;
+  background-color: currentColor !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, width 0.3s ease !important;
+}
+
+button.navbar__menu-btn .hamburger span:nth-child(2),
+.navbar__menu-btn .hamburger span:nth-child(2) {
+  width: 70% !important;
+}
+
+button.navbar__menu-btn:hover .hamburger span:nth-child(2),
+.navbar__menu-btn:hover .hamburger span:nth-child(2) {
+  width: 100% !important;
+}
+
+/* 3. TESTIMONIAL SLIDER ARROWS (#testimonial-prev, #testimonial-next) — Zero Pink Circle */
+button.testimonial__arrow,
+button#testimonial-prev,
+button#testimonial-next,
+.testimonial__arrow,
+.testimonial__arrows button {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  outline-color: transparent !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+button.testimonial__arrow:hover,
+button#testimonial-prev:hover,
+button#testimonial-next:hover,
+.testimonial__arrow:hover,
+.testimonial__arrows button:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #111318 !important;
+  border-color: #ffffff !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+button.testimonial__arrow svg,
+.testimonial__arrow svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  color: currentColor !important;
+  transition: transform 0.3s ease !important;
+}
+
+button.testimonial__arrow:hover svg,
+.testimonial__arrow:hover svg {
+  transform: scale(1.1) !important;
+}
+
+/* 4. TESTIMONIAL NAV DOTS — Zero Pink */
+button.testimonial__nav-dot,
+.testimonial__nav-dot,
+.testimonial__dots button {
+  width: 8px !important;
+  height: 6px !important;
+  border-radius: 3px !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+button.testimonial__nav-dot:hover,
+.testimonial__nav-dot:hover {
+  background: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  width: 14px !important;
+}
+
+button.testimonial__nav-dot.active,
+.testimonial__nav-dot.active {
+  width: 36px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* 5. PROPERTIES / LISTINGS ARROWS — Zero Pink */
+button.listings__arrow,
+.listings__arrow,
+.listings__arrows button {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0c0c10 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+button.listings__arrow:hover,
+.listings__arrow:hover,
+.listings__arrows button:hover {
+  background: #0c0c10 !important;
+  background-color: #0c0c10 !important;
+  color: #ffffff !important;
+  border-color: #0c0c10 !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16) !important;
+}
+
+button.listings__arrow svg,
+.listings__arrow svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke: currentColor !important;
+  fill: currentColor !important;
+  color: currentColor !important;
+}
+
+/* 6. PROPERTIES / LISTINGS DOTS — Zero Pink */
+button.listings__nav-dot,
+.listings__nav-dot,
+.listings__dots button {
+  width: 8px !important;
+  height: 6px !important;
+  border-radius: 3px !important;
+  background: rgba(12, 12, 16, 0.2) !important;
+  background-color: rgba(12, 12, 16, 0.2) !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease !important;
+}
+
+button.listings__nav-dot.active,
+.listings__nav-dot.active {
+  width: 36px !important;
+  background: linear-gradient(90deg, #0c0c10 0%, #2e2e3a 100%) !important;
+  background-color: #0c0c10 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 7. COMMUNITIES ARROWS — Zero Pink */
+button.communities__arrow,
+.communities__arrow,
+.communities__arrows button {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+button.communities__arrow:hover,
+.communities__arrow:hover,
+.communities__arrows button:hover {
+  background: #c5a047 !important;
+  background-color: #c5a047 !important;
+  color: #0c0c10 !important;
+  border-color: #c5a047 !important;
+  transform: scale(1.08) !important;
+}
+
+button.communities__dot,
+button.communities__nav-dot,
+.communities__dot,
+.communities__nav-dot {
+  background: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  border: none !important;
+}
+
+button.communities__dot.active,
+button.communities__nav-dot.active,
+.communities__dot.active,
+.communities__nav-dot.active {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* 8. SIDE MENU CLOSE BUTTON — Zero Pink */
+button.side-menu__close,
+button#menu-close-btn,
+.side-menu__close,
+.side-menu button.side-menu__close {
+  position: absolute !important;
+  top: 1.6rem !important;
+  left: 2rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  outline: none !important;
+  opacity: 0.85 !important;
+  transition: opacity 0.3s ease, color 0.3s ease !important;
+}
+
+button.side-menu__close:hover,
+button#menu-close-btn:hover,
+.side-menu__close:hover {
+  opacity: 1 !important;
+  color: #c5a047 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 9. UNIVERSAL FOCUS / ACTIVE ZERO-PINK OVERRIDES */
+button:focus,
+button:active,
+button:focus-visible,
+a:focus,
+a:active,
+a:focus-visible {
+  outline: none !important;
+  outline-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
+}

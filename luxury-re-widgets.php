@@ -3,7 +3,7 @@
  * Plugin Name:       Luxury Real Estate Widgets
  * Plugin URI:        https://digitizegrowth.com/
  * Description:       10 handcrafted, editorial-grade Elementor section widgets for building high-end luxury real estate websites block by block. By Digitize Growth.
- * Version:           1.1.7
+ * Version:           1.1.8
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Elementor tested up to: 3.25
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // -- Plugin Constants --
-define( 'LRE_VERSION',     '1.1.7' );
+define( 'LRE_VERSION',     '1.1.8' );
 define( 'LRE_PATH',          plugin_dir_path( __FILE__ ) );
 define( 'LRE_URL',           plugin_dir_url( __FILE__ ) );
 define( 'LRE_ASSETS_URL',    LRE_URL  . 'assets/' );

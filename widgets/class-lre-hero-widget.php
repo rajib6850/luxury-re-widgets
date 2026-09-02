@@ -1,26 +1,36 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Repeater;
+use Elementor\Group_Control_Background;
 
-/**
- * LRE_Hero_Widget
- * Ultra-Luxury Editorial Hero with Ken Burns, Background Video, Dynamic Gallery Slider, and Glassmorphic CTA.
- *
- * @package Luxury_RE_Widgets
- */
 class LRE_Hero_Widget extends Widget_Base {
 
-	public function get_name()       { return 'lre_hero'; }
-	public function get_title()      { return __( 'LRE ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Luxury Hero Banner', 'luxury-re-widgets' ); }
-	public function get_icon()       { return 'eicon-banner'; }
-	public function get_categories() { return array( 'luxury-re-widgets' ); }
-	public function get_keywords()   { return array( 'hero', 'banner', 'luxury', 'ken burns', 'video', 'slider', 'real estate' ); }
+	public function get_name() {
+		return 'lre_hero';
+	}
+
+	public function get_title() {
+		return __( 'LRE - Luxury Hero Banner', 'luxury-re-widgets' );
+	}
+
+	public function get_icon() {
+		return 'eicon-banner';
+	}
+
+	public function get_categories() {
+		return array( 'luxury-re-widgets' );
+	}
+
+	public function get_keywords() {
+		return array( 'hero', 'banner', 'slider', 'video', 'luxury', 'real estate', 'heading' );
+	}
 
 	protected function register_controls() {
 
@@ -28,214 +38,467 @@ class LRE_Hero_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ BACKGROUND MEDIA ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->start_controls_section( 'section_bg_media', array( 'label' => __( 'Background Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
+		// --- Background Settings ---
+		$this->start_controls_section(
+			'section_background',
+			array(
+				'label' => __( 'Hero Background & Media', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
 
-		$this->add_control( 'bg_media_type', array(
-			'label'   => __( 'Media Type', 'luxury-re-widgets' ),
-			'type'    => Controls_Manager::SELECT,
-			'default' => 'image',
-			'options' => array(
-				'image'  => __( 'Single Image', 'luxury-re-widgets' ),
-				'slider' => __( 'Image Slider (Cross-fade)', 'luxury-re-widgets' ),
-				'video'  => __( 'Background Video', 'luxury-re-widgets' ),
-			),
-		) );
+		$this->add_control(
+			'bg_media_type',
+			array(
+				'label'   => __( 'Media Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'image',
+				'options' => array(
+					'image'  => __( 'Single Background Image', 'luxury-re-widgets' ),
+					'slider' => __( 'Ken Burns Slideshow / Carousel', 'luxury-re-widgets' ),
+					'video'  => __( 'Background Video (Self-hosted / YouTube / Vimeo)', 'luxury-re-widgets' ),
+				),
+			)
+		);
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Single Image ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->add_control( 'hero_bg_image', array(
-			'label'     => __( 'Background Image', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::MEDIA,
-			'default'   => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85' ),
-			'dynamic'   => array( 'active' => true ),
-			'condition' => array( 'bg_media_type' => 'image' ),
-		) );
+		$this->add_control(
+			'hero_bg_image',
+			array(
+				'label'     => __( 'Background Image', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85',
+				),
+				'condition' => array( 'bg_media_type' => 'image' ),
+			)
+		);
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Image Slider ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->add_control( 'hero_bg_gallery', array(
-			'label'     => __( 'Slider Images', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::GALLERY,
-			'default'   => array(
-				array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85' ),
-				array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85' ),
-				array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85' ),
-			),
-			'condition' => array( 'bg_media_type' => 'slider' ),
-		) );
+		$this->add_control(
+			'slider_images',
+			array(
+				'label'     => __( 'Slideshow Gallery Images', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::GALLERY,
+				'default'   => array(
+					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85' ),
+					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85' ),
+					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85' ),
+				),
+				'condition' => array( 'bg_media_type' => 'slider' ),
+			)
+		);
 
-		$this->add_control( 'slider_autoplay_interval', array(
-			'label'     => __( 'Autoplay Interval (ms)', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::NUMBER,
-			'default'   => 5000,
-			'min'       => 1500,
-			'max'       => 20000,
-			'step'      => 500,
-			'condition' => array( 'bg_media_type' => 'slider' ),
-		) );
+		$this->add_control(
+			'slider_autoplay_interval',
+			array(
+				'label'     => __( 'Slide Interval (ms)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 5000,
+				'min'       => 2000,
+				'max'       => 20000,
+				'step'      => 500,
+				'condition' => array( 'bg_media_type' => 'slider' ),
+			)
+		);
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Ken Burns Settings ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->add_control( 'ken_burns', array(
-			'label'        => __( 'Enable Ken Burns Effect', 'luxury-re-widgets' ),
-			'type'         => Controls_Manager::SWITCHER,
-			'default'      => 'yes',
-			'return_value' => 'yes',
-			'separator'    => 'before',
-			'condition'    => array( 'bg_media_type' => array( 'image', 'slider' ) ),
-		) );
+		// --- Ken Burns Settings ---
+		$this->add_control(
+			'ken_burns',
+			array(
+				'label'        => __( 'Enable Ken Burns Motion Effect', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'separator'    => 'before',
+				'condition'    => array( 'bg_media_type' => array( 'image', 'slider' ) ),
+			)
+		);
 
-		$this->add_control( 'ken_burns_duration', array(
-			'label'      => __( 'Ken Burns Duration (Seconds)', 'luxury-re-widgets' ),
-			'type'       => Controls_Manager::SLIDER,
-			'size_units' => array( 's' ),
-			'range'      => array(
-				's' => array( 'min' => 3, 'max' => 30, 'step' => 1 ),
-			),
-			'default'    => array( 'unit' => 's', 'size' => 8 ),
-			'selectors'  => array(
-				'{{WRAPPER}} .hero' => '--lre-ken-burns-duration: {{SIZE}}s;',
-			),
-			'condition'  => array(
-				'bg_media_type' => array( 'image', 'slider' ),
-				'ken_burns'     => 'yes',
-			),
-		) );
+		$this->add_control(
+			'ken_burns_duration',
+			array(
+				'label'      => __( 'Ken Burns Duration (Seconds)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array(
+					's' => array( 'min' => 3, 'max' => 35, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 's', 'size' => 25 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero' => '--lre-ken-burns-duration: {{SIZE}}s;',
+				),
+				'condition'  => array(
+					'bg_media_type' => array( 'image', 'slider' ),
+					'ken_burns'     => 'yes',
+				),
+			)
+		);
 
-		$this->add_control( 'ken_burns_scale', array(
-			'label'      => __( 'Ken Burns Zoom Scale', 'luxury-re-widgets' ),
-			'type'       => Controls_Manager::SLIDER,
-			'size_units' => array( 'px' ),
-			'range'      => array(
-				'px' => array( 'min' => 1.05, 'max' => 1.40, 'step' => 0.01 ),
-			),
-			'default'    => array( 'unit' => 'px', 'size' => 1.15 ),
-			'selectors'  => array(
-				'{{WRAPPER}} .hero' => '--lre-ken-burns-scale: {{SIZE}};',
-			),
-			'condition'  => array(
-				'bg_media_type' => array( 'image', 'slider' ),
-				'ken_burns'     => 'yes',
-			),
-		) );
+		// --- Video Background Settings ---
+		$this->add_control(
+			'video_source',
+			array(
+				'label'     => __( 'Video Source', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'self_hosted',
+				'options'   => array(
+					'self_hosted' => __( 'Self Hosted (MP4 Media Upload)', 'luxury-re-widgets' ),
+					'youtube'     => __( 'YouTube URL or ID', 'luxury-re-widgets' ),
+					'vimeo'       => __( 'Vimeo URL or ID', 'luxury-re-widgets' ),
+					'external'    => __( 'Direct MP4 File URL', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'bg_media_type' => 'video' ),
+			)
+		);
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Video Background ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->add_control( 'video_source', array(
-			'label'     => __( 'Video Source', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::SELECT,
-			'default'   => 'self_hosted',
-			'options'   => array(
-				'self_hosted' => __( 'Self Hosted (MP4 Media Upload)', 'luxury-re-widgets' ),
-				'youtube'     => __( 'YouTube URL or ID', 'luxury-re-widgets' ),
-				'vimeo'       => __( 'Vimeo URL or ID', 'luxury-re-widgets' ),
-				'external'    => __( 'Direct MP4 File URL', 'luxury-re-widgets' ),
-			),
-			'condition' => array( 'bg_media_type' => 'video' ),
-		) );
+		$this->add_control(
+			'video_file',
+			array(
+				'label'       => __( 'Select / Upload MP4', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'media_types' => array( 'video' ),
+				'condition'   => array( 'bg_media_type' => 'video', 'video_source' => 'self_hosted' ),
+			)
+		);
 
-		$this->add_control( 'video_file', array(
-			'label'     => __( 'Select / Upload MP4', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::MEDIA,
-			'media_types' => array( 'video' ),
-			'condition' => array( 'bg_media_type' => 'video', 'video_source' => 'self_hosted' ),
-		) );
+		$this->add_control(
+			'video_url',
+			array(
+				'label'       => __( 'Video URL or Embed ID', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'https://www.youtube.com/watch?v=... or MP4 URL',
+				'condition'   => array( 'bg_media_type' => 'video', 'video_source!' => 'self_hosted' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
 
-		$this->add_control( 'video_url', array(
-			'label'       => __( 'Video URL or Embed ID', 'luxury-re-widgets' ),
-			'type'        => Controls_Manager::TEXT,
-			'placeholder' => 'https://www.youtube.com/watch?v=... or MP4 URL',
-			'condition'   => array( 'bg_media_type' => 'video', 'video_source!' => 'self_hosted' ),
-			'dynamic'     => array( 'active' => true ),
-		) );
-
-		$this->add_control( 'video_fallback_image', array(
-			'label'     => __( 'Video Fallback / Poster Image', 'luxury-re-widgets' ),
-			'type'      => Controls_Manager::MEDIA,
-			'condition' => array( 'bg_media_type' => 'video' ),
-		) );
+		$this->add_control(
+			'video_fallback_image',
+			array(
+				'label'     => __( 'Video Fallback / Poster Image', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array( 'bg_media_type' => 'video' ),
+			)
+		);
 
 		$this->end_controls_section();
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ HEADLINES ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->start_controls_section( 'section_headlines', array( 'label' => __( 'Headlines & Typography', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'headline_tag', array(
-			'label'   => __( 'HTML Heading Tag', 'luxury-re-widgets' ),
-			'type'    => Controls_Manager::SELECT,
-			'default' => 'h1',
-			'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'div' => 'div' ),
-		) );
-		$this->add_control( 'headline_line1', array( 'label' => __( 'Headline Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Where Exceptional Living', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'headline_line2', array( 'label' => __( 'Headline Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Begins.', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'subtitle',       array( 'label' => __( 'Subtitle', 'luxury-re-widgets' ),        'type' => Controls_Manager::TEXT, 'default' => 'Southern California\'s Premier Luxury Real Estate', 'dynamic' => array( 'active' => true ) ) );
+		// --- Headlines & Content ---
+		$this->start_controls_section(
+			'section_headlines',
+			array(
+				'label' => __( 'Headlines & Typography', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'headline_tag',
+			array(
+				'label'   => __( 'HTML Heading Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h1',
+				'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'div' => 'div' ),
+			)
+		);
+
+		$this->add_control(
+			'headline_line1',
+			array(
+				'label'       => __( 'Headline Line 1', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Where Exceptional Living', 'luxury-re-widgets' ),
+				'placeholder' => __( 'Where Exceptional Living', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'headline_line2',
+			array(
+				'label'       => __( 'Headline Line 2', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Begins.', 'luxury-re-widgets' ),
+				'placeholder' => __( 'Begins.', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'subtitle',
+			array(
+				'label'       => __( 'Subtitle', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( "Southern California's Premier Luxury Real Estate", 'luxury-re-widgets' ),
+				'placeholder' => __( "Southern California's Premier Luxury Real Estate", 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
 		$this->end_controls_section();
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ CALL TO ACTION BUTTONS ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->start_controls_section( 'section_cta', array( 'label' => __( 'Call To Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'btn_primary_text', array( 'label' => __( 'Button 1 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Your Guide To Buying', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'btn_primary_url',  array( 'label' => __( 'Button 1 Link', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#listings' ) ) );
-		$this->add_control( 'btn_secondary_text', array( 'label' => __( 'Button 2 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Your Guide To Selling', 'separator' => 'before', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'btn_secondary_url',  array( 'label' => __( 'Button 2 Link', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#contact' ) ) );
-		$this->add_control( 'show_scroll_cue',    array( 'label' => __( 'Show Scroll Indicator', 'luxury-re-widgets' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes', 'separator' => 'before' ) );
-		$this->add_control( 'scroll_cue_label',   array( 'label' => __( 'Scroll Cue Label', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'scroll down', 'condition' => array( 'show_scroll_cue' => 'yes' ) ) );
+		// --- Call To Action Buttons ---
+		$this->start_controls_section(
+			'section_cta',
+			array(
+				'label' => __( 'Call To Action Buttons', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'btn_primary_text',
+			array(
+				'label'       => __( 'Button 1 Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Your Guide To Buying', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'btn_primary_url',
+			array(
+				'label'   => __( 'Button 1 Link', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::URL,
+				'default' => array( 'url' => '#listings' ),
+			)
+		);
+
+		$this->add_control(
+			'btn_secondary_text',
+			array(
+				'label'       => __( 'Button 2 Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Your Guide To Selling', 'luxury-re-widgets' ),
+				'separator'   => 'before',
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'btn_secondary_url',
+			array(
+				'label'   => __( 'Button 2 Link', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::URL,
+				'default' => array( 'url' => '#contact' ),
+			)
+		);
+
+		$this->add_control(
+			'show_scroll_cue',
+			array(
+				'label'     => __( 'Show Scroll Down Indicator', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'scroll_cue_label',
+			array(
+				'label'     => __( 'Scroll Indicator Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'scroll down', 'luxury-re-widgets' ),
+				'condition' => array( 'show_scroll_cue' => 'yes' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// =================================================================
 		// TAB: STYLE
 		// =================================================================
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ STYLE: LAYOUT ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->start_controls_section( 'style_layout', array( 'label' => __( 'Hero Layout', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_responsive_control( 'section_min_height', array(
-			'label'      => __( 'Min Height', 'luxury-re-widgets' ),
-			'type'       => Controls_Manager::SLIDER,
-			'size_units' => array( 'px', 'vh', 'dvh' ),
-			'range'      => array(
-				'px'  => array( 'min' => 400, 'max' => 1200 ),
-				'vh'  => array( 'min' => 50,  'max' => 100 ),
-				'dvh' => array( 'min' => 50,  'max' => 100 ),
-			),
-			'default'    => array( 'unit' => 'vh', 'size' => 100 ),
-			'selectors'  => array( '{{WRAPPER}} .hero' => 'min-height: {{SIZE}}{{UNIT}};' ),
-		) );
+		// --- Layout Style ---
+		$this->start_controls_section(
+			'style_layout',
+			array(
+				'label' => __( 'Hero Layout & Dimensions', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'section_min_height',
+			array(
+				'label'      => __( 'Min Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh', 'dvh' ),
+				'range'      => array(
+					'px'  => array( 'min' => 400, 'max' => 1400 ),
+					'vh'  => array( 'min' => 50,  'max' => 100 ),
+					'dvh' => array( 'min' => 50,  'max' => 100 ),
+				),
+				'default'    => array( 'unit' => 'vh', 'size' => 100 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero' => 'min-height: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
-		// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ STYLE: OVERLAY ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-		$this->start_controls_section( 'style_overlay', array( 'label' => __( 'Background Overlay', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_control( 'show_overlay', array( 'label' => __( 'Show Overlay', 'luxury-re-widgets' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
-		$this->add_control( 'overlay_bg', array( 'label' => __( 'Overlay Gradient / Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}};' ), 'condition' => array( 'show_overlay' => 'yes' ) ) );
-		$this->add_control( 'overlay_opacity', array(
-			'label'      => __( 'Opacity', 'luxury-re-widgets' ),
-			'type'       => Controls_Manager::SLIDER,
-			'size_units' => array( 'px' ),
-			'range'      => array( 'px' => array( 'min' => 0, 'max' => 1, 'step' => 0.05 ) ),
-			'default'    => array( 'unit' => 'px', 'size' => 1 ),
-			'selectors'  => array( '{{WRAPPER}} .hero__overlay' => 'opacity: {{SIZE}};' ),
-			'condition'  => array( 'show_overlay' => 'yes' ),
-		) );
+		// --- Overlay Style ---
+		$this->start_controls_section(
+			'style_overlay',
+			array(
+				'label' => __( 'Cinematic Gradient Overlay', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'show_overlay',
+			array(
+				'label'   => __( 'Enable Overlay Gradient', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'overlay_color',
+			array(
+				'label'     => __( 'Custom Overlay Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}} !important;',
+				),
+				'condition' => array( 'show_overlay' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- Title Style ---
+		$this->start_controls_section(
+			'style_title',
+			array(
+				'label' => __( 'Hero Title Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'title_color',
+			array(
+				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__title' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_typography',
+				'selector' => '{{WRAPPER}} .hero__title',
+			)
+		);
+
+		$this->add_responsive_control(
+			'title_max_width',
+			array(
+				'label'      => __( 'Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array( 'min' => 400, 'max' => 1400 ),
+					'%'  => array( 'min' => 50,  'max' => 100 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 920 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__title' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- Subtitle Style ---
+		$this->start_controls_section(
+			'style_subtitle',
+			array(
+				'label' => __( 'Subtitle Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'subtitle_color',
+			array(
+				'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__subtitle' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'subtitle_typography',
+				'selector' => '{{WRAPPER}} .hero__subtitle',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- Buttons Style ---
+		$this->start_controls_section(
+			'style_buttons',
+			array(
+				'label' => __( 'Buttons Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'btn_typography',
+				'selector' => '{{WRAPPER}} .hero__cta-group .btn',
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$settings     = $this->get_settings_for_display();
-		$media_type   = $settings['bg_media_type'] ?? 'image';
+		$settings = $this->get_settings_for_display();
+
+		$media_type   = ! empty( $settings['bg_media_type'] ) ? $settings['bg_media_type'] : 'image';
 		$ken_burns    = ( 'yes' === ( $settings['ken_burns'] ?? 'yes' ) ) ? ' ken-burns' : '';
-		$tag          = esc_attr( $settings['headline_tag'] );
-		$line1        = esc_html( $settings['headline_line1'] );
-		$line2        = esc_html( $settings['headline_line2'] );
-		$subtitle     = esc_html( $settings['subtitle'] );
-		$btn1_text    = esc_html( $settings['btn_primary_text'] );
-		$btn1_url     = esc_url( $settings['btn_primary_url']['url'] ?? '#listings' );
+		$show_overlay = ( 'yes' === ( $settings['show_overlay'] ?? 'yes' ) );
+		$tag          = ! empty( $settings['headline_tag'] ) ? $settings['headline_tag'] : 'h1';
+		$tag          = in_array( $tag, array( 'h1', 'h2', 'div' ), true ) ? $tag : 'h1';
+
+		$line1        = $settings['headline_line1'] ?? 'Where Exceptional Living';
+		$line2        = $settings['headline_line2'] ?? 'Begins.';
+		$subtitle     = $settings['subtitle'] ?? "Southern California's Premier Luxury Real Estate";
+
+		$btn1_text    = $settings['btn_primary_text'] ?? 'Your Guide To Buying';
+		$btn1_url     = ! empty( $settings['btn_primary_url']['url'] ) ? $settings['btn_primary_url']['url'] : '#listings';
 		$btn1_target  = ! empty( $settings['btn_primary_url']['is_external'] ) ? '_blank' : '_self';
-		$btn2_text    = esc_html( $settings['btn_secondary_text'] );
-		$btn2_url     = esc_url( $settings['btn_secondary_url']['url'] ?? '#contact' );
+
+		$btn2_text    = $settings['btn_secondary_text'] ?? 'Your Guide To Selling';
+		$btn2_url     = ! empty( $settings['btn_secondary_url']['url'] ) ? $settings['btn_secondary_url']['url'] : '#contact';
 		$btn2_target  = ! empty( $settings['btn_secondary_url']['is_external'] ) ? '_blank' : '_self';
-		$show_cue     = 'yes' === $settings['show_scroll_cue'];
-		$cue_label    = esc_html( $settings['scroll_cue_label'] );
-		$show_overlay = 'yes' === ( $settings['show_overlay'] ?? 'yes' );
+
+		$show_cue     = ( 'yes' === ( $settings['show_scroll_cue'] ?? 'yes' ) );
+		$cue_label    = $settings['scroll_cue_label'] ?? 'scroll down';
 		?>
 		<section class="hero" id="hero" aria-label="<?php esc_attr_e( 'Hero banner', 'luxury-re-widgets' ); ?>">
 
 			<?php if ( 'slider' === $media_type ) :
-				$gallery  = $settings['hero_bg_gallery'] ?? array();
-				$interval = absint( $settings['slider_autoplay_interval'] ?? 5000 );
+				$gallery  = ! empty( $settings['slider_images'] ) ? $settings['slider_images'] : array();
+				$interval = ! empty( $settings['slider_autoplay_interval'] ) ? intval( $settings['slider_autoplay_interval'] ) : 5000;
 			?>
 				<!-- Background Slider -->
 				<div class="hero__slider" data-autoplay-interval="<?php echo esc_attr( $interval ); ?>">
@@ -249,10 +512,10 @@ class LRE_Hero_Widget extends Widget_Base {
 								$img_url = wp_get_attachment_image_url( $img['id'], 'full' );
 							}
 							if ( ! empty( $img_url ) ) :
-								$active = 0 === $slide_idx ? ' active' : '';
+								$active = ( 0 === $slide_idx ) ? ' active' : '';
 					?>
 					<div class="hero__slide<?php echo esc_attr( $active . $ken_burns ); ?>" data-index="<?php echo esc_attr( $slide_idx ); ?>">
-						<img src="<?php echo esc_url( $img_url ); ?>" alt="" aria-hidden="true" loading="<?php echo 0 === $slide_idx ? 'eager' : 'lazy'; ?>">
+						<img src="<?php echo esc_url( $img_url ); ?>" alt="" aria-hidden="true" loading="<?php echo ( 0 === $slide_idx ) ? 'eager' : 'lazy'; ?>">
 					</div>
 					<?php $slide_idx++; endif; endforeach; endif; ?>
 				</div>
@@ -310,22 +573,26 @@ class LRE_Hero_Widget extends Widget_Base {
 			<!-- Content -->
 			<div class="hero__content">
 				<<?php echo $tag; ?> class="hero__title">
+					<?php if ( ! empty( $line1 ) ) : ?>
 					<span class="hero-mask"><span><?php echo esc_html( $line1 ); ?></span></span>
+					<?php endif; ?>
+					<?php if ( ! empty( $line2 ) ) : ?>
 					<span class="hero-mask"><span><?php echo esc_html( $line2 ); ?></span></span>
+					<?php endif; ?>
 				</<?php echo $tag; ?>>
 
-				<?php if ( $subtitle ) : ?>
+				<?php if ( ! empty( $subtitle ) ) : ?>
 				<p class="hero__subtitle"><?php echo esc_html( $subtitle ); ?></p>
 				<?php endif; ?>
 
 				<div class="hero__cta-group">
-					<?php if ( $btn1_text ) : ?>
+					<?php if ( ! empty( $btn1_text ) ) : ?>
 					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white">
 						<span><?php echo esc_html( $btn1_text ); ?></span>
 					</a>
 					<?php endif; ?>
 
-					<?php if ( $btn2_text ) : ?>
+					<?php if ( ! empty( $btn2_text ) ) : ?>
 					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white">
 						<span><?php echo esc_html( $btn2_text ); ?></span>
 					</a>

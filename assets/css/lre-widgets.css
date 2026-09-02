@@ -193,11 +193,7 @@ ol {
   list-style: none;
 }
 
-/* Selection */
-::selection {
-  background: var(--color-secondary);
-  color: var(--color-dark);
-}
+/* Selection - default browser styling preserved */
 
 /* Skip to Content */
 .skip-to-content {

@@ -311,12 +311,14 @@ body,
 [class*="elementor-kit-"] .side-menu .side-menu__col-title,
 [class*="elementor-kit-"] .side-menu h3.side-menu__col-title {
   font-family: var(--font-serif) !important;
-  font-size: clamp(1.2rem, 1.8vw, 1.6rem) !important;
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem) !important;
   color: #ffffff !important;
   margin-bottom: 1.8rem !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: 0.5px !important;
   line-height: 1.2 !important;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7) !important;
+  text-shadow: 0 2px 25px rgba(0, 0, 0, 0.7) !important;
 }
 
 .side-menu a.side-menu__link,

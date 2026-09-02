@@ -907,17 +907,24 @@ p {
   padding-top: 3rem;
 }
 
-/* Category link (Buyers, Sellers, Investors) */
+/* All Side Menu Box Titles (Category Links & Column Titles unified font-family & style) */
 .side-menu a.side-menu__category-link,
-.side-menu .side-menu__category-link {
+.side-menu .side-menu__category-link,
+.side-menu .side-menu__col-title,
+.side-menu h3.side-menu__col-title {
   font-family: var(--font-serif) !important;
   font-size: clamp(1.4rem, 2.2vw, 2.2rem) !important;
   font-weight: 400 !important;
   font-style: italic !important;
   color: #ffffff !important;
-  text-decoration: none !important;
   letter-spacing: 0.5px !important;
   text-shadow: 0 2px 25px rgba(0, 0, 0, 0.7) !important;
+  line-height: 1.2 !important;
+}
+
+.side-menu a.side-menu__category-link,
+.side-menu .side-menu__category-link {
+  text-decoration: none !important;
   display: inline-block !important;
   transition: color 0.3s ease, transform 0.3s ease !important;
 }
@@ -938,16 +945,10 @@ p {
   letter-spacing: 1px;
 }
 
-/* Column title (Communities, About Us) */
+/* Column title margin for links list columns */
 .side-menu .side-menu__col-title,
 .side-menu h3.side-menu__col-title {
-  font-family: var(--font-serif) !important;
-  font-size: clamp(1.2rem, 1.8vw, 1.6rem) !important;
-  color: #ffffff !important;
   margin-bottom: 1.8rem !important;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* Links list */

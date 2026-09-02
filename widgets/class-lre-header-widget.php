@@ -879,8 +879,17 @@ class LRE_Header_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
+				'name'     => 'drawer_title_typography',
+				'label'    => __( 'Box Titles Typography (All Boxes)', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__col-title',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
 				'name'     => 'drawer_cat_typography',
-				'label'    => __( 'Category Title Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Category Title Typography (Override)', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link',
 			)
 		);

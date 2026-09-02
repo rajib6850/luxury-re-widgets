@@ -468,6 +468,39 @@ body,
 [class*="elementor-kit-"] .navbar__mobile-sublink:hover {
   color: var(--color-secondary, #c5a047) !important;
 }
+.navbar__mobile-dropdown {
+  position: fixed !important;
+  top: var(--nav-height, 64px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-height: calc(100vh - var(--nav-height, 64px)) !important;
+  max-height: calc(100dvh - var(--nav-height, 64px)) !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+.navbar__mobile-dropdown.active,
+.site-header.mobile-menu-active .navbar__mobile-dropdown {
+  display: block !important;
+}
+
+.site-header.mobile-menu-active .navbar__menu-btn .hamburger span:nth-child(1),
+.navbar__menu-btn.active .hamburger span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg) !important;
+}
+
+.site-header.mobile-menu-active .navbar__menu-btn .hamburger span:nth-child(2),
+.navbar__menu-btn.active .hamburger span:nth-child(2) {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+}
+
+.site-header.mobile-menu-active .navbar__menu-btn .hamburger span:nth-child(3),
+.navbar__menu-btn.active .hamburger span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg) !important;
+}
+
 /* Link typography & color reflection from Site Settings */
 [class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link):not(.side-menu__category-link):not(.side-menu__find-btn) {
   transition: color var(--transition-fast, 0.25s ease);

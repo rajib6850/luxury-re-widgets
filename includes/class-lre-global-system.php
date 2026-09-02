@@ -179,7 +179,7 @@ button.btn,
 
 .hero__cta-group .btn:hover,
 .hero__cta-group a.btn:hover {
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   border-color: #ffffff !important;
 }
 
@@ -211,19 +211,19 @@ button.btn,
 .about .btn,
 .about a.btn,
 .about__text .btn {
-  color: var(--color-dark, #0c0c10) !important;
+  color: var(--color-dark, #0a0a0a) !important;
   background: transparent !important;
   background-color: transparent !important;
-  border-color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
 }
 
 .about .btn:hover,
 .about a.btn:hover,
 .about__text .btn:hover {
   color: #ffffff !important;
-  border-color: var(--color-dark, #0c0c10) !important;
-  background: var(--color-dark, #0c0c10) !important;
-  background-color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
+  background: var(--color-dark, #0a0a0a) !important;
+  background-color: var(--color-dark, #0a0a0a) !important;
 }
 
 /* 3. Listings / Properties Buttons (HTML Design Truth: White hover for Primary, Dark hover for Outline) */
@@ -231,10 +231,10 @@ button.btn,
 .listings__cta-group .btn--primary,
 .listings__cta-group a.btn--primary,
 .listings__cta-group .listings__btn-1 {
-  background: var(--color-dark, #0c0c10) !important;
-  background-color: var(--color-dark, #0c0c10) !important;
+  background: var(--color-dark, #0a0a0a) !important;
+  background-color: var(--color-dark, #0a0a0a) !important;
   color: #ffffff !important;
-  border-color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
   --btn-hover-bg: #ffffff !important;
 }
 
@@ -247,8 +247,8 @@ button.btn,
 .listings__cta-group .btn--primary:hover,
 .listings__cta-group a.btn--primary:hover,
 .listings__cta-group .listings__btn-1:hover {
-  color: var(--color-dark, #0c0c10) !important;
-  border-color: var(--color-dark, #0c0c10) !important;
+  color: var(--color-dark, #0a0a0a) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
   background: #ffffff !important;
   background-color: #ffffff !important;
 }
@@ -259,17 +259,17 @@ button.btn,
 .listings__cta-group .listings__btn-2 {
   background: transparent !important;
   background-color: transparent !important;
-  color: var(--color-dark, #0c0c10) !important;
-  border-color: var(--color-dark, #0c0c10) !important;
+  color: var(--color-dark, #0a0a0a) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
 }
 
 .listings__cta-group .btn--outline:hover,
 .listings__cta-group a.btn--outline:hover,
 .listings__cta-group .listings__btn-2:hover {
   color: #ffffff !important;
-  border-color: var(--color-dark, #0c0c10) !important;
-  background: var(--color-dark, #0c0c10) !important;
-  background-color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
+  background: var(--color-dark, #0a0a0a) !important;
+  background-color: var(--color-dark, #0a0a0a) !important;
 }
 
 /* 4. CTA Banner Buttons */
@@ -607,7 +607,7 @@ button.btn,
   border-color: #ffffff !important;
   background: #ffffff !important;
   background-color: #ffffff !important;
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
 }
@@ -615,7 +615,7 @@ button.btn,
 .side-menu a.side-menu__find-btn:hover span,
 .side-menu .side-menu__find-btn:hover span,
 [class*="elementor-kit-"] .side-menu a.side-menu__find-btn:hover span {
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
 }
 
 .side-menu .side-menu__close,

@@ -8,7 +8,7 @@
 body,
 [class*="elementor-kit-"] {
   /* Colors ── Connected to Elementor Global Colors with Luxury Fallbacks */
-  --color-primary: var(--e-global-color-primary, #16192b);
+  --color-primary: var(--e-global-color-primary, #0a0a0a);
   --color-secondary: var(--e-global-color-secondary, #c5a047);
   --color-secondary-light: var(--e-global-color-accent, #d4b565);
   --color-secondary-dark: #a8872e;
@@ -1026,14 +1026,14 @@ button.btn {
   border-color: #ffffff !important;
   background: #ffffff !important;
   background-color: #ffffff !important;
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
 }
 
 .side-menu a.side-menu__find-btn:hover span,
 .side-menu .side-menu__find-btn:hover span {
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
 }
 
 
@@ -1268,7 +1268,7 @@ button.btn {
 
 .hero__cta-group .btn:hover,
 .hero__cta-group a.btn:hover {
-  color: #0c0c10;
+  color: #0a0a0a;
   border-color: #ffffff;
 }
 
@@ -1883,7 +1883,7 @@ button.btn {
 
 .listing-card__badge--gold {
   background: linear-gradient(135deg, rgba(166, 124, 30, 0.95), rgba(212, 175, 55, 0.95));
-  color: #0c0c10;
+  color: #0a0a0a;
   font-weight: 700;
   border: none;
 }
@@ -2051,7 +2051,7 @@ button.btn {
 
 .listings__nav-dot.active {
   width: 36px;
-  background: linear-gradient(90deg, #0c0c10 0%, #2e2e3a 100%);
+  background: linear-gradient(90deg, #0a0a0a 0%, #2e2e3a 100%);
   opacity: 1;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
@@ -2105,8 +2105,8 @@ button.btn {
 }
 
 .listings__cta-group .btn--primary:hover {
-  color: var(--color-dark, #0c0c10) !important;
-  border-color: var(--color-dark, #0c0c10) !important;
+  color: var(--color-dark, #0a0a0a) !important;
+  border-color: var(--color-dark, #0a0a0a) !important;
 }
 
 /* ── 9. TESTIMONIAL SECTION (Matched to Design) ─────────── */
@@ -4092,7 +4092,7 @@ button.listings__arrow,
 .listings__arrows button {
   background: #ffffff !important;
   background-color: #ffffff !important;
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   border: 1px solid rgba(0, 0, 0, 0.12) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
@@ -4100,10 +4100,10 @@ button.listings__arrow,
 button.listings__arrow:hover,
 .listings__arrow:hover,
 .listings__arrows button:hover {
-  background: #0c0c10 !important;
-  background-color: #0c0c10 !important;
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
   color: #ffffff !important;
-  border-color: #0c0c10 !important;
+  border-color: #0a0a0a !important;
 }
 
 button.communities__arrow,
@@ -4127,7 +4127,7 @@ button.listings__nav-dot,
 
 button.listings__nav-dot.active,
 .listings__nav-dot.active {
-  background: linear-gradient(90deg, #0c0c10 0%, #2e2e3a 100%) !important;
+  background: linear-gradient(90deg, #0a0a0a 0%, #2e2e3a 100%) !important;
 }
 
 /* 3. Luxury Focus & Active States (Zero Pink) */
@@ -4394,7 +4394,7 @@ button.listings__arrow,
   justify-content: center !important;
   background: #ffffff !important;
   background-color: #ffffff !important;
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   cursor: pointer !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
   padding: 0 !important;
@@ -4406,10 +4406,10 @@ button.listings__arrow,
 button.listings__arrow:hover,
 .listings__arrow:hover,
 .listings__arrows button:hover {
-  background: #0c0c10 !important;
-  background-color: #0c0c10 !important;
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
   color: #ffffff !important;
-  border-color: #0c0c10 !important;
+  border-color: #0a0a0a !important;
   transform: scale(1.08) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16) !important;
 }
@@ -4444,8 +4444,8 @@ button.listings__nav-dot,
 button.listings__nav-dot.active,
 .listings__nav-dot.active {
   width: 36px !important;
-  background: linear-gradient(90deg, #0c0c10 0%, #2e2e3a 100%) !important;
-  background-color: #0c0c10 !important;
+  background: linear-gradient(90deg, #0a0a0a 0%, #2e2e3a 100%) !important;
+  background-color: #0a0a0a !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
 }
 
@@ -4660,7 +4660,7 @@ button.listings__arrow,
   justify-content: center !important;
   background: #ffffff !important;
   background-color: #ffffff !important;
-  color: #0c0c10 !important;
+  color: #0a0a0a !important;
   cursor: pointer !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
   padding: 0 !important;
@@ -4672,10 +4672,10 @@ button.listings__arrow,
 button.listings__arrow:hover,
 .listings__arrow:hover,
 .listings__arrows button:hover {
-  background: #0c0c10 !important;
-  background-color: #0c0c10 !important;
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
   color: #ffffff !important;
-  border-color: #0c0c10 !important;
+  border-color: #0a0a0a !important;
   transform: scale(1.08) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16) !important;
 }

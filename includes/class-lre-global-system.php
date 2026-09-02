@@ -78,45 +78,90 @@ body,
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
 }
 
-/* ── Elementor Site Settings > Style > Typography (H1-H6) Direct Cascade ── */
-[class*="elementor-kit-"] h1,
-[class*="elementor-kit-"] h2,
-[class*="elementor-kit-"] h3,
-[class*="elementor-kit-"] h4,
-[class*="elementor-kit-"] h5,
-[class*="elementor-kit-"] h6 {
-  font-family: inherit;
-}
-
-/* Widget title elements inherit typography from the dynamic heading tag (H1-H6) */
-[class*="elementor-kit-"] .hero__title,
-[class*="elementor-kit-"] .about__title,
-[class*="elementor-kit-"] .services__title,
-[class*="elementor-kit-"] .listings__title,
-[class*="elementor-kit-"] .communities__title,
-[class*="elementor-kit-"] .cta__title,
-[class*="elementor-kit-"] .footer__brand,
-[class*="elementor-kit-"] .testimonial__heading-main {
-  font-family: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-}
-
-/* Light section headings inherit heading color from Site Settings */
-[class*="elementor-kit-"] .about__title,
-[class*="elementor-kit-"] .listings__title,
-[class*="elementor-kit-"] .communities__title,
-[class*="elementor-kit-"] .footer__brand {
-  color: inherit;
-}
-
-/* Dark section headings default to white unless overridden by widget controls */
+/* Headings font family inherits from primary global typography */
 .hero__title,
+.about__title,
 .services__title,
+.listings__title,
+.communities__title,
 .cta__title,
+.footer__brand,
 .testimonial__heading-main {
-  color: var(--color-white);
+  font-family: var(--font-serif);
+}
+
+/* Explicit unitless line-heights and spacing to prevent squishing or overlap */
+.hero__title {
+  line-height: 1.15 !important;
+  color: #ffffff !important;
+}
+
+.about__title {
+  line-height: 1.25 !important;
+  color: var(--color-dark);
+}
+
+.services__title {
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+}
+
+.listings__title {
+  line-height: 1.2 !important;
+  color: var(--color-dark);
+}
+
+.communities__title {
+  line-height: 1.2 !important;
+  color: var(--color-dark);
+}
+
+.cta__title {
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+}
+
+.cta__description {
+  color: #ffffff !important;
+  line-height: 1.85 !important;
+}
+
+.footer__brand {
+  line-height: 1.2 !important;
+  color: var(--color-dark);
+}
+
+.testimonial__heading-main {
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+}
+
+.testimonial__heading-brand {
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+}
+
+/* Dark section headings & descriptions must remain white on dark backgrounds */
+[class*="elementor-kit-"] .hero__title,
+[class*="elementor-kit-"] .services__title,
+[class*="elementor-kit-"] .cta__title,
+[class*="elementor-kit-"] .testimonial__heading-main,
+[class*="elementor-kit-"] .testimonial__heading-brand {
+  color: #ffffff !important;
+}
+
+[class*="elementor-kit-"] .cta__description {
+  color: #ffffff !important;
+}
+
+/* Ensure title-mask spans are never clipped or translated offscreen */
+.title-mask {
+  overflow: visible !important;
+}
+
+.title-mask > span {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 /* Body typography inheritance for descriptions and general text */
@@ -129,8 +174,129 @@ body,
   font-family: inherit;
 }
 
+/* ─── SITE HEADER / NAVBAR BULLETPROOF PROTECTION ─── */
+.navbar a.navbar__link,
+.navbar .navbar__link,
+[class*="elementor-kit-"] .navbar a.navbar__link,
+[class*="elementor-kit-"] .navbar .navbar__link {
+  color: #ffffff !important;
+  opacity: 0.85;
+}
+
+.navbar a.navbar__link:hover,
+.navbar .navbar__link:hover,
+.navbar .navbar__dropdown:hover > a.navbar__link,
+.navbar .navbar__dropdown:hover > .navbar__link,
+[class*="elementor-kit-"] .navbar a.navbar__link:hover,
+[class*="elementor-kit-"] .navbar .navbar__dropdown:hover > a.navbar__link {
+  color: var(--color-secondary, #c5a047) !important;
+  opacity: 1 !important;
+}
+
+.navbar a.navbar__link .chevron,
+.navbar .navbar__link .chevron,
+[class*="elementor-kit-"] .navbar a.navbar__link .chevron {
+  color: inherit !important;
+  stroke: currentColor !important;
+  opacity: 0.75;
+}
+
+.navbar a.navbar__logo,
+.navbar .navbar__logo,
+[class*="elementor-kit-"] .navbar a.navbar__logo,
+[class*="elementor-kit-"] .navbar .navbar__logo {
+  color: #ffffff !important;
+}
+
+.navbar a.navbar__logo .navbar__logo-icon,
+.navbar .navbar__logo .navbar__logo-icon,
+[class*="elementor-kit-"] .navbar a.navbar__logo .navbar__logo-icon {
+  color: #ffffff !important;
+  fill: currentColor !important;
+  opacity: 0.95;
+}
+
+.navbar a.navbar__logo .navbar__logo-text,
+.navbar .navbar__logo .navbar__logo-text,
+.navbar .navbar__logo-text span,
+[class*="elementor-kit-"] .navbar a.navbar__logo .navbar__logo-text,
+[class*="elementor-kit-"] .navbar .navbar__logo-text span {
+  color: #ffffff !important;
+}
+
+.navbar .navbar__logo-text span:last-child,
+[class*="elementor-kit-"] .navbar .navbar__logo-text span:last-child {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.navbar a.navbar__info,
+.navbar .navbar__info,
+[class*="elementor-kit-"] .navbar a.navbar__info,
+[class*="elementor-kit-"] .navbar .navbar__info {
+  color: #ffffff !important;
+  opacity: 0.85;
+}
+
+.navbar a.navbar__info:hover,
+.navbar .navbar__info:hover,
+[class*="elementor-kit-"] .navbar a.navbar__info:hover {
+  color: var(--color-secondary, #c5a047) !important;
+  opacity: 1 !important;
+}
+
+.navbar a.navbar__phone,
+.navbar .navbar__phone,
+[class*="elementor-kit-"] .navbar a.navbar__phone,
+[class*="elementor-kit-"] .navbar .navbar__phone {
+  color: var(--color-secondary, #c5a047) !important;
+}
+
+.navbar .navbar__menu-btn,
+[class*="elementor-kit-"] .navbar .navbar__menu-btn {
+  color: #ffffff !important;
+}
+
+.navbar .navbar__menu-btn:hover,
+[class*="elementor-kit-"] .navbar .navbar__menu-btn:hover {
+  color: var(--color-secondary, #c5a047) !important;
+}
+
+.navbar a.navbar__submenu-link,
+.navbar .navbar__submenu-link,
+[class*="elementor-kit-"] .navbar a.navbar__submenu-link,
+[class*="elementor-kit-"] .navbar .navbar__submenu-link {
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+}
+
+.navbar a.navbar__submenu-link:hover,
+.navbar .navbar__submenu-link:hover,
+[class*="elementor-kit-"] .navbar a.navbar__submenu-link:hover,
+[class*="elementor-kit-"] .navbar .navbar__submenu-link:hover {
+  color: var(--color-secondary-light, #d4b565) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  padding-left: 1.65rem !important;
+}
+
+.side-menu a.side-menu__link,
+.side-menu .side-menu__link,
+[class*="elementor-kit-"] .side-menu a.side-menu__link,
+[class*="elementor-kit-"] .side-menu .side-menu__link {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.side-menu a.side-menu__link:hover,
+.side-menu .side-menu__link:hover,
+[class*="elementor-kit-"] .side-menu a.side-menu__link:hover,
+[class*="elementor-kit-"] .side-menu .side-menu__link:hover {
+  color: #ffffff !important;
+}
+
 /* Link typography & color reflection from Site Settings */
-[class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card) {
+[class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link) {
   transition: color var(--transition-fast, 0.25s ease);
 }
 ';
@@ -166,15 +332,6 @@ body,
 		$meta   = get_post_meta( $kit_id, '_elementor_page_settings', true );
 		if ( ! is_array( $meta ) ) {
 			$meta = array();
-		}
-
-		// Check if already customized (unless force = true)
-		if ( ! $force && ! empty( $meta['system_colors'] ) ) {
-			$first_color = $meta['system_colors'][0]['color'] ?? '';
-			if ( '#6EC1E4' !== $first_color && '#16192b' === $first_color ) {
-				// Already synchronized with luxury palette
-				return false;
-			}
 		}
 
 		// 1. System Colors (Primary, Secondary, Text, Accent)
@@ -258,7 +415,6 @@ body,
 		$meta['body_typography_typography']   = 'custom';
 		$meta['body_typography_font_family']  = 'Montserrat';
 		$meta['body_typography_font_weight']  = '400';
-		$meta['body_typography_line_height']  = array( 'unit' => 'em', 'size' => 1.7 );
 
 		// 4. Theme Style Typography: Link
 		$meta['link_normal_color']                  = '#2c2c2c';
@@ -267,13 +423,13 @@ body,
 		$meta['link_normal_typography_font_weight'] = '500';
 		$meta['link_hover_color']                   = '#c5a047';
 
-		// 5. Theme Style Typography: Headings H1 to H6
+		// 5. Theme Style Typography: Headings (Font family set, no collapsing line-heights or dark colors)
 		foreach ( array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) as $h ) {
-			$meta[ $h . '_color' ]                   = '#0a0a0a';
+			unset( $meta[ $h . '_color' ] );
+			unset( $meta[ $h . '_typography_line_height' ] );
 			$meta[ $h . '_typography_typography' ]   = 'custom';
 			$meta[ $h . '_typography_font_family' ]  = 'Libre Baskerville';
 			$meta[ $h . '_typography_font_weight' ]  = '400';
-			$meta[ $h . '_typography_line_height' ]  = array( 'unit' => 'em', 'size' => 1.15 );
 		}
 
 		update_post_meta( $kit_id, '_elementor_page_settings', $meta );

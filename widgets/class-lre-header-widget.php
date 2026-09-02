@@ -1160,7 +1160,8 @@ class LRE_Header_Widget extends Widget_Base {
 			if ( $has_children ) {
 				echo '<div class="navbar__dropdown">';
 				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link" aria-haspopup="true" aria-expanded="false">';
-				echo esc_html( $item->title );
+				$clean_title = esc_html( html_entity_decode( $item->title, ENT_QUOTES, "UTF-8" ) );
+				echo $clean_title;
 				echo '<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>';
 				echo '</a>';
 
@@ -1168,7 +1169,8 @@ class LRE_Header_Widget extends Widget_Base {
 				foreach ( $tree[ $item->ID ] as $sub_item ) {
 					$sub_url    = ! empty( $sub_item->url ) ? $sub_item->url : '#';
 					$sub_target = ! empty( $sub_item->target ) ? ' target="' . esc_attr( $sub_item->target ) . '"' : '';
-					echo '<a href="' . esc_url( $sub_url ) . '"' . $sub_target . ' class="navbar__submenu-link">' . esc_html( $sub_item->title ) . '</a>';
+					$clean_sub_title = esc_html( html_entity_decode( $sub_item->title, ENT_QUOTES, "UTF-8" ) );
+					echo '<a href="' . esc_url( $sub_url ) . '"' . $sub_target . ' class="navbar__submenu-link">' . $clean_sub_title . '</a>';
 				}
 				echo '</div>';
 				echo '</div>';
@@ -1206,13 +1208,15 @@ class LRE_Header_Widget extends Widget_Base {
 							$has_sub = ! empty( $tree[ $top->ID ] );
 							$u       = ! empty( $top->url ) ? $top->url : '#';
 							echo '<div class="navbar__mobile-item' . ( $has_sub ? ' has-children' : '' ) . '">';
-							echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . esc_html( $top->title ) . '</a>';
+							$clean_top_title = esc_html( html_entity_decode( $top->title, ENT_QUOTES, "UTF-8" ) );
+							echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . $clean_top_title . '</a>';
 							if ( $has_sub ) {
 								echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
 								echo '<div class="navbar__mobile-sub">';
 								foreach ( $tree[ $top->ID ] as $sub ) {
 									$su = ! empty( $sub->url ) ? $sub->url : '#';
-									echo '<a href="' . esc_url( $su ) . '" class="navbar__mobile-sublink">' . esc_html( $sub->title ) . '</a>';
+									$clean_m_sub_title = esc_html( html_entity_decode( $sub->title, ENT_QUOTES, "UTF-8" ) );
+									echo '<a href="' . esc_url( $su ) . '" class="navbar__mobile-sublink">' . $clean_m_sub_title . '</a>';
 								}
 								echo '</div>';
 							}

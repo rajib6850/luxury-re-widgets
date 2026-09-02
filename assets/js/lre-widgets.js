@@ -239,6 +239,9 @@
     // =========================================================================
     LREWidgets.Hero = {
         init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            if ( ! root ) return;
+
             // Trigger kinetic text animations on Hero Title, Subtitle, CTA
             var heroTitles = root.querySelectorAll ? root.querySelectorAll( '.hero-mask > span' ) : [];
             for ( var m = 0; m < heroTitles.length; m++ ) {

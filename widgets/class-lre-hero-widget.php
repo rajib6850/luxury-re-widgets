@@ -465,7 +465,7 @@ class LRE_Hero_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_buttons',
 			array(
-				'label' => __( 'Buttons Style', 'luxury-re-widgets' ),
+				'label' => __( 'Action Buttons', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -478,102 +478,6 @@ class LRE_Hero_Widget extends Widget_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_btn_style' );
-
-		// Normal State
-		$this->start_controls_tab(
-			'tab_btn_normal',
-			array(
-				'label' => __( 'Normal', 'luxury-re-widgets' ),
-			)
-		);
-
-		$this->add_control(
-			'btn_text_color',
-			array(
-				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_bg_color',
-			array(
-				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'transparent',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'background-color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_border_color',
-			array(
-				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.5)',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'border-color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		// Hover State
-		$this->start_controls_tab(
-			'tab_btn_hover',
-			array(
-				'label' => __( 'Hover', 'luxury-re-widgets' ),
-			)
-		);
-
-		$this->add_control(
-			'btn_hover_text_color',
-			array(
-				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0a0a0a',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn:hover' => 'color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_hover_bg_color',
-			array(
-				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn:hover, {{WRAPPER}} .hero__cta-group .btn:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_hover_border_color',
-			array(
-				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .hero__cta-group .btn:hover' => 'border-color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
 		$this->add_responsive_control(
 			'btn_padding',
 			array(
@@ -581,28 +485,15 @@ class LRE_Hero_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
-					'top'      => '0.85',
-					'right'    => '1.8',
-					'bottom'   => '0.85',
-					'left'     => '1.8',
+					'top'      => '0.95',
+					'right'    => '2.2',
+					'bottom'   => '0.95',
+					'left'     => '2.2',
 					'unit'     => 'rem',
 					'isLinked' => false,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .hero__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-				),
-				'separator'  => 'before',
-			)
-		);
-
-		$this->add_control(
-			'btn_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -619,10 +510,154 @@ class LRE_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => 'rem', 'size' => 1.2 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .hero__cta-group' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .hero__cta-group' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
+
+		$this->add_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Button 1 (Primary / Buying)
+		$this->add_control(
+			'heading_hero_btn1',
+			array(
+				'label'     => __( 'Button 1 (Guide To Buying)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_hero_btn1_style' );
+			$this->start_controls_tab( 'tab_hero_btn1_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'btn1_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn1_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'background-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn1_border',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_hero_btn1_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'btn1_hover_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn1_hover_bg',
+				array(
+					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn1_hover_border',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// Button 2 (Secondary / Selling)
+		$this->add_control(
+			'heading_hero_btn2',
+			array(
+				'label'     => __( 'Button 2 (Guide To Selling)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_hero_btn2_style' );
+			$this->start_controls_tab( 'tab_hero_btn2_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'btn2_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn2_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'background-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn2_border',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_hero_btn2_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'btn2_hover_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn2_hover_bg',
+				array(
+					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn2_hover_border',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}
@@ -744,13 +779,13 @@ class LRE_Hero_Widget extends Widget_Base {
 
 				<div class="hero__cta-group">
 					<?php if ( ! empty( $btn1_text ) ) : ?>
-					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white">
+					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white hero__btn-1">
 						<span><?php echo esc_html( $btn1_text ); ?></span>
 					</a>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $btn2_text ) ) : ?>
-					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white">
+					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white hero__btn-2">
 						<span><?php echo esc_html( $btn2_text ); ?></span>
 					</a>
 					<?php endif; ?>

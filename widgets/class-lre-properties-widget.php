@@ -419,6 +419,196 @@ class LRE_Properties_Widget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		// =========================================================================
+		// STYLE: Bottom CTA Buttons
+		// =========================================================================
+		$this->start_controls_section(
+			'style_ctas',
+			array(
+				'label' => __( 'Bottom CTA Buttons', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'ctas_typography',
+				'selector' => '{{WRAPPER}} .listings__cta-group .btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'ctas_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '0.95',
+					'right'    => '2.2',
+					'bottom'   => '0.95',
+					'left'     => '2.2',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'ctas_gap',
+			array(
+				'label'      => __( 'Buttons Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 50 ),
+					'rem' => array( 'min' => 0, 'max' => 3 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 0.75 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__cta-group' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Button 1 (Primary)
+		$this->add_control(
+			'heading_cta1',
+			array(
+				'label'     => __( 'Button 1 (Schedule A Viewing)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_cta1_style' );
+			$this->start_controls_tab( 'tab_cta1_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'cta1_text_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta1_bg_color',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'background-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta1_border_color',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_cta1_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'cta1_hover_text_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta1_hover_bg_color',
+				array(
+					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta1_hover_border_color',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// Button 2 (Outline)
+		$this->add_control(
+			'heading_cta2',
+			array(
+				'label'     => __( 'Button 2 (View All Properties)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_cta2_style' );
+			$this->start_controls_tab( 'tab_cta2_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'cta2_text_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta2_bg_color',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'background-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta2_border_color',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_cta2_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'cta2_hover_text_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta2_hover_bg_color',
+				array(
+					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'cta2_hover_border_color',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -510,12 +700,12 @@ class LRE_Properties_Widget extends Widget_Base {
 				</div>
 				<div class="listings__cta-group">
 					<?php if ( ! empty( $settings['cta1_text'] ) ) : ?>
-					<a href="<?php echo esc_url( $settings['cta1_url']['url'] ?? '#contact' ); ?>" class="btn btn--primary">
+					<a href="<?php echo esc_url( $settings['cta1_url']['url'] ?? '#contact' ); ?>" class="btn btn--primary listings__btn-1">
 						<span><?php echo esc_html( $settings['cta1_text'] ); ?></span>
 					</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $settings['cta2_text'] ) ) : ?>
-					<a href="<?php echo esc_url( $settings['cta2_url']['url'] ?? '#contact' ); ?>" class="btn btn--outline">
+					<a href="<?php echo esc_url( $settings['cta2_url']['url'] ?? '#contact' ); ?>" class="btn btn--outline listings__btn-2">
 						<span><?php echo esc_html( $settings['cta2_text'] ); ?></span>
 					</a>
 					<?php endif; ?>

@@ -92,19 +92,98 @@ class LRE_About_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		// ── STYLE: Button ──
-		$this->start_controls_section( 'style_btn', array( 'label' => __( 'Button', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+				$this->start_controls_section(
+			'style_btn',
+			array(
+				'label' => __( 'Button', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'btn_typography',
+				'selector' => '{{WRAPPER}} .about .btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '0.95',
+					'right'    => '2.2',
+					'bottom'   => '0.95',
+					'left'     => '2.2',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .about .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_btn' );
 			$this->start_controls_tab( 'tab_btn_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
-			$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'btn_typography', 'selector' => '{{WRAPPER}} .about .btn' ) );
-			$this->add_control( 'btn_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about .btn' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn_border_color', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about .btn' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'background-color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn_border_color',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_btn_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn_color_hover', array( 'label' => __( 'Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn_bg_hover', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'background-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn_color_hover',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'color: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn_bg_hover',
+				array(
+					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover, {{WRAPPER}} .about .btn:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+				)
+			);
+			$this->add_control(
+				'btn_border_hover',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'border-color: {{VALUE}} !important;' ),
+				)
+			);
 			$this->end_controls_tab();
 		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		// ── STYLE: Image Frame ──

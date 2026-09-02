@@ -292,22 +292,32 @@ p {
 }
 
 /* ── 4. BUTTONS — Premium feel ───────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 1.1rem 2.4rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.4s ease, border-color 0.4s ease;
+.btn,
+a.btn,
+button.btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.5px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  padding: 0.85rem 1.8rem !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: transparent;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease !important;
 }
 
 .btn::before {

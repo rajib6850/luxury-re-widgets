@@ -100,14 +100,14 @@ class LRE_Services_Widget extends Widget_Base {
 			$this->add_control( 'item_title_color', array( 'label' => __( 'Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item__name' => 'color: {{VALUE}};' ) ) );
 			$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'item_desc_typography', 'label' => __( 'Desc Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .service-item__desc' ) );
 			$this->add_control( 'item_desc_color', array( 'label' => __( 'Desc Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item__desc' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'item_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item' => 'background: {{VALUE}};' ) ) );
-			$this->add_control( 'item_border_color', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control( 'item_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item' => 'background-color: {{VALUE}} !important;' ) ) );
+			$this->add_control( 'item_border_color', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item' => 'border-color: {{VALUE}} !important;' ) ) );
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_item_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'item_title_color_hover', array( 'label' => __( 'Hover Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover .service-item__name' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'item_bg_hover', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover' => 'background: {{VALUE}};' ) ) );
-			$this->add_control( 'item_border_color_hover', array( 'label' => __( 'Hover Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control( 'item_title_color_hover', array( 'label' => __( 'Hover Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover .service-item__name' => 'color: {{VALUE}} !important;' ) ) );
+			$this->add_control( 'item_bg_hover', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover' => 'background-color: {{VALUE}} !important;' ) ) );
+			$this->add_control( 'item_border_color_hover', array( 'label' => __( 'Hover Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover' => 'border-color: {{VALUE}} !important;' ) ) );
 			$this->add_control( 'icon_color_hover', array( 'label' => __( 'Hover Icon Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .service-item:hover .service-item__icon' => 'color: {{VALUE}};' ) ) );
 			$this->end_controls_tab();
 

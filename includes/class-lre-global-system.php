@@ -183,6 +183,30 @@ button.btn,
   border-color: #ffffff !important;
 }
 
+/* ─── SERVICES: ULTRA-SMOOTH HOVER TRANSITION ─── */
+.service-item {
+  transition: 
+    background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform, background-color, border-color, box-shadow;
+}
+
+.service-item::before {
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease !important;
+}
+
+.service-item::after {
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.service-item__name,
+.service-item__desc,
+.service-item__icon {
+  transition: color 0.4s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
 /* 2. About Button (.btn--outline) */
 .about .btn,
 .about a.btn,

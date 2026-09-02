@@ -391,6 +391,8 @@
     LREWidgets.Properties = {
         init: function ( $scope ) {
             var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            if ( ! root ) return;
+
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -399,56 +401,98 @@
             var nextBtn = root.querySelector( '#listings-next' );
             var dots = root.querySelectorAll( '.listings__nav-dot' );
 
-            if ( carousel && ( prevBtn || nextBtn || dots.length ) ) {
-                var cards = carousel.querySelectorAll( '.listing-card' );
-                var currentIndex = 0;
-
-                var getCardWidth = function () {
-                    var card = cards[0];
-                    if ( ! card ) return 350;
-                    var style = window.getComputedStyle( carousel );
-                    var gap = parseFloat( style.gap ) || 28;
-                    return card.offsetWidth + gap;
-                };
-
-                var updateDots = function () {
-                    var cardWidth = getCardWidth();
-                    var activeDot = Math.round( carousel.scrollLeft / cardWidth );
-                    dots.forEach( function ( dot, idx ) {
-                        dot.classList.toggle( 'active', idx === activeDot );
-                    } );
+            if ( carousel ) {
+                var getScrollAmount = function () {
+                    var card = carousel.querySelector( '.listing-card' );
+                    return card ? card.offsetWidth + 24 : 350;
                 };
 
                 if ( prevBtn ) {
-                    prevBtn.addEventListener( 'click', function () {
-                        carousel.scrollBy( { left: -getCardWidth(), behavior: 'smooth' } );
+                    prevBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        carousel.scrollBy( { left: -getScrollAmount(), behavior: 'smooth' } );
                     } );
                 }
 
                 if ( nextBtn ) {
-                    nextBtn.addEventListener( 'click', function () {
-                        carousel.scrollBy( { left: getCardWidth(), behavior: 'smooth' } );
+                    nextBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        carousel.scrollBy( { left: getScrollAmount(), behavior: 'smooth' } );
                     } );
                 }
 
-                dots.forEach( function ( dot, idx ) {
-                    dot.addEventListener( 'click', function () {
-                        carousel.scrollTo( { left: idx * getCardWidth(), behavior: 'smooth' } );
+                // Dot navigation
+                dots.forEach( function ( dot, index ) {
+                    dot.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        var totalScrollable = carousel.scrollWidth - carousel.clientWidth;
+                        var pageScroll = ( totalScrollable / Math.max( 1, dots.length - 1 ) ) * index;
+                        carousel.scrollTo( { left: pageScroll, behavior: 'smooth' } );
                     } );
                 } );
 
-                carousel.addEventListener( 'scroll', updateDots, { passive: true } );
-            }
+                // Update active dot on scroll
+                var listingScrollTicking = false;
+                carousel.addEventListener( 'scroll', function () {
+                    if ( ! listingScrollTicking ) {
+                        requestAnimationFrame( function () {
+                            var totalScrollable = carousel.scrollWidth - carousel.clientWidth;
+                            if ( totalScrollable > 0 && dots.length > 0 ) {
+                                var progress = carousel.scrollLeft / totalScrollable;
+                                var activeIndex = Math.min( dots.length - 1, Math.round( progress * ( dots.length - 1 ) ) );
+                                dots.forEach( function ( d, i ) {
+                                    d.classList.toggle( 'active', i === activeIndex );
+                                } );
+                            }
+                            listingScrollTicking = false;
+                        } );
+                        listingScrollTicking = true;
+                    }
+                }, { passive: true } );
 
-            // Favorite button toggler
-            var likeBtns = root.querySelectorAll( '.listing-card__like-btn' );
-            likeBtns.forEach( function ( btn ) {
-                btn.addEventListener( 'click', function ( e ) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    btn.classList.toggle( 'liked' );
+                // Mouse drag-to-scroll support for desktop
+                var isDown = false;
+                var startX, scrollLeftVal;
+
+                carousel.addEventListener( 'mousedown', function ( e ) {
+                    if ( e.target.closest( '.listing-card__like-btn' ) || e.target.closest( 'a' ) ) return;
+                    isDown = true;
+                    carousel.style.cursor = 'grabbing';
+                    carousel.style.userSelect = 'none';
+                    startX = e.pageX - carousel.offsetLeft;
+                    scrollLeftVal = carousel.scrollLeft;
                 } );
-            } );
+
+                carousel.addEventListener( 'mouseleave', function () {
+                    isDown = false;
+                    carousel.style.cursor = '';
+                    carousel.style.userSelect = '';
+                } );
+
+                carousel.addEventListener( 'mouseup', function () {
+                    isDown = false;
+                    carousel.style.cursor = '';
+                    carousel.style.userSelect = '';
+                } );
+
+                carousel.addEventListener( 'mousemove', function ( e ) {
+                    if ( ! isDown ) return;
+                    e.preventDefault();
+                    var x = e.pageX - carousel.offsetLeft;
+                    var walk = ( x - startX ) * 1.5;
+                    carousel.scrollLeft = scrollLeftVal - walk;
+                } );
+
+                // Heart Favorite Button Toggle
+                var likeButtons = carousel.querySelectorAll( '.listing-card__like-btn' );
+                likeButtons.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        btn.classList.toggle( 'liked' );
+                    } );
+                } );
+            }
         }
     };
 

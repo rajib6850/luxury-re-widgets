@@ -116,36 +116,29 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── MENU SOURCE & NAVIGATION ──
+		// ── MAIN NAVIGATION MENU ──
 		$this->start_controls_section(
-			'section_menu_source',
+			'section_menu',
 			array(
 				'label' => __( 'Main Navigation Menu', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
-		$this->add_control(
-			'menu_source',
-			array(
-				'label'       => __( 'Menu Source', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'custom',
-				'options'     => array(
-					'custom'  => __( 'Luxury Editorial Menu (Default)', 'luxury-re-widgets' ),
-					'wp_menu' => __( 'WordPress Menu (From Appearance > Menus)', 'luxury-re-widgets' ),
-				),
-				'description' => __( 'Choose whether to use the pre-built luxury editorial menu with mega dropdowns or a custom WordPress menu.', 'luxury-re-widgets' ),
-			)
-		);
+		$wp_menus = $this->get_wp_menus_options();
+		$default_menu = '';
+		$menu_keys = array_keys( $wp_menus );
+		if ( count( $menu_keys ) > 1 ) {
+			$default_menu = (string) $menu_keys[1];
+		}
 
 		$this->add_control(
 			'wp_menu_id',
 			array(
 				'label'       => __( 'Select WordPress Menu', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::SELECT,
-				'options'     => $this->get_wp_menus_options(),
-				'condition'   => array( 'menu_source' => 'wp_menu' ),
+				'options'     => $wp_menus,
+				'default'     => $default_menu,
 				'description' => __( 'Select a menu created in Appearance > Menus. Sub-items will automatically render as luxury dropdowns.', 'luxury-re-widgets' ),
 			)
 		);
@@ -1070,68 +1063,30 @@ class LRE_Header_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Render the curated default luxury editorial menu.
-	 */
-	protected function render_custom_editorial_menu() {
-		?>
-		<div class="navbar__left">
-			<div class="navbar__dropdown">
-				<a href="#contact" class="navbar__link" aria-haspopup="true" aria-expanded="false">
-					<?php esc_html_e( 'Selling', 'luxury-re-widgets' ); ?>
-					<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
-				</a>
-				<div class="navbar__submenu">
-					<a href="#contact" class="navbar__submenu-link"><?php esc_html_e( 'Seller\'s Guide', 'luxury-re-widgets' ); ?></a>
-					<a href="#about" class="navbar__submenu-link"><?php esc_html_e( 'Home Valuation', 'luxury-re-widgets' ); ?></a>
-					<div class="navbar__submenu-divider"></div>
-					<a href="#listings" class="navbar__submenu-link"><?php esc_html_e( 'Recent Sales', 'luxury-re-widgets' ); ?></a>
-					<a href="#testimonial" class="navbar__submenu-link"><?php esc_html_e( 'Seller Testimonials', 'luxury-re-widgets' ); ?></a>
-				</div>
-			</div>
-
-			<div class="navbar__dropdown">
-				<a href="#listings" class="navbar__link" aria-haspopup="true" aria-expanded="false">
-					<?php esc_html_e( 'Buying', 'luxury-re-widgets' ); ?>
-					<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
-				</a>
-				<div class="navbar__submenu">
-					<a href="#listings" class="navbar__submenu-link"><?php esc_html_e( 'Featured Listings', 'luxury-re-widgets' ); ?></a>
-					<a href="#listings" class="navbar__submenu-link"><?php esc_html_e( 'Buyer\'s Guide', 'luxury-re-widgets' ); ?></a>
-					<div class="navbar__submenu-divider"></div>
-					<a href="#contact" class="navbar__submenu-link"><?php esc_html_e( 'Off-Market Access', 'luxury-re-widgets' ); ?></a>
-					<a href="#communities" class="navbar__submenu-link"><?php esc_html_e( 'Mortgage Calculator', 'luxury-re-widgets' ); ?></a>
-				</div>
-			</div>
-
-			<a href="#communities" class="navbar__link"><?php esc_html_e( 'Communities', 'luxury-re-widgets' ); ?></a>
-
-			<div class="navbar__dropdown">
-				<a href="#about" class="navbar__link" aria-haspopup="true" aria-expanded="false">
-					<?php esc_html_e( 'About', 'luxury-re-widgets' ); ?>
-					<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
-				</a>
-				<div class="navbar__submenu">
-					<a href="#about" class="navbar__submenu-link"><?php esc_html_e( 'Our Story', 'luxury-re-widgets' ); ?></a>
-					<a href="#about" class="navbar__submenu-link"><?php esc_html_e( 'Meet the Team', 'luxury-re-widgets' ); ?></a>
-					<div class="navbar__submenu-divider"></div>
-					<a href="#services" class="navbar__submenu-link"><?php esc_html_e( 'Our Services', 'luxury-re-widgets' ); ?></a>
-					<a href="#testimonial" class="navbar__submenu-link"><?php esc_html_e( 'Client Reviews', 'luxury-re-widgets' ); ?></a>
-					<a href="#contact" class="navbar__submenu-link"><?php esc_html_e( 'Press & Media', 'luxury-re-widgets' ); ?></a>
-				</div>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Render dynamic WordPress menu.
 	 *
 	 * @param int|string $menu_id Menu ID.
 	 */
 	protected function render_wp_menu( $menu_id ) {
-		$items = wp_get_nav_menu_items( $menu_id );
+		if ( empty( $menu_id ) ) {
+			$menus = wp_get_nav_menus();
+			if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+				$menu_id = $menus[0]->term_id;
+			}
+		}
+
+		if ( empty( $menu_id ) ) {
+			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+				echo '<div class="navbar__left"><span style="color: rgba(255,255,255,0.6); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">' . esc_html__( 'Please select a menu in Widget Settings', 'luxury-re-widgets' ) . '</span></div>';
+			}
+			return;
+		}
+
+		$items = wp_get_nav_menu_items( (int) $menu_id );
 		if ( empty( $items ) || is_wp_error( $items ) ) {
-			$this->render_custom_editorial_menu();
+			$items = wp_get_nav_menu_items( $menu_id );
+		}
+		if ( empty( $items ) || is_wp_error( $items ) ) {
 			return;
 		}
 
@@ -1147,7 +1102,6 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$top_items = $tree[0] ?? array();
 		if ( empty( $top_items ) ) {
-			$this->render_custom_editorial_menu();
 			return;
 		}
 
@@ -1156,26 +1110,26 @@ class LRE_Header_Widget extends Widget_Base {
 			$has_children = ! empty( $tree[ $item->ID ] );
 			$url          = ! empty( $item->url ) ? $item->url : '#';
 			$target       = ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+			$clean_title  = esc_html( html_entity_decode( $item->title, ENT_QUOTES, 'UTF-8' ) );
 
 			if ( $has_children ) {
 				echo '<div class="navbar__dropdown">';
 				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link" aria-haspopup="true" aria-expanded="false">';
-				$clean_title = esc_html( html_entity_decode( $item->title, ENT_QUOTES, "UTF-8" ) );
 				echo $clean_title;
 				echo '<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>';
 				echo '</a>';
 
 				echo '<div class="navbar__submenu">';
 				foreach ( $tree[ $item->ID ] as $sub_item ) {
-					$sub_url    = ! empty( $sub_item->url ) ? $sub_item->url : '#';
-					$sub_target = ! empty( $sub_item->target ) ? ' target="' . esc_attr( $sub_item->target ) . '"' : '';
-					$clean_sub_title = esc_html( html_entity_decode( $sub_item->title, ENT_QUOTES, "UTF-8" ) );
+					$sub_url         = ! empty( $sub_item->url ) ? $sub_item->url : '#';
+					$sub_target      = ! empty( $sub_item->target ) ? ' target="' . esc_attr( $sub_item->target ) . '"' : '';
+					$clean_sub_title = esc_html( html_entity_decode( $sub_item->title, ENT_QUOTES, 'UTF-8' ) );
 					echo '<a href="' . esc_url( $sub_url ) . '"' . $sub_target . ' class="navbar__submenu-link">' . $clean_sub_title . '</a>';
 				}
 				echo '</div>';
 				echo '</div>';
 			} else {
-				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link">' . esc_html( $item->title ) . '</a>';
+				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link">' . $clean_title . '</a>';
 			}
 		}
 		echo '</div>';
@@ -1187,79 +1141,60 @@ class LRE_Header_Widget extends Widget_Base {
 	 * @param array $settings Widget settings.
 	 */
 	protected function render_mobile_dropdown( $settings ) {
-		$menu_source = $settings['menu_source'] ?? 'custom';
-		$wp_menu_id  = $settings['wp_menu_id'] ?? '';
+		$wp_menu_id = $settings['wp_menu_id'] ?? '';
+		if ( empty( $wp_menu_id ) ) {
+			$menus = wp_get_nav_menus();
+			if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+				$wp_menu_id = $menus[0]->term_id;
+			}
+		}
+		if ( empty( $wp_menu_id ) ) {
+			return;
+		}
+
+		$items = wp_get_nav_menu_items( (int) $wp_menu_id );
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			$items = wp_get_nav_menu_items( $wp_menu_id );
+		}
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			return;
+		}
+
+		$tree = array();
+		foreach ( $items as $it ) {
+			$p = (int) $it->menu_item_parent;
+			if ( ! isset( $tree[ $p ] ) ) {
+				$tree[ $p ] = array();
+			}
+			$tree[ $p ][] = $it;
+		}
+
+		$top_items = $tree[0] ?? array();
+		if ( empty( $top_items ) ) {
+			return;
+		}
 		?>
 		<div class="navbar__mobile-dropdown" id="navbar-mobile-dropdown" aria-hidden="true">
 			<div class="navbar__mobile-nav">
 				<?php
-				if ( 'wp_menu' === $menu_source && ! empty( $wp_menu_id ) ) {
-					$items = wp_get_nav_menu_items( $wp_menu_id );
-					if ( ! empty( $items ) && ! is_wp_error( $items ) ) {
-						$tree = array();
-						foreach ( $items as $it ) {
-							$p = (int) $it->menu_item_parent;
-							if ( ! isset( $tree[ $p ] ) ) {
-								$tree[ $p ] = array();
-							}
-							$tree[ $p ][] = $it;
+				foreach ( $top_items as $top ) {
+					$has_sub         = ! empty( $tree[ $top->ID ] );
+					$u               = ! empty( $top->url ) ? $top->url : '#';
+					$clean_top_title = esc_html( html_entity_decode( $top->title, ENT_QUOTES, 'UTF-8' ) );
+
+					echo '<div class="navbar__mobile-item' . ( $has_sub ? ' has-children' : '' ) . '">';
+					echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . $clean_top_title . '</a>';
+					if ( $has_sub ) {
+						echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
+						echo '<div class="navbar__mobile-sub">';
+						foreach ( $tree[ $top->ID ] as $sub ) {
+							$su               = ! empty( $sub->url ) ? $sub->url : '#';
+							$clean_m_sub_title = esc_html( html_entity_decode( $sub->title, ENT_QUOTES, 'UTF-8' ) );
+							echo '<a href="' . esc_url( $su ) . '" class="navbar__mobile-sublink">' . $clean_m_sub_title . '</a>';
 						}
-						foreach ( ( $tree[0] ?? array() ) as $top ) {
-							$has_sub = ! empty( $tree[ $top->ID ] );
-							$u       = ! empty( $top->url ) ? $top->url : '#';
-							echo '<div class="navbar__mobile-item' . ( $has_sub ? ' has-children' : '' ) . '">';
-							$clean_top_title = esc_html( html_entity_decode( $top->title, ENT_QUOTES, "UTF-8" ) );
-							echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . $clean_top_title . '</a>';
-							if ( $has_sub ) {
-								echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
-								echo '<div class="navbar__mobile-sub">';
-								foreach ( $tree[ $top->ID ] as $sub ) {
-									$su = ! empty( $sub->url ) ? $sub->url : '#';
-									$clean_m_sub_title = esc_html( html_entity_decode( $sub->title, ENT_QUOTES, "UTF-8" ) );
-									echo '<a href="' . esc_url( $su ) . '" class="navbar__mobile-sublink">' . $clean_m_sub_title . '</a>';
-								}
-								echo '</div>';
-							}
-							echo '</div>';
-						}
+						echo '</div>';
 					}
-				} else {
-					?>
-					<div class="navbar__mobile-item has-children">
-						<a href="#contact" class="navbar__mobile-link"><?php esc_html_e( 'Selling', 'luxury-re-widgets' ); ?></a>
-						<button class="navbar__mobile-toggle" aria-label="<?php esc_attr_e( 'Toggle submenu', 'luxury-re-widgets' ); ?>"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
-						<div class="navbar__mobile-sub">
-							<a href="#contact" class="navbar__mobile-sublink"><?php esc_html_e( 'Seller\'s Guide', 'luxury-re-widgets' ); ?></a>
-							<a href="#about" class="navbar__mobile-sublink"><?php esc_html_e( 'Home Valuation', 'luxury-re-widgets' ); ?></a>
-							<a href="#listings" class="navbar__mobile-sublink"><?php esc_html_e( 'Recent Sales', 'luxury-re-widgets' ); ?></a>
-							<a href="#testimonial" class="navbar__mobile-sublink"><?php esc_html_e( 'Seller Testimonials', 'luxury-re-widgets' ); ?></a>
-						</div>
-					</div>
-					<div class="navbar__mobile-item has-children">
-						<a href="#listings" class="navbar__mobile-link"><?php esc_html_e( 'Buying', 'luxury-re-widgets' ); ?></a>
-						<button class="navbar__mobile-toggle" aria-label="<?php esc_attr_e( 'Toggle submenu', 'luxury-re-widgets' ); ?>"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
-						<div class="navbar__mobile-sub">
-							<a href="#listings" class="navbar__mobile-sublink"><?php esc_html_e( 'Featured Listings', 'luxury-re-widgets' ); ?></a>
-							<a href="#listings" class="navbar__mobile-sublink"><?php esc_html_e( 'Buyer\'s Guide', 'luxury-re-widgets' ); ?></a>
-							<a href="#contact" class="navbar__mobile-sublink"><?php esc_html_e( 'Off-Market Access', 'luxury-re-widgets' ); ?></a>
-							<a href="#communities" class="navbar__mobile-sublink"><?php esc_html_e( 'Mortgage Calculator', 'luxury-re-widgets' ); ?></a>
-						</div>
-					</div>
-					<div class="navbar__mobile-item">
-						<a href="#communities" class="navbar__mobile-link"><?php esc_html_e( 'Communities', 'luxury-re-widgets' ); ?></a>
-					</div>
-					<div class="navbar__mobile-item has-children">
-						<a href="#about" class="navbar__mobile-link"><?php esc_html_e( 'About', 'luxury-re-widgets' ); ?></a>
-						<button class="navbar__mobile-toggle" aria-label="<?php esc_attr_e( 'Toggle submenu', 'luxury-re-widgets' ); ?>"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
-						<div class="navbar__mobile-sub">
-							<a href="#about" class="navbar__mobile-sublink"><?php esc_html_e( 'Our Story', 'luxury-re-widgets' ); ?></a>
-							<a href="#about" class="navbar__mobile-sublink"><?php esc_html_e( 'Meet the Team', 'luxury-re-widgets' ); ?></a>
-							<a href="#services" class="navbar__mobile-sublink"><?php esc_html_e( 'Our Services', 'luxury-re-widgets' ); ?></a>
-							<a href="#testimonial" class="navbar__mobile-sublink"><?php esc_html_e( 'Client Reviews', 'luxury-re-widgets' ); ?></a>
-							<a href="#contact" class="navbar__mobile-sublink"><?php esc_html_e( 'Press & Media', 'luxury-re-widgets' ); ?></a>
-						</div>
-					</div>
-					<?php
+					echo '</div>';
 				}
 				?>
 			</div>
@@ -1277,7 +1212,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$logo_url    = ! empty( $settings['logo_link']['url'] ) ? $settings['logo_link']['url'] : '#';
 		$logo_target = ! empty( $settings['logo_link']['is_external'] ) ? '_blank' : '_self';
-		$menu_source = $settings['menu_source'] ?? 'custom';
+		
 		$wp_menu_id  = $settings['wp_menu_id'] ?? '';
 		?>
 		<header class="<?php echo esc_attr( $header_class ); ?>" role="banner" data-mobile-type="<?php echo esc_attr( $mobile_menu_type ); ?>">
@@ -1285,11 +1220,7 @@ class LRE_Header_Widget extends Widget_Base {
 				
 				<!-- Left Nav Links with Luxury Mega Dropdowns -->
 				<?php
-				if ( 'wp_menu' === $menu_source && ! empty( $wp_menu_id ) ) {
-					$this->render_wp_menu( $wp_menu_id );
-				} else {
-					$this->render_custom_editorial_menu();
-				}
+				$this->render_wp_menu( $wp_menu_id );
 				?>
 
 				<!-- Center Brand Logo -->

@@ -39,7 +39,7 @@ class LRE_CTA_Widget extends Widget_Base {
 
 		// ── CONTENT ──
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Text Content', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Let''s Connect', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Let\'s Connect', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_1',   array( 'label' => __( 'Title Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Your Next Chapter', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_2',   array( 'label' => __( 'Title Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Starts Here', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag',  'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT,   'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );

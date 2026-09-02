@@ -1150,6 +1150,30 @@ class LRE_Header_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'mobile_toggle_icon_color',
+			array(
+				'label'     => __( 'Toggle Arrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.7)',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-toggle' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_toggle_icon_active_color',
+			array(
+				'label'     => __( 'Toggle Arrow Active Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-item.open .navbar__mobile-toggle, {{WRAPPER}} .navbar__mobile-toggle:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
 			'mobile_sub_bg',
 			array(
 				'label'     => __( 'Submenu Container Background', 'luxury-re-widgets' ),
@@ -1287,7 +1311,7 @@ class LRE_Header_Widget extends Widget_Base {
 					echo '<div class="navbar__mobile-item' . ( $has_sub ? ' has-children' : '' ) . '">';
 					echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . $clean_top_title . '</a>';
 					if ( $has_sub ) {
-						echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
+						echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '" style="background:transparent!important;background-color:transparent!important;border:none!important;box-shadow:none!important;outline:none!important;"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
 						echo '<div class="navbar__mobile-sub">';
 						foreach ( $tree[ $top->ID ] as $sub ) {
 							$su               = ! empty( $sub->url ) ? $sub->url : '#';

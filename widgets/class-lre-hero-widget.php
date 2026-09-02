@@ -429,7 +429,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					''   => array( 'min' => 0.8, 'max' => 2, 'step' => 0.05 ),
 					'px' => array( 'min' => 20,  'max' => 120, 'step' => 1 ),
 				),
-				'default'    => array( 'unit' => '', 'size' => 1.08 ),
+				'default'    => array( 'unit' => '', 'size' => 1.18 ),
 				'selectors'  => array(
 					'{{WRAPPER}} .hero__title, {{WRAPPER}} .hero__title .hero-mask, {{WRAPPER}} .hero__title .hero-mask > span' => 'line-height: {{SIZE}}{{UNIT}} !important;',
 				),

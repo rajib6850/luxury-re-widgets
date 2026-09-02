@@ -43,7 +43,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->add_control( 'heading_1',   array( 'label' => __( 'Title Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Your Next Chapter', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_2',   array( 'label' => __( 'Title Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Starts Here', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag',  'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT,   'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
-		$this->add_control( 'description', array( 'label' => __( 'Description',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Whether you\'re envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth -- our team is ready to deliver answers and results with the discretion you expect.', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control( 'description', array( 'label' => __( 'Description',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Whether you\'re envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
 		// ── BUTTONS ──
@@ -74,20 +74,22 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		// ── STYLE: Buttons ──
+		// ─── STYLE: Buttons ───
 		$this->start_controls_section( 'style_buttons', array( 'label' => __( 'Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->start_controls_tabs( 'tabs_cta_btns' );
 			$this->start_controls_tab( 'tab_cta_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
 			$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'btn_typography', 'selector' => '{{WRAPPER}} .cta__buttons .btn' ) );
-			$this->add_control( 'btn1_color', array( 'label' => __( 'Button 1 Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--primary' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn1_bg',    array( 'label' => __( 'Button 1 Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--primary' => 'background: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_color', array( 'label' => __( 'Button 2 Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--outline-white' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_border', array( 'label' => __( 'Button 2 Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--outline-white' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn1_color', array( 'label' => __( 'Button 1 Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn1_border', array( 'label' => __( 'Button 1 Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn2_color', array( 'label' => __( 'Button 2 Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2' => 'color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn2_border', array( 'label' => __( 'Button 2 Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2' => 'border-color: {{VALUE}};' ) ) );
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_cta_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn1_hover_bg',    array( 'label' => __( 'Button 1 Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--primary:hover' => 'background: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_hover_bg',    array( 'label' => __( 'Button 2 Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--outline-white:hover' => 'background-color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_hover_color', array( 'label' => __( 'Button 2 Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .btn--outline-white:hover' => 'color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn1_hover_bg',    array( 'label' => __( 'Button 1 Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1:hover' => 'background-color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn1_hover_color', array( 'label' => __( 'Button 1 Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1:hover' => 'color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn2_hover_bg',    array( 'label' => __( 'Button 2 Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2:hover' => 'background-color: {{VALUE}};' ) ) );
+			$this->add_control( 'btn2_hover_color', array( 'label' => __( 'Button 2 Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2:hover' => 'color: {{VALUE}};' ) ) );
 			$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
@@ -101,43 +103,63 @@ class LRE_CTA_Widget extends Widget_Base {
 		$btn1_target = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
 		$btn2_url    = esc_url( $settings['btn2_url']['url'] ?? '#contact' );
 		$btn2_target = ! empty( $settings['btn2_url']['is_external'] ) ? '_blank' : '_self';
+
+		$eyebrow = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : "Let's Connect";
+		if ( $eyebrow === 'Begin Your Journey' ) {
+			$eyebrow = "Let's Connect";
+		}
+
+		$heading_1 = ! empty( $settings['heading_1'] ) ? $settings['heading_1'] : 'Your Next Chapter';
+		if ( $heading_1 === 'Ready to Experience' ) {
+			$heading_1 = 'Your Next Chapter';
+		}
+
+		$heading_2 = ! empty( $settings['heading_2'] ) ? $settings['heading_2'] : 'Starts Here';
+		if ( $heading_2 === 'Exceptional Real Estate?' ) {
+			$heading_2 = 'Starts Here';
+		}
+
+		$description = ! empty( $settings['description'] ) ? $settings['description'] : "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
+		if ( strpos( $description, 'seeking your next trophy' ) !== false ) {
+			$description = "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
+		}
 		?>
 		<section class="cta" id="contact" aria-label="<?php esc_attr_e( 'Call to action', 'luxury-re-widgets' ); ?>">
 			<div class="cta__background">
 				<?php if ( ! empty( $img_url ) ) : ?>
 				<img src="<?php echo esc_url( $img_url ); ?>"
-				     alt="<?php esc_attr_e( 'Luxury real estate', 'luxury-re-widgets' ); ?>"
-				     loading="lazy">
+				     alt="<?php esc_attr_e( 'Modern estate at golden hour with infinity pool', 'luxury-re-widgets' ); ?>"
+				     loading="lazy" width="1920" height="1080">
 				<?php endif; ?>
 			</div>
 			<div class="cta__overlay"></div>
 
-			<div class="container cta__content reveal">
-				<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-				<span class="section-label section-label--gold"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+			<div class="cta__content reveal">
+				<?php if ( ! empty( $eyebrow ) ) : ?>
+				<span class="section-label section-label--gold"><?php echo esc_html( $eyebrow ); ?></span>
 				<?php endif; ?>
 
 				<<?php echo $tag; ?> class="cta__title">
-					<?php if ( ! empty( $settings['heading_1'] ) ) : ?>
-					<span class="title-mask"><span><?php echo esc_html( $settings['heading_1'] ); ?></span></span><br>
+					<?php if ( ! empty( $heading_1 ) ) : ?>
+					<span class="title-mask"><span><?php echo esc_html( $heading_1 ); ?></span></span><br>
 					<?php endif; ?>
-					<?php if ( ! empty( $settings['heading_2'] ) ) : ?>
-					<span class="title-mask"><span><?php echo esc_html( $settings['heading_2'] ); ?></span></span>
+					<?php if ( ! empty( $heading_2 ) ) : ?>
+					<span class="title-mask"><span><?php echo esc_html( $heading_2 ); ?></span></span>
 					<?php endif; ?>
 				</<?php echo $tag; ?>>
 
-				<?php if ( ! empty( $settings['description'] ) ) : ?>
-				<p class="cta__description delay-2"><?php echo esc_html( $settings['description'] ); ?></p>
+				<?php if ( ! empty( $description ) ) : ?>
+				<p class="cta__description"><?php echo esc_html( $description ); ?></p>
 				<?php endif; ?>
 
-				<div class="cta__buttons delay-3">
+				<div class="cta__buttons">
 					<?php if ( ! empty( $settings['btn1_text'] ) ) : ?>
-					<a href="<?php echo $btn1_url; ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--primary">
+					<a href="<?php echo $btn1_url; ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white cta__btn-1">
 						<span><?php echo esc_html( $settings['btn1_text'] ); ?></span>
 					</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $settings['btn2_text'] ) ) : ?>
-					<a href="<?php echo $btn2_url; ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white">
+					<a href="<?php echo $btn2_url; ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white cta__btn-2">
 						<span><?php echo esc_html( $settings['btn2_text'] ); ?></span>
 					</a>
 					<?php endif; ?>

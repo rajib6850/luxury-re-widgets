@@ -4513,3 +4513,44 @@ button.listings__arrow:hover svg,
 .listings__arrow:hover svg {
   transform: scale(1.1) !important;
 }
+
+
+/* ==========================================================================
+   -- TESTIMONIAL SECTION - COMPACT SPACING MATCHING HTML TEMPLATE --
+   ========================================================================== */
+.testimonial {
+  min-height: 520px;
+  max-height: none;
+}
+
+.testimonial__content-col {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 3rem 3.5rem !important;
+}
+
+.testimonial__inner {
+  max-width: 620px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.testimonial__heading {
+  margin-bottom: 1.5rem !important;
+}
+
+.testimonial__card-frame {
+  margin-top: 0 !important;
+  margin-bottom: 1.2rem !important;
+  padding: 1.8rem 2.2rem !important;
+}
+
+.testimonial__quote {
+  margin-bottom: 1.2rem !important;
+}
+
+.testimonial__controls {
+  margin-top: 0.5rem !important;
+  padding-top: 0 !important;
+}

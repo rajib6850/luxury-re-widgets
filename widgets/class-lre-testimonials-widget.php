@@ -30,10 +30,11 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 		// ── MEDIA & HEADER ──
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header & Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
+		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
 		$this->add_control( 'portrait_image', array(
 			'label'   => __( 'Left Portrait Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
-			'default' => array( 'url' => 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85' ),
+			'default' => array( 'url' => $default_portrait ),
 			'dynamic' => array( 'active' => true ),
 		) );
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Client Testimonials', 'dynamic' => array( 'active' => true ) ) );
@@ -144,8 +145,12 @@ class LRE_Testimonials_Widget extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings     = $this->get_settings_for_display();
-		$portrait_url = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85';
+		$settings         = $this->get_settings_for_display();
+		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
+		$portrait_url     = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : $default_portrait;
+		if ( empty( $portrait_url ) || strpos( $portrait_url, 'images.unsplash.com' ) !== false ) {
+			$portrait_url = $default_portrait;
+		}
 		?>
 		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>">
 			<div class="testimonial__image-col image-reveal">

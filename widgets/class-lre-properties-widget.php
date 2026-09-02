@@ -500,11 +500,11 @@ class LRE_Properties_Widget extends Widget_Base {
 						<button class="listings__nav-dot" aria-label="<?php esc_attr_e( 'Page 3', 'luxury-re-widgets' ); ?>" data-page="2"></button>
 					</div>
 					<div class="listings__arrows">
-						<button class="listings__arrow" id="listings-prev" aria-label="<?php esc_attr_e( 'Previous listings', 'luxury-re-widgets' ); ?>">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+						<button class="listings__arrow" id="listings-prev" aria-label="<?php esc_attr_e( 'Previous listings', 'luxury-re-widgets' ); ?>" title="<?php esc_attr_e( 'Previous', 'luxury-re-widgets' ); ?>">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 						</button>
-						<button class="listings__arrow" id="listings-next" aria-label="<?php esc_attr_e( 'Next listings', 'luxury-re-widgets' ); ?>">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+						<button class="listings__arrow" id="listings-next" aria-label="<?php esc_attr_e( 'Next listings', 'luxury-re-widgets' ); ?>" title="<?php esc_attr_e( 'Next', 'luxury-re-widgets' ); ?>">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 						</button>
 					</div>
 				</div>

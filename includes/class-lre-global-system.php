@@ -160,27 +160,27 @@ button.btn,
   align-items: center !important;
   gap: 0.5rem !important;
   line-height: 1 !important;
-  color: inherit !important;
+  color: inherit;
 }
 
 /* 1. Hero Buttons (.btn--outline-white) - Default White Hover */
 .hero__cta-group .btn,
 .hero__cta-group a.btn {
-  color: #ffffff !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  --btn-hover-bg: #ffffff !important;
+  color: #ffffff;
+  background: transparent;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  --btn-hover-bg: #ffffff;
 }
 
 .hero__cta-group .btn::before {
-  background: var(--btn-hover-bg, #ffffff) !important;
+  background: var(--btn-hover-bg, #ffffff);
 }
 
 .hero__cta-group .btn:hover,
 .hero__cta-group a.btn:hover {
-  color: #0a0a0a !important;
-  border-color: #ffffff !important;
+  color: #0a0a0a;
+  border-color: #ffffff;
 }
 
 /* ─── SERVICES: ULTRA-SMOOTH HOVER TRANSITION ─── */
@@ -211,19 +211,19 @@ button.btn,
 .about .btn,
 .about a.btn,
 .about__text .btn {
-  color: var(--color-dark, #0a0a0a) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
+  color: var(--color-dark, #0a0a0a);
+  background: transparent;
+  background-color: transparent;
+  border-color: var(--color-dark, #0a0a0a);
 }
 
 .about .btn:hover,
 .about a.btn:hover,
 .about__text .btn:hover {
-  color: #ffffff !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
-  background: var(--color-dark, #0a0a0a) !important;
-  background-color: var(--color-dark, #0a0a0a) !important;
+  color: #ffffff;
+  border-color: var(--color-dark, #0a0a0a);
+  background: var(--color-dark, #0a0a0a);
+  background-color: var(--color-dark, #0a0a0a);
 }
 
 /* 3. Listings / Properties Buttons (HTML Design Truth: White hover for Primary, Dark hover for Outline) */
@@ -231,69 +231,69 @@ button.btn,
 .listings__cta-group .btn--primary,
 .listings__cta-group a.btn--primary,
 .listings__cta-group .listings__btn-1 {
-  background: var(--color-dark, #0a0a0a) !important;
-  background-color: var(--color-dark, #0a0a0a) !important;
-  color: #ffffff !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
-  --btn-hover-bg: #ffffff !important;
+  background: var(--color-dark, #0a0a0a);
+  background-color: var(--color-dark, #0a0a0a);
+  color: #ffffff;
+  border-color: var(--color-dark, #0a0a0a);
+  --btn-hover-bg: #ffffff;
 }
 
 .listings__cta-group .btn--primary::before,
 .listings__cta-group a.btn--primary::before,
 .listings__cta-group .listings__btn-1::before {
-  background: var(--btn-hover-bg, #ffffff) !important;
+  background: var(--btn-hover-bg, #ffffff);
 }
 
 .listings__cta-group .btn--primary:hover,
 .listings__cta-group a.btn--primary:hover,
 .listings__cta-group .listings__btn-1:hover {
-  color: var(--color-dark, #0a0a0a) !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  color: var(--color-dark, #0a0a0a);
+  border-color: var(--color-dark, #0a0a0a);
+  background: #ffffff;
+  background-color: #ffffff;
 }
 
 /* Button 2: Outline (View All Properties) */
 .listings__cta-group .btn--outline,
 .listings__cta-group a.btn--outline,
 .listings__cta-group .listings__btn-2 {
-  background: transparent !important;
-  background-color: transparent !important;
-  color: var(--color-dark, #0a0a0a) !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
+  background: transparent;
+  background-color: transparent;
+  color: var(--color-dark, #0a0a0a);
+  border-color: var(--color-dark, #0a0a0a);
 }
 
 .listings__cta-group .btn--outline:hover,
 .listings__cta-group a.btn--outline:hover,
 .listings__cta-group .listings__btn-2:hover {
-  color: #ffffff !important;
-  border-color: var(--color-dark, #0a0a0a) !important;
-  background: var(--color-dark, #0a0a0a) !important;
-  background-color: var(--color-dark, #0a0a0a) !important;
+  color: #ffffff;
+  border-color: var(--color-dark, #0a0a0a);
+  background: var(--color-dark, #0a0a0a);
+  background-color: var(--color-dark, #0a0a0a);
 }
 
 /* 4. CTA Banner Buttons */
 .cta__buttons .btn,
 .cta__buttons a.btn {
-  color: #ffffff !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff;
+  background: transparent;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .cta__buttons .btn:hover,
 .cta__buttons a.btn:hover {
-  color: #0a0a0a !important;
-  border-color: #ffffff !important;
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  color: #0a0a0a;
+  border-color: #ffffff;
+  background: #ffffff;
+  background-color: #ffffff;
 }
 
 .cta__buttons .cta__btn-2:hover {
-  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  color: #0a0a0a !important;
+  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
+  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
+  background-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
+  color: #0a0a0a;
 }
 
 /* Mobile responsive sizing across all buttons */

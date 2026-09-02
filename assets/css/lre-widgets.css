@@ -2101,12 +2101,12 @@ button.btn {
 }
 
 .listings__cta-group .btn--primary {
-  --btn-hover-bg: var(--color-white);
+  --btn-hover-bg: var(--color-white, #ffffff);
 }
 
 .listings__cta-group .btn--primary:hover {
-  color: var(--color-dark);
-  border-color: var(--color-dark);
+  color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0c0c10) !important;
 }
 
 /* ── 9. TESTIMONIAL SECTION (Matched to Design) ─────────── */

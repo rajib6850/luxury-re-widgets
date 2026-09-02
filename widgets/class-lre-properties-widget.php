@@ -520,7 +520,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'color: {{VALUE}} !important;' ),
+					'default'   => '#0c0c10',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover span' => 'color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->add_control(
@@ -528,7 +531,12 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+					'default'   => '#ffffff',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->add_control(
@@ -536,7 +544,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'border-color: {{VALUE}} !important;' ),
+					'default'   => '#0c0c10',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'border-color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->end_controls_tab();
@@ -586,7 +597,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'color: {{VALUE}} !important;' ),
+					'default'   => '#ffffff',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover span' => 'color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->add_control(
@@ -594,7 +608,12 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+					'default'   => '#0c0c10',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->add_control(
@@ -602,7 +621,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'border-color: {{VALUE}} !important;' ),
+					'default'   => '#0c0c10',
+					'selectors' => array(
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'border-color: {{VALUE}} !important;',
+					),
 				)
 			);
 			$this->end_controls_tab();

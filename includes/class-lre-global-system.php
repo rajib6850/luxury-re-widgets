@@ -226,7 +226,7 @@ button.btn,
   background-color: var(--color-dark, #0c0c10) !important;
 }
 
-/* 3. Listings / Properties Buttons */
+/* 3. Listings / Properties Buttons (HTML Design Truth: White hover for Primary, Dark hover for Outline) */
 /* Button 1: Primary (Schedule A Viewing) */
 .listings__cta-group .btn--primary,
 .listings__cta-group a.btn--primary,
@@ -235,15 +235,22 @@ button.btn,
   background-color: var(--color-dark, #0c0c10) !important;
   color: #ffffff !important;
   border-color: var(--color-dark, #0c0c10) !important;
+  --btn-hover-bg: #ffffff !important;
+}
+
+.listings__cta-group .btn--primary::before,
+.listings__cta-group a.btn--primary::before,
+.listings__cta-group .listings__btn-1::before {
+  background: var(--btn-hover-bg, #ffffff) !important;
 }
 
 .listings__cta-group .btn--primary:hover,
 .listings__cta-group a.btn--primary:hover,
 .listings__cta-group .listings__btn-1:hover {
-  color: #0a0a0a !important;
-  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
-  background-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+  color: var(--color-dark, #0c0c10) !important;
+  border-color: var(--color-dark, #0c0c10) !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
 }
 
 /* Button 2: Outline (View All Properties) */

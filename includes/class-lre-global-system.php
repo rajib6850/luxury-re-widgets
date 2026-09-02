@@ -281,11 +281,58 @@ body,
   padding-left: 1.65rem !important;
 }
 
+/* ─── POPUP MENU (SIDE MENU DRAWER) BULLETPROOF PROTECTION ─── */
+.side-menu a.side-menu__category-link,
+.side-menu .side-menu__category-link,
+[class*="elementor-kit-"] .side-menu a.side-menu__category-link,
+[class*="elementor-kit-"] .side-menu .side-menu__category-link {
+  font-family: var(--font-serif) !important;
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem) !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  letter-spacing: 0.5px !important;
+  text-shadow: 0 2px 25px rgba(0, 0, 0, 0.7) !important;
+  display: inline-block !important;
+  transition: color 0.3s ease, transform 0.3s ease !important;
+}
+
+.side-menu a.side-menu__category-link:hover,
+.side-menu .side-menu__category-link:hover,
+[class*="elementor-kit-"] .side-menu a.side-menu__category-link:hover,
+[class*="elementor-kit-"] .side-menu .side-menu__category-link:hover {
+  color: var(--color-secondary, #c5a047) !important;
+  transform: translateY(-3px) !important;
+}
+
+.side-menu .side-menu__col-title,
+.side-menu h3.side-menu__col-title,
+[class*="elementor-kit-"] .side-menu .side-menu__col-title,
+[class*="elementor-kit-"] .side-menu h3.side-menu__col-title {
+  font-family: var(--font-serif) !important;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem) !important;
+  color: #ffffff !important;
+  margin-bottom: 1.8rem !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7) !important;
+}
+
 .side-menu a.side-menu__link,
 .side-menu .side-menu__link,
 [class*="elementor-kit-"] .side-menu a.side-menu__link,
 [class*="elementor-kit-"] .side-menu .side-menu__link {
-  color: rgba(255, 255, 255, 0.65) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.68rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5) !important;
+  transition: color 0.3s ease, letter-spacing 0.4s var(--ease-out-expo) !important;
 }
 
 .side-menu a.side-menu__link:hover,
@@ -293,10 +340,57 @@ body,
 [class*="elementor-kit-"] .side-menu a.side-menu__link:hover,
 [class*="elementor-kit-"] .side-menu .side-menu__link:hover {
   color: #ffffff !important;
+  letter-spacing: 3px !important;
+}
+
+.side-menu a.side-menu__find-btn,
+.side-menu .side-menu__find-btn,
+[class*="elementor-kit-"] .side-menu a.side-menu__find-btn,
+[class*="elementor-kit-"] .side-menu .side-menu__find-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-top: 1.6rem !important;
+  padding: 0.7rem 1.4rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.58rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  transition: all 0.4s var(--ease-out-expo) !important;
+}
+
+.side-menu a.side-menu__find-btn:hover,
+.side-menu .side-menu__find-btn:hover,
+[class*="elementor-kit-"] .side-menu a.side-menu__find-btn:hover,
+[class*="elementor-kit-"] .side-menu .side-menu__find-btn:hover {
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.side-menu .side-menu__close,
+.side-menu button.side-menu__close,
+[class*="elementor-kit-"] .side-menu .side-menu__close {
+  color: #ffffff !important;
+}
+
+.side-menu .side-menu__close:hover,
+.side-menu button.side-menu__close:hover,
+[class*="elementor-kit-"] .side-menu .side-menu__close:hover {
+  color: var(--color-secondary, #c5a047) !important;
 }
 
 /* Link typography & color reflection from Site Settings */
-[class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link) {
+[class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link):not(.side-menu__category-link):not(.side-menu__find-btn) {
   transition: color var(--transition-fast, 0.25s ease);
 }
 ';

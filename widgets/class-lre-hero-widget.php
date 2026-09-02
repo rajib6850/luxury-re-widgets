@@ -9,6 +9,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Text_Shadow;
 
 class LRE_Hero_Widget extends Widget_Base {
 
@@ -417,6 +418,14 @@ class LRE_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'title_text_shadow',
+				'selector' => '{{WRAPPER}} .hero__title',
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- Subtitle Style ---
@@ -464,6 +473,152 @@ class LRE_Hero_Widget extends Widget_Base {
 			array(
 				'name'     => 'btn_typography',
 				'selector' => '{{WRAPPER}} .hero__cta-group .btn',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn_style' );
+
+		// Normal State
+		$this->start_controls_tab(
+			'tab_btn_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'btn_text_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'transparent',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.5)',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover State
+		$this->start_controls_tab(
+			'tab_btn_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_text_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0a0a0a',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn:hover, {{WRAPPER}} .hero__cta-group .btn:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .hero__cta-group .btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '0.85',
+					'right'    => '1.8',
+					'bottom'   => '0.85',
+					'left'     => '1.8',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+				'separator'  => 'before',
+			)
+		);
+
+		$this->add_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__cta-group .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_gap',
+			array(
+				'label'      => __( 'Buttons Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 50 ),
+					'rem' => array( 'min' => 0, 'max' => 4 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 1.2 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__cta-group' => 'gap: {{SIZE}}{{UNIT}};',
+				),
 			)
 		);
 

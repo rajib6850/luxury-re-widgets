@@ -1144,7 +1144,9 @@ p {
   padding: 0 2rem;
 }
 
-.hero__title {
+.hero__title,
+.hero__title .hero-mask,
+.hero__title .hero-mask > span {
   font-family: inherit;
   font-size: var(--font-size-hero);
   font-weight: inherit;
@@ -1152,7 +1154,9 @@ p {
   line-height: 1.15 !important;
   max-width: 920px;
   margin-bottom: 1.2rem;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.4);
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 .hero__title .hero-mask {
@@ -1177,7 +1181,8 @@ p {
   letter-spacing: 4px;
   text-transform: uppercase;
   color: #ffffff;
-  text-shadow: 0 1px 15px rgba(0, 0, 0, 0.5);
+  text-shadow: none !important;
+  box-shadow: none !important;
   margin-bottom: 3rem;
   opacity: 0;
   transform: translateY(20px);
@@ -1190,6 +1195,35 @@ p {
   opacity: 0;
   transform: translateY(20px);
   animation: heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.85s forwards;
+}
+
+.hero__cta-group .btn {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 0.85rem 1.8rem !important;
+  min-height: 42px;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero__cta-group .btn::before {
+  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+}
+
+.hero__cta-group .btn:hover {
+  color: #0a0a0a !important;
+  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
 }
 
 @keyframes heroMaskUp {

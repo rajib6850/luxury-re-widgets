@@ -91,9 +91,37 @@ body,
 }
 
 /* Explicit unitless line-heights and spacing to prevent squishing or overlap */
-.hero__title {
+.hero__title,
+.hero__title .hero-mask,
+.hero__title .hero-mask > span,
+[class*="elementor-kit-"] .hero__title {
   line-height: 1.15 !important;
   color: #ffffff !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.hero__subtitle,
+[class*="elementor-kit-"] .hero__subtitle {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.hero__cta-group .btn {
+  padding: 0.85rem 1.8rem !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 2.5px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.hero__cta-group .btn:hover {
+  color: #0a0a0a !important;
+  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
+  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047)) !important;
 }
 
 .about__title {

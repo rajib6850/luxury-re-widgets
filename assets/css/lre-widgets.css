@@ -3942,10 +3942,17 @@ p {
   pointer-events: auto !important;
 }
 
-/* Remove default theme headers */
-#masthead,
-.site-header:not([class*="site-header--"]) {
+/* Remove unstyled theme default headers ONLY if not containing an Elementor/HFE header */
+body:not(.ehf-header) #masthead:not(:has(.site-header--transparent)):not(:has(.navbar)),
+header.site-header:not([class*="site-header--"]) {
   display: none !important;
+}
+
+#masthead,
+.ehf-header #masthead {
+  display: block !important;
+  position: relative;
+  z-index: 999;
 }
 
 /* 2. Universal Zero-Pink Resets for Hello Elementor */

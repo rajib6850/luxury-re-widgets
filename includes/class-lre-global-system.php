@@ -327,7 +327,9 @@ button.btn,
 .lre-aserv .btn:hover span,
 .lre-aserv a.btn:hover span,
 .lre-aserv__mono-action .btn:hover span,
-.lre-aserv__btn:hover span {
+.lre-aserv__btn:hover span,
+.cta__buttons .btn:hover span,
+.cta__buttons a.btn:hover span {
   color: #0a0a0a !important;
 }
 
@@ -436,28 +438,97 @@ button.btn,
   background-color: var(--color-dark, #0a0a0a);
 }
 
-/* 4. CTA Banner Buttons */
-.cta__buttons .btn,
-.cta__buttons a.btn {
-  color: #ffffff;
-  background: transparent;
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.6);
+/* 4. CTA Banner Buttons — Ultra-Luxury Editorial Parity */
+.cta__buttons {
+  display: flex !important;
+  gap: 1.25rem !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
 }
 
-.cta__buttons .btn:hover,
-.cta__buttons a.btn:hover {
-  color: #0a0a0a;
-  border-color: #ffffff;
-  background: #ffffff;
-  background-color: #ffffff;
+/* CTA Button 1: Solid Champagne Gold Primary */
+.cta__buttons .cta__btn-1,
+.cta__buttons a.cta__btn-1 {
+  background: var(--color-secondary, #c5a047) !important;
+  background-color: var(--color-secondary, #c5a047) !important;
+  color: #08080c !important;
+  border: 1px solid var(--color-secondary, #c5a047) !important;
+  box-shadow: 0 8px 24px rgba(197, 160, 71, 0.28) !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  --btn-hover-bg: #ffffff;
 }
 
-.cta__buttons .cta__btn-2:hover {
-  border-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
-  background: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
-  background-color: var(--color-secondary, var(--e-global-color-secondary, #c5a047));
-  color: #0a0a0a;
+.cta__buttons .cta__btn-1 span,
+.cta__buttons a.cta__btn-1 span {
+  color: #08080c !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+}
+
+.cta__buttons .cta__btn-1::before,
+.cta__buttons a.cta__btn-1::before {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.cta__buttons .cta__btn-1:hover,
+.cta__buttons a.cta__btn-1:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #08080c !important;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-2px) !important;
+}
+
+.cta__buttons .cta__btn-1:hover span,
+.cta__buttons a.cta__btn-1:hover span {
+  color: #08080c !important;
+}
+
+/* CTA Button 2: Refined Architectural Glass Outline */
+.cta__buttons .cta__btn-2,
+.cta__buttons a.cta__btn-2 {
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  --btn-hover-bg: #ffffff;
+}
+
+.cta__buttons .cta__btn-2 span,
+.cta__buttons a.cta__btn-2 span {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+}
+
+.cta__buttons .cta__btn-2::before,
+.cta__buttons a.cta__btn-2::before {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.cta__buttons .cta__btn-2:hover,
+.cta__buttons a.cta__btn-2:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #08080c !important;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+.cta__buttons .cta__btn-2:hover span,
+.cta__buttons a.cta__btn-2:hover span {
+  color: #08080c !important;
 }
 
 /* Mobile responsive sizing across all buttons */

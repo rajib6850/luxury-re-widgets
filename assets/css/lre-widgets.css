@@ -124,10 +124,10 @@ body,
 [class*="lre-"] [type="button"],
 [class*="lre-"] [type="submit"],
 [class*="lre-"] [type="reset"],
-[class*="lre-"] a,
+[class*="lre-"] a:not(.btn),
 [class*="elementor-widget-lre_"] button,
 [class*="elementor-widget-lre_"] [type="button"],
-[class*="elementor-widget-lre_"] a {
+[class*="elementor-widget-lre_"] a:not(.btn) {
   background-color: transparent !important;
   color: inherit !important;
   border-color: transparent;
@@ -2748,9 +2748,88 @@ button.btn {
 
 .cta__buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Button 1: Signature Solid Champagne Gold Primary Conversion Button */
+.cta__buttons .cta__btn-1 {
+  background: var(--color-secondary, #c5a047) !important;
+  background-color: var(--color-secondary, #c5a047) !important;
+  color: #08080c !important;
+  border: 1px solid var(--color-secondary, #c5a047) !important;
+  box-shadow: 0 8px 24px rgba(197, 160, 71, 0.28) !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  --btn-hover-bg: #ffffff;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cta__buttons .cta__btn-1 span {
+  color: #08080c !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  transition: color 0.35s ease !important;
+}
+
+.cta__buttons .cta__btn-1::before {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.cta__buttons .cta__btn-1:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #08080c !important;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-2px);
+}
+
+.cta__buttons .cta__btn-1:hover span {
+  color: #08080c !important;
+}
+
+/* Button 2: Refined Architectural Glass Outline Button */
+.cta__buttons .cta__btn-2 {
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  --btn-hover-bg: #ffffff;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cta__buttons .cta__btn-2 span {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  transition: color 0.35s ease !important;
+}
+
+.cta__buttons .cta__btn-2::before {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.cta__buttons .cta__btn-2:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #08080c !important;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+.cta__buttons .cta__btn-2:hover span {
+  color: #08080c !important;
 }
 
 /* â”€â”€ 14. FOOTER â€” Refined and editorial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */

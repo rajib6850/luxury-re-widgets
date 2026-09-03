@@ -103,7 +103,10 @@
             { container: '.testimonial__image-col',   img: 'img',                    maxScale: '1.08' },
             { container: '.community-card',          img: '.community-card__image',  maxScale: '1.09' },
             { container: '.side-menu__box',          img: '.side-menu__box-bg img',  maxScale: '1.14' },
-            { container: '.lre-story__image-frame',  img: 'img',                     maxScale: '1.04' }
+            { container: '.lre-story__image-frame',  img: 'img',                     maxScale: '1.04' },
+            { container: '.lre-aserv__card',         img: '.lre-aserv__card-frame img', maxScale: '1.05' },
+            { container: '.lre-aserv__split-media',  img: '.lre-aserv__split-frame img', maxScale: '1.05' },
+            { container: '.lre-aserv__monolith',     img: '.lre-aserv__mono-bg img', maxScale: '1.06' }
         ];
 
         zoomTargets.forEach( function ( target ) {
@@ -1181,8 +1184,67 @@
     // =========================================================================
     LREWidgets.AboutServices = {
         init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
+
+            // Watermark Scroll Parallax (matching About, Team & Story widgets)
+            if ( ! prefersReducedMotion ) {
+                var aservSec = root.querySelector( '.lre-aserv' ) || ( ( root.classList && root.classList.contains( 'lre-aserv' ) ) ? root : document.querySelector( '.lre-aserv' ) );
+                var watermark = root.querySelector( '.lre-aserv__watermark' ) || ( aservSec ? aservSec.querySelector( '.lre-aserv__watermark' ) : null );
+
+                if ( aservSec && watermark ) {
+                    var updateAservParallax = function () {
+                        var rect = aservSec.getBoundingClientRect();
+                        var winH = window.innerHeight;
+                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                            var progress = ( winH - rect.top ) / ( winH + rect.height );
+                            var isMobile = window.innerWidth <= 768;
+                            var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                            watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                        }
+                    };
+                    window.addEventListener( 'scroll', updateAservParallax, { passive: true } );
+                    updateAservParallax();
+                }
+            }
+
+            // The Architectural Monolith (Expanding Panels Interaction)
+            var monoliths = root.querySelectorAll( '.lre-aserv__monolith' );
+            if ( monoliths.length ) {
+                monoliths.forEach( function ( mono ) {
+                    mono.addEventListener( 'mouseenter', function () {
+                        monoliths.forEach( function ( m ) { m.classList.remove( 'is-active' ); } );
+                        mono.classList.add( 'is-active' );
+                    } );
+                    mono.addEventListener( 'click', function ( e ) {
+                        if ( e.target.closest( 'a' ) || e.target.closest( 'button' ) ) {
+                            return;
+                        }
+                        monoliths.forEach( function ( m ) { m.classList.remove( 'is-active' ); } );
+                        mono.classList.add( 'is-active' );
+                    } );
+                } );
+            }
+
+            // Interactive Split Image Switcher
+            var showcaseImg = root.querySelector( '#lre-aserv-showcase-img' );
+            var splitItems  = root.querySelectorAll( '.lre-aserv__split-item' );
+            if ( showcaseImg && splitItems.length ) {
+                splitItems.forEach( function ( item ) {
+                    item.addEventListener( 'mouseenter', function () {
+                        var newImg = item.getAttribute( 'data-img' );
+                        if ( newImg && showcaseImg.src !== newImg ) {
+                            showcaseImg.style.opacity = '0.35';
+                            setTimeout( function () {
+                                showcaseImg.src = newImg;
+                                showcaseImg.style.opacity = '1';
+                            }, 180 );
+                        }
+                    } );
+                } );
+            }
         }
     };
 

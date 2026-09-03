@@ -6551,7 +6551,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
 /* Subtle Architectural Watermark (Consistent with About & Team sections) */
 .lre-aserv__watermark {
   position: absolute;
-  top: 2.2rem;
+  top: 6.2rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
@@ -7395,7 +7395,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     font-size: clamp(3.6rem, 10.5vw, 6.6rem);
     letter-spacing: 0.14em;
     margin-right: -0.14em;
-    top: 1.8rem;
+    top: 5rem;
   }
   .lre-aserv__grid--col-3,
   .lre-aserv__grid--col-4 {
@@ -7427,7 +7427,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     font-size: clamp(2.6rem, 11vw, 4.4rem);
     letter-spacing: 0.1em;
     margin-right: -0.1em;
-    top: 1.5rem;
+    top: 4rem;
   }
   .lre-aserv__header {
     margin-bottom: 3.5rem;
@@ -7482,7 +7482,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     font-size: clamp(2.0rem, 10.5vw, 3.2rem);
     letter-spacing: 0.08em;
     margin-right: -0.08em;
-    top: 1.2rem;
+    top: 3.2rem;
   }
   .lre-aserv__monolith {
     min-height: 420px;

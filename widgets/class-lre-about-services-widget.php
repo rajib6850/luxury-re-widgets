@@ -455,7 +455,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				),
 				'default'    => array(
 					'unit' => 'rem',
-					'size' => 2.8,
+					'size' => 6.2,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-aserv__watermark' => 'top: {{SIZE}}{{UNIT}} !important;',

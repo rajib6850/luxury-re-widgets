@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .lre-comm-frame, .lre-comm-showcase__filter-nav, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .lre-comm-frame, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }
@@ -1423,6 +1423,54 @@
     };
 
     // =========================================================================
+    // 17. CONTACT & BESPOKE ADVISORY (lre_contact)
+    // =========================================================================
+    LREWidgets.Contact = {
+        init: function ( $scope ) {
+            LREWidgets.initReveals( $scope );
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var forms = root.querySelectorAll( '.lre-contact__form' );
+            if ( ! forms.length ) return;
+
+            forms.forEach( function ( form ) {
+                form.addEventListener( 'submit', function ( e ) {
+                    e.preventDefault();
+                    var btn = form.querySelector( '.lre-contact__submit-btn' );
+                    var feedback = form.querySelector( '.lre-contact__feedback' );
+                    var nameInput = form.querySelector( '[name="client_name"]' );
+                    var emailInput = form.querySelector( '[name="client_email"]' );
+                    var phoneInput = form.querySelector( '[name="client_phone"]' );
+
+                    if ( ! nameInput || ! emailInput || ! phoneInput ) return;
+
+                    if ( ! nameInput.value.trim() || ! emailInput.value.trim() || ! phoneInput.value.trim() ) {
+                        alert( 'Please complete all required fields (Full Name, Direct Email, Telephone).' );
+                        return;
+                    }
+
+                    if ( btn ) {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.6';
+                        var btnText = btn.querySelector( '.lre-contact__btn-text' );
+                        if ( btnText ) btnText.textContent = 'Transmitting Encrypted Dossier...';
+                    }
+
+                    setTimeout( function () {
+                        if ( feedback ) {
+                            feedback.style.display = 'flex';
+                            feedback.style.opacity = '0';
+                            feedback.style.transition = 'opacity 0.5s ease';
+                            setTimeout( function () {
+                                feedback.style.opacity = '1';
+                            }, 20 );
+                        }
+                    }, 800 );
+                } );
+            } );
+        }
+    };
+
+    // =========================================================================
     // ELEMENTOR HOOK BINDINGS
     // =========================================================================
     function lreBindElementorHooks() {
@@ -1446,6 +1494,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_reviews.default',              function ( $scope ) { LREWidgets.Reviews.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_page_hero.default',            function ( $scope ) { LREWidgets.PageHero.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities_showcase.default', function ( $scope ) { LREWidgets.CommunitiesShowcase.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_contact.default',              function ( $scope ) { LREWidgets.Contact.init( $scope ); } );
     }
 
     // Auto-run on DOM ready
@@ -1465,6 +1514,7 @@
         if ( LREWidgets.Reviews )             LREWidgets.Reviews.init();
         if ( LREWidgets.PageHero )            LREWidgets.PageHero.init();
         if ( LREWidgets.CommunitiesShowcase ) LREWidgets.CommunitiesShowcase.init();
+        if ( LREWidgets.Contact )             LREWidgets.Contact.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

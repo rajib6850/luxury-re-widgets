@@ -4352,6 +4352,12 @@ body.elementor-editor-active .lre-comm-frame__footer,
 body.elementor-editor-active .lre-comm-showcase__header,
 body.elementor-editor-active .lre-comm-showcase__filter-nav,
 body.elementor-editor-active .lre-comm-gallery,
+body.elementor-editor-active .lre-contact,
+body.elementor-editor-active .lre-contact .reveal,
+body.elementor-editor-active .lre-contact__header,
+body.elementor-editor-active .lre-contact__desk,
+body.elementor-editor-active .lre-contact__form-wrapper,
+body.elementor-editor-active .lre-contact__stage,
 .elementor-editor-active .reveal,
 .elementor-editor-preview .reveal,
 .elementor-edit-mode .reveal,
@@ -4363,7 +4369,10 @@ body.elementor-editor-active .lre-comm-gallery,
 .elementor-edit-mode .lre-comm-frame,
 .elementor-editor-active .lre-comm-frame__img,
 .elementor-editor-preview .lre-comm-frame__img,
-.elementor-edit-mode .lre-comm-frame__img {
+.elementor-edit-mode .lre-comm-frame__img,
+.elementor-editor-active .lre-contact .reveal,
+.elementor-editor-preview .lre-contact .reveal,
+.elementor-edit-mode .lre-contact .reveal {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;
@@ -9855,4 +9864,555 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     margin-bottom: 0.85rem;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   19. CONTACT & BESPOKE ADVISORY SUITE (lre_contact)
+   ───────────────────────────────────────────────────────────────────────────── */
+.lre-contact {
+  position: relative;
+  overflow: hidden;
+  background-color: #08080c;
+  color: #ffffff;
+  width: 100%;
+}
+
+.lre-contact__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Section Header (Exact Parity) ── */
+.lre-contact__header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 3.5rem auto;
+}
+
+.lre-contact__header .section-label,
+.lre-contact__eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 0.85rem;
+}
+
+.lre-contact__title {
+  font-family: var(--e-global-typography-primary-font-family, var(--font-heading, var(--font-serif, 'Libre Baskerville', serif))) !important;
+  font-size: var(--font-size-section-title) !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+.lre-contact__title .title-mask > span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.lre-contact__description {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ── Two-Column Architectural Stage ── */
+.lre-contact__stage {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Left Pillar: The Fiduciary Desk ── */
+.lre-contact__desk-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 2.75rem 2.25rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.lre-contact__desk-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+}
+
+.lre-contact__seal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-secondary, #c5a047);
+  box-shadow: 0 0 8px #c5a047;
+}
+
+.lre-contact__salon-title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: #ffffff !important;
+  margin: 0 0 2rem 0;
+  line-height: 1.3;
+}
+
+.lre-contact__channels {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 2.25rem;
+}
+
+.lre-contact__channel-item {
+  display: flex;
+  gap: 1.15rem;
+  align-items: flex-start;
+}
+
+.lre-contact__channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lre-contact__channel-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lre-contact__channel-label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
+.lre-contact__channel-val,
+.lre-contact__channel-link {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  color: #ffffff;
+  line-height: 1.6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin: 0;
+}
+
+.lre-contact__channel-link:hover {
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-contact__fiduciary-box {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: rgba(197, 160, 71, 0.04);
+  border: 1px solid rgba(197, 160, 71, 0.2);
+  border-radius: 4px;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.lre-contact__fiduciary-shield {
+  width: 20px;
+  height: 20px;
+  color: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lre-contact__fiduciary-text {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  margin: 0;
+}
+
+.lre-contact__territories {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
+}
+
+.lre-contact__territories-label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-secondary, #c5a047);
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}
+
+.lre-contact__territories-list {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+}
+
+/* ── Right Stage: Bespoke Inquiry Form Card ── */
+.lre-contact__form-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 3rem 2.75rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.lre-contact__form-header {
+  margin-bottom: 2.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1.5rem;
+}
+
+.lre-contact__form-title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: #ffffff !important;
+  margin: 0 0 0.45rem 0;
+}
+
+.lre-contact__form-sub {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lre-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.lre-contact__form-row--2cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.lre-contact__form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.lre-contact__label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  margin-bottom: 0.55rem;
+}
+
+.lre-contact__label .req {
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-contact__input,
+.lre-contact__select,
+.lre-contact__textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 0.95rem 1.15rem;
+  color: #ffffff;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.lre-contact__input:focus,
+.lre-contact__select:focus,
+.lre-contact__textarea:focus {
+  border-color: var(--color-secondary, #c5a047);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 16px rgba(197, 160, 71, 0.15);
+}
+
+.lre-contact__input::placeholder,
+.lre-contact__textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.lre-contact__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='1.5'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1.15rem center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.lre-contact__select option {
+  background: #101018;
+  color: #ffffff;
+}
+
+.lre-contact__textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+/* Area of Focus & Scale Pills */
+.lre-contact__pills-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.lre-contact__pill {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.lre-contact__pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lre-contact__pill span {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.lre-contact__pill:hover span {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.lre-contact__pill input:checked + span {
+  background: rgba(197, 160, 71, 0.12);
+  border-color: var(--color-secondary, #c5a047);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(197, 160, 71, 0.2);
+}
+
+/* Submit Action */
+.lre-contact__form-footer {
+  margin-top: 0.5rem;
+}
+
+.lre-contact__submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.15rem 2.25rem;
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2.2px;
+  font-weight: 500;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.lre-contact__submit-btn:hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #08080c !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25);
+}
+
+.lre-contact__btn-line {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.lre-contact__submit-btn:hover .lre-contact__btn-line {
+  width: 44px;
+  background: #08080c;
+}
+
+.lre-contact__btn-arrow {
+  width: 14px;
+  height: 14px;
+  stroke: #ffffff;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+}
+
+.lre-contact__submit-btn:hover .lre-contact__btn-arrow {
+  transform: translateX(4px);
+  stroke: #08080c;
+}
+
+.lre-contact__security-reassurance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.lre-contact__security-reassurance svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-secondary, #c5a047);
+}
+
+/* Feedback State */
+.lre-contact__feedback {
+  position: absolute;
+  inset: 0;
+  background: #0c0c12;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2.5rem;
+  z-index: 10;
+}
+
+.lre-contact__feedback-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(197, 160, 71, 0.12);
+  border: 1px solid var(--color-secondary, #c5a047);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-secondary, #c5a047);
+  margin: 0 auto 1.5rem auto;
+}
+
+.lre-contact__feedback-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.lre-contact__feedback-title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.45rem;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.lre-contact__feedback-text {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ── Responsive Refinements ── */
+@media (max-width: 1024px) {
+  .lre-contact__stage {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .lre-contact {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  .lre-contact__container {
+    padding: 0 16px;
+  }
+  .lre-contact__header {
+    margin-bottom: 2.25rem;
+  }
+  .lre-contact__form-row--2cols {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .lre-contact__desk-card,
+  .lre-contact__form-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lre-contact {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  .lre-contact__desk-card,
+  .lre-contact__form-card {
+    padding: 1.6rem 1.25rem;
+  }
+  .lre-contact__salon-title {
+    font-size: 1.25rem;
+  }
+  .lre-contact__form-title {
+    font-size: 1.25rem;
+  }
+  .lre-contact__submit-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.68rem;
+  }
+}
+
 

@@ -950,9 +950,11 @@ button.navbar__mobile-toggle:active,
 .lre-reviews,
 .lre-aserv,
 .lre-comm-showcase,
+.lre-contact,
 .elementor-widget-lre_reviews,
 .elementor-widget-lre_about_services,
-.elementor-widget-lre_communities_showcase {
+.elementor-widget-lre_communities_showcase,
+.elementor-widget-lre_contact {
   --color-text: #ffffff !important;
   --color-text-muted: rgba(255, 255, 255, 0.75) !important;
   --aserv-text: #ffffff !important;
@@ -970,7 +972,11 @@ button.navbar__mobile-toggle:active,
 .lre-comm-showcase .lre-comm-showcase__title,
 .lre-comm-showcase .lre-comm-showcase__title .title-mask,
 .lre-comm-showcase .lre-comm-showcase__title .title-mask > span,
-.lre-comm-showcase .lre-comm-showcase__title span {
+.lre-comm-showcase .lre-comm-showcase__title span,
+.lre-contact .lre-contact__title,
+.lre-contact .lre-contact__title .title-mask,
+.lre-contact .lre-contact__title .title-mask > span,
+.lre-contact .lre-contact__title span {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;
@@ -1118,6 +1124,12 @@ body.elementor-editor-active .lre-comm-frame__footer,
 body.elementor-editor-active .lre-comm-showcase__header,
 body.elementor-editor-active .lre-comm-showcase__filter-nav,
 body.elementor-editor-active .lre-comm-gallery,
+body.elementor-editor-active .lre-contact,
+body.elementor-editor-active .lre-contact .reveal,
+body.elementor-editor-active .lre-contact__header,
+body.elementor-editor-active .lre-contact__desk,
+body.elementor-editor-active .lre-contact__form-wrapper,
+body.elementor-editor-active .lre-contact__stage,
 .elementor-editor-active .reveal,
 .elementor-editor-preview .reveal,
 .elementor-edit-mode .reveal,
@@ -1129,7 +1141,10 @@ body.elementor-editor-active .lre-comm-gallery,
 .elementor-edit-mode .lre-comm-frame,
 .elementor-editor-active .lre-comm-frame__img,
 .elementor-editor-preview .lre-comm-frame__img,
-.elementor-edit-mode .lre-comm-frame__img {
+.elementor-edit-mode .lre-comm-frame__img,
+.elementor-editor-active .lre-contact .reveal,
+.elementor-editor-preview .lre-contact .reveal,
+.elementor-edit-mode .lre-contact .reveal {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;

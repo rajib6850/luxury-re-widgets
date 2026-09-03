@@ -275,6 +275,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'property_image'     => array(
 							'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
 						),
+						'client_avatar'      => array(
+							'url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+						),
 						'star_rating'        => 5,
 						'review_quote'       => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that protected our family privacy and secured an irreplaceable architectural masterwork without a single headline.',
 						'monogram'           => 'AV',
@@ -287,6 +290,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'property_image'     => array(
 							'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
 						),
+						'client_avatar'      => array(
+							'url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+						),
 						'star_rating'        => 5,
 						'review_quote'       => 'Selling our family estate of fifteen years required advisors who revered the home’s soul. Within three weeks, they introduced vetted international principals without a single intrusive public showing. An exceptional, sovereign execution.',
 						'monogram'           => 'MS',
@@ -298,6 +304,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'transaction_timing' => 'Cross-Jurisdictional Tax & Trust Structuring',
 						'property_image'     => array(
 							'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+						),
+						'client_avatar'      => array(
+							'url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
 						),
 						'star_rating'        => 5,
 						'review_quote'       => 'In thirty years of advising multi-generational wealth, I have rarely encountered brokers with such sophisticated mastery of trust structures, fiduciary duty, and off-market valuations. They are true counselors to elite capital.',
@@ -421,6 +430,18 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'default'   => 'rgba(255, 255, 255, 0.025)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => '--lre-rev-card-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'verified_badge_color',
+			array(
+				'label'     => __( 'Verified Badge Color (Green Trust)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#34d399',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews' => '--lre-rev-verified-green: {{VALUE}};',
 				),
 			)
 		);
@@ -555,9 +576,11 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 								<div class="lre-reviews__index-items">
 									<?php foreach ( $reviews as $idx => $r ) :
-										$name     = esc_html( $r['client_name'] ?? '' );
-										$tx_badge = esc_html( $r['transaction_badge'] ?? '' );
-										$is_first = ( 0 === $idx );
+										$name       = esc_html( $r['client_name'] ?? '' );
+										$tx_badge   = esc_html( $r['transaction_badge'] ?? '' );
+										$avatar_url = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+										$monogram   = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
+										$is_first   = ( 0 === $idx );
 										?>
 										<button type="button"
 											class="lre-reviews__tab-btn <?php echo $is_first ? 'is-active' : ''; ?>"
@@ -566,6 +589,13 @@ class LRE_Reviews_Widget extends Widget_Base {
 											aria-controls="lre-dossier-<?php echo $idx; ?>"
 											data-index="<?php echo $idx; ?>">
 											<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
+											<span class="lre-reviews__tab-avatar">
+												<?php if ( ! empty( $avatar_url ) ) : ?>
+													<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
+												<?php else : ?>
+													<span class="lre-reviews__tab-monogram"><?php echo $monogram; ?></span>
+												<?php endif; ?>
+											</span>
 											<span class="lre-reviews__tab-content">
 												<strong class="lre-reviews__tab-name"><?php echo $name; ?></strong>
 												<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
@@ -660,9 +690,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 													</div>
 												</div>
 
-												<!-- Verified Seal Badge -->
+												<!-- Verified Seal Badge (Security Green) -->
 												<div class="lre-reviews__verification-pill" title="<?php esc_attr_e( 'Verified Closing Escrow File', 'luxury-re-widgets' ); ?>">
-													<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c5a047" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+													<span class="lre-reviews__verification-dot" aria-hidden="true"></span>
+													<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 														<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
 														<path d="m9 12 2 2 4-4"/>
 													</svg>

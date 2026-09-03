@@ -7883,6 +7883,32 @@ button.lre-reviews__tab-btn.is-active,
   font-style: italic;
 }
 
+.lre-reviews__tab-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid var(--rev-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lre-reviews__tab-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lre-reviews__tab-monogram {
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--rev-gold);
+}
+
 .lre-reviews__tab-content {
   display: flex;
   flex-direction: column;
@@ -8133,17 +8159,18 @@ button.lre-reviews__tab-btn.is-active,
 }
 
 .lre-reviews__avatar {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(197, 160, 71, 0.12) !important;
-  border: 1.5px solid var(--rev-gold) !important;
+  border: 2px solid var(--rev-gold) !important;
   color: var(--rev-gold) !important;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
 }
 
 .lre-reviews__avatar img {
@@ -8180,24 +8207,37 @@ button.lre-reviews__tab-btn.is-active,
   letter-spacing: 0.5px;
 }
 
+/* Verified Badge - Security Emerald Green */
 .lre-reviews__verification-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0.45rem 0.9rem;
-  background: rgba(197, 160, 71, 0.08) !important;
-  border: 1px solid var(--rev-gold) !important;
-  border-radius: 2px;
+  padding: 0.45rem 0.95rem;
+  background: rgba(16, 185, 129, 0.09) !important;
+  border: 1px solid var(--lre-rev-verified-green, #10b981) !important;
+  border-radius: 3px;
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
-  font-size: 0.6rem;
-  font-weight: 600;
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--rev-gold) !important;
+  color: var(--lre-rev-verified-green, #34d399) !important;
   text-transform: uppercase;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.12);
+}
+
+.lre-reviews__verification-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lre-rev-verified-green, #10b981) !important;
+  box-shadow: 0 0 8px var(--lre-rev-verified-green, #34d399);
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .lre-reviews__verification-pill svg {
-  stroke: var(--rev-gold) !important;
+  stroke: var(--lre-rev-verified-green, #34d399) !important;
+  flex-shrink: 0;
 }
 
 /* Controls */

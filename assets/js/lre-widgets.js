@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
@@ -1373,6 +1373,103 @@
     };
 
     // =========================================================================
+    // 16. COMMUNITIES SHOWCASE — Real-time Lifestyle Filter & Live Enclave Search
+    // =========================================================================
+    LREWidgets.CommunitiesShowcase = {
+        init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var sections = root.querySelectorAll( '.lre-comm-showcase' );
+            if ( ! sections.length ) return;
+
+            sections.forEach( function ( section ) {
+                var filterBtns   = section.querySelectorAll( '.lre-comm-filter-btn' );
+                var searchInput  = section.querySelector( '.lre-comm-showcase__search-input' );
+                var spotlight    = section.querySelector( '.lre-comm-spotlight-wrap' );
+                var cards        = section.querySelectorAll( '.lre-comm-card' );
+                var noResults    = section.querySelector( '.lre-comm-no-results' );
+                var resetBtn     = section.querySelector( '.lre-comm-reset-btn' );
+
+                var currentFilter = 'all';
+                var currentQuery  = '';
+
+                function applyFilterAndSearch() {
+                    var visibleCount = 0;
+
+                    // Spotlight item
+                    if ( spotlight ) {
+                        var spotCat = spotlight.getAttribute( 'data-category' ) || '';
+                        var spotSearch = spotlight.getAttribute( 'data-search' ) || '';
+                        var matchesFilter = ( currentFilter === 'all' || spotCat === currentFilter );
+                        var matchesQuery  = ( ! currentQuery || spotSearch.indexOf( currentQuery ) !== -1 );
+
+                        if ( matchesFilter && matchesQuery ) {
+                            spotlight.style.display = '';
+                            visibleCount++;
+                        } else {
+                            spotlight.style.display = 'none';
+                        }
+                    }
+
+                    // Regular cards
+                    cards.forEach( function ( card ) {
+                        var cat = card.getAttribute( 'data-category' ) || '';
+                        var search = card.getAttribute( 'data-search' ) || '';
+                        var matchesFilter = ( currentFilter === 'all' || cat === currentFilter );
+                        var matchesQuery  = ( ! currentQuery || search.indexOf( currentQuery ) !== -1 );
+
+                        if ( matchesFilter && matchesQuery ) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    } );
+
+                    // Show or hide No Results state
+                    if ( noResults ) {
+                        noResults.style.display = ( visibleCount === 0 ) ? 'block' : 'none';
+                    }
+                }
+
+                // Filter tabs click
+                filterBtns.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function () {
+                        filterBtns.forEach( function ( b ) { b.classList.remove( 'is-active' ); } );
+                        btn.classList.add( 'is-active' );
+                        currentFilter = btn.getAttribute( 'data-filter' ) || 'all';
+                        applyFilterAndSearch();
+                    } );
+                } );
+
+                // Live search input
+                if ( searchInput ) {
+                    searchInput.addEventListener( 'input', function () {
+                        currentQuery = searchInput.value.trim().toLowerCase();
+                        applyFilterAndSearch();
+                    } );
+                }
+
+                // Reset button
+                if ( resetBtn ) {
+                    resetBtn.addEventListener( 'click', function () {
+                        currentFilter = 'all';
+                        currentQuery  = '';
+                        if ( searchInput ) searchInput.value = '';
+                        filterBtns.forEach( function ( b ) {
+                            if ( b.getAttribute( 'data-filter' ) === 'all' ) {
+                                b.classList.add( 'is-active' );
+                            } else {
+                                b.classList.remove( 'is-active' );
+                            }
+                        } );
+                        applyFilterAndSearch();
+                    } );
+                }
+            } );
+        }
+    };
+
+    // =========================================================================
     // ELEMENTOR HOOK BINDINGS
     // =========================================================================
     function lreBindElementorHooks() {
@@ -1380,39 +1477,41 @@
             return;
         }
 
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_header.default',         function ( $scope ) { LREWidgets.Header.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_concierge.default',      function ( $scope ) { LREWidgets.Concierge.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_hero.default',           function ( $scope ) { LREWidgets.Hero.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_about.default',          function ( $scope ) { LREWidgets.About.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_services.default',       function ( $scope ) { LREWidgets.Services.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_properties.default',     function ( $scope ) { LREWidgets.Properties.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_testimonials.default',   function ( $scope ) { LREWidgets.Testimonials.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities.default',    function ( $scope ) { LREWidgets.Communities.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_team.default',           function ( $scope ) { LREWidgets.Team.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_cta.default',            function ( $scope ) { LREWidgets.CTA.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_footer.default',         function ( $scope ) { LREWidgets.Footer.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_story.default',          function ( $scope ) { LREWidgets.Story.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_about_services.default', function ( $scope ) { LREWidgets.AboutServices.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_reviews.default',        function ( $scope ) { LREWidgets.Reviews.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_page_hero.default',      function ( $scope ) { LREWidgets.PageHero.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_header.default',               function ( $scope ) { LREWidgets.Header.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_concierge.default',            function ( $scope ) { LREWidgets.Concierge.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_hero.default',                 function ( $scope ) { LREWidgets.Hero.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_about.default',                function ( $scope ) { LREWidgets.About.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_services.default',             function ( $scope ) { LREWidgets.Services.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_properties.default',           function ( $scope ) { LREWidgets.Properties.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_testimonials.default',         function ( $scope ) { LREWidgets.Testimonials.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities.default',          function ( $scope ) { LREWidgets.Communities.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_team.default',                 function ( $scope ) { LREWidgets.Team.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_cta.default',                  function ( $scope ) { LREWidgets.CTA.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_footer.default',               function ( $scope ) { LREWidgets.Footer.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_story.default',                function ( $scope ) { LREWidgets.Story.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_about_services.default',       function ( $scope ) { LREWidgets.AboutServices.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_reviews.default',              function ( $scope ) { LREWidgets.Reviews.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_page_hero.default',            function ( $scope ) { LREWidgets.PageHero.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities_showcase.default', function ( $scope ) { LREWidgets.CommunitiesShowcase.init( $scope ); } );
     }
 
     // Auto-run on DOM ready
     function lreInitAllWidgets() {
         LREWidgets.initReveals();
         LREWidgets.initImageZoom();
-        if ( LREWidgets.Header )        LREWidgets.Header.init();
-        if ( LREWidgets.Hero )          LREWidgets.Hero.init();
-        if ( LREWidgets.Properties )    LREWidgets.Properties.init();
-        if ( LREWidgets.Testimonials )  LREWidgets.Testimonials.init();
-        if ( LREWidgets.Communities )   LREWidgets.Communities.init();
-        if ( LREWidgets.Team )          LREWidgets.Team.init();
-        if ( LREWidgets.CTA )           LREWidgets.CTA.init();
-        if ( LREWidgets.Concierge )     LREWidgets.Concierge.init();
-        if ( LREWidgets.Story )         LREWidgets.Story.init();
-        if ( LREWidgets.AboutServices ) LREWidgets.AboutServices.init();
-        if ( LREWidgets.Reviews )       LREWidgets.Reviews.init();
-        if ( LREWidgets.PageHero )      LREWidgets.PageHero.init();
+        if ( LREWidgets.Header )              LREWidgets.Header.init();
+        if ( LREWidgets.Hero )                LREWidgets.Hero.init();
+        if ( LREWidgets.Properties )          LREWidgets.Properties.init();
+        if ( LREWidgets.Testimonials )        LREWidgets.Testimonials.init();
+        if ( LREWidgets.Communities )         LREWidgets.Communities.init();
+        if ( LREWidgets.Team )                LREWidgets.Team.init();
+        if ( LREWidgets.CTA )                 LREWidgets.CTA.init();
+        if ( LREWidgets.Concierge )           LREWidgets.Concierge.init();
+        if ( LREWidgets.Story )               LREWidgets.Story.init();
+        if ( LREWidgets.AboutServices )       LREWidgets.AboutServices.init();
+        if ( LREWidgets.Reviews )             LREWidgets.Reviews.init();
+        if ( LREWidgets.PageHero )            LREWidgets.PageHero.init();
+        if ( LREWidgets.CommunitiesShowcase ) LREWidgets.CommunitiesShowcase.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

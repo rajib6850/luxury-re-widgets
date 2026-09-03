@@ -329,7 +329,11 @@ button.btn,
 .lre-aserv__mono-action .btn:hover span,
 .lre-aserv__btn:hover span,
 .cta__buttons .btn:hover span,
-.cta__buttons a.btn:hover span {
+.cta__buttons a.btn:hover span,
+.lre-comm-spotlight__action .btn:hover span,
+.lre-comm-spotlight__action a.btn:hover span,
+.lre-comm-no-results .btn:hover span,
+.lre-comm-no-results a.btn:hover span {
   color: #0a0a0a !important;
 }
 
@@ -338,7 +342,9 @@ button.btn,
 .lre-aserv .btn:hover svg,
 .lre-aserv a.btn:hover svg,
 .lre-aserv__mono-action .btn:hover svg,
-.lre-aserv__btn:hover svg {
+.lre-aserv__btn:hover svg,
+.lre-comm-spotlight__action .btn:hover svg,
+.lre-comm-spotlight__action a.btn:hover svg {
   stroke: #0a0a0a !important;
   transform: translateX(5px) !important;
 }
@@ -943,8 +949,10 @@ button.navbar__mobile-toggle:active,
 /* ─── DARK LUXURY SECTIONS: PURE WHITE TITLES & HIGH-CONTRAST TEXT GUARANTEE ─── */
 .lre-reviews,
 .lre-aserv,
+.lre-comm-showcase,
 .elementor-widget-lre_reviews,
-.elementor-widget-lre_about_services {
+.elementor-widget-lre_about_services,
+.elementor-widget-lre_communities_showcase {
   --color-text: #ffffff !important;
   --color-text-muted: rgba(255, 255, 255, 0.75) !important;
   --aserv-text: #ffffff !important;
@@ -958,7 +966,11 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__title,
 .lre-aserv .lre-aserv__title .title-mask,
 .lre-aserv .lre-aserv__title .title-mask > span,
-.lre-aserv .lre-aserv__title span {
+.lre-aserv .lre-aserv__title span,
+.lre-comm-showcase .lre-comm-showcase__title,
+.lre-comm-showcase .lre-comm-showcase__title .title-mask,
+.lre-comm-showcase .lre-comm-showcase__title .title-mask > span,
+.lre-comm-showcase .lre-comm-showcase__title span {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;

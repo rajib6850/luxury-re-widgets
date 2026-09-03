@@ -31,6 +31,8 @@ class LRE_Widgets_Loader {
 		'class-lre-team-widget.php'           => 'LRE_Team_Widget',
 		'class-lre-about-services-widget.php' => 'LRE_About_Services_Widget',
 		'class-lre-reviews-widget.php'        => 'LRE_Reviews_Widget',
+		// Communities Page Suite
+		'class-lre-communities-showcase-widget.php' => 'LRE_Communities_Showcase_Widget',
 		// Universal
 		'class-lre-page-hero-widget.php'      => 'LRE_Page_Hero_Widget',
 	);

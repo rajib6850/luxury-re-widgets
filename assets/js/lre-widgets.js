@@ -17,10 +17,13 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-press__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
+            if ( ! el || el.classList.contains( 'revealed' ) ) {
+                return;
+            }
             el.classList.add( 'revealed' );
             var nestedMasks = el.querySelectorAll ? el.querySelectorAll( '.title-mask' ) : [];
             if ( nestedMasks && nestedMasks.length ) {
@@ -31,7 +34,7 @@
                         spans.forEach( function ( span ) {
                             span.style.animation = 'none';
                             void span.offsetWidth;
-                            span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) ' + ( 0.12 + mIdx * 0.16 ) + 's forwards';
+                            span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) ' + ( 0.18 + mIdx * 0.16 ) + 's forwards';
                         } );
                     }
                 } );
@@ -42,13 +45,13 @@
                     spans.forEach( function ( span ) {
                         span.style.animation = 'none';
                         void span.offsetWidth;
-                        span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.12s forwards';
+                        span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.18s forwards';
                     } );
                 }
             }
         };
 
-                // Immediate smooth reveal for Hero section on page load / element ready
+        // Immediate smooth reveal for Hero section on page load / element ready
         var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group' );
         heroEls.forEach( function ( el ) {
             setTimeout( function () {
@@ -66,7 +69,7 @@
                 } );
             }, {
                 threshold: 0.08,
-                rootMargin: '0px 0px -20px 0px'
+                rootMargin: '0px 0px -40px 0px'
             } );
 
             revealEls.forEach( function ( el ) {

@@ -2868,22 +2868,22 @@ button.btn {
 
 /* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (Page Hero & Hero Mask Parity) ── */
 .title-mask {
-  display: block;
-  width: 100%;
-  overflow: hidden;
+  display: block !important;
+  width: 100% !important;
+  overflow: hidden !important;
   margin: 0 !important;
   padding: 0 0 0.18em 0 !important;
-  line-height: inherit;
-  box-sizing: border-box;
+  line-height: inherit !important;
+  box-sizing: border-box !important;
 }
 
 .title-mask > span {
-  display: block;
+  display: block !important;
   transform: translateY(115%);
   margin: 0 !important;
   padding: 0 0 0.18em 0 !important;
-  line-height: inherit;
-  box-sizing: border-box;
+  line-height: inherit !important;
+  box-sizing: border-box !important;
   will-change: transform;
 }
 
@@ -2897,20 +2897,107 @@ button.btn {
 .lre-aserv__title br,
 .lre-reviews__title br,
 .lre-press__title br {
-  display: none;
+  display: none !important;
 }
 
+/* Header container stabilization — keeps background/container solid so inner title mask is 100% visible */
+.lre-story__header.reveal,
+.lre-team__header.reveal,
+.lre-aserv__header.reveal,
+.lre-reviews__header.reveal,
+.lre-press__header.reveal,
+.about__text.reveal,
+.services__header.reveal,
+.listings__header.reveal,
+.testimonial__inner.reveal,
+.communities__header-text.reveal,
+.cta__content.reveal,
+.footer__main.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Eyebrow fade-up in section headers */
+.lre-story__eyebrow-wrap,
+.lre-team__eyebrow-wrap,
+.lre-aserv__eyebrow-wrap,
+.lre-reviews__eyebrow-wrap,
+.lre-press__eyebrow-wrap,
+.about__text .section-label,
+.services__eyebrow,
+.listings__header .section-label,
+.testimonial__inner .section-label,
+.communities__header-text .section-label,
+.cta__content .section-label {
+  opacity: 0;
+}
+
+.revealed .lre-story__eyebrow-wrap,
+.revealed .lre-team__eyebrow-wrap,
+.revealed .lre-aserv__eyebrow-wrap,
+.revealed .lre-reviews__eyebrow-wrap,
+.revealed .lre-press__eyebrow-wrap,
+.revealed.lre-story__header .lre-story__eyebrow-wrap,
+.revealed.lre-team__header .lre-team__eyebrow-wrap,
+.revealed.lre-aserv__header .lre-aserv__eyebrow-wrap,
+.revealed.lre-reviews__header .lre-reviews__eyebrow-wrap,
+.revealed.lre-press__header .lre-press__eyebrow-wrap,
+.revealed .section-label,
+.revealed .services__eyebrow {
+  animation: heroFadeUp 0.9s cubic-bezier(0.16, 0.84, 0.44, 1) 0.1s forwards !important;
+}
+
+/* Title mask rise-up animation on reveal */
 .reveal.revealed .title-mask > span,
 .revealed .title-mask > span,
 .revealed.title-mask > span,
-.title-mask.revealed > span {
-  animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.12s forwards !important;
+.title-mask.revealed > span,
+.lre-story__header.revealed .title-mask > span,
+.lre-team__header.revealed .title-mask > span,
+.lre-aserv__header.revealed .title-mask > span,
+.lre-reviews__header.revealed .title-mask > span,
+.lre-press__header.revealed .title-mask > span,
+.about__text.revealed .title-mask > span,
+.services__header.revealed .title-mask > span,
+.listings__header.revealed .title-mask > span,
+.testimonial__inner.revealed .title-mask > span,
+.communities__header-text.revealed .title-mask > span,
+.cta__content.revealed .title-mask > span,
+.footer__main.revealed .title-mask > span {
+  animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.18s forwards !important;
 }
 
-.title-mask:nth-of-type(1) > span { animation-delay: 0.12s !important; }
-.title-mask:nth-of-type(2) > span { animation-delay: 0.28s !important; }
-.title-mask:nth-of-type(3) > span { animation-delay: 0.44s !important; }
-.title-mask:nth-of-type(4) > span { animation-delay: 0.60s !important; }
+.title-mask:nth-of-type(1) > span { animation-delay: 0.18s !important; }
+.title-mask:nth-of-type(2) > span { animation-delay: 0.34s !important; }
+.title-mask:nth-of-type(3) > span { animation-delay: 0.50s !important; }
+.title-mask:nth-of-type(4) > span { animation-delay: 0.66s !important; }
+
+/* Descriptions and dividers fade-up after title */
+.lre-team__desc,
+.lre-aserv__desc,
+.lre-press__desc,
+.about__description,
+.listings__description,
+.cta__description,
+.lre-story__divider,
+.footer__brand-sub {
+  opacity: 0;
+}
+
+.revealed .lre-team__desc,
+.revealed .lre-aserv__desc,
+.revealed .lre-press__desc,
+.revealed.lre-team__header .lre-team__desc,
+.revealed.lre-aserv__header .lre-aserv__desc,
+.revealed.lre-press__header .lre-press__desc,
+.revealed .about__description,
+.revealed .listings__description,
+.revealed .cta__description,
+.revealed .lre-story__divider,
+.revealed .footer__brand-sub {
+  animation: heroFadeUp 1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.48s forwards !important;
+}
 
 /* â”€â”€ 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) â”€â”€ */
 .image-reveal {

@@ -2866,29 +2866,38 @@ button.btn {
   transform: none !important;
 }
 
-/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (Hero Mask Parity) ── */
+/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (Page Hero & Hero Mask Parity) ── */
 .title-mask {
-  display: inline-block;
-  max-width: 100%;
+  display: block;
+  width: 100%;
   overflow: hidden;
   margin: 0 !important;
   padding: 0 0 0.18em 0 !important;
   line-height: inherit;
-  vertical-align: bottom;
   box-sizing: border-box;
 }
 
 .title-mask > span {
-  display: inline-block;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  box-sizing: border-box;
+  display: block;
   transform: translateY(115%);
   margin: 0 !important;
   padding: 0 0 0.18em 0 !important;
   line-height: inherit;
+  box-sizing: border-box;
   will-change: transform;
+}
+
+/* Suppress extra line breaks between block-level title masks */
+.title-mask + br,
+.about__title br,
+.services__title br,
+.cta__title br,
+.lre-team__title br,
+.lre-story__title br,
+.lre-aserv__title br,
+.lre-reviews__title br,
+.lre-press__title br {
+  display: none;
 }
 
 .reveal.revealed .title-mask > span,

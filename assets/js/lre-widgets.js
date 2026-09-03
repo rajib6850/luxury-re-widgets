@@ -799,6 +799,171 @@
     };
 
     // =========================================================================
+    // 10B. MEET THE TEAM CAROUSEL
+    // =========================================================================
+    LREWidgets.Team = {
+        init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            LREWidgets.initReveals( $scope );
+            LREWidgets.initImageZoom( $scope );
+
+            var teamSections = root.querySelectorAll( '.lre-team' );
+            if ( ! teamSections.length && root.classList && root.classList.contains( 'lre-team' ) ) {
+                teamSections = [ root ];
+            }
+
+            teamSections.forEach( function ( section ) {
+                var viewport = section.querySelector( '.lre-team__viewport' );
+                var track    = section.querySelector( '.lre-team__track' );
+                var prevBtn  = section.querySelector( '.lre-team__arrow--prev' );
+                var nextBtn  = section.querySelector( '.lre-team__arrow--next' );
+
+                if ( ! viewport || ! track ) return;
+                if ( track.dataset.sliderInit === 'true' ) return;
+                track.dataset.sliderInit = 'true';
+
+                var rawCards = Array.prototype.slice.call( track.children );
+                var baseCount = rawCards.length;
+                if ( baseCount === 0 ) return;
+
+                // Clone cards to ensure seamless looping
+                if ( baseCount < 6 ) {
+                    rawCards.forEach( function ( card ) {
+                        track.appendChild( card.cloneNode( true ) );
+                    } );
+                    if ( baseCount <= 3 ) {
+                        rawCards.forEach( function ( card ) {
+                            track.appendChild( card.cloneNode( true ) );
+                        } );
+                    }
+                }
+
+                var isAnimating = false;
+                var animationTimer = null;
+
+                var getStep = function () {
+                    var card = track.querySelector( '.lre-team__card' );
+                    if ( ! card ) return 360;
+                    var trackStyle = window.getComputedStyle( track );
+                    var gap = parseFloat( trackStyle.gap ) || 28;
+                    return card.offsetWidth + gap;
+                };
+
+                var slideNext = function () {
+                    if ( isAnimating ) return;
+                    isAnimating = true;
+                    clearTimeout( animationTimer );
+
+                    var step = getStep();
+                    track.style.transition = 'transform 0.48s cubic-bezier(0.16, 1, 0.3, 1)';
+                    track.style.transform = 'translateX(-' + step + 'px)';
+
+                    animationTimer = setTimeout( function () {
+                        if ( track.firstElementChild ) {
+                            track.appendChild( track.firstElementChild );
+                        }
+                        track.style.transition = 'none';
+                        track.style.transform = 'translateX(0)';
+                        void track.offsetHeight;
+                        isAnimating = false;
+                    }, 490 );
+                };
+
+                var slidePrev = function () {
+                    if ( isAnimating ) return;
+                    isAnimating = true;
+                    clearTimeout( animationTimer );
+
+                    var step = getStep();
+                    if ( track.lastElementChild ) {
+                        track.insertBefore( track.lastElementChild, track.firstElementChild );
+                    }
+                    track.style.transition = 'none';
+                    track.style.transform = 'translateX(-' + step + 'px)';
+                    void track.offsetHeight;
+
+                    requestAnimationFrame( function () {
+                        track.style.transition = 'transform 0.48s cubic-bezier(0.16, 1, 0.3, 1)';
+                        track.style.transform = 'translateX(0)';
+                    } );
+
+                    animationTimer = setTimeout( function () {
+                        track.style.transition = 'none';
+                        isAnimating = false;
+                    }, 490 );
+                };
+
+                if ( nextBtn ) {
+                    nextBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        slideNext();
+                    } );
+                }
+
+                if ( prevBtn ) {
+                    prevBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        slidePrev();
+                    } );
+                }
+
+                // Touch / Swipe
+                var startX = 0;
+                var currentX = 0;
+                var isDragging = false;
+
+                viewport.addEventListener( 'touchstart', function ( e ) {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                }, { passive: true } );
+
+                viewport.addEventListener( 'touchmove', function ( e ) {
+                    if ( ! isDragging ) return;
+                    currentX = e.touches[0].clientX;
+                }, { passive: true } );
+
+                viewport.addEventListener( 'touchend', function () {
+                    if ( ! isDragging ) return;
+                    isDragging = false;
+                    var diff = startX - currentX;
+                    if ( Math.abs( diff ) > 40 ) {
+                        if ( diff > 0 ) {
+                            slideNext();
+                        } else {
+                            slidePrev();
+                        }
+                    }
+                } );
+
+                // Autoplay
+                var autoplay = viewport.dataset.autoplay === 'yes';
+                var interval = parseInt( viewport.dataset.interval, 10 ) || 5000;
+                var autoIntervalId = null;
+
+                var startAutoplay = function () {
+                    if ( ! autoplay || autoIntervalId ) return;
+                    autoIntervalId = setInterval( function () {
+                        slideNext();
+                    }, interval );
+                };
+
+                var stopAutoplay = function () {
+                    if ( autoIntervalId ) {
+                        clearInterval( autoIntervalId );
+                        autoIntervalId = null;
+                    }
+                };
+
+                if ( autoplay ) {
+                    startAutoplay();
+                    section.addEventListener( 'mouseenter', stopAutoplay );
+                    section.addEventListener( 'mouseleave', startAutoplay );
+                }
+            } );
+        }
+    };
+
+    // =========================================================================
     // 11. CTA & APPOINTMENT MODAL
     // =========================================================================
     LREWidgets.CTA = {
@@ -834,6 +999,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_properties.default',   function ( $scope ) { LREWidgets.Properties.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_testimonials.default', function ( $scope ) { LREWidgets.Testimonials.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities.default',  function ( $scope ) { LREWidgets.Communities.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_team.default',         function ( $scope ) { LREWidgets.Team.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_cta.default',          function ( $scope ) { LREWidgets.CTA.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_footer.default',       function ( $scope ) { LREWidgets.Footer.init( $scope ); } );
     }
@@ -847,6 +1013,7 @@
         if ( LREWidgets.Properties )   LREWidgets.Properties.init();
         if ( LREWidgets.Testimonials ) LREWidgets.Testimonials.init();
         if ( LREWidgets.Communities )  LREWidgets.Communities.init();
+        if ( LREWidgets.Team )         LREWidgets.Team.init();
         if ( LREWidgets.CTA )          LREWidgets.CTA.init();
         if ( LREWidgets.Concierge )    LREWidgets.Concierge.init();
     }

@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__channels-monolith, .lre-sguide__chronology-section, .lre-sguide__valuation-console' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }
@@ -1507,6 +1507,31 @@
         }
     };
 
+    // -------------------------------------------------------------------------
+    // SELLER'S GUIDE & ESTATE DISPOSITION WIDGET
+    // -------------------------------------------------------------------------
+    LREWidgets.SellersGuide = {
+        init: function ( $scope ) {
+            var container = $scope && $scope.length ? $scope[0] : document;
+            var sguideSections = container.querySelectorAll( '.lre-sguide' );
+
+            sguideSections.forEach( function ( section ) {
+                var pillGroups = section.querySelectorAll( '.lre-sguide__pills' );
+                pillGroups.forEach( function ( group ) {
+                    var pills = group.querySelectorAll( '.lre-sguide__pill' );
+                    pills.forEach( function ( pill ) {
+                        pill.addEventListener( 'click', function () {
+                            pills.forEach( function ( p ) {
+                                p.classList.remove( 'active' );
+                            } );
+                            this.classList.add( 'active' );
+                        } );
+                    } );
+                } );
+            } );
+        }
+    };
+
     // =========================================================================
     // ELEMENTOR HOOK BINDINGS
     // =========================================================================
@@ -1533,6 +1558,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities_showcase.default', function ( $scope ) { LREWidgets.CommunitiesShowcase.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_contact.default',              function ( $scope ) { LREWidgets.Contact.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_buying_guide.default',         function ( $scope ) { LREWidgets.BuyingGuide.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sellers_guide.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
     }
 
     // Auto-run on DOM ready
@@ -1554,6 +1580,7 @@
         if ( LREWidgets.CommunitiesShowcase ) LREWidgets.CommunitiesShowcase.init();
         if ( LREWidgets.Contact )             LREWidgets.Contact.init();
         if ( LREWidgets.BuyingGuide )         LREWidgets.BuyingGuide.init();
+        if ( LREWidgets.SellersGuide )        LREWidgets.SellersGuide.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

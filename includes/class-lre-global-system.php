@@ -1133,9 +1133,14 @@ body.elementor-editor-active .lre-contact__stage,
 body.elementor-editor-active .lre-guide,
 body.elementor-editor-active .lre-guide .reveal,
 body.elementor-editor-active .lre-guide__header,
-body.elementor-editor-active .lre-guide__principles-grid,
 body.elementor-editor-active .lre-guide__roadmap,
 body.elementor-editor-active .lre-guide__dossier-console,
+body.elementor-editor-active .lre-sguide,
+body.elementor-editor-active .lre-sguide .reveal,
+body.elementor-editor-active .lre-sguide__header,
+body.elementor-editor-active .lre-sguide__channels-monolith,
+body.elementor-editor-active .lre-sguide__chronology-section,
+body.elementor-editor-active .lre-sguide__valuation-console,
 .elementor-editor-active .reveal,
 .elementor-editor-preview .reveal,
 .elementor-edit-mode .reveal,
@@ -1153,7 +1158,10 @@ body.elementor-editor-active .lre-guide__dossier-console,
 .elementor-edit-mode .lre-contact .reveal,
 .elementor-editor-active .lre-guide .reveal,
 .elementor-editor-preview .lre-guide .reveal,
-.elementor-edit-mode .lre-guide .reveal {
+.elementor-edit-mode .lre-guide .reveal,
+.elementor-editor-active .lre-sguide .reveal,
+.elementor-editor-preview .lre-sguide .reveal,
+.elementor-edit-mode .lre-sguide .reveal {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;

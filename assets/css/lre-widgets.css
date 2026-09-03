@@ -9723,6 +9723,13 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 
 /* ── Responsive Refinements ── */
 @media (max-width: 1024px) {
+  .lre-comm-showcase {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+  .lre-comm-showcase__container {
+    padding: 0 24px;
+  }
   .lre-comm-gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
@@ -9733,19 +9740,89 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 @media (max-width: 767px) {
+  .lre-comm-showcase {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  .lre-comm-showcase__container {
+    padding: 0 16px;
+  }
+  .lre-comm-showcase__header {
+    margin-bottom: 1.5rem;
+  }
+  .lre-comm-showcase__filter-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 0.25rem 0.5rem 0.75rem 0.5rem;
+    margin: 1.5rem -16px 2rem -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .lre-comm-showcase__filter-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .lre-comm-nav-sep {
+    display: none;
+  }
+  .lre-comm-nav-item {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .lre-comm-nav-item.is-active {
+    background: rgba(197, 160, 71, 0.18);
+    border-color: #c5a047;
+    color: #ffffff;
+  }
+  .lre-comm-nav-item.is-active::after {
+    display: none;
+  }
   .lre-comm-gallery {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .lre-comm-frame {
+    aspect-ratio: 4 / 5;
+  }
+  .lre-comm-frame__link {
+    padding: 1.75rem 1.4rem;
+  }
+  .lre-comm-frame__name {
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lre-comm-showcase {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  .lre-comm-gallery {
     gap: 1.25rem;
   }
   .lre-comm-frame {
     aspect-ratio: 3 / 4;
   }
   .lre-comm-frame__link {
-    padding: 1.75rem 1.5rem;
+    padding: 1.4rem 1.15rem;
   }
-  .lre-comm-showcase__filter-nav {
-    gap: 0.85rem;
-    margin: 2rem auto 2.5rem auto;
+  .lre-comm-frame__name {
+    font-size: 1.3rem;
+  }
+  .lre-comm-frame__tagline {
+    font-size: 0.8rem;
+    margin-bottom: 0.85rem;
   }
 }
 

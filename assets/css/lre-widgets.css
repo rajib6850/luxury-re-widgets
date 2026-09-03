@@ -6551,14 +6551,15 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
 /* Subtle Architectural Watermark (Consistent with About & Team sections) */
 .lre-aserv__watermark {
   position: absolute;
-  top: 3.5rem;
+  top: 2.8rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
-  font-family: var(--font-serif);
-  font-size: var(--font-size-watermark);
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(3.2rem, 7.5vw, 6.2rem);
   font-weight: 400;
-  letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.022);
+  letter-spacing: 0.16em;
+  margin-right: -0.16em;
+  color: rgba(255, 255, 255, 0.024);
   text-transform: uppercase;
   user-select: none;
   pointer-events: none;
@@ -6566,6 +6567,9 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   line-height: 1;
   white-space: nowrap;
   text-align: center;
+  width: auto;
+  max-width: 95vw;
+  overflow: hidden;
   will-change: transform;
 }
 
@@ -7387,6 +7391,12 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   .lre-aserv__container {
     padding: 0 2rem;
   }
+  .lre-aserv__watermark {
+    font-size: clamp(2.8rem, 8vw, 4.6rem);
+    letter-spacing: 0.14em;
+    margin-right: -0.14em;
+    top: 2rem;
+  }
   .lre-aserv__grid--col-3,
   .lre-aserv__grid--col-4 {
     grid-template-columns: repeat(2, 1fr);
@@ -7412,6 +7422,12 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     padding: 0 1.25rem;
     width: 100%;
     max-width: 100%;
+  }
+  .lre-aserv__watermark {
+    font-size: clamp(2rem, 8.5vw, 3.2rem);
+    letter-spacing: 0.1em;
+    margin-right: -0.1em;
+    top: 1.8rem;
   }
   .lre-aserv__header {
     margin-bottom: 3.5rem;
@@ -7462,6 +7478,12 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   .lre-aserv__container {
     padding: 0 1rem;
   }
+  .lre-aserv__watermark {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+    letter-spacing: 0.08em;
+    margin-right: -0.08em;
+    top: 1.4rem;
+  }
   .lre-aserv__monolith {
     min-height: 420px;
   }
@@ -7499,6 +7521,12 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     font-size: 0.85rem;
     padding: 0.3rem 0.6rem;
   }
+}
+
+body.elementor-editor-active .lre-aserv__watermark {
+  left: 50% !important;
+  transform: translate3d(-50%, 0, 0) !important;
+  text-align: center !important;
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

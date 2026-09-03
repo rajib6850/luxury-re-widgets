@@ -1200,9 +1200,8 @@
                         if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
                             var progress = ( winH - rect.top ) / ( winH + rect.height );
                             var isMobile = window.innerWidth <= 768;
-                            var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                            watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 32 );
+                            watermark.style.transform = 'translate3d(-50%, ' + yShift + 'px, 0)';
                         }
                     };
                     window.addEventListener( 'scroll', updateAservParallax, { passive: true } );

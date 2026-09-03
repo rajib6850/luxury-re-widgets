@@ -430,6 +430,39 @@ class LRE_About_Services_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'watermark_top_offset',
+			array(
+				'label'      => __( 'Top Offset', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'range'      => array(
+					'px'  => array(
+						'min'  => 0,
+						'max'  => 200,
+						'step' => 2,
+					),
+					'rem' => array(
+						'min'  => 0,
+						'max'  => 15,
+						'step' => 0.5,
+					),
+					'%'   => array(
+						'min'  => 0,
+						'max'  => 30,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'rem',
+					'size' => 2.8,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-aserv__watermark' => 'top: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

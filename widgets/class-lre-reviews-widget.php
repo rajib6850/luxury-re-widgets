@@ -324,7 +324,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Reviews and Testimonials', 'luxury-re-widgets' ); ?>">
 			<div class="lre-reviews__container">
 				<!-- Section Header -->
-				<div class="lre-reviews__header">
+				<div class="lre-reviews__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-reviews__eyebrow-wrap">
 							<span class="lre-reviews__gold-bar"></span>
@@ -355,7 +355,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 							$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
 							$monogram    = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
 							?>
-							<article class="lre-reviews__card">
+							<article class="lre-reviews__card reveal">
 								<!-- Top metadata: Transaction Badge & Star Rating -->
 								<div class="lre-reviews__card-meta">
 									<?php if ( ! empty( $tx_badge ) ) : ?>

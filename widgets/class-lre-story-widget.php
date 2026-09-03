@@ -520,7 +520,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 			<div class="lre-story__container">
 				<!-- Header block -->
-				<div class="lre-story__header">
+				<div class="lre-story__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-story__eyebrow-wrap">
 							<span class="lre-story__gold-bar"></span>
@@ -542,7 +542,7 @@ class LRE_Story_Widget extends Widget_Base {
 				<!-- Asymmetric Grid: Story Text + Layered Images -->
 				<div class="lre-story__grid">
 					<!-- Text Column -->
-					<div class="lre-story__text-col">
+					<div class="lre-story__text-col reveal">
 						<?php if ( ! empty( $lead ) ) : ?>
 							<p class="lre-story__lead"><?php echo $lead; ?></p>
 						<?php endif; ?>
@@ -577,13 +577,13 @@ class LRE_Story_Widget extends Widget_Base {
 					<div class="lre-story__media-col">
 						<div class="lre-story__img-composition">
 							<!-- Main Photo -->
-							<div class="lre-story__img-main">
+							<div class="lre-story__img-main image-reveal">
 								<img src="<?php echo $primary_img; ?>" alt="<?php esc_attr_e( 'Our Architectural Legacy', 'luxury-re-widgets' ); ?>" loading="lazy">
 							</div>
 
 							<!-- Overlapping Secondary Detail Photo -->
 							<?php if ( ! empty( $secondary_img ) ) : ?>
-								<div class="lre-story__img-secondary">
+								<div class="lre-story__img-secondary image-reveal delay-2">
 									<img src="<?php echo $secondary_img; ?>" alt="<?php esc_attr_e( 'Architectural Craftsmanship', 'luxury-re-widgets' ); ?>" loading="lazy">
 								</div>
 							<?php endif; ?>
@@ -601,7 +601,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 				<!-- Milestone Metrics Bar -->
 				<?php if ( ! empty( $milestones ) ) : ?>
-					<div class="lre-story__stats-wrap">
+					<div class="lre-story__stats-wrap reveal">
 						<div class="lre-story__stats-grid">
 							<?php foreach ( $milestones as $item ) : ?>
 								<div class="lre-story__stat-item">

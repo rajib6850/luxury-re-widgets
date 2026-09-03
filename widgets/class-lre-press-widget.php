@@ -397,7 +397,7 @@ class LRE_Press_Widget extends Widget_Base {
 		<section class="lre-press" id="press-media" aria-label="<?php esc_attr_e( 'Press and Media Mentions', 'luxury-re-widgets' ); ?>">
 			<div class="lre-press__container">
 				<!-- Header -->
-				<div class="lre-press__header">
+				<div class="lre-press__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-press__eyebrow-wrap">
 							<span class="lre-press__gold-bar"></span>
@@ -416,7 +416,7 @@ class LRE_Press_Widget extends Widget_Base {
 
 				<!-- Publication Logos Marquee / Grid -->
 				<?php if ( ! empty( $logos ) ) : ?>
-					<div class="lre-press__logos-wrap">
+					<div class="lre-press__logos-wrap reveal">
 						<div class="lre-press__logos-grid">
 							<?php foreach ( $logos as $l ) :
 								$pname = esc_html( $l['pub_name'] ?? '' );
@@ -445,7 +445,7 @@ class LRE_Press_Widget extends Widget_Base {
 							$link_txt = esc_html( $art['article_link_text'] ?? 'Read Full Feature' );
 							$link_url = ! empty( $art['article_url']['url'] ) ? esc_url( $art['article_url']['url'] ) : '#';
 							?>
-							<article class="lre-press__card">
+							<article class="lre-press__card reveal">
 								<div class="lre-press__card-inner">
 									<?php if ( ! empty( $pub ) ) : ?>
 										<div class="lre-press__tag"><?php echo $pub; ?></div>
@@ -471,7 +471,7 @@ class LRE_Press_Widget extends Widget_Base {
 
 				<!-- Accolades Shelf -->
 				<?php if ( ! empty( $awards ) ) : ?>
-					<div class="lre-press__awards-wrap">
+					<div class="lre-press__awards-wrap reveal">
 						<div class="lre-press__awards-title-wrap">
 							<span class="lre-press__awards-title"><?php esc_html_e( 'Selected Industry Honors', 'luxury-re-widgets' ); ?></span>
 						</div>

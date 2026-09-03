@@ -1,13 +1,13 @@
 /* ============================================================
-   LUXURY REAL ESTATE — MASTER STYLESHEET
+   LUXURY REAL ESTATE â€” MASTER STYLESHEET
    Ultra-premium, editorial-grade design system
    ============================================================ */
 
-/* ── 0. CSS CUSTOM PROPERTIES (Design Tokens & Elementor Global Bridge) ── */
+/* â”€â”€ 0. CSS CUSTOM PROPERTIES (Design Tokens & Elementor Global Bridge) â”€â”€ */
 :root,
 body,
 [class*="elementor-kit-"] {
-  /* Colors ── Connected to Elementor Global Colors with Luxury Fallbacks */
+  /* Colors â”€â”€ Connected to Elementor Global Colors with Luxury Fallbacks */
   --color-primary: var(--e-global-color-primary, #0a0a0a);
   --color-secondary: var(--e-global-color-secondary, #c5a047);
   --color-secondary-light: var(--e-global-color-accent, #d4b565);
@@ -28,7 +28,7 @@ body,
   --color-overlay: rgba(8, 8, 12, 0.6);
   --color-overlay-heavy: rgba(5, 5, 8, 0.82);
 
-  /* Typography Families ── Connected to Elementor Global Fonts with Luxury Fallbacks */
+  /* Typography Families â”€â”€ Connected to Elementor Global Fonts with Luxury Fallbacks */
   --font-serif: var(--e-global-typography-primary-font-family, 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif);
   --font-sans: var(--e-global-typography-text-font-family, 'Montserrat', 'Helvetica Neue', sans-serif);
   --font-accent: var(--e-global-typography-accent-font-family, 'Cormorant Garamond', 'Georgia', serif);
@@ -47,7 +47,7 @@ body,
   --font-size-card-price: 1.28rem;
   --font-size-watermark: clamp(5.5rem, 13vw, 11.5rem);
 
-  /* Spacing — generous whitespace for luxury feel */
+  /* Spacing â€” generous whitespace for luxury feel */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -62,7 +62,7 @@ body,
   --container-wide: 1440px;
   --nav-height: 64px;
 
-  /* Transitions — smooth and elegant */
+  /* Transitions â€” smooth and elegant */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,7 +79,7 @@ body,
   --z-modal: 400;
 }
 
-/* ── 1. RESET & BASE ─────────────────────────────────────── */
+/* â”€â”€ 1. RESET & BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 *,
 *::before,
 *::after {
@@ -110,7 +110,7 @@ body.menu-open {
   overflow: hidden;
 }
 
-/* ── Luxury Floating Back to Top Capsule ─────────────────── */
+/* â”€â”€ Luxury Floating Back to Top Capsule â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .back-to-top {
   position: fixed;
   bottom: 2.2rem;
@@ -213,7 +213,7 @@ ol {
   top: 0;
 }
 
-/* ── 2. TYPOGRAPHY (Elementor Theme Style & Site Settings Cascade) ──── */
+/* â”€â”€ 2. TYPOGRAPHY (Elementor Theme Style & Site Settings Cascade) â”€â”€â”€â”€ */
 h1,
 h2,
 h3,
@@ -259,7 +259,7 @@ p {
   color: var(--color-secondary);
 }
 
-/* ── 3. LAYOUT UTILITIES ─────────────────────────────────── */
+/* â”€â”€ 3. LAYOUT UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -271,7 +271,7 @@ p {
   max-width: var(--container-wide);
 }
 
-/* ── 3b. SECTION LABELS / EYEBROWS ──────────────────────── */
+/* â”€â”€ 3b. SECTION LABELS / EYEBROWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .section-label {
   display: inline-block;
   font-family: var(--font-sans);
@@ -287,7 +287,7 @@ p {
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* ── 4. BUTTONS — Premium feel ───────────────────────────── */
+/* â”€â”€ 4. BUTTONS â€” Premium feel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn,
 a.btn,
 button.btn {
@@ -421,7 +421,7 @@ button.btn {
   transform: scale(0.97);
 }
 
-/* ── 5. TOP NAVIGATION BAR ───────────────────────────────── */
+/* â”€â”€ 5. TOP NAVIGATION BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .navbar {
   position: fixed;
   top: 0;
@@ -504,7 +504,7 @@ button.btn {
   transform: translateY(1px);
 }
 
-/* ── Navbar Dropdown System ── */
+/* â”€â”€ Navbar Dropdown System â”€â”€ */
 .navbar__dropdown {
   position: relative;
   padding: 0.5rem 0;
@@ -711,7 +711,7 @@ button.btn {
   width: 100%;
 }
 
-/* ── 6. SIDE MENU — 5 Column boxes with separate images ──── */
+/* â”€â”€ 6. SIDE MENU â€” 5 Column boxes with separate images â”€â”€â”€â”€ */
 .side-menu {
   position: fixed;
   inset: 0;
@@ -730,7 +730,7 @@ button.btn {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Close button — circle X icon + text */
+/* Close button â€” circle X icon + text */
 .side-menu__close {
   position: absolute;
   top: 1.6rem;
@@ -771,14 +771,14 @@ button.btn {
   height: 22px;
 }
 
-/* ── Columns container — 5 columns side by side ─────────── */
+/* â”€â”€ Columns container â€” 5 columns side by side â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .side-menu__columns {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-/* ── Individual box/column ──────────────────────────────── */
+/* â”€â”€ Individual box/column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .side-menu__box {
   position: relative;
   flex: 1;
@@ -887,7 +887,7 @@ button.btn {
       rgba(15, 15, 20, 0.5) 100%);
 }
 
-/* ── Box content positioning ────────────────────────────── */
+/* â”€â”€ Box content positioning â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .side-menu__box-content {
   position: relative;
   z-index: 2;
@@ -1037,7 +1037,7 @@ button.btn {
 }
 
 
-/* ── 7. HERO SECTION — Cinematic and editorial ───────────── */
+/* â”€â”€ 7. HERO SECTION â€” Cinematic and editorial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero {
   position: relative;
   width: 100%;
@@ -1348,14 +1348,14 @@ button.btn {
   }
 }
 
-/* ── 6. CONTAINER UTILITY ─────────────────────────────────── */
+/* â”€â”€ 6. CONTAINER UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .container {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* ── 7. ABOUT SECTION ────────────────────────────────────── */
+/* â”€â”€ 7. ABOUT SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .about {
   padding: 7.5rem 0 6.5rem;
   background: var(--color-white);
@@ -1497,7 +1497,7 @@ button.btn {
   filter: grayscale(100%) brightness(0.88) contrast(1.05);
 }
 
-/* ── 7B. OUR SERVICES (Matched to exact design) ──────────── */
+/* â”€â”€ 7B. OUR SERVICES (Matched to exact design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .services {
   position: relative;
   background: #08080a;
@@ -1753,7 +1753,7 @@ button.btn {
   transform: translate3d(5px, -3px, 0);
 }
 
-/* ── 8. FEATURED LISTINGS ────────────────────────────────── */
+/* â”€â”€ 8. FEATURED LISTINGS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .listings {
   padding: 5rem 0 6rem;
   background: var(--color-white);
@@ -1803,7 +1803,7 @@ button.btn {
   display: none;
 }
 
-/* Listing Card — Seamless Luxury Editorial */
+/* Listing Card â€” Seamless Luxury Editorial */
 .listing-card {
   flex: 0 0 calc(25% - 1.125rem);
   min-width: 290px;
@@ -2109,7 +2109,7 @@ button.btn {
   border-color: var(--color-dark, #0a0a0a) !important;
 }
 
-/* ── 9. TESTIMONIAL SECTION (Matched to Design) ─────────── */
+/* â”€â”€ 9. TESTIMONIAL SECTION (Matched to Design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .testimonial {
   position: relative;
   display: grid;
@@ -2390,7 +2390,7 @@ button.btn {
   transform: scale(1.1);
 }
 
-/* ── 10. FEATURED COMMUNITIES (Matched to exact design) ──── */
+/* â”€â”€ 10. FEATURED COMMUNITIES (Matched to exact design) â”€â”€â”€â”€ */
 .communities {
   background: #ede9e2;
   padding: 6rem 0 5.5rem;
@@ -2409,9 +2409,9 @@ button.btn {
 .communities__eyebrow {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #8c734b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-secondary, #c5a047);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 0.6rem;
@@ -2600,7 +2600,7 @@ button.btn {
   align-items: center;
 }
 
-/* ── 13. CALL TO ACTION — Cinematic fullwidth ────────────── */
+/* â”€â”€ 13. CALL TO ACTION â€” Cinematic fullwidth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .cta {
   position: relative;
   min-height: 520px;
@@ -2667,7 +2667,7 @@ button.btn {
   flex-wrap: wrap;
 }
 
-/* ── 14. FOOTER — Refined and editorial ──────────────────── */
+/* â”€â”€ 14. FOOTER â€” Refined and editorial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .footer {
   position: relative;
   background: var(--color-white);
@@ -2823,7 +2823,7 @@ button.btn {
   color: var(--color-secondary);
 }
 
-/* ── 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE ── */
+/* â”€â”€ 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE â”€â”€ */
 .reveal {
   opacity: 0;
   transform: translateY(46px);
@@ -2866,7 +2866,7 @@ button.btn {
   transform: none !important;
 }
 
-/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (From Plugin) ── */
+/* â”€â”€ 15A. EDITORIAL CLIP-MASK TITLE REVEAL (From Plugin) â”€â”€ */
 .title-mask {
   display: inline-block;
   max-width: 100%;
@@ -2897,7 +2897,7 @@ button.btn {
 .title-mask:nth-of-type(3) > span { transition-delay: 0.27s; }
 .title-mask:nth-of-type(4) > span { transition-delay: 0.38s; }
 
-/* ── 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) ── */
+/* â”€â”€ 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) â”€â”€ */
 .image-reveal {
   position: relative;
   overflow: hidden;
@@ -2921,7 +2921,7 @@ button.btn {
   will-change: transform, filter;
 }
 
-/* Shutter Curtain Overlay — 100% Solid Ultra-Luxury Obsidian */
+/* Shutter Curtain Overlay â€” 100% Solid Ultra-Luxury Obsidian */
 .image-reveal::after {
   content: '';
   position: absolute;
@@ -3003,7 +3003,7 @@ button.btn {
   color: #f8eed3;
 }
 
-/* ── 15C. BULLETPROOF ULTRA-LUXURY GRAYSCALE HOVER SYSTEM ── */
+/* â”€â”€ 15C. BULLETPROOF ULTRA-LUXURY GRAYSCALE HOVER SYSTEM â”€â”€ */
 .about__image:hover img,
 .about__image-wrapper:hover img,
 .about__image-inner:hover img,
@@ -3016,7 +3016,7 @@ button.btn {
   filter: grayscale(100%) brightness(0.88) contrast(1.06) blur(0px) !important;
 }
 
-/* ── 16. RESPONSIVE: TABLET (<= 1024px) ──────────────────── */
+/* â”€â”€ 16. RESPONSIVE: TABLET (<= 1024px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 1024px) {
   :root {
     --font-size-hero: clamp(2rem, 4.2vw, 3.2rem);
@@ -3216,7 +3216,7 @@ button.btn {
   }
 }
 
-/* ── 17. RESPONSIVE: MOBILE (<= 768px) ───────────────────── */
+/* â”€â”€ 17. RESPONSIVE: MOBILE (<= 768px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 768px) {
   :root {
     --nav-height: 60px;
@@ -3766,7 +3766,7 @@ button.btn {
   }
 }
 
-/* ── 17B. RESPONSIVE: SMALL MOBILE (<= 480px) ────────────── */
+/* â”€â”€ 17B. RESPONSIVE: SMALL MOBILE (<= 480px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 480px) {
   :root {
     --font-size-hero: clamp(1.65rem, 7vw, 2.1rem);
@@ -3971,7 +3971,7 @@ button.btn {
   }
 }
 
-/* ── 18. REDUCED MOTION ──────────────────────────────────── */
+/* â”€â”€ 18. REDUCED MOTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -4011,7 +4011,7 @@ button.btn {
   }
 }
 
-/* ── 19. PRINT ───────────────────────────────────────────── */
+/* â”€â”€ 19. PRINT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media print {
 
   .navbar,
@@ -4032,7 +4032,7 @@ button.btn {
 
 
 /* ==========================================================================
-   ── ELEMENTOR INTEGRATION & ZERO-FLOW HEADER OVERRIDES ──
+   â”€â”€ ELEMENTOR INTEGRATION & ZERO-FLOW HEADER OVERRIDES â”€â”€
    ========================================================================== */
 
 /* 1. Transparent Header Zero Flow Height (No top white gap) */
@@ -4186,7 +4186,7 @@ body.elementor-editor-active .hero__scroll-indicator {
 
 
 /* ==========================================================================
-   ── 100% BULLETPROOF ZERO-PINK RESETS (HELLO ELEMENTOR & WP BUTTON OVERRIDES) ──
+   â”€â”€ 100% BULLETPROOF ZERO-PINK RESETS (HELLO ELEMENTOR & WP BUTTON OVERRIDES) â”€â”€
    ========================================================================== */
 
 /* 1. Global Reset for ALL button elements anywhere inside LRE plugin */
@@ -4226,7 +4226,7 @@ button.back-to-top {
   background-image: none !important;
 }
 
-/* 2. NAVBAR MENU BUTTON (#menu-open-btn) — Zero Pink Border / Box */
+/* 2. NAVBAR MENU BUTTON (#menu-open-btn) â€” Zero Pink Border / Box */
 button.navbar__menu-btn,
 button#menu-open-btn,
 button.navbar__mobile-toggle,
@@ -4290,7 +4290,7 @@ button.navbar__menu-btn:hover .hamburger span:nth-child(2),
   width: 100% !important;
 }
 
-/* 3. TESTIMONIAL SLIDER ARROWS (#testimonial-prev, #testimonial-next) — Zero Pink Circle */
+/* 3. TESTIMONIAL SLIDER ARROWS (#testimonial-prev, #testimonial-next) â€” Zero Pink Circle */
 button.testimonial__arrow,
 button#testimonial-prev,
 button#testimonial-next,
@@ -4347,7 +4347,7 @@ button.testimonial__arrow:hover svg,
   transform: scale(1.1) !important;
 }
 
-/* 4. TESTIMONIAL NAV DOTS — Zero Pink */
+/* 4. TESTIMONIAL NAV DOTS â€” Zero Pink */
 button.testimonial__nav-dot,
 .testimonial__nav-dot,
 .testimonial__dots button {
@@ -4381,7 +4381,7 @@ button.testimonial__nav-dot.active,
   box-shadow: 0 0 14px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* 5. PROPERTIES / LISTINGS ARROWS — Zero Pink */
+/* 5. PROPERTIES / LISTINGS ARROWS â€” Zero Pink */
 button.listings__arrow,
 .listings__arrow,
 .listings__arrows button {
@@ -4425,7 +4425,7 @@ button.listings__arrow svg,
   color: currentColor !important;
 }
 
-/* 6. PROPERTIES / LISTINGS DOTS — Zero Pink */
+/* 6. PROPERTIES / LISTINGS DOTS â€” Zero Pink */
 button.listings__nav-dot,
 .listings__nav-dot,
 .listings__dots button {
@@ -4516,7 +4516,7 @@ button.communities__nav-dot.active,
   background: linear-gradient(90deg, #1a1a1a 0%, #3a3a3a 100%) !important;
   background-color: #1a1a1a !important;
 }
-/* 8. SIDE MENU CLOSE BUTTON — Zero Pink */
+/* 8. SIDE MENU CLOSE BUTTON â€” Zero Pink */
 button.side-menu__close,
 button#menu-close-btn,
 .side-menu__close,
@@ -4570,10 +4570,10 @@ a:focus-visible {
 
 
 /* ==========================================================================
-   ── PROPERTIES WIDGET VISIBILITY & SVG ARROW UNIFICATION ──
+   â”€â”€ PROPERTIES WIDGET VISIBILITY & SVG ARROW UNIFICATION â”€â”€
    ========================================================================== */
 
-/* 1. Favorite Heart Button — 100% Guaranteed Visibility */
+/* 1. Favorite Heart Button â€” 100% Guaranteed Visibility */
 button.listing-card__like-btn,
 .listing-card__like-btn {
   position: absolute !important;
@@ -4647,7 +4647,7 @@ button.listing-card__like-btn.liked svg,
   100% { transform: scale(1); }
 }
 
-/* 2. Listings Navigation Arrows — Unified with Communities & Testimonials */
+/* 2. Listings Navigation Arrows â€” Unified with Communities & Testimonials */
 button.listings__arrow,
 .listings__arrow,
 .listings__arrows button {
@@ -4739,7 +4739,7 @@ button.listings__arrow:hover svg,
   padding-top: 0 !important;
 }
 
-/* ─── CLASSIC MOBILE SLIDE-DOWN DROPDOWN MENU ─── */
+/* â”€â”€â”€ CLASSIC MOBILE SLIDE-DOWN DROPDOWN MENU â”€â”€â”€ */
 .navbar__mobile-dropdown {
   display: none !important;
   position: fixed !important;
@@ -4946,11 +4946,11 @@ button.navbar__mobile-toggle:active,
 }
 
 /* ==========================================================================
-   15. ABOUT PAGE SUITE — ULTRA-LUXURY DESIGN EXTENSIONS
+   15. ABOUT PAGE SUITE â€” ULTRA-LUXURY DESIGN EXTENSIONS
    (Our Story, Meet The Team, Comprehensive Services, Client Reviews, Press)
    ========================================================================== */
 
-/* ── Common Container & Section Header Accents ── */
+/* â”€â”€ Common Container & Section Header Accents â”€â”€ */
 .lre-story__container,
 .lre-team__container,
 .lre-aserv__container,
@@ -5031,9 +5031,9 @@ button.navbar__mobile-toggle:active,
   margin: 1.6rem 0 3rem;
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    A. OUR STORY & HERITAGE (lre_story)
-   ────────────────────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .lre-story {
   position: relative;
   background-color: var(--color-light-warm, #faf7f2);
@@ -5082,7 +5082,7 @@ button.navbar__mobile-toggle:active,
   font-family: var(--font-serif, 'Libre Baskerville', serif);
   font-size: 1.15rem;
   line-height: 1.85;
-  color: #1a1a1a;
+  color: var(--color-dark, #0a0a0a);
   margin-bottom: 1.5rem;
 }
 
@@ -5090,7 +5090,7 @@ button.navbar__mobile-toggle:active,
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: 0.92rem;
   line-height: 1.85;
-  color: #4a4a4a;
+  color: var(--color-text, #2c2c2c);
 }
 
 .lre-story__body p {
@@ -5257,7 +5257,7 @@ button.navbar__mobile-toggle:active,
   font-family: var(--font-serif, 'Libre Baskerville', serif);
   font-size: clamp(2.2rem, 3.2vw, 3.2rem);
   font-weight: 700;
-  color: #0a0a0a;
+  color: var(--color-dark, #0a0a0a);
   line-height: 1;
   margin-bottom: 0.6rem;
 }
@@ -5275,16 +5275,16 @@ button.navbar__mobile-toggle:active,
 .lre-story__stat-sub {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: 0.8rem;
-  color: #7a7a7a;
+  color: var(--color-text-muted, #6b6b6b);
   line-height: 1.55;
 }
 
 /* ==========================================================================
-   B. MEET THE TEAM � Luxury Editorial Carousel & Showcase (lre_team)
+   B. MEET THE TEAM — Luxury Editorial Carousel & Showcase (lre_team)
    ========================================================================== */
 .lre-team {
   position: relative;
-  background: #ffffff;
+  background: var(--color-white, #ffffff);
   padding: 6.5rem 2rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -5300,7 +5300,7 @@ button.navbar__mobile-toggle:active,
   font-size: clamp(5.5rem, 14vw, 13rem);
   font-weight: 400;
   letter-spacing: 0.22em;
-  color: rgba(0, 0, 0, 0.038);
+  color: rgba(0, 0, 0, 0.032);
   text-transform: uppercase;
   pointer-events: none;
   white-space: nowrap;
@@ -5354,10 +5354,10 @@ button.navbar__mobile-toggle:active,
 
 .lre-team__title {
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+  font-size: clamp(2.1rem, 3.8vw, 3.2rem);
   font-weight: 400;
-  line-height: 1.18;
-  color: var(--color-dark, #111116);
+  line-height: 1.2;
+  color: var(--color-dark, #0a0a0a);
   margin: 0 0 0.9rem;
   letter-spacing: -0.015em;
 }
@@ -5378,10 +5378,10 @@ button.navbar__mobile-toggle:active,
 
 .lre-team__desc {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.96rem;
-  line-height: 1.75;
-  color: rgba(17, 17, 22, 0.65);
-  max-width: 620px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text-muted, #6b6b6b);
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -5699,7 +5699,7 @@ button.navbar__mobile-toggle:active,
   transform: scale(1) translateY(0);
 }
 
-/* Close Button � Strict Zero-Pink Reset */
+/* Close Button — Strict Zero-Pink Reset */
 button.lre-team-modal__close,
 .lre-team-modal__close {
   position: absolute !important;
@@ -6098,9 +6098,9 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   C. COMPREHENSIVE ADVISORY & SERVICES — Deep Obsidian Luxury
-   ────────────────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   C. COMPREHENSIVE ADVISORY & SERVICES â€” Deep Obsidian Luxury
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .lre-aserv {
   position: relative;
   background: #0c0c10;
@@ -6351,9 +6351,9 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   transform: translate3d(4px, -2px, 0);
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   D. CLIENT REVIEWS & TRUST — Dark Editorial Testimonials
-   ────────────────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   D. CLIENT REVIEWS & TRUST â€” Dark Editorial Testimonials
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .lre-reviews {
   position: relative;
   background: #0a0a0e;
@@ -6591,9 +6591,9 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   color: var(--color-secondary, #c5a047);
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   E. PRESS & MEDIA — Dark Editorial Luxury
-   ────────────────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   E. PRESS & MEDIA â€” Dark Editorial Luxury
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .lre-press {
   position: relative;
   background: #08080c;
@@ -6853,9 +6853,9 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   line-height: 1.45;
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    RESPONSIVE ADJUSTMENTS FOR ABOUT PAGE WIDGETS
-   ────────────────────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 1024px) {
   .lre-story__grid {
     grid-template-columns: 1fr;
@@ -6913,12 +6913,12 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
 }
 
 /* ==========================================================================
-   16. PAGE HERO BANNER � Universal Interior Page Hero (lre_page_hero)
+   16. PAGE HERO BANNER — Universal Interior Page Hero (lre_page_hero)
    ========================================================================== */
 
 /*
  * NOTE: Background image/color/gradient is controlled by Group_Control_Background
- * in Elementor on selector .lre-phero � no manual bg CSS needed here.
+ * in Elementor on selector .lre-phero — no manual bg CSS needed here.
  */
 
 .lre-phero {
@@ -6934,7 +6934,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   background-repeat: no-repeat;
 }
 
-/* Overlay � controlled by Group_Control_Background on .lre-phero__overlay */
+/* Overlay — controlled by Group_Control_Background on .lre-phero__overlay */
 .lre-phero__overlay {
   position: absolute;
   inset: 0;
@@ -6983,7 +6983,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   text-align: center;
 }
 
-/* Eyebrow � fades up */
+/* Eyebrow — fades up */
 .lre-phero__eyebrow-wrap {
   display: flex;
   align-items: center;
@@ -7009,7 +7009,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   color: var(--color-secondary, #c5a047);
 }
 
-/* H1 Title � mask-reveal animation (same heroMaskUp as main .hero__title) */
+/* H1 Title — mask-reveal animation (same heroMaskUp as main .hero__title) */
 .lre-phero__title {
   font-family: var(--font-serif, 'Libre Baskerville', serif);
   font-size: clamp(2.6rem, 6vw, 5.5rem);
@@ -7027,7 +7027,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   padding: 0 0 0.18em 0 !important;
   line-height: inherit;
 }
-/* Inner span slides up � reuses @keyframes heroMaskUp from section 5 */
+/* Inner span slides up — reuses @keyframes heroMaskUp from section 5 */
 .lre-phero__title .phero-mask > span {
   display: block;
   transform: translateY(115%);
@@ -7047,7 +7047,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   animation: heroFadeUp 1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.55s forwards;
 }
 
-/* Subtitle � heroFadeUp (same as hero__subtitle) */
+/* Subtitle — heroFadeUp (same as hero__subtitle) */
 .lre-phero__subtitle {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: 0.96rem;
@@ -7060,7 +7060,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   animation: heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.7s forwards;
 }
 
-/* CTA actions � heroFadeUp (same as hero__cta-group) */
+/* CTA actions — heroFadeUp (same as hero__cta-group) */
 .lre-phero__actions {
   display: flex;
   align-items: center;
@@ -7148,7 +7148,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   100% { transform: scaleY(1); opacity: 0; }
 }
 
-/* Elementor editor � disable all intro animations */
+/* Elementor editor — disable all intro animations */
 body.elementor-editor-active .lre-phero__eyebrow-wrap,
 body.elementor-editor-active .lre-phero__title .phero-mask > span,
 body.elementor-editor-active .lre-phero__divider,

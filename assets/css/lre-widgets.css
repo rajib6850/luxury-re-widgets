@@ -2866,11 +2866,14 @@ button.btn {
   transform: none !important;
 }
 
-/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (From Plugin) ── */
+/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (Hero Mask Parity) ── */
 .title-mask {
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
+  margin: 0 !important;
+  padding: 0 0 0.18em 0 !important;
+  line-height: inherit;
   vertical-align: bottom;
   box-sizing: border-box;
 }
@@ -2882,7 +2885,9 @@ button.btn {
   word-break: break-word;
   box-sizing: border-box;
   transform: translateY(115%);
-  transition: transform 1.2s cubic-bezier(0.16, 0.84, 0.44, 1);
+  margin: 0 !important;
+  padding: 0 0 0.18em 0 !important;
+  line-height: inherit;
   will-change: transform;
 }
 
@@ -2890,13 +2895,13 @@ button.btn {
 .revealed .title-mask > span,
 .revealed.title-mask > span,
 .title-mask.revealed > span {
-  transform: translateY(0) !important;
+  animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.12s forwards !important;
 }
 
-.title-mask:nth-of-type(1) > span { transition-delay: 0.05s !important; }
-.title-mask:nth-of-type(2) > span { transition-delay: 0.16s !important; }
-.title-mask:nth-of-type(3) > span { transition-delay: 0.27s !important; }
-.title-mask:nth-of-type(4) > span { transition-delay: 0.38s !important; }
+.title-mask:nth-of-type(1) > span { animation-delay: 0.12s !important; }
+.title-mask:nth-of-type(2) > span { animation-delay: 0.28s !important; }
+.title-mask:nth-of-type(3) > span { animation-delay: 0.44s !important; }
+.title-mask:nth-of-type(4) > span { animation-delay: 0.60s !important; }
 
 /* â”€â”€ 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) â”€â”€ */
 .image-reveal {

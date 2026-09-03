@@ -218,7 +218,7 @@ class LRE_About_Widget extends Widget_Base {
 						<span class="title-mask"><span><?php echo esc_html( $settings['heading_line2'] ); ?></span></span><br>
 						<?php endif; ?>
 						<?php if ( ! empty( $settings['heading_line3'] ) ) : ?>
-						<span class="title-mask"><span class="about__title-accent"><?php echo esc_html( $settings['heading_line3'] ); ?></span></span>
+						<span class="title-mask"><span><span class="about__title-accent"><?php echo esc_html( $settings['heading_line3'] ); ?></span></span></span>
 						<?php endif; ?>
 					</<?php echo $tag; ?>>
 

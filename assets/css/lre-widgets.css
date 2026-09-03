@@ -7412,173 +7412,376 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   margin-bottom: 1.2rem;
 }
 
-/* ── Responsive Optimization ── */
+/* ── Responsive Optimization for Services ── */
 @media (max-width: 1024px) {
   .lre-aserv {
-    padding: 6.5rem 0 7rem;
+    padding: 5.5rem 0 6rem;
   }
+  .lre-aserv__container {
+    padding: 0 1.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .lre-aserv__header {
+    margin-bottom: 3rem;
+  }
+  .lre-aserv__title {
+    font-size: clamp(2rem, 5.5vw, 2.75rem);
+  }
+  .lre-aserv__desc {
+    font-size: 0.95rem;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .lre-aserv__watermark {
+    font-size: clamp(3.2rem, 9.5vw, 5.5rem);
+    top: 3.5rem;
+  }
+
+  /* Monolith Layout on Tablet & Mobile: Interactive Luxury Vertical Accordion */
   .lre-aserv__monolith-wrapper {
     flex-direction: column;
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    gap: 1.6rem;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    gap: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
+
+  /* Each Monolith Panel */
   .lre-aserv__monolith {
-    min-height: 480px;
+    width: 100% !important;
     flex: none !important;
+    min-width: 0 !important;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #0d0e14 !important;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
-  .lre-aserv__mono-spine {
+
+  /* INACTIVE / COLLAPSED STATE on Tablet & Mobile */
+  .lre-aserv__monolith:not(.is-active) {
+    height: 76px !important;
+    min-height: 76px !important;
+    max-height: 76px !important;
+    cursor: pointer;
+    background: rgba(16, 17, 23, 0.9) !important;
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-bg img {
+    filter: grayscale(100%) brightness(0.35) contrast(1.1) !important;
+    transform: scale(1.0) !important;
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-top {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-num {
+    font-size: 0.95rem;
+    padding: 0.35rem 0.65rem;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff !important;
+  }
+
+  /* Collapsed Horizontal Title Bar */
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-spine {
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) !important;
+    left: 4.8rem;
+    right: 4.5rem;
+    bottom: auto;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 1 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-spine-text {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    font-family: var(--font-serif, 'Libre Baskerville', serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-tag {
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 0.58rem;
+    padding: 0.3rem 0.6rem;
+    color: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-content {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* ACTIVE / EXPANDED STATE on Tablet & Mobile */
+  .lre-aserv__monolith.is-active {
+    height: auto !important;
+    min-height: auto !important;
+    border-color: rgba(197, 160, 71, 0.45) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(197, 160, 71, 0.08) !important;
+  }
+
+  .lre-aserv__monolith.is-active::before {
+    transform: scaleX(1);
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-bg img {
+    filter: grayscale(80%) brightness(0.65) contrast(1.05) !important;
+    transform: scale(1.03) !important;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-vignette {
+    background: linear-gradient(180deg, rgba(11, 12, 16, 0.35) 0%, rgba(11, 12, 16, 0.78) 35%, rgba(11, 12, 16, 0.98) 85%) !important;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-top {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-num {
+    font-size: 1rem;
+    padding: 0.35rem 0.75rem;
+    border-color: rgba(197, 160, 71, 0.4);
+    color: #ffffff !important;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-tag {
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-spine {
     display: none !important;
   }
-  .lre-aserv__mono-content {
+
+  /* CRITICAL: Content in normal document flow so card naturally expands with NO text collision! */
+  .lre-aserv__monolith.is-active .lre-aserv__mono-content {
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 4.8rem 1.6rem 2rem !important;
+    box-sizing: border-box !important;
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;
     pointer-events: auto !important;
-    padding: 2.2rem 1.8rem 2rem;
+    z-index: 2;
   }
-  .lre-aserv__mono-content > * {
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-content > * {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
-  .lre-aserv__mono-tag {
-    opacity: 1 !important;
-    transform: none !important;
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-title {
+    font-size: clamp(1.35rem, 4.8vw, 1.75rem) !important;
+    line-height: 1.35 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.85rem 0 !important;
   }
-  .lre-aserv__mono-bg img {
-    filter: grayscale(100%) brightness(0.8) contrast(1.08) !important;
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.75 !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    margin: 0 0 1.4rem 0 !important;
+    max-width: 100% !important;
   }
-  .lre-aserv__container {
-    padding: 0 2rem;
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-caps {
+    list-style: none;
+    padding: 1.2rem 0 0;
+    margin: 0 0 1.6rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
   }
-  .lre-aserv__watermark {
-    font-size: clamp(3.6rem, 10.5vw, 6.6rem);
-    letter-spacing: 0.14em;
-    top: 5rem;
+
+  .lre-aserv__monolith.is-active .lre-aserv__capabilities li {
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
   }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-action {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .lre-aserv__monolith.is-active .lre-aserv__mono-action .btn,
+  .lre-aserv .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.9rem 1.4rem !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+  }
+
+  /* Grid & Split Layouts Tablet */
   .lre-aserv__grid--col-3,
   .lre-aserv__grid--col-4 {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
   .lre-aserv__split {
     flex-direction: column;
-    gap: 3.5rem;
+    gap: 2.5rem;
   }
   .lre-aserv__split-media {
     flex: 0 0 100%;
     max-width: 100%;
-    position: relative;
-    top: 0;
   }
 }
 
+/* Mobile Screens (max-width: 767px) */
 @media (max-width: 767px) {
   .lre-aserv {
-    padding: 5rem 0 5.5rem;
-    overflow-x: hidden !important;
+    padding: 4.5rem 0 5rem;
   }
   .lre-aserv__container {
-    padding: 0 1.25rem;
-    width: 100%;
-    max-width: 100%;
-  }
-  .lre-aserv__watermark {
-    font-size: clamp(2.6rem, 11vw, 4.4rem);
-    letter-spacing: 0.1em;
-    top: 4rem;
+    padding: 0 1.15rem;
   }
   .lre-aserv__header {
-    margin-bottom: 3.5rem;
-    padding: 0;
-  }
-  .lre-aserv__monolith-wrapper {
-    padding: 0;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-  }
-  .lre-aserv__monolith {
-    min-height: 440px;
-  }
-  .lre-aserv__mono-content {
-    padding: 1.8rem 1.4rem 1.8rem;
-    max-width: 100%;
-  }
-  .lre-aserv__mono-action {
-    width: 100%;
-  }
-  .lre-aserv__mono-action .btn,
-  .lre-aserv .btn {
-    width: 100% !important;
-    justify-content: center !important;
-    padding: 0.85rem 1.5rem !important;
-  }
-  .lre-aserv__grid {
-    grid-template-columns: 1fr;
-    gap: 1.8rem;
-    padding: 0;
-  }
-  .lre-aserv__card-body {
-    padding: 1.8rem 1.4rem;
+    margin-bottom: 2.5rem;
   }
   .lre-aserv__title {
-    font-size: clamp(1.85rem, 6.5vw, 2.35rem);
+    font-size: clamp(1.75rem, 6.8vw, 2.2rem);
   }
   .lre-aserv__desc {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .lre-aserv {
-    padding: 3.8rem 0 4.2rem;
-  }
-  .lre-aserv__container {
-    padding: 0 1rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
   }
   .lre-aserv__watermark {
-    font-size: clamp(2.0rem, 10.5vw, 3.2rem);
-    letter-spacing: 0.08em;
-    top: 3.2rem;
+    font-size: clamp(2.4rem, 11vw, 4rem);
+    top: 2.8rem;
   }
-  .lre-aserv__monolith {
-    min-height: 420px;
+  .lre-aserv__monolith-wrapper {
+    gap: 0.9rem;
   }
-  .lre-aserv__mono-top {
+
+  /* Inactive panel on phone */
+  .lre-aserv__monolith:not(.is-active) {
+    height: 68px !important;
+    min-height: 68px !important;
+    max-height: 68px !important;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-top {
+    left: 1rem;
+    right: 1rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-num {
+    font-size: 0.85rem;
+    padding: 0.28rem 0.55rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-spine {
+    left: 4.2rem;
+    right: 4rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-spine-text {
+    font-size: 0.9rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-tag {
+    font-size: 0.54rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Active panel on phone */
+  .lre-aserv__monolith.is-active .lre-aserv__mono-top {
     top: 1.2rem;
     left: 1.2rem;
     right: 1.2rem;
   }
-  .lre-aserv__mono-num {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.6rem;
+  .lre-aserv__monolith.is-active .lre-aserv__mono-content {
+    padding: 4.2rem 1.2rem 1.6rem !important;
   }
-  .lre-aserv__mono-content {
-    padding: 1.4rem 1.1rem 1.5rem;
+  .lre-aserv__monolith.is-active .lre-aserv__mono-title {
+    font-size: 1.3rem !important;
   }
-  .lre-aserv__mono-title {
-    font-size: 1.25rem !important;
-  }
-  .lre-aserv__mono-desc {
+  .lre-aserv__monolith.is-active .lre-aserv__mono-desc {
     font-size: 0.84rem !important;
     line-height: 1.65 !important;
-    margin-bottom: 1.1rem !important;
+    margin-bottom: 1.2rem !important;
   }
-  .lre-aserv__mono-caps {
-    margin-bottom: 1.3rem !important;
-    padding-top: 0.9rem !important;
+  .lre-aserv__monolith.is-active .lre-aserv__capabilities li {
+    font-size: 0.78rem !important;
   }
-  .lre-aserv__capabilities li {
-    font-size: 0.76rem !important;
-    line-height: 1.4 !important;
+  .lre-aserv__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-  .lre-aserv__card-num {
-    top: 0.9rem;
-    right: 0.9rem;
-    font-size: 0.85rem;
-    padding: 0.3rem 0.6rem;
+  .lre-aserv__card-body {
+    padding: 1.6rem 1.2rem;
+  }
+}
+
+/* Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .lre-aserv {
+    padding: 3.5rem 0 4rem;
+  }
+  .lre-aserv__container {
+    padding: 0 0.85rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-spine {
+    left: 3.8rem;
+    right: 0.8rem;
+  }
+  .lre-aserv__monolith:not(.is-active) .lre-aserv__mono-tag {
+    display: none !important;
+  }
+  .lre-aserv__monolith.is-active .lre-aserv__mono-content {
+    padding: 3.8rem 1rem 1.4rem !important;
   }
 }
 
@@ -8383,11 +8586,14 @@ button.lre-reviews__nav-btn:focus,
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .lre-reviews {
-    padding: 6rem 0 6.5rem;
+    padding: 5.5rem 0 6rem;
+  }
+  .lre-reviews__container {
+    padding: 0 1.5rem;
   }
   .lre-reviews__stage {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2.2rem;
   }
   .lre-reviews__ledger {
     position: relative;
@@ -8398,7 +8604,7 @@ button.lre-reviews__nav-btn:focus,
     align-items: stretch;
   }
   .lre-reviews__dossier-body {
-    padding: 2.4rem 2rem 2rem;
+    padding: 2.2rem 1.8rem;
   }
 }
 
@@ -8407,16 +8613,19 @@ button.lre-reviews__nav-btn:focus,
     padding: 4.5rem 0 5rem;
   }
   .lre-reviews__container {
-    padding: 0 1.25rem;
+    padding: 0 1.15rem;
   }
   .lre-reviews__header {
-    margin-bottom: 2.8rem;
+    margin-bottom: 2.2rem;
   }
   .lre-reviews__title {
-    font-size: clamp(1.75rem, 6.5vw, 2.25rem);
+    font-size: clamp(1.75rem, 6.8vw, 2.25rem);
+    line-height: 1.25;
   }
   .lre-reviews__stage {
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
   }
   .lre-reviews__ledger {
     display: flex;
@@ -8424,136 +8633,186 @@ button.lre-reviews__nav-btn:focus,
     gap: 1.2rem;
   }
   .lre-reviews__trust-pillar {
-    padding: 1.5rem 1.2rem;
+    padding: 1.35rem 1.1rem;
+    border-radius: 4px;
   }
   .lre-reviews__seal-wrap {
     gap: 0.8rem;
-    margin-bottom: 1.2rem;
-    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 1rem;
   }
   .lre-reviews__seal-ring {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
   .lre-reviews__seal-top {
-    font-size: 0.62rem;
+    font-size: 0.6rem;
   }
   .lre-reviews__seal-bottom {
-    font-size: 0.52rem;
+    font-size: 0.5rem;
   }
   .lre-reviews__metrics-grid {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    gap: 0.35rem;
     text-align: center;
   }
   .lre-reviews__metric-item {
     align-items: center;
+    padding: 0 0.2rem;
   }
   .lre-reviews__metric-val {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin-bottom: 0.2rem;
   }
   .lre-reviews__metric-lbl {
-    font-size: 0.52rem;
-    line-height: 1.2;
+    font-size: 0.48rem;
+    line-height: 1.25;
     letter-spacing: 0.5px;
   }
+  .lre-reviews__ledger-index {
+    width: 100%;
+  }
+  .lre-reviews__index-header {
+    font-size: 0.58rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .lre-reviews__index-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
   .lre-reviews__tab-btn {
-    padding: 0.85rem 1rem !important;
-    gap: 0.85rem;
+    padding: 0.75rem 0.9rem !important;
+    gap: 0.75rem;
+    min-height: 52px;
   }
   .lre-reviews__tab-num {
     font-size: 0.85rem;
+    width: 20px;
   }
   .lre-reviews__tab-avatar {
     width: 32px;
     height: 32px;
   }
+  .lre-reviews__tab-content {
+    min-width: 0;
+  }
   .lre-reviews__tab-name {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .lre-reviews__tab-tx {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lre-reviews__tab-arrow {
+    font-size: 0.95rem;
+  }
+
+  /* Dossier Card on Mobile */
+  .lre-reviews__dossier-card {
+    border-radius: 4px;
+    overflow: hidden;
   }
   .lre-reviews__prop-visual {
-    height: 200px;
+    height: 190px;
   }
   .lre-reviews__prop-meta {
-    left: 1rem;
-    right: 1rem;
-    bottom: 0.8rem;
-    gap: 0.5rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.75rem;
+    gap: 0.4rem;
+    flex-wrap: wrap;
   }
   .lre-reviews__prop-badge {
-    font-size: 0.58rem;
-    padding: 0.35rem 0.65rem;
-    gap: 6px;
+    font-size: 0.56rem;
+    padding: 0.3rem 0.6rem;
+    gap: 5px;
   }
   .lre-reviews__timing-badge {
-    font-size: 0.56rem;
-    padding: 0.35rem 0.65rem;
+    font-size: 0.54rem;
+    padding: 0.3rem 0.6rem;
   }
   .lre-reviews__dossier-body {
-    padding: 1.6rem 1.2rem 1.4rem;
+    padding: 1.4rem 1.15rem 1.4rem;
   }
   .lre-reviews__dossier-head {
-    margin-bottom: 1.4rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.85rem;
   }
   .lre-reviews__stars {
     font-size: 0.95rem;
-    letter-spacing: 3px;
+    letter-spacing: 2.5px;
   }
   .lre-reviews__record-id {
-    font-size: 0.58rem;
+    font-size: 0.56rem;
   }
   .lre-reviews__quote-wrap {
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.6rem;
   }
   .lre-reviews__quote-mark {
-    font-size: 4rem;
-    top: -12px;
-    left: -8px;
+    font-size: 3.5rem;
+    top: -10px;
+    left: -6px;
   }
   .lre-reviews__quote-text {
-    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
-    line-height: 1.55;
+    font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+    line-height: 1.6;
   }
   .lre-reviews__author-bar {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1.1rem;
-    padding-top: 1.4rem;
+    align-items: stretch;
+    gap: 0.95rem;
+    padding-top: 1.2rem;
+  }
+  .lre-reviews__author-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
   }
   .lre-reviews__avatar {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
   }
   .lre-reviews__author-name {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.3;
   }
   .lre-reviews__author-title {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
+    line-height: 1.3;
   }
   .lre-reviews__verification-pill {
-    width: 100%;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 0.4rem 0.8rem;
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.58rem !important;
+    letter-spacing: 1px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    max-width: 100% !important;
   }
   .lre-reviews__controls {
     margin-top: 1.2rem;
     padding: 0;
   }
   .lre-reviews__counter {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
   .lre-reviews__nav-actions {
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
   .lre-reviews__nav-btn {
     padding: 0.55rem 1rem !important;
-    font-size: 0.62rem !important;
+    font-size: 0.6rem !important;
   }
 }
 
@@ -8562,22 +8821,36 @@ button.lre-reviews__nav-btn:focus,
     padding: 3.5rem 0 4rem;
   }
   .lre-reviews__container {
-    padding: 0 0.9rem;
+    padding: 0 0.85rem;
   }
   .lre-reviews__header {
-    margin-bottom: 2.2rem;
+    margin-bottom: 2rem;
+  }
+  .lre-reviews__trust-pillar {
+    padding: 1.15rem 0.85rem;
   }
   .lre-reviews__metrics-grid {
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
   .lre-reviews__metric-val {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
   .lre-reviews__metric-lbl {
-    font-size: 0.5rem;
+    font-size: 0.46rem;
+  }
+  .lre-reviews__tab-btn {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.6rem;
   }
   .lre-reviews__prop-visual {
-    height: 170px;
+    height: 165px;
+  }
+  .lre-reviews__dossier-body {
+    padding: 1.25rem 0.95rem 1.2rem;
+  }
+  .lre-reviews__quote-text {
+    font-size: 1.02rem;
+    line-height: 1.55;
   }
 }
 
@@ -8872,7 +9145,10 @@ button.lre-reviews__nav-btn:focus,
   .lre-aserv,
   .lre-reviews,
   .lre-press {
-    padding: 5rem 1.25rem;
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   .lre-story__stats-grid,
   .lre-team__grid,

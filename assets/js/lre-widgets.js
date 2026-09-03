@@ -1220,8 +1220,10 @@
             if ( monoliths.length ) {
                 monoliths.forEach( function ( mono ) {
                     mono.addEventListener( 'mouseenter', function () {
-                        monoliths.forEach( function ( m ) { m.classList.remove( 'is-active' ); } );
-                        mono.classList.add( 'is-active' );
+                        if ( window.innerWidth > 1024 ) {
+                            monoliths.forEach( function ( m ) { m.classList.remove( 'is-active' ); } );
+                            mono.classList.add( 'is-active' );
+                        }
                     } );
                     mono.addEventListener( 'click', function ( e ) {
                         if ( e.target.closest( 'a' ) || e.target.closest( 'button' ) ) {

@@ -1437,14 +1437,13 @@
                     e.preventDefault();
                     var btn = form.querySelector( '.lre-contact__submit-btn' );
                     var feedback = form.querySelector( '.lre-contact__feedback' );
-                    var nameInput = form.querySelector( '[name="client_name"]' );
+                    var nameInput  = form.querySelector( '[name="client_name"]' );
                     var emailInput = form.querySelector( '[name="client_email"]' );
-                    var phoneInput = form.querySelector( '[name="client_phone"]' );
 
-                    if ( ! nameInput || ! emailInput || ! phoneInput ) return;
+                    if ( ! nameInput || ! emailInput ) return;
 
-                    if ( ! nameInput.value.trim() || ! emailInput.value.trim() || ! phoneInput.value.trim() ) {
-                        alert( 'Please complete all required fields (Full Name, Direct Email, Telephone).' );
+                    if ( ! nameInput.value.trim() || ! emailInput.value.trim() ) {
+                        alert( 'Please provide your name and direct contact channel.' );
                         return;
                     }
 
@@ -1452,7 +1451,7 @@
                         btn.disabled = true;
                         btn.style.opacity = '0.6';
                         var btnText = btn.querySelector( '.lre-contact__btn-text' );
-                        if ( btnText ) btnText.textContent = 'Transmitting Encrypted Dossier...';
+                        if ( btnText ) btnText.textContent = 'Transmitting Inquiry...';
                     }
 
                     setTimeout( function () {

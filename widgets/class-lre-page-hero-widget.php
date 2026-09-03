@@ -8,18 +8,20 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
+use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Border;
 
 /**
  * LRE_Page_Hero_Widget
  * Universal interior page hero banner (About, Contact, Services, etc.).
- * Features Group_Control_Background for image/gradient support, Group_Control_Background
- * overlay, semantic H1 with full typography hierarchy, and btn class buttons
- * that match the site-wide `.btn .btn--outline-white` animation system.
  *
- * Typography Priority (Elementor standard):
- *   1. Widget-level typography set in this widget's Style tab
- *   2. Elementor Global/Site Typography (H1 global token)
+ * Typography Priority:
+ *   1. Widget Style Tab → Group_Control_Typography (direct editor change)
+ *   2. Elementor Global/Site Typography H1 token (TYPOGRAPHY_PRIMARY)
  *   3. CSS hard-coded fallback (Libre Baskerville, clamp sizes)
+ *
+ * Button: uses the site-wide .btn system — same translateY fill + diagonal
+ *         sweep animations as the main hero/cta widgets.
  *
  * @package Luxury_RE_Widgets
  */
@@ -68,24 +70,12 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'types'    => array( 'classic', 'gradient' ),
 				'selector' => '{{WRAPPER}} .lre-phero',
 				'fields_options' => array(
-					'background' => array(
-						'default' => 'classic',
-					),
-					'color' => array(
-						'default' => '#0a0a0a',
-					),
-					'position' => array(
-						'default' => 'center center',
-					),
-					'size' => array(
-						'default' => 'cover',
-					),
-					'repeat' => array(
-						'default' => 'no-repeat',
-					),
-					'attachment' => array(
-						'default' => 'fixed',
-					),
+					'background' => array( 'default' => 'classic' ),
+					'color'      => array( 'default' => '#0a0a0a' ),
+					'position'   => array( 'default' => 'center center' ),
+					'size'       => array( 'default' => 'cover' ),
+					'repeat'     => array( 'default' => 'no-repeat' ),
+					'attachment' => array( 'default' => 'fixed' ),
 				),
 			)
 		);
@@ -101,8 +91,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'px'  => array( 'min' => 200, 'max' => 1200, 'step' => 10 ),
 					'dvh' => array( 'min' => 20, 'max' => 100, 'step' => 1 ),
 				),
-				'default'    => array( 'size' => 52, 'unit' => 'vh' ),
-				'selectors'  => array(
+				'default'   => array( 'size' => 52, 'unit' => 'vh' ),
+				'selectors' => array(
 					'{{WRAPPER}} .lre-phero' => 'min-height: {{SIZE}}{{UNIT}};',
 				),
 			)
@@ -132,27 +122,17 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			array(
-				'name'           => 'hero_overlay',
-				'label'          => __( 'Overlay Background', 'luxury-re-widgets' ),
-				'types'          => array( 'classic', 'gradient' ),
-				'selector'       => '{{WRAPPER}} .lre-phero__overlay',
-				'condition'      => array( 'show_overlay' => 'yes' ),
+				'name'      => 'hero_overlay',
+				'label'     => __( 'Overlay Background', 'luxury-re-widgets' ),
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .lre-phero__overlay',
+				'condition' => array( 'show_overlay' => 'yes' ),
 				'fields_options' => array(
-					'background' => array(
-						'default' => 'gradient',
-					),
-					'gradient_type' => array(
-						'default' => 'linear',
-					),
-					'gradient_angle' => array(
-						'default' => array( 'unit' => 'deg', 'size' => 180 ),
-					),
-					'color' => array(
-						'default' => 'rgba(0,0,0,0.55)',
-					),
-					'color_b' => array(
-						'default' => 'rgba(0,0,0,0.70)',
-					),
+					'background'     => array( 'default' => 'gradient' ),
+					'gradient_type'  => array( 'default' => 'linear' ),
+					'gradient_angle' => array( 'default' => array( 'unit' => 'deg', 'size' => 180 ) ),
+					'color'          => array( 'default' => 'rgba(0,0,0,0.52)' ),
+					'color_b'        => array( 'default' => 'rgba(0,0,0,0.72)' ),
 				),
 			)
 		);
@@ -160,16 +140,16 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_opacity',
 			array(
-				'label'          => __( 'Overlay Opacity', 'luxury-re-widgets' ),
-				'type'           => Controls_Manager::SLIDER,
-				'range'          => array(
+				'label'     => __( 'Overlay Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
 					'px' => array( 'min' => 0, 'max' => 1, 'step' => 0.05 ),
 				),
-				'default'        => array( 'size' => 1 ),
-				'selectors'      => array(
+				'default'   => array( 'size' => 1 ),
+				'selectors' => array(
 					'{{WRAPPER}} .lre-phero__overlay' => 'opacity: {{SIZE}};',
 				),
-				'condition'      => array( 'show_overlay' => 'yes' ),
+				'condition' => array( 'show_overlay' => 'yes' ),
 			)
 		);
 
@@ -212,7 +192,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'label'   => __( 'Subtitle / Description', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
 				'rows'    => 4,
-				'default' => 'We understand that buying or selling a home is more than just a transaction; it\'s a life-changing experience. That\'s why our team of highly-seasoned real estate professionals is dedicated to providing exceptional, personalized service.',
+				'default' => "We understand that buying or selling a home is more than just a transaction; it's a life-changing experience. That's why our team of highly-seasoned real estate professionals is dedicated to providing exceptional, personalized service.",
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -238,7 +218,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CTA BUTTON ──
+		// ── CTA BUTTON CONTENT ──
 		$this->start_controls_section(
 			'section_cta',
 			array(
@@ -287,7 +267,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'btn--outline-white',
 				'options'   => array(
-					'btn--outline-white' => __( 'Outline White (recommended on dark images)', 'luxury-re-widgets' ),
+					'btn--outline-white' => __( 'Outline White (for dark backgrounds)', 'luxury-re-widgets' ),
 					'btn--gold'          => __( 'Gold Filled', 'luxury-re-widgets' ),
 					'btn--primary'       => __( 'Dark Filled', 'luxury-re-widgets' ),
 					'btn--outline'       => __( 'Outline Dark', 'luxury-re-widgets' ),
@@ -355,9 +335,6 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		// =================================================================
 
 		// ── TITLE STYLE ──
-		// Priority: 1) Widget-level Group_Control_Typography (editor directly changes here)
-		//           2) Elementor Global/Site Typography h1 token (via `global` key)
-		//           3) Hard-coded CSS fallback below
 		$this->start_controls_section(
 			'style_title',
 			array(
@@ -378,16 +355,13 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			)
 		);
 
-		// Group_Control_Typography is the FIRST priority for Elementor typography.
-		// Setting 'global' => ['default' => 'globals/typography?id=primary'] will allow
-		// it to inherit the site's H1 global token when the user has not overridden it here.
+		// Typography: Priority 1 = this control, Priority 2 = Elementor Global H1, Priority 3 = CSS
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-phero__title, {{WRAPPER}} .lre-phero__title .phero-mask > span',
-				// 'global' allows falling back to Elementor's site-level H1 typography token
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
@@ -412,8 +386,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'px' => array( 'min' => 400, 'max' => 1400, 'step' => 10 ),
 					'%'  => array( 'min' => 30, 'max' => 100, 'step' => 1 ),
 				),
-				'default'    => array( 'size' => 760, 'unit' => 'px' ),
-				'selectors'  => array(
+				'default'   => array( 'size' => 760, 'unit' => 'px' ),
+				'selectors' => array(
 					'{{WRAPPER}} .lre-phero__content' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 			)
@@ -451,26 +425,47 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'subtitle_max_width',
+			array(
+				'label'      => __( 'Max-Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array( 'min' => 200, 'max' => 1000, 'step' => 10 ),
+					'%'  => array( 'min' => 30, 'max' => 100, 'step' => 1 ),
+				),
+				'default'   => array( 'size' => 580, 'unit' => 'px' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-phero__subtitle' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
-		// ── BUTTON STYLE ──
+		// ── CTA BUTTON STYLE ──
 		$this->start_controls_section(
 			'style_button',
 			array(
-				'label'     => __( 'CTA Button', 'luxury-re-widgets' ),
+				'label'     => __( 'CTA Button Style', 'luxury-re-widgets' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'show_cta' => 'yes' ),
 			)
 		);
 
+		// Typography
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'btn_typography',
-				'selector' => '{{WRAPPER}} .lre-phero__actions .btn, {{WRAPPER}} .lre-phero__actions .btn span',
+				'name'      => 'btn_typography',
+				'label'     => __( 'Typography', 'luxury-re-widgets' ),
+				'selector'  => '{{WRAPPER}} .lre-phero__actions .btn, {{WRAPPER}} .lre-phero__actions .btn span',
+				'separator' => 'none',
 			)
 		);
 
+		// Padding
 		$this->add_responsive_control(
 			'btn_padding',
 			array(
@@ -488,13 +483,120 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-phero__actions .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
+				'separator'  => 'before',
 			)
 		);
 
-		// Normal / Hover tabs — matching exact hero widget pattern
-		$this->start_controls_tabs( 'tabs_btn_style' );
+		// Margin
+		$this->add_responsive_control(
+			'btn_margin',
+			array(
+				'label'      => __( 'Margin', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'default'    => array(
+					'top'      => '0',
+					'right'    => '0',
+					'bottom'   => '0',
+					'left'     => '0',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
 
-			$this->start_controls_tab( 'tab_btn_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+		// Gap between buttons (if multiple)
+		$this->add_responsive_control(
+			'btn_gap',
+			array(
+				'label'      => __( 'Gap Between Buttons', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'default'   => array( 'size' => 1.2, 'unit' => 'rem' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-phero__actions' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Min Width
+		$this->add_responsive_control(
+			'btn_min_width',
+			array(
+				'label'      => __( 'Min Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 500 ),
+					'rem' => array( 'min' => 0, 'max' => 30 ),
+					'%'   => array( 'min' => 0, 'max' => 100 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Border Width
+		$this->add_responsive_control(
+			'btn_border_width',
+			array(
+				'label'      => __( 'Border Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px' ),
+				'default'    => array(
+					'top'      => '1',
+					'right'    => '1',
+					'bottom'   => '1',
+					'left'     => '1',
+					'unit'     => 'px',
+					'isLinked' => true,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important; border-style: solid !important;',
+				),
+				'separator'  => 'before',
+			)
+		);
+
+		// Border Radius
+		$this->add_responsive_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'default'    => array(
+					'top'      => '0',
+					'right'    => '0',
+					'bottom'   => '0',
+					'left'     => '0',
+					'unit'     => 'px',
+					'isLinked' => true,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-phero__actions .btn,
+					 {{WRAPPER}} .lre-phero__actions .btn::before,
+					 {{WRAPPER}} .lre-phero__actions .btn::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// ── Normal / Hover Tabs ──
+		$this->start_controls_tabs( 'tabs_btn_style', array( 'separator' => 'before' ) );
+
+			// ── Normal Tab ──
+			$this->start_controls_tab(
+				'tab_btn_normal',
+				array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+			);
 
 			$this->add_control(
 				'btn_text_color',
@@ -503,8 +605,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn,
-						 {{WRAPPER}} .lre-phero__actions .btn span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn'      => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn span' => 'color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -512,11 +614,11 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			$this->add_control(
 				'btn_bg_color',
 				array(
-					'label'     => __( 'Background', 'luxury-re-widgets' ),
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'default'   => 'transparent',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn' => 'background: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -533,9 +635,22 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				)
 			);
 
+			$this->add_group_control(
+				Group_Control_Box_Shadow::get_type(),
+				array(
+					'name'     => 'btn_box_shadow',
+					'label'    => __( 'Box Shadow', 'luxury-re-widgets' ),
+					'selector' => '{{WRAPPER}} .lre-phero__actions .btn',
+				)
+			);
+
 			$this->end_controls_tab();
 
-			$this->start_controls_tab( 'tab_btn_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			// ── Hover Tab ──
+			$this->start_controls_tab(
+				'tab_btn_hover',
+				array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+			);
 
 			$this->add_control(
 				'btn_hover_text_color',
@@ -544,8 +659,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn:hover,
-						 {{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover'      => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -553,13 +668,14 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			$this->add_control(
 				'btn_hover_bg_color',
 				array(
-					'label'     => __( 'Fill Color (slide-up fill)', 'luxury-re-widgets' ),
-					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
-					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn'           => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn::before'   => 'background: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn:hover'     => 'background: {{VALUE}} !important;',
+					'label'       => __( 'Fill Color (slide-up animation)', 'luxury-re-widgets' ),
+					'type'        => Controls_Manager::COLOR,
+					'default'     => '#ffffff',
+					'description' => __( 'Fills button bottom-to-top on hover via ::before animation (same as hero widget).', 'luxury-re-widgets' ),
+					'selectors'   => array(
+						'{{WRAPPER}} .lre-phero__actions .btn'        => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover'   => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -576,13 +692,47 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				)
 			);
 
+			$this->add_group_control(
+				Group_Control_Box_Shadow::get_type(),
+				array(
+					'name'     => 'btn_hover_box_shadow',
+					'label'    => __( 'Box Shadow', 'luxury-re-widgets' ),
+					'selector' => '{{WRAPPER}} .lre-phero__actions .btn:hover',
+				)
+			);
+
+			$this->add_control(
+				'btn_hover_animation',
+				array(
+					'label'        => __( 'Hover Animation', 'luxury-re-widgets' ),
+					'type'         => Controls_Manager::HOVER_ANIMATION,
+					'prefix_class' => 'elementor-animation-',
+				)
+			);
+
+			$this->add_responsive_control(
+				'btn_hover_transition_duration',
+				array(
+					'label'      => __( 'Transition Duration (ms)', 'luxury-re-widgets' ),
+					'type'       => Controls_Manager::SLIDER,
+					'range'      => array(
+						'px' => array( 'min' => 100, 'max' => 1500, 'step' => 50 ),
+					),
+					'default'    => array( 'size' => 400, 'unit' => 'px' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .lre-phero__actions .btn'        => 'transition-duration: {{SIZE}}ms !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'transition-duration: {{SIZE}}ms !important;',
+					),
+				)
+			);
+
 			$this->end_controls_tab();
 
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 
-		// ── LAYOUT ──
+		// ── LAYOUT STYLE ──
 		$this->start_controls_section(
 			'style_layout',
 			array(
@@ -674,13 +824,12 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 						</div>
 					<?php endif; ?>
 
-					<!-- H1 Title — semantic, always H1 for interior pages -->
-					<!-- CSS mask-reveal animation: same heroMaskUp pattern as main hero -->
+					<!-- H1 Title — mask-reveal, same heroMaskUp animation as main hero -->
 					<h1 class="lre-phero__title">
 						<span class="phero-mask"><span><?php echo $title; ?></span></span>
 					</h1>
 
-					<!-- Gold divider line -->
+					<!-- Gold divider -->
 					<div class="lre-phero__divider" aria-hidden="true"></div>
 
 					<!-- Subtitle -->
@@ -688,7 +837,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 						<p class="lre-phero__subtitle"><?php echo $subtitle; ?></p>
 					<?php endif; ?>
 
-					<!-- CTA Button — uses the site-wide .btn system (matching hero/cta widgets) -->
+					<!-- CTA Button — .btn system (fill + sweep animations built-in) -->
 					<?php if ( 'yes' === $show_cta && ! empty( $cta_text ) ) : ?>
 						<div class="lre-phero__actions">
 							<a href="<?php echo $cta_url; ?>"

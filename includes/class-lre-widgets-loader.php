@@ -32,6 +32,8 @@ class LRE_Widgets_Loader {
 		'class-lre-about-services-widget.php' => 'LRE_About_Services_Widget',
 		'class-lre-reviews-widget.php'        => 'LRE_Reviews_Widget',
 		'class-lre-press-widget.php'          => 'LRE_Press_Widget',
+		// Universal
+		'class-lre-page-hero-widget.php'      => 'LRE_Page_Hero_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

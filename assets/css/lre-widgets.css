@@ -6346,3 +6346,369 @@ button.navbar__mobile-toggle:active,
     gap: 1.8rem 2.5rem;
   }
 }
+
+/* ==========================================================================
+   16. PAGE HERO BANNER — Universal Interior Page Hero (lre_page_hero)
+   ========================================================================== */
+
+.lre-phero {
+  position: relative;
+  width: 100%;
+  min-height: 52vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0a0a0a; /* fallback if no image */
+}
+
+/* ── Background Image ── */
+.lre-phero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  transform: scale(1.04);
+  transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-phero:hover .lre-phero__bg-img,
+.lre-phero.is-loaded .lre-phero__bg-img {
+  transform: scale(1.0);
+}
+
+/* ── Dark Overlay ── */
+.lre-phero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #0a0a0a;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* ── Decorative side lines ── */
+.lre-phero__lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 4rem);
+  max-width: 1280px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.lre-phero__lines span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(197, 160, 71, 0.15) 30%,
+    rgba(197, 160, 71, 0.15) 70%,
+    transparent 100%
+  );
+}
+
+.lre-phero__lines span:first-child { left: 0; }
+.lre-phero__lines span:last-child  { right: 0; }
+
+/* ── Inner content wrapper ── */
+.lre-phero__inner {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 5rem;
+  box-sizing: border-box;
+}
+
+/* ── Content box ── */
+.lre-phero__content {
+  max-width: 760px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Eyebrow ── */
+.lre-phero__eyebrow-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+}
+
+.lre-phero__gold-bar {
+  display: inline-block;
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c5a047, transparent);
+  flex-shrink: 0;
+}
+
+.lre-phero__eyebrow {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+}
+
+/* ── H1 Title ── */
+.lre-phero__title {
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+/* ── Gold divider ── */
+.lre-phero__divider {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c5a047, transparent);
+  margin: 0 auto 1.6rem;
+}
+
+/* ── Subtitle ── */
+.lre-phero__subtitle {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.96rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 auto 2.4rem;
+  max-width: 580px;
+}
+
+/* ── Actions ── */
+.lre-phero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+/* ── CTA Button — Outline (default) ── */
+.lre-phero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.95rem 2.2rem;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition:
+    color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-phero__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.06);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-phero__cta:hover {
+  border-color: var(--color-secondary, #c5a047);
+  color: #f8eed3;
+  box-shadow: 0 0 20px rgba(197, 160, 71, 0.2);
+}
+
+.lre-phero__cta:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── CTA Button — Gold variant ── */
+.lre-phero__cta--gold {
+  background: var(--color-secondary, #c5a047);
+  border-color: var(--color-secondary, #c5a047);
+  color: #0a0a0a;
+}
+
+.lre-phero__cta--gold::before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.lre-phero__cta--gold:hover {
+  background: #b8923e;
+  border-color: #b8923e;
+  color: #0a0a0a;
+  box-shadow: 0 8px 28px rgba(197, 160, 71, 0.45);
+}
+
+/* ── CTA Button — Ghost variant ── */
+.lre-phero__cta--ghost {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lre-phero__cta--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+/* ── CTA Arrow animation ── */
+.lre-phero__cta-arrow {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-phero__cta:hover .lre-phero__cta-arrow {
+  transform: translate3d(4px, -2px, 0);
+}
+
+/* ── Breadcrumb — bottom-left ── */
+.lre-phero__breadcrumb {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 4rem);
+  max-width: 1280px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.lre-phero__breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  pointer-events: auto;
+}
+
+.lre-phero__breadcrumb-list li {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lre-phero__breadcrumb-list li a {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.lre-phero__breadcrumb-list li a:hover {
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-phero__breadcrumb-list li[aria-current="page"] {
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-phero__bc-sep {
+  color: rgba(255, 255, 255, 0.3) !important;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Scroll hint ── */
+.lre-phero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  right: calc(50% - 640px + 2rem);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+
+.lre-phero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(197, 160, 71, 0.8), transparent);
+  animation: lre-phero-scroll 2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes lre-phero-scroll {
+  0%   { transform: scaleY(0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1320px) {
+  .lre-phero__scroll-hint {
+    right: 2rem;
+  }
+  .lre-phero__breadcrumb {
+    width: calc(100% - 4rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .lre-phero__inner {
+    padding: 5rem 2rem 4.5rem;
+  }
+  .lre-phero__title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .lre-phero {
+    min-height: 65vmin;
+  }
+  .lre-phero__inner {
+    padding: 5rem 1.5rem 5rem;
+    align-items: center;
+  }
+  .lre-phero__title {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+    letter-spacing: -0.01em;
+  }
+  .lre-phero__subtitle {
+    font-size: 0.9rem;
+  }
+  .lre-phero__lines {
+    display: none;
+  }
+  .lre-phero__scroll-hint {
+    display: none;
+  }
+  .lre-phero__breadcrumb {
+    bottom: 1.25rem;
+    left: 1.5rem;
+    transform: none;
+    width: auto;
+  }
+  .lre-phero__cta {
+    padding: 0.85rem 1.6rem;
+    font-size: 0.68rem;
+  }
+}

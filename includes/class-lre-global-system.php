@@ -1130,6 +1130,12 @@ body.elementor-editor-active .lre-contact__header,
 body.elementor-editor-active .lre-contact__desk,
 body.elementor-editor-active .lre-contact__form-wrapper,
 body.elementor-editor-active .lre-contact__stage,
+body.elementor-editor-active .lre-guide,
+body.elementor-editor-active .lre-guide .reveal,
+body.elementor-editor-active .lre-guide__header,
+body.elementor-editor-active .lre-guide__principles-grid,
+body.elementor-editor-active .lre-guide__roadmap,
+body.elementor-editor-active .lre-guide__dossier-console,
 .elementor-editor-active .reveal,
 .elementor-editor-preview .reveal,
 .elementor-edit-mode .reveal,
@@ -1144,7 +1150,10 @@ body.elementor-editor-active .lre-contact__stage,
 .elementor-edit-mode .lre-comm-frame__img,
 .elementor-editor-active .lre-contact .reveal,
 .elementor-editor-preview .lre-contact .reveal,
-.elementor-edit-mode .lre-contact .reveal {
+.elementor-edit-mode .lre-contact .reveal,
+.elementor-editor-active .lre-guide .reveal,
+.elementor-editor-preview .lre-guide .reveal,
+.elementor-edit-mode .lre-guide .reveal {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;

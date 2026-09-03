@@ -35,6 +35,8 @@ class LRE_Widgets_Loader {
 		'class-lre-communities-showcase-widget.php' => 'LRE_Communities_Showcase_Widget',
 		// Contact Page Suite
 		'class-lre-contact-widget.php'              => 'LRE_Contact_Widget',
+		// Buying Guide Page Suite
+		'class-lre-buying-guide-widget.php'         => 'LRE_Buying_Guide_Widget',
 		// Universal
 		'class-lre-page-hero-widget.php'      => 'LRE_Page_Hero_Widget',
 	);

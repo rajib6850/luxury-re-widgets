@@ -942,7 +942,12 @@ button.navbar__mobile-toggle:active,
 .lre-reviews .lre-reviews__tab-name,
 .lre-aserv .lre-aserv__card-title,
 .lre-aserv .lre-aserv__mono-title,
-.lre-aserv .lre-aserv__mono-num {
+.lre-aserv .lre-aserv__mono-num,
+.lre-press .lre-press__spotlight-title,
+.lre-press .lre-press__card-title,
+.lre-press .lre-press__award-name,
+.lre-press .lre-press__vault-title,
+.lre-press .lre-press__masthead-name {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
@@ -954,15 +959,22 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__desc,
 .lre-aserv .lre-aserv__mono-desc,
 .lre-aserv .lre-aserv__card-desc,
-.lre-aserv .lre-aserv__capabilities li {
-  color: rgba(255, 255, 255, 0.82) !important;
+.lre-aserv .lre-aserv__capabilities li,
+.lre-press .lre-press__desc,
+.lre-press .lre-press__spotlight-excerpt,
+.lre-press .lre-press__card-excerpt,
+.lre-press .lre-press__award-issuer,
+.lre-press .lre-press__masthead-sub {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .lre-reviews .lre-reviews__eyebrow,
 .lre-aserv .lre-aserv__eyebrow,
 .lre-press .lre-press__eyebrow,
 .lre-aserv .lre-aserv__card-cat,
-.lre-aserv .lre-aserv__mono-tag {
+.lre-aserv .lre-aserv__mono-tag,
+.lre-press .lre-press__tag,
+.lre-press .lre-press__vault-eyebrow {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
@@ -1057,6 +1069,24 @@ button.navbar__mobile-toggle:active,
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+  }
+
+  .lre-press {
+    overflow-x: hidden !important;
+  }
+  .lre-press .lre-press__container,
+  .lre-press .lre-press__stage,
+  .lre-press .lre-press__spotlight,
+  .lre-press .lre-press__spotlight-card,
+  .lre-press .lre-press__articles-grid,
+  .lre-press .lre-press__card,
+  .lre-press .lre-press__vault,
+  .lre-press .lre-press__awards-grid,
+  .lre-press .lre-press__award-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
   }
 }
 ';

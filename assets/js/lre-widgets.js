@@ -1369,6 +1369,18 @@
         init: function ( $scope ) {
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
+
+            var root = $scope ? ( $scope[0] || $scope ) : document;
+            var spotlight = root.querySelector ? root.querySelector( '.lre-press__spotlight-card' ) : null;
+            if ( spotlight ) {
+                spotlight.addEventListener( 'mousemove', function ( e ) {
+                    var rect = spotlight.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    spotlight.style.setProperty( '--mouse-x', x + 'px' );
+                    spotlight.style.setProperty( '--mouse-y', y + 'px' );
+                } );
+            }
         }
     };
 

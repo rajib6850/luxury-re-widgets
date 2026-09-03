@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-press__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
@@ -1363,29 +1363,7 @@
     };
 
     // =========================================================================
-    // 16. PRESS & MEDIA (lre_press)
-    // =========================================================================
-    LREWidgets.Press = {
-        init: function ( $scope ) {
-            LREWidgets.initReveals( $scope );
-            LREWidgets.initImageZoom( $scope );
-
-            var root = $scope ? ( $scope[0] || $scope ) : document;
-            var spotlight = root.querySelector ? root.querySelector( '.lre-press__spotlight-card' ) : null;
-            if ( spotlight ) {
-                spotlight.addEventListener( 'mousemove', function ( e ) {
-                    var rect = spotlight.getBoundingClientRect();
-                    var x = e.clientX - rect.left;
-                    var y = e.clientY - rect.top;
-                    spotlight.style.setProperty( '--mouse-x', x + 'px' );
-                    spotlight.style.setProperty( '--mouse-y', y + 'px' );
-                } );
-            }
-        }
-    };
-
-    // =========================================================================
-    // 17. PAGE HERO (lre_page_hero)
+    // 16. PAGE HERO (lre_page_hero)
     // =========================================================================
     LREWidgets.PageHero = {
         init: function ( $scope ) {
@@ -1416,7 +1394,6 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_story.default',          function ( $scope ) { LREWidgets.Story.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_about_services.default', function ( $scope ) { LREWidgets.AboutServices.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_reviews.default',        function ( $scope ) { LREWidgets.Reviews.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_press.default',          function ( $scope ) { LREWidgets.Press.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_page_hero.default',      function ( $scope ) { LREWidgets.PageHero.init( $scope ); } );
     }
 
@@ -1435,7 +1412,6 @@
         if ( LREWidgets.Story )         LREWidgets.Story.init();
         if ( LREWidgets.AboutServices ) LREWidgets.AboutServices.init();
         if ( LREWidgets.Reviews )       LREWidgets.Reviews.init();
-        if ( LREWidgets.Press )         LREWidgets.Press.init();
         if ( LREWidgets.PageHero )      LREWidgets.PageHero.init();
     }
 

@@ -108,8 +108,7 @@ body,
 .lre-story__container,
 .lre-team__container,
 .lre-aserv__container,
-.lre-reviews__container,
-.lre-press__container {
+.lre-reviews__container {
   width: 100% !important;
   max-width: 1320px !important;
   margin-left: auto !important;
@@ -129,8 +128,7 @@ body,
   .lre-story__container,
   .lre-team__container,
   .lre-aserv__container,
-  .lre-reviews__container,
-  .lre-press__container {
+  .lre-reviews__container {
     padding-left: 1.75rem !important;
     padding-right: 1.75rem !important;
   }
@@ -142,8 +140,7 @@ body,
   .lre-story__container,
   .lre-team__container,
   .lre-aserv__container,
-  .lre-reviews__container,
-  .lre-press__container {
+  .lre-reviews__container {
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
   }
@@ -155,8 +152,7 @@ body,
   .lre-story__container,
   .lre-team__container,
   .lre-aserv__container,
-  .lre-reviews__container,
-  .lre-press__container {
+  .lre-reviews__container {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }
@@ -168,8 +164,7 @@ body,
   .lre-story__container,
   .lre-team__container,
   .lre-aserv__container,
-  .lre-reviews__container,
-  .lre-press__container {
+  .lre-reviews__container {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
@@ -908,10 +903,8 @@ button.navbar__mobile-toggle:active,
 /* ─── DARK LUXURY SECTIONS: PURE WHITE TITLES & HIGH-CONTRAST TEXT GUARANTEE ─── */
 .lre-reviews,
 .lre-aserv,
-.lre-press,
 .elementor-widget-lre_reviews,
-.elementor-widget-lre_about_services,
-.elementor-widget-lre_press {
+.elementor-widget-lre_about_services {
   --color-text: #ffffff !important;
   --color-text-muted: rgba(255, 255, 255, 0.75) !important;
   --aserv-text: #ffffff !important;
@@ -925,11 +918,7 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__title,
 .lre-aserv .lre-aserv__title .title-mask,
 .lre-aserv .lre-aserv__title .title-mask > span,
-.lre-aserv .lre-aserv__title span,
-.lre-press .lre-press__title,
-.lre-press .lre-press__title .title-mask,
-.lre-press .lre-press__title .title-mask > span,
-.lre-press .lre-press__title span {
+.lre-aserv .lre-aserv__title span {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;
@@ -942,12 +931,7 @@ button.navbar__mobile-toggle:active,
 .lre-reviews .lre-reviews__tab-name,
 .lre-aserv .lre-aserv__card-title,
 .lre-aserv .lre-aserv__mono-title,
-.lre-aserv .lre-aserv__mono-num,
-.lre-press .lre-press__spotlight-title,
-.lre-press .lre-press__card-title,
-.lre-press .lre-press__award-name,
-.lre-press .lre-press__vault-title,
-.lre-press .lre-press__masthead-name {
+.lre-aserv .lre-aserv__mono-num {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
@@ -959,22 +943,14 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__desc,
 .lre-aserv .lre-aserv__mono-desc,
 .lre-aserv .lre-aserv__card-desc,
-.lre-aserv .lre-aserv__capabilities li,
-.lre-press .lre-press__desc,
-.lre-press .lre-press__spotlight-excerpt,
-.lre-press .lre-press__card-excerpt,
-.lre-press .lre-press__award-issuer,
-.lre-press .lre-press__masthead-sub {
+.lre-aserv .lre-aserv__capabilities li {
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .lre-reviews .lre-reviews__eyebrow,
 .lre-aserv .lre-aserv__eyebrow,
-.lre-press .lre-press__eyebrow,
 .lre-aserv .lre-aserv__card-cat,
-.lre-aserv .lre-aserv__mono-tag,
-.lre-press .lre-press__tag,
-.lre-press .lre-press__vault-eyebrow {
+.lre-aserv .lre-aserv__mono-tag {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
@@ -1069,24 +1045,6 @@ button.navbar__mobile-toggle:active,
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-  }
-
-  .lre-press {
-    overflow-x: hidden !important;
-  }
-  .lre-press .lre-press__container,
-  .lre-press .lre-press__stage,
-  .lre-press .lre-press__spotlight,
-  .lre-press .lre-press__spotlight-card,
-  .lre-press .lre-press__articles-grid,
-  .lre-press .lre-press__card,
-  .lre-press .lre-press__vault,
-  .lre-press .lre-press__awards-grid,
-  .lre-press .lre-press__award-item {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    min-width: 0 !important;
   }
 }
 ';

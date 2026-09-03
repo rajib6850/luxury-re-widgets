@@ -447,23 +447,23 @@ button.btn,
   flex-wrap: wrap !important;
 }
 
-/* CTA Button 1: Solid Champagne Gold Primary */
+/* CTA Button 1: Solid Deep Black Primary */
 .cta__buttons .cta__btn-1,
 .cta__buttons a.cta__btn-1 {
-  background: var(--color-secondary, #c5a047) !important;
-  background-color: var(--color-secondary, #c5a047) !important;
-  color: #08080c !important;
-  border: 1px solid var(--color-secondary, #c5a047) !important;
-  box-shadow: 0 8px 24px rgba(197, 160, 71, 0.28) !important;
-  font-weight: 600 !important;
+  background: #08080c !important;
+  background-color: #08080c !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
   --btn-hover-bg: #ffffff;
 }
 
 .cta__buttons .cta__btn-1 span,
 .cta__buttons a.cta__btn-1 span {
-  color: #08080c !important;
-  font-weight: 600 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
 }
 
@@ -479,7 +479,7 @@ button.btn,
   background-color: #ffffff !important;
   border-color: #ffffff !important;
   color: #08080c !important;
-  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px) !important;
 }
 

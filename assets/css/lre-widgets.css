@@ -2754,22 +2754,22 @@ button.btn {
   align-items: center;
 }
 
-/* Button 1: Signature Solid Champagne Gold Primary Conversion Button */
+/* Button 1: Deep Black Primary Conversion Button */
 .cta__buttons .cta__btn-1 {
-  background: var(--color-secondary, #c5a047) !important;
-  background-color: var(--color-secondary, #c5a047) !important;
-  color: #08080c !important;
-  border: 1px solid var(--color-secondary, #c5a047) !important;
-  box-shadow: 0 8px 24px rgba(197, 160, 71, 0.28) !important;
-  font-weight: 600 !important;
+  background: #08080c !important;
+  background-color: #08080c !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
   --btn-hover-bg: #ffffff;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .cta__buttons .cta__btn-1 span {
-  color: #08080c !important;
-  font-weight: 600 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
   transition: color 0.35s ease !important;
 }
@@ -2784,7 +2784,7 @@ button.btn {
   background-color: #ffffff !important;
   border-color: #ffffff !important;
   color: #08080c !important;
-  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px);
 }
 
@@ -2801,7 +2801,7 @@ button.btn {
   color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
   --btn-hover-bg: #ffffff;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -2809,7 +2809,7 @@ button.btn {
 
 .cta__buttons .cta__btn-2 span {
   color: #ffffff !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   letter-spacing: 2px !important;
   transition: color 0.35s ease !important;
 }
@@ -2824,7 +2824,7 @@ button.btn {
   background-color: #ffffff !important;
   border-color: #ffffff !important;
   color: #08080c !important;
-  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px);
 }
 

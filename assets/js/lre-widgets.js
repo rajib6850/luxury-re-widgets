@@ -1373,7 +1373,7 @@
     };
 
     // =========================================================================
-    // 16. COMMUNITIES SHOWCASE — Real-time Lifestyle Filter & Live Enclave Search
+    // 16. COMMUNITIES SHOWCASE — Minimal Lifestyle Filter Navigation
     // =========================================================================
     LREWidgets.CommunitiesShowcase = {
         init: function ( $scope ) {
@@ -1382,89 +1382,26 @@
             if ( ! sections.length ) return;
 
             sections.forEach( function ( section ) {
-                var filterBtns   = section.querySelectorAll( '.lre-comm-filter-btn' );
-                var searchInput  = section.querySelector( '.lre-comm-showcase__search-input' );
-                var spotlight    = section.querySelector( '.lre-comm-spotlight-wrap' );
-                var cards        = section.querySelectorAll( '.lre-comm-card' );
-                var noResults    = section.querySelector( '.lre-comm-no-results' );
-                var resetBtn     = section.querySelector( '.lre-comm-reset-btn' );
+                var navItems = section.querySelectorAll( '.lre-comm-nav-item' );
+                var frames   = section.querySelectorAll( '.lre-comm-frame' );
+                if ( ! navItems.length || ! frames.length ) return;
 
-                var currentFilter = 'all';
-                var currentQuery  = '';
+                navItems.forEach( function ( item ) {
+                    item.addEventListener( 'click', function () {
+                        navItems.forEach( function ( n ) { n.classList.remove( 'is-active' ); } );
+                        item.classList.add( 'is-active' );
+                        var filterVal = item.getAttribute( 'data-filter' ) || 'all';
 
-                function applyFilterAndSearch() {
-                    var visibleCount = 0;
-
-                    // Spotlight item
-                    if ( spotlight ) {
-                        var spotCat = spotlight.getAttribute( 'data-category' ) || '';
-                        var spotSearch = spotlight.getAttribute( 'data-search' ) || '';
-                        var matchesFilter = ( currentFilter === 'all' || spotCat === currentFilter );
-                        var matchesQuery  = ( ! currentQuery || spotSearch.indexOf( currentQuery ) !== -1 );
-
-                        if ( matchesFilter && matchesQuery ) {
-                            spotlight.style.display = '';
-                            visibleCount++;
-                        } else {
-                            spotlight.style.display = 'none';
-                        }
-                    }
-
-                    // Regular cards
-                    cards.forEach( function ( card ) {
-                        var cat = card.getAttribute( 'data-category' ) || '';
-                        var search = card.getAttribute( 'data-search' ) || '';
-                        var matchesFilter = ( currentFilter === 'all' || cat === currentFilter );
-                        var matchesQuery  = ( ! currentQuery || search.indexOf( currentQuery ) !== -1 );
-
-                        if ( matchesFilter && matchesQuery ) {
-                            card.style.display = '';
-                            visibleCount++;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    } );
-
-                    // Show or hide No Results state
-                    if ( noResults ) {
-                        noResults.style.display = ( visibleCount === 0 ) ? 'block' : 'none';
-                    }
-                }
-
-                // Filter tabs click
-                filterBtns.forEach( function ( btn ) {
-                    btn.addEventListener( 'click', function () {
-                        filterBtns.forEach( function ( b ) { b.classList.remove( 'is-active' ); } );
-                        btn.classList.add( 'is-active' );
-                        currentFilter = btn.getAttribute( 'data-filter' ) || 'all';
-                        applyFilterAndSearch();
-                    } );
-                } );
-
-                // Live search input
-                if ( searchInput ) {
-                    searchInput.addEventListener( 'input', function () {
-                        currentQuery = searchInput.value.trim().toLowerCase();
-                        applyFilterAndSearch();
-                    } );
-                }
-
-                // Reset button
-                if ( resetBtn ) {
-                    resetBtn.addEventListener( 'click', function () {
-                        currentFilter = 'all';
-                        currentQuery  = '';
-                        if ( searchInput ) searchInput.value = '';
-                        filterBtns.forEach( function ( b ) {
-                            if ( b.getAttribute( 'data-filter' ) === 'all' ) {
-                                b.classList.add( 'is-active' );
+                        frames.forEach( function ( frame ) {
+                            var frameCat = frame.getAttribute( 'data-category' ) || '';
+                            if ( filterVal === 'all' || frameCat === filterVal ) {
+                                frame.style.display = '';
                             } else {
-                                b.classList.remove( 'is-active' );
+                                frame.style.display = 'none';
                             }
                         } );
-                        applyFilterAndSearch();
                     } );
-                }
+                } );
             } );
         }
     };

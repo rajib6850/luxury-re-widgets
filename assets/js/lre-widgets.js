@@ -22,6 +22,12 @@
 
         var triggerElementReveal = function ( el ) {
             el.classList.add( 'revealed' );
+            var nestedMasks = el.querySelectorAll( '.title-mask' );
+            if ( nestedMasks && nestedMasks.length ) {
+                nestedMasks.forEach( function ( m ) {
+                    m.classList.add( 'revealed' );
+                } );
+            }
         };
 
                 // Immediate smooth reveal for Hero section on page load / element ready

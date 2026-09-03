@@ -5363,20 +5363,17 @@ button.navbar__mobile-toggle:active,
 }
 
 .lre-team__title .title-mask {
-  display: block;
-  overflow: hidden;
-  line-height: inherit;
+  display: inline-block;
+  max-width: 100%;
+  overflow: visible;
+  vertical-align: bottom;
+  box-sizing: border-box;
 }
 
 .lre-team__title .title-mask > span {
   display: inline-block;
-  transform: translateY(110%);
-  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.lre-team__header.revealed .lre-team__title .title-mask > span {
-  transform: translateY(0);
+  max-width: 100%;
+  transform: none;
 }
 
 .lre-team__desc {

@@ -16,7 +16,7 @@
     // 1. UNIVERSAL SCROLL REVEAL ENGINE
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
-        var root = ( $scope && $scope.length ) ? $scope[0] : document;
+        var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
         var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
@@ -42,7 +42,7 @@
                 } );
             }, {
                 threshold: 0.08,
-                rootMargin: '0px 0px -40px 0px'
+                rootMargin: '0px 0px -20px 0px'
             } );
 
             revealEls.forEach( function ( el ) {
@@ -84,7 +84,7 @@
     // 2. KINETIC IMAGE HOVER ZOOM ENGINE (Web Animations API)
     // =========================================================================
     LREWidgets.initImageZoom = function ( $scope ) {
-        var root = ( $scope && $scope.length ) ? $scope[0] : document;
+        var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
 
         var zoomTargets = [
             { container: '.about__image-wrapper',    img: '.about__image-inner img', maxScale: '1.10' },
@@ -151,7 +151,7 @@
     // =========================================================================
     LREWidgets.Header = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             var header = root.querySelector( '.site-header' ) || ( root.classList && root.classList.contains( 'site-header' ) ? root : document.querySelector( '.site-header' ) );
             var navbar = root.querySelector( '.navbar' ) || document.getElementById( 'navbar' );
             var sideMenu = root.querySelector( '.side-menu' ) || document.getElementById( 'side-menu' );
@@ -306,7 +306,7 @@
     // =========================================================================
     LREWidgets.Concierge = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             var btn = root.querySelector( '.back-to-top' ) || document.getElementById( 'back-to-top' );
             if ( ! btn ) return;
 
@@ -332,7 +332,7 @@
     // =========================================================================
     LREWidgets.Hero = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             if ( ! root ) return;
 
             // Trigger kinetic text animations on Hero Title, Subtitle, CTA
@@ -417,7 +417,7 @@
     // =========================================================================
     LREWidgets.About = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -450,7 +450,7 @@
     // =========================================================================
     LREWidgets.Services = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -483,7 +483,7 @@
     // =========================================================================
     LREWidgets.Properties = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             if ( ! root ) return;
 
             LREWidgets.initReveals( $scope );
@@ -594,7 +594,7 @@
     // =========================================================================
     LREWidgets.Testimonials = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -636,7 +636,7 @@
     // =========================================================================
     LREWidgets.Communities = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -803,7 +803,7 @@
     // =========================================================================
     LREWidgets.Team = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -1111,7 +1111,7 @@
     // =========================================================================
     LREWidgets.CTA = {
         init: function ( $scope ) {
-            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
         }

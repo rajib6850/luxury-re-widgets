@@ -80,6 +80,7 @@ body,
 
 /* Headings font family inherits from primary global typography */
 .hero__title,
+.lre-phero__title,
 .about__title,
 .services__title,
 .listings__title,
@@ -92,7 +93,9 @@ body,
 
 /* Explicit unitless line-heights and spacing to prevent squishing or overlap */
 .hero__title,
-[class*="elementor-kit-"] .hero__title {
+.lre-phero__title,
+[class*="elementor-kit-"] .hero__title,
+[class*="elementor-kit-"] .lre-phero__title {
   color: #ffffff !important;
   margin-top: 0 !important;
   margin-bottom: 1.2rem !important;
@@ -103,8 +106,12 @@ body,
 
 .hero__title .hero-mask,
 .hero__title .hero-mask > span,
+.lre-phero__title .phero-mask,
+.lre-phero__title .phero-mask > span,
 [class*="elementor-kit-"] .hero__title .hero-mask,
-[class*="elementor-kit-"] .hero__title .hero-mask > span {
+[class*="elementor-kit-"] .hero__title .hero-mask > span,
+[class*="elementor-kit-"] .lre-phero__title .phero-mask,
+[class*="elementor-kit-"] .lre-phero__title .phero-mask > span {
   margin: 0 !important;
   padding: 0 0 0.22em 0 !important;
   line-height: inherit;
@@ -355,6 +362,7 @@ button.btn,
 
 /* Dark section headings & descriptions must remain white on dark backgrounds */
 [class*="elementor-kit-"] .hero__title,
+[class*="elementor-kit-"] .lre-phero__title,
 [class*="elementor-kit-"] .services__title,
 [class*="elementor-kit-"] .cta__title,
 [class*="elementor-kit-"] .testimonial__heading-main {

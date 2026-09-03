@@ -998,9 +998,9 @@ class LRE_Team_Widget extends Widget_Base {
 								</div>
 							</div>
 
-							<!-- Consultation CTA with Luxury Glow & Arrow -->
+							<!-- Consultation CTA with Luxury Arrow (Black & White) -->
 							<div class="lre-team-modal__actions">
-								<a href="#contact" class="btn btn--gold lre-team-modal__cta-btn">
+								<a href="#contact" class="btn btn--outline-white lre-team-modal__cta-btn">
 									<span><?php esc_html_e( 'Schedule Private Consultation', 'luxury-re-widgets' ); ?></span>
 									<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
 								</a>

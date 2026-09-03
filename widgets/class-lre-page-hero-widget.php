@@ -361,10 +361,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-phero__title, {{WRAPPER}} .lre-phero__title .phero-mask > span',
-				'global'   => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
-				),
+				'selector' => '{{WRAPPER}} .lre-phero__title, {{WRAPPER}} .lre-phero__title .phero-mask, {{WRAPPER}} .lre-phero__title .phero-mask > span',
 			)
 		);
 

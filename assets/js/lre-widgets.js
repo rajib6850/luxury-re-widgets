@@ -921,12 +921,19 @@
                         modal.classList.add( 'lre-team-modal--active' );
                         modal.setAttribute( 'aria-hidden', 'false' );
                         document.body.classList.add( 'lre-modal-open' );
+                        document.documentElement.classList.add( 'lre-modal-open' );
+                        var modalDialog = modal.querySelector( '.lre-team-modal__dialog' );
+                        if ( modalDialog ) {
+                            modalDialog.scrollTop = 0;
+                        }
+                        modal.scrollTop = 0;
                     };
 
                     var closeTeamModal = function () {
                         modal.classList.remove( 'lre-team-modal--active' );
                         modal.setAttribute( 'aria-hidden', 'true' );
                         document.body.classList.remove( 'lre-modal-open' );
+                        document.documentElement.classList.remove( 'lre-modal-open' );
                     };
 
                     // Open on card click

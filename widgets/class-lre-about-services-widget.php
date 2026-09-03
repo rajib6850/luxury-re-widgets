@@ -366,9 +366,18 @@ class LRE_About_Services_Widget extends Widget_Base {
 						</div>
 					<?php endif; ?>
 
-					<?php if ( ! empty( $title ) ) : ?>
+					<?php if ( ! empty( $title ) ) :
+						$clean_title = str_replace( array( "\r\n", "\r" ), "\n", $title );
+						$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $clean_title );
+						$title_lines = array_filter( array_map( 'trim', $raw_lines ) );
+						if ( empty( $title_lines ) ) {
+							$title_lines = array( $title );
+						}
+					?>
 						<h2 class="lre-aserv__title">
-							<span class="title-mask"><span><?php echo $title; ?></span></span>
+							<?php foreach ( $title_lines as $t_idx => $t_line ) : ?>
+								<span class="title-mask"><span><?php echo $t_line; ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
+							<?php endforeach; ?>
 						</h2>
 					<?php endif; ?>
 

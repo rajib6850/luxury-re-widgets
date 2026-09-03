@@ -134,8 +134,8 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->start_controls_tabs( 'tabs_cta_btn1' );
 			$this->start_controls_tab( 'tab_cta_btn1_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
 			$this->add_control( 'btn1_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons .cta__btn-1 span' => 'color: {{VALUE}} !important;' ) ) );
-			$this->add_control( 'btn1_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'default' => '#08080c', 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) ) );
-			$this->add_control( 'btn1_border', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(255, 255, 255, 0.65)', 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'border-color: {{VALUE}} !important;' ) ) );
+			$this->add_control( 'btn1_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(255, 255, 255, 0.05)', 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) ) );
+			$this->add_control( 'btn1_border', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(255, 255, 255, 0.45)', 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'border-color: {{VALUE}} !important;' ) ) );
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_cta_btn1_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );

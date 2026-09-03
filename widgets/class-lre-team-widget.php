@@ -970,22 +970,29 @@ class LRE_Team_Widget extends Widget_Base {
 
 							<div class="lre-team-modal__bio"></div>
 
-							<!-- Contact Grid -->
+							<!-- Contact Grid with Luxury Icons -->
 							<div class="lre-team-modal__contact-grid">
 								<div class="lre-team-modal__contact-item lre-team-modal__contact--phone">
-									<span class="lre-team-modal__contact-label"><?php esc_html_e( 'Direct Phone', 'luxury-re-widgets' ); ?></span>
+									<div class="lre-team-modal__contact-header">
+										<svg class="lre-team-modal__contact-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+										<span class="lre-team-modal__contact-label"><?php esc_html_e( 'Direct Phone', 'luxury-re-widgets' ); ?></span>
+									</div>
 									<a href="" class="lre-team-modal__contact-val lre-team-modal__phone-link"></a>
 								</div>
 								<div class="lre-team-modal__contact-item lre-team-modal__contact--email">
-									<span class="lre-team-modal__contact-label"><?php esc_html_e( 'Direct Inquiries', 'luxury-re-widgets' ); ?></span>
+									<div class="lre-team-modal__contact-header">
+										<svg class="lre-team-modal__contact-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+										<span class="lre-team-modal__contact-label"><?php esc_html_e( 'Direct Inquiries', 'luxury-re-widgets' ); ?></span>
+									</div>
 									<a href="" class="lre-team-modal__contact-val lre-team-modal__email-link"></a>
 								</div>
 							</div>
 
-							<!-- Consultation CTA -->
+							<!-- Consultation CTA with Luxury Glow & Arrow -->
 							<div class="lre-team-modal__actions">
 								<a href="#contact" class="btn btn--gold lre-team-modal__cta-btn">
 									<span><?php esc_html_e( 'Schedule Private Consultation', 'luxury-re-widgets' ); ?></span>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
 								</a>
 							</div>
 						</div>

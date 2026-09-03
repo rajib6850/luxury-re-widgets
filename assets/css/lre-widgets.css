@@ -6551,15 +6551,15 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
 /* Subtle Architectural Watermark (Consistent with About & Team sections) */
 .lre-aserv__watermark {
   position: absolute;
-  top: 2.8rem;
+  top: 2.2rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: clamp(3.2rem, 7.5vw, 6.2rem);
+  font-size: clamp(4.6rem, 11vw, 9.2rem);
   font-weight: 400;
   letter-spacing: 0.16em;
   margin-right: -0.16em;
-  color: rgba(255, 255, 255, 0.024);
+  color: rgba(255, 255, 255, 0.032);
   text-transform: uppercase;
   user-select: none;
   pointer-events: none;
@@ -7392,10 +7392,10 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     padding: 0 2rem;
   }
   .lre-aserv__watermark {
-    font-size: clamp(2.8rem, 8vw, 4.6rem);
+    font-size: clamp(3.6rem, 10.5vw, 6.6rem);
     letter-spacing: 0.14em;
     margin-right: -0.14em;
-    top: 2rem;
+    top: 1.8rem;
   }
   .lre-aserv__grid--col-3,
   .lre-aserv__grid--col-4 {
@@ -7424,10 +7424,10 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     max-width: 100%;
   }
   .lre-aserv__watermark {
-    font-size: clamp(2rem, 8.5vw, 3.2rem);
+    font-size: clamp(2.6rem, 11vw, 4.4rem);
     letter-spacing: 0.1em;
     margin-right: -0.1em;
-    top: 1.8rem;
+    top: 1.5rem;
   }
   .lre-aserv__header {
     margin-bottom: 3.5rem;
@@ -7479,10 +7479,10 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
     padding: 0 1rem;
   }
   .lre-aserv__watermark {
-    font-size: clamp(1.6rem, 8vw, 2.4rem);
+    font-size: clamp(2.0rem, 10.5vw, 3.2rem);
     letter-spacing: 0.08em;
     margin-right: -0.08em;
-    top: 1.4rem;
+    top: 1.2rem;
   }
   .lre-aserv__monolith {
     min-height: 420px;
@@ -7525,7 +7525,6 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
 
 body.elementor-editor-active .lre-aserv__watermark {
   left: 50% !important;
-  transform: translate3d(-50%, 0, 0) !important;
   text-align: center !important;
 }
 

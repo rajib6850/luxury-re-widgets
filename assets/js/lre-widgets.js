@@ -1188,25 +1188,47 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark Scroll Parallax (matching About, Team & Story widgets)
+            // Watermark Scroll Parallax (Fluid Vertical Motion)
             if ( ! prefersReducedMotion ) {
-                var aservSec = root.querySelector( '.lre-aserv' ) || ( ( root.classList && root.classList.contains( 'lre-aserv' ) ) ? root : document.querySelector( '.lre-aserv' ) );
-                var watermark = root.querySelector( '.lre-aserv__watermark' ) || ( aservSec ? aservSec.querySelector( '.lre-aserv__watermark' ) : null );
+                var sections = root.querySelectorAll( '.lre-aserv' );
+                if ( ! sections.length && root.classList && root.classList.contains( 'lre-aserv' ) ) {
+                    sections = [ root ];
+                }
+                if ( ! sections.length ) {
+                    sections = document.querySelectorAll( '.lre-aserv' );
+                }
 
-                if ( aservSec && watermark ) {
-                    var updateAservParallax = function () {
+                sections.forEach( function ( aservSec ) {
+                    var watermark = aservSec.querySelector( '.lre-aserv__watermark' );
+                    if ( ! watermark ) return;
+
+                    var ticking = false;
+                    var updateParallax = function () {
                         var rect = aservSec.getBoundingClientRect();
                         var winH = window.innerHeight;
-                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                        if ( rect.bottom >= -150 && rect.top <= winH + 150 ) {
                             var progress = ( winH - rect.top ) / ( winH + rect.height );
                             var isMobile = window.innerWidth <= 768;
-                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 32 );
-                            watermark.style.transform = 'translate3d(-50%, ' + yShift + 'px, 0)';
+                            var travel = isMobile ? 45 : 120;
+                            var yShift = ( progress - 0.5 ) * travel;
+                            watermark.style.setProperty( 'transform', 'translate3d(-50%, ' + yShift.toFixed( 1 ) + 'px, 0)', 'important' );
                         }
                     };
-                    window.addEventListener( 'scroll', updateAservParallax, { passive: true } );
-                    updateAservParallax();
-                }
+
+                    var onScroll = function () {
+                        if ( ! ticking ) {
+                            window.requestAnimationFrame( function () {
+                                updateParallax();
+                                ticking = false;
+                            } );
+                            ticking = true;
+                        }
+                    };
+
+                    window.addEventListener( 'scroll', onScroll, { passive: true } );
+                    window.addEventListener( 'resize', onScroll, { passive: true } );
+                    updateParallax();
+                } );
             }
 
             // The Architectural Monolith (Expanding Panels Interaction)

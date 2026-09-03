@@ -575,10 +575,16 @@ class LRE_Reviews_Widget extends Widget_Base {
 								</div>
 
 								<div class="lre-reviews__index-items">
-									<?php foreach ( $reviews as $idx => $r ) :
+									<?php
+									$default_client_avatars = array(
+										'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+										'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+										'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+									);
+									foreach ( $reviews as $idx => $r ) :
 										$name       = esc_html( $r['client_name'] ?? '' );
 										$tx_badge   = esc_html( $r['transaction_badge'] ?? '' );
-										$avatar_url = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+										$avatar_url = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : ( $default_client_avatars[ $idx % count( $default_client_avatars ) ] ?? '' );
 										$monogram   = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
 										$is_first   = ( 0 === $idx );
 										?>
@@ -618,7 +624,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 									$prop_img    = ! empty( $r['property_image']['url'] ) ? esc_url( $r['property_image']['url'] ) : '';
 									$quote       = esc_html( $r['review_quote'] ?? '' );
 									$stars_count = intval( $r['star_rating'] ?? 5 );
-									$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+									$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : ( $default_client_avatars[ $idx % count( $default_client_avatars ) ] ?? '' );
 									$monogram    = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
 									$is_first    = ( 0 === $idx );
 									?>

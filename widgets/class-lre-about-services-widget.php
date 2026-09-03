@@ -92,8 +92,8 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'label'       => __( 'Main Headline', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => "Comprehensive Practice.\n<span class=\"lre-title-accent\">Singular Focus.</span>",
-				'description' => __( 'Separate lines with newlines. Wrap text with &lt;span class="lre-title-accent"&gt; for animated gold sweep.', 'luxury-re-widgets' ),
+				'default'     => "Comprehensive Practice.\nSingular Focus.",
+				'description' => __( 'Separate lines with newlines or <br>.', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
 			)
 		);
@@ -291,6 +291,89 @@ class LRE_About_Services_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
+		// ── STYLE: THEME & ELEMENTOR KIT COLORS ──
+		$this->start_controls_section(
+			'style_theme_colors',
+			array(
+				'label' => __( 'Theme & Elementor Kit Colors', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'section_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#08080c',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_PRIMARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-aserv' => 'background-color: {{VALUE}} !important; --aserv-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'title_color',
+			array(
+				'label'     => __( 'Title Color (White)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-aserv__title, {{WRAPPER}} .lre-aserv__title .title-mask > span, {{WRAPPER}} .lre-aserv__title span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'accent_color',
+			array(
+				'label'     => __( 'Accent Color (Gold)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-aserv' => '--aserv-gold: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'accent_light_color',
+			array(
+				'label'     => __( 'Secondary Accent (Light Gold)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#d4b565',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_ACCENT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-aserv' => '--aserv-gold-light: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'text_color',
+			array(
+				'label'     => __( 'Body Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-aserv' => '--aserv-text: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// ── STYLE: HEADER ──
 		$this->start_controls_section(
 			'style_header',
@@ -305,19 +388,9 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.65)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__eyebrow' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'title_color',
-			array(
-				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-aserv__eyebrow' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -326,6 +399,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
+				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-aserv__title',
 			)
 		);
@@ -335,9 +409,19 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.75)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-aserv__desc' => 'color: {{VALUE}} !important;',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'label'    => __( 'Description Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-aserv__desc',
 			)
 		);
 
@@ -471,14 +555,16 @@ class LRE_About_Services_Widget extends Widget_Base {
 		$show_watermark = ( 'yes' === ( $settings['show_watermark'] ?? 'yes' ) );
 		$watermark_text = esc_html( $settings['watermark_text'] ?? 'SERVICES' );
 		$eyebrow        = esc_html( $settings['eyebrow'] ?? 'Bespoke Advisory Capabilities' );
-		$title          = $settings['title'] ?? "Comprehensive Practice.\n<span class=\"lre-title-accent\">Singular Focus.</span>";
+		$title          = $settings['title'] ?? "Comprehensive Practice.\nSingular Focus.";
 		$desc           = esc_html( $settings['description'] ?? '' );
 		$layout_style   = esc_attr( $settings['layout_style'] ?? 'monolith' );
 		$columns        = esc_attr( $settings['columns'] ?? '3' );
 		$services       = ! empty( $settings['services'] ) ? $settings['services'] : array();
 
 		// Clean title lines for mask animation
-		$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $title );
+		$clean_title = html_entity_decode( $title, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$clean_title = str_replace( array( "\r\n", "\r" ), "\n", $clean_title );
+		$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $clean_title );
 		$title_lines = array_filter( array_map( 'trim', $raw_lines ) );
 		if ( empty( $title_lines ) ) {
 			$title_lines = array( $title );

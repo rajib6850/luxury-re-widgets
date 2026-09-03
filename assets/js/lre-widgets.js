@@ -817,6 +817,149 @@
                 var track    = section.querySelector( '.lre-team__track' );
                 var prevBtn  = section.querySelector( '.lre-team__arrow--prev' );
                 var nextBtn  = section.querySelector( '.lre-team__arrow--next' );
+                var modal    = section.querySelector( '.lre-team-modal' );
+
+                // Watermark Scroll Parallax (matching About widget)
+                if ( ! prefersReducedMotion ) {
+                    var teamWatermark = section.querySelector( '.lre-team__watermark' );
+                    if ( teamWatermark ) {
+                        var updateTeamParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                teamWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateTeamParallax, { passive: true } );
+                        updateTeamParallax();
+                    }
+                }
+
+                // Super-Luxury Person Details Modal
+                if ( modal && track ) {
+                    var modalImg       = modal.querySelector( '.lre-team-modal__img' );
+                    var modalBadge     = modal.querySelector( '.lre-team-modal__badge-text' );
+                    var modalBadgeWrap = modal.querySelector( '.lre-team-modal__badge' );
+                    var modalName      = modal.querySelector( '.lre-team-modal__name' );
+                    var modalRole      = modal.querySelector( '.lre-team-modal__role' );
+                    var modalBio       = modal.querySelector( '.lre-team-modal__bio' );
+                    var modalPhoneWrap = modal.querySelector( '.lre-team-modal__contact--phone' );
+                    var modalPhoneLink = modal.querySelector( '.lre-team-modal__phone-link' );
+                    var modalEmailWrap = modal.querySelector( '.lre-team-modal__contact--email' );
+                    var modalEmailLink = modal.querySelector( '.lre-team-modal__email-link' );
+                    var modalCtaBtn    = modal.querySelector( '.lre-team-modal__cta-btn' );
+                    var modalCloseBtn  = modal.querySelector( '.lre-team-modal__close' );
+                    var modalBackdrop  = modal.querySelector( '.lre-team-modal__backdrop' );
+
+                    var openTeamModal = function ( card ) {
+                        if ( ! card ) return;
+                        var name    = card.getAttribute( 'data-name' ) || '';
+                        var role    = card.getAttribute( 'data-role' ) || '';
+                        var lic     = card.getAttribute( 'data-lic' ) || '';
+                        var bio     = card.getAttribute( 'data-bio' ) || '';
+                        var email   = card.getAttribute( 'data-email' ) || '';
+                        var phone   = card.getAttribute( 'data-phone' ) || '';
+                        var photo   = card.getAttribute( 'data-photo' ) || '';
+                        var inquiry = card.getAttribute( 'data-inquiry' ) || '#contact';
+
+                        if ( modalImg ) {
+                            modalImg.src = photo;
+                            modalImg.alt = name;
+                        }
+                        if ( modalBadge ) {
+                            modalBadge.textContent = lic;
+                        }
+                        if ( modalBadgeWrap ) {
+                            modalBadgeWrap.style.display = lic ? 'inline-flex' : 'none';
+                        }
+                        if ( modalName ) modalName.textContent = name;
+                        if ( modalRole ) modalRole.textContent = role;
+                        if ( modalBio )  modalBio.textContent  = bio;
+
+                        if ( modalPhoneLink && modalPhoneWrap ) {
+                            if ( phone ) {
+                                modalPhoneLink.textContent = phone;
+                                modalPhoneLink.href = 'tel:' + phone.replace( /[^\d+]/g, '' );
+                                modalPhoneWrap.style.display = 'flex';
+                            } else {
+                                modalPhoneWrap.style.display = 'none';
+                            }
+                        }
+
+                        if ( modalEmailLink && modalEmailWrap ) {
+                            if ( email ) {
+                                modalEmailLink.textContent = email;
+                                modalEmailLink.href = 'mailto:' + email;
+                                modalEmailWrap.style.display = 'flex';
+                            } else {
+                                modalEmailWrap.style.display = 'none';
+                            }
+                        }
+
+                        if ( modalCtaBtn ) {
+                            modalCtaBtn.href = inquiry;
+                            var btnSpan = modalCtaBtn.querySelector( 'span' );
+                            if ( btnSpan && name ) {
+                                var firstName = name.split( ' ' )[0];
+                                btnSpan.textContent = 'Schedule Consultation with ' + firstName;
+                            }
+                        }
+
+                        modal.classList.add( 'lre-team-modal--active' );
+                        modal.setAttribute( 'aria-hidden', 'false' );
+                        document.body.classList.add( 'lre-modal-open' );
+                    };
+
+                    var closeTeamModal = function () {
+                        modal.classList.remove( 'lre-team-modal--active' );
+                        modal.setAttribute( 'aria-hidden', 'true' );
+                        document.body.classList.remove( 'lre-modal-open' );
+                    };
+
+                    // Open on card click
+                    track.addEventListener( 'click', function ( e ) {
+                        var card = e.target.closest( '.lre-team__card' );
+                        if ( card && ! isDragging ) {
+                            e.preventDefault();
+                            openTeamModal( card );
+                        }
+                    } );
+
+                    // Open on card Enter / Space keypress
+                    track.addEventListener( 'keydown', function ( e ) {
+                        if ( e.key === 'Enter' || e.key === ' ' ) {
+                            var card = e.target.closest( '.lre-team__card' );
+                            if ( card ) {
+                                e.preventDefault();
+                                openTeamModal( card );
+                            }
+                        }
+                    } );
+
+                    if ( modalCloseBtn ) {
+                        modalCloseBtn.addEventListener( 'click', function ( e ) {
+                            e.preventDefault();
+                            closeTeamModal();
+                        } );
+                    }
+
+                    if ( modalBackdrop ) {
+                        modalBackdrop.addEventListener( 'click', function ( e ) {
+                            e.preventDefault();
+                            closeTeamModal();
+                        } );
+                    }
+
+                    document.addEventListener( 'keydown', function ( e ) {
+                        if ( e.key === 'Escape' && modal.classList.contains( 'lre-team-modal--active' ) ) {
+                            closeTeamModal();
+                        }
+                    } );
+                }
 
                 if ( ! viewport || ! track ) return;
                 if ( track.dataset.sliderInit === 'true' ) return;

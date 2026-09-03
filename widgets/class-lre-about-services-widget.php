@@ -358,7 +358,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 		<section class="lre-aserv" id="our-services-about" aria-label="<?php esc_attr_e( 'Comprehensive Real Estate Services', 'luxury-re-widgets' ); ?>">
 			<div class="lre-aserv__container">
 				<!-- Section Header -->
-				<div class="lre-aserv__header reveal">
+				<div class="lre-aserv__header">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-aserv__eyebrow-wrap">
 							<span class="lre-aserv__gold-bar"></span>
@@ -367,11 +367,13 @@ class LRE_About_Services_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $title ) ) : ?>
-						<h2 class="lre-aserv__title"><?php echo $title; ?></h2>
+						<h2 class="lre-aserv__title">
+							<span class="title-mask"><span><?php echo $title; ?></span></span>
+						</h2>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $desc ) ) : ?>
-						<p class="lre-aserv__desc"><?php echo $desc; ?></p>
+						<p class="lre-aserv__desc delay-2"><?php echo $desc; ?></p>
 					<?php endif; ?>
 				</div>
 

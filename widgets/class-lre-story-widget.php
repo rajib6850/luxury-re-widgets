@@ -520,7 +520,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 			<div class="lre-story__container">
 				<!-- Header block -->
-				<div class="lre-story__header reveal">
+				<div class="lre-story__header">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-story__eyebrow-wrap">
 							<span class="lre-story__gold-bar"></span>
@@ -528,9 +528,16 @@ class LRE_Story_Widget extends Widget_Base {
 						</div>
 					<?php endif; ?>
 
-					<?php if ( ! empty( $title ) ) : ?>
+					<?php if ( ! empty( $title ) ) :
+						$title_lines = explode( "\n", str_replace( "\r", '', $title ) );
+						?>
 						<<?php echo $title_tag; ?> class="lre-story__title">
-							<?php echo nl2br( $title ); ?>
+							<?php foreach ( $title_lines as $t_idx => $t_line ) :
+								$t_line = trim( $t_line );
+								if ( empty( $t_line ) ) continue;
+								?>
+								<span class="title-mask"><span><?php echo esc_html( $t_line ); ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
+							<?php endforeach; ?>
 						</<?php echo $title_tag; ?>>
 					<?php endif; ?>
 

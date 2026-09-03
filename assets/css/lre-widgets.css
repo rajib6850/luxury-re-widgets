@@ -2870,7 +2870,7 @@ button.btn {
 .title-mask {
   display: inline-block;
   max-width: 100%;
-  overflow: visible;
+  overflow: hidden;
   vertical-align: bottom;
   box-sizing: border-box;
 }
@@ -2881,14 +2881,15 @@ button.btn {
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
-  transform: none;
+  transform: translateY(115%);
   transition: transform 1.2s cubic-bezier(0.16, 0.84, 0.44, 1);
   will-change: transform;
 }
 
 .reveal.revealed .title-mask > span,
 .revealed .title-mask > span,
-.revealed.title-mask > span {
+.revealed.title-mask > span,
+.title-mask.revealed > span {
   transform: translateY(0) !important;
 }
 
@@ -4170,6 +4171,9 @@ button.listings__nav-dot.active,
 }
 
 /* 4. Elementor Live Editor Overrides */
+body.elementor-editor-active .title-mask {
+  overflow: visible !important;
+}
 body.elementor-editor-active .title-mask > span,
 body.elementor-editor-active .hero-mask > span,
 body.elementor-editor-active .hero__subtitle,
@@ -5360,20 +5364,6 @@ button.navbar__mobile-toggle:active,
   color: var(--color-dark, #0a0a0a);
   margin: 0 0 0.9rem;
   letter-spacing: -0.015em;
-}
-
-.lre-team__title .title-mask {
-  display: inline-block;
-  max-width: 100%;
-  overflow: visible;
-  vertical-align: bottom;
-  box-sizing: border-box;
-}
-
-.lre-team__title .title-mask > span {
-  display: inline-block;
-  max-width: 100%;
-  transform: none;
 }
 
 .lre-team__desc {

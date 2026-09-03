@@ -324,7 +324,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Reviews and Testimonials', 'luxury-re-widgets' ); ?>">
 			<div class="lre-reviews__container">
 				<!-- Section Header -->
-				<div class="lre-reviews__header reveal">
+				<div class="lre-reviews__header">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-reviews__eyebrow-wrap">
 							<span class="lre-reviews__gold-bar"></span>
@@ -333,7 +333,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $title ) ) : ?>
-						<h2 class="lre-reviews__title"><?php echo $title; ?></h2>
+						<h2 class="lre-reviews__title">
+							<span class="title-mask"><span><?php echo $title; ?></span></span>
+						</h2>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $rating_sum ) ) : ?>

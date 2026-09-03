@@ -397,7 +397,7 @@ class LRE_Press_Widget extends Widget_Base {
 		<section class="lre-press" id="press-media" aria-label="<?php esc_attr_e( 'Press and Media Mentions', 'luxury-re-widgets' ); ?>">
 			<div class="lre-press__container">
 				<!-- Header -->
-				<div class="lre-press__header reveal">
+				<div class="lre-press__header">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-press__eyebrow-wrap">
 							<span class="lre-press__gold-bar"></span>
@@ -406,11 +406,13 @@ class LRE_Press_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $title ) ) : ?>
-						<h2 class="lre-press__title"><?php echo $title; ?></h2>
+						<h2 class="lre-press__title">
+							<span class="title-mask"><span><?php echo $title; ?></span></span>
+						</h2>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $desc ) ) : ?>
-						<p class="lre-press__desc"><?php echo $desc; ?></p>
+						<p class="lre-press__desc delay-2"><?php echo $desc; ?></p>
 					<?php endif; ?>
 				</div>
 

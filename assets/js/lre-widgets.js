@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {

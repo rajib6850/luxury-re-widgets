@@ -82,6 +82,7 @@ body,
 .hero__title,
 .lre-phero__title,
 .about__title,
+.lre-story__title,
 .services__title,
 .listings__title,
 .communities__title,
@@ -217,7 +218,10 @@ button.btn,
 /* 2. About Button (.btn--outline) */
 .about .btn,
 .about a.btn,
-.about__text .btn {
+.about__text .btn,
+.lre-story .btn,
+.lre-story a.btn,
+.lre-story__action .btn {
   color: var(--color-dark, #0a0a0a);
   background: transparent;
   background-color: transparent;
@@ -226,7 +230,10 @@ button.btn,
 
 .about .btn:hover,
 .about a.btn:hover,
-.about__text .btn:hover {
+.about__text .btn:hover,
+.lre-story .btn:hover,
+.lre-story a.btn:hover,
+.lre-story__action .btn:hover {
   color: #ffffff;
   border-color: var(--color-dark, #0a0a0a);
   background: var(--color-dark, #0a0a0a);
@@ -320,7 +327,8 @@ button.btn,
   }
 }
 
-.about__title {
+.about__title,
+.lre-story__title {
   line-height: 1.25 !important;
   color: var(--color-dark);
 }

@@ -102,7 +102,8 @@
             { container: '.listing-card',            img: '.listing-card__image img', maxScale: '1.09' },
             { container: '.testimonial__image-col',   img: 'img',                    maxScale: '1.08' },
             { container: '.community-card',          img: '.community-card__image',  maxScale: '1.09' },
-            { container: '.side-menu__box',          img: '.side-menu__box-bg img',  maxScale: '1.14' }
+            { container: '.side-menu__box',          img: '.side-menu__box-bg img',  maxScale: '1.14' },
+            { container: '.lre-story__image-frame',  img: 'img',                     maxScale: '1.04' }
         ];
 
         zoomTargets.forEach( function ( target ) {
@@ -1143,7 +1144,7 @@
     };
 
     // =========================================================================
-    // 13. OUR STORY & HERITAGE (lre_story)
+    // 13. ABOUT STORY & DETAILS (lre_story)
     // =========================================================================
     LREWidgets.Story = {
         init: function ( $scope ) {
@@ -1151,10 +1152,10 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark Scroll Parallax
+            // Watermark Scroll Parallax (matching About & Team widgets)
             if ( ! prefersReducedMotion ) {
-                var storySec = root.querySelector( '.lre-story' ) || root;
-                var watermark = root.querySelector( '.lre-story__watermark' );
+                var storySec = root.querySelector( '.lre-story' ) || ( ( root.classList && root.classList.contains( 'lre-story' ) ) ? root : document.querySelector( '.lre-story' ) );
+                var watermark = root.querySelector( '.lre-story__watermark' ) || ( storySec ? storySec.querySelector( '.lre-story__watermark' ) : null );
 
                 if ( storySec && watermark ) {
                     var updateStoryParallax = function () {
@@ -1162,8 +1163,10 @@
                         var winH = window.innerHeight;
                         if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
                             var progress = ( winH - rect.top ) / ( winH + rect.height );
-                            var yShift = ( progress - 0.5 ) * 32;
-                            watermark.style.transform = 'translate3d(0, ' + yShift + 'px, 0)';
+                            var isMobile = window.innerWidth <= 768;
+                            var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                            watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
                         }
                     };
                     window.addEventListener( 'scroll', updateStoryParallax, { passive: true } );

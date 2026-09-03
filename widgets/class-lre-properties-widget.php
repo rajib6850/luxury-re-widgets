@@ -645,7 +645,17 @@ class LRE_Properties_Widget extends Widget_Base {
 				<?php endif; ?>
 
 				<<?php echo $tag; ?> class="listings__title">
-					<span class="title-mask"><span><?php echo esc_html( $settings['heading'] ?? 'New To The Market' ); ?></span></span>
+					<?php
+					$heading_raw   = $settings['heading'] ?? 'New To The Market';
+					$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+					$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
+					$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
+					if ( empty( $heading_lines ) ) {
+						$heading_lines = array( $heading_raw );
+					}
+					foreach ( $heading_lines as $h_idx => $h_line ) : ?>
+						<span class="title-mask"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
+					<?php endforeach; ?>
 				</<?php echo $tag; ?>>
 
 				<?php if ( ! empty( $settings['description'] ) ) : ?>

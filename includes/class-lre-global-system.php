@@ -353,32 +353,16 @@ button.btn,
   color: #ffffff !important;
 }
 
-.testimonial__heading-brand {
-  line-height: 1.2 !important;
-  color: #ffffff !important;
-}
-
 /* Dark section headings & descriptions must remain white on dark backgrounds */
 [class*="elementor-kit-"] .hero__title,
 [class*="elementor-kit-"] .services__title,
 [class*="elementor-kit-"] .cta__title,
-[class*="elementor-kit-"] .testimonial__heading-main,
-[class*="elementor-kit-"] .testimonial__heading-brand {
+[class*="elementor-kit-"] .testimonial__heading-main {
   color: #ffffff !important;
 }
 
 [class*="elementor-kit-"] .cta__description {
   color: #ffffff !important;
-}
-
-/* Ensure title-mask spans are never clipped or translated offscreen */
-.title-mask {
-  overflow: visible !important;
-}
-
-.title-mask > span {
-  transform: none !important;
-  opacity: 1 !important;
 }
 
 /* Body typography inheritance for descriptions and general text */

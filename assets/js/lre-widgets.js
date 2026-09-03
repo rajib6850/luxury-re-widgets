@@ -27,27 +27,9 @@
             el.classList.add( 'revealed' );
             var nestedMasks = el.querySelectorAll ? el.querySelectorAll( '.title-mask' ) : [];
             if ( nestedMasks && nestedMasks.length ) {
-                nestedMasks.forEach( function ( m, mIdx ) {
+                nestedMasks.forEach( function ( m ) {
                     m.classList.add( 'revealed' );
-                    var spans = m.querySelectorAll( ':scope > span' );
-                    if ( spans && spans.length ) {
-                        spans.forEach( function ( span ) {
-                            span.style.animation = 'none';
-                            void span.offsetWidth;
-                            span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) ' + ( 0.18 + mIdx * 0.16 ) + 's forwards';
-                        } );
-                    }
                 } );
-            } else if ( el.classList && el.classList.contains( 'title-mask' ) ) {
-                el.classList.add( 'revealed' );
-                var spans = el.querySelectorAll( ':scope > span' );
-                if ( spans && spans.length ) {
-                    spans.forEach( function ( span ) {
-                        span.style.animation = 'none';
-                        void span.offsetWidth;
-                        span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.18s forwards';
-                    } );
-                }
             }
         };
 

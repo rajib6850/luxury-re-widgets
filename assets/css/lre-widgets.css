@@ -1420,7 +1420,8 @@ button.btn {
   margin-bottom: 1.5rem;
 }
 
-.about__title-accent {
+.about__title-accent,
+.lre-title-accent {
   font-style: italic;
   display: inline-block;
   background: linear-gradient(
@@ -1435,7 +1436,7 @@ button.btn {
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent !important;
   background-clip: text;
   animation: infiniteGoldSweep 4.5s linear infinite;
   filter: drop-shadow(0 2px 10px rgba(197, 160, 71, 0.3));
@@ -2202,7 +2203,6 @@ button.btn {
   font-weight: 400;
   display: inline-block;
   line-height: 1.2 !important;
-  color: #ffffff !important;
   margin-top: 0.2rem;
   background: linear-gradient(
     115deg,
@@ -2216,10 +2216,17 @@ button.btn {
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent !important;
   background-clip: text;
   animation: infiniteGoldSweep 4.5s linear infinite;
   filter: drop-shadow(0 2px 12px rgba(197, 160, 71, 0.35));
+}
+
+.testimonial__heading-brand .title-mask > span {
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text;
 }
 
 /* Framed Card Box */
@@ -2880,112 +2887,38 @@ button.btn {
   transform: none !important;
 }
 
-/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (Page Hero & Hero Mask Parity) ── */
+/* ── 15A. EDITORIAL CLIP-MASK TITLE REVEAL (From Template Parity) ── */
 .title-mask {
-  display: block !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  padding: 0 0 0.18em 0 !important;
-  line-height: inherit !important;
-  box-sizing: border-box !important;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  vertical-align: bottom;
+  box-sizing: border-box;
 }
 
 .title-mask > span {
-  display: block !important;
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
   transform: translateY(115%);
-  margin: 0 !important;
-  padding: 0 0 0.18em 0 !important;
-  line-height: inherit !important;
-  box-sizing: border-box !important;
+  transition: transform 1.2s cubic-bezier(0.16, 0.84, 0.44, 1);
   will-change: transform;
 }
 
-/* Suppress extra line breaks between block-level title masks */
-.title-mask + br,
-.about__title br,
-.services__title br,
-.cta__title br,
-.lre-team__title br,
-.lre-story__title br,
-.lre-aserv__title br,
-.lre-reviews__title br,
-.lre-press__title br {
-  display: none !important;
-}
-
-/* Header container stabilization — keeps background/container solid so inner title mask is 100% visible */
-.lre-story__header.reveal,
-.lre-team__header.reveal,
-.lre-aserv__header.reveal,
-.lre-reviews__header.reveal,
-.lre-press__header.reveal,
-.about__text.reveal,
-.services__header.reveal,
-.listings__header.reveal,
-.testimonial__inner.reveal,
-.communities__header-text.reveal,
-.cta__content.reveal,
-.footer__main.reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
-
-/* Eyebrow fade-up in section headers */
-.lre-story__eyebrow-wrap,
-.lre-team__eyebrow-wrap,
-.lre-aserv__eyebrow-wrap,
-.lre-reviews__eyebrow-wrap,
-.lre-press__eyebrow-wrap,
-.about__text .section-label,
-.services__eyebrow,
-.listings__header .section-label,
-.testimonial__inner .section-label,
-.communities__header-text .section-label,
-.cta__content .section-label {
-  opacity: 0;
-}
-
-.revealed .lre-story__eyebrow-wrap,
-.revealed .lre-team__eyebrow-wrap,
-.revealed .lre-aserv__eyebrow-wrap,
-.revealed .lre-reviews__eyebrow-wrap,
-.revealed .lre-press__eyebrow-wrap,
-.revealed.lre-story__header .lre-story__eyebrow-wrap,
-.revealed.lre-team__header .lre-team__eyebrow-wrap,
-.revealed.lre-aserv__header .lre-aserv__eyebrow-wrap,
-.revealed.lre-reviews__header .lre-reviews__eyebrow-wrap,
-.revealed.lre-press__header .lre-press__eyebrow-wrap,
-.revealed .section-label,
-.revealed .services__eyebrow {
-  animation: heroFadeUp 0.9s cubic-bezier(0.16, 0.84, 0.44, 1) 0.1s forwards !important;
-}
-
-/* Title mask rise-up animation on reveal */
 .reveal.revealed .title-mask > span,
 .revealed .title-mask > span,
 .revealed.title-mask > span,
-.title-mask.revealed > span,
-.lre-story__header.revealed .title-mask > span,
-.lre-team__header.revealed .title-mask > span,
-.lre-aserv__header.revealed .title-mask > span,
-.lre-reviews__header.revealed .title-mask > span,
-.lre-press__header.revealed .title-mask > span,
-.about__text.revealed .title-mask > span,
-.services__header.revealed .title-mask > span,
-.listings__header.revealed .title-mask > span,
-.testimonial__inner.revealed .title-mask > span,
-.communities__header-text.revealed .title-mask > span,
-.cta__content.revealed .title-mask > span,
-.footer__main.revealed .title-mask > span {
-  animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.18s forwards !important;
+.title-mask.revealed > span {
+  transform: translateY(0) !important;
 }
 
-.title-mask:nth-of-type(1) > span { animation-delay: 0.18s !important; }
-.title-mask:nth-of-type(2) > span { animation-delay: 0.34s !important; }
-.title-mask:nth-of-type(3) > span { animation-delay: 0.50s !important; }
-.title-mask:nth-of-type(4) > span { animation-delay: 0.66s !important; }
+.title-mask:nth-of-type(1) > span { transition-delay: 0.05s; }
+.title-mask:nth-of-type(2) > span { transition-delay: 0.16s; }
+.title-mask:nth-of-type(3) > span { transition-delay: 0.27s; }
+.title-mask:nth-of-type(4) > span { transition-delay: 0.38s; }
+.testimonial__heading-brand .title-mask > span { transition-delay: 0.16s !important; }
 
 /* Descriptions and dividers fade-up after title */
 .lre-team__desc,
@@ -4297,6 +4230,7 @@ body.elementor-editor-active .hero__scroll-indicator {
   opacity: 1 !important;
   transform: none !important;
   animation: none !important;
+  transition: none !important;
 }
 
 body.elementor-editor-active .hero__scroll-indicator {

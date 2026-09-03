@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .lre-comm-frame, .lre-comm-showcase__filter-nav, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
@@ -32,6 +32,21 @@
                 } );
             }
         };
+
+        // Elementor Editor mode: immediately reveal all elements without waiting for scroll
+        var isEditor = ( typeof elementorFrontend !== 'undefined' && elementorFrontend.isEditMode && elementorFrontend.isEditMode() ) ||
+                       document.body.classList.contains( 'elementor-editor-active' ) ||
+                       document.body.classList.contains( 'elementor-editor-preview' ) ||
+                       document.body.classList.contains( 'elementor-edit-mode' ) ||
+                       ( window.parent && window.parent !== window && window.parent.elementor );
+
+        if ( isEditor ) {
+            revealEls.forEach( triggerElementReveal );
+            imageRevealEls.forEach( triggerElementReveal );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav' );
+            allEditorElements.forEach( triggerElementReveal );
+            return;
+        }
 
         // Immediate smooth reveal for Hero section on page load / element ready
         var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group' );
@@ -1377,6 +1392,7 @@
     // =========================================================================
     LREWidgets.CommunitiesShowcase = {
         init: function ( $scope ) {
+            LREWidgets.initReveals( $scope );
             var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             var sections = root.querySelectorAll( '.lre-comm-showcase' );
             if ( ! sections.length ) return;

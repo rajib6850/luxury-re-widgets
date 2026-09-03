@@ -388,15 +388,84 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 
+		// Detect if inside Elementor editor / preview mode
+		$is_edit_mode = false;
+		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
+			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		}
+		$reveal_class = $is_edit_mode ? 'revealed' : 'reveal';
+
+		// Fallback communities if empty
+		$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array(
+			array(
+				'index_num'      => '01',
+				'name'           => 'Bel Air',
+				'category'       => 'foothills',
+				'category_label' => 'Foothills',
+				'tagline'        => 'Legendary Acreage & Guard-Gated Privacy',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+			array(
+				'index_num'      => '02',
+				'name'           => 'Beverly Hills',
+				'category'       => 'foothills',
+				'category_label' => 'Foothills',
+				'tagline'        => 'Historic Manors & Palm-Lined Grandeur',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+			array(
+				'index_num'      => '03',
+				'name'           => 'Malibu Colony',
+				'category'       => 'coastal',
+				'category_label' => 'Coastal',
+				'tagline'        => 'Barefoot Splendor & Pacific Waterfront',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+			array(
+				'index_num'      => '04',
+				'name'           => 'Pacific Palisades',
+				'category'       => 'coastal',
+				'category_label' => 'Coastal',
+				'tagline'        => 'Dramatic Ocean Bluffs & Coastal Solitude',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+			array(
+				'index_num'      => '05',
+				'name'           => 'Trousdale Estates',
+				'category'       => 'architectural',
+				'category_label' => 'Architectural',
+				'tagline'        => 'Mid-Century Modernist Masterpieces',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+			array(
+				'index_num'      => '06',
+				'name'           => 'Brentwood Park',
+				'category'       => 'country',
+				'category_label' => 'Country',
+				'tagline'        => 'Sycamore Compounds & Timeless Calm',
+				'image'          => array( 'url' => 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=85' ),
+				'link'           => array( 'url' => '#contact' ),
+				'link_text'      => 'Explore Enclave',
+			),
+		);
+
 		// Collect unique categories for minimal filter tabs
 		$categories = array();
-		if ( ! empty( $settings['communities'] ) ) {
-			foreach ( $settings['communities'] as $c ) {
-				$cat_slug = sanitize_title( $c['category'] ?? '' );
-				$cat_lbl  = ! empty( $c['category_label'] ) ? $c['category_label'] : ucfirst( $cat_slug );
-				if ( ! empty( $cat_slug ) && ! isset( $categories[ $cat_slug ] ) ) {
-					$categories[ $cat_slug ] = $cat_lbl;
-				}
+		foreach ( $communities as $c ) {
+			$cat_slug = sanitize_title( $c['category'] ?? '' );
+			$cat_lbl  = ! empty( $c['category_label'] ) ? $c['category_label'] : ucfirst( $cat_slug );
+			if ( ! empty( $cat_slug ) && ! isset( $categories[ $cat_slug ] ) ) {
+				$categories[ $cat_slug ] = $cat_lbl;
 			}
 		}
 
@@ -406,7 +475,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			<div class="lre-comm-showcase__container">
 
 				<!-- ── SECTION HEADER (Matches H2 section titles across plugin) ── -->
-				<header class="lre-comm-showcase__header reveal">
+				<header class="lre-comm-showcase__header <?php echo esc_attr( $reveal_class ); ?>">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<span class="section-label lre-comm-showcase__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					<?php endif; ?>
@@ -421,7 +490,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 							$heading_lines = array( $heading_raw );
 						}
 						foreach ( $heading_lines as $h_idx => $h_line ) : ?>
-							<span class="title-mask"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
+							<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
 						<?php endforeach; ?>
 					</<?php echo $tag; ?>>
 
@@ -434,7 +503,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 				<!-- ── MINIMAL EDITORIAL FILTER TABS ── -->
 				<?php if ( $show_filters ) : ?>
-				<nav class="lre-comm-showcase__filter-nav reveal" aria-label="<?php esc_attr_e( 'Filter communities', 'luxury-re-widgets' ); ?>">
+				<nav class="lre-comm-showcase__filter-nav <?php echo esc_attr( $reveal_class ); ?>" aria-label="<?php esc_attr_e( 'Filter communities', 'luxury-re-widgets' ); ?>">
 					<button type="button" class="lre-comm-nav-item is-active" data-filter="all">
 						<span><?php esc_html_e( 'All Enclaves', 'luxury-re-widgets' ); ?></span>
 					</button>
@@ -450,15 +519,14 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				<!-- ── MINIMALIST ARCHITECTURAL GALLERY GRID ── -->
 				<div class="lre-comm-gallery" id="lre-comm-gallery">
 					<?php
-					if ( ! empty( $settings['communities'] ) ) :
-						foreach ( $settings['communities'] as $c_idx => $c ) :
-							$cat_slug  = sanitize_title( $c['category'] ?? '' );
-							$img_url   = ! empty( $c['image']['url'] ) ? $c['image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85';
-							$link_url  = ! empty( $c['link']['url'] ) ? esc_url( $c['link']['url'] ) : '#contact';
-							$target    = ! empty( $c['link']['is_external'] ) ? '_blank' : '_self';
-							$index_num = ! empty( $c['index_num'] ) ? $c['index_num'] : sprintf( '%02d', $c_idx + 1 );
+					foreach ( $communities as $c_idx => $c ) :
+						$cat_slug  = sanitize_title( $c['category'] ?? '' );
+						$img_url   = ! empty( $c['image']['url'] ) ? $c['image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85';
+						$link_url  = ! empty( $c['link']['url'] ) ? esc_url( $c['link']['url'] ) : '#contact';
+						$target    = ! empty( $c['link']['is_external'] ) ? '_blank' : '_self';
+						$index_num = ! empty( $c['index_num'] ) ? $c['index_num'] : sprintf( '%02d', $c_idx + 1 );
 					?>
-					<article class="lre-comm-frame reveal" data-category="<?php echo esc_attr( $cat_slug ); ?>">
+					<article class="lre-comm-frame <?php echo esc_attr( $reveal_class ); ?>" data-category="<?php echo esc_attr( $cat_slug ); ?>">
 						<a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="lre-comm-frame__link">
 							<!-- Architectural Image with Subtle Slow Zoom -->
 							<div class="lre-comm-frame__media">
@@ -496,7 +564,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 							</div>
 						</a>
 					</article>
-					<?php endforeach; endif; ?>
+					<?php endforeach; ?>
 				</div>
 
 			</div>

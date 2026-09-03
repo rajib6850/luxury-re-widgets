@@ -1099,6 +1099,43 @@ button.navbar__mobile-toggle:active,
     text-overflow: ellipsis !important;
   }
 }
+
+/* ─── ELEMENTOR EDITOR PREVIEW VISIBILITY GUARANTEE ─── */
+body.elementor-editor-active .reveal,
+body.elementor-editor-active .reveal--left,
+body.elementor-editor-active .reveal--right,
+body.elementor-editor-active .reveal--zoom,
+body.elementor-editor-active .title-mask,
+body.elementor-editor-active .title-mask > span,
+body.elementor-editor-active .lre-comm-showcase,
+body.elementor-editor-active .lre-comm-showcase .reveal,
+body.elementor-editor-active .lre-comm-frame,
+body.elementor-editor-active .lre-comm-frame__media,
+body.elementor-editor-active .lre-comm-frame__img,
+body.elementor-editor-active .lre-comm-frame__link,
+body.elementor-editor-active .lre-comm-frame__header,
+body.elementor-editor-active .lre-comm-frame__footer,
+body.elementor-editor-active .lre-comm-showcase__header,
+body.elementor-editor-active .lre-comm-showcase__filter-nav,
+body.elementor-editor-active .lre-comm-gallery,
+.elementor-editor-active .reveal,
+.elementor-editor-preview .reveal,
+.elementor-edit-mode .reveal,
+.elementor-editor-active .title-mask > span,
+.elementor-editor-preview .title-mask > span,
+.elementor-edit-mode .title-mask > span,
+.elementor-editor-active .lre-comm-frame,
+.elementor-editor-preview .lre-comm-frame,
+.elementor-edit-mode .lre-comm-frame,
+.elementor-editor-active .lre-comm-frame__img,
+.elementor-editor-preview .lre-comm-frame__img,
+.elementor-edit-mode .lre-comm-frame__img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
 ';
 	}
 

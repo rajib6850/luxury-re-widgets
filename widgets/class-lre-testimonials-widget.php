@@ -148,9 +148,6 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$settings         = $this->get_settings_for_display();
 		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
 		$portrait_url     = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : $default_portrait;
-		if ( empty( $portrait_url ) || strpos( $portrait_url, 'images.unsplash.com' ) !== false ) {
-			$portrait_url = $default_portrait;
-		}
 		?>
 		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>">
 			<div class="testimonial__image-col image-reveal">

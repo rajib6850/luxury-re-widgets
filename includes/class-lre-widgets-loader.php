@@ -39,9 +39,13 @@ class LRE_Widgets_Loader {
 	/** Constructor — hooks into Elementor. */
 	public function __construct() {
 		add_action( 'elementor/elements/categories_registered', array( $this, 'register_category' ) );
-		add_action( 'elementor/widgets/register',               array( $this, 'register_widgets' ) );
-		// Legacy hook support for Elementor < 3.5.
-		add_action( 'elementor/widgets/widgets_registered',     array( $this, 'register_widgets' ) );
+
+		if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
+			add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
+		} else {
+			// Legacy hook support for Elementor < 3.5.
+			add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets_legacy' ) );
+		}
 	}
 
 	/**
@@ -60,7 +64,7 @@ class LRE_Widgets_Loader {
 	}
 
 	/**
-	 * Requires each widget file and registers its class with Elementor.
+	 * Requires each widget file and registers its class with Elementor (3.5+).
 	 *
 	 * @param \Elementor\Widgets_Manager $manager
 	 */
@@ -76,6 +80,27 @@ class LRE_Widgets_Loader {
 
 			if ( class_exists( $class_name ) ) {
 				$manager->register( new $class_name() );
+			}
+		}
+	}
+
+	/**
+	 * Requires each widget file and registers its class with legacy Elementor (< 3.5).
+	 *
+	 * @param \Elementor\Widgets_Manager $manager
+	 */
+	public function register_widgets_legacy( $manager ) {
+		foreach ( self::$widget_files as $file => $class_name ) {
+			$path = LRE_PATH . 'widgets/' . $file;
+
+			if ( ! file_exists( $path ) ) {
+				continue;
+			}
+
+			require_once $path;
+
+			if ( class_exists( $class_name ) ) {
+				$manager->register_widget_type( new $class_name() );
 			}
 		}
 	}

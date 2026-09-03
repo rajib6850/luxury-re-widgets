@@ -15,6 +15,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 $options_to_delete = array(
 	'lre_widgets_version',
 	'lre_widgets_settings',
+	'lre_luxury_kit_initialized',
+	'lre_newsletter_subscribers',
 );
 
 foreach ( $options_to_delete as $option ) {

@@ -87,6 +87,9 @@ class LRE_Footer_Widget extends Widget_Base {
 			'default' => 'The information provided herein is deemed reliable but is not guaranteed and should be independently verified. Properties are subject to prior sale, price change, or withdrawal without notice. All imagery and content are protected by applicable copyright laws. Crestwood & Associates and its affiliated agents are licensed professionals operating under applicable California real estate regulations. Equal Housing Opportunity.',
 		) );
 		$this->add_control( 'copyright_brand', array( 'label' => __( 'Copyright Company Name', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Crestwood & Associates' ) );
+		$this->add_control( 'privacy_url', array( 'label' => __( 'Privacy Policy URL', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
+		$this->add_control( 'terms_url', array( 'label' => __( 'Terms of Service URL', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
+		$this->add_control( 'accessibility_url', array( 'label' => __( 'Accessibility URL', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
 		$this->end_controls_section();
 
 		// =================================================================
@@ -186,16 +189,16 @@ class LRE_Footer_Widget extends Widget_Base {
 						<p class="footer__info-label"><?php echo esc_html( $settings['col2_label'] ); ?></p>
 						<?php endif; ?>
 						<div class="footer__social">
-							<a href="<?php echo $fb_url; ?>" class="footer__social-link" aria-label="Facebook">
+							<a href="<?php echo esc_url( $fb_url ); ?>" class="footer__social-link" aria-label="Facebook">
 								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 							</a>
-							<a href="<?php echo $ig_url; ?>" class="footer__social-link" aria-label="Instagram">
+							<a href="<?php echo esc_url( $ig_url ); ?>" class="footer__social-link" aria-label="Instagram">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
 							</a>
-							<a href="<?php echo $tt_url; ?>" class="footer__social-link" aria-label="TikTok">
+							<a href="<?php echo esc_url( $tt_url ); ?>" class="footer__social-link" aria-label="TikTok">
 								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-.87-.13 2.88 2.88 0 01-2-2.73 2.89 2.89 0 012.88-2.88 2.86 2.86 0 01.87.13V9.4a6.33 6.33 0 00-1-.08A6.34 6.34 0 003 15.66 6.34 6.34 0 009.37 22a6.34 6.34 0 006.34-6.34V9.36a8.16 8.16 0 004.79 1.56v-3.4a4.85 4.85 0 01-.91-.83z"/></svg>
 							</a>
-							<a href="<?php echo $li_url; ?>" class="footer__social-link" aria-label="LinkedIn">
+							<a href="<?php echo esc_url( $li_url ); ?>" class="footer__social-link" aria-label="LinkedIn">
 								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
 							</a>
 						</div>
@@ -242,9 +245,9 @@ class LRE_Footer_Widget extends Widget_Base {
 			<div class="footer__bottom">
 				<span class="footer__copyright">
 					&copy; <?php echo date( 'Y' ); ?> <?php echo esc_html( $settings['copyright_brand'] ); ?>. <?php esc_html_e( 'All rights reserved. |', 'luxury-re-widgets' ); ?>
-					<a href="#"><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="#"><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="#"><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
+					<a href="<?php echo esc_url( $settings['privacy_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['privacy_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $settings['terms_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['terms_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $settings['accessibility_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['accessibility_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
 				</span>
 			</div>
 		</footer>

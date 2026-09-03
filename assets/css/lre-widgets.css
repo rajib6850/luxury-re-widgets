@@ -79,31 +79,45 @@ body,
   --z-modal: 400;
 }
 
-/* â”€â”€ 1. RESET & BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
+/* ─── 1. SCOPED RESET & BASE ─── */
+[class*="lre-"],
+[class*="lre-"] *,
+[class*="lre-"] *::before,
+[class*="lre-"] *::after,
+.hero, .hero *, .hero *::before, .hero *::after,
+.site-header, .site-header *, .site-header *::before, .site-header *::after,
+.side-menu, .side-menu *, .side-menu *::before, .side-menu *::after,
+.about, .about *, .about *::before, .about *::after,
+.services, .services *, .services *::before, .services *::after,
+.listings, .listings *, .listings *::before, .listings *::after,
+.testimonial, .testimonial *, .testimonial *::before, .testimonial *::after,
+.communities, .communities *, .communities *::before, .communities *::after,
+.cta, .cta *, .cta *::before, .cta *::after,
+.footer, .footer *, .footer *::before, .footer *::after,
+.back-to-top, .back-to-top *,
+.lre-team-modal, .lre-team-modal * {
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+.elementor-widget-lre_header,
+.elementor-widget-lre_hero,
+.elementor-widget-lre_about,
+.elementor-widget-lre_services,
+.elementor-widget-lre_properties,
+.elementor-widget-lre_testimonials,
+.elementor-widget-lre_communities,
+.elementor-widget-lre_cta,
+.elementor-widget-lre_footer,
+.elementor-widget-lre_concierge,
+.elementor-widget-lre_story,
+.elementor-widget-lre_team,
+.elementor-widget-lre_about_services,
+.elementor-widget-lre_reviews,
+.elementor-widget-lre_press,
+.elementor-widget-lre_page_hero {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: clip;
-}
-
-body {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  line-height: 1.7;
-  color: var(--color-text);
-  background-color: var(--color-white);
-  overflow-x: clip;
 }
 
 body.menu-open {

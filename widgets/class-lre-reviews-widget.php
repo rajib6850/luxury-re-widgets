@@ -374,7 +374,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 										<span class="lre-reviews__badge"><?php echo $tx_badge; ?></span>
 									<?php endif; ?>
 
-									<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( $stars_count . ' out of 5 stars' ); ?>">
+									<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( sprintf( __( '%d out of 5 stars', 'luxury-re-widgets' ), $stars_count ) ); ?>">
 										<?php for ( $i = 0; $i < $stars_count; $i++ ) : ?>
 											<span class="lre-reviews__star">&#9733;</span>
 										<?php endfor; ?>
@@ -391,7 +391,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 								<div class="lre-reviews__client-row">
 									<div class="lre-reviews__avatar">
 										<?php if ( ! empty( $avatar_url ) ) : ?>
-											<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
+											<img src="<?php echo esc_url( $avatar_url ); ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
 										<?php else : ?>
 											<span class="lre-reviews__monogram"><?php echo $monogram; ?></span>
 										<?php endif; ?>

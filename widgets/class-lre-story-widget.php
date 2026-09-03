@@ -500,6 +500,7 @@ class LRE_Story_Widget extends Widget_Base {
 		$eyebrow         = esc_html( $settings['eyebrow'] ?? 'Our Heritage' );
 		$title           = esc_html( $settings['title'] ?? '' );
 		$title_tag       = esc_attr( $settings['title_tag'] ?? 'h2' );
+		$title_tag       = in_array( $title_tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $title_tag : 'h2';
 		$lead            = esc_html( $settings['lead_paragraph'] ?? '' );
 		$body            = wp_kses_post( $settings['body_paragraph'] ?? '' );
 		$quote           = esc_html( $settings['quote_text'] ?? '' );

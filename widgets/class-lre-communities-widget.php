@@ -94,7 +94,8 @@ class LRE_Communities_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$tag      = esc_attr( $settings['heading_tag'] );
+		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		?>
 		<section class="communities" id="communities" aria-label="<?php esc_attr_e( 'Featured communities', 'luxury-re-widgets' ); ?>">
 			<div class="communities__header">
@@ -123,10 +124,10 @@ class LRE_Communities_Widget extends Widget_Base {
 					<?php if ( ! empty( $settings['communities'] ) ) :
 						foreach ( $settings['communities'] as $c ) :
 							$img_url     = ! empty( $c['comm_image']['url'] ) ? $c['comm_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85';
-							$link_url    = esc_url( $c['comm_link']['url'] ?? '#' );
+							$link_url    = ! empty( $c['comm_link']['url'] ) ? esc_url( $c['comm_link']['url'] ) : '#';
 							$link_target = ! empty( $c['comm_link']['is_external'] ) ? '_blank' : '_self';
 					?>
-					<a href="<?php echo $link_url; ?>" target="<?php echo esc_attr( $link_target ); ?>" class="community-card image-reveal">
+					<a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>" class="community-card image-reveal">
 						<img src="<?php echo esc_url( $img_url ); ?>"
 						     alt="<?php echo esc_attr( $c['comm_name'] ); ?>"
 						     class="community-card__image"

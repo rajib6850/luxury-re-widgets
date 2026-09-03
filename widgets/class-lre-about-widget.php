@@ -194,15 +194,16 @@ class LRE_About_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings   = $this->get_settings_for_display();
-		$tag        = esc_attr( $settings['heading_tag'] );
-		$watermark  = esc_html( $settings['watermark'] );
+		$tag        = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag        = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$watermark  = esc_html( $settings['watermark'] ?? '' );
 		$img_url    = ! empty( $settings['main_image']['url'] ) ? $settings['main_image']['url'] : 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=85';
-		$btn_url    = esc_url( $settings['btn_url']['url'] ?? '#' );
+		$btn_url    = ! empty( $settings['btn_url']['url'] ) ? esc_url( $settings['btn_url']['url'] ) : '#';
 		$btn_target = ! empty( $settings['btn_url']['is_external'] ) ? '_blank' : '_self';
 		?>
 		<section class="about" id="about" aria-label="<?php esc_attr_e( 'About our team', 'luxury-re-widgets' ); ?>">
 			<?php if ( ! empty( $watermark ) ) : ?>
-			<div class="about__watermark" id="about-watermark" aria-hidden="true"><?php echo $watermark; ?></div>
+			<div class="about__watermark" id="about-watermark" aria-hidden="true"><?php echo esc_html( $watermark ); ?></div>
 			<?php endif; ?>
 			<div class="container about__content">
 				<div class="about__text reveal">
@@ -227,7 +228,7 @@ class LRE_About_Widget extends Widget_Base {
 					</div>
 
 					<?php if ( ! empty( $settings['btn_text'] ) ) : ?>
-					<a href="<?php echo $btn_url; ?>" target="<?php echo esc_attr( $btn_target ); ?>" class="btn btn--outline delay-3">
+					<a href="<?php echo esc_url( $btn_url ); ?>" target="<?php echo esc_attr( $btn_target ); ?>" class="btn btn--outline delay-3">
 						<span><?php echo esc_html( $settings['btn_text'] ); ?></span>
 					</a>
 					<?php endif; ?>

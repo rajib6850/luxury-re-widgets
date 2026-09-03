@@ -128,27 +128,27 @@ button.btn,
 .listings__cta-group .btn,
 .cta__buttons .btn,
 .side-menu__find-btn {
-  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
-  font-size: 0.65rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 2.5px !important;
-  text-transform: uppercase !important;
-  line-height: 1 !important;
-  padding: 0.85rem 1.8rem !important;
-  border-width: 1px !important;
-  border-style: solid !important;
-  border-radius: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-decoration: none !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  position: relative !important;
-  overflow: hidden !important;
-  vertical-align: middle !important;
-  white-space: nowrap !important;
-  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease !important;
+  font-family: var(--font-sans, "Montserrat", sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.85rem 1.8rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
 }
 
 .btn span,
@@ -894,12 +894,7 @@ button.navbar__mobile-toggle:active,
 	 * Handles manual sync request from admin url.
 	 */
 	public function handle_admin_actions() {
-		// Auto-initialize once on first activation
-		if ( ! get_option( 'lre_luxury_kit_initialized' ) ) {
-			$this->sync_luxury_defaults_to_kit( false );
-		}
-
-		// Manual Sync URL trigger: ?action=lre_sync_kit&nonce=...
+		// Manual Sync URL trigger: ?action=lre_sync_kit&_wpnonce=...
 		if ( isset( $_GET['action'] ) && 'lre_sync_kit' === $_GET['action'] ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
@@ -909,14 +904,38 @@ button.navbar__mobile-toggle:active,
 			wp_safe_redirect( add_query_arg( array( 'lre_kit_synced' => '1' ), wp_get_referer() ? wp_get_referer() : admin_url() ) );
 			exit;
 		}
+
+		// Dismiss notice trigger: ?action=lre_dismiss_kit_notice&_wpnonce=...
+		if ( isset( $_GET['action'] ) && 'lre_dismiss_kit_notice' === $_GET['action'] ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+			check_admin_referer( 'lre_dismiss_kit_nonce' );
+			update_option( 'lre_luxury_kit_initialized', 'dismissed' );
+			wp_safe_redirect( remove_query_arg( array( 'action', '_wpnonce' ), wp_get_referer() ? wp_get_referer() : admin_url() ) );
+			exit;
+		}
 	}
 
 	/**
-	 * Displays success notice when kit is manually synced.
+	 * Displays notice offering one-click sync or confirming successful sync.
 	 */
 	public function render_admin_notice() {
 		if ( isset( $_GET['lre_kit_synced'] ) && '1' === $_GET['lre_kit_synced'] ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Luxury Real Estate HTML default palette and typography successfully synchronized into Elementor Site Settings!', 'luxury-re-widgets' ) . '</p></div>';
+			return;
+		}
+
+		// Prompt admin to optionally synchronize kit settings on first install
+		if ( current_user_can( 'manage_options' ) && ! get_option( 'lre_luxury_kit_initialized' ) ) {
+			$sync_url    = wp_nonce_url( admin_url( '?action=lre_sync_kit' ), 'lre_sync_kit_nonce' );
+			$dismiss_url = wp_nonce_url( admin_url( '?action=lre_dismiss_kit_notice' ), 'lre_dismiss_kit_nonce' );
+			echo '<div class="notice notice-info"><p>';
+			echo '<strong>' . esc_html__( 'Luxury Real Estate Widgets:', 'luxury-re-widgets' ) . '</strong> ';
+			echo esc_html__( 'Would you like to import the editorial Luxury Color Palette & Typography into your active Elementor Kit?', 'luxury-re-widgets' );
+			echo ' <a href="' . esc_url( $sync_url ) . '" class="button button-primary" style="margin-left:8px;">' . esc_html__( 'Sync Luxury Design Kit', 'luxury-re-widgets' ) . '</a>';
+			echo ' <a href="' . esc_url( $dismiss_url ) . '" class="button button-secondary" style="margin-left:4px;">' . esc_html__( 'No Thanks, Keep Current Kit', 'luxury-re-widgets' ) . '</a>';
+			echo '</p></div>';
 		}
 	}
 }

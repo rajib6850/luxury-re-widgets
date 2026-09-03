@@ -173,32 +173,18 @@ class LRE_CTA_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings    = $this->get_settings_for_display();
-		$tag         = esc_attr( $settings['heading_tag'] );
+		$tag         = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag         = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		$img_url     = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80';
-		$btn1_url    = esc_url( $settings['btn1_url']['url'] ?? '#contact' );
+		$btn1_url    = ! empty( $settings['btn1_url']['url'] ) ? $settings['btn1_url']['url'] : '#contact';
 		$btn1_target = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
-		$btn2_url    = esc_url( $settings['btn2_url']['url'] ?? '#contact' );
+		$btn2_url    = ! empty( $settings['btn2_url']['url'] ) ? $settings['btn2_url']['url'] : '#contact';
 		$btn2_target = ! empty( $settings['btn2_url']['is_external'] ) ? '_blank' : '_self';
 
-		$eyebrow = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : "Let's Connect";
-		if ( $eyebrow === 'Begin Your Journey' ) {
-			$eyebrow = "Let's Connect";
-		}
-
-		$heading_1 = ! empty( $settings['heading_1'] ) ? $settings['heading_1'] : 'Your Next Chapter';
-		if ( $heading_1 === 'Ready to Experience' ) {
-			$heading_1 = 'Your Next Chapter';
-		}
-
-		$heading_2 = ! empty( $settings['heading_2'] ) ? $settings['heading_2'] : 'Starts Here';
-		if ( $heading_2 === 'Exceptional Real Estate?' ) {
-			$heading_2 = 'Starts Here';
-		}
-
-		$description = ! empty( $settings['description'] ) ? $settings['description'] : "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
-		if ( strpos( $description, 'seeking your next trophy' ) !== false ) {
-			$description = "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
-		}
+		$eyebrow     = $settings['eyebrow'] ?? "Let's Connect";
+		$heading_1   = $settings['heading_1'] ?? 'Your Next Chapter';
+		$heading_2   = $settings['heading_2'] ?? 'Starts Here';
+		$description = $settings['description'] ?? "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
 		?>
 		<section class="cta" id="contact" aria-label="<?php esc_attr_e( 'Call to action', 'luxury-re-widgets' ); ?>">
 			<div class="cta__background">
@@ -230,12 +216,12 @@ class LRE_CTA_Widget extends Widget_Base {
 
 				<div class="cta__buttons">
 					<?php if ( ! empty( $settings['btn1_text'] ) ) : ?>
-					<a href="<?php echo $btn1_url; ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white cta__btn-1">
+					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white cta__btn-1">
 						<span><?php echo esc_html( $settings['btn1_text'] ); ?></span>
 					</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $settings['btn2_text'] ) ) : ?>
-					<a href="<?php echo $btn2_url; ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white cta__btn-2">
+					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white cta__btn-2">
 						<span><?php echo esc_html( $settings['btn2_text'] ); ?></span>
 					</a>
 					<?php endif; ?>

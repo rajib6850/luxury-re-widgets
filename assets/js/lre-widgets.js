@@ -481,8 +481,8 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            var items = root.querySelectorAll( '.services__item' );
-            var mainImage = root.querySelector( '#services-main-img' );
+            var items = root.querySelectorAll( '.service-item, .services__item' );
+            var mainImage = root.querySelector( '#services-main-img' ) || root.querySelector( '.services__image-card img' );
 
             if ( items.length && mainImage ) {
                 items.forEach( function ( item ) {

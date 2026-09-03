@@ -76,7 +76,7 @@ class LRE_Ajax_Handler {
 		$subscribers = get_option( 'lre_newsletter_subscribers', array() );
 		if ( ! in_array( $email, $subscribers, true ) ) {
 			$subscribers[] = $email;
-			update_option( 'lre_newsletter_subscribers', $subscribers );
+			update_option( 'lre_newsletter_subscribers', $subscribers, false );
 		}
 
 		wp_send_json_success( array( 'message' => __( 'Thank you for subscribing.', 'luxury-re-widgets' ) ) );

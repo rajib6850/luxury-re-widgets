@@ -4,15 +4,15 @@ Tags: elementor, real estate, luxury, widgets, sections
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-10 handcrafted, editorial-grade Elementor section widgets for building high-end luxury real estate websites block by block. By Digitize Growth.
+16 handcrafted, editorial-grade Elementor section widgets for building high-end luxury real estate websites block by block. By Digitize Growth.
 
 == Description ==
 
-**Luxury Real Estate Widgets** by [Digitize Growth](https://digitizegrowth.com/) gives you 10 handcrafted, editorial-grade Elementor section widgets to build stunning luxury real estate websites block by block.
+**Luxury Real Estate Widgets** by [Digitize Growth](https://digitizegrowth.com/) gives you 16 handcrafted, editorial-grade Elementor section widgets to build stunning luxury real estate websites block by block.
 
 All widgets are found under the **"Luxury Real Estate Widgets"** category inside the Elementor panel.
 
@@ -28,6 +28,12 @@ All widgets are found under the **"Luxury Real Estate Widgets"** category inside
 * **LRE - Luxury Communities** - Architectural neighborhood showcase carousel.
 * **LRE - Luxury Call To Action** - Full-width cinematic CTA with overlay and dual action buttons.
 * **LRE - Luxury Site Footer** - Multi-column info grid, social links, legal bar, copyright.
+* **LRE - Luxury Heritage & Story** - Split editorial narrative with founder quote and signature showcase.
+* **LRE - Luxury Team Showcase** - Kinetic carousel with modal profile dialogs for brokers and realtors.
+* **LRE - Luxury Advisory Capabilities** - Multi-pillar capabilities matrix with inquiry buttons.
+* **LRE - Luxury Client Reviews** - Star-rated editorial client review cards with verified badges.
+* **LRE - Luxury Press & Editorial** - Publication logo grid and editorial feature cards.
+* **LRE - Universal Page Hero Banner** - Clean inner-page hero with breadcrumbs and gold accent dividers.
 
 == Installation ==
 

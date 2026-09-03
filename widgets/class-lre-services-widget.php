@@ -53,6 +53,7 @@ class LRE_Services_Widget extends Widget_Base {
 		$repeater->add_control( 'item_title', array( 'label' => __( 'Title', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Buy With Confidence', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'item_description', array( 'label' => __( 'Description', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'From first-timers to seasoned investors, we guide you every step of the way with data-backed market insight.', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'item_link', array( 'label' => __( 'Link URL', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#contact' ) ) );
+		$repeater->add_control( 'item_image', array( 'label' => __( 'Hover Image (Optional)', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => '' ) ) );
 
 		$this->add_control( 'service_items', array(
 			'label'       => __( 'Services', 'luxury-re-widgets' ),
@@ -117,7 +118,8 @@ class LRE_Services_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$tag      = esc_attr( $settings['heading_tag'] );
+		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		$img_url  = ! empty( $settings['section_image']['url'] ) ? $settings['section_image']['url'] : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85';
 		?>
 		<section class="services" id="services" aria-label="<?php esc_attr_e( 'Our services', 'luxury-re-widgets' ); ?>">
@@ -129,6 +131,7 @@ class LRE_Services_Widget extends Widget_Base {
 						<div class="services__image-card image-reveal">
 							<?php if ( ! empty( $img_url ) ) : ?>
 							<img src="<?php echo esc_url( $img_url ); ?>"
+							     id="services-main-img"
 							     alt="<?php esc_attr_e( 'Luxury interior finishes', 'luxury-re-widgets' ); ?>"
 							     loading="lazy" width="600" height="900">
 							<?php endif; ?>
@@ -161,10 +164,12 @@ class LRE_Services_Widget extends Widget_Base {
 						$delay = 1;
 						if ( ! empty( $settings['service_items'] ) ) :
 							foreach ( $settings['service_items'] as $item ) :
-								$link_url    = esc_url( $item['item_link']['url'] ?? '#contact' );
+								$link_url    = ! empty( $item['item_link']['url'] ) ? esc_url( $item['item_link']['url'] ) : '#contact';
 								$link_target = ! empty( $item['item_link']['is_external'] ) ? '_blank' : '_self';
+								$item_img    = ! empty( $item['item_image']['url'] ) ? esc_url( $item['item_image']['url'] ) : '';
+								$data_img    = ! empty( $item_img ) ? ' data-img="' . esc_url( $item_img ) . '"' : '';
 						?>
-						<a href="<?php echo $link_url; ?>" target="<?php echo esc_attr( $link_target ); ?>" class="service-item delay-<?php echo esc_attr( $delay++ ); ?>">
+						<a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>" class="service-item delay-<?php echo esc_attr( $delay++ ); ?>"<?php echo $data_img; ?>>
 							<div class="service-item__text">
 								<h3 class="service-item__name"><?php echo esc_html( $item['item_title'] ); ?></h3>
 								<p class="service-item__desc"><?php echo esc_html( $item['item_description'] ); ?></p>

@@ -940,8 +940,6 @@ button.navbar__mobile-toggle:active,
 .lre-reviews .lre-reviews__author-name,
 .lre-reviews .lre-reviews__metric-val,
 .lre-reviews .lre-reviews__tab-name,
-.lre-reviews .lre-reviews__counter,
-.lre-reviews .lre-reviews__active-num,
 .lre-aserv .lre-aserv__card-title,
 .lre-aserv .lre-aserv__mono-title,
 .lre-aserv .lre-aserv__mono-num {
@@ -966,6 +964,40 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__card-cat,
 .lre-aserv .lre-aserv__mono-tag {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Gold Accents Requested by User */
+.lre-reviews .lre-reviews__trust-pillar::before {
+  background: linear-gradient(90deg, var(--rev-gold, #c5a047), rgba(197, 160, 71, 0.2)) !important;
+}
+
+.lre-reviews .lre-reviews__tab-btn::before,
+.lre-reviews .lre-reviews__tab-btn.is-active::before {
+  background: var(--rev-gold, #c5a047) !important;
+}
+
+.lre-reviews .lre-reviews__tab-btn:hover .lre-reviews__tab-arrow,
+.lre-reviews .lre-reviews__tab-btn.is-active .lre-reviews__tab-arrow,
+.lre-reviews .lre-reviews__tab-btn:hover .lre-reviews__tab-num,
+.lre-reviews .lre-reviews__tab-btn.is-active .lre-reviews__tab-num,
+.lre-reviews .lre-reviews__tab-btn:hover .lre-reviews__tab-monogram,
+.lre-reviews .lre-reviews__tab-btn.is-active .lre-reviews__tab-monogram {
+  color: var(--rev-gold, #c5a047) !important;
+}
+
+.lre-reviews .lre-reviews__tab-btn:hover .lre-reviews__tab-avatar,
+.lre-reviews .lre-reviews__tab-btn.is-active .lre-reviews__tab-avatar {
+  border-color: var(--rev-gold, #c5a047) !important;
+}
+
+.lre-reviews .lre-reviews__counter,
+.lre-reviews .lre-reviews__active-num {
+  color: var(--rev-gold, #c5a047) !important;
+}
+
+.lre-reviews .lre-reviews__counter-slash,
+.lre-reviews .lre-reviews__total-num {
+  color: rgba(197, 160, 71, 0.55) !important;
 }
 ';
 	}

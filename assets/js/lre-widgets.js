@@ -1254,12 +1254,129 @@
     };
 
     // =========================================================================
-    // 15. CLIENT REVIEWS (lre_reviews)
+    // 15. CLIENT REVIEWS & TRUST (lre_reviews)
     // =========================================================================
     LREWidgets.Reviews = {
         init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
+
+            var revSections = root.querySelectorAll( '.lre-reviews' );
+            if ( ! revSections.length && root.classList && root.classList.contains( 'lre-reviews' ) ) {
+                revSections = [ root ];
+            }
+            if ( ! revSections.length ) {
+                revSections = document.querySelectorAll( '.lre-reviews' );
+            }
+
+            revSections.forEach( function ( section ) {
+                // Watermark Scroll Parallax (matching Team & Services widgets)
+                if ( ! prefersReducedMotion ) {
+                    var revWatermark = section.querySelector( '.lre-reviews__watermark' );
+                    if ( revWatermark ) {
+                        var updateRevParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                revWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateRevParallax, { passive: true } );
+                        updateRevParallax();
+                    }
+                }
+
+                // Interactive Dossier Switcher
+                var tabBtns   = section.querySelectorAll( '.lre-reviews__tab-btn' );
+                var cards     = section.querySelectorAll( '.lre-reviews__dossier-card' );
+                var prevBtn   = section.querySelector( '.lre-reviews__nav-btn--prev' );
+                var nextBtn   = section.querySelector( '.lre-reviews__nav-btn--next' );
+                var counterEl = section.querySelector( '.lre-reviews__active-num' );
+                var totalCards = cards.length;
+
+                if ( ! totalCards ) return;
+
+                var currentIndex = 0;
+
+                var switchDossier = function ( newIndex ) {
+                    if ( newIndex < 0 ) newIndex = totalCards - 1;
+                    if ( newIndex >= totalCards ) newIndex = 0;
+                    if ( newIndex === currentIndex ) return;
+
+                    tabBtns.forEach( function ( btn ) {
+                        btn.classList.remove( 'is-active' );
+                        btn.setAttribute( 'aria-selected', 'false' );
+                    } );
+                    cards.forEach( function ( card ) {
+                        card.classList.remove( 'is-active' );
+                        card.setAttribute( 'aria-hidden', 'true' );
+                    } );
+
+                    currentIndex = newIndex;
+
+                    if ( tabBtns[currentIndex] ) {
+                        tabBtns[currentIndex].classList.add( 'is-active' );
+                        tabBtns[currentIndex].setAttribute( 'aria-selected', 'true' );
+                    }
+                    if ( cards[currentIndex] ) {
+                        cards[currentIndex].classList.add( 'is-active' );
+                        cards[currentIndex].setAttribute( 'aria-hidden', 'false' );
+                    }
+                    if ( counterEl ) {
+                        counterEl.textContent = ( currentIndex + 1 < 10 ? '0' : '' ) + ( currentIndex + 1 );
+                    }
+                };
+
+                // Tab Click
+                tabBtns.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function () {
+                        var targetIdx = parseInt( this.getAttribute( 'data-index' ), 10 );
+                        if ( ! isNaN( targetIdx ) ) {
+                            switchDossier( targetIdx );
+                        }
+                    } );
+                } );
+
+                // Prev / Next Navigation
+                if ( prevBtn ) {
+                    prevBtn.addEventListener( 'click', function () {
+                        switchDossier( currentIndex - 1 );
+                    } );
+                }
+                if ( nextBtn ) {
+                    nextBtn.addEventListener( 'click', function () {
+                        switchDossier( currentIndex + 1 );
+                    } );
+                }
+
+                // Touch Swipe on mobile
+                var wrapper = section.querySelector( '.lre-reviews__dossiers-wrapper' );
+                if ( wrapper ) {
+                    var touchStartX = 0;
+                    var touchEndX   = 0;
+
+                    wrapper.addEventListener( 'touchstart', function ( e ) {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, { passive: true } );
+
+                    wrapper.addEventListener( 'touchend', function ( e ) {
+                        touchEndX = e.changedTouches[0].screenX;
+                        var diff = touchStartX - touchEndX;
+                        if ( Math.abs( diff ) > 45 ) {
+                            if ( diff > 0 ) {
+                                switchDossier( currentIndex + 1 );
+                            } else {
+                                switchDossier( currentIndex - 1 );
+                            }
+                        }
+                    }, { passive: true } );
+                }
+            } );
         }
     };
 

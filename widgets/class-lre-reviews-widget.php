@@ -7,14 +7,13 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
-use Elementor\Group_Control_Box_Shadow;
 
 /**
  * LRE_Reviews_Widget
- * Ultra-luxury Client Reviews & Testimonials showcase for the About page.
- * Features verified transaction badges, star ratings, editorial typography,
- * and elegant review cards.
+ *
+ * Super-luxury Client Reviews & Fiduciary Trust Showcase.
+ * Features an Architectural Split Stage: a Fiduciary Ledger & Trust Pillar on the left
+ * and an interactive Testimonial Dossier & Property Showcase on the right.
  *
  * @package Luxury_RE_Widgets
  */
@@ -37,7 +36,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'reviews', 'testimonials', 'ratings', 'clients', 'feedback', 'luxury', 'trust' );
+		return array( 'reviews', 'testimonials', 'ratings', 'clients', 'feedback', 'luxury', 'trust', 'fiduciary', 'dossier' );
 	}
 
 	protected function register_controls() {
@@ -46,7 +45,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── HEADER ──
+		// ── 1. SECTION HEADER ──
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -60,7 +59,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Eyebrow Label', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Client Accolades & Trust',
+				'default' => 'Client Accolades & Fiduciary Trust',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -68,45 +67,125 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'title',
 			array(
-				'label'   => __( 'Main Headline', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Words from Those Who Entrusted Us',
-				'dynamic' => array( 'active' => true ),
+				'label'       => __( 'Main Headline (Supports <br> or newline)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 3,
+				'default'     => "Words from Those Who\nEntrusted Us with Masterworks",
+				'dynamic'     => array( 'active' => true ),
+				'description' => __( 'Each line will receive a staggered luxury mask reveal.', 'luxury-re-widgets' ),
 			)
 		);
 
 		$this->add_control(
-			'rating_summary',
+			'show_watermark',
 			array(
-				'label'   => __( 'Overall Rating Badge Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '5.0 ★★★★★  OVER 150+ VERIFIED PRIVATE TRANSACTIONS',
+				'label'        => __( 'Display Background Watermark', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
 			)
 		);
 
-		$this->add_responsive_control(
-			'columns',
+		$this->add_control(
+			'watermark_text',
 			array(
-				'label'          => __( 'Grid Columns', 'luxury-re-widgets' ),
-				'type'           => Controls_Manager::SELECT,
-				'default'        => '3',
-				'tablet_default' => '2',
-				'mobile_default' => '1',
-				'options'        => array(
-					'2' => '2 Columns',
-					'3' => '3 Columns',
-				),
-				'prefix_class'   => 'lre-reviews-grid--col-',
+				'label'     => __( 'Watermark Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'FIDUCIARY',
+				'condition' => array( 'show_watermark' => 'yes' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── REVIEWS REPEATER ──
+		// ── 2. TRUST METRICS & FIDUCIARY PILLAR ──
+		$this->start_controls_section(
+			'section_fiduciary_pillar',
+			array(
+				'label' => __( 'Fiduciary Trust Pillar (Left Column)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'seal_text_top',
+			array(
+				'label'   => __( 'Seal Label (Top)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'PRIVATE WEALTH ADVISORY',
+			)
+		);
+
+		$this->add_control(
+			'seal_text_bottom',
+			array(
+				'label'   => __( 'Seal Label (Bottom)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'STRICT FIDUCIARY STANDARD',
+			)
+		);
+
+		$this->add_control(
+			'metric_1_val',
+			array(
+				'label'   => __( 'Metric 1 Value', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '$480M+',
+			)
+		);
+
+		$this->add_control(
+			'metric_1_lbl',
+			array(
+				'label'   => __( 'Metric 1 Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Closed Volume',
+			)
+		);
+
+		$this->add_control(
+			'metric_2_val',
+			array(
+				'label'   => __( 'Metric 2 Value', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '100%',
+			)
+		);
+
+		$this->add_control(
+			'metric_2_lbl',
+			array(
+				'label'   => __( 'Metric 2 Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Off-Market Discretion',
+			)
+		);
+
+		$this->add_control(
+			'metric_3_val',
+			array(
+				'label'   => __( 'Metric 3 Value', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '150+',
+			)
+		);
+
+		$this->add_control(
+			'metric_3_lbl',
+			array(
+				'label'   => __( 'Metric 3 Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'UHNW Families Entrusted',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── 3. CLIENT DOSSIERS (REVIEWS REPEATER) ──
 		$this->start_controls_section(
 			'section_reviews_list',
 			array(
-				'label' => __( 'Client Reviews', 'luxury-re-widgets' ),
+				'label' => __( 'Client Dossiers & Reviews', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -116,7 +195,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$repeater->add_control(
 			'client_name',
 			array(
-				'label'   => __( 'Client Name', 'luxury-re-widgets' ),
+				'label'   => __( 'Client Name / Entity', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => 'Arthur & Vivienne Vance',
 			)
@@ -125,7 +204,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$repeater->add_control(
 			'client_title',
 			array(
-				'label'   => __( 'Title / Profession', 'luxury-re-widgets' ),
+				'label'   => __( 'Client Title / Profession', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => 'Private Equity Principal & Art Collector',
 			)
@@ -134,9 +213,29 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$repeater->add_control(
 			'transaction_badge',
 			array(
-				'label'   => __( 'Transaction Context Badge', 'luxury-re-widgets' ),
+				'label'   => __( 'Transaction Type & Asset', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => 'Acquisition — $16.5M Bel Air Architectural',
+			)
+		);
+
+		$repeater->add_control(
+			'transaction_timing',
+			array(
+				'label'   => __( 'Execution Context / Timing', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '18 Days Off-Market • 100% Confidential',
+			)
+		);
+
+		$repeater->add_control(
+			'property_image',
+			array(
+				'label'   => __( 'Property Backdrop Photo (Optional)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+				),
 			)
 		);
 
@@ -155,9 +254,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$repeater->add_control(
 			'review_quote',
 			array(
-				'label'   => __( 'Review Quotation', 'luxury-re-widgets' ),
+				'label'   => __( 'Client Quotation', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'default' => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that saved us millions while maintaining absolute confidentiality throughout.',
+				'rows'    => 5,
+				'default' => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that protected our family privacy and secured an irreplaceable architectural masterwork.',
 			)
 		);
 
@@ -173,7 +273,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$repeater->add_control(
 			'monogram',
 			array(
-				'label'   => __( 'Monogram Initials (If no photo)', 'luxury-re-widgets' ),
+				'label'   => __( 'Monogram Crest (Fallback Initials)', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => 'AV',
 			)
@@ -182,34 +282,46 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'reviews',
 			array(
-				'label'       => __( 'Reviews Items', 'luxury-re-widgets' ),
+				'label'       => __( 'Dossier Items', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'title_field' => '{{{ client_name }}} — {{{ transaction_badge }}}',
 				'default'     => array(
 					array(
-						'client_name'       => 'Arthur & Vivienne Vance',
-						'client_title'      => 'Private Equity Principal & Art Collector',
-						'transaction_badge' => 'Acquisition — $16.5M Bel Air Architectural',
-						'star_rating'       => 5,
-						'review_quote'      => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that protected our privacy and secured a masterwork.',
-						'monogram'          => 'AV',
+						'client_name'        => 'Arthur & Vivienne Vance',
+						'client_title'       => 'Private Equity Principal & Art Collector',
+						'transaction_badge'  => 'Acquisition — $16.5M Bel Air Architectural',
+						'transaction_timing' => '18 Days Off-Market • Complete Discretion',
+						'property_image'     => array(
+							'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+						),
+						'star_rating'        => 5,
+						'review_quote'       => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that protected our family privacy and secured an irreplaceable architectural masterwork without a single headline.',
+						'monogram'           => 'AV',
 					),
 					array(
-						'client_name'       => 'Marcus & Dr. Sophia Sterling',
-						'client_title'      => 'Tech Founder & Biotech Executive',
-						'transaction_badge' => 'Disposition — $12.2M Malibu Coastal Estate',
-						'star_rating'       => 5,
-						'review_quote'      => 'Selling our family estate of 15 years required an agent who respected the home’s soul. Within 18 days, they brought three vetted global buyers without a single intrusive public showing.',
-						'monogram'          => 'MS',
+						'client_name'        => 'Marcus & Dr. Sophia Sterling',
+						'client_title'       => 'Biotech Executive & Foundation Trustee',
+						'transaction_badge'  => 'Disposition — $12.2M Malibu Coastal Estate',
+						'transaction_timing' => 'Private Tender • 3 Vetted Sovereign Buyers',
+						'property_image'     => array(
+							'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+						),
+						'star_rating'        => 5,
+						'review_quote'       => 'Selling our family estate of fifteen years required advisors who revered the home’s soul. Within three weeks, they introduced vetted international principals without a single intrusive public showing. An exceptional, sovereign execution.',
+						'monogram'           => 'MS',
 					),
 					array(
-						'client_name'       => 'David Hollister, Esq.',
-						'client_title'      => 'Family Office General Counsel',
-						'transaction_badge' => 'Portfolio Advisory — 3 Multi-State Holdings',
-						'star_rating'       => 5,
-						'review_quote'      => 'In thirty years of practicing estate law, I have rarely encountered brokers with such sophisticated understanding of tax structuring, fiduciary responsibility, and market valuation.',
-						'monogram'          => 'DH',
+						'client_name'        => 'David Hollister, Esq.',
+						'client_title'       => 'Family Office General Counsel',
+						'transaction_badge'  => 'Portfolio Advisory — 3 Multi-State Holdings',
+						'transaction_timing' => 'Cross-Jurisdictional Tax & Trust Structuring',
+						'property_image'     => array(
+							'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+						),
+						'star_rating'        => 5,
+						'review_quote'       => 'In thirty years of advising multi-generational wealth, I have rarely encountered brokers with such sophisticated mastery of trust structures, fiduciary duty, and off-market valuations. They are true counselors to elite capital.',
+						'monogram'           => 'DH',
 					),
 				),
 			)
@@ -235,7 +347,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0a0a0e',
+				'default'   => '#09090d',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => 'background-color: {{VALUE}};',
 				),
@@ -249,10 +361,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
-					'top'      => '7',
-					'right'    => '2',
-					'bottom'   => '7',
-					'left'     => '2',
+					'top'      => '8',
+					'right'    => '2.5',
+					'bottom'   => '8.5',
+					'left'     => '2.5',
 					'unit'     => 'rem',
 					'isLinked' => false,
 				),
@@ -264,47 +376,78 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CARD STYLE ──
+		// ── WATERMARK STYLE ──
 		$this->start_controls_section(
-			'style_card',
+			'style_watermark',
 			array(
-				'label' => __( 'Review Cards Styling', 'luxury-re-widgets' ),
+				'label'     => __( 'Watermark Styling', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'show_watermark' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'watermark_color',
+			array(
+				'label'     => __( 'Watermark Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.032)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__watermark' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'watermark_typography',
+				'selector' => '{{WRAPPER}} .lre-reviews__watermark',
+			)
+		);
+
+		$this->add_responsive_control(
+			'watermark_top_offset',
+			array(
+				'label'      => __( 'Top Offset', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 200, 'step' => 2 ),
+					'rem' => array( 'min' => 0, 'max' => 15, 'step' => 0.5 ),
+					'%'   => array( 'min' => 0, 'max' => 30, 'step' => 1 ),
+				),
+				'default'    => array(
+					'unit' => 'rem',
+					'size' => 6.2,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-reviews__watermark' => 'top: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── ACCENTS & CARDS ──
+		$this->start_controls_section(
+			'style_accents',
+			array(
+				'label' => __( 'Gold Accents & Glass Cards', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$this->add_control(
-			'card_bg',
+			'gold_accent_color',
 			array(
-				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255,255,255,0.025)',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__card' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'card_border_color',
-			array(
-				'label'     => __( 'Card Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.08)',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__card' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'star_color',
-			array(
-				'label'     => __( 'Stars Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Gold Accent Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__stars' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-reviews__seal-gold' => 'color: {{VALUE}}; stroke: {{VALUE}};',
+					'{{WRAPPER}} .lre-reviews__gold-bar'  => 'background: linear-gradient(90deg, {{VALUE}}, #f8eed3);',
+					'{{WRAPPER}} .lre-reviews__star'      => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -315,101 +458,246 @@ class LRE_Reviews_Widget extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$eyebrow       = esc_html( $settings['eyebrow'] ?? 'Client Accolades & Trust' );
-		$title         = esc_html( $settings['title'] ?? 'Words from Those Who Entrusted Us' );
-		$rating_sum    = esc_html( $settings['rating_summary'] ?? '' );
-		$reviews       = ! empty( $settings['reviews'] ) ? $settings['reviews'] : array();
+		$eyebrow        = esc_html( $settings['eyebrow'] ?? 'Client Accolades & Fiduciary Trust' );
+		$title          = $settings['title'] ?? "Words from Those Who\nEntrusted Us with Masterworks";
+		$show_watermark = 'yes' === ( $settings['show_watermark'] ?? 'yes' );
+		$watermark_text = esc_html( $settings['watermark_text'] ?? 'FIDUCIARY' );
+
+		// Pillar
+		$seal_top       = esc_html( $settings['seal_text_top'] ?? 'PRIVATE WEALTH ADVISORY' );
+		$seal_bottom    = esc_html( $settings['seal_text_bottom'] ?? 'STRICT FIDUCIARY STANDARD' );
+		$m1_val         = esc_html( $settings['metric_1_val'] ?? '$480M+' );
+		$m1_lbl         = esc_html( $settings['metric_1_lbl'] ?? 'Closed Volume' );
+		$m2_val         = esc_html( $settings['metric_2_val'] ?? '100%' );
+		$m2_lbl         = esc_html( $settings['metric_2_lbl'] ?? 'Off-Market Discretion' );
+		$m3_val         = esc_html( $settings['metric_3_val'] ?? '150+' );
+		$m3_lbl         = esc_html( $settings['metric_3_lbl'] ?? 'UHNW Families Entrusted' );
+
+		$reviews        = ! empty( $settings['reviews'] ) ? $settings['reviews'] : array();
+		$total_reviews  = count( $reviews );
+
+		// Parse title lines
+		$clean_title = html_entity_decode( $title, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$clean_title = str_replace( array( "\r\n", "\r" ), "\n", $clean_title );
+		$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $clean_title );
+		$title_lines = array_filter( array_map( 'trim', $raw_lines ) );
+		if ( empty( $title_lines ) ) {
+			$title_lines = array( $title );
+		}
 		?>
 
-		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Reviews and Testimonials', 'luxury-re-widgets' ); ?>">
-			<div class="lre-reviews__container">
+		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Accolades & Fiduciary Trust', 'luxury-re-widgets' ); ?>">
+			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
+				<div class="lre-reviews__watermark" aria-hidden="true"><?php echo $watermark_text; ?></div>
+			<?php endif; ?>
+
+			<div class="container lre-reviews__container">
 				<!-- Section Header -->
 				<div class="lre-reviews__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-reviews__eyebrow-wrap">
-							<span class="lre-reviews__gold-bar"></span>
+							<span class="lre-reviews__gold-bar" aria-hidden="true"></span>
 							<span class="lre-reviews__eyebrow"><?php echo $eyebrow; ?></span>
 						</div>
 					<?php endif; ?>
 
-					<?php if ( ! empty( $title ) ) :
-						$clean_title = html_entity_decode( $title, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
-						$clean_title = str_replace( array( "\r\n", "\r" ), "\n", $clean_title );
-						$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $clean_title );
-						$title_lines = array_filter( array_map( 'trim', $raw_lines ) );
-						if ( empty( $title_lines ) ) {
-							$title_lines = array( $title );
-						}
-					?>
+					<?php if ( ! empty( $title_lines ) ) : ?>
 						<h2 class="lre-reviews__title">
 							<?php foreach ( $title_lines as $t_idx => $t_line ) : ?>
-								<span class="title-mask"><span><?php echo esc_html( $t_line ); ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
+								<span class="title-mask"><span><?php echo wp_kses( $t_line, array( 'span' => array( 'class' => array() ), 'em' => array() ) ); ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
 							<?php endforeach; ?>
 						</h2>
 					<?php endif; ?>
-
-					<?php if ( ! empty( $rating_sum ) ) : ?>
-						<div class="lre-reviews__rating-summary">
-							<span class="lre-reviews__rating-badge"><?php echo $rating_sum; ?></span>
-						</div>
-					<?php endif; ?>
 				</div>
 
-				<!-- Grid -->
+				<!-- Split Fiduciary Stage -->
 				<?php if ( ! empty( $reviews ) ) : ?>
-					<div class="lre-reviews__grid">
-						<?php foreach ( $reviews as $r ) :
-							$name        = esc_html( $r['client_name'] ?? '' );
-							$ctitle      = esc_html( $r['client_title'] ?? '' );
-							$tx_badge    = esc_html( $r['transaction_badge'] ?? '' );
-							$quote       = esc_html( $r['review_quote'] ?? '' );
-							$stars_count = intval( $r['star_rating'] ?? 5 );
-							$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
-							$monogram    = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
-							?>
-							<article class="lre-reviews__card reveal">
-								<!-- Top metadata: Transaction Badge & Star Rating -->
-								<div class="lre-reviews__card-meta">
-									<?php if ( ! empty( $tx_badge ) ) : ?>
-										<span class="lre-reviews__badge"><?php echo $tx_badge; ?></span>
-									<?php endif; ?>
-
-									<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( sprintf( __( '%d out of 5 stars', 'luxury-re-widgets' ), $stars_count ) ); ?>">
-										<?php for ( $i = 0; $i < $stars_count; $i++ ) : ?>
-											<span class="lre-reviews__star">&#9733;</span>
-										<?php endfor; ?>
+					<div class="lre-reviews__stage reveal">
+						<!-- LEFT: Fiduciary Ledger Pillar & Navigation Index -->
+						<aside class="lre-reviews__ledger">
+							<!-- Fiduciary Seal & Metrics Card -->
+							<div class="lre-reviews__trust-pillar">
+								<div class="lre-reviews__seal-wrap">
+									<div class="lre-reviews__seal-ring">
+										<svg class="lre-reviews__seal-svg" viewBox="0 0 100 100" width="80" height="80">
+											<circle cx="50" cy="50" r="46" fill="none" stroke="rgba(197, 160, 71, 0.35)" stroke-width="1.2" stroke-dasharray="2 3"/>
+											<circle cx="50" cy="50" r="41" fill="none" stroke="rgba(197, 160, 71, 0.6)" stroke-width="1"/>
+											<!-- Hexagram / Star of Trust -->
+											<polygon points="50,18 59,36 78,39 63,52 68,71 50,60 32,71 37,52 22,39 41,36" fill="none" stroke="#c5a047" stroke-width="1.2" stroke-linejoin="round"/>
+											<circle cx="50" cy="50" r="4" fill="#c5a047"/>
+										</svg>
+									</div>
+									<div class="lre-reviews__seal-meta">
+										<span class="lre-reviews__seal-top"><?php echo $seal_top; ?></span>
+										<span class="lre-reviews__seal-bottom"><?php echo $seal_bottom; ?></span>
 									</div>
 								</div>
 
-								<!-- Quote -->
-								<div class="lre-reviews__quote-wrap">
-									<span class="lre-reviews__quote-mark" aria-hidden="true">&ldquo;</span>
-									<p class="lre-reviews__quote-text"><?php echo $quote; ?></p>
-								</div>
-
-								<!-- Client Author Block -->
-								<div class="lre-reviews__client-row">
-									<div class="lre-reviews__avatar">
-										<?php if ( ! empty( $avatar_url ) ) : ?>
-											<img src="<?php echo esc_url( $avatar_url ); ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
-										<?php else : ?>
-											<span class="lre-reviews__monogram"><?php echo $monogram; ?></span>
-										<?php endif; ?>
+								<!-- Live Trust Metrics -->
+								<div class="lre-reviews__metrics-grid">
+									<div class="lre-reviews__metric-item">
+										<span class="lre-reviews__metric-val"><?php echo $m1_val; ?></span>
+										<span class="lre-reviews__metric-lbl"><?php echo $m1_lbl; ?></span>
 									</div>
-
-									<div class="lre-reviews__client-info">
-										<h4 class="lre-reviews__client-name"><?php echo $name; ?></h4>
-										<?php if ( ! empty( $ctitle ) ) : ?>
-											<span class="lre-reviews__client-title"><?php echo $ctitle; ?></span>
-										<?php endif; ?>
+									<div class="lre-reviews__metric-item">
+										<span class="lre-reviews__metric-val"><?php echo $m2_val; ?></span>
+										<span class="lre-reviews__metric-lbl"><?php echo $m2_lbl; ?></span>
 									</div>
-
-									<div class="lre-reviews__verified-icon" title="<?php esc_attr_e( 'Verified Client Transaction', 'luxury-re-widgets' ); ?>">
-										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c5a047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+									<div class="lre-reviews__metric-item">
+										<span class="lre-reviews__metric-val"><?php echo $m3_val; ?></span>
+										<span class="lre-reviews__metric-lbl"><?php echo $m3_lbl; ?></span>
 									</div>
 								</div>
-							</article>
-						<?php endforeach; ?>
+							</div>
+
+							<!-- Ledger Dossier Selector Tabs -->
+							<div class="lre-reviews__ledger-index" role="tablist" aria-label="<?php esc_attr_e( 'Client Dossier Index', 'luxury-re-widgets' ); ?>">
+								<div class="lre-reviews__index-header">
+									<span class="lre-reviews__index-title"><?php esc_html_e( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' ); ?></span>
+									<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php esc_html_e( 'RECORDS', 'luxury-re-widgets' ); ?></span>
+								</div>
+
+								<div class="lre-reviews__index-items">
+									<?php foreach ( $reviews as $idx => $r ) :
+										$name     = esc_html( $r['client_name'] ?? '' );
+										$tx_badge = esc_html( $r['transaction_badge'] ?? '' );
+										$is_first = ( 0 === $idx );
+										?>
+										<button type="button"
+											class="lre-reviews__tab-btn <?php echo $is_first ? 'is-active' : ''; ?>"
+											role="tab"
+											aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>"
+											aria-controls="lre-dossier-<?php echo $idx; ?>"
+											data-index="<?php echo $idx; ?>">
+											<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
+											<span class="lre-reviews__tab-content">
+												<strong class="lre-reviews__tab-name"><?php echo $name; ?></strong>
+												<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
+											</span>
+											<span class="lre-reviews__tab-arrow" aria-hidden="true">&rarr;</span>
+										</button>
+									<?php endforeach; ?>
+								</div>
+							</div>
+						</aside>
+
+						<!-- RIGHT: The Primary Testimonial Stage & Showcase -->
+						<div class="lre-reviews__stage-main">
+							<div class="lre-reviews__dossiers-wrapper">
+								<?php foreach ( $reviews as $idx => $r ) :
+									$name        = esc_html( $r['client_name'] ?? '' );
+									$ctitle      = esc_html( $r['client_title'] ?? '' );
+									$tx_badge    = esc_html( $r['transaction_badge'] ?? '' );
+									$timing      = esc_html( $r['transaction_timing'] ?? '' );
+									$prop_img    = ! empty( $r['property_image']['url'] ) ? esc_url( $r['property_image']['url'] ) : '';
+									$quote       = esc_html( $r['review_quote'] ?? '' );
+									$stars_count = intval( $r['star_rating'] ?? 5 );
+									$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+									$monogram    = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
+									$is_first    = ( 0 === $idx );
+									?>
+									<article id="lre-dossier-<?php echo $idx; ?>"
+										class="lre-reviews__dossier-card <?php echo $is_first ? 'is-active' : ''; ?>"
+										role="tabpanel"
+										aria-hidden="<?php echo $is_first ? 'false' : 'true'; ?>"
+										data-index="<?php echo $idx; ?>">
+
+										<!-- Property Visual Anchor (Atmospheric Luxury Inset) -->
+										<div class="lre-reviews__prop-visual">
+											<?php if ( ! empty( $prop_img ) ) : ?>
+												<div class="lre-reviews__prop-img-wrap">
+													<img src="<?php echo $prop_img; ?>" alt="<?php echo esc_attr( $tx_badge ); ?>" loading="lazy">
+													<div class="lre-reviews__prop-overlay"></div>
+												</div>
+											<?php endif; ?>
+
+											<div class="lre-reviews__prop-meta">
+												<?php if ( ! empty( $tx_badge ) ) : ?>
+													<span class="lre-reviews__prop-badge">
+														<span class="lre-reviews__badge-dot"></span>
+														<?php echo $tx_badge; ?>
+													</span>
+												<?php endif; ?>
+
+												<?php if ( ! empty( $timing ) ) : ?>
+													<span class="lre-reviews__timing-badge"><?php echo $timing; ?></span>
+												<?php endif; ?>
+											</div>
+										</div>
+
+										<!-- Testimonial Editorial Body -->
+										<div class="lre-reviews__dossier-body">
+											<!-- Stars & Monogram Header -->
+											<div class="lre-reviews__dossier-head">
+												<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( sprintf( __( '%d out of 5 stars', 'luxury-re-widgets' ), $stars_count ) ); ?>">
+													<?php for ( $i = 0; $i < $stars_count; $i++ ) : ?>
+														<span class="lre-reviews__star" aria-hidden="true">&#9733;</span>
+													<?php endfor; ?>
+												</div>
+												<span class="lre-reviews__record-id"><?php esc_html_e( 'RECORD REF #', 'luxury-re-widgets' ); ?><?php echo sprintf( '%04d', ( $idx + 1 ) * 142 ); ?></span>
+											</div>
+
+											<!-- Quote -->
+											<div class="lre-reviews__quote-wrap">
+												<span class="lre-reviews__quote-mark" aria-hidden="true">&ldquo;</span>
+												<blockquote class="lre-reviews__quote-text">
+													<?php echo $quote; ?>
+												</blockquote>
+											</div>
+
+											<!-- Client Credentials & Notary Verification -->
+											<div class="lre-reviews__author-bar">
+												<div class="lre-reviews__author-left">
+													<div class="lre-reviews__avatar">
+														<?php if ( ! empty( $avatar_url ) ) : ?>
+															<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
+														<?php else : ?>
+															<span class="lre-reviews__monogram"><?php echo $monogram; ?></span>
+														<?php endif; ?>
+													</div>
+
+													<div class="lre-reviews__author-info">
+														<h4 class="lre-reviews__author-name"><?php echo $name; ?></h4>
+														<?php if ( ! empty( $ctitle ) ) : ?>
+															<span class="lre-reviews__author-title"><?php echo $ctitle; ?></span>
+														<?php endif; ?>
+													</div>
+												</div>
+
+												<!-- Verified Seal Badge -->
+												<div class="lre-reviews__verification-pill" title="<?php esc_attr_e( 'Verified Closing Escrow File', 'luxury-re-widgets' ); ?>">
+													<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c5a047" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+														<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+														<path d="m9 12 2 2 4-4"/>
+													</svg>
+													<span><?php esc_html_e( 'VERIFIED TRANSACTION', 'luxury-re-widgets' ); ?></span>
+												</div>
+											</div>
+										</div>
+									</article>
+								<?php endforeach; ?>
+							</div>
+
+							<!-- Bottom Dossier Controls (Prev / Next & Counter) -->
+							<div class="lre-reviews__controls">
+								<div class="lre-reviews__counter">
+									<span class="lre-reviews__active-num">01</span>
+									<span class="lre-reviews__counter-slash">/</span>
+									<span class="lre-reviews__total-num"><?php echo sprintf( '%02d', $total_reviews ); ?></span>
+								</div>
+
+								<div class="lre-reviews__nav-actions">
+									<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--prev btn btn--secondary" aria-label="<?php esc_attr_e( 'Previous Record', 'luxury-re-widgets' ); ?>">
+										<span aria-hidden="true">&larr;</span>
+										<span><?php esc_html_e( 'PREV', 'luxury-re-widgets' ); ?></span>
+									</button>
+									<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--next btn btn--secondary" aria-label="<?php esc_attr_e( 'Next Record', 'luxury-re-widgets' ); ?>">
+										<span><?php esc_html_e( 'NEXT', 'luxury-re-widgets' ); ?></span>
+										<span aria-hidden="true">&rarr;</span>
+									</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				<?php endif; ?>
 			</div>

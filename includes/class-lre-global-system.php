@@ -904,6 +904,69 @@ button.navbar__mobile-toggle:active,
 [class*="elementor-kit-"] a:not(.btn):not(.community-card):not(.listing-card):not(.navbar__link):not(.navbar__submenu-link):not(.navbar__logo):not(.navbar__info):not(.navbar__phone):not(.side-menu__link):not(.side-menu__category-link):not(.side-menu__find-btn) {
   transition: color var(--transition-fast, 0.25s ease);
 }
+
+/* ─── DARK LUXURY SECTIONS: PURE WHITE TITLES & HIGH-CONTRAST TEXT GUARANTEE ─── */
+.lre-reviews,
+.lre-aserv,
+.lre-press,
+.elementor-widget-lre_reviews,
+.elementor-widget-lre_about_services,
+.elementor-widget-lre_press {
+  --color-text: #ffffff !important;
+  --color-text-muted: rgba(255, 255, 255, 0.75) !important;
+  --aserv-text: #ffffff !important;
+  --rev-text: #ffffff !important;
+}
+
+.lre-reviews .lre-reviews__title,
+.lre-reviews .lre-reviews__title .title-mask,
+.lre-reviews .lre-reviews__title .title-mask > span,
+.lre-reviews .lre-reviews__title span,
+.lre-aserv .lre-aserv__title,
+.lre-aserv .lre-aserv__title .title-mask,
+.lre-aserv .lre-aserv__title .title-mask > span,
+.lre-aserv .lre-aserv__title span,
+.lre-press .lre-press__title,
+.lre-press .lre-press__title .title-mask,
+.lre-press .lre-press__title .title-mask > span,
+.lre-press .lre-press__title span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+}
+
+.lre-reviews blockquote,
+.lre-reviews .lre-reviews__quote-text,
+.lre-reviews .lre-reviews__author-name,
+.lre-reviews .lre-reviews__metric-val,
+.lre-reviews .lre-reviews__tab-name,
+.lre-reviews .lre-reviews__counter,
+.lre-reviews .lre-reviews__active-num,
+.lre-aserv .lre-aserv__card-title,
+.lre-aserv .lre-aserv__mono-title,
+.lre-aserv .lre-aserv__mono-num {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.lre-reviews .lre-reviews__author-title,
+.lre-reviews .lre-reviews__tab-tx,
+.lre-reviews .lre-reviews__timing-badge,
+.lre-reviews .lre-reviews__metric-lbl,
+.lre-aserv .lre-aserv__desc,
+.lre-aserv .lre-aserv__mono-desc,
+.lre-aserv .lre-aserv__card-desc,
+.lre-aserv .lre-aserv__capabilities li {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.lre-reviews .lre-reviews__eyebrow,
+.lre-aserv .lre-aserv__eyebrow,
+.lre-press .lre-press__eyebrow,
+.lre-aserv .lre-aserv__card-cat,
+.lre-aserv .lre-aserv__mono-tag {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
 ';
 	}
 

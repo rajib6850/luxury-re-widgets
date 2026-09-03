@@ -360,12 +360,9 @@ class LRE_About_Services_Widget extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			array(
-				'label'     => __( 'Body Text Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Body Text Color (White)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
-				'global'    => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
-				),
 				'selectors' => array(
 					'{{WRAPPER}} .lre-aserv' => '--aserv-text: {{VALUE}};',
 				),

@@ -408,14 +408,23 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'text_color',
+			'title_color',
 			array(
-				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Headline Color (White)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
-				'global'    => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title .title-mask > span, {{WRAPPER}} .lre-reviews__title span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
+			)
+		);
+
+		$this->add_control(
+			'text_color',
+			array(
+				'label'     => __( 'Body Text Color (White)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => '--lre-rev-text: {{VALUE}};',
 				),

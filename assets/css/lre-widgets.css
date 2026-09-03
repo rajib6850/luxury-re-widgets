@@ -7594,15 +7594,15 @@ body.elementor-editor-active .lre-aserv__watermark {
    D. CLIENT REVIEWS & TRUST — The Private Fiduciary Ledger & Stage
    ───────────────────────────────────────────────────────────────────────────── */
 .lre-reviews {
-  --rev-gold: var(--lre-rev-gold, var(--e-global-color-secondary, var(--color-secondary, #c5a047)));
-  --rev-gold-light: var(--lre-rev-gold-light, var(--e-global-color-accent, var(--color-secondary-light, #d4b565)));
-  --rev-bg: var(--lre-rev-bg, var(--e-global-color-primary, #08080c));
-  --rev-text: var(--lre-rev-text, var(--e-global-color-text, #ffffff));
+  --rev-gold: var(--lre-rev-gold, #c5a047);
+  --rev-gold-light: var(--lre-rev-gold-light, #d4b565);
+  --rev-bg: var(--lre-rev-bg, #08080c);
+  --rev-text: var(--lre-rev-text, #ffffff);
   --rev-card-bg: var(--lre-rev-card-bg, rgba(255, 255, 255, 0.025));
 
   position: relative;
   background: var(--rev-bg, #08080c) !important;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   padding: 8rem 0 8.5rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -7616,7 +7616,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   right: -8%;
   width: 55%;
   height: 55%;
-  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.045) 0%, transparent 65%);
+  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.035) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
@@ -7663,7 +7663,7 @@ body.elementor-editor-active .lre-aserv__watermark {
 .lre-reviews__gold-bar {
   width: 32px;
   height: 1.5px;
-  background: linear-gradient(90deg, var(--rev-gold), var(--rev-gold-light, #f8eed3)) !important;
+  background: linear-gradient(90deg, rgba(197, 160, 71, 0.6), rgba(255, 255, 255, 0.3)) !important;
   display: inline-block;
   flex-shrink: 0;
 }
@@ -7674,7 +7674,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .lre-reviews__title {
@@ -7682,9 +7682,18 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-size: clamp(2.2rem, 3.8vw, 3.2rem);
   font-weight: 400;
   line-height: 1.25;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   margin: 0;
   letter-spacing: -0.01em;
+}
+
+.lre-reviews__title,
+.lre-reviews__title .title-mask,
+.lre-reviews__title .title-mask > span,
+.lre-reviews__title span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
 }
 
 /* Split Architectural Stage */
@@ -7726,7 +7735,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--rev-gold), rgba(197, 160, 71, 0.15)) !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05)) !important;
 }
 
 .lre-reviews__seal-wrap {
@@ -7759,11 +7768,11 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__seal-svg polygon {
-  stroke: var(--rev-gold) !important;
+  stroke: rgba(255, 255, 255, 0.7) !important;
 }
 
 .lre-reviews__seal-svg circle:last-child {
-  fill: var(--rev-gold) !important;
+  fill: #ffffff !important;
 }
 
 .lre-reviews__seal-meta {
@@ -7777,7 +7786,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 2px;
-  color: var(--rev-gold) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   text-transform: uppercase;
 }
 
@@ -7805,7 +7814,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.45rem;
   font-weight: 400;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   line-height: 1.1;
   margin-bottom: 0.35rem;
 }
@@ -7814,7 +7823,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.6rem;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.45) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
   text-transform: uppercase;
   line-height: 1.35;
 }
@@ -7836,7 +7845,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.4) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
   text-transform: uppercase;
 }
 
@@ -7857,7 +7866,7 @@ button.lre-reviews__tab-btn,
   background-color: rgba(255, 255, 255, 0.02) !important;
   border: 1px solid rgba(255, 255, 255, 0.07) !important;
   border-radius: 3px !important;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   cursor: pointer;
   text-align: left;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -7875,7 +7884,7 @@ button.lre-reviews__tab-btn,
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--rev-gold) !important;
+  background: #ffffff !important;
   transform: scaleY(0);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -7887,8 +7896,8 @@ button.lre-reviews__tab-btn:focus,
 .lre-reviews__tab-btn:hover,
 .lre-reviews__tab-btn:focus {
   background-color: rgba(255, 255, 255, 0.05) !important;
-  border-color: var(--rev-gold) !important;
-  color: var(--rev-text, #ffffff) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
   transform: translateX(4px);
   box-shadow: none !important;
   outline: none !important;
@@ -7897,10 +7906,10 @@ button.lre-reviews__tab-btn:focus,
 button.lre-reviews__tab-btn.is-active,
 [type="button"].lre-reviews__tab-btn.is-active,
 .lre-reviews__tab-btn.is-active {
-  background-color: rgba(197, 160, 71, 0.08) !important;
-  border-color: var(--rev-gold) !important;
-  color: var(--rev-text, #ffffff) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35) !important;
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
   transform: translateX(6px);
 }
 
@@ -7911,9 +7920,13 @@ button.lre-reviews__tab-btn.is-active,
 .lre-reviews__tab-num {
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 0.95rem;
-  color: var(--rev-gold) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
   flex-shrink: 0;
   font-style: italic;
+}
+
+.lre-reviews__tab-btn.is-active .lre-reviews__tab-num {
+  color: #ffffff !important;
 }
 
 .lre-reviews__tab-avatar {
@@ -7922,7 +7935,7 @@ button.lre-reviews__tab-btn.is-active,
   border-radius: 50%;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid var(--rev-gold);
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7939,7 +7952,7 @@ button.lre-reviews__tab-btn.is-active,
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--rev-gold);
+  color: #ffffff !important;
 }
 
 .lre-reviews__tab-content {
@@ -7954,7 +7967,7 @@ button.lre-reviews__tab-btn.is-active,
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 0.92rem;
   font-weight: 400;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -7962,32 +7975,25 @@ button.lre-reviews__tab-btn.is-active,
 
 .lre-reviews__tab-tx {
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
-  font-size: 0.6rem;
-  letter-spacing: 0.8px;
+  font-size: 0.65rem;
   color: rgba(255, 255, 255, 0.5) !important;
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .lre-reviews__tab-arrow {
-  font-size: 0.95rem;
-  color: var(--rev-gold) !important;
-  opacity: 0;
-  transform: translateX(-6px);
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.35) !important;
   transition: all 0.3s ease;
   margin-left: auto;
-  flex-shrink: 0;
 }
 
-.lre-reviews__tab-btn.is-active .lre-reviews__tab-arrow,
-.lre-reviews__tab-btn:hover .lre-reviews__tab-arrow {
-  opacity: 1;
-  transform: translateX(0);
+.lre-reviews__tab-btn.is-active .lre-reviews__tab-arrow {
+  color: #ffffff !important;
 }
 
-/* RIGHT: Main Testimonial Stage */
+/* RIGHT: Primary Testimonial Stage & Showcase */
 .lre-reviews__stage-main {
   position: relative;
   min-width: 0;
@@ -7995,36 +8001,45 @@ button.lre-reviews__tab-btn.is-active,
 
 .lre-reviews__dossiers-wrapper {
   position: relative;
-  width: 100%;
 }
 
+/* Dossier Card Panel */
 .lre-reviews__dossier-card {
   display: none;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   background: var(--rev-card-bg, rgba(255, 255, 255, 0.025)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 40px rgba(197, 160, 71, 0.04);
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lre-reviews__dossier-card.is-active {
-  display: flex;
-  flex-direction: column;
-  opacity: 1;
-  transform: translateY(0);
+  display: block;
+  animation: lreDossierFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lreDossierFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Property Visual Anchor */
 .lre-reviews__prop-visual {
-  height: 250px;
   position: relative;
+  width: 100%;
+  height: 280px;
   overflow: hidden;
-  background: #0d0d12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .lre-reviews__prop-img-wrap {
@@ -8037,6 +8052,8 @@ button.lre-reviews__tab-btn.is-active,
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  transform: scale(1.0);
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -8064,9 +8081,9 @@ button.lre-reviews__tab-btn.is-active,
 }
 
 .lre-reviews__prop-badge {
-  background: rgba(9, 9, 13, 0.85) !important;
-  border: 1px solid var(--rev-gold) !important;
-  color: #f5f2eb !important;
+  background: rgba(8, 8, 12, 0.88) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
   padding: 0.45rem 0.95rem;
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.65rem;
@@ -8085,15 +8102,15 @@ button.lre-reviews__tab-btn.is-active,
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--rev-gold) !important;
-  box-shadow: 0 0 6px var(--rev-gold) !important;
+  background: #10b981 !important;
+  box-shadow: 0 0 6px #34d399 !important;
   display: inline-block;
 }
 
 .lre-reviews__timing-badge {
   background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   padding: 0.45rem 0.85rem;
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.62rem;
@@ -8121,10 +8138,10 @@ button.lre-reviews__tab-btn.is-active,
 }
 
 .lre-reviews__stars {
-  color: var(--rev-gold) !important;
-  font-size: 1.15rem;
+  color: #dfc888 !important;
+  font-size: 1.1rem;
   letter-spacing: 4px;
-  filter: drop-shadow(0 0 8px rgba(197, 160, 71, 0.4));
+  filter: none !important;
 }
 
 .lre-reviews__record-id {
@@ -8149,8 +8166,8 @@ button.lre-reviews__tab-btn.is-active,
   font-family: var(--font-accent, var(--e-global-typography-accent-font-family, 'Cormorant Garamond', serif));
   font-size: 6.5rem;
   line-height: 0;
-  color: var(--rev-gold) !important;
-  opacity: 0.12;
+  color: rgba(255, 255, 255, 0.08) !important;
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -8167,7 +8184,8 @@ button.lre-reviews__tab-btn.is-active,
   font-style: italic;
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
   line-height: 1.65;
-  color: #fdfbf7 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   margin: 0;
   position: relative;
   z-index: 1;
@@ -8196,9 +8214,9 @@ button.lre-reviews__tab-btn.is-active,
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  background: rgba(197, 160, 71, 0.12) !important;
-  border: 2px solid var(--rev-gold) !important;
-  color: var(--rev-gold) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8217,6 +8235,7 @@ button.lre-reviews__tab-btn.is-active,
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 1px;
+  color: #ffffff !important;
 }
 
 .lre-reviews__author-info {
@@ -8229,14 +8248,14 @@ button.lre-reviews__tab-btn.is-active,
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.15rem;
   font-weight: 400;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   margin: 0;
 }
 
 .lre-reviews__author-title {
   font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
   letter-spacing: 0.5px;
 }
 
@@ -8285,14 +8304,14 @@ button.lre-reviews__tab-btn.is-active,
 .lre-reviews__counter {
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.25rem;
-  color: var(--rev-text, #ffffff) !important;
+  color: #ffffff !important;
   display: flex;
   align-items: baseline;
   gap: 6px;
 }
 
 .lre-reviews__active-num {
-  color: var(--rev-gold) !important;
+  color: #ffffff !important;
   font-weight: 700;
 }
 

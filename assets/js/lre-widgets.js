@@ -1188,63 +1188,31 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark Scroll Parallax (Fluid Kinetic Motion)
-            var sections = root.querySelectorAll( '.lre-aserv' );
-            if ( ! sections.length && root.classList && root.classList.contains( 'lre-aserv' ) ) {
-                sections = [ root ];
-            }
-            if ( ! sections.length ) {
-                sections = document.querySelectorAll( '.lre-aserv' );
+            var aservSections = root.querySelectorAll( '.lre-aserv' );
+            if ( ! aservSections.length && root.classList && root.classList.contains( 'lre-aserv' ) ) {
+                aservSections = [ root ];
             }
 
-            sections.forEach( function ( aservSec ) {
-                var watermark = aservSec.querySelector( '.lre-aserv__watermark' );
-                if ( ! watermark ) return;
-
-                var ticking = false;
-                var updateParallax = function () {
-                    var rect = aservSec.getBoundingClientRect();
-                    var winH = window.innerHeight || document.documentElement.clientHeight || 800;
-                    if ( rect.bottom >= -200 && rect.top <= winH + 200 ) {
-                        var secH = rect.height || aservSec.offsetHeight || 800;
-                        var totalDist = winH + secH;
-                        if ( totalDist <= 0 ) return;
-                        var progress = ( winH - rect.top ) / totalDist;
-                        if ( isNaN( progress ) ) return;
-                        progress = Math.max( 0, Math.min( 1, progress ) );
-
-                        var isMobile = ( window.innerWidth || document.documentElement.clientWidth ) <= 768;
-                        var travelY = isMobile ? 50 : 130;
-                        var travelX = isMobile ? 0 : 6;
-
-                        var yShift = ( progress - 0.5 ) * travelY;
-                        var xShift = -50 + ( ( progress - 0.5 ) * travelX );
-
-                        watermark.style.setProperty( 'transform', 'translate3d(' + xShift.toFixed( 2 ) + '%, ' + yShift.toFixed( 1 ) + 'px, 0)', 'important' );
+            aservSections.forEach( function ( section ) {
+                // Watermark Scroll Parallax (matching Team widget)
+                if ( ! prefersReducedMotion ) {
+                    var aservWatermark = section.querySelector( '.lre-aserv__watermark' );
+                    if ( aservWatermark ) {
+                        var updateAservParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                aservWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateAservParallax, { passive: true } );
+                        updateAservParallax();
                     }
-                };
-
-                var onScroll = function () {
-                    if ( ! ticking ) {
-                        window.requestAnimationFrame( function () {
-                            updateParallax();
-                            ticking = false;
-                        } );
-                        ticking = true;
-                    }
-                };
-
-                window.addEventListener( 'scroll', onScroll, { passive: true } );
-                window.addEventListener( 'resize', onScroll, { passive: true } );
-                document.addEventListener( 'scroll', onScroll, { passive: true } );
-                if ( window.jQuery ) {
-                    window.jQuery( window ).on( 'scroll resize', onScroll );
                 }
-
-                // Initial trigger
-                updateParallax();
-                setTimeout( updateParallax, 150 );
-                setTimeout( updateParallax, 500 );
             } );
 
             // The Architectural Monolith (Expanding Panels Interaction)

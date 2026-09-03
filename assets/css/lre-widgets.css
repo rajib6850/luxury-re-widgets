@@ -6558,18 +6558,13 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   font-size: clamp(4.6rem, 11vw, 9.2rem);
   font-weight: 400;
   letter-spacing: 0.16em;
-  margin-right: -0.16em;
   color: rgba(255, 255, 255, 0.032);
   text-transform: uppercase;
-  user-select: none;
   pointer-events: none;
-  z-index: 0;
-  line-height: 1;
   white-space: nowrap;
-  text-align: center;
-  width: auto;
-  max-width: 95vw;
-  overflow: hidden;
+  user-select: none;
+  line-height: 1;
+  z-index: 0;
   will-change: transform;
 }
 
@@ -7394,7 +7389,6 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   .lre-aserv__watermark {
     font-size: clamp(3.6rem, 10.5vw, 6.6rem);
     letter-spacing: 0.14em;
-    margin-right: -0.14em;
     top: 5rem;
   }
   .lre-aserv__grid--col-3,
@@ -7426,7 +7420,6 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   .lre-aserv__watermark {
     font-size: clamp(2.6rem, 11vw, 4.4rem);
     letter-spacing: 0.1em;
-    margin-right: -0.1em;
     top: 4rem;
   }
   .lre-aserv__header {
@@ -7481,7 +7474,6 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   .lre-aserv__watermark {
     font-size: clamp(2.0rem, 10.5vw, 3.2rem);
     letter-spacing: 0.08em;
-    margin-right: -0.08em;
     top: 3.2rem;
   }
   .lre-aserv__monolith {

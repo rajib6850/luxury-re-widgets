@@ -120,6 +120,40 @@ body,
   text-rendering: optimizeLegibility;
 }
 
+/* ─── UNIVERSAL ANTI-THEME LEAKAGE RESET (Eliminates Hello Elementor & Theme #c36 Pink Leakage) ─── */
+[class*="lre-"] button,
+[class*="lre-"] [type="button"],
+[class*="lre-"] [type="submit"],
+[class*="lre-"] [type="reset"],
+[class*="lre-"] a,
+[class*="elementor-widget-lre_"] button,
+[class*="elementor-widget-lre_"] [type="button"],
+[class*="elementor-widget-lre_"] a {
+  background-color: transparent !important;
+  color: inherit !important;
+  border-color: transparent;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+[class*="lre-"] button:focus,
+[class*="lre-"] button:hover,
+[class*="lre-"] [type="button"]:focus,
+[class*="lre-"] [type="button"]:hover,
+[class*="lre-"] [type="submit"]:focus,
+[class*="lre-"] [type="submit"]:hover,
+[class*="elementor-widget-lre_"] button:focus,
+[class*="elementor-widget-lre_"] button:hover,
+[class*="elementor-widget-lre_"] [type="button"]:focus,
+[class*="elementor-widget-lre_"] [type="button"]:hover {
+  background-color: transparent;
+  color: inherit;
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
 body.menu-open {
   overflow: hidden;
 }
@@ -7523,9 +7557,19 @@ body.elementor-editor-active .lre-aserv__watermark {
 /* ─────────────────────────────────────────────────────────────────────────────
    D. CLIENT REVIEWS & TRUST — The Private Fiduciary Ledger & Stage
    ───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   D. CLIENT REVIEWS & TRUST — The Private Fiduciary Ledger & Stage
+   ───────────────────────────────────────────────────────────────────────────── */
 .lre-reviews {
+  --rev-gold: var(--lre-rev-gold, var(--e-global-color-secondary, var(--color-secondary, #c5a047)));
+  --rev-gold-light: var(--lre-rev-gold-light, var(--e-global-color-accent, var(--color-secondary-light, #d4b565)));
+  --rev-bg: var(--lre-rev-bg, var(--e-global-color-primary, #08080c));
+  --rev-text: var(--lre-rev-text, var(--e-global-color-text, #ffffff));
+  --rev-card-bg: var(--lre-rev-card-bg, rgba(255, 255, 255, 0.025));
+
   position: relative;
-  background: #08080c;
+  background: var(--rev-bg, #08080c) !important;
+  color: var(--rev-text, #ffffff) !important;
   padding: 8rem 0 8.5rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -7554,26 +7598,6 @@ body.elementor-editor-active .lre-aserv__watermark {
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
-}
-
-/* Watermark typography with scroll parallax matching Team & Services */
-.lre-reviews__watermark {
-  position: absolute;
-  top: 6.2rem;
-  left: 50%;
-  transform: translate3d(-50%, 0, 0);
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: clamp(4.6rem, 11vw, 9.2rem);
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.032);
-  text-transform: uppercase;
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-  line-height: 1;
-  z-index: 0;
-  will-change: transform;
 }
 
 .lre-reviews__container {
@@ -7606,26 +7630,26 @@ body.elementor-editor-active .lre-aserv__watermark {
 .lre-reviews__gold-bar {
   width: 32px;
   height: 1.5px;
-  background: linear-gradient(90deg, #c5a047, #f8eed3);
+  background: linear-gradient(90deg, var(--rev-gold), var(--rev-gold-light, #f8eed3)) !important;
   display: inline-block;
   flex-shrink: 0;
 }
 
 .lre-reviews__eyebrow {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .lre-reviews__title {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: clamp(2.2rem, 3.8vw, 3.2rem);
   font-weight: 400;
   line-height: 1.25;
-  color: #ffffff !important;
+  color: var(--rev-text, #ffffff) !important;
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -7651,8 +7675,8 @@ body.elementor-editor-active .lre-aserv__watermark {
 
 /* Trust Pillar Card */
 .lre-reviews__trust-pillar {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--rev-card-bg, rgba(255, 255, 255, 0.025)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 4px;
   padding: 2.2rem 2rem;
   backdrop-filter: blur(16px);
@@ -7669,7 +7693,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #c5a047, rgba(197, 160, 71, 0.15));
+  background: linear-gradient(90deg, var(--rev-gold), rgba(197, 160, 71, 0.15)) !important;
 }
 
 .lre-reviews__seal-wrap {
@@ -7701,6 +7725,14 @@ body.elementor-editor-active .lre-aserv__watermark {
   to { transform: rotate(360deg); }
 }
 
+.lre-reviews__seal-svg polygon {
+  stroke: var(--rev-gold) !important;
+}
+
+.lre-reviews__seal-svg circle:last-child {
+  fill: var(--rev-gold) !important;
+}
+
 .lre-reviews__seal-meta {
   display: flex;
   flex-direction: column;
@@ -7708,19 +7740,19 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__seal-top {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   text-transform: uppercase;
 }
 
 .lre-reviews__seal-bottom {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.58rem;
   letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.45) !important;
   text-transform: uppercase;
 }
 
@@ -7737,19 +7769,19 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__metric-val {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.45rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--rev-text, #ffffff) !important;
   line-height: 1.1;
   margin-bottom: 0.35rem;
 }
 
 .lre-reviews__metric-lbl {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.6rem;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.45) !important;
   text-transform: uppercase;
   line-height: 1.35;
 }
@@ -7767,11 +7799,11 @@ body.elementor-editor-active .lre-aserv__watermark {
   padding: 0.8rem 0.2rem;
   margin-bottom: 0.8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.4) !important;
   text-transform: uppercase;
 }
 
@@ -7781,20 +7813,26 @@ body.elementor-editor-active .lre-aserv__watermark {
   gap: 0.75rem;
 }
 
+/* Tab Button - Complete Theme Pink Override */
+button.lre-reviews__tab-btn,
+[type="button"].lre-reviews__tab-btn,
 .lre-reviews__tab-btn {
   display: flex;
   align-items: center;
   gap: 1.1rem;
-  padding: 1.1rem 1.3rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 3px;
+  padding: 1.1rem 1.3rem !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 3px !important;
+  color: var(--rev-text, #ffffff) !important;
   cursor: pointer;
   text-align: left;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   width: 100%;
   position: relative;
   overflow: hidden;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .lre-reviews__tab-btn::before {
@@ -7804,21 +7842,32 @@ body.elementor-editor-active .lre-aserv__watermark {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: #c5a047;
+  background: var(--rev-gold) !important;
   transform: scaleY(0);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lre-reviews__tab-btn:hover {
-  background: rgba(255, 255, 255, 0.045);
-  border-color: rgba(197, 160, 71, 0.3);
+button.lre-reviews__tab-btn:hover,
+button.lre-reviews__tab-btn:focus,
+[type="button"].lre-reviews__tab-btn:hover,
+[type="button"].lre-reviews__tab-btn:focus,
+.lre-reviews__tab-btn:hover,
+.lre-reviews__tab-btn:focus {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--rev-gold) !important;
+  color: var(--rev-text, #ffffff) !important;
   transform: translateX(4px);
+  box-shadow: none !important;
+  outline: none !important;
 }
 
+button.lre-reviews__tab-btn.is-active,
+[type="button"].lre-reviews__tab-btn.is-active,
 .lre-reviews__tab-btn.is-active {
-  background: rgba(197, 160, 71, 0.08);
-  border-color: rgba(197, 160, 71, 0.45);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  background-color: rgba(197, 160, 71, 0.08) !important;
+  border-color: var(--rev-gold) !important;
+  color: var(--rev-text, #ffffff) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35) !important;
   transform: translateX(6px);
 }
 
@@ -7827,9 +7876,9 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__tab-num {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 0.95rem;
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   flex-shrink: 0;
   font-style: italic;
 }
@@ -7843,20 +7892,20 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__tab-name {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 0.92rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--rev-text, #ffffff) !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .lre-reviews__tab-tx {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.6rem;
   letter-spacing: 0.8px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5) !important;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
@@ -7865,7 +7914,7 @@ body.elementor-editor-active .lre-aserv__watermark {
 
 .lre-reviews__tab-arrow {
   font-size: 0.95rem;
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   opacity: 0;
   transform: translateX(-6px);
   transition: all 0.3s ease;
@@ -7895,8 +7944,8 @@ body.elementor-editor-active .lre-aserv__watermark {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--rev-card-bg, rgba(255, 255, 255, 0.025)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
   border-radius: 4px;
   overflow: hidden;
   backdrop-filter: blur(20px);
@@ -7956,11 +8005,11 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__prop-badge {
-  background: rgba(9, 9, 13, 0.85);
-  border: 1px solid rgba(197, 160, 71, 0.4);
-  color: #f5f2eb;
+  background: rgba(9, 9, 13, 0.85) !important;
+  border: 1px solid var(--rev-gold) !important;
+  color: #f5f2eb !important;
   padding: 0.45rem 0.95rem;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -7977,17 +8026,17 @@ body.elementor-editor-active .lre-aserv__watermark {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c5a047;
-  box-shadow: 0 0 6px #c5a047;
+  background: var(--rev-gold) !important;
+  box-shadow: 0 0 6px var(--rev-gold) !important;
   display: inline-block;
 }
 
 .lre-reviews__timing-badge {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   padding: 0.45rem 0.85rem;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.62rem;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -8013,18 +8062,18 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__stars {
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   font-size: 1.15rem;
   letter-spacing: 4px;
   filter: drop-shadow(0 0 8px rgba(197, 160, 71, 0.4));
 }
 
 .lre-reviews__record-id {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.35) !important;
   text-transform: uppercase;
 }
 
@@ -8038,20 +8087,28 @@ body.elementor-editor-active .lre-aserv__watermark {
   position: absolute;
   left: -14px;
   top: -24px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-accent, var(--e-global-typography-accent-font-family, 'Cormorant Garamond', serif));
   font-size: 6.5rem;
   line-height: 0;
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   opacity: 0.12;
   pointer-events: none;
 }
 
+.lre-reviews blockquote.lre-reviews__quote-text,
+.lre-reviews blockquote {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
 .lre-reviews__quote-text {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-accent, var(--e-global-typography-accent-font-family, 'Cormorant Garamond', Georgia, serif));
   font-style: italic;
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
   line-height: 1.65;
-  color: #fdfbf7;
+  color: #fdfbf7 !important;
   margin: 0;
   position: relative;
   z-index: 1;
@@ -8080,9 +8137,9 @@ body.elementor-editor-active .lre-aserv__watermark {
   height: 56px;
   border-radius: 50%;
   overflow: hidden;
-  background: rgba(197, 160, 71, 0.12);
-  border: 1.5px solid rgba(197, 160, 71, 0.4);
-  color: #c5a047;
+  background: rgba(197, 160, 71, 0.12) !important;
+  border: 1.5px solid var(--rev-gold) !important;
+  color: var(--rev-gold) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8096,7 +8153,7 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__monogram {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -8109,17 +8166,17 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__author-name {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.15rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--rev-text, #ffffff) !important;
   margin: 0;
 }
 
 .lre-reviews__author-title {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5) !important;
   letter-spacing: 0.5px;
 }
 
@@ -8128,15 +8185,19 @@ body.elementor-editor-active .lre-aserv__watermark {
   align-items: center;
   gap: 8px;
   padding: 0.45rem 0.9rem;
-  background: rgba(197, 160, 71, 0.08);
-  border: 1px solid rgba(197, 160, 71, 0.25);
+  background: rgba(197, 160, 71, 0.08) !important;
+  border: 1px solid var(--rev-gold) !important;
   border-radius: 2px;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, var(--e-global-typography-text-font-family, 'Montserrat', sans-serif));
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   text-transform: uppercase;
+}
+
+.lre-reviews__verification-pill svg {
+  stroke: var(--rev-gold) !important;
 }
 
 /* Controls */
@@ -8149,26 +8210,26 @@ body.elementor-editor-active .lre-aserv__watermark {
 }
 
 .lre-reviews__counter {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif));
   font-size: 1.25rem;
-  color: #ffffff;
+  color: var(--rev-text, #ffffff) !important;
   display: flex;
   align-items: baseline;
   gap: 6px;
 }
 
 .lre-reviews__active-num {
-  color: #c5a047;
+  color: var(--rev-gold) !important;
   font-weight: 700;
 }
 
 .lre-reviews__counter-slash {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.25) !important;
   font-size: 0.95rem;
 }
 
 .lre-reviews__total-num {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.4) !important;
   font-size: 0.95rem;
 }
 
@@ -8177,6 +8238,9 @@ body.elementor-editor-active .lre-aserv__watermark {
   gap: 1rem;
 }
 
+/* Nav Button - Complete Theme Pink Override */
+button.lre-reviews__nav-btn,
+[type="button"].lre-reviews__nav-btn,
 .lre-reviews__nav-btn {
   padding: 0.65rem 1.4rem !important;
   font-size: 0.68rem !important;
@@ -8184,6 +8248,27 @@ body.elementor-editor-active .lre-aserv__watermark {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button.lre-reviews__nav-btn:hover,
+button.lre-reviews__nav-btn:focus,
+[type="button"].lre-reviews__nav-btn:hover,
+[type="button"].lre-reviews__nav-btn:focus,
+.lre-reviews__nav-btn:hover,
+.lre-reviews__nav-btn:focus {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Responsive Breakpoints */
@@ -8261,11 +8346,6 @@ body.elementor-editor-active .lre-aserv__watermark {
   .lre-reviews__container {
     padding: 0 1rem;
   }
-}
-
-body.elementor-editor-active .lre-reviews__watermark {
-  left: 50% !important;
-  text-align: center !important;
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

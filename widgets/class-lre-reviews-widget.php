@@ -76,26 +76,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'show_watermark',
-			array(
-				'label'        => __( 'Display Background Watermark', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'watermark_text',
-			array(
-				'label'     => __( 'Watermark Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'FIDUCIARY',
-				'condition' => array( 'show_watermark' => 'yes' ),
-			)
-		);
-
 		$this->end_controls_section();
 
 		// ── 2. TRUST METRICS & FIDUCIARY PILLAR ──
@@ -347,9 +327,12 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#09090d',
+				'default'   => '#08080c',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_PRIMARY,
+				),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-reviews' => 'background-color: {{VALUE}} !important; --lre-rev-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -376,64 +359,11 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── WATERMARK STYLE ──
-		$this->start_controls_section(
-			'style_watermark',
-			array(
-				'label'     => __( 'Watermark Styling', 'luxury-re-widgets' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => array( 'show_watermark' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'watermark_color',
-			array(
-				'label'     => __( 'Watermark Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.032)',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__watermark' => 'color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'watermark_typography',
-				'selector' => '{{WRAPPER}} .lre-reviews__watermark',
-			)
-		);
-
-		$this->add_responsive_control(
-			'watermark_top_offset',
-			array(
-				'label'      => __( 'Top Offset', 'luxury-re-widgets' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'rem', '%' ),
-				'range'      => array(
-					'px'  => array( 'min' => 0, 'max' => 200, 'step' => 2 ),
-					'rem' => array( 'min' => 0, 'max' => 15, 'step' => 0.5 ),
-					'%'   => array( 'min' => 0, 'max' => 30, 'step' => 1 ),
-				),
-				'default'    => array(
-					'unit' => 'rem',
-					'size' => 6.2,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews__watermark' => 'top: {{SIZE}}{{UNIT}} !important;',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// ── ACCENTS & CARDS ──
+		// ── ACCENTS & CARDS (CONNECTED TO ELEMENTOR KIT) ──
 		$this->start_controls_section(
 			'style_accents',
 			array(
-				'label' => __( 'Gold Accents & Glass Cards', 'luxury-re-widgets' ),
+				'label' => __( 'Theme & Elementor Kit Colors', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -441,14 +371,86 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'gold_accent_color',
 			array(
-				'label'     => __( 'Gold Accent Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Primary Accent (Gold / Brand)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__seal-gold' => 'color: {{VALUE}}; stroke: {{VALUE}};',
-					'{{WRAPPER}} .lre-reviews__gold-bar'  => 'background: linear-gradient(90deg, {{VALUE}}, #f8eed3);',
-					'{{WRAPPER}} .lre-reviews__star'      => 'color: {{VALUE}};',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
 				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews' => '--lre-rev-gold: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'gold_accent_light',
+			array(
+				'label'     => __( 'Secondary Accent (Light Gold)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#d4b565',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_ACCENT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews' => '--lre-rev-gold-light: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'text_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews' => '--lre-rev-text: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_bg_color',
+			array(
+				'label'     => __( 'Card Glass Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.025)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews' => '--lre-rev-card-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── TYPOGRAPHY ──
+		$this->start_controls_section(
+			'style_typography',
+			array(
+				'label' => __( 'Typography', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_typography',
+				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__title',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_typography',
+				'label'    => __( 'Quotation Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__quote-text',
 			)
 		);
 
@@ -460,8 +462,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$eyebrow        = esc_html( $settings['eyebrow'] ?? 'Client Accolades & Fiduciary Trust' );
 		$title          = $settings['title'] ?? "Words from Those Who\nEntrusted Us with Masterworks";
-		$show_watermark = 'yes' === ( $settings['show_watermark'] ?? 'yes' );
-		$watermark_text = esc_html( $settings['watermark_text'] ?? 'FIDUCIARY' );
 
 		// Pillar
 		$seal_top       = esc_html( $settings['seal_text_top'] ?? 'PRIVATE WEALTH ADVISORY' );
@@ -487,10 +487,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 		?>
 
 		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Accolades & Fiduciary Trust', 'luxury-re-widgets' ); ?>">
-			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
-				<div class="lre-reviews__watermark" aria-hidden="true"><?php echo $watermark_text; ?></div>
-			<?php endif; ?>
-
 			<div class="container lre-reviews__container">
 				<!-- Section Header -->
 				<div class="lre-reviews__header reveal">

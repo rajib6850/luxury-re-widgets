@@ -1271,26 +1271,6 @@
             }
 
             revSections.forEach( function ( section ) {
-                // Watermark Scroll Parallax (matching Team & Services widgets)
-                if ( ! prefersReducedMotion ) {
-                    var revWatermark = section.querySelector( '.lre-reviews__watermark' );
-                    if ( revWatermark ) {
-                        var updateRevParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                revWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateRevParallax, { passive: true } );
-                        updateRevParallax();
-                    }
-                }
-
                 // Interactive Dossier Switcher
                 var tabBtns   = section.querySelectorAll( '.lre-reviews__tab-btn' );
                 var cards     = section.querySelectorAll( '.lre-reviews__dossier-card' );

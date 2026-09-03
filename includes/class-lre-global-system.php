@@ -78,6 +78,30 @@ body,
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
 }
 
+/* ─── UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE ─── */
+[class*="lre-"] button,
+[class*="lre-"] [type="button"],
+[class*="lre-"] [type="submit"],
+[class*="lre-"] a,
+[class*="elementor-widget-lre_"] button,
+[class*="elementor-widget-lre_"] [type="button"],
+[class*="elementor-widget-lre_"] a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+[class*="lre-"] button:focus,
+[class*="lre-"] button:hover,
+[class*="lre-"] [type="button"]:focus,
+[class*="lre-"] [type="button"]:hover,
+[class*="elementor-widget-lre_"] button:focus,
+[class*="elementor-widget-lre_"] button:hover,
+[class*="elementor-widget-lre_"] [type="button"]:focus,
+[class*="elementor-widget-lre_"] [type="button"]:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* ─── GLOBAL RESPONSIVE CONTAINER SYSTEM (ALL WIDGETS & SECTIONS) ─── */
 .container,
 .container--wide,

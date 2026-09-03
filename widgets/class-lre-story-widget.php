@@ -529,13 +529,16 @@ class LRE_Story_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $title ) ) :
-						$title_lines = explode( "\n", str_replace( "\r", '', $title ) );
-						?>
+						$clean_title = html_entity_decode( $title, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+						$clean_title = str_replace( array( "\r\n", "\r" ), "\n", $clean_title );
+						$raw_lines   = preg_split( '/<br\s*\/?>|\n/i', $clean_title );
+						$title_lines = array_filter( array_map( 'trim', $raw_lines ) );
+						if ( empty( $title_lines ) ) {
+							$title_lines = array( $title );
+						}
+					?>
 						<<?php echo $title_tag; ?> class="lre-story__title">
-							<?php foreach ( $title_lines as $t_idx => $t_line ) :
-								$t_line = trim( $t_line );
-								if ( empty( $t_line ) ) continue;
-								?>
+							<?php foreach ( $title_lines as $t_idx => $t_line ) : ?>
 								<span class="title-mask"><span><?php echo esc_html( $t_line ); ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
 							<?php endforeach; ?>
 						</<?php echo $title_tag; ?>>

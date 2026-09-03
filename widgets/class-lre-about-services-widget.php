@@ -358,7 +358,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 		<section class="lre-aserv" id="our-services-about" aria-label="<?php esc_attr_e( 'Comprehensive Real Estate Services', 'luxury-re-widgets' ); ?>">
 			<div class="lre-aserv__container">
 				<!-- Section Header -->
-				<div class="lre-aserv__header">
+				<div class="lre-aserv__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-aserv__eyebrow-wrap">
 							<span class="lre-aserv__gold-bar"></span>

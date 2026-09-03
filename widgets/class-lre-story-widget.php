@@ -520,7 +520,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 			<div class="lre-story__container">
 				<!-- Header block -->
-				<div class="lre-story__header">
+				<div class="lre-story__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-story__eyebrow-wrap">
 							<span class="lre-story__gold-bar"></span>

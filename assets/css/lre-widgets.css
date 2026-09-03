@@ -5068,6 +5068,16 @@ button.navbar__mobile-toggle:active,
   max-width: 820px;
 }
 
+/* Title-mask reveal: override default .reveal fade+slide; only title-mask spans animate */
+.lre-story__header.reveal,
+.lre-aserv__header.reveal,
+.lre-reviews__header.reveal,
+.lre-press__header.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 .lre-story__grid {
   display: grid;
   grid-template-columns: 1.12fr 1fr;

@@ -397,7 +397,7 @@ class LRE_Press_Widget extends Widget_Base {
 		<section class="lre-press" id="press-media" aria-label="<?php esc_attr_e( 'Press and Media Mentions', 'luxury-re-widgets' ); ?>">
 			<div class="lre-press__container">
 				<!-- Header -->
-				<div class="lre-press__header">
+				<div class="lre-press__header reveal">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 						<div class="lre-press__eyebrow-wrap">
 							<span class="lre-press__gold-bar"></span>

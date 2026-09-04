@@ -1005,11 +1005,29 @@ button.navbar__mobile-toggle:active,
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.lre-reviews .lre-reviews__eyebrow,
-.lre-aserv .lre-aserv__eyebrow,
 .lre-aserv .lre-aserv__card-cat,
 .lre-aserv .lre-aserv__mono-tag {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Universal Eyebrow Gold Color Parity */
+.lre-reviews .lre-reviews__eyebrow,
+.lre-aserv .lre-aserv__eyebrow,
+.lre-contact .lre-contact__eyebrow,
+.lre-guide .lre-guide__eyebrow,
+.lre-sguide .lre-sguide__eyebrow,
+.lre-story .lre-story__eyebrow,
+.lre-team .lre-team__eyebrow,
+.lre-phero .lre-phero__eyebrow,
+.lre-comm-showcase .lre-comm-showcase__eyebrow,
+.cta .cta__eyebrow,
+.listings .listings__eyebrow,
+.about .about__eyebrow,
+.communities .communities__eyebrow,
+.testimonial .testimonial__eyebrow,
+.services .services__eyebrow-text {
+  color: var(--color-secondary, #c5a047) !important;
+  -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
 }
 
 /* Gold Accents Requested by User */

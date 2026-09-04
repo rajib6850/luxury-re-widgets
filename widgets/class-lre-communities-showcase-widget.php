@@ -477,7 +477,10 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				<!-- ── SECTION HEADER (Matches H2 section titles across plugin) ── -->
 				<header class="lre-comm-showcase__header <?php echo esc_attr( $reveal_class ); ?>">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-					<span class="section-label lre-comm-showcase__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					<div class="lre-comm-showcase__eyebrow-wrap">
+						<span class="lre-comm-showcase__gold-bar" aria-hidden="true"></span>
+						<span class="section-label lre-comm-showcase__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					</div>
 					<?php endif; ?>
 
 					<<?php echo $tag; ?> class="lre-comm-showcase__title">

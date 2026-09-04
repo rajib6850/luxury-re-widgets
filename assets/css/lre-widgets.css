@@ -288,22 +288,114 @@ p {
 }
 
 .section-label {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 4px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
-  display: block;
-  margin-bottom: 1.2rem;
+  color: var(--color-secondary, #c5a047);
+  display: inline-block;
+  line-height: 1;
+  margin: 0;
 }
 
-.section-label--light {
-  color: var(--color-text-light);
-}
-
+.section-label--light,
 .section-label--gold {
-  color: var(--color-secondary);
+  color: var(--color-secondary, #c5a047) !important;
+}
+
+/* ==========================================================================
+   UNIVERSAL EYEBROW & GOLD BAR ARCHITECTURE (Unified Across All Widgets)
+   ========================================================================== */
+
+/* Universal Eyebrow Container / Wrapper */
+.lre-guide__eyebrow-wrap,
+.lre-sguide__eyebrow-wrap,
+.lre-contact__eyebrow-wrap,
+.lre-reviews__eyebrow-wrap,
+.lre-aserv__eyebrow-wrap,
+.lre-story__eyebrow-wrap,
+.lre-team__eyebrow-wrap,
+.lre-phero__eyebrow-wrap,
+.lre-comm-showcase__eyebrow-wrap,
+.cta__eyebrow-wrap,
+.listings__eyebrow-wrap,
+.about__eyebrow-wrap,
+.communities__eyebrow-wrap,
+.testimonial__eyebrow-wrap,
+.services__eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin-bottom: 18px !important;
+}
+
+/* Center-Aligned Eyebrow Wrappers (Dual Gold Bars) */
+.lre-sguide__eyebrow-wrap,
+.lre-team__eyebrow-wrap,
+.lre-phero__eyebrow-wrap,
+.cta__eyebrow-wrap {
+  justify-content: center !important;
+  width: 100%;
+}
+
+/* Universal Gold Bar Component */
+.lre-guide__gold-bar,
+.lre-sguide__gold-bar,
+.lre-contact__gold-bar,
+.lre-reviews__gold-bar,
+.lre-aserv__gold-bar,
+.lre-story__gold-bar,
+.lre-team__gold-bar,
+.lre-phero__gold-bar,
+.lre-comm-showcase__gold-bar,
+.cta__gold-bar,
+.listings__gold-bar,
+.about__gold-bar,
+.communities__gold-bar,
+.testimonial__gold-bar,
+.services__eyebrow-line {
+  display: inline-block !important;
+  width: 32px !important;
+  height: 1.5px !important;
+  background: linear-gradient(90deg, rgba(197, 160, 71, 0.6), rgba(255, 255, 255, 0.3)) !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+}
+
+/* Symmetrical Right Bar for Center-Aligned Wrappers */
+.lre-sguide__eyebrow-wrap .lre-sguide__gold-bar:last-child,
+.lre-team__eyebrow-wrap .lre-team__gold-bar:last-child,
+.lre-phero__eyebrow-wrap .lre-phero__gold-bar:last-child,
+.cta__eyebrow-wrap .cta__gold-bar:last-child {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(197, 160, 71, 0.6)) !important;
+}
+
+/* Universal Eyebrow Text Element */
+.lre-guide__eyebrow,
+.lre-sguide__eyebrow,
+.lre-contact__eyebrow,
+.lre-reviews__eyebrow,
+.lre-aserv__eyebrow,
+.lre-story__eyebrow,
+.lre-team__eyebrow,
+.lre-phero__eyebrow,
+.lre-comm-showcase__eyebrow,
+.cta__eyebrow,
+.listings__eyebrow,
+.about__eyebrow,
+.communities__eyebrow,
+.testimonial__eyebrow,
+.services__eyebrow-text {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--color-secondary, #c5a047) !important;
+  -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
+  line-height: 1 !important;
+  margin: 0 !important;
 }
 
 /* â”€â”€ 3. LAYOUT UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */

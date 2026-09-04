@@ -162,7 +162,10 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			<div class="testimonial__content-col">
 				<div class="testimonial__inner reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-					<span class="section-label section-label--light"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					<div class="testimonial__eyebrow-wrap">
+						<span class="testimonial__gold-bar" aria-hidden="true"></span>
+						<span class="section-label section-label--light testimonial__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					</div>
 					<?php endif; ?>
 
 					<h2 class="testimonial__heading">

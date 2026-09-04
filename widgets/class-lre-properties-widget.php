@@ -641,7 +641,10 @@ class LRE_Properties_Widget extends Widget_Base {
 		<section class="listings" id="listings" aria-label="<?php esc_attr_e( 'Featured property listings', 'luxury-re-widgets' ); ?>">
 			<div class="listings__header reveal">
 				<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-				<span class="section-label"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+				<div class="listings__eyebrow-wrap">
+					<span class="listings__gold-bar" aria-hidden="true"></span>
+					<span class="section-label listings__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+				</div>
 				<?php endif; ?>
 
 				<<?php echo $tag; ?> class="listings__title">

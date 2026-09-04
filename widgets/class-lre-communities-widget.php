@@ -101,7 +101,10 @@ class LRE_Communities_Widget extends Widget_Base {
 			<div class="communities__header">
 				<div class="communities__header-text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-					<span class="section-label"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					<div class="communities__eyebrow-wrap">
+						<span class="communities__gold-bar" aria-hidden="true"></span>
+						<span class="section-label communities__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					</div>
 					<?php endif; ?>
 
 					<<?php echo $tag; ?> class="communities__title">

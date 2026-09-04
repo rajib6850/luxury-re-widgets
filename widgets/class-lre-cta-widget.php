@@ -198,7 +198,11 @@ class LRE_CTA_Widget extends Widget_Base {
 
 			<div class="cta__content reveal">
 				<?php if ( ! empty( $eyebrow ) ) : ?>
-				<span class="section-label section-label--gold"><?php echo esc_html( $eyebrow ); ?></span>
+				<div class="cta__eyebrow-wrap">
+					<span class="cta__gold-bar" aria-hidden="true"></span>
+					<span class="section-label section-label--gold cta__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+					<span class="cta__gold-bar" aria-hidden="true"></span>
+				</div>
 				<?php endif; ?>
 
 				<<?php echo $tag; ?> class="cta__title">

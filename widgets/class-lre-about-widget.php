@@ -208,7 +208,10 @@ class LRE_About_Widget extends Widget_Base {
 			<div class="container about__content">
 				<div class="about__text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-					<span class="section-label"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					<div class="about__eyebrow-wrap">
+						<span class="about__gold-bar" aria-hidden="true"></span>
+						<span class="section-label about__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+					</div>
 					<?php endif; ?>
 
 					<<?php echo $tag; ?> class="about__title">

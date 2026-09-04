@@ -398,7 +398,55 @@ p {
   margin: 0 !important;
 }
 
-/* â”€â”€ 3. LAYOUT UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ==========================================================================
+   UNIVERSAL SECTION SUBTITLE / DESCRIPTION ARCHITECTURE
+   (Strictly unified across all widgets with Home Page standard: 0.92rem)
+   ========================================================================== */
+
+/* Universal Section Subtitle / Description */
+.lre-guide__description,
+.lre-sguide__description,
+.lre-contact__description,
+.lre-comm-showcase__description,
+.lre-aserv__desc,
+.lre-team__desc,
+.lre-reviews__desc,
+.about__description,
+.listings__description,
+.cta__description {
+  font-family: var(--font-body, var(--font-sans, 'Plus Jakarta Sans', sans-serif)) !important;
+  font-size: var(--font-size-section-subtitle, 0.92rem) !important;
+  line-height: 1.85 !important;
+  font-weight: 400 !important;
+  max-width: 680px !important;
+  letter-spacing: 0 !important;
+}
+
+/* Center-Aligned Subtitles */
+.lre-guide__description,
+.lre-sguide__description,
+.lre-contact__description,
+.lre-comm-showcase__description,
+.lre-aserv__desc,
+.lre-team__desc,
+.lre-reviews__desc,
+.cta__description {
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+/* Dark Luxury Theme Section Subtitles */
+.lre-guide__description,
+.lre-sguide__description,
+.lre-contact__description,
+.lre-comm-showcase__description,
+.lre-aserv__desc,
+.lre-reviews__desc,
+.cta__description {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ── 3. LAYOUT UTILITIES ─────────────────────────────────────────── */
 .container {
   width: 100%;
   max-width: var(--container-max, 1320px);
@@ -11210,9 +11258,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-guide__description {
-  font-size: 1.05rem;
+  font-size: var(--font-size-section-subtitle, 0.92rem) !important;
   line-height: 1.85;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65) !important;
   margin: 0 auto;
   max-width: 680px;
 }
@@ -11328,8 +11376,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-guide__chapter-narrative {
-  font-size: 0.96rem;
-  line-height: 1.9;
+  font-size: 0.92rem;
+  line-height: 1.85;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 2rem;
   font-weight: 400;
@@ -11466,9 +11514,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-sguide__description {
-  font-size: 1.05rem;
+  font-size: var(--font-size-section-subtitle, 0.92rem) !important;
   line-height: 1.85;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65) !important;
   margin: 0 auto;
   max-width: 680px;
 }
@@ -11597,8 +11645,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-sguide__chapter-narrative {
-  font-size: 0.96rem;
-  line-height: 1.9;
+  font-size: 0.92rem;
+  line-height: 1.85;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 2rem;
   font-weight: 400;

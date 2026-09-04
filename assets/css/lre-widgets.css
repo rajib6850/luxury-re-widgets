@@ -11701,17 +11701,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 14px;
-}
-
-.lre-sguide__invitation-text {
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 500;
 }
 
 .lre-sguide__invitation-link {

@@ -287,16 +287,6 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'invitation_text',
-			array(
-				'label'     => __( 'Invitation Note', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'By private appointment only.',
-				'condition' => array( 'show_invitation' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
 			'invitation_link_text',
 			array(
 				'label'     => __( 'Link Text', 'luxury-re-widgets' ),
@@ -436,9 +426,6 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 					$inv_target = ! empty( $settings['invitation_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 				?>
 				<div class="lre-sguide__invitation <?php echo esc_attr( $reveal_class ); ?>">
-					<?php if ( ! empty( $settings['invitation_text'] ) ) : ?>
-					<span class="lre-sguide__invitation-text"><?php echo esc_html( $settings['invitation_text'] ); ?></span>
-					<?php endif; ?>
 					<?php if ( ! empty( $settings['invitation_link_text'] ) ) : ?>
 					<a href="<?php echo esc_url( $inv_url ); ?>" class="lre-sguide__invitation-link"<?php echo $inv_target; ?>>
 						<span><?php echo esc_html( $settings['invitation_link_text'] ); ?></span>

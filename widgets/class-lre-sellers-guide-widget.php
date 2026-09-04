@@ -9,16 +9,15 @@ use Elementor\Repeater;
 
 /**
  * LRE_Sellers_Guide_Widget
- * True Quiet-Luxury Architectural Estate Disposition Codex Widget.
- * Engineered for Ultra-High-Net-Worth (UHNW) principals, family offices, and estate trustees.
+ * Super-Luxury & Minimal Architectural Estate Disposition Monograph Widget.
+ * Inspired by Official Partners, Knight Frank Private Office, and Christie's International Real Estate.
  *
- * Design Characteristics:
- * - Quiet Luxury / Stealth Wealth: Zero loud gold borders or gaudy casino accents.
- * - Deep architectural obsidian & smoked glass background.
- * - Restrained platinum & champagne typography hierarchy.
- * - Tier 1: Dual Sovereign Divestment Pathways (Off-Market Placement vs. Global Press Narrative).
- * - Tier 2: The 4-Stage Architectural Monograph Codex (Asymmetric Split Ledger with Cinematic Viewplates).
- * - 100% Elementor live editor visibility guarantee (zero black box).
+ * Characteristics:
+ * - Ultra-minimalist fine-art monograph layout (zero cards, zero boxes, zero dashboards).
+ * - Generous architectural breathing room and deep obsidian atmosphere.
+ * - Sequential alternating editorial chapters (I, II, III, IV).
+ * - Large-format museum architectural photography with filmic aspect ratios.
+ * - 100% Elementor live editor visibility guarantee (zero black screen).
  *
  * @package Luxury_RE_Widgets
  */
@@ -33,7 +32,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-image-box';
+		return 'eicon-document-file';
 	}
 
 	public function get_categories() {
@@ -41,7 +40,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'seller', 'guide', 'disposition', 'estate', 'luxury', 'fiduciary', 'valuation', 'listing', 'codex', 'quiet luxury' );
+		return array( 'seller', 'guide', 'disposition', 'estate', 'luxury', 'fiduciary', 'monograph', 'minimal', 'quiet luxury' );
 	}
 
 	protected function register_controls() {
@@ -84,7 +83,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Section Eyebrow', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Estate Disposition Protocol',
+				'default' => 'Estate Divestment Protocol',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -94,7 +93,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Section Heading (H2)', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'The Estate Disposition Protocol',
+				'default' => 'The Art of Silent Disposition',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -118,303 +117,208 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Section Description', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'default' => 'A discreet, institutional-grade advisory framework engineered for principals divesting landmark architectural estates across global capital markets.',
+				'default' => 'Representing premier architectural estates and generational holdings across global capital markets with absolute discretion.',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── SECTION 2: DUAL SOVEREIGN PATHWAYS (TIER 1) ──
+		// ── SECTION 2: EDITORIAL MONOGRAPH CHAPTERS ──
 		$this->start_controls_section(
-			'section_pathways',
+			'section_chapters',
 			array(
-				'label' => __( 'Dual Divestment Pathways', 'luxury-re-widgets' ),
+				'label' => __( 'Editorial Chapters (The Monograph)', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		// Pathway A
-		$this->add_control(
-			'path_a_heading',
-			array(
-				'label'     => __( 'Pathway A (Confidential Placement)', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->add_control(
-			'path_a_pill',
-			array(
-				'label'   => __( 'Capsule Badge', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'STRICT DISCRETION',
-			)
-		);
-
-		$this->add_control(
-			'path_a_title',
-			array(
-				'label'   => __( 'Pathway Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Private Off-Market Syndication',
-			)
-		);
-
-		$this->add_control(
-			'path_a_subtitle',
-			array(
-				'label'   => __( 'Pathway Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Direct Sovereign Wealth & Family Office Registry Matching',
-			)
-		);
-
-		$this->add_control(
-			'path_a_image',
-			array(
-				'label'   => __( 'Architectural Image', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=85',
-				),
-			)
-		);
-
-		$this->add_control(
-			'path_a_metric_num',
-			array(
-				'label'   => __( 'Metric Figure', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '32 Days',
-			)
-		);
-
-		$this->add_control(
-			'path_a_metric_lbl',
-			array(
-				'label'   => __( 'Metric Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Average Liquidity Cycle',
-			)
-		);
-
-		$this->add_control(
-			'path_a_bullets',
-			array(
-				'label'       => __( 'Deliverables (One per line)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Mandatory Bilateral NDA Prior to Coordinate Release\nDirect Confidential Family Office Placement\n0% Digital Footprint or Public MLS Exposure",
-				'description' => __( 'Enter each deliverable bullet on a new line.', 'luxury-re-widgets' ),
-			)
-		);
-
-		// Pathway B
-		$this->add_control(
-			'path_b_heading',
-			array(
-				'label'     => __( 'Pathway B (Global Architectural Narrative)', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->add_control(
-			'path_b_pill',
-			array(
-				'label'   => __( 'Capsule Badge', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'WORLD STAGE',
-			)
-		);
-
-		$this->add_control(
-			'path_b_title',
-			array(
-				'label'   => __( 'Pathway Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Global Architectural Narrative',
-			)
-		);
-
-		$this->add_control(
-			'path_b_subtitle',
-			array(
-				'label'   => __( 'Pathway Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'International Architectural Cinema & Editorial Direction',
-			)
-		);
-
-		$this->add_control(
-			'path_b_image',
-			array(
-				'label'   => __( 'Architectural Image', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
-				),
-			)
-		);
-
-		$this->add_control(
-			'path_b_metric_num',
-			array(
-				'label'   => __( 'Metric Figure', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '4.8M+',
-			)
-		);
-
-		$this->add_control(
-			'path_b_metric_lbl',
-			array(
-				'label'   => __( 'Metric Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Verified Global UHNW Reach',
-			)
-		);
-
-		$this->add_control(
-			'path_b_bullets',
-			array(
-				'label'       => __( 'Deliverables (One per line)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Director-Led 8K Cinema & Drone Direction\nClothbound Hardcover Monograph Editions (50 Copies)\nCurated AD & Financial Times Exclusive Embargo",
-				'description' => __( 'Enter each deliverable bullet on a new line.', 'luxury-re-widgets' ),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// ── SECTION 3: THE DISPOSITION CODEX (TIER 2) ──
-		$this->start_controls_section(
-			'section_codex',
-			array(
-				'label' => __( 'The Disposition Codex (4 Stages)', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'codex_eyebrow',
-			array(
-				'label'   => __( 'Codex Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'DISPOSITION ROADMAP',
-			)
-		);
-
-		$this->add_control(
-			'codex_title',
-			array(
-				'label'   => __( 'Codex Heading', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'The Strategic Milestones',
 			)
 		);
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
-			'stage_num',
+			'chapter_num',
 			array(
-				'label'   => __( 'Stage Number', 'luxury-re-widgets' ),
+				'label'   => __( 'Roman Numeral / Number', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => '01',
+				'default' => 'I',
 			)
 		);
 
 		$repeater->add_control(
-			'stage_tag',
+			'chapter_tag',
 			array(
-				'label'   => __( 'Pillar Tag', 'luxury-re-widgets' ),
+				'label'   => __( 'Discipline Tag', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'VALUATION FORENSICS',
+				'default' => 'VALUATION & PROVENANCE',
 			)
 		);
 
 		$repeater->add_control(
-			'stage_title',
+			'chapter_title',
 			array(
-				'label'   => __( 'Stage Title', 'luxury-re-widgets' ),
+				'label'   => __( 'Chapter Title', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Asset Valuation & Provenance',
+				'default' => 'Pedigree, Provenance & Pricing',
 			)
 		);
 
 		$repeater->add_control(
-			'stage_summary',
+			'chapter_narrative',
 			array(
-				'label'   => __( 'Brief Summary', 'luxury-re-widgets' ),
+				'label'   => __( 'Editorial Narrative', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'default' => 'Archival historical appraisal and comparative off-market capital liquidity analysis to establish optimal pricing strategy.',
+				'default' => 'Every landmark estate possesses an architectural narrative that transcends conventional appraisal. We conduct exhaustive provenance forensics and global capital liquidity modeling to establish peak sovereign valuation.',
 			)
 		);
 
 		$repeater->add_control(
-			'stage_image',
+			'chapter_detail_label',
 			array(
-				'label'   => __( 'Architectural Photograph', 'luxury-re-widgets' ),
+				'label'   => __( 'Detail Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Advisory Focus',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_detail_val',
+			array(
+				'label'   => __( 'Detail Statement', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Off-market capital flow analysis & architectural lineage audit',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_image',
+			array(
+				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85',
+					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
 				),
 			)
 		);
 
 		$repeater->add_control(
-			'stage_deliverables',
+			'image_align',
 			array(
-				'label'       => __( 'Fiduciary Deliverables (One per line)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Archival Provenance & Pedigree Forensics\nIndependent Structural & Acoustic Diligence\nBespoke Global Capital Liquidity Modeling",
-				'description' => __( 'Enter each deliverable bullet on a new line.', 'luxury-re-widgets' ),
+				'label'   => __( 'Media Alignment', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'left'  => __( 'Media Left / Narrative Right', 'luxury-re-widgets' ),
+					'right' => __( 'Narrative Left / Media Right', 'luxury-re-widgets' ),
+				),
+				'default' => 'left',
 			)
 		);
 
 		$this->add_control(
-			'stages',
+			'chapters',
 			array(
-				'label'       => __( 'Milestone Stages', 'luxury-re-widgets' ),
+				'label'       => __( 'Chapters', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'default'     => array(
 					array(
-						'stage_num'          => '01',
-						'stage_tag'          => 'VALUATION FORENSICS',
-						'stage_title'        => 'Provenance & Capital Modeling',
-						'stage_summary'      => 'Archival provenance analysis and comparative off-market capital liquidity audits to establish peak valuation.',
-						'stage_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85' ),
-						'stage_deliverables' => "Archival Provenance & Pedigree Forensics\nIndependent Structural & Acoustic Diligence\nBespoke Global Capital Liquidity Modeling",
+						'chapter_num'          => 'I',
+						'chapter_tag'          => 'VALUATION & PROVENANCE',
+						'chapter_title'        => 'Pedigree, Provenance & Pricing',
+						'chapter_narrative'    => 'Every landmark estate possesses an architectural narrative that transcends conventional appraisal. We conduct exhaustive provenance forensics and cross-border capital liquidity modeling to establish peak sovereign valuation.',
+						'chapter_detail_label' => 'Fiduciary Focus',
+						'chapter_detail_val'   => 'Off-market capital flow analysis & architectural lineage audit',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85' ),
+						'image_align'          => 'left',
 					),
 					array(
-						'stage_num'          => '02',
-						'stage_tag'          => 'NARRATIVE ARCHITECTURE',
-						'stage_title'        => 'Architectural Cinema & Monograph',
-						'stage_summary'      => 'Director-led 8K architectural cinema paired with bespoke 50-edition clothbound hardcover monographs.',
-						'stage_image'        => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&q=85' ),
-						'stage_deliverables' => "Director-Led 8K Architectural Cinematography\nLimited Edition Hardcover Monograph Production\nEditorial Placement in Architectural Digest & FT",
+						'chapter_num'          => 'II',
+						'chapter_tag'          => 'SOVEREIGN DISCRETION',
+						'chapter_title'        => 'The Private Sovereign Salon',
+						'chapter_narrative'    => 'The most valuable assets are rarely seen on public portals. We place landmark estates directly into the hands of pre-vetted family offices, sovereign wealth principals, and institutional trustees under strict bilateral non-disclosure agreements.',
+						'chapter_detail_label' => 'Syndication Protocol',
+						'chapter_detail_val'   => 'Direct unlisted placement across verified global family office registries',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85' ),
+						'image_align'          => 'right',
 					),
 					array(
-						'stage_num'          => '03',
-						'stage_tag'          => 'INVESTOR QUALIFICATION',
-						'stage_title'        => 'Private Twilight Vernissages',
-						'stage_summary'      => 'Mandatory proof of liquid capital verification prior to escorted, private security twilight viewings.',
-						'stage_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1000&q=85' ),
-						'stage_deliverables' => "Pre-Screened Liquid Capital Verification ($25M+)\nExecuted Bilateral Non-Disclosure Agreements\nSecurity Escorted Diplomatic Twilight Previews",
+						'chapter_num'          => 'III',
+						'chapter_tag'          => 'NARRATIVE ARCHITECTURE',
+						'chapter_title'        => 'Cinematographic Architecture & Press',
+						'chapter_narrative'    => 'For estates destined for international prominence, we produce director-led 8K architectural cinema and commission bespoke 50-copy clothbound hardcover monographs, distributed exclusively to qualified global collectors and top design publications.',
+						'chapter_detail_label' => 'Media Standard',
+						'chapter_detail_val'   => 'Director-led 8K cinema, hardcover monographs & curated AD / FT press embargo',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85' ),
+						'image_align'          => 'left',
 					),
 					array(
-						'stage_num'          => '04',
-						'stage_tag'          => 'FIDUCIARY SETTLEMENT',
-						'stage_title'        => 'Blind Entity Escrow Closing',
-						'stage_summary'      => 'Fortified international wire escrows and blind entity deed filings ensuring zero public digital footprint.',
-						'stage_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1000&q=85' ),
-						'stage_deliverables' => "Blind Trust & Anonymous Deed Shielding\nFortified International Wire Escrow Settlement\nComplete Architectural Archives & Staff Handover",
+						'chapter_num'          => 'IV',
+						'chapter_tag'          => 'FIDUCIARY SETTLEMENT',
+						'chapter_title'        => 'Anonymous Settlement & Escrow Shielding',
+						'chapter_narrative'    => 'Complete fiduciary discretion from the first confidential memorandum to private wire settlement. We orchestrate blind trust entity deeds and fortified escrow channels to guarantee zero public digital footprint.',
+						'chapter_detail_label' => 'Closing Architecture',
+						'chapter_detail_val'   => 'Blind trust deed filings, multi-currency escrow & complete archival handover',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85' ),
+						'image_align'          => 'right',
 					),
 				),
-				'title_field' => '{{{ stage_num }}} — {{{ stage_title }}}',
+				'title_field' => '{{{ chapter_num }}} — {{{ chapter_title }}}',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION 3: MINIMAL INVITATION FOOTNOTE ──
+		$this->start_controls_section(
+			'section_invitation',
+			array(
+				'label' => __( 'Fiduciary Invitation Footnote', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_invitation',
+			array(
+				'label'        => __( 'Show Invitation', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'invitation_text',
+			array(
+				'label'     => __( 'Invitation Note', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'By private appointment only.',
+				'condition' => array( 'show_invitation' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'invitation_link_text',
+			array(
+				'label'     => __( 'Link Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Initiate Confidential Consultation —→',
+				'condition' => array( 'show_invitation' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'invitation_url',
+			array(
+				'label'         => __( 'Link Destination', 'luxury-re-widgets' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => __( '/contact/', 'luxury-re-widgets' ),
+				'show_external' => true,
+				'default'       => array(
+					'url'         => '/contact/',
+					'is_external' => false,
+					'nofollow'    => false,
+				),
+				'condition'     => array( 'show_invitation' => 'yes' ),
 			)
 		);
 
@@ -435,11 +339,11 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 
 		$show_watermark = ( 'yes' === $settings['show_watermark'] );
 		$watermark_text = ! empty( $settings['watermark_text'] ) ? $settings['watermark_text'] : 'DISPOSITION';
-		$eyebrow        = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : 'Estate Disposition Protocol';
-		$heading_raw    = ! empty( $settings['heading'] ) ? $settings['heading'] : 'The Estate Disposition Protocol';
+		$eyebrow        = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : 'Estate Divestment Protocol';
+		$heading_raw    = ! empty( $settings['heading'] ) ? $settings['heading'] : 'The Art of Silent Disposition';
 		$description    = ! empty( $settings['description'] ) ? $settings['description'] : '';
 
-		// Split heading lines
+		// Split heading lines for curtain reveal
 		$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
 		$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
@@ -447,9 +351,9 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 			$heading_lines = array( $heading_raw );
 		}
 
-		$stages = ! empty( $settings['stages'] ) ? $settings['stages'] : array();
+		$chapters = ! empty( $settings['chapters'] ) ? $settings['chapters'] : array();
 		?>
-		<section class="lre-sguide" id="estate-disposition" aria-label="<?php esc_attr_e( 'Estate Disposition Protocol', 'luxury-re-widgets' ); ?>">
+		<section class="lre-sguide lre-sguide--monograph" id="estate-disposition" aria-label="<?php esc_attr_e( 'Estate Divestment Protocol', 'luxury-re-widgets' ); ?>">
 
 			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
 			<div class="lre-sguide__watermark" aria-hidden="true"><?php echo esc_html( $watermark_text ); ?></div>
@@ -478,165 +382,68 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 					<?php endif; ?>
 				</header>
 
-				<!-- ── 2. TIER 1: DUAL SOVEREIGN PATHWAYS (Quiet-Luxury Architectural Tablets) ── -->
-				<div class="lre-sguide__pathways-grid <?php echo esc_attr( $reveal_class ); ?>">
-
-					<!-- Pathway 1: Confidential Off-Market -->
-					<article class="lre-sguide__pathway-card">
-						<div class="lre-sguide__pathway-media">
-							<?php
-							$img_a = ! empty( $settings['path_a_image']['url'] ) ? $settings['path_a_image']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=85';
-							?>
-							<img src="<?php echo esc_url( $img_a ); ?>" alt="<?php echo esc_attr( $settings['path_a_title'] ); ?>" loading="lazy" class="lre-sguide__pathway-img">
-							<div class="lre-sguide__pathway-scrim"></div>
-							<span class="lre-sguide__pathway-pill"><?php echo esc_html( $settings['path_a_pill'] ); ?></span>
-						</div>
-						<div class="lre-sguide__pathway-body">
-							<h3 class="lre-sguide__pathway-title"><?php echo esc_html( $settings['path_a_title'] ); ?></h3>
-							<p class="lre-sguide__pathway-subtitle"><?php echo esc_html( $settings['path_a_subtitle'] ); ?></p>
-							
-							<div class="lre-sguide__pathway-metric-row">
-								<span class="lre-sguide__pathway-num"><?php echo esc_html( $settings['path_a_metric_num'] ); ?></span>
-								<span class="lre-sguide__pathway-lbl"><?php echo esc_html( $settings['path_a_metric_lbl'] ); ?></span>
-							</div>
-
-							<?php
-							$bullets_a = ! empty( $settings['path_a_bullets'] ) ? explode( "\n", str_replace( "\r", "", $settings['path_a_bullets'] ) ) : array();
-							$bullets_a = array_filter( array_map( 'trim', $bullets_a ) );
-							if ( ! empty( $bullets_a ) ) : ?>
-							<ul class="lre-sguide__pathway-list" role="list">
-								<?php foreach ( $bullets_a as $bullet ) : ?>
-								<li>
-									<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" class="lre-sguide__check-icon" aria-hidden="true"><path d="M3.5 8.5L6.5 11.5L12.5 4.5"/></svg>
-									<span><?php echo esc_html( $bullet ); ?></span>
-								</li>
-								<?php endforeach; ?>
-							</ul>
-							<?php endif; ?>
-						</div>
-					</article>
-
-					<!-- Pathway 2: Global Architectural Narrative -->
-					<article class="lre-sguide__pathway-card">
-						<div class="lre-sguide__pathway-media">
-							<?php
-							$img_b = ! empty( $settings['path_b_image']['url'] ) ? $settings['path_b_image']['url'] : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85';
-							?>
-							<img src="<?php echo esc_url( $img_b ); ?>" alt="<?php echo esc_attr( $settings['path_b_title'] ); ?>" loading="lazy" class="lre-sguide__pathway-img">
-							<div class="lre-sguide__pathway-scrim"></div>
-							<span class="lre-sguide__pathway-pill"><?php echo esc_html( $settings['path_b_pill'] ); ?></span>
-						</div>
-						<div class="lre-sguide__pathway-body">
-							<h3 class="lre-sguide__pathway-title"><?php echo esc_html( $settings['path_b_title'] ); ?></h3>
-							<p class="lre-sguide__pathway-subtitle"><?php echo esc_html( $settings['path_b_subtitle'] ); ?></p>
-							
-							<div class="lre-sguide__pathway-metric-row">
-								<span class="lre-sguide__pathway-num"><?php echo esc_html( $settings['path_b_metric_num'] ); ?></span>
-								<span class="lre-sguide__pathway-lbl"><?php echo esc_html( $settings['path_b_metric_lbl'] ); ?></span>
-							</div>
-
-							<?php
-							$bullets_b = ! empty( $settings['path_b_bullets'] ) ? explode( "\n", str_replace( "\r", "", $settings['path_b_bullets'] ) ) : array();
-							$bullets_b = array_filter( array_map( 'trim', $bullets_b ) );
-							if ( ! empty( $bullets_b ) ) : ?>
-							<ul class="lre-sguide__pathway-list" role="list">
-								<?php foreach ( $bullets_b as $bullet ) : ?>
-								<li>
-									<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" class="lre-sguide__check-icon" aria-hidden="true"><path d="M3.5 8.5L6.5 11.5L12.5 4.5"/></svg>
-									<span><?php echo esc_html( $bullet ); ?></span>
-								</li>
-								<?php endforeach; ?>
-							</ul>
-							<?php endif; ?>
-						</div>
-					</article>
-
-				</div>
-
-				<!-- ── 3. TIER 2: THE DISPOSITION CODEX (Asymmetric Split Ledger) ── -->
-				<?php if ( ! empty( $stages ) ) : ?>
-				<div class="lre-sguide__codex-section <?php echo esc_attr( $reveal_class ); ?>">
-					<div class="lre-sguide__codex-header">
-						<?php if ( ! empty( $settings['codex_eyebrow'] ) ) : ?>
-						<span class="lre-sguide__codex-eyebrow"><?php echo esc_html( $settings['codex_eyebrow'] ); ?></span>
-						<?php endif; ?>
-						<?php if ( ! empty( $settings['codex_title'] ) ) : ?>
-						<h3 class="lre-sguide__codex-title"><?php echo esc_html( $settings['codex_title'] ); ?></h3>
-						<?php endif; ?>
-					</div>
-
-					<div class="lre-sguide__codex-split" data-codex-wrapper>
+				<!-- ── 2. SEQUENTIAL EDITORIAL MONOGRAPH CHAPTERS ── -->
+				<?php if ( ! empty( $chapters ) ) : ?>
+				<div class="lre-sguide__chapters">
+					<?php foreach ( $chapters as $c_idx => $ch ) :
+						$align     = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
+						$c_num     = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
+						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85';
+						$det_label = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : '';
+						$det_val   = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
+					?>
+					<article class="lre-sguide__chapter lre-sguide__chapter--<?php echo esc_attr( $align ); ?> <?php echo esc_attr( $reveal_class ); ?>">
 						
-						<!-- LEFT: Interactive Ledger Nav -->
-						<div class="lre-sguide__codex-ledger" role="tablist" aria-label="<?php esc_attr_e( 'Disposition Stages', 'luxury-re-widgets' ); ?>">
-							<?php foreach ( $stages as $idx => $stg ) :
-								$is_first = ( 0 === $idx );
-								$stg_num  = ! empty( $stg['stage_num'] ) ? $stg['stage_num'] : sprintf( '%02d', $idx + 1 );
-							?>
-							<button type="button" 
-							        class="lre-sguide__ledger-item <?php echo $is_first ? 'is-active' : ''; ?>" 
-							        role="tab" 
-							        aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>" 
-							        aria-controls="codex-panel-<?php echo esc_attr( $idx ); ?>" 
-							        id="codex-tab-<?php echo esc_attr( $idx ); ?>"
-							        data-stage-index="<?php echo esc_attr( $idx ); ?>">
-								<div class="lre-sguide__ledger-item-top">
-									<span class="lre-sguide__ledger-num"><?php echo esc_html( $stg_num ); ?></span>
-									<span class="lre-sguide__ledger-tag"><?php echo esc_html( $stg['stage_tag'] ); ?></span>
-								</div>
-								<h4 class="lre-sguide__ledger-heading"><?php echo esc_html( $stg['stage_title'] ); ?></h4>
-								<span class="lre-sguide__ledger-indicator" aria-hidden="true"></span>
-							</button>
-							<?php endforeach; ?>
-						</div>
-
-						<!-- RIGHT: Dynamic Stage Viewplate Panels -->
-						<div class="lre-sguide__codex-viewplate">
-							<?php foreach ( $stages as $idx => $stg ) :
-								$is_first  = ( 0 === $idx );
-								$stg_img   = ! empty( $stg['stage_image']['url'] ) ? $stg['stage_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85';
-								$stg_deliv = ! empty( $stg['stage_deliverables'] ) ? explode( "\n", str_replace( "\r", "", $stg['stage_deliverables'] ) ) : array();
-								$stg_deliv = array_filter( array_map( 'trim', $stg_deliv ) );
-							?>
-							<div class="lre-sguide__stage-panel <?php echo $is_first ? 'is-active' : ''; ?> <?php echo $is_edit_mode ? 'revealed' : ''; ?>" 
-							     id="codex-panel-<?php echo esc_attr( $idx ); ?>" 
-							     role="tabpanel" 
-							     aria-labelledby="codex-tab-<?php echo esc_attr( $idx ); ?>"
-							     data-panel-index="<?php echo esc_attr( $idx ); ?>">
-								
-								<div class="lre-sguide__stage-figure">
-									<img src="<?php echo esc_url( $stg_img ); ?>" alt="<?php echo esc_attr( $stg['stage_title'] ); ?>" loading="lazy" class="lre-sguide__stage-img">
-									<div class="lre-sguide__stage-scrim"></div>
-									<div class="lre-sguide__stage-caption-box">
-										<span class="lre-sguide__stage-caption-num"><?php echo esc_html( $stg['stage_num'] ); ?></span>
-										<span class="lre-sguide__stage-caption-tag"><?php echo esc_html( $stg['stage_tag'] ); ?></span>
-									</div>
-								</div>
-
-								<div class="lre-sguide__stage-meta">
-									<h4 class="lre-sguide__stage-title"><?php echo esc_html( $stg['stage_title'] ); ?></h4>
-									<p class="lre-sguide__stage-summary"><?php echo esc_html( $stg['stage_summary'] ); ?></p>
-									
-									<?php if ( ! empty( $stg_deliv ) ) : ?>
-									<div class="lre-sguide__stage-deliv-wrap">
-										<span class="lre-sguide__stage-deliv-heading"><?php esc_html_e( 'Fiduciary Deliverables', 'luxury-re-widgets' ); ?></span>
-										<ul class="lre-sguide__stage-deliv-list" role="list">
-											<?php foreach ( $stg_deliv as $deliv_item ) : ?>
-											<li>
-												<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" class="lre-sguide__check-icon" aria-hidden="true"><path d="M3.5 8.5L6.5 11.5L12.5 4.5"/></svg>
-												<span><?php echo esc_html( $deliv_item ); ?></span>
-											</li>
-											<?php endforeach; ?>
-										</ul>
-									</div>
-									<?php endif; ?>
-								</div>
-
+						<!-- Media Column -->
+						<div class="lre-sguide__chapter-media">
+							<div class="lre-sguide__media-frame">
+								<img src="<?php echo esc_url( $c_img ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
+								<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+								<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
 							</div>
-							<?php endforeach; ?>
 						</div>
 
-					</div>
+						<!-- Narrative Column -->
+						<div class="lre-sguide__chapter-content">
+							<div class="lre-sguide__chapter-meta">
+								<span class="lre-sguide__chapter-num"><?php echo esc_html( $c_num ); ?></span>
+								<span class="lre-sguide__meta-sep" aria-hidden="true">/</span>
+								<span class="lre-sguide__chapter-tag"><?php echo esc_html( $ch['chapter_tag'] ); ?></span>
+							</div>
+
+							<h3 class="lre-sguide__chapter-title"><?php echo esc_html( $ch['chapter_title'] ); ?></h3>
+
+							<p class="lre-sguide__chapter-narrative"><?php echo esc_html( $ch['chapter_narrative'] ); ?></p>
+
+							<?php if ( ! empty( $det_val ) ) : ?>
+							<div class="lre-sguide__chapter-detail">
+								<?php if ( ! empty( $det_label ) ) : ?>
+								<span class="lre-sguide__chapter-detail-label"><?php echo esc_html( $det_label ); ?></span>
+								<?php endif; ?>
+								<span class="lre-sguide__chapter-detail-val"><?php echo esc_html( $det_val ); ?></span>
+							</div>
+							<?php endif; ?>
+						</div>
+
+					</article>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
+
+				<!-- ── 3. MINIMALIST INVITATION FOOTNOTE ── -->
+				<?php if ( 'yes' === ( $settings['show_invitation'] ?? 'yes' ) ) :
+					$inv_url = ! empty( $settings['invitation_url']['url'] ) ? $settings['invitation_url']['url'] : '/contact/';
+					$inv_target = ! empty( $settings['invitation_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+				?>
+				<div class="lre-sguide__invitation <?php echo esc_attr( $reveal_class ); ?>">
+					<?php if ( ! empty( $settings['invitation_text'] ) ) : ?>
+					<span class="lre-sguide__invitation-text"><?php echo esc_html( $settings['invitation_text'] ); ?></span>
+					<?php endif; ?>
+					<?php if ( ! empty( $settings['invitation_link_text'] ) ) : ?>
+					<a href="<?php echo esc_url( $inv_url ); ?>" class="lre-sguide__invitation-link"<?php echo $inv_target; ?>>
+						<span><?php echo esc_html( $settings['invitation_link_text'] ); ?></span>
+					</a>
+					<?php endif; ?>
 				</div>
 				<?php endif; ?>
 

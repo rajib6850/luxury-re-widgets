@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__pathways-grid, .lre-sguide__codex-section, .lre-sguide__stage-panel' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__chapter, .lre-sguide__invitation' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }
@@ -1508,50 +1508,12 @@
     };
 
     // =========================================================================
-    // 19. SELLER'S GUIDE — The Architectural Disposition Codex
+    // 19. SELLER'S GUIDE — Super-Luxury Editorial Monograph
     // =========================================================================
     LREWidgets.SellersGuide = {
         init: function ( $scope ) {
             LREWidgets.initReveals( $scope );
-            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-            var sections = root.querySelectorAll( '.lre-sguide' );
-            if ( ! sections.length ) return;
-
-            sections.forEach( function ( section ) {
-                var ledgerItems = section.querySelectorAll( '.lre-sguide__ledger-item' );
-                var stagePanels = section.querySelectorAll( '.lre-sguide__stage-panel' );
-                if ( ! ledgerItems.length || ! stagePanels.length ) return;
-
-                function activateStage( index ) {
-                    ledgerItems.forEach( function ( item, idx ) {
-                        if ( idx === index ) {
-                            item.classList.add( 'is-active' );
-                            item.setAttribute( 'aria-selected', 'true' );
-                        } else {
-                            item.classList.remove( 'is-active' );
-                            item.setAttribute( 'aria-selected', 'false' );
-                        }
-                    } );
-
-                    stagePanels.forEach( function ( panel, idx ) {
-                        if ( idx === index ) {
-                            panel.classList.add( 'is-active' );
-                        } else {
-                            panel.classList.remove( 'is-active' );
-                        }
-                    } );
-                }
-
-                ledgerItems.forEach( function ( item, idx ) {
-                    item.addEventListener( 'click', function () {
-                        activateStage( idx );
-                    } );
-
-                    item.addEventListener( 'mouseenter', function () {
-                        activateStage( idx );
-                    } );
-                } );
-            } );
+            LREWidgets.initImageZoom( $scope );
         }
     };
 

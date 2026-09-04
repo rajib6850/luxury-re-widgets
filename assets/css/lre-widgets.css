@@ -11449,10 +11449,10 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 
 .lre-sguide {
   position: relative;
-  background: #07070a;
-  background-color: #07070a !important;
+  background: #08080c;
+  background-color: #08080c !important;
   color: #ffffff;
-  padding: 120px 0 !important;
+  padding: 140px 0 !important;
   font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
   overflow: hidden;
   box-sizing: border-box;
@@ -11465,7 +11465,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-sguide__container {
-  max-width: 1360px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 32px;
   position: relative;
@@ -11475,15 +11475,15 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 /* ── Typographic Watermark (Whisper-Thin Faint) ── */
 .lre-sguide__watermark {
   position: absolute;
-  top: 3%;
+  top: 2%;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: clamp(5rem, 15vw, 13rem);
+  font-size: clamp(6rem, 16vw, 15rem);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.012);
+  color: rgba(255, 255, 255, 0.01);
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
@@ -11493,486 +11493,317 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 /* ── 1. Section Header ── */
 .lre-sguide__header {
   text-align: center;
-  max-width: 860px;
-  margin: 0 auto 4.5rem;
+  max-width: 820px;
+  margin: 0 auto 6.5rem;
+}
+
+.lre-sguide__eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.lre-sguide__gold-bar {
+  display: inline-block;
+  width: 32px;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(197, 160, 71, 0.6), rgba(255, 255, 255, 0.3)) !important;
+  flex-shrink: 0;
+}
+
+.lre-sguide__eyebrow {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #c5a047;
 }
 
 .lre-sguide__title {
   font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: var(--font-size-section-title, clamp(2rem, 3.6vw, 3rem)) !important;
+  font-size: var(--font-size-section-title, clamp(2.2rem, 3.8vw, 3.2rem)) !important;
   font-weight: 400;
   line-height: 1.25;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  margin: 0 0 1.2rem;
-  letter-spacing: -0.01em;
+  margin: 0 0 1.4rem;
+  letter-spacing: -0.015em;
 }
 
 .lre-sguide__description {
   font-size: 1.05rem;
   line-height: 1.85;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.6);
   margin: 0 auto;
-  max-width: 720px;
+  max-width: 680px;
 }
 
-/* ── 2. Tier 1: Dual Sovereign Pathways (Minimalist Architectural Tablets) ── */
-.lre-sguide__pathways-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.2rem;
-  margin-bottom: 5.5rem;
-}
-
-.lre-sguide__pathway-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 3px;
-  overflow: hidden;
+/* ── 2. Sequential Editorial Monograph Chapters ── */
+.lre-sguide__chapters {
   display: flex;
   flex-direction: column;
-  transition: border-color 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+  gap: 8.5rem;
 }
 
-.lre-sguide__pathway-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+.lre-sguide__chapter {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 5.5rem;
+  align-items: center;
 }
 
-.lre-sguide__pathway-media {
+/* Alternating Layout: Right media / Left text */
+.lre-sguide__chapter--right {
+  grid-template-columns: 1fr 1.15fr;
+}
+
+.lre-sguide__chapter--right .lre-sguide__chapter-media {
+  order: 2;
+}
+
+.lre-sguide__chapter--right .lre-sguide__chapter-content {
+  order: 1;
+}
+
+/* Media Column */
+.lre-sguide__chapter-media {
   position: relative;
   width: 100%;
-  height: 280px;
-  overflow: hidden;
 }
 
-.lre-sguide__pathway-img {
+.lre-sguide__media-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #0c0c12;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.lre-sguide__chapter-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+  filter: brightness(0.92) contrast(1.02);
 }
 
-.lre-sguide__pathway-card:hover .lre-sguide__pathway-img {
-  transform: scale(1.05);
+.lre-sguide__chapter:hover .lre-sguide__chapter-img {
+  transform: scale(1.04);
+  filter: brightness(0.98);
 }
 
-.lre-sguide__pathway-scrim {
+.lre-sguide__chapter-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.1) 0%, rgba(7, 7, 10, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(8, 8, 12, 0.05) 0%, rgba(8, 8, 12, 0.45) 100%);
   pointer-events: none;
 }
 
-.lre-sguide__pathway-pill {
+.lre-sguide__chapter-badge-num {
   position: absolute;
-  top: 18px;
-  left: 20px;
-  background: rgba(10, 10, 15, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #e4e4ea;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: 20px;
-  z-index: 2;
-}
-
-.lre-sguide__pathway-body {
-  padding: 2.2rem 2.2rem 2.4rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.lre-sguide__pathway-title {
+  bottom: 20px;
+  left: 24px;
   font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: #ffffff;
-  line-height: 1.3;
-  margin: 0 0 0.5rem;
-}
-
-.lre-sguide__pathway-subtitle {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.52);
-  margin: 0 0 1.6rem;
-  line-height: 1.6;
-}
-
-.lre-sguide__pathway-metric-row {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 1.1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  margin-bottom: 1.6rem;
-}
-
-.lre-sguide__pathway-num {
-  font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: 1.85rem;
+  font-size: 1.4rem;
   font-style: italic;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   line-height: 1;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.lre-sguide__pathway-lbl {
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.48);
-  font-weight: 500;
-}
-
-.lre-sguide__pathway-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Narrative Column */
+.lre-sguide__chapter-content {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  justify-content: center;
 }
 
-.lre-sguide__pathway-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.86rem;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.55;
-}
-
-.lre-sguide__check-icon {
-  width: 15px;
-  height: 15px;
-  color: #c5a047;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* ── 3. Tier 2: The Disposition Codex (Asymmetric Split Architecture) ── */
-.lre-sguide__codex-section {
-  position: relative;
-  padding-top: 3.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.lre-sguide__codex-header {
-  text-align: left;
-  margin-bottom: 2.2rem;
-}
-
-.lre-sguide__codex-eyebrow {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #c5a047;
-  margin-bottom: 0.6rem;
-}
-
-.lre-sguide__codex-title {
-  font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
-  font-weight: 400;
-  color: #ffffff;
-  line-height: 1.25;
-  margin: 0;
-}
-
-.lre-sguide__codex-split {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 2.2rem;
-  align-items: stretch;
-}
-
-/* Left: The Ledger Tabs */
-.lre-sguide__codex-ledger {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.lre-sguide__ledger-item {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 1.4rem 1.6rem;
-  border-radius: 3px;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  position: relative;
-  width: 100%;
-  outline: none;
-  font-family: inherit;
-}
-
-.lre-sguide__ledger-item:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.lre-sguide__ledger-item.is-active {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-}
-
-.lre-sguide__ledger-indicator {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #c5a047;
-  border-radius: 3px 0 0 3px;
-  opacity: 0;
-  transform: scaleY(0);
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.lre-sguide__ledger-item.is-active .lre-sguide__ledger-indicator {
-  opacity: 1;
-  transform: scaleY(1);
-}
-
-.lre-sguide__ledger-item-top {
+.lre-sguide__chapter-meta {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 0.45rem;
+  gap: 10px;
+  margin-bottom: 1.2rem;
 }
 
-.lre-sguide__ledger-num {
+.lre-sguide__chapter-num {
   font-family: var(--font-heading, 'Libre Baskerville', serif);
   font-size: 1.35rem;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.35);
-  transition: color 0.3s ease;
-}
-
-.lre-sguide__ledger-item.is-active .lre-sguide__ledger-num,
-.lre-sguide__ledger-item:hover .lre-sguide__ledger-num {
-  color: #ffffff;
-}
-
-.lre-sguide__ledger-tag {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.lre-sguide__ledger-item.is-active .lre-sguide__ledger-tag {
   color: #c5a047;
-}
-
-.lre-sguide__ledger-heading {
-  font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0;
-  line-height: 1.35;
-}
-
-.lre-sguide__ledger-item.is-active .lre-sguide__ledger-heading {
-  color: #ffffff;
-}
-
-/* Right: The Viewplate */
-.lre-sguide__codex-viewplate {
-  position: relative;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 3px;
-  overflow: hidden;
-  min-height: 520px;
-}
-
-.lre-sguide__stage-panel {
-  display: none;
-  height: 100%;
-  animation: lreFadeIn 0.4s ease forwards;
-}
-
-.lre-sguide__stage-panel.is-active {
-  display: flex;
-  flex-direction: column;
-}
-
-.lre-sguide__stage-figure {
-  position: relative;
-  width: 100%;
-  height: 310px;
-  overflow: hidden;
-}
-
-.lre-sguide__stage-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.lre-sguide__stage-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.1) 0%, rgba(7, 7, 10, 0.8) 100%);
-  pointer-events: none;
-}
-
-.lre-sguide__stage-caption-box {
-  position: absolute;
-  bottom: 18px;
-  left: 24px;
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  z-index: 2;
-}
-
-.lre-sguide__stage-caption-num {
-  font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: 1.8rem;
-  font-style: italic;
-  color: #ffffff;
   line-height: 1;
 }
 
-.lre-sguide__stage-caption-tag {
+.lre-sguide__meta-sep {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+}
+
+.lre-sguide__chapter-tag {
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lre-sguide__chapter-title {
+  font-family: var(--font-heading, 'Libre Baskerville', serif);
+  font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0 0 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+.lre-sguide__chapter-narrative {
+  font-size: 0.96rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 2rem;
+  font-weight: 400;
+}
+
+.lre-sguide__chapter-detail {
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lre-sguide__chapter-detail-label {
+  font-size: 0.65rem;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #c5a047;
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 4px 10px;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.lre-sguide__stage-meta {
-  padding: 2.2rem 2.4rem;
+.lre-sguide__chapter-detail-val {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ── 3. Minimalist Fiduciary Invitation ── */
+.lre-sguide__invitation {
+  margin-top: 8rem;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  align-items: center;
+  gap: 14px;
 }
 
-.lre-sguide__stage-title {
-  font-family: var(--font-heading, 'Libre Baskerville', serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: #ffffff;
-  line-height: 1.3;
-  margin: 0 0 0.75rem;
-}
-
-.lre-sguide__stage-summary {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0 0 1.8rem;
-}
-
-.lre-sguide__stage-deliv-wrap {
-  margin-top: auto;
-  padding-top: 1.4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.lre-sguide__stage-deliv-heading {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+.lre-sguide__invitation-text {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 0.85rem;
+  font-weight: 500;
 }
 
-.lre-sguide__stage-deliv-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px 18px;
-}
-
-.lre-sguide__stage-deliv-list li {
-  display: flex;
+.lre-sguide__invitation-link {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.5;
+  font-family: var(--font-heading, 'Libre Baskerville', serif);
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
 }
 
-@keyframes lreFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.lre-sguide__invitation-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* ── Responsive Adaptations ── */
+.lre-sguide__invitation-link:hover {
+  color: #c5a047;
+}
+
+.lre-sguide__invitation-link:hover::after {
+  background: #c5a047;
+}
+
+/* ── Responsive Refinements ── */
 @media (max-width: 1024px) {
-  .lre-sguide__pathways-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .lre-sguide {
+    padding: 100px 0 !important;
   }
-  .lre-sguide__codex-split {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .lre-sguide__header {
+    margin-bottom: 4.5rem;
   }
-  .lre-sguide__codex-viewplate {
-    min-height: auto;
+  .lre-sguide__chapters {
+    gap: 5.5rem;
+  }
+  .lre-sguide__chapter {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem;
+  }
+  .lre-sguide__chapter--right .lre-sguide__chapter-media {
+    order: 1 !important;
+  }
+  .lre-sguide__chapter--right .lre-sguide__chapter-content {
+    order: 2 !important;
+  }
+  .lre-sguide__invitation {
+    margin-top: 5rem;
+    padding-top: 3rem;
   }
 }
 
 @media (max-width: 767px) {
   .lre-sguide {
-    padding: 60px 0 !important;
+    padding: 70px 0 !important;
   }
   .lre-sguide__container {
-    padding: 0 18px;
+    padding: 0 20px;
   }
   .lre-sguide__header {
-    margin-bottom: 2.8rem;
+    margin-bottom: 3.5rem;
   }
-  .lre-sguide__pathway-body {
-    padding: 1.6rem 1.4rem;
+  .lre-sguide__chapters {
+    gap: 4.5rem;
   }
-  .lre-sguide__stage-meta {
-    padding: 1.6rem 1.4rem;
+  .lre-sguide__media-frame {
+    aspect-ratio: 16 / 10;
   }
-  .lre-sguide__stage-deliv-list {
-    grid-template-columns: 1fr;
+  .lre-sguide__chapter-title {
+    margin-bottom: 1rem;
+  }
+  .lre-sguide__invitation {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+  }
+  .lre-sguide__invitation-link {
+    font-size: 1.05rem;
   }
 }
 
 @media (max-width: 480px) {
   .lre-sguide {
-    padding: 48px 0 !important;
+    padding: 50px 0 !important;
   }
   .lre-sguide__watermark {
     display: none !important;

@@ -420,7 +420,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 			array(
 				'label'        => __( 'Show Valuation Console', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
+				'default'      => '',
 				'return_value' => 'yes',
 			)
 		);
@@ -814,7 +814,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 				<?php endif; ?>
 
 				<!-- ── 4. LOWER TIER: CONFIDENTIAL VALUATION & ADVISORY CONSOLE (Master Seller Desk) ── -->
-				<?php if ( 'yes' === $settings['show_console'] ) :
+				<?php if ( 'yes' === ( $settings['show_console'] ?? '' ) ) :
 					$btn1_url = ! empty( $settings['btn1_url']['url'] ) ? esc_url( $settings['btn1_url']['url'] ) : '#contact';
 					$btn1_ext = ! empty( $settings['btn1_url']['is_external'] ) ? ' target="_blank"' : '';
 					$btn2_url = ! empty( $settings['btn2_url']['url'] ) ? esc_url( $settings['btn2_url']['url'] ) : '/contact/';

@@ -28,9 +28,11 @@ body,
   --color-overlay: rgba(8, 8, 12, 0.6);
   --color-overlay-heavy: rgba(5, 5, 8, 0.82);
 
-  /* Typography Families â”€â”€ Connected to Elementor Global Fonts with Luxury Fallbacks */
+  /* Typography Families ── Connected to Elementor Global Fonts with Luxury Fallbacks */
   --font-serif: var(--e-global-typography-primary-font-family, 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif);
   --font-sans: var(--e-global-typography-text-font-family, 'Montserrat', 'Helvetica Neue', sans-serif);
+  --font-heading: var(--font-serif);
+  --font-body: var(--e-global-typography-text-font-family, 'Plus Jakarta Sans', var(--font-sans));
   --font-accent: var(--e-global-typography-accent-font-family, 'Cormorant Garamond', 'Georgia', serif);
   --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
 

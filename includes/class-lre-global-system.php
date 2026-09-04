@@ -69,6 +69,8 @@ body,
 
   --font-serif: var(--e-global-typography-primary-font-family, \'Libre Baskerville\', \'Baskerville Old Face\', \'Baskerville\', Garamond, serif);
   --font-sans: var(--e-global-typography-text-font-family, \'Montserrat\', \'Helvetica Neue\', sans-serif);
+  --font-heading: var(--font-serif);
+  --font-body: var(--e-global-typography-text-font-family, \'Plus Jakarta Sans\', var(--font-sans));
   --font-accent: var(--e-global-typography-accent-font-family, \'Cormorant Garamond\', \'Georgia\', serif);
   --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
 

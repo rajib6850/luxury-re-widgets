@@ -782,7 +782,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$eyebrow     = esc_html( $settings['eyebrow'] ?? '' );
-		$title       = esc_html( $settings['title'] ?? 'About Us' );
+		$title       = wp_kses( $settings['title'] ?? 'About Us', array( 'br' => array(), 'span' => array( 'class' => array() ) ) );
 		$subtitle    = esc_html( $settings['subtitle'] ?? '' );
 		$show_cta    = $settings['show_cta'] ?? 'yes';
 		$cta_text    = esc_html( $settings['cta_text'] ?? 'Meet the Team' );

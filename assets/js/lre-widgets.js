@@ -1479,6 +1479,29 @@
         init: function ( $scope ) {
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
+
+            var root = $scope ? $scope[0] : document;
+            var guideSections = root.querySelectorAll( '.lre-guide' );
+            guideSections.forEach( function ( section ) {
+                if ( ! prefersReducedMotion ) {
+                    var watermark = section.querySelector( '.lre-guide__watermark' );
+                    if ( watermark ) {
+                        var updateGuideParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateGuideParallax, { passive: true } );
+                        updateGuideParallax();
+                    }
+                }
+            } );
         }
     };
 
@@ -1489,6 +1512,29 @@
         init: function ( $scope ) {
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
+
+            var root = $scope ? $scope[0] : document;
+            var sguideSections = root.querySelectorAll( '.lre-sguide' );
+            sguideSections.forEach( function ( section ) {
+                if ( ! prefersReducedMotion ) {
+                    var watermark = section.querySelector( '.lre-sguide__watermark' );
+                    if ( watermark ) {
+                        var updateSguideParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateSguideParallax, { passive: true } );
+                        updateSguideParallax();
+                    }
+                }
+            } );
         }
     };
 

@@ -401,7 +401,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 								<span class="lre-sguide__chapter-tag"><?php echo esc_html( $ch['chapter_tag'] ); ?></span>
 							</div>
 
-							<h3 class="lre-sguide__chapter-title"><?php echo esc_html( $ch['chapter_title'] ); ?></h3>
+							<h3 class="lre-sguide__chapter-title"><span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $ch['chapter_title'] ); ?></span></span></h3>
 
 							<p class="lre-sguide__chapter-narrative"><?php echo esc_html( $ch['chapter_narrative'] ); ?></p>
 

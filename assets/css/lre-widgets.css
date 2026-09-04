@@ -11263,6 +11263,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: rgba(255, 255, 255, 0.65) !important;
   margin: 0 auto;
   max-width: 680px;
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── 2. Sequential Editorial Monograph Chapters ── */
@@ -11306,6 +11309,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   overflow: hidden;
   background: #0c0c12;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
 .lre-guide__chapter-scrim {
@@ -11373,6 +11377,13 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: #ffffff;
   margin: 0 0 1.4rem;
   letter-spacing: -0.01em;
+  overflow: hidden;
+}
+
+.lre-guide__chapter-title .title-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
 .lre-guide__chapter-narrative {
@@ -11380,7 +11391,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   line-height: 1.85;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 2rem;
-  font-weight: 400;
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .lre-guide__chapter-detail {
@@ -11403,6 +11416,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   font-size: 0.85rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.78);
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── 3. Minimalist Fiduciary Invitation ── */
@@ -11519,6 +11535,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: rgba(255, 255, 255, 0.65) !important;
   margin: 0 auto;
   max-width: 680px;
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── 2. Sequential Editorial Monograph Chapters ── */
@@ -11562,6 +11581,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   overflow: hidden;
   background: #0c0c12;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
 .lre-sguide__chapter-img {
@@ -11571,11 +11591,6 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   object-position: center;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
   filter: brightness(0.92) contrast(1.02);
-}
-
-.lre-sguide__chapter:hover .lre-sguide__chapter-img {
-  transform: scale(1.04);
-  filter: brightness(0.98);
 }
 
 .lre-sguide__chapter-scrim {
@@ -11642,6 +11657,13 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: #ffffff;
   margin: 0 0 1.4rem;
   letter-spacing: -0.01em;
+  overflow: hidden;
+}
+
+.lre-sguide__chapter-title .title-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
 .lre-sguide__chapter-narrative {
@@ -11649,7 +11671,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   line-height: 1.85;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 2rem;
-  font-weight: 400;
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .lre-sguide__chapter-detail {
@@ -11672,6 +11696,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   font-size: 0.85rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.78);
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── 3. Minimalist Fiduciary Invitation ── */
@@ -11833,13 +11860,11 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   transform: scale(1.0);
 }
 
-/* Signature Monochrome Grayscale Hover Effect */
-.lre-guide__chapter:hover .lre-guide__media-frame.image-reveal.revealed .lre-guide__chapter-img,
-.lre-sguide__chapter:hover .lre-sguide__media-frame.image-reveal.revealed .lre-sguide__chapter-img,
-.lre-guide__chapter:hover .lre-guide__chapter-img,
-.lre-sguide__chapter:hover .lre-sguide__chapter-img {
+/* Signature Monochrome Grayscale Hover Effect — Triggered ONLY on Image Frame Hover */
+.lre-guide__media-frame:hover .lre-guide__chapter-img,
+.lre-sguide__media-frame:hover .lre-sguide__chapter-img {
   filter: grayscale(100%) brightness(0.88) contrast(1.06) !important;
-  transform: scale(1.05);
+  transform: scale(1.06) !important;
 }
 
 /* ── 3. Elementor Editor Visibility Guarantee (Zero Black Screen) ── */
@@ -11852,6 +11877,12 @@ body.elementor-editor-active .lre-sguide__media-frame.image-reveal::after {
 body.elementor-editor-active .lre-guide__chapter-img,
 body.elementor-editor-active .lre-sguide__chapter-img {
   transform: scale(1.0) !important;
+}
+
+body.elementor-editor-active .lre-guide__chapter-title .title-mask > span,
+body.elementor-editor-active .lre-sguide__chapter-title .title-mask > span {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 

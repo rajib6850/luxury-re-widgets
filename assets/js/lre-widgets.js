@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__channels-monolith, .lre-sguide__chronology-section, .lre-sguide__valuation-console' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__pathways-grid, .lre-sguide__codex-section, .lre-sguide__stage-panel' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }
@@ -1507,25 +1507,48 @@
         }
     };
 
-    // -------------------------------------------------------------------------
-    // SELLER'S GUIDE & ESTATE DISPOSITION WIDGET
-    // -------------------------------------------------------------------------
+    // =========================================================================
+    // 19. SELLER'S GUIDE — The Architectural Disposition Codex
+    // =========================================================================
     LREWidgets.SellersGuide = {
         init: function ( $scope ) {
-            var container = $scope && $scope.length ? $scope[0] : document;
-            var sguideSections = container.querySelectorAll( '.lre-sguide' );
+            LREWidgets.initReveals( $scope );
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var sections = root.querySelectorAll( '.lre-sguide' );
+            if ( ! sections.length ) return;
 
-            sguideSections.forEach( function ( section ) {
-                var pillGroups = section.querySelectorAll( '.lre-sguide__pills' );
-                pillGroups.forEach( function ( group ) {
-                    var pills = group.querySelectorAll( '.lre-sguide__pill' );
-                    pills.forEach( function ( pill ) {
-                        pill.addEventListener( 'click', function () {
-                            pills.forEach( function ( p ) {
-                                p.classList.remove( 'active' );
-                            } );
-                            this.classList.add( 'active' );
-                        } );
+            sections.forEach( function ( section ) {
+                var ledgerItems = section.querySelectorAll( '.lre-sguide__ledger-item' );
+                var stagePanels = section.querySelectorAll( '.lre-sguide__stage-panel' );
+                if ( ! ledgerItems.length || ! stagePanels.length ) return;
+
+                function activateStage( index ) {
+                    ledgerItems.forEach( function ( item, idx ) {
+                        if ( idx === index ) {
+                            item.classList.add( 'is-active' );
+                            item.setAttribute( 'aria-selected', 'true' );
+                        } else {
+                            item.classList.remove( 'is-active' );
+                            item.setAttribute( 'aria-selected', 'false' );
+                        }
+                    } );
+
+                    stagePanels.forEach( function ( panel, idx ) {
+                        if ( idx === index ) {
+                            panel.classList.add( 'is-active' );
+                        } else {
+                            panel.classList.remove( 'is-active' );
+                        }
+                    } );
+                }
+
+                ledgerItems.forEach( function ( item, idx ) {
+                    item.addEventListener( 'click', function () {
+                        activateStage( idx );
+                    } );
+
+                    item.addEventListener( 'mouseenter', function () {
+                        activateStage( idx );
                     } );
                 } );
             } );

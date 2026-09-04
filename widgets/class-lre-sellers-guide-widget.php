@@ -384,9 +384,9 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 					?>
 					<article class="lre-sguide__chapter lre-sguide__chapter--<?php echo esc_attr( $align ); ?> <?php echo esc_attr( $reveal_class ); ?>">
 						
-						<!-- Media Column -->
+						<!-- Media Column (with signature .image-reveal shutter curtain) -->
 						<div class="lre-sguide__chapter-media">
-							<div class="lre-sguide__media-frame">
+							<div class="lre-sguide__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
 								<img src="<?php echo esc_url( $c_img ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
 								<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
 								<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>

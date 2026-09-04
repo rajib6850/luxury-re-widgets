@@ -9,16 +9,16 @@ use Elementor\Repeater;
 
 /**
  * LRE_Buying_Guide_Widget
- * Ultra-Luxury Buying Guide & Strategic Acquisition Protocol Widget.
- * Engineered for Ultra-High-Net-Worth (UHNW) buyers, family offices, and discreet investors.
+ * Super-Luxury & Minimal Architectural Estate Acquisition Monograph Widget.
+ * Engineered for Ultra-High-Net-Worth (UHNW) buyers, family offices, and sovereign trustees.
+ * Inspired by Official Partners, Knight Frank Private Office, and Christie's International Real Estate.
  *
- * Designed with signature luxury component parity:
- * - Ambient typography watermark ("ACQUISITION")
- * - Gold-bar eyebrow and title-mask curtain reveal H2
- * - Top gold accent border cards with serif monograph numbering (01, 02, 03, 04)
- * - Interactive 4-phase strategic acquisition roadmap console
- * - Fiduciary seal SVG, live metrics bar, and architectural glass outline buttons
- * - 100% Elementor live editor visibility guarantee (zero black screen)
+ * Characteristics:
+ * - Ultra-minimalist fine-art monograph layout (zero cards, zero boxes, zero dashboards).
+ * - Generous architectural breathing room and deep obsidian atmosphere (#08080c).
+ * - Sequential alternating editorial chapters (I, II, III, IV).
+ * - Signature .image-reveal shutter curtain entrance effect and luxury grayscale hover transition.
+ * - 100% Elementor live editor visibility guarantee (zero black screen).
  *
  * @package Luxury_RE_Widgets
  */
@@ -41,7 +41,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'buying', 'guide', 'protocol', 'acquisition', 'luxury', 'fiduciary', 'advisory', 'roadmap' );
+		return array( 'buyer', 'buying', 'guide', 'protocol', 'acquisition', 'luxury', 'fiduciary', 'monograph', 'minimal', 'quiet luxury' );
 	}
 
 	protected function register_controls() {
@@ -62,7 +62,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 		$this->add_control(
 			'show_watermark',
 			array(
-				'label'        => __( 'Show Background Watermark', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Typographic Watermark', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -82,9 +82,9 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 		$this->add_control(
 			'eyebrow',
 			array(
-				'label'   => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'label'   => __( 'Section Eyebrow', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Acquisition Protocol & Private Advisory',
+				'default' => 'Acquisition Protocol',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -92,12 +92,10 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 		$this->add_control(
 			'heading',
 			array(
-				'label'       => __( 'Heading (Multi-line / Title Mask)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'rows'        => 3,
-				'default'     => "The Sovereign Guide to<br>Ultra-Prime Property Acquisition",
-				'description' => __( 'Supports <br> tags for smooth title-mask curtain reveal lines matching other sections.', 'luxury-re-widgets' ),
-				'dynamic'     => array( 'active' => true ),
+				'label'   => __( 'Section Heading (H2)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'The Art of Sovereign Acquisition',
+				'dynamic' => array( 'active' => true ),
 			)
 		);
 
@@ -106,264 +104,183 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'h2',
 				'options' => array(
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'span' => 'span',
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
 				),
+				'default' => 'h2',
 			)
 		);
 
 		$this->add_control(
 			'description',
 			array(
-				'label'   => __( 'Description', 'luxury-re-widgets' ),
+				'label'   => __( 'Section Description', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'A confidential advisory framework engineered exclusively for principals, family offices, and discreet investors acquiring trophy residential assets across prime global markets.',
+				'default' => 'Navigating unlisted architectural provenance, private wealth registries, and discreet settlement for premier global estates.',
 				'dynamic' => array( 'active' => true ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── SECTION 2: 3 FIDUCIARY PRINCIPLES (UPPER CARDS) ──
+		// ── SECTION 2: EDITORIAL MONOGRAPH CHAPTERS ──
 		$this->start_controls_section(
-			'section_principles',
+			'section_chapters',
 			array(
-				'label' => __( '1. Fiduciary Principles (3 Pillars)', 'luxury-re-widgets' ),
+				'label' => __( 'Editorial Chapters (The Monograph)', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
-		$principles_repeater = new Repeater();
+		$repeater = new Repeater();
 
-		$principles_repeater->add_control(
-			'principle_num',
+		$repeater->add_control(
+			'chapter_num',
 			array(
-				'label'   => __( 'Monograph Number', 'luxury-re-widgets' ),
+				'label'   => __( 'Roman Numeral / Number', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => '01',
+				'default' => 'I',
 			)
 		);
 
-		$principles_repeater->add_control(
-			'principle_tag',
+		$repeater->add_control(
+			'chapter_tag',
 			array(
-				'label'   => __( 'Pillar Tag', 'luxury-re-widgets' ),
+				'label'   => __( 'Discipline Tag', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'FIDUCIARY ALLEGIANCE',
+				'default' => 'CURATION & EMBARGO',
 			)
 		);
 
-		$principles_repeater->add_control(
-			'principle_title',
+		$repeater->add_control(
+			'chapter_title',
 			array(
-				'label'   => __( 'Title', 'luxury-re-widgets' ),
+				'label'   => __( 'Chapter Title', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Exclusive Client Representation',
+				'default' => 'Archival Sourcing & Unlisted Holdings',
 			)
 		);
 
-		$principles_repeater->add_control(
-			'principle_desc',
+		$repeater->add_control(
+			'chapter_narrative',
 			array(
-				'label'   => __( 'Description', 'luxury-re-widgets' ),
+				'label'   => __( 'Editorial Narrative', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'Single-agency representation with 100% fiduciary allegiance committed exclusively to the buyer, eliminating dual-agency conflicts of interest.',
+				'default' => 'Over seventy percent of landmark architectural estates never reach public market channels. We unlock private generational trusts, sovereign registries, and unlisted portfolios directly for vetted principals.',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_detail_label',
+			array(
+				'label'   => __( 'Detail Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Curation Standard',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_detail_val',
+			array(
+				'label'   => __( 'Detail Statement', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Off-market provenance audit & pre-market institutional syndication',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_image',
+			array(
+				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'image_align',
+			array(
+				'label'   => __( 'Media Alignment', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'left'  => __( 'Media Left / Narrative Right', 'luxury-re-widgets' ),
+					'right' => __( 'Narrative Left / Media Right', 'luxury-re-widgets' ),
+				),
+				'default' => 'left',
 			)
 		);
 
 		$this->add_control(
-			'principles',
+			'chapters',
 			array(
-				'label'       => __( 'Principles List', 'luxury-re-widgets' ),
+				'label'       => __( 'Chapters', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $principles_repeater->get_controls(),
+				'fields'      => $repeater->get_controls(),
 				'default'     => array(
 					array(
-						'principle_num'   => '01',
-						'principle_tag'   => 'FIDUCIARY ALLEGIANCE',
-						'principle_title' => 'Exclusive Client Representation',
-						'principle_desc'  => 'Single-agency representation with 100% fiduciary allegiance committed exclusively to the buyer, eliminating dual-agency conflicts of interest.',
+						'chapter_num'          => 'I',
+						'chapter_tag'          => 'CURATION & EMBARGO',
+						'chapter_title'        => 'Archival Sourcing & Unlisted Holdings',
+						'chapter_narrative'    => 'Over seventy percent of landmark architectural estates never reach public market channels. We unlock private generational trusts, sovereign registries, and unlisted portfolios directly for vetted principals.',
+						'chapter_detail_label' => 'Curation Standard',
+						'chapter_detail_val'   => 'Off-market provenance forensics & direct family office syndication',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85' ),
+						'image_align'          => 'left',
 					),
 					array(
-						'principle_num'   => '02',
-						'principle_tag'   => 'OFF-MARKET MONOPOLY',
-						'principle_title' => 'Private Pocket Inventory',
-						'principle_desc'  => 'Direct access to unlisted trophy estates and confidential family office syndicates. Over 68% of our transactions never touch public real estate portals.',
+						'chapter_num'          => 'II',
+						'chapter_tag'          => 'STRUCTURAL INTEGRITY',
+						'chapter_title'        => 'Architectural Pedigree & Forensic Diligence',
+						'chapter_narrative'    => 'Beyond aesthetic grandeur lies structural lineage. We assemble world-tier structural engineers, conservation historians, and municipal land-sovereignty advisors before contractual commitment.',
+						'chapter_detail_label' => 'Advisory Audit',
+						'chapter_detail_val'   => 'Engineering integrity audit, boundary sovereignty & archival provenance',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85' ),
+						'image_align'          => 'right',
 					),
 					array(
-						'principle_num'   => '03',
-						'principle_tag'   => 'IDENTITY SHIELDING',
-						'principle_title' => 'Uncompromising Discretion & NDA',
-						'principle_desc'  => 'Rigorous confidentiality protocols, non-disclosure compliance, and private acquisition structuring for international investors and public figures.',
+						'chapter_num'          => 'III',
+						'chapter_tag'          => 'DISCRETION & SHIELDING',
+						'chapter_title'        => 'Blind Trusts & Sovereign Legal Structuring',
+						'chapter_narrative'    => 'Structuring multi-jurisdictional acquisitions with absolute discretion. We coordinate bilateral non-disclosure frameworks, domestic blind trusts, and confidential multi-currency escrow facilities.',
+						'chapter_detail_label' => 'Legal Architecture',
+						'chapter_detail_val'   => 'Fiduciary entity shielding, foreign tax treaty optimization & private escrow',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85' ),
+						'image_align'          => 'left',
+					),
+					array(
+						'chapter_num'          => 'IV',
+						'chapter_tag'          => 'CONCIERGE & SETTLEMENT',
+						'chapter_title'        => 'Confidential Settlement & Archival Handover',
+						'chapter_narrative'    => 'From discreet wire closing to secure biometric key exchange. We orchestrate private physical security transition, staff curation, and perpetual estate management concierge.',
+						'chapter_detail_label' => 'Handover Protocol',
+						'chapter_detail_val'   => 'Direct wire escrow, white-glove archival handover & perpetual concierge retention',
+						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85' ),
+						'image_align'          => 'right',
 					),
 				),
-				'title_field' => '{{{ principle_num }}} — {{{ principle_title }}}',
+				'title_field' => '{{{ chapter_num }}} — {{{ chapter_title }}}',
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── SECTION 3: 4 STRATEGIC ACQUISITION PHASES (ROADMAP) ──
+		// ── SECTION 3: MINIMAL INVITATION FOOTNOTE ──
 		$this->start_controls_section(
-			'section_phases',
+			'section_invitation',
 			array(
-				'label' => __( '2. Strategic Acquisition Phases (4 Milestones)', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$phases_repeater = new Repeater();
-
-		$phases_repeater->add_control(
-			'phase_num',
-			array(
-				'label'   => __( 'Phase Number', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '01',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'phase_nav_title',
-			array(
-				'label'   => __( 'Navigation Tab Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Discovery & Mandate',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'phase_tag',
-			array(
-				'label'   => __( 'Stage Tag / Category', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'CONFIDENTIAL DISCOVERY',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'phase_title',
-			array(
-				'label'   => __( 'Full Phase Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Private Mandate & Off-Market Sourcing',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'phase_summary',
-			array(
-				'label'   => __( 'Executive Summary', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'Direct engagement establishing bespoke architectural criteria, capital allocation models, and immediate activation across private seller networks.',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'phase_deliverables',
-			array(
-				'label'       => __( 'Advisory Deliverables (One per line)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'rows'        => 5,
-				'default'     => "Bespoke Architectural & Lifestyle Specification Audit\nDirect Access to Private Pocket & Unlisted Inventory\nMutual NDA & Fiduciary Blind Sourcing Protocol\nGlobal Capital Flow & Currency Positioning Advisory",
-				'description' => __( 'Enter each deliverable milestone on a separate line.', 'luxury-re-widgets' ),
-			)
-		);
-
-		$phases_repeater->add_control(
-			'protocol_badge',
-			array(
-				'label'   => __( 'Protocol Badge Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'STRICT BUYER ANONYMITY',
-			)
-		);
-
-		$phases_repeater->add_control(
-			'protocol_note',
-			array(
-				'label'   => __( 'Confidentiality Protocol Note', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'All initial property inquiries and discreet walk-throughs are executed under strict blind confidentiality agreements.',
-			)
-		);
-
-		$this->add_control(
-			'phases',
-			array(
-				'label'       => __( 'Acquisition Phases', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $phases_repeater->get_controls(),
-				'default'     => array(
-					array(
-						'phase_num'          => '01',
-						'phase_nav_title'    => 'Discovery & Mandate',
-						'phase_tag'          => 'CONFIDENTIAL DISCOVERY',
-						'phase_title'        => 'Private Mandate & Off-Market Sourcing',
-						'phase_summary'      => 'Direct engagement establishing bespoke architectural criteria, capital allocation models, and immediate activation across private seller networks.',
-						'phase_deliverables' => "Bespoke Architectural & Lifestyle Specification Audit\nDirect Access to Private Pocket & Unlisted Inventory\nMutual NDA & Fiduciary Blind Sourcing Protocol\nGlobal Capital Flow & Currency Positioning Advisory",
-						'protocol_badge'     => 'STRICT BUYER ANONYMITY',
-						'protocol_note'      => 'All initial property inquiries and discreet walk-throughs are executed under strict blind confidentiality agreements.',
-					),
-					array(
-						'phase_num'          => '02',
-						'phase_nav_title'    => 'Valuation & Structuring',
-						'phase_tag'          => 'FINANCIAL & LEGAL STRUCTURING',
-						'phase_title'        => 'Strategic Valuation & Privacy Architecture',
-						'phase_summary'      => 'Quantitative asset valuation auditing combined with bespoke legal structures designed specifically for domestic and international family offices.',
-						'phase_deliverables' => "Comparative Private Capital & Recent Off-Market Comps\nAnonymized Blind Trust & LLC Escrow Architecture\nCross-Border Tax Counsel & Capital Flow Coordination\nAsset Liquidity & Sovereign Wealth Allocation Review",
-						'protocol_badge'     => 'ENTITY SHIELDING ASSURED',
-						'protocol_note'      => 'Purchase entities, earnest deposit accounts, and transactional documentation are structured to keep principal identities unsearchable on public deeds.',
-					),
-					array(
-						'phase_num'          => '03',
-						'phase_nav_title'    => 'Forensic Diligence',
-						'phase_tag'          => 'FORENSIC AUDIT',
-						'phase_title'        => 'Architectural Forensics & Estate Diligence',
-						'phase_summary'      => 'Multi-disciplinary engineering, zoning, environmental, and private airspace/maritime boundary audits conducted prior to binding contractual offers.',
-						'phase_deliverables' => "Structural, Geological & Foundation Engineering Audit\nHistorical Provenance, Landmark & Coastal Boundary Review\nHelipad, Deepwater Dockage & Security Boundary Feasibility\nMechanical, Smart Home & Geothermal System Assessment",
-						'protocol_badge'     => 'UNBIASED TECHNICAL AUDIT',
-						'protocol_note'      => 'Diligence teams report solely to buyer counsel, maintaining an uncompromised standard of physical and regulatory verification.',
-					),
-					array(
-						'phase_num'          => '04',
-						'phase_nav_title'    => 'Private Settlement',
-						'phase_tag'          => 'SETTLEMENT & TRANSITION',
-						'phase_title'        => 'Private Settlement & Bespoke Concierge',
-						'phase_summary'      => 'Flawless closing execution featuring fortified wire escrows, deed record shielding, and immediate white-glove estate transition management.',
-						'phase_deliverables' => "Secured International Escrow & Multi-Currency Settlement\nTitle Insurance Indemnification & Blind Record Filing\nWhite-Glove Handover & Architectural Archive Transfer\nPrivate Security, Domestic Staff & Estate Management Onboarding",
-						'protocol_badge'     => 'FIDUCIARY CLOSING GUARANTEE',
-						'protocol_note'      => 'Closing documentation is archived in encrypted physical and digital vaults, ensuring zero public exposure post-transaction.',
-					),
-				),
-				'title_field' => 'Phase {{{ phase_num }}} — {{{ phase_nav_title }}}',
-			)
-		);
-
-		$this->end_controls_section();
-
-		// ── SECTION 4: PRIVATE ACQUISITION DOSSIER CONSOLE ──
-		$this->start_controls_section(
-			'section_dossier',
-			array(
-				'label' => __( '3. Private Dossier Console & Actions', 'luxury-re-widgets' ),
+				'label' => __( 'Fiduciary Invitation Footnote', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'show_dossier_card',
+			'show_invitation',
 			array(
-				'label'        => __( 'Show Dossier Card', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Invitation', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -371,197 +288,28 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'seal_top',
+			'invitation_link_text',
 			array(
-				'label'     => __( 'Seal Top Text', 'luxury-re-widgets' ),
+				'label'     => __( 'Link Text', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => 'PRIVATE CLIENT OFFICE',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
+				'default'   => 'Initiate Confidential Acquisition Inquiry —→',
+				'condition' => array( 'show_invitation' => 'yes' ),
 			)
 		);
 
 		$this->add_control(
-			'seal_bottom',
+			'invitation_url',
 			array(
-				'label'     => __( 'Seal Bottom Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'ESTABLISHED 2012',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'dossier_title',
-			array(
-				'label'     => __( 'Dossier Heading', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Request the Private Acquisition Monograph (2026 Edition)',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'dossier_subtitle',
-			array(
-				'label'     => __( 'Dossier Subtext', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXTAREA,
-				'rows'      => 3,
-				'default'   => 'A confidential 48-page monograph detailing off-market transaction metrics, tax entity considerations, and discreet contract structures for eight-figure acquisitions.',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'btn1_text',
-			array(
-				'label'     => __( 'Primary Button Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Request Acquisition Dossier',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'btn1_url',
-			array(
-				'label'       => __( 'Primary Button Link', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => __( 'https://...', 'luxury-re-widgets' ),
-				'default'     => array(
-					'url' => '#contact',
+				'label'         => __( 'Link Destination', 'luxury-re-widgets' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => __( '/contact/', 'luxury-re-widgets' ),
+				'show_external' => true,
+				'default'       => array(
+					'url'         => '/contact/',
+					'is_external' => false,
+					'nofollow'    => false,
 				),
-				'condition'   => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'btn2_text',
-			array(
-				'label'     => __( 'Secondary Link Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Consult Advisory Desk',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'btn2_url',
-			array(
-				'label'       => __( 'Secondary Link URL', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => __( 'https://...', 'luxury-re-widgets' ),
-				'default'     => array(
-					'url' => '/contact/',
-				),
-				'condition'   => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		// Trust Metrics Bar
-		$this->add_control(
-			'metric_1_val',
-			array(
-				'label'     => __( 'Metric 1 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '100%',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'metric_1_lbl',
-			array(
-				'label'     => __( 'Metric 1 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Discretion Guaranteed',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'metric_2_val',
-			array(
-				'label'     => __( 'Metric 2 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '$4.2B+',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'metric_2_lbl',
-			array(
-				'label'     => __( 'Metric 2 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Curated Volume',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'metric_3_val',
-			array(
-				'label'     => __( 'Metric 3 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '14 Days',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'metric_3_lbl',
-			array(
-				'label'     => __( 'Metric 3 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Private Sourcing Cycle',
-				'condition' => array( 'show_dossier_card' => 'yes' ),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// =================================================================
-		// TAB: STYLE
-		// =================================================================
-
-		// ── SECTION: SECTION STYLE ──
-		$this->start_controls_section(
-			'section_style_general',
-			array(
-				'label' => __( 'General Section Style', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
-
-		$this->add_control(
-			'bg_color',
-			array(
-				'label'     => __( 'Section Background', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#08080c',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-guide' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'section_padding',
-			array(
-				'label'      => __( 'Padding', 'luxury-re-widgets' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'default'    => array(
-					'top'      => '120',
-					'right'    => '0',
-					'bottom'   => '120',
-					'left'     => '0',
-					'unit'     => 'px',
-					'isLinked' => false,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .lre-guide' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
+				'condition'     => array( 'show_invitation' => 'yes' ),
 			)
 		);
 
@@ -570,260 +318,120 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'div' ), true ) ? $tag : 'h2';
 
-		// Check Elementor editor mode to guarantee visibility without waiting for scroll reveals
+		// Live Editor preview visibility guarantee
 		$is_edit_mode = false;
 		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
 			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
 		}
 		$reveal_class = $is_edit_mode ? 'revealed' : 'reveal';
 
-		$tag = ! empty( $settings['heading_tag'] ) ? esc_attr( $settings['heading_tag'] ) : 'h2';
+		$show_watermark = ( 'yes' === $settings['show_watermark'] );
+		$watermark_text = ! empty( $settings['watermark_text'] ) ? $settings['watermark_text'] : 'ACQUISITION';
+		$eyebrow        = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : 'Acquisition Protocol';
+		$heading_raw    = ! empty( $settings['heading'] ) ? $settings['heading'] : 'The Art of Sovereign Acquisition';
+		$description    = ! empty( $settings['description'] ) ? $settings['description'] : '';
 
-		// Parse heading lines for title-mask curtain reveal parity
-		$heading_raw = ! empty( $settings['heading'] ) ? $settings['heading'] : "The Sovereign Guide to<br>Ultra-Prime Property Acquisition";
-		$raw_lines   = explode( '<br>', str_replace( array( '<br/>', '<br />' ), '<br>', $heading_raw ) );
+		// Split heading lines for curtain reveal
+		$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
 		$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
 		if ( empty( $heading_lines ) ) {
 			$heading_lines = array( $heading_raw );
 		}
 
-		$principles = ! empty( $settings['principles'] ) ? $settings['principles'] : array();
-		$phases     = ! empty( $settings['phases'] ) ? $settings['phases'] : array();
+		$chapters = ! empty( $settings['chapters'] ) ? $settings['chapters'] : array();
 		?>
-		<section class="lre-guide" id="acquisition-protocol" aria-label="<?php esc_attr_e( 'Luxury Acquisition Protocol', 'luxury-re-widgets' ); ?>">
-			
-			<!-- Background Typographic Watermark -->
-			<?php if ( 'yes' === $settings['show_watermark'] && ! empty( $settings['watermark_text'] ) ) : ?>
-			<div class="lre-guide__watermark" aria-hidden="true"><?php echo esc_html( $settings['watermark_text'] ); ?></div>
+		<section class="lre-guide lre-guide--monograph" id="acquisition-protocol" aria-label="<?php esc_attr_e( 'Estate Acquisition Protocol', 'luxury-re-widgets' ); ?>">
+
+			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
+			<div class="lre-guide__watermark" aria-hidden="true"><?php echo esc_html( $watermark_text ); ?></div>
 			<?php endif; ?>
 
-			<div class="lre-guide__container">
+			<div class="container lre-guide__container">
 
-				<!-- ── 1. SECTION HEADER (Gold Bar & Title-Mask Parity) ── -->
+				<!-- ── 1. SECTION HEADER (Center-Aligned, Symmetrical Dual Gold Bars) ── -->
 				<header class="lre-guide__header <?php echo esc_attr( $reveal_class ); ?>">
-					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
+					<?php if ( ! empty( $eyebrow ) ) : ?>
 					<div class="lre-guide__eyebrow-wrap">
 						<span class="lre-guide__gold-bar" aria-hidden="true"></span>
-						<span class="lre-guide__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+						<span class="lre-guide__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+						<span class="lre-guide__gold-bar" aria-hidden="true"></span>
 					</div>
 					<?php endif; ?>
 
-					<<?php echo $tag; ?> class="lre-guide__heading">
+					<<?php echo $tag; ?> class="lre-guide__title">
 						<?php foreach ( $heading_lines as $h_idx => $h_line ) : ?>
 							<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
 						<?php endforeach; ?>
 					</<?php echo $tag; ?>>
 
-					<?php if ( ! empty( $settings['description'] ) ) : ?>
-					<p class="lre-guide__description">
-						<?php echo esc_html( $settings['description'] ); ?>
-					</p>
+					<?php if ( ! empty( $description ) ) : ?>
+					<p class="lre-guide__description"><?php echo esc_html( $description ); ?></p>
 					<?php endif; ?>
 				</header>
 
-				<!-- ── 2. UPPER TIER: 3 FIDUCIARY PRINCIPLES (Top Gold Border Cards) ── -->
-				<?php if ( ! empty( $principles ) ) : ?>
-				<div class="lre-guide__principles-grid <?php echo esc_attr( $reveal_class ); ?>">
-					<?php foreach ( $principles as $p_idx => $p ) :
-						$p_num  = esc_html( $p['principle_num'] ?? sprintf( '%02d', $p_idx + 1 ) );
-						$p_tag  = esc_html( $p['principle_tag'] ?? '' );
-						$p_titl = esc_html( $p['principle_title'] ?? '' );
-						$p_desc = esc_html( $p['principle_desc'] ?? '' );
+				<!-- ── 2. SEQUENTIAL EDITORIAL MONOGRAPH CHAPTERS ── -->
+				<?php if ( ! empty( $chapters ) ) : ?>
+				<div class="lre-guide__chapters">
+					<?php foreach ( $chapters as $c_idx => $ch ) :
+						$align     = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
+						$c_num     = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
+						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85';
+						$det_label = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : '';
+						$det_val   = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
 					?>
-					<div class="lre-guide__principle-card">
-						<div class="lre-guide__principle-top">
-							<span class="lre-guide__principle-num"><?php echo $p_num; ?></span>
-							<?php if ( ! empty( $p_tag ) ) : ?>
-							<span class="lre-guide__principle-tag"><?php echo $p_tag; ?></span>
+					<article class="lre-guide__chapter lre-guide__chapter--<?php echo esc_attr( $align ); ?> <?php echo esc_attr( $reveal_class ); ?>">
+						
+						<!-- Media Column (with signature .image-reveal shutter curtain) -->
+						<div class="lre-guide__chapter-media">
+							<div class="lre-guide__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+								<img src="<?php echo esc_url( $c_img ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-guide__chapter-img">
+								<div class="lre-guide__chapter-scrim" aria-hidden="true"></div>
+								<span class="lre-guide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
+							</div>
+						</div>
+
+						<!-- Narrative Column -->
+						<div class="lre-guide__chapter-content">
+							<div class="lre-guide__chapter-meta">
+								<span class="lre-guide__chapter-num"><?php echo esc_html( $c_num ); ?></span>
+								<span class="lre-guide__meta-sep" aria-hidden="true">/</span>
+								<span class="lre-guide__chapter-tag"><?php echo esc_html( $ch['chapter_tag'] ); ?></span>
+							</div>
+
+							<h3 class="lre-guide__chapter-title"><?php echo esc_html( $ch['chapter_title'] ); ?></h3>
+
+							<p class="lre-guide__chapter-narrative"><?php echo esc_html( $ch['chapter_narrative'] ); ?></p>
+
+							<?php if ( ! empty( $det_val ) ) : ?>
+							<div class="lre-guide__chapter-detail">
+								<?php if ( ! empty( $det_label ) ) : ?>
+								<span class="lre-guide__chapter-detail-label"><?php echo esc_html( $det_label ); ?></span>
+								<?php endif; ?>
+								<span class="lre-guide__chapter-detail-val"><?php echo esc_html( $det_val ); ?></span>
+							</div>
 							<?php endif; ?>
 						</div>
-						<h3 class="lre-guide__principle-title"><?php echo $p_titl; ?></h3>
-						<p class="lre-guide__principle-desc"><?php echo $p_desc; ?></p>
-					</div>
+
+					</article>
 					<?php endforeach; ?>
 				</div>
 				<?php endif; ?>
 
-				<!-- ── 3. MIDDLE TIER: THE 4 STRATEGIC ACQUISITION PHASES ROADMAP ── -->
-				<?php if ( ! empty( $phases ) ) : ?>
-				<div class="lre-guide__roadmap <?php echo esc_attr( $reveal_class ); ?>" id="acquisition-roadmap">
-					
-					<!-- Roadmap Stage Navigator Tabs -->
-					<div class="lre-guide__nav" role="tablist" aria-label="<?php esc_attr_e( 'Acquisition Phases', 'luxury-re-widgets' ); ?>">
-						<?php foreach ( $phases as $idx => $ph ) :
-							$num      = esc_html( $ph['phase_num'] ?? sprintf( '%02d', $idx + 1 ) );
-							$nav_titl = esc_html( $ph['phase_nav_title'] ?? ( 'Phase ' . $num ) );
-							$is_active = ( 0 === $idx );
-						?>
-						<button type="button" 
-						        class="lre-guide__nav-btn <?php echo $is_active ? 'active' : ''; ?>" 
-						        role="tab" 
-						        aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>" 
-						        aria-controls="phase-chamber-<?php echo esc_attr( $idx ); ?>" 
-						        id="phase-tab-<?php echo esc_attr( $idx ); ?>"
-						        data-phase-index="<?php echo esc_attr( $idx ); ?>">
-							<span class="lre-guide__nav-num"><?php echo $num; ?></span>
-							<span class="lre-guide__nav-text"><?php echo $nav_titl; ?></span>
-							<span class="lre-guide__nav-indicator" aria-hidden="true"></span>
-						</button>
-						<?php endforeach; ?>
-					</div>
-
-					<!-- Roadmap Detail Chambers Container -->
-					<div class="lre-guide__chambers">
-						<?php foreach ( $phases as $idx => $ph ) :
-							$num          = esc_html( $ph['phase_num'] ?? sprintf( '%02d', $idx + 1 ) );
-							$tag_text     = esc_html( $ph['phase_tag'] ?? '' );
-							$full_title   = esc_html( $ph['phase_title'] ?? '' );
-							$summary      = esc_html( $ph['phase_summary'] ?? '' );
-							$badge        = esc_html( $ph['protocol_badge'] ?? 'FIDUCIARY STANDARD' );
-							$note         = esc_html( $ph['protocol_note'] ?? '' );
-							$is_active    = ( 0 === $idx );
-
-							// Parse deliverables checklist
-							$raw_deliv    = $ph['phase_deliverables'] ?? '';
-							$deliverables = array_filter( array_map( 'trim', explode( "\n", str_replace( "\r", '', $raw_deliv ) ) ) );
-						?>
-						<div class="lre-guide__chamber <?php echo $is_active ? 'active' : ''; ?>" 
-						     id="phase-chamber-<?php echo esc_attr( $idx ); ?>" 
-						     role="tabpanel" 
-						     aria-labelledby="phase-tab-<?php echo esc_attr( $idx ); ?>"
-						     data-phase-panel="<?php echo esc_attr( $idx ); ?>">
-							
-							<!-- Chamber Header -->
-							<div class="lre-guide__chamber-header">
-								<div class="lre-guide__chamber-meta">
-									<span class="lre-guide__chamber-num"><?php echo $num; ?></span>
-									<?php if ( ! empty( $tag_text ) ) : ?>
-									<span class="lre-guide__chamber-tag"><?php echo $tag_text; ?></span>
-									<?php endif; ?>
-								</div>
-								<h3 class="lre-guide__chamber-title"><?php echo $full_title; ?></h3>
-								<p class="lre-guide__chamber-summary"><?php echo $summary; ?></p>
-							</div>
-
-							<!-- Chamber Content Grid: Deliverables Checklist + Protocol Callout -->
-							<div class="lre-guide__chamber-body">
-								
-								<?php if ( ! empty( $deliverables ) ) : ?>
-								<div class="lre-guide__deliverables-block">
-									<h4 class="lre-guide__block-heading">
-										<span class="lre-guide__block-dot"></span>
-										<?php esc_html_e( 'Key Advisory Deliverables', 'luxury-re-widgets' ); ?>
-									</h4>
-									<ul class="lre-guide__checklist">
-										<?php foreach ( $deliverables as $deliv_item ) : ?>
-										<li class="lre-guide__checklist-item">
-											<span class="lre-guide__check-icon" aria-hidden="true">
-												<svg viewBox="0 0 20 20" fill="none" width="16" height="16">
-													<circle cx="10" cy="10" r="9" stroke="rgba(197, 160, 71, 0.4)" stroke-width="1.2"/>
-													<path d="M6 10.2L8.6 13L14 7" stroke="#c5a047" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-												</svg>
-											</span>
-											<span class="lre-guide__checklist-text"><?php echo esc_html( $deliv_item ); ?></span>
-										</li>
-										<?php endforeach; ?>
-									</ul>
-								</div>
-								<?php endif; ?>
-
-								<!-- Protocol & Discretion Note Callout -->
-								<div class="lre-guide__protocol-card">
-									<div class="lre-guide__protocol-top">
-										<svg class="lre-guide__protocol-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#c5a047" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-											<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-											<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-										</svg>
-										<span class="lre-guide__protocol-badge"><?php echo $badge; ?></span>
-									</div>
-									<p class="lre-guide__protocol-note"><?php echo $note; ?></p>
-								</div>
-
-							</div>
-
-						</div>
-						<?php endforeach; ?>
-					</div>
-
-				</div>
-				<?php endif; ?>
-
-				<!-- ── 4. LOWER TIER: THE PRIVATE ACQUISITION DOSSIER CONSOLE ── -->
-				<?php if ( 'yes' === $settings['show_dossier_card'] ) :
-					$btn1_url = ! empty( $settings['btn1_url']['url'] ) ? esc_url( $settings['btn1_url']['url'] ) : '#contact';
-					$btn1_ext = ! empty( $settings['btn1_url']['is_external'] ) ? ' target="_blank"' : '';
-					$btn2_url = ! empty( $settings['btn2_url']['url'] ) ? esc_url( $settings['btn2_url']['url'] ) : '/contact/';
-					$btn2_ext = ! empty( $settings['btn2_url']['is_external'] ) ? ' target="_blank"' : '';
+				<!-- ── 3. MINIMALIST INVITATION FOOTNOTE ── -->
+				<?php if ( 'yes' === ( $settings['show_invitation'] ?? 'yes' ) ) :
+					$inv_url = ! empty( $settings['invitation_url']['url'] ) ? $settings['invitation_url']['url'] : '/contact/';
+					$inv_target = ! empty( $settings['invitation_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 				?>
-				<div class="lre-guide__dossier-console <?php echo esc_attr( $reveal_class ); ?>">
-					
-					<!-- Left / Upper: Rotating Fiduciary Seal & Dossier Overview -->
-					<div class="lre-guide__dossier-main">
-						
-						<!-- Rotating Trust Seal (Reviews & Contact Parity) -->
-						<div class="lre-guide__seal-wrap">
-							<div class="lre-guide__seal-ring">
-								<svg class="lre-guide__seal-svg" viewBox="0 0 100 100" width="76" height="76" aria-hidden="true">
-									<circle cx="50" cy="50" r="46" fill="none" stroke="rgba(197, 160, 71, 0.35)" stroke-width="1.2" stroke-dasharray="2 3"/>
-									<circle cx="50" cy="50" r="41" fill="none" stroke="rgba(197, 160, 71, 0.6)" stroke-width="1"/>
-									<polygon points="50,18 59,36 78,39 63,52 68,71 50,60 32,71 37,52 22,39 41,36" fill="none" stroke="#c5a047" stroke-width="1.2" stroke-linejoin="round"/>
-									<circle cx="50" cy="50" r="4" fill="#c5a047"/>
-								</svg>
-							</div>
-							<div class="lre-guide__seal-meta">
-								<span class="lre-guide__seal-top"><?php echo esc_html( $settings['seal_top'] ); ?></span>
-								<span class="lre-guide__seal-bottom"><?php echo esc_html( $settings['seal_bottom'] ); ?></span>
-							</div>
-						</div>
-
-						<!-- Dossier Monograph Briefing -->
-						<div class="lre-guide__dossier-content">
-							<h3 class="lre-guide__dossier-title"><?php echo esc_html( $settings['dossier_title'] ); ?></h3>
-							<p class="lre-guide__dossier-desc"><?php echo esc_html( $settings['dossier_subtitle'] ); ?></p>
-							
-							<!-- Action Buttons (Architectural Glass Outline Parity) -->
-							<div class="lre-guide__actions">
-								<?php if ( ! empty( $settings['btn1_text'] ) ) : ?>
-								<a href="<?php echo $btn1_url; ?>" class="lre-guide__btn-primary"<?php echo $btn1_ext; ?>>
-									<span><?php echo esc_html( $settings['btn1_text'] ); ?></span>
-									<svg class="lre-guide__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-										<line x1="5" y1="12" x2="19" y2="12"></line>
-										<polyline points="12 5 19 12 12 19"></polyline>
-									</svg>
-								</a>
-								<?php endif; ?>
-
-								<?php if ( ! empty( $settings['btn2_text'] ) ) : ?>
-								<a href="<?php echo $btn2_url; ?>" class="lre-guide__btn-secondary"<?php echo $btn2_ext; ?>>
-									<span><?php echo esc_html( $settings['btn2_text'] ); ?></span>
-									<svg class="lre-guide__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-										<line x1="5" y1="12" x2="19" y2="12"></line>
-										<polyline points="12 5 19 12 12 19"></polyline>
-									</svg>
-								</a>
-								<?php endif; ?>
-							</div>
-						</div>
-
-					</div>
-
-					<!-- Right / Lower: Live Trust Metrics Grid (Reviews Parity) -->
-					<div class="lre-guide__metrics-grid">
-						<div class="lre-guide__metric-item">
-							<span class="lre-guide__metric-val"><?php echo esc_html( $settings['metric_1_val'] ); ?></span>
-							<span class="lre-guide__metric-lbl"><?php echo esc_html( $settings['metric_1_lbl'] ); ?></span>
-						</div>
-						<div class="lre-guide__metric-item">
-							<span class="lre-guide__metric-val"><?php echo esc_html( $settings['metric_2_val'] ); ?></span>
-							<span class="lre-guide__metric-lbl"><?php echo esc_html( $settings['metric_2_lbl'] ); ?></span>
-						</div>
-						<div class="lre-guide__metric-item">
-							<span class="lre-guide__metric-val"><?php echo esc_html( $settings['metric_3_val'] ); ?></span>
-							<span class="lre-guide__metric-lbl"><?php echo esc_html( $settings['metric_3_lbl'] ); ?></span>
-						</div>
-					</div>
-
+				<div class="lre-guide__invitation <?php echo esc_attr( $reveal_class ); ?>">
+					<?php if ( ! empty( $settings['invitation_link_text'] ) ) : ?>
+					<a href="<?php echo esc_url( $inv_url ); ?>" class="lre-guide__invitation-link"<?php echo $inv_target; ?>>
+						<span><?php echo esc_html( $settings['invitation_link_text'] ); ?></span>
+					</a>
+					<?php endif; ?>
 				</div>
 				<?php endif; ?>
 

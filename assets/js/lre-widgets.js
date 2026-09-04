@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__principles-grid, .lre-guide__roadmap, .lre-guide__dossier-console, .lre-sguide__header, .lre-sguide__chapter, .lre-sguide__invitation' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__chapter, .lre-guide__invitation, .lre-sguide__header, .lre-sguide__chapter, .lre-sguide__invitation' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }
@@ -1472,38 +1472,13 @@
     // -------------------------------------------------------------------------
     // BUYING GUIDE & ACQUISITION PROTOCOL WIDGET
     // -------------------------------------------------------------------------
+    // =========================================================================
+    // 18. BUYING GUIDE — Super-Luxury Editorial Monograph
+    // =========================================================================
     LREWidgets.BuyingGuide = {
         init: function ( $scope ) {
-            var container = $scope && $scope.length ? $scope[0] : document;
-            var guideSections = container.querySelectorAll( '.lre-guide' );
-
-            guideSections.forEach( function ( section ) {
-                var navBtns = section.querySelectorAll( '.lre-guide__nav-btn' );
-                var chambers = section.querySelectorAll( '.lre-guide__chamber' );
-
-                if ( ! navBtns.length || ! chambers.length ) return;
-
-                navBtns.forEach( function ( btn ) {
-                    btn.addEventListener( 'click', function () {
-                        var targetIdx = this.getAttribute( 'data-phase-index' );
-
-                        navBtns.forEach( function ( b ) {
-                            b.classList.remove( 'active' );
-                            b.setAttribute( 'aria-selected', 'false' );
-                        } );
-                        this.classList.add( 'active' );
-                        this.setAttribute( 'aria-selected', 'true' );
-
-                        chambers.forEach( function ( ch ) {
-                            if ( ch.getAttribute( 'data-phase-panel' ) === targetIdx ) {
-                                ch.classList.add( 'active' );
-                            } else {
-                                ch.classList.remove( 'active' );
-                            }
-                        } );
-                    } );
-                } );
-            } );
+            LREWidgets.initReveals( $scope );
+            LREWidgets.initImageZoom( $scope );
         }
     };
 

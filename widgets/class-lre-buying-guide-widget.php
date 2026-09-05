@@ -268,52 +268,6 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 3: MINIMAL INVITATION FOOTNOTE ──
-		$this->start_controls_section(
-			'section_invitation',
-			array(
-				'label' => __( 'Fiduciary Invitation Footnote', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'show_invitation',
-			array(
-				'label'        => __( 'Show Invitation', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'invitation_link_text',
-			array(
-				'label'     => __( 'Link Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Initiate Confidential Acquisition Inquiry —→',
-				'condition' => array( 'show_invitation' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'invitation_url',
-			array(
-				'label'         => __( 'Link Destination', 'luxury-re-widgets' ),
-				'type'          => Controls_Manager::URL,
-				'placeholder'   => __( '/contact/', 'luxury-re-widgets' ),
-				'show_external' => true,
-				'default'       => array(
-					'url'         => '/contact/',
-					'is_external' => false,
-					'nofollow'    => false,
-				),
-				'condition'     => array( 'show_invitation' => 'yes' ),
-			)
-		);
-
-		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -418,20 +372,6 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 
 					</article>
 					<?php endforeach; ?>
-				</div>
-				<?php endif; ?>
-
-				<!-- ── 3. MINIMALIST INVITATION FOOTNOTE ── -->
-				<?php if ( 'yes' === ( $settings['show_invitation'] ?? 'yes' ) ) :
-					$inv_url = ! empty( $settings['invitation_url']['url'] ) ? $settings['invitation_url']['url'] : '/contact/';
-					$inv_target = ! empty( $settings['invitation_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
-				?>
-				<div class="lre-guide__invitation <?php echo esc_attr( $reveal_class ); ?>">
-					<?php if ( ! empty( $settings['invitation_link_text'] ) ) : ?>
-					<a href="<?php echo esc_url( $inv_url ); ?>" class="lre-guide__invitation-link"<?php echo $inv_target; ?>>
-						<span><?php echo esc_html( $settings['invitation_link_text'] ); ?></span>
-					</a>
-					<?php endif; ?>
 				</div>
 				<?php endif; ?>
 

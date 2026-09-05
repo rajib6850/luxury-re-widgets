@@ -10801,13 +10801,13 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 /* ── Typographic Watermark (Matching About, Team & About Services) ── */
 .lre-guide__watermark {
   position: absolute;
-  top: 3.5rem;
+  top: 3.2rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: var(--font-size-watermark, clamp(5.5rem, 14vw, 13rem));
+  font-size: clamp(3.6rem, 8vw, 7.2rem);
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.032);
   white-space: nowrap;
@@ -11000,49 +11000,6 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── 3. Minimalist Fiduciary Invitation ── */
-.lre-guide__invitation {
-  margin-top: 8rem;
-  padding-top: 4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lre-guide__invitation-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.25rem;
-  color: #ffffff;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
-}
-
-.lre-guide__invitation-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.4);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.lre-guide__invitation-link:hover {
-  color: #c5a047;
-}
-
-.lre-guide__invitation-link:hover::after {
-  background: #c5a047;
-}
-
 /* ==========================================================================
    21. SELLER'S GUIDE & ESTATE DISPOSITION (lre_sellers_guide)
    ========================================================================== */
@@ -11075,13 +11032,13 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 /* ── Typographic Watermark (Matching About, Team & About Services) ── */
 .lre-sguide__watermark {
   position: absolute;
-  top: 3.5rem;
+  top: 3.2rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: var(--font-size-watermark, clamp(5.5rem, 14vw, 13rem));
+  font-size: clamp(3.6rem, 8vw, 7.2rem);
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.032);
   white-space: nowrap;
@@ -11282,112 +11239,203 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── 3. Minimalist Fiduciary Invitation ── */
-.lre-sguide__invitation {
-  margin-top: 8rem;
-  padding-top: 4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lre-sguide__invitation-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.25rem;
-  color: #ffffff;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
-}
-
-.lre-sguide__invitation-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.4);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.lre-sguide__invitation-link:hover {
-  color: #c5a047;
-}
-
-.lre-sguide__invitation-link:hover::after {
-  background: #c5a047;
-}
-
-/* ── Responsive Refinements ── */
+/* ── Unified Responsive Refinements (Buyer's Guide & Seller's Guide Parity) ── */
 @media (max-width: 1024px) {
+  .lre-guide,
   .lre-sguide {
-    padding: 100px 0 !important;
+    padding: 95px 0 !important;
   }
+  .lre-guide__container,
+  .lre-sguide__container {
+    padding: 0 28px;
+  }
+  .lre-guide__header,
   .lre-sguide__header {
     margin-bottom: 4.5rem;
   }
+  .lre-guide__watermark,
+  .lre-sguide__watermark {
+    font-size: clamp(2.8rem, 7.5vw, 5.2rem);
+    letter-spacing: 0.15em;
+    top: 2.4rem;
+  }
+  .lre-guide__chapters,
   .lre-sguide__chapters {
     gap: 5.5rem;
   }
+  .lre-guide__chapter,
   .lre-sguide__chapter {
     grid-template-columns: 1fr !important;
     gap: 2.5rem;
   }
+  .lre-guide__chapter--right .lre-guide__chapter-media,
   .lre-sguide__chapter--right .lre-sguide__chapter-media {
     order: 1 !important;
   }
+  .lre-guide__chapter--right .lre-guide__chapter-content,
   .lre-sguide__chapter--right .lre-sguide__chapter-content {
     order: 2 !important;
   }
-  .lre-sguide__invitation {
-    margin-top: 5rem;
-    padding-top: 3rem;
-  }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+  .lre-guide,
   .lre-sguide {
     padding: 70px 0 !important;
   }
+  .lre-guide__container,
   .lre-sguide__container {
     padding: 0 20px;
   }
+  .lre-guide__header,
   .lre-sguide__header {
     margin-bottom: 3.5rem;
   }
+  .lre-guide__watermark,
+  .lre-sguide__watermark {
+    font-size: clamp(2rem, 7vw, 3.8rem);
+    letter-spacing: 0.12em;
+    top: 1.8rem;
+  }
+  .lre-guide__chapters,
   .lre-sguide__chapters {
     gap: 4.5rem;
   }
+  .lre-guide__chapter,
+  .lre-sguide__chapter {
+    gap: 2rem;
+  }
+  .lre-guide__media-frame,
   .lre-sguide__media-frame {
     aspect-ratio: 16 / 10;
   }
+  .lre-guide__chapter-title,
   .lre-sguide__chapter-title {
+    font-size: clamp(1.4rem, 4.2vw, 1.85rem);
     margin-bottom: 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
-  .lre-sguide__invitation {
-    margin-top: 4rem;
-    padding-top: 2.5rem;
-  }
-  .lre-sguide__invitation-link {
-    font-size: 1.05rem;
+  .lre-guide__chapter-narrative,
+  .lre-sguide__chapter-narrative {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
+  .lre-guide,
   .lre-sguide {
-    padding: 50px 0 !important;
+    padding: 55px 0 !important;
   }
+  .lre-guide__container,
+  .lre-sguide__container {
+    padding: 0 16px;
+  }
+  .lre-guide__header,
+  .lre-sguide__header {
+    margin-bottom: 2.6rem;
+  }
+  .lre-guide__title,
+  .lre-sguide__title {
+    font-size: clamp(1.75rem, 7.5vw, 2.2rem) !important;
+    margin-bottom: 1rem;
+  }
+  .lre-guide__description,
+  .lre-sguide__description {
+    font-size: 0.85rem !important;
+    line-height: 1.7;
+  }
+  .lre-guide__watermark,
   .lre-sguide__watermark {
-    font-size: clamp(2.4rem, 15vw, 3.8rem);
+    font-size: clamp(1.5rem, 6.5vw, 2.6rem);
     letter-spacing: 0.1em;
-    top: 1.5rem;
+    top: 1.4rem;
+  }
+  .lre-guide__chapters,
+  .lre-sguide__chapters {
+    gap: 3.5rem;
+  }
+  .lre-guide__chapter,
+  .lre-sguide__chapter {
+    gap: 1.4rem;
+  }
+  .lre-guide__media-frame,
+  .lre-sguide__media-frame {
+    aspect-ratio: 16 / 10;
+  }
+  .lre-guide__chapter-badge-num,
+  .lre-sguide__chapter-badge-num {
+    bottom: 12px;
+    left: 14px;
+    font-size: 1.15rem;
+  }
+  .lre-guide__chapter-meta,
+  .lre-sguide__chapter-meta {
+    gap: 8px;
+    margin-bottom: 0.75rem;
+  }
+  .lre-guide__chapter-num,
+  .lre-sguide__chapter-num {
+    font-size: 1.15rem;
+  }
+  .lre-guide__chapter-tag,
+  .lre-sguide__chapter-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+  }
+  .lre-guide__chapter-title,
+  .lre-sguide__chapter-title {
+    font-size: clamp(1.3rem, 5.5vw, 1.6rem);
+    line-height: 1.35;
+    margin-bottom: 0.85rem;
+  }
+  .lre-guide__chapter-narrative,
+  .lre-sguide__chapter-narrative {
+    font-size: 0.86rem;
+    line-height: 1.7;
+    margin-bottom: 1.35rem;
+  }
+  .lre-guide__chapter-detail,
+  .lre-sguide__chapter-detail {
+    padding-top: 1.1rem;
+    gap: 4px;
+  }
+  .lre-guide__chapter-detail-label,
+  .lre-sguide__chapter-detail-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+  .lre-guide__chapter-detail-val,
+  .lre-sguide__chapter-detail-val {
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 360px) {
+  .lre-guide__container,
+  .lre-sguide__container {
+    padding: 0 12px;
+  }
+  .lre-guide__header,
+  .lre-sguide__header {
+    margin-bottom: 2.2rem;
+  }
+  .lre-guide__watermark,
+  .lre-sguide__watermark {
+    font-size: clamp(1.2rem, 6vw, 1.8rem);
+    letter-spacing: 0.08em;
+    top: 1.1rem;
+  }
+  .lre-guide__chapters,
+  .lre-sguide__chapters {
+    gap: 3rem;
+  }
+  .lre-guide__chapter-detail-val,
+  .lre-sguide__chapter-detail-val {
+    font-size: 0.76rem;
   }
 }
 
@@ -11468,40 +11516,6 @@ body.elementor-editor-active .lre-sguide__chapter-title .title-mask > span {
   opacity: 1 !important;
 }
 
-
-
-
-
-
-
-
-
-/* ── Responsive Parity for Guide Watermarks (Matching Team & About Services) ── */
-@media (max-width: 1024px) {
-  .lre-guide__watermark,
-  .lre-sguide__watermark {
-    font-size: clamp(4rem, 15vw, 8rem);
-    top: 2.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .lre-guide__watermark,
-  .lre-sguide__watermark {
-    font-size: clamp(3rem, 16vw, 5rem);
-    letter-spacing: 0.14em;
-    top: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .lre-guide__watermark,
-  .lre-sguide__watermark {
-    font-size: clamp(2.4rem, 15vw, 3.8rem);
-    letter-spacing: 0.1em;
-    top: 1.5rem;
-  }
-}
 
 /* ── Editor Preview Guarantee for Guide Watermarks ── */
 body.elementor-editor-active .lre-guide__watermark,

@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__chapter, .lre-guide__invitation, .lre-sguide__header, .lre-sguide__chapter, .lre-sguide__invitation' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__chapter, .lre-sguide__header, .lre-sguide__chapter' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }

@@ -825,7 +825,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Button Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__menu-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__menu-btn' => 'color: {{VALUE}} !important; border: none !important; background: transparent !important;',
 				),
 			)
 		);
@@ -844,7 +844,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__menu-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__menu-btn:hover' => 'color: {{VALUE}} !important; border: none !important; background: transparent !important;',
 				),
 			)
 		);

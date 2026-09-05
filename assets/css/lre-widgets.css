@@ -900,11 +900,18 @@ button.btn {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   padding: 0.5rem 0.25rem;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   transition: color 0.3s ease;
 }
 
 .navbar__menu-btn:hover {
   color: var(--color-secondary);
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .navbar__menu-btn .hamburger {
@@ -4582,7 +4589,7 @@ button.back-to-top {
   background-image: none !important;
 }
 
-/* 2. NAVBAR MENU BUTTON (#menu-open-btn) â€” Zero Pink Border / Box */
+/* 2. NAVBAR MENU BUTTON (#menu-open-btn) — Zero Border, Zero Box (Normal & Hover) */
 button.navbar__menu-btn,
 button#menu-open-btn,
 button.navbar__mobile-toggle,
@@ -4591,10 +4598,13 @@ button.navbar__mobile-toggle,
 .navbar button.navbar__menu-btn {
   background: transparent !important;
   background-color: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  border-radius: 2px !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
   color: #ffffff !important;
-  padding: 0.5rem 0.85rem !important;
+  padding: 0.5rem 0.25rem !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.6rem !important;
@@ -4607,16 +4617,22 @@ button.navbar__mobile-toggle,
   box-shadow: none !important;
   outline: none !important;
   outline-color: transparent !important;
-  transition: all 0.3s ease !important;
+  transition: color 0.3s ease !important;
 }
 
 button.navbar__menu-btn:hover,
 button#menu-open-btn:hover,
-.navbar__menu-btn:hover {
+.navbar__menu-btn:hover,
+.navbar button.navbar__menu-btn:hover {
   color: #c5a047 !important;
-  border-color: #c5a047 !important;
-  background: rgba(197, 160, 71, 0.08) !important;
-  background-color: rgba(197, 160, 71, 0.08) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 button.navbar__menu-btn .hamburger,

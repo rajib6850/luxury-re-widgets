@@ -670,13 +670,29 @@ button.btn,
 }
 
 .navbar .navbar__menu-btn,
-[class*="elementor-kit-"] .navbar .navbar__menu-btn {
+[class*="elementor-kit-"] .navbar .navbar__menu-btn,
+button.navbar__menu-btn,
+#menu-open-btn {
   color: #ffffff !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .navbar .navbar__menu-btn:hover,
-[class*="elementor-kit-"] .navbar .navbar__menu-btn:hover {
+[class*="elementor-kit-"] .navbar .navbar__menu-btn:hover,
+button.navbar__menu-btn:hover,
+#menu-open-btn:hover {
   color: var(--color-secondary, #c5a047) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .navbar a.navbar__submenu-link,

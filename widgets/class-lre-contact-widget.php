@@ -92,10 +92,10 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Mobile Stack Order (Mobile Screens)', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::SELECT,
-				'default'     => 'form_top',
+				'default'     => 'info_top',
 				'options'     => array(
-					'form_top' => __( 'Form on Top, Info on Bottom (Recommended)', 'luxury-re-widgets' ),
-					'info_top' => __( 'Info on Top, Form on Bottom', 'luxury-re-widgets' ),
+					'info_top' => __( 'Info on Top, Form on Bottom (Default)', 'luxury-re-widgets' ),
+					'form_top' => __( 'Form on Top, Info on Bottom', 'luxury-re-widgets' ),
 				),
 				'description' => __( 'Choose whether the form card or the contact details appears first on phones.', 'luxury-re-widgets' ),
 			)
@@ -1185,7 +1185,7 @@ class LRE_Contact_Widget extends Widget_Base {
 		// Layout Ordering
 		$desktop_layout = ! empty( $settings['desktop_layout'] ) ? $settings['desktop_layout'] : 'info_left';
 		$tablet_layout  = ! empty( $settings['tablet_stack_order'] ) ? $settings['tablet_stack_order'] : 'form_top';
-		$mobile_order   = ! empty( $settings['mobile_stack_order'] ) ? $settings['mobile_stack_order'] : 'form_top';
+		$mobile_order   = ! empty( $settings['mobile_stack_order'] ) ? $settings['mobile_stack_order'] : 'info_top';
 		?>
 		<section class="lre-contact" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>" aria-label="<?php echo esc_attr__( 'Contact Us', 'luxury-re-widgets' ); ?>">
 			

@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -13,12 +14,12 @@ use Elementor\Group_Control_Box_Shadow;
  * LRE_Contact_Widget
  *
  * Bespoke Ultra-Luxury Contact & Private Advisory Page Suite.
- * Rebuilt based directly on real-world luxury real estate references:
- * - Immersive full-bleed architectural estate photography backdrop with dark vignette overlay.
- * - Left Column: Monumental high-fashion headline, editorial narrative, direct phone/email coordinates,
- *   and an optional lead broker circular portrait card with address and social icons.
- * - Right Column: Sleek floating glassmorphism message card with a 2-column responsive input grid,
- *   interest dropdown, notes textarea, consent accord, and a high-contrast rounded pill submit button.
+ * Features an Elementor Pro Form style dynamic builder:
+ * - Dynamic Form Fields Repeater (Text, Email, Tel, Number, Textarea, Select, Checkbox, Radio, HTML)
+ * - Flexible Column Widths (100%, 75%, 66%, 50%, 33%, 25%)
+ * - Full Actions After Submit: Email Notifications with {{tokens}}, Client Auto-Responder,
+ *   Redirect URL, and direct Elementor Pro Submissions archiving.
+ * - Architectural full-bleed backdrop photography with responsive glassmorphism card.
  *
  * @package Luxury_RE_Widgets
  */
@@ -33,7 +34,7 @@ class LRE_Contact_Widget extends Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-mail';
+		return 'eicon-form-vertical';
 	}
 
 	public function get_categories() {
@@ -41,7 +42,7 @@ class LRE_Contact_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'contact', 'form', 'luxury', 'real estate', 'inquiry', 'agent', 'broker', 'message' );
+		return array( 'contact', 'form', 'luxury', 'real estate', 'inquiry', 'agent', 'broker', 'elementor pro form', 'lead' );
 	}
 
 	protected function register_controls() {
@@ -299,11 +300,11 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: FLOATING MESSAGE CARD & FORM ──
+		// ── SECTION: FLOATING MESSAGE CARD HEADER ──
 		$this->start_controls_section(
-			'section_message_card',
+			'section_form_card_header',
 			array(
-				'label' => __( 'Floating Message Card', 'luxury-re-widgets' ),
+				'label' => __( 'Form Card Header', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -326,46 +327,260 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'first_name_placeholder',
+		$this->end_controls_section();
+
+		// ── SECTION: FORM FIELDS (ELEMENTOR PRO STYLE REPEATER) ──
+		$this->start_controls_section(
+			'section_form_fields',
 			array(
-				'label'   => __( 'First Name Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'First Name *',
+				'label' => __( 'Form Fields', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'last_name_placeholder',
+			'show_field_labels',
 			array(
-				'label'   => __( 'Last Name Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Last Name *',
+				'label'        => __( 'Display Field Labels Above Inputs', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+				'description'  => __( 'If set to No, labels are shown inside placeholders for an editorial look.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'field_type',
+			array(
+				'label'   => __( 'Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'text'     => __( 'Text', 'luxury-re-widgets' ),
+					'email'    => __( 'Email', 'luxury-re-widgets' ),
+					'tel'      => __( 'Tel / Phone', 'luxury-re-widgets' ),
+					'number'   => __( 'Number', 'luxury-re-widgets' ),
+					'textarea' => __( 'Textarea (Multi-line)', 'luxury-re-widgets' ),
+					'select'   => __( 'Select Dropdown', 'luxury-re-widgets' ),
+					'checkbox' => __( 'Checkbox Group', 'luxury-re-widgets' ),
+					'radio'    => __( 'Radio Buttons', 'luxury-re-widgets' ),
+					'html'     => __( 'Custom HTML / Divider', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'field_label',
+			array(
+				'label'       => __( 'Label', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Field Label', 'luxury-re-widgets' ),
+				'placeholder' => __( 'e.g. First Name', 'luxury-re-widgets' ),
+			)
+		);
+
+		$repeater->add_control(
+			'placeholder',
+			array(
+				'label'       => __( 'Placeholder', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'Enter placeholder text', 'luxury-re-widgets' ),
+				'conditions'  => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'checkbox', 'radio', 'html' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'required',
+			array(
+				'label'        => __( 'Required Field', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+				'conditions'   => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'html' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'column_width',
+			array(
+				'label'   => __( 'Column Width', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '100',
+				'options' => array(
+					'100' => '100%',
+					'75'  => '75%',
+					'66'  => '66%',
+					'50'  => '50% (2 per row)',
+					'33'  => '33% (3 per row)',
+					'25'  => '25% (4 per row)',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'field_options',
+			array(
+				'label'       => __( 'Options (One per line)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => "Option 1\nOption 2\nOption 3",
+				'description' => __( 'Enter each option on a new line.', 'luxury-re-widgets' ),
+				'rows'        => 5,
+				'conditions'  => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => 'in',
+							'value'    => array( 'select', 'checkbox', 'radio' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'default_value',
+			array(
+				'label'      => __( 'Default Value', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::TEXT,
+				'default'    => '',
+				'conditions' => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'html' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'rows',
+			array(
+				'label'     => __( 'Rows', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 4,
+				'min'       => 2,
+				'max'       => 15,
+				'condition' => array(
+					'field_type' => 'textarea',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'raw_html',
+			array(
+				'label'       => __( 'HTML Content', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => '<div class="lre-contact__divider"></div>',
+				'rows'        => 4,
+				'condition'   => array(
+					'field_type' => 'html',
+				),
 			)
 		);
 
 		$this->add_control(
-			'email_placeholder',
+			'form_fields',
 			array(
-				'label'   => __( 'Email Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Email *',
+				'label'       => __( 'Form Fields', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'title_field' => '{{{ field_type.toUpperCase() }}}: {{{ field_label }}} ({{{ column_width }}}%)',
+				'default'     => array(
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'First Name', 'luxury-re-widgets' ),
+						'placeholder'  => __( 'First Name', 'luxury-re-widgets' ),
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'Last Name', 'luxury-re-widgets' ),
+						'placeholder'  => __( 'Last Name', 'luxury-re-widgets' ),
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'email',
+						'field_label'  => __( 'Email', 'luxury-re-widgets' ),
+						'placeholder'  => __( 'Email', 'luxury-re-widgets' ),
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'tel',
+						'field_label'  => __( 'Phone', 'luxury-re-widgets' ),
+						'placeholder'  => __( 'Phone', 'luxury-re-widgets' ),
+						'required'     => 'no',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Interest', 'luxury-re-widgets' ),
+						'placeholder'   => __( 'What are you looking for?', 'luxury-re-widgets' ),
+						'required'      => 'no',
+						'column_width'  => '100',
+						'field_options' => "Buying an Estate\nSelling a Property\nRelocation Services\nPrivate Portfolio Advisory\nGeneral Inquiries",
+					),
+					array(
+						'field_type'   => 'textarea',
+						'field_label'  => __( 'Message', 'luxury-re-widgets' ),
+						'placeholder'  => __( 'Notes, Questions', 'luxury-re-widgets' ),
+						'required'     => 'no',
+						'column_width' => '100',
+						'rows'         => 4,
+					),
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: SUBMIT BUTTON & CONSENT ──
+		$this->start_controls_section(
+			'section_submit_consent',
+			array(
+				'label' => __( 'Submit Button & Consent', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'phone_placeholder',
+			'submit_button_text',
 			array(
-				'label'   => __( 'Phone Placeholder', 'luxury-re-widgets' ),
+				'label'   => __( 'Button Text', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Phone *',
+				'default' => 'SUBMIT',
 			)
 		);
 
 		$this->add_control(
-			'show_inquiry_dropdown',
+			'show_consent',
 			array(
-				'label'        => __( 'Show Inquiry Selector', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Legal Consent Checkbox', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
 				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
@@ -375,55 +590,27 @@ class LRE_Contact_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'dropdown_placeholder',
-			array(
-				'label'     => __( 'Dropdown Placeholder', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'What are you looking for?',
-				'condition' => array(
-					'show_inquiry_dropdown' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'dropdown_options',
-			array(
-				'label'       => __( 'Inquiry Options (One per line)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'rows'        => 5,
-				'default'     => "Buying an Estate\nSelling a Property\nRelocation Services\nPrivate Portfolio Advisory\nGeneral Inquiries",
-				'condition'   => array(
-					'show_inquiry_dropdown' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
-			'message_placeholder',
-			array(
-				'label'   => __( 'Message Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Notes, Questions',
-			)
-		);
-
-		$this->add_control(
 			'consent_text',
 			array(
-				'label'   => __( 'Legal Consent Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'I agree to receive communications via voice call, AI voice call, or message from our team. Consent is not a condition of purchase. Msg/data rates may apply.',
+				'label'     => __( 'Legal Consent Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXTAREA,
+				'rows'      => 3,
+				'default'   => 'I agree to receive communications via voice call, AI voice call, or message from our team. Consent is not a condition of purchase. Msg/data rates may apply.',
+				'condition' => array(
+					'show_consent' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
 			'privacy_link_text',
 			array(
-				'label'   => __( 'Privacy Policy Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'PRIVACY POLICY *',
+				'label'     => __( 'Privacy Policy Link Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'PRIVACY POLICY *',
+				'condition' => array(
+					'show_consent' => 'yes',
+				),
 			)
 		);
 
@@ -434,15 +621,205 @@ class LRE_Contact_Widget extends Widget_Base {
 				'type'        => Controls_Manager::URL,
 				'placeholder' => 'https://...',
 				'default'     => array( 'url' => '#' ),
+				'condition'   => array(
+					'show_consent' => 'yes',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: ACTIONS AFTER SUBMIT ──
+		$this->start_controls_section(
+			'section_actions_after_submit',
+			array(
+				'label' => __( 'Actions After Submit', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'submit_button_text',
+			'enable_email_notification',
 			array(
-				'label'   => __( 'Submit Button Text', 'luxury-re-widgets' ),
+				'label'        => __( 'Send Admin Email Notification', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_client_autoresponder',
+			array(
+				'label'        => __( 'Send Client Confirmation Email', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_redirect',
+			array(
+				'label'        => __( 'Redirect After Submit', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: EMAIL NOTIFICATION SETTINGS ──
+		$this->start_controls_section(
+			'section_email_settings',
+			array(
+				'label'     => __( 'Email Notification (Admin)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_email_notification' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'email_to',
+			array(
+				'label'       => __( 'To Email(s)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_option( 'admin_email' ),
+				'description' => __( 'Comma-separated list of emails. Defaults to WordPress admin email.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'email_subject',
+			array(
+				'label'       => __( 'Subject', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'New Luxury Inquiry from {{First Name}} {{Last Name}}', 'luxury-re-widgets' ),
+				'description' => __( 'Tokens: Use any field label in double braces e.g. {{First Name}}, {{Email}}, {{Interest}}.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_name',
+			array(
+				'label'       => __( 'From Name', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_bloginfo( 'name' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_email',
+			array(
+				'label'       => __( 'From Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_option( 'admin_email' ),
+			)
+		);
+
+		$this->add_control(
+			'email_cc',
+			array(
+				'label'       => __( 'Cc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'cc@example.com',
+			)
+		);
+
+		$this->add_control(
+			'email_bcc',
+			array(
+				'label'       => __( 'Bcc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'bcc@example.com',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: CLIENT AUTO-RESPONDER ──
+		$this->start_controls_section(
+			'section_autoresponder_settings',
+			array(
+				'label'     => __( 'Client Auto-Responder Email', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_client_autoresponder' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_subject',
+			array(
+				'label'   => __( 'Subject', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'SUBMIT',
+				'default' => __( 'Inquiry Received | Private Advisory Office', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_message',
+			array(
+				'label'   => __( 'Message Body (HTML Allowed)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 6,
+				'default' => __( "Dear {{First Name}},\n\nThank you for reaching out to our advisory office. Your inquiry has been received with the highest confidentiality.\n\nA senior partner will review your request and get in touch shortly.\n\nWarm regards,\nPrivate Client Concierge", 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: REDIRECT SETTINGS ──
+		$this->start_controls_section(
+			'section_redirect_settings',
+			array(
+				'label'     => __( 'Redirect Settings', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_redirect' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'redirect_url',
+			array(
+				'label'       => __( 'Redirect URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://yoursite.com/thank-you',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: CUSTOM MESSAGES ──
+		$this->start_controls_section(
+			'section_custom_messages',
+			array(
+				'label' => __( 'Custom Messages', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'success_message',
+			array(
+				'label'   => __( 'Success Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Thank you. Your message has been received. A senior associate will respond shortly.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'error_message',
+			array(
+				'label'   => __( 'Error Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'An error occurred while sending your message. Please try again.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -452,11 +829,41 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
+		// ── STYLE: LAYOUT & PADDING ──
+		$this->start_controls_section(
+			'style_layout',
+			array(
+				'label' => __( 'Layout & Spacing', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'section_padding',
+			array(
+				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'default'    => array(
+					'top'      => '130',
+					'right'    => '40',
+					'bottom'   => '130',
+					'left'     => '40',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// ── STYLE: HEADLINE & TEXT ──
 		$this->start_controls_section(
-			'section_style_typography',
+			'style_typography',
 			array(
-				'label' => __( 'Typography & Colors', 'luxury-re-widgets' ),
+				'label' => __( 'Headline & Narrative', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -482,28 +889,32 @@ class LRE_Contact_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'accent_color',
+			'desc_color',
 			array(
-				'label'     => __( 'Gold Accent Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
+				'default'   => 'rgba(255, 255, 255, 0.72)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__direct-val:hover' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__privacy-link'     => 'color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__agent-avatar-wrap' => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__agent-eyebrow'    => 'color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__social-link:hover' => 'border-color: {{VALUE}}; color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__desc' => 'color: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'selector' => '{{WRAPPER}} .lre-contact__desc',
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── STYLE: FLOATING CARD ──
+		// ── STYLE: FLOATING FORM CARD ──
 		$this->start_controls_section(
-			'section_style_card',
+			'style_form_card',
 			array(
-				'label' => __( 'Floating Card & Inputs', 'luxury-re-widgets' ),
+				'label' => __( 'Form Card Appearance', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -513,9 +924,9 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Card Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(14, 15, 20, 0.88)',
+				'default'   => 'rgba(15, 17, 24, 0.88)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__card' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__card' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -536,14 +947,119 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'card_padding',
+			array(
+				'label'      => __( 'Card Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'default'    => array(
+					'top'      => '44',
+					'right'    => '40',
+					'bottom'   => '44',
+					'left'     => '40',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── STYLE: FORM INPUTS ──
+		$this->start_controls_section(
+			'style_form_fields',
+			array(
+				'label' => __( 'Form Inputs & Selectors', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'grid_gap',
+			array(
+				'label'      => __( 'Field Gap (Row & Col)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 6, 'max' => 30 ),
+				),
+				'default'    => array( 'size' => 14, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__form-grid' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_bg_color',
+			array(
+				'label'     => __( 'Input Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.05)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_text_color',
+			array(
+				'label'     => __( 'Input Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_border_color',
+			array(
+				'label'     => __( 'Input Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.14)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_focus_border_color',
+			array(
+				'label'     => __( 'Input Focus Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__input:focus, {{WRAPPER}} .lre-contact__select:focus, {{WRAPPER}} .lre-contact__textarea:focus' => 'border-color: {{VALUE}}; box-shadow: 0 0 0 1px {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── STYLE: SUBMIT BUTTON ──
+		$this->start_controls_section(
+			'style_submit_button',
+			array(
+				'label' => __( 'Submit Button', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
 		$this->add_control(
 			'btn_bg_color',
 			array(
-				'label'     => __( 'Button Background', 'luxury-re-widgets' ),
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#29323c',
+				'default'   => '#2b3340',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -551,78 +1067,87 @@ class LRE_Contact_Widget extends Widget_Base {
 		$this->add_control(
 			'btn_hover_bg_color',
 			array(
-				'label'     => __( 'Button Hover Background', 'luxury-re-widgets' ),
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'background-color: {{VALUE}}; color: #08080c;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'background: {{VALUE}}; border-color: {{VALUE}}; color: #08080c;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_text_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		// Phone formatting
-		$phone_raw   = ! empty( $settings['phone_number'] ) ? $settings['phone_number'] : '';
-		$phone_clean = preg_replace( '/[^0-9+]/', '', $phone_raw );
-		$email_raw   = ! empty( $settings['email_address'] ) ? $settings['email_address'] : '';
+		// Privacy Policy URL handling
+		$privacy_url = ! empty( $settings['privacy_link_url']['url'] ) ? $settings['privacy_link_url']['url'] : '#';
+		$privacy_ext = ! empty( $settings['privacy_link_url']['is_external'] ) ? ' target="_blank"' : '';
 
-		// Inquiry dropdown options
-		$dropdown_opts = array();
-		if ( ! empty( $settings['dropdown_options'] ) ) {
-			$lines = explode( "\n", str_replace( "\r", '', $settings['dropdown_options'] ) );
-			foreach ( $lines as $line ) {
-				$line = trim( $line );
-				if ( ! empty( $line ) ) {
-					$dropdown_opts[] = $line;
-				}
-			}
-		}
-
-		// Privacy link
-		$privacy_url = ! empty( $settings['privacy_link_url']['url'] ) ? esc_url( $settings['privacy_link_url']['url'] ) : '#';
-		$privacy_ext = ! empty( $settings['privacy_link_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+		// Dynamic Form Fields array
+		$form_fields = ! empty( $settings['form_fields'] ) ? $settings['form_fields'] : array();
 		?>
-		<section class="lre-contact lre-contact--bespoke" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>">
-			<!-- Immersive Photography Canvas -->
-			<div class="lre-contact__bg" aria-hidden="true"></div>
+		<section class="lre-contact" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>" aria-label="<?php echo esc_attr__( 'Contact Us', 'luxury-re-widgets' ); ?>">
+			
+			<!-- Atmosphere Backdrop -->
+			<div class="lre-contact__bg" role="img" aria-hidden="true"></div>
 			<div class="lre-contact__overlay" aria-hidden="true"></div>
 
+			<!-- Main Container -->
 			<div class="lre-contact__container">
-				
-				<!-- ================= LEFT COLUMN: HEADLINE & CONCIERGE ================= -->
+
+				<!-- ================= LEFT COLUMN: HEADLINE & DIRECT CHANNELS ================= -->
 				<div class="lre-contact__left">
 					
-					<?php if ( ! empty( $settings['headline'] ) ) : ?>
-						<h1 class="lre-contact__headline"><?php echo nl2br( esc_html( $settings['headline'] ) ); ?></h1>
-					<?php endif; ?>
+					<!-- Eyebrow & Monumental Title -->
+					<h1 class="lre-contact__headline">
+						<?php echo nl2br( esc_html( $settings['headline'] ) ); ?>
+					</h1>
 
+					<!-- Editorial Narrative -->
 					<?php if ( ! empty( $settings['description'] ) ) : ?>
-						<p class="lre-contact__desc"><?php echo wp_kses_post( $settings['description'] ); ?></p>
+						<p class="lre-contact__desc">
+							<?php echo nl2br( esc_html( $settings['description'] ) ); ?>
+						</p>
 					<?php endif; ?>
 
-					<!-- Direct Contact Links -->
+					<!-- Direct Coordinates -->
 					<div class="lre-contact__direct">
-						<?php if ( ! empty( $phone_raw ) ) : ?>
+						<?php if ( ! empty( $settings['phone_number'] ) ) : ?>
 							<div class="lre-contact__direct-item">
-								<span class="lre-contact__direct-label"><?php echo esc_html( $settings['phone_label'] ); ?></span>
-								<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="lre-contact__direct-val"><?php echo esc_html( $phone_raw ); ?></a>
+								<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['phone_label'] ); ?></span>
+								<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ); ?>" class="lre-contact__direct-val">
+									<?php echo esc_html( $settings['phone_number'] ); ?>
+								</a>
 							</div>
 						<?php endif; ?>
 
-						<?php if ( ! empty( $email_raw ) ) : ?>
+						<?php if ( ! empty( $settings['email_address'] ) ) : ?>
 							<div class="lre-contact__direct-item">
-								<span class="lre-contact__direct-label"><?php echo esc_html( $settings['email_label'] ); ?></span>
-								<a href="mailto:<?php echo esc_attr( $email_raw ); ?>" class="lre-contact__direct-val"><?php echo esc_html( $email_raw ); ?></a>
+								<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['email_label'] ); ?></span>
+								<a href="mailto:<?php echo esc_attr( $settings['email_address'] ); ?>" class="lre-contact__direct-val">
+									<?php echo esc_html( $settings['email_address'] ); ?>
+								</a>
 							</div>
 						<?php endif; ?>
 					</div>
 
-					<!-- Optional Lead Broker / Concierge Profile Card -->
+					<!-- Lead Broker / Office Profile -->
 					<?php if ( 'yes' === $settings['show_agent_profile'] ) : ?>
 						<div class="lre-contact__agent">
 							<?php if ( ! empty( $settings['agent_avatar']['url'] ) ) : ?>
@@ -633,7 +1158,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 							<div class="lre-contact__agent-meta">
 								<?php if ( ! empty( $settings['agent_eyebrow'] ) ) : ?>
-									<div class="lre-contact__agent-eyebrow"><?php echo esc_html( $settings['agent_eyebrow'] ); ?></div>
+									<span class="lre-contact__agent-eyebrow"><?php echo esc_html( $settings['agent_eyebrow'] ); ?></span>
 								<?php endif; ?>
 
 								<?php if ( ! empty( $settings['agent_name'] ) ) : ?>
@@ -641,11 +1166,11 @@ class LRE_Contact_Widget extends Widget_Base {
 								<?php endif; ?>
 
 								<?php if ( ! empty( $settings['agent_title'] ) ) : ?>
-									<div class="lre-contact__agent-title"><?php echo esc_html( $settings['agent_title'] ); ?></div>
+									<span class="lre-contact__agent-title"><?php echo esc_html( $settings['agent_title'] ); ?></span>
 								<?php endif; ?>
 
 								<?php if ( ! empty( $settings['office_address'] ) ) : ?>
-									<div class="lre-contact__agent-address"><?php echo nl2br( esc_html( $settings['office_address'] ) ); ?></div>
+									<p class="lre-contact__agent-address"><?php echo nl2br( esc_html( $settings['office_address'] ) ); ?></p>
 								<?php endif; ?>
 
 								<!-- Social Links -->
@@ -688,60 +1213,132 @@ class LRE_Contact_Widget extends Widget_Base {
 							<p class="lre-contact__card-subtitle"><?php echo esc_html( $settings['card_subtitle'] ); ?></p>
 						<?php endif; ?>
 
-						<form class="lre-contact__form" method="post" action="#" novalidate>
-							
-							<div class="lre-contact__grid">
-								<!-- First Name -->
-								<div class="lre-contact__field">
-									<label class="screen-reader-text" for="lre_cf_first_name_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['first_name_placeholder'] ); ?></label>
-									<input type="text" id="lre_cf_first_name_<?php echo esc_attr( $this->get_id() ); ?>" name="first_name" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['first_name_placeholder'] ); ?>" required />
-								</div>
+						<!-- Master Dynamic Form -->
+						<form class="lre-contact__form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" novalidate>
+							<input type="hidden" name="action" value="lre_contact_submit">
+							<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'lre_nonce' ) ); ?>">
+							<input type="hidden" name="widget_id" value="<?php echo esc_attr( $this->get_id() ); ?>">
+							<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
 
-								<!-- Last Name -->
-								<div class="lre-contact__field">
-									<label class="screen-reader-text" for="lre_cf_last_name_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['last_name_placeholder'] ); ?></label>
-									<input type="text" id="lre_cf_last_name_<?php echo esc_attr( $this->get_id() ); ?>" name="last_name" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['last_name_placeholder'] ); ?>" required />
-								</div>
+							<!-- Passing Configurations for Email & Notifications -->
+							<input type="hidden" name="email_to" value="<?php echo esc_attr( $settings['email_to'] ?? '' ); ?>">
+							<input type="hidden" name="email_subject" value="<?php echo esc_attr( $settings['email_subject'] ?? '' ); ?>">
+							<input type="hidden" name="sender_name" value="<?php echo esc_attr( $settings['sender_name'] ?? '' ); ?>">
+							<input type="hidden" name="sender_email" value="<?php echo esc_attr( $settings['sender_email'] ?? '' ); ?>">
+							<input type="hidden" name="email_cc" value="<?php echo esc_attr( $settings['email_cc'] ?? '' ); ?>">
+							<input type="hidden" name="email_bcc" value="<?php echo esc_attr( $settings['email_bcc'] ?? '' ); ?>">
+							<input type="hidden" name="enable_autoresponder" value="<?php echo esc_attr( $settings['enable_client_autoresponder'] ?? 'no' ); ?>">
+							<input type="hidden" name="autoresponder_subject" value="<?php echo esc_attr( $settings['autoresponder_subject'] ?? '' ); ?>">
+							<input type="hidden" name="autoresponder_message" value="<?php echo esc_attr( $settings['autoresponder_message'] ?? '' ); ?>">
+							<input type="hidden" name="redirect_url" value="<?php echo esc_attr( $settings['redirect_url']['url'] ?? '' ); ?>">
+							<input type="hidden" name="success_message" value="<?php echo esc_attr( $settings['success_message'] ?? '' ); ?>">
+							<input type="hidden" name="error_message" value="<?php echo esc_attr( $settings['error_message'] ?? '' ); ?>">
 
-								<!-- Email -->
-								<div class="lre-contact__field">
-									<label class="screen-reader-text" for="lre_cf_email_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['email_placeholder'] ); ?></label>
-									<input type="email" id="lre_cf_email_<?php echo esc_attr( $this->get_id() ); ?>" name="email" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['email_placeholder'] ); ?>" required />
-								</div>
+							<div class="lre-contact__form-grid">
+								<?php
+								$show_labels = ( 'yes' === ( $settings['show_field_labels'] ?? 'no' ) );
 
-								<!-- Phone -->
-								<div class="lre-contact__field">
-									<label class="screen-reader-text" for="lre_cf_phone_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['phone_placeholder'] ); ?></label>
-									<input type="tel" id="lre_cf_phone_<?php echo esc_attr( $this->get_id() ); ?>" name="phone" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['phone_placeholder'] ); ?>" />
-								</div>
+								foreach ( $form_fields as $idx => $field ) :
+									$f_type        = ! empty( $field['field_type'] ) ? $field['field_type'] : 'text';
+									$f_label       = ! empty( $field['field_label'] ) ? $field['field_label'] : '';
+									$f_placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
+									$f_required    = ! empty( $field['required'] ) && 'yes' === $field['required'];
+									$f_col         = ! empty( $field['column_width'] ) ? $field['column_width'] : '100';
+									$f_id          = ! empty( $field['_id'] ) ? $field['_id'] : 'f_' . $idx;
+									$f_input_id    = 'lre_in_' . esc_attr( $this->get_id() . '_' . $f_id );
+									$f_name_key    = ! empty( $f_label ) ? $f_label : 'field_' . $idx;
+									$f_name_attr   = 'lre_fields[' . esc_attr( $f_name_key ) . ']';
+									$raw_opts      = ! empty( $field['field_options'] ) ? array_filter( array_map( 'trim', explode( "\n", $field['field_options'] ) ) ) : array();
 
-								<!-- Inquiry Dropdown Selector -->
-								<?php if ( 'yes' === $settings['show_inquiry_dropdown'] && ! empty( $dropdown_opts ) ) : ?>
-									<div class="lre-contact__field lre-contact__field--full">
-										<label class="screen-reader-text" for="lre_cf_interest_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['dropdown_placeholder'] ); ?></label>
-										<div class="lre-contact__select-wrap">
-											<select id="lre_cf_interest_<?php echo esc_attr( $this->get_id() ); ?>" name="inquiry_type" class="lre-contact__select">
-												<option value="" disabled selected><?php echo esc_html( $settings['dropdown_placeholder'] ); ?></option>
-												<?php foreach ( $dropdown_opts as $opt ) : ?>
-													<option value="<?php echo esc_attr( $opt ); ?>"><?php echo esc_html( $opt ); ?></option>
+									// Placeholder fallback if empty
+									if ( empty( $f_placeholder ) && ! empty( $f_label ) && ! in_array( $f_type, array( 'checkbox', 'radio', 'html' ), true ) ) {
+										$f_placeholder = $f_label;
+									}
+									if ( $f_required && ! empty( $f_placeholder ) && ! $show_labels ) {
+										$f_placeholder .= ' *';
+									}
+									?>
+
+									<div class="lre-form-col lre-col-<?php echo esc_attr( $f_col ); ?> elementor-repeater-item-<?php echo esc_attr( $f_id ); ?>">
+										
+										<?php if ( $show_labels && ! empty( $f_label ) && ! in_array( $f_type, array( 'html', 'checkbox', 'radio' ), true ) ) : ?>
+											<label class="lre-contact__field-label" for="<?php echo esc_attr( $f_input_id ); ?>">
+												<?php echo esc_html( $f_label ); ?><?php if ( $f_required ) : ?> <span class="lre-req">*</span><?php endif; ?>
+											</label>
+										<?php endif; ?>
+
+										<?php if ( 'text' === $f_type ) : ?>
+											<input type="text" id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__input" placeholder="<?php echo esc_attr( $f_placeholder ); ?>" value="<?php echo esc_attr( $field['default_value'] ?? '' ); ?>" <?php echo $f_required ? 'required' : ''; ?> />
+
+										<?php elseif ( 'email' === $f_type ) : ?>
+											<input type="email" id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__input" placeholder="<?php echo esc_attr( $f_placeholder ); ?>" value="<?php echo esc_attr( $field['default_value'] ?? '' ); ?>" <?php echo $f_required ? 'required' : ''; ?> />
+
+										<?php elseif ( 'tel' === $f_type ) : ?>
+											<input type="tel" id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__input" placeholder="<?php echo esc_attr( $f_placeholder ); ?>" value="<?php echo esc_attr( $field['default_value'] ?? '' ); ?>" <?php echo $f_required ? 'required' : ''; ?> />
+
+										<?php elseif ( 'number' === $f_type ) : ?>
+											<input type="number" id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__input" placeholder="<?php echo esc_attr( $f_placeholder ); ?>" value="<?php echo esc_attr( $field['default_value'] ?? '' ); ?>" <?php echo $f_required ? 'required' : ''; ?> />
+
+										<?php elseif ( 'textarea' === $f_type ) : ?>
+											<textarea id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__textarea" rows="<?php echo esc_attr( $field['rows'] ?? 4 ); ?>" placeholder="<?php echo esc_attr( $f_placeholder ); ?>" <?php echo $f_required ? 'required' : ''; ?>><?php echo esc_textarea( $field['default_value'] ?? '' ); ?></textarea>
+
+										<?php elseif ( 'select' === $f_type ) : ?>
+											<div class="lre-contact__select-wrap">
+												<select id="<?php echo esc_attr( $f_input_id ); ?>" name="<?php echo esc_attr( $f_name_attr ); ?>" class="lre-contact__select" <?php echo $f_required ? 'required' : ''; ?>>
+													<?php if ( ! empty( $f_placeholder ) ) : ?>
+														<option value="" disabled <?php echo empty( $field['default_value'] ) ? 'selected' : ''; ?>><?php echo esc_html( $f_placeholder ); ?></option>
+													<?php endif; ?>
+													<?php foreach ( $raw_opts as $opt ) : ?>
+														<option value="<?php echo esc_attr( $opt ); ?>"<?php echo ( $opt === ( $field['default_value'] ?? '' ) ) ? ' selected' : ''; ?>><?php echo esc_html( $opt ); ?></option>
+													<?php endforeach; ?>
+												</select>
+												<span class="lre-contact__select-arrow" aria-hidden="true">
+													<svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+												</span>
+											</div>
+
+										<?php elseif ( 'checkbox' === $f_type ) : ?>
+											<?php if ( ! empty( $f_label ) ) : ?>
+												<div class="lre-contact__group-label"><?php echo esc_html( $f_label ); ?><?php if ( $f_required ) echo ' <span class="lre-req">*</span>'; ?></div>
+											<?php endif; ?>
+											<div class="lre-contact__checkbox-group">
+												<?php foreach ( $raw_opts as $opt ) : ?>
+													<label class="lre-contact__check-item">
+														<input type="checkbox" name="<?php echo esc_attr( $f_name_attr ); ?>[]" value="<?php echo esc_attr( $opt ); ?>" />
+														<span class="lre-contact__check-box" aria-hidden="true"></span>
+														<span class="lre-contact__check-text"><?php echo esc_html( $opt ); ?></span>
+													</label>
 												<?php endforeach; ?>
-											</select>
-											<span class="lre-contact__select-arrow" aria-hidden="true">
-												<svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-											</span>
-										</div>
-									</div>
-								<?php endif; ?>
+											</div>
 
-								<!-- Notes, Questions -->
-								<div class="lre-contact__field lre-contact__field--full">
-									<label class="screen-reader-text" for="lre_cf_notes_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['message_placeholder'] ); ?></label>
-									<textarea id="lre_cf_notes_<?php echo esc_attr( $this->get_id() ); ?>" name="notes" class="lre-contact__textarea" rows="4" placeholder="<?php echo esc_attr( $settings['message_placeholder'] ); ?>"></textarea>
-								</div>
+										<?php elseif ( 'radio' === $f_type ) : ?>
+											<?php if ( ! empty( $f_label ) ) : ?>
+												<div class="lre-contact__group-label"><?php echo esc_html( $f_label ); ?><?php if ( $f_required ) echo ' <span class="lre-req">*</span>'; ?></div>
+											<?php endif; ?>
+											<div class="lre-contact__radio-group">
+												<?php foreach ( $raw_opts as $opt ) : ?>
+													<label class="lre-contact__radio-item">
+														<input type="radio" name="<?php echo esc_attr( $f_name_attr ); ?>" value="<?php echo esc_attr( $opt ); ?>" <?php echo ( $opt === ( $field['default_value'] ?? '' ) ) ? 'checked' : ''; ?> />
+														<span class="lre-contact__radio-dot" aria-hidden="true"></span>
+														<span class="lre-contact__radio-text"><?php echo esc_html( $opt ); ?></span>
+													</label>
+												<?php endforeach; ?>
+											</div>
+
+										<?php elseif ( 'html' === $f_type ) : ?>
+											<div class="lre-contact__html-block">
+												<?php echo wp_kses_post( $field['raw_html'] ?? '' ); ?>
+											</div>
+
+										<?php endif; ?>
+
+									</div>
+
+								<?php endforeach; ?>
 							</div>
 
 							<!-- Legal Consent Checkbox -->
-							<?php if ( ! empty( $settings['consent_text'] ) ) : ?>
+							<?php if ( 'yes' === ( $settings['show_consent'] ?? 'yes' ) && ! empty( $settings['consent_text'] ) ) : ?>
 								<div class="lre-contact__consent">
 									<label class="lre-contact__consent-label">
 										<input type="checkbox" name="consent" class="lre-contact__consent-checkbox" required />

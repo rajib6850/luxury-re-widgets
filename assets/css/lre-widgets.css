@@ -10290,21 +10290,65 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   font-weight: 300;
 }
 
-/* 2-Column Responsive Input Grid */
-.lre-contact__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* Elementor Pro Style Dynamic Form Grid Engine */
+.lre-contact__form-grid {
+  display: flex;
+  flex-wrap: wrap;
   gap: 14px;
-  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.lre-contact__field {
+.lre-form-col {
+  box-sizing: border-box;
   position: relative;
+}
+
+.lre-col-100 {
+  flex: 0 0 100%;
+  max-width: 100%;
   width: 100%;
 }
 
-.lre-contact__field--full {
-  grid-column: 1 / -1;
+.lre-col-75 {
+  flex: 0 0 calc(75% - 3.5px);
+  max-width: calc(75% - 3.5px);
+}
+
+.lre-col-66 {
+  flex: 0 0 calc(66.666% - 4.7px);
+  max-width: calc(66.666% - 4.7px);
+}
+
+.lre-col-50 {
+  flex: 0 0 calc(50% - 7px);
+  max-width: calc(50% - 7px);
+}
+
+.lre-col-33 {
+  flex: 0 0 calc(33.333% - 9.3px);
+  max-width: calc(33.333% - 9.3px);
+}
+
+.lre-col-25 {
+  flex: 0 0 calc(25% - 10.5px);
+  max-width: calc(25% - 10.5px);
+}
+
+.lre-contact__field-label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 6px;
+}
+
+.lre-req {
+  color: #c5a047;
+  margin-left: 2px;
 }
 
 .lre-contact__input,
@@ -10373,9 +10417,122 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   line-height: 1.6;
 }
 
+/* Radio & Checkbox Groups */
+.lre-contact__group-label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 8px;
+}
+
+.lre-contact__checkbox-group,
+.lre-contact__radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.lre-contact__check-item,
+.lre-contact__radio-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.lre-contact__check-item:hover,
+.lre-contact__radio-item:hover {
+  border-color: #c5a047;
+  background: rgba(197, 160, 71, 0.08);
+}
+
+.lre-contact__check-item input,
+.lre-contact__radio-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lre-contact__check-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lre-contact__check-item input:checked ~ .lre-contact__check-box {
+  background: #c5a047;
+  border-color: #c5a047;
+}
+
+.lre-contact__check-item input:checked ~ .lre-contact__check-box::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 3px;
+  height: 7px;
+  border: solid #08080c;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.lre-contact__radio-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lre-contact__radio-item input:checked ~ .lre-contact__radio-dot {
+  border-color: #c5a047;
+}
+
+.lre-contact__radio-item input:checked ~ .lre-contact__radio-dot::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c5a047;
+}
+
+.lre-contact__html-block {
+  width: 100%;
+}
+
+.lre-contact__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 10px 0;
+  width: 100%;
+}
+
 /* Legal Consent Checkbox */
 .lre-contact__consent {
-  margin: 14px 0 26px 0;
+  margin: 18px 0 26px 0;
 }
 
 .lre-contact__consent-label {
@@ -10437,7 +10594,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: #dfba5c;
 }
 
-/* Submit Action Button (Reference 1 & 2 Rounded Pill) */
+/* Submit Action Button */
 .lre-contact__action {
   display: flex;
   justify-content: center;
@@ -10472,6 +10629,11 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   box-shadow: 0 10px 28px rgba(197, 160, 71, 0.32);
 }
 
+.lre-contact__submit-btn.is-loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
 .lre-contact__feedback {
   margin-top: 18px;
   padding: 14px 18px;
@@ -10479,6 +10641,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   font-size: 0.85rem;
   text-align: center;
   letter-spacing: 0.02em;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
 }
 
 .lre-contact__feedback--success {
@@ -10544,6 +10707,14 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     font-size: 0.95rem;
     line-height: 1.65;
     margin-bottom: 26px;
+  }
+  .lre-contact__form-grid {
+    gap: 12px;
+  }
+  .lre-form-col {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
   .lre-contact__grid {
     grid-template-columns: 1fr;

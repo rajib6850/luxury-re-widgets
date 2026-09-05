@@ -1438,50 +1438,107 @@
                 if ( form ) {
                     form.addEventListener( 'submit', function ( e ) {
                         e.preventDefault();
-                        var btn = form.querySelector( '.lre-contact__submit-btn' );
-                        var firstName = form.querySelector( '[name="first_name"]' );
-                        var lastName  = form.querySelector( '[name="last_name"]' );
-                        var email     = form.querySelector( '[name="email"]' );
-                        var feedback  = form.querySelector( '.lre-contact__feedback' );
 
-                        if ( ! firstName || ! email ) return;
+                        var btn      = form.querySelector( '.lre-contact__submit-btn' );
+                        var feedback = form.querySelector( '.lre-contact__feedback' );
 
-                        if ( ! firstName.value.trim() ) {
-                            firstName.focus();
+                        // Required Field Validation
+                        var requiredFields = form.querySelectorAll( '[required]' );
+                        var hasError = false;
+                        var firstInvalid = null;
+
+                        requiredFields.forEach( function ( input ) {
+                            if ( input.type === 'checkbox' ) {
+                                if ( ! input.checked ) {
+                                    hasError = true;
+                                    if ( ! firstInvalid ) firstInvalid = input;
+                                }
+                            } else if ( ! input.value.trim() ) {
+                                hasError = true;
+                                if ( ! firstInvalid ) firstInvalid = input;
+                            }
+                        } );
+
+                        if ( hasError && firstInvalid ) {
+                            firstInvalid.focus();
+                            if ( feedback ) {
+                                feedback.className = 'lre-contact__feedback lre-contact__feedback--error';
+                                feedback.textContent = 'Please complete all required fields.';
+                                feedback.style.display = 'block';
+                            }
                             return;
                         }
-                        if ( ! email.value.trim() ) {
-                            email.focus();
-                            return;
-                        }
 
+                        // Button Loading State
+                        var btnText = btn ? btn.querySelector( '.lre-contact__btn-text' ) : null;
+                        var originalText = btnText ? btnText.textContent : 'SUBMIT';
                         if ( btn ) {
                             btn.disabled = true;
-                            btn.style.opacity = '0.7';
-                            var btnText = btn.querySelector( '.lre-contact__btn-text' );
+                            btn.classList.add( 'is-loading' );
                             if ( btnText ) {
-                                btnText.dataset.original = btnText.textContent;
-                                btnText.textContent = 'Transmitting Message...';
+                                btnText.textContent = 'TRANSMITTING...';
                             }
                         }
 
-                        setTimeout( function () {
+                        if ( feedback ) {
+                            feedback.style.display = 'none';
+                        }
+
+                        var ajaxEndpoint = form.getAttribute( 'action' ) || ( typeof LREData !== 'undefined' && LREData.ajaxUrl ? LREData.ajaxUrl : '/wp-admin/admin-ajax.php' );
+                        var formData = new FormData( form );
+
+                        // Ensure action & nonce are included
+                        if ( ! formData.get( 'action' ) ) {
+                            formData.append( 'action', 'lre_contact_submit' );
+                        }
+                        if ( ! formData.get( 'nonce' ) && typeof LREData !== 'undefined' && LREData.nonce ) {
+                            formData.append( 'nonce', LREData.nonce );
+                        }
+
+                        fetch( ajaxEndpoint, {
+                            method: 'POST',
+                            body: formData
+                        } )
+                        .then( function ( res ) { return res.json(); } )
+                        .then( function ( res ) {
                             if ( btn ) {
                                 btn.disabled = false;
-                                btn.style.opacity = '1';
-                                var btnText = btn.querySelector( '.lre-contact__btn-text' );
-                                if ( btnText && btnText.dataset.original ) {
-                                    btnText.textContent = btnText.dataset.original;
-                                }
+                                btn.classList.remove( 'is-loading' );
+                                if ( btnText ) btnText.textContent = originalText;
                             }
+
                             if ( feedback ) {
-                                feedback.className = 'lre-contact__feedback lre-contact__feedback--success';
-                                feedback.innerHTML = 'Thank you. Your message has been transmitted directly to our advisory office. A senior associate will respond shortly.';
+                                var msg = res.data && res.data.message ? res.data.message : ( res.success ? 'Your message has been sent successfully.' : 'An error occurred. Please try again.' );
+                                feedback.className = 'lre-contact__feedback ' + ( res.success ? 'lre-contact__feedback--success' : 'lre-contact__feedback--error' );
+                                feedback.textContent = msg;
                                 feedback.style.display = 'block';
                                 feedback.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
                             }
-                            form.reset();
-                        }, 700 );
+
+                            if ( res.success ) {
+                                form.reset();
+
+                                // Optional Redirect
+                                if ( res.data && res.data.redirect_url ) {
+                                    setTimeout( function () {
+                                        window.location.href = res.data.redirect_url;
+                                    }, 1200 );
+                                }
+                            }
+                        } )
+                        .catch( function ( err ) {
+                            if ( btn ) {
+                                btn.disabled = false;
+                                btn.classList.remove( 'is-loading' );
+                                if ( btnText ) btnText.textContent = originalText;
+                            }
+                            if ( feedback ) {
+                                feedback.className = 'lre-contact__feedback lre-contact__feedback--error';
+                                feedback.textContent = 'A network error occurred. Please check your connection and try again.';
+                                feedback.style.display = 'block';
+                            }
+                            console.error( 'LRE Contact submit error:', err );
+                        } );
                     } );
                 }
             } );

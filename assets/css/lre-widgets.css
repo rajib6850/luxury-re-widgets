@@ -10759,7 +10759,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 @media (max-width: 768px) {
   .lre-contact {
     min-height: auto;
-    padding: 55px 16px;
+    padding: 125px 20px 70px !important;
     align-items: flex-start;
   }
 
@@ -10768,7 +10768,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     flex-direction: column !important;
     width: 100% !important;
     max-width: 100% !important;
-    gap: 36px !important;
+    gap: 32px !important;
     margin: 0 auto !important;
   }
 
@@ -10794,20 +10794,68 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     width: 100% !important;
   }
 
-  /* Headline Fluid Scaling */
+  /* Headline Fluid Scaling & Header Clearance */
   .lre-contact__headline {
-    font-size: clamp(1.85rem, 6.2vw, 2.6rem) !important;
-    line-height: 1.15 !important;
-    margin-bottom: 16px !important;
+    font-size: clamp(1.75rem, 6vw, 2.4rem) !important;
+    line-height: 1.18 !important;
+    margin-top: 6px !important;
+    margin-bottom: 14px !important;
     word-break: break-word;
     text-align: center;
   }
 
   .lre-contact__desc {
-    font-size: 0.92rem !important;
-    line-height: 1.65 !important;
-    margin-bottom: 24px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin: 0 auto 20px auto !important;
+    max-width: 500px !important;
     text-align: center;
+    color: rgba(255, 255, 255, 0.72) !important;
+  }
+
+  /* Direct Coordinates: Horizontal Inline Pair */
+  .lre-contact__direct {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+    align-items: center !important;
+  }
+
+  .lre-contact__direct-item {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-size: 0.92rem !important;
+  }
+
+  .lre-contact__direct-lbl {
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  /* Agent Profile Card: Sleek Horizontal Layout */
+  .lre-contact__agent {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    padding: 18px 20px !important;
+    gap: 16px !important;
+    max-width: 440px !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  .lre-contact__agent-avatar-wrap {
+    width: 72px !important;
+    height: 72px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .lre-contact__social {
+    justify-content: flex-start !important;
   }
 
   /* Form Columns: ALL fields 100% on mobile */
@@ -10860,58 +10908,59 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     font-size: 0.88rem !important;
     justify-content: center !important;
   }
-
-  /* Agent Profile Card on Mobile */
-  .lre-contact__agent {
-    padding: 20px 18px !important;
-    gap: 16px !important;
-  }
 }
 
 /* ── SMALL MOBILE BREAKPOINT (max-width: 480px) ── */
 @media (max-width: 480px) {
   .lre-contact {
-    padding: 42px 12px;
+    padding: 115px 16px 55px !important;
   }
 
   .lre-contact__container {
-    gap: 30px !important;
+    gap: 28px !important;
   }
 
   .lre-contact__headline {
-    font-size: clamp(1.65rem, 7.5vw, 2.1rem) !important;
+    font-size: clamp(1.6rem, 7.2vw, 2rem) !important;
     letter-spacing: 0 !important;
   }
 
+  .lre-contact__desc {
+    font-size: 0.86rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 16px !important;
+  }
+
   .lre-contact__direct-item {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 3px !important;
     font-size: 0.88rem !important;
   }
 
-  .lre-contact__direct-val {
-    word-break: break-all !important;
-  }
-
   .lre-contact__agent {
-    flex-direction: column !important;
-    text-align: center !important;
-    padding: 20px 14px !important;
-    gap: 12px !important;
+    padding: 14px 16px !important;
+    gap: 14px !important;
   }
 
   .lre-contact__agent-avatar-wrap {
-    width: 70px !important;
-    height: 70px !important;
+    width: 62px !important;
+    height: 62px !important;
   }
 
-  .lre-contact__social {
-    justify-content: center !important;
+  .lre-contact__agent-name {
+    font-size: 1.05rem !important;
+  }
+
+  .lre-contact__agent-title {
+    font-size: 0.7rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .lre-contact__agent-address {
+    font-size: 0.68rem !important;
+    margin-bottom: 8px !important;
   }
 
   .lre-contact__card {
-    padding: 24px 14px !important;
+    padding: 24px 16px !important;
     border-radius: 10px !important;
   }
 
@@ -10928,7 +10977,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 /* ── ULTRA COMPACT MOBILE (max-width: 360px) ── */
 @media (max-width: 360px) {
   .lre-contact {
-    padding: 32px 8px;
+    padding: 105px 12px 45px !important;
   }
 
   .lre-contact__headline {
@@ -10936,7 +10985,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   }
 
   .lre-contact__card {
-    padding: 18px 10px !important;
+    padding: 18px 12px !important;
   }
 
   .lre-contact__card-title {

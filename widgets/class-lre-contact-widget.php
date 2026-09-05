@@ -5,20 +5,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
 
 /**
  * LRE_Contact_Widget
  *
- * Ultra-Luxury Single-Section Contact & Private Client Salon.
- * Engineered to museum-grade luxury standards:
- * - Standalone full-viewport canvas (no separate hero or CTA needed)
- * - Ambient typographic watermark with scroll parallax
- * - Minimalist centered/left gold eyebrow & multiline curtain-reveal heading
- * - Editorial narrative & discreet concierge channels (wire, dispatch, presence, discretion seal)
- * - Minimalist architectural inquiry console with 4 refined inputs & 1-click intent chips
- * - 100% consistent typography matching the global design system
+ * Bespoke Ultra-Luxury Contact & Private Advisory Page Suite.
+ * Rebuilt based directly on real-world luxury real estate references:
+ * - Immersive full-bleed architectural estate photography backdrop with dark vignette overlay.
+ * - Left Column: Monumental high-fashion headline, editorial narrative, direct phone/email coordinates,
+ *   and an optional lead broker circular portrait card with address and social icons.
+ * - Right Column: Sleek floating glassmorphism message card with a 2-column responsive input grid,
+ *   interest dropdown, notes textarea, consent accord, and a high-contrast rounded pill submit button.
  *
  * @package Luxury_RE_Widgets
  */
@@ -29,7 +29,7 @@ class LRE_Contact_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'LRE — Luxury Contact & Private Salon', 'luxury-re-widgets' );
+		return __( 'LRE — Luxury Contact Suite', 'luxury-re-widgets' );
 	}
 
 	public function get_icon() {
@@ -41,7 +41,7 @@ class LRE_Contact_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'contact', 'salon', 'advisory', 'concierge', 'fiduciary', 'inquiry', 'luxury', 'private office' );
+		return array( 'contact', 'form', 'luxury', 'real estate', 'inquiry', 'agent', 'broker', 'message' );
 	}
 
 	protected function register_controls() {
@@ -50,294 +50,399 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION 1: HEADER & EDITORIAL NARRATIVE ──
+		// ── SECTION: ATMOSPHERE & BACKGROUND ──
 		$this->start_controls_section(
-			'section_header',
+			'section_atmosphere',
 			array(
-				'label' => __( 'Atmosphere & Editorial', 'luxury-re-widgets' ),
+				'label' => __( 'Atmosphere & Background', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'show_watermark',
+			'bg_image',
 			array(
-				'label'        => __( 'Show Watermark', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'watermark_text',
-			array(
-				'label'     => __( 'Watermark Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'CONCIERGE',
-				'condition' => array( 'show_watermark' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'eyebrow',
-			array(
-				'label'   => __( 'Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Private Client Salon',
-				'dynamic' => array( 'active' => true ),
-			)
-		);
-
-		$this->add_control(
-			'heading',
-			array(
-				'label'       => __( 'Heading (Multi-line / Title Mask)', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'rows'        => 3,
-				'default'     => "Direct Confidential<br>Advisory & Representation",
-				'description' => __( 'Use <br> tags for smooth title curtain reveal lines.', 'luxury-re-widgets' ),
-				'dynamic'     => array( 'active' => true ),
-			)
-		);
-
-		$this->add_control(
-			'heading_tag',
-			array(
-				'label'   => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'h1',
-				'options' => array(
-					'h1'  => 'H1',
-					'h2'  => 'H2',
-					'h3'  => 'H3',
-					'div' => 'div',
+				'label'   => __( 'Backdrop Photography', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85',
 				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__bg' => 'background-image: url("{{URL}}");',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bg_overlay_color',
+			array(
+				'label'     => __( 'Vignette Overlay', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(8, 8, 12, 0.78)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__overlay' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: HEADLINE & DIRECT CONTACT ──
+		$this->start_controls_section(
+			'section_headline',
+			array(
+				'label' => __( 'Headline & Coordinates', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'headline',
+			array(
+				'label'       => __( 'Headline', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( "LET'S START THE\nCONVERSATION", 'luxury-re-widgets' ),
+				'placeholder' => __( 'e.g. LET\'S START THE CONVERSATION', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
 			)
 		);
 
 		$this->add_control(
 			'description',
 			array(
-				'label'   => __( 'Editorial Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'We provide discreet fiduciary representation for high-value acquisitions, historic compounds, and off-market portfolio transfers across prime global enclaves.',
-				'dynamic' => array( 'active' => true ),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// ── SECTION 2: DISCREET CONCIERGE CHANNELS ──
-		$this->start_controls_section(
-			'section_channels',
-			array(
-				'label' => __( 'Direct Concierge Channels', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
+				'label'       => __( 'Editorial Narrative', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 4,
+				'default'     => __( "Whether you're buying, selling, relocating, or just exploring your options, our team is here to provide expert advice and personalized support. Reach out today - we'd love to hear from you and help you take the next step with confidence.", 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
 			)
 		);
 
 		$this->add_control(
-			'wire_label',
+			'phone_label',
 			array(
-				'label'   => __( 'Phone Wire Label', 'luxury-re-widgets' ),
+				'label'   => __( 'Phone Label', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Direct Private Wire',
+				'default' => 'PHONE:',
 			)
 		);
 
 		$this->add_control(
-			'wire_phone',
+			'phone_number',
 			array(
 				'label'   => __( 'Phone Number', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => '+1 (310) 895-2400',
+				'default' => '877-976-5348',
 			)
 		);
 
 		$this->add_control(
-			'dispatch_label',
+			'email_label',
 			array(
-				'label'   => __( 'Email Dispatch Label', 'luxury-re-widgets' ),
+				'label'   => __( 'Email Label', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Confidential Dispatch',
+				'default' => 'EMAIL:',
 			)
 		);
 
 		$this->add_control(
-			'dispatch_email',
+			'email_address',
 			array(
 				'label'   => __( 'Email Address', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'concierge@luxuryre.estate',
-			)
-		);
-
-		$this->add_control(
-			'presence_label',
-			array(
-				'label'   => __( 'Presence Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Private Salons',
-			)
-		);
-
-		$this->add_control(
-			'global_presence',
-			array(
-				'label'   => __( 'Global Presence Cities', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Beverly Hills • Manhattan • Mayfair • Miami',
-			)
-		);
-
-		$this->add_control(
-			'discretion_title',
-			array(
-				'label'   => __( 'Discretion Badge Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Attorney-Grade Discretion',
-			)
-		);
-
-		$this->add_control(
-			'discretion_note',
-			array(
-				'label'   => __( 'Discretion Statement', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'All communications are governed under strict attorney-client level non-disclosure protocols. Client identities remain entirely unlisted.',
+				'default' => 'INFO@YREALTYINC.COM',
 			)
 		);
 
 		$this->end_controls_section();
 
-		// ── SECTION 3: MINIMAL INQUIRY FORM ──
+		// ── SECTION: BROKER & CONCIERGE PROFILE (OPTIONAL) ──
 		$this->start_controls_section(
-			'section_form',
+			'section_agent_profile',
 			array(
-				'label' => __( 'Minimal Inquiry Form', 'luxury-re-widgets' ),
+				'label' => __( 'Lead Broker / Office Profile', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'form_title',
+			'show_agent_profile',
 			array(
-				'label'   => __( 'Form Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Initiate Confidential Inquiry',
+				'label'        => __( 'Display Broker Profile', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
 			)
 		);
 
 		$this->add_control(
-			'form_subtitle',
+			'agent_avatar',
 			array(
-				'label'   => __( 'Form Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Transmissions receive priority review by a managing partner within two business hours.',
-			)
-		);
-
-		// Engagement Intents (Minimal 1-Click Chips)
-		$repeater_intents = new Repeater();
-
-		$repeater_intents->add_control(
-			'intent_text',
-			array(
-				'label'   => __( 'Intent Option', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Acquisition Advisory',
-			)
-		);
-
-		$this->add_control(
-			'intents',
-			array(
-				'label'       => __( 'Engagement Intent Chips', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater_intents->get_controls(),
-				'title_field' => '{{{ intent_text }}}',
-				'default'     => array(
-					array( 'intent_text' => 'Acquisition' ),
-					array( 'intent_text' => 'Private Divestment' ),
-					array( 'intent_text' => 'Estate Valuation' ),
-					array( 'intent_text' => 'Family Office' ),
+				'label'     => __( 'Broker Portrait', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=85',
+				),
+				'condition' => array(
+					'show_agent_profile' => 'yes',
 				),
 			)
 		);
 
 		$this->add_control(
-			'field_name_label',
+			'agent_eyebrow',
 			array(
-				'label'   => __( 'Name Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Principal / Representative Name',
+				'label'     => __( 'Profile Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'GET IN TOUCH',
+				'condition' => array(
+					'show_agent_profile' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'field_name_placeholder',
+			'agent_name',
 			array(
-				'label'   => __( 'Name Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'e.g., Lord Alistair Sterling / Family Office',
+				'label'     => __( 'Broker Name', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Alexander Vance',
+				'condition' => array(
+					'show_agent_profile' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'field_contact_label',
+			'agent_title',
 			array(
-				'label'   => __( 'Contact Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Confidential Email or Direct Line',
+				'label'     => __( 'Broker Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Principal Partner & Managing Director',
+				'condition' => array(
+					'show_agent_profile' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'field_contact_placeholder',
+			'office_address',
 			array(
-				'label'   => __( 'Contact Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'e.g., sterling@privateoffice.estate or +1 (310) ...',
+				'label'     => __( 'Office Address', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXTAREA,
+				'rows'      => 2,
+				'default'   => "1959 PALOMAR OAKS #300,\nCARLSBAD, CA 92011",
+				'condition' => array(
+					'show_agent_profile' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'field_note_label',
+			'show_social_links',
 			array(
-				'label'   => __( 'Note Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Confidential Parameters / Inquiry Notes',
+				'label'        => __( 'Display Social Icons', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array(
+					'show_agent_profile' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'field_note_placeholder',
+			'social_facebook',
 			array(
-				'label'   => __( 'Note Placeholder', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Brief nature of your inquiry, target enclaves, or preferred contact window...',
+				'label'       => __( 'Facebook URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://facebook.com/...',
+				'default'     => array( 'url' => '#' ),
+				'condition'   => array(
+					'show_agent_profile' => 'yes',
+					'show_social_links'  => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
-			'submit_btn_text',
+			'social_instagram',
+			array(
+				'label'       => __( 'Instagram URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://instagram.com/...',
+				'default'     => array( 'url' => '#' ),
+				'condition'   => array(
+					'show_agent_profile' => 'yes',
+					'show_social_links'  => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'social_youtube',
+			array(
+				'label'       => __( 'YouTube URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://youtube.com/...',
+				'default'     => array( 'url' => '#' ),
+				'condition'   => array(
+					'show_agent_profile' => 'yes',
+					'show_social_links'  => 'yes',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── SECTION: FLOATING MESSAGE CARD & FORM ──
+		$this->start_controls_section(
+			'section_message_card',
+			array(
+				'label' => __( 'Floating Message Card', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'card_title',
+			array(
+				'label'   => __( 'Card Title', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'SEND US A MESSAGE',
+			)
+		);
+
+		$this->add_control(
+			'card_subtitle',
+			array(
+				'label'   => __( 'Card Subtitle', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => "Send us a message and we'll get back to you quickly.",
+			)
+		);
+
+		$this->add_control(
+			'first_name_placeholder',
+			array(
+				'label'   => __( 'First Name Placeholder', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'First Name *',
+			)
+		);
+
+		$this->add_control(
+			'last_name_placeholder',
+			array(
+				'label'   => __( 'Last Name Placeholder', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Last Name *',
+			)
+		);
+
+		$this->add_control(
+			'email_placeholder',
+			array(
+				'label'   => __( 'Email Placeholder', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Email *',
+			)
+		);
+
+		$this->add_control(
+			'phone_placeholder',
+			array(
+				'label'   => __( 'Phone Placeholder', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Phone *',
+			)
+		);
+
+		$this->add_control(
+			'show_inquiry_dropdown',
+			array(
+				'label'        => __( 'Show Inquiry Selector', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'dropdown_placeholder',
+			array(
+				'label'     => __( 'Dropdown Placeholder', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'What are you looking for?',
+				'condition' => array(
+					'show_inquiry_dropdown' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'dropdown_options',
+			array(
+				'label'       => __( 'Inquiry Options (One per line)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 5,
+				'default'     => "Buying an Estate\nSelling a Property\nRelocation Services\nPrivate Portfolio Advisory\nGeneral Inquiries",
+				'condition'   => array(
+					'show_inquiry_dropdown' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'message_placeholder',
+			array(
+				'label'   => __( 'Message Placeholder', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Notes, Questions',
+			)
+		);
+
+		$this->add_control(
+			'consent_text',
+			array(
+				'label'   => __( 'Legal Consent Text', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 3,
+				'default' => 'I agree to receive communications via voice call, AI voice call, or message from our team. Consent is not a condition of purchase. Msg/data rates may apply.',
+			)
+		);
+
+		$this->add_control(
+			'privacy_link_text',
+			array(
+				'label'   => __( 'Privacy Policy Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'PRIVACY POLICY *',
+			)
+		);
+
+		$this->add_control(
+			'privacy_link_url',
+			array(
+				'label'       => __( 'Privacy Policy URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://...',
+				'default'     => array( 'url' => '#' ),
+			)
+		);
+
+		$this->add_control(
+			'submit_button_text',
 			array(
 				'label'   => __( 'Submit Button Text', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'TRANSMIT CONFIDENTIAL INQUIRY',
-			)
-		);
-
-		$this->add_control(
-			'privacy_accord',
-			array(
-				'label'   => __( 'Privacy Accord Notice', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'Transmissions are encrypted and received under strict attorney-client confidentiality.',
+				'default' => 'SUBMIT',
 			)
 		);
 
@@ -347,12 +452,32 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── SECTION: STYLE TYPOGRAPHY & COLORS ──
+		// ── STYLE: HEADLINE & TEXT ──
 		$this->start_controls_section(
-			'section_style_theme',
+			'section_style_typography',
 			array(
-				'label' => __( 'Theme & Styling', 'luxury-re-widgets' ),
+				'label' => __( 'Typography & Colors', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'headline_color',
+			array(
+				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__headline' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'headline_typography',
+				'selector' => '{{WRAPPER}} .lre-contact__headline',
 			)
 		);
 
@@ -363,21 +488,75 @@ class LRE_Contact_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__eyebrow'        => 'color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__channel-icon'   => 'color: {{VALUE}}; stroke: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__seal-icon'      => 'color: {{VALUE}}; stroke: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__chip input:checked + span' => 'border-color: {{VALUE}}; color: {{VALUE}};',
-					'{{WRAPPER}} .lre-contact__submit-btn'     => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__direct-val:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__privacy-link'     => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__agent-avatar-wrap' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__agent-eyebrow'    => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'border-color: {{VALUE}}; color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── STYLE: FLOATING CARD ──
+		$this->start_controls_section(
+			'section_style_card',
+			array(
+				'label' => __( 'Floating Card & Inputs', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'card_bg_color',
+			array(
+				'label'     => __( 'Card Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(14, 15, 20, 0.88)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__card' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+			Group_Control_Border::get_type(),
 			array(
-				'name'     => 'title_typography',
-				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-contact__title',
+				'name'     => 'card_border',
+				'selector' => '{{WRAPPER}} .lre-contact__card',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'card_box_shadow',
+				'selector' => '{{WRAPPER}} .lre-contact__card',
+			)
+		);
+
+		$this->add_control(
+			'btn_bg_color',
+			array(
+				'label'     => __( 'Button Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#29323c',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_bg_color',
+			array(
+				'label'     => __( 'Button Hover Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'background-color: {{VALUE}}; color: #08080c;',
+				),
 			)
 		);
 
@@ -387,194 +566,212 @@ class LRE_Contact_Widget extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		// Check if inside Elementor live editor
-		$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
-		$reveal_class = $is_edit_mode ? 'revealed' : '';
+		// Phone formatting
+		$phone_raw   = ! empty( $settings['phone_number'] ) ? $settings['phone_number'] : '';
+		$phone_clean = preg_replace( '/[^0-9+]/', '', $phone_raw );
+		$email_raw   = ! empty( $settings['email_address'] ) ? $settings['email_address'] : '';
 
-		$show_watermark = 'yes' === ( $settings['show_watermark'] ?? 'yes' );
-		$watermark_text = ! empty( $settings['watermark_text'] ) ? $settings['watermark_text'] : 'CONCIERGE';
-		$eyebrow        = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : 'Private Client Salon';
-		$heading_raw    = ! empty( $settings['heading'] ) ? $settings['heading'] : "Direct Confidential<br>Advisory & Representation";
-		$tag            = ! empty( $settings['heading_tag'] ) ? esc_html( $settings['heading_tag'] ) : 'h1';
-		$description    = ! empty( $settings['description'] ) ? $settings['description'] : '';
-
-		// Split heading by <br> for curtain reveal lines
-		$heading_lines = preg_split( '/<br\s*\/?>/i', $heading_raw );
-		if ( empty( $heading_lines ) ) {
-			$heading_lines = array( $heading_raw );
+		// Inquiry dropdown options
+		$dropdown_opts = array();
+		if ( ! empty( $settings['dropdown_options'] ) ) {
+			$lines = explode( "\n", str_replace( "\r", '', $settings['dropdown_options'] ) );
+			foreach ( $lines as $line ) {
+				$line = trim( $line );
+				if ( ! empty( $line ) ) {
+					$dropdown_opts[] = $line;
+				}
+			}
 		}
 
-		$intents = ! empty( $settings['intents'] ) ? $settings['intents'] : array();
-		$wire_phone_clean = ! empty( $settings['wire_phone'] ) ? preg_replace( '/[^0-9+]/', '', $settings['wire_phone'] ) : '';
+		// Privacy link
+		$privacy_url = ! empty( $settings['privacy_link_url']['url'] ) ? esc_url( $settings['privacy_link_url']['url'] ) : '#';
+		$privacy_ext = ! empty( $settings['privacy_link_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 		?>
-		<section class="lre-contact lre-contact--sovereign" id="private-client-salon" aria-label="<?php esc_attr_e( 'Private Client Salon & Confidential Inquiry', 'luxury-re-widgets' ); ?>">
+		<section class="lre-contact lre-contact--bespoke" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>">
+			<!-- Immersive Photography Canvas -->
+			<div class="lre-contact__bg" aria-hidden="true"></div>
+			<div class="lre-contact__overlay" aria-hidden="true"></div>
 
-			<!-- Ambient Background Watermark -->
-			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
-			<div class="lre-contact__watermark" aria-hidden="true"><?php echo esc_html( $watermark_text ); ?></div>
-			<?php endif; ?>
-
-			<!-- Subtle Ambient Mesh Lighting -->
-			<div class="lre-contact__ambient-glow" aria-hidden="true"></div>
-
-			<div class="container lre-contact__container">
+			<div class="lre-contact__container">
 				
-				<div class="lre-contact__grid <?php echo esc_attr( $reveal_class ); ?>">
+				<!-- ================= LEFT COLUMN: HEADLINE & CONCIERGE ================= -->
+				<div class="lre-contact__left">
 					
-					<!-- ── LEFT COLUMN: EDITORIAL SALON & DIRECT CHANNELS ── -->
-					<div class="lre-contact__editorial">
-						
-						<!-- Eyebrow -->
-						<?php if ( ! empty( $eyebrow ) ) : ?>
-						<div class="lre-contact__eyebrow-wrap">
-							<span class="lre-contact__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
-						</div>
+					<?php if ( ! empty( $settings['headline'] ) ) : ?>
+						<h1 class="lre-contact__headline"><?php echo nl2br( esc_html( $settings['headline'] ) ); ?></h1>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $settings['description'] ) ) : ?>
+						<p class="lre-contact__desc"><?php echo wp_kses_post( $settings['description'] ); ?></p>
+					<?php endif; ?>
+
+					<!-- Direct Contact Links -->
+					<div class="lre-contact__direct">
+						<?php if ( ! empty( $phone_raw ) ) : ?>
+							<div class="lre-contact__direct-item">
+								<span class="lre-contact__direct-label"><?php echo esc_html( $settings['phone_label'] ); ?></span>
+								<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="lre-contact__direct-val"><?php echo esc_html( $phone_raw ); ?></a>
+							</div>
 						<?php endif; ?>
 
-						<!-- Title with Curtain Reveal Lines -->
-						<<?php echo $tag; ?> class="lre-contact__title">
-							<?php foreach ( $heading_lines as $h_idx => $h_line ) : ?>
-								<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
-							<?php endforeach; ?>
-						</<?php echo $tag; ?>>
-
-						<!-- Editorial Narrative -->
-						<?php if ( ! empty( $description ) ) : ?>
-						<p class="lre-contact__narrative"><?php echo esc_html( $description ); ?></p>
+						<?php if ( ! empty( $email_raw ) ) : ?>
+							<div class="lre-contact__direct-item">
+								<span class="lre-contact__direct-label"><?php echo esc_html( $settings['email_label'] ); ?></span>
+								<a href="mailto:<?php echo esc_attr( $email_raw ); ?>" class="lre-contact__direct-val"><?php echo esc_html( $email_raw ); ?></a>
+							</div>
 						<?php endif; ?>
-
-						<!-- Direct Concierge Touchpoints -->
-						<div class="lre-contact__channels">
-							
-							<!-- Wire Phone -->
-							<?php if ( ! empty( $settings['wire_phone'] ) ) : ?>
-							<div class="lre-contact__channel-item">
-								<span class="lre-contact__channel-label"><?php echo esc_html( $settings['wire_label'] ); ?></span>
-								<a href="tel:<?php echo esc_attr( $wire_phone_clean ); ?>" class="lre-contact__channel-value">
-									<svg class="lre-contact__channel-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-									<span><?php echo esc_html( $settings['wire_phone'] ); ?></span>
-								</a>
-							</div>
-							<?php endif; ?>
-
-							<!-- Dispatch Email -->
-							<?php if ( ! empty( $settings['dispatch_email'] ) ) : ?>
-							<div class="lre-contact__channel-item">
-								<span class="lre-contact__channel-label"><?php echo esc_html( $settings['dispatch_label'] ); ?></span>
-								<a href="mailto:<?php echo esc_attr( $settings['dispatch_email'] ); ?>" class="lre-contact__channel-value">
-									<svg class="lre-contact__channel-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-									<span><?php echo esc_html( $settings['dispatch_email'] ); ?></span>
-								</a>
-							</div>
-							<?php endif; ?>
-
-							<!-- Global Presence Cities -->
-							<?php if ( ! empty( $settings['global_presence'] ) ) : ?>
-							<div class="lre-contact__channel-item">
-								<span class="lre-contact__channel-label"><?php echo esc_html( $settings['presence_label'] ); ?></span>
-								<span class="lre-contact__channel-presence"><?php echo esc_html( $settings['global_presence'] ); ?></span>
-							</div>
-							<?php endif; ?>
-
-						</div>
-
-						<!-- Discretion Protocol Seal -->
-						<div class="lre-contact__seal">
-							<div class="lre-contact__seal-header">
-								<svg class="lre-contact__seal-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-								<span class="lre-contact__seal-title"><?php echo esc_html( $settings['discretion_title'] ); ?></span>
-							</div>
-							<?php if ( ! empty( $settings['discretion_note'] ) ) : ?>
-							<p class="lre-contact__seal-desc"><?php echo esc_html( $settings['discretion_note'] ); ?></p>
-							<?php endif; ?>
-						</div>
-
 					</div>
 
-					<!-- ── RIGHT COLUMN: MINIMALIST ARCHITECTURAL INQUIRY CONSOLE ── -->
-					<div class="lre-contact__console">
-						
-						<div class="lre-contact__console-glass">
-							
-							<header class="lre-contact__console-header">
-								<h2 class="lre-contact__console-title"><?php echo esc_html( $settings['form_title'] ); ?></h2>
-								<?php if ( ! empty( $settings['form_subtitle'] ) ) : ?>
-								<p class="lre-contact__console-sub"><?php echo esc_html( $settings['form_subtitle'] ); ?></p>
-								<?php endif; ?>
-							</header>
+					<!-- Optional Lead Broker / Concierge Profile Card -->
+					<?php if ( 'yes' === $settings['show_agent_profile'] ) : ?>
+						<div class="lre-contact__agent">
+							<?php if ( ! empty( $settings['agent_avatar']['url'] ) ) : ?>
+								<div class="lre-contact__agent-avatar-wrap">
+									<img src="<?php echo esc_url( $settings['agent_avatar']['url'] ); ?>" alt="<?php echo esc_attr( $settings['agent_name'] ); ?>" class="lre-contact__agent-avatar" loading="lazy" />
+								</div>
+							<?php endif; ?>
 
-							<form class="lre-contact__form" novalidate>
-								
-								<!-- 1. Engagement Nature: 1-Click Minimal Chips -->
-								<?php if ( ! empty( $intents ) ) : ?>
-								<div class="lre-contact__form-group">
-									<label class="lre-contact__label"><?php esc_html_e( 'Nature of Engagement', 'luxury-re-widgets' ); ?></label>
-									<div class="lre-contact__chips">
-										<?php foreach ( $intents as $i_idx => $it ) :
-											$i_val = esc_attr( $it['intent_text'] );
-										?>
-										<label class="lre-contact__chip">
-											<input type="radio" name="lre_intent" value="<?php echo $i_val; ?>" <?php checked( 0 === $i_idx ); ?>>
-											<span><?php echo esc_html( $it['intent_text'] ); ?></span>
-										</label>
-										<?php endforeach; ?>
+							<div class="lre-contact__agent-meta">
+								<?php if ( ! empty( $settings['agent_eyebrow'] ) ) : ?>
+									<div class="lre-contact__agent-eyebrow"><?php echo esc_html( $settings['agent_eyebrow'] ); ?></div>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $settings['agent_name'] ) ) : ?>
+									<h3 class="lre-contact__agent-name"><?php echo esc_html( $settings['agent_name'] ); ?></h3>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $settings['agent_title'] ) ) : ?>
+									<div class="lre-contact__agent-title"><?php echo esc_html( $settings['agent_title'] ); ?></div>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $settings['office_address'] ) ) : ?>
+									<div class="lre-contact__agent-address"><?php echo nl2br( esc_html( $settings['office_address'] ) ); ?></div>
+								<?php endif; ?>
+
+								<!-- Social Links -->
+								<?php if ( 'yes' === $settings['show_social_links'] ) : ?>
+									<div class="lre-contact__social">
+										<?php if ( ! empty( $settings['social_facebook']['url'] ) ) : ?>
+											<a href="<?php echo esc_url( $settings['social_facebook']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+												<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.808C10.595 0 9 1.582 9 4.615V8z"/></svg>
+											</a>
+										<?php endif; ?>
+
+										<?php if ( ! empty( $settings['social_instagram']['url'] ) ) : ?>
+											<a href="<?php echo esc_url( $settings['social_instagram']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+												<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+											</a>
+										<?php endif; ?>
+
+										<?php if ( ! empty( $settings['social_youtube']['url'] ) ) : ?>
+											<a href="<?php echo esc_url( $settings['social_youtube']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+												<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+											</a>
+										<?php endif; ?>
 									</div>
-								</div>
 								<?php endif; ?>
-
-								<!-- 2. Principal Name (Input 1) -->
-								<div class="lre-contact__form-group">
-									<label class="lre-contact__label" for="lre-principal-name"><?php echo esc_html( $settings['field_name_label'] ); ?> <span class="lre-contact__req">*</span></label>
-									<input type="text" id="lre-principal-name" name="principal_name" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['field_name_placeholder'] ); ?>" required autocomplete="name">
-								</div>
-
-								<!-- 3. Direct Contact: Email or Phone (Input 2) -->
-								<div class="lre-contact__form-group">
-									<label class="lre-contact__label" for="lre-direct-contact"><?php echo esc_html( $settings['field_contact_label'] ); ?> <span class="lre-contact__req">*</span></label>
-									<input type="text" id="lre-direct-contact" name="direct_contact" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['field_contact_placeholder'] ); ?>" required autocomplete="email">
-								</div>
-
-								<!-- 4. Confidential Parameters Note (Input 3) -->
-								<div class="lre-contact__form-group">
-									<label class="lre-contact__label" for="lre-inquiry-note"><?php echo esc_html( $settings['field_note_label'] ); ?></label>
-									<textarea id="lre-inquiry-note" name="inquiry_note" class="lre-contact__input lre-contact__textarea" rows="3" placeholder="<?php echo esc_attr( $settings['field_note_placeholder'] ); ?>"></textarea>
-								</div>
-
-								<!-- 5. Submit Button with Luxury Hover State -->
-								<div class="lre-contact__action">
-									<button type="submit" class="lre-contact__submit-btn">
-										<span class="lre-contact__btn-text"><?php echo esc_html( $settings['submit_btn_text'] ); ?></span>
-										<svg class="lre-contact__btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-									</button>
-								</div>
-
-								<!-- Privacy Notice Accord -->
-								<?php if ( ! empty( $settings['privacy_accord'] ) ) : ?>
-								<p class="lre-contact__privacy-accord">
-									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-									<span><?php echo esc_html( $settings['privacy_accord'] ); ?></span>
-								</p>
-								<?php endif; ?>
-
-								<!-- Interactive Feedback State -->
-								<div class="lre-contact__feedback" aria-live="polite">
-									<div class="lre-contact__feedback-icon" aria-hidden="true">
-										<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c5a047" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-									</div>
-									<h4 class="lre-contact__feedback-title"><?php esc_html_e( 'Transmission Encrypted & Received', 'luxury-re-widgets' ); ?></h4>
-									<p class="lre-contact__feedback-msg"><?php esc_html_e( 'Your dossier has been routed under strict non-disclosure protocol. A managing partner will contact you directly.', 'luxury-re-widgets' ); ?></p>
-								</div>
-
-							</form>
-
+							</div>
 						</div>
-
-					</div>
+					<?php endif; ?>
 
 				</div>
 
-			</div>
+				<!-- ================= RIGHT COLUMN: FLOATING MESSAGE CARD ================= -->
+				<div class="lre-contact__right">
+					<div class="lre-contact__card">
+						
+						<?php if ( ! empty( $settings['card_title'] ) ) : ?>
+							<h2 class="lre-contact__card-title"><?php echo esc_html( $settings['card_title'] ); ?></h2>
+						<?php endif; ?>
 
+						<?php if ( ! empty( $settings['card_subtitle'] ) ) : ?>
+							<p class="lre-contact__card-subtitle"><?php echo esc_html( $settings['card_subtitle'] ); ?></p>
+						<?php endif; ?>
+
+						<form class="lre-contact__form" method="post" action="#" novalidate>
+							
+							<div class="lre-contact__grid">
+								<!-- First Name -->
+								<div class="lre-contact__field">
+									<label class="screen-reader-text" for="lre_cf_first_name_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['first_name_placeholder'] ); ?></label>
+									<input type="text" id="lre_cf_first_name_<?php echo esc_attr( $this->get_id() ); ?>" name="first_name" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['first_name_placeholder'] ); ?>" required />
+								</div>
+
+								<!-- Last Name -->
+								<div class="lre-contact__field">
+									<label class="screen-reader-text" for="lre_cf_last_name_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['last_name_placeholder'] ); ?></label>
+									<input type="text" id="lre_cf_last_name_<?php echo esc_attr( $this->get_id() ); ?>" name="last_name" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['last_name_placeholder'] ); ?>" required />
+								</div>
+
+								<!-- Email -->
+								<div class="lre-contact__field">
+									<label class="screen-reader-text" for="lre_cf_email_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['email_placeholder'] ); ?></label>
+									<input type="email" id="lre_cf_email_<?php echo esc_attr( $this->get_id() ); ?>" name="email" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['email_placeholder'] ); ?>" required />
+								</div>
+
+								<!-- Phone -->
+								<div class="lre-contact__field">
+									<label class="screen-reader-text" for="lre_cf_phone_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['phone_placeholder'] ); ?></label>
+									<input type="tel" id="lre_cf_phone_<?php echo esc_attr( $this->get_id() ); ?>" name="phone" class="lre-contact__input" placeholder="<?php echo esc_attr( $settings['phone_placeholder'] ); ?>" />
+								</div>
+
+								<!-- Inquiry Dropdown Selector -->
+								<?php if ( 'yes' === $settings['show_inquiry_dropdown'] && ! empty( $dropdown_opts ) ) : ?>
+									<div class="lre-contact__field lre-contact__field--full">
+										<label class="screen-reader-text" for="lre_cf_interest_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['dropdown_placeholder'] ); ?></label>
+										<div class="lre-contact__select-wrap">
+											<select id="lre_cf_interest_<?php echo esc_attr( $this->get_id() ); ?>" name="inquiry_type" class="lre-contact__select">
+												<option value="" disabled selected><?php echo esc_html( $settings['dropdown_placeholder'] ); ?></option>
+												<?php foreach ( $dropdown_opts as $opt ) : ?>
+													<option value="<?php echo esc_attr( $opt ); ?>"><?php echo esc_html( $opt ); ?></option>
+												<?php endforeach; ?>
+											</select>
+											<span class="lre-contact__select-arrow" aria-hidden="true">
+												<svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+											</span>
+										</div>
+									</div>
+								<?php endif; ?>
+
+								<!-- Notes, Questions -->
+								<div class="lre-contact__field lre-contact__field--full">
+									<label class="screen-reader-text" for="lre_cf_notes_<?php echo esc_attr( $this->get_id() ); ?>"><?php echo esc_html( $settings['message_placeholder'] ); ?></label>
+									<textarea id="lre_cf_notes_<?php echo esc_attr( $this->get_id() ); ?>" name="notes" class="lre-contact__textarea" rows="4" placeholder="<?php echo esc_attr( $settings['message_placeholder'] ); ?>"></textarea>
+								</div>
+							</div>
+
+							<!-- Legal Consent Checkbox -->
+							<?php if ( ! empty( $settings['consent_text'] ) ) : ?>
+								<div class="lre-contact__consent">
+									<label class="lre-contact__consent-label">
+										<input type="checkbox" name="consent" class="lre-contact__consent-checkbox" required />
+										<span class="lre-contact__consent-custom" aria-hidden="true"></span>
+										<span class="lre-contact__consent-text">
+											<?php echo esc_html( $settings['consent_text'] ); ?>
+											<?php if ( ! empty( $settings['privacy_link_text'] ) ) : ?>
+												<a href="<?php echo esc_url( $privacy_url ); ?>" class="lre-contact__privacy-link"<?php echo $privacy_ext; ?>><?php echo esc_html( $settings['privacy_link_text'] ); ?></a>
+											<?php endif; ?>
+										</span>
+									</label>
+								</div>
+							<?php endif; ?>
+
+							<!-- Submit Action -->
+							<div class="lre-contact__action">
+								<button type="submit" class="lre-contact__submit-btn">
+									<span class="lre-contact__btn-text"><?php echo esc_html( $settings['submit_button_text'] ); ?></span>
+									<span class="lre-contact__btn-spinner" aria-hidden="true"></span>
+								</button>
+							</div>
+
+							<!-- Response Feedback Message Container -->
+							<div class="lre-contact__feedback" aria-live="polite" style="display:none;"></div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
 		</section>
 		<?php
 	}

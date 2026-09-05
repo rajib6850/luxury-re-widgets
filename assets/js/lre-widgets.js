@@ -1434,57 +1434,54 @@
             var contactSections = root.querySelectorAll( '.lre-contact' );
 
             contactSections.forEach( function ( section ) {
-                // Watermark Parallax
-                if ( ! prefersReducedMotion ) {
-                    var watermark = section.querySelector( '.lre-contact__watermark' );
-                    if ( watermark ) {
-                        var updateContactParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateContactParallax, { passive: true } );
-                        updateContactParallax();
-                    }
-                }
-
-                // Consultation Form Handling
                 var form = section.querySelector( '.lre-contact__form' );
                 if ( form ) {
                     form.addEventListener( 'submit', function ( e ) {
                         e.preventDefault();
                         var btn = form.querySelector( '.lre-contact__submit-btn' );
-                        var nameInput  = form.querySelector( '[name="principal_name"], [name="client_name"]' );
-                        var contactInput = form.querySelector( '[name="direct_contact"], [name="client_email"]' );
+                        var firstName = form.querySelector( '[name="first_name"]' );
+                        var lastName  = form.querySelector( '[name="last_name"]' );
+                        var email     = form.querySelector( '[name="email"]' );
+                        var feedback  = form.querySelector( '.lre-contact__feedback' );
 
-                        if ( ! nameInput || ! contactInput ) return;
+                        if ( ! firstName || ! email ) return;
 
-                        if ( ! nameInput.value.trim() || ! contactInput.value.trim() ) {
-                            if ( ! nameInput.value.trim() ) nameInput.focus();
-                            else contactInput.focus();
+                        if ( ! firstName.value.trim() ) {
+                            firstName.focus();
+                            return;
+                        }
+                        if ( ! email.value.trim() ) {
+                            email.focus();
                             return;
                         }
 
                         if ( btn ) {
                             btn.disabled = true;
-                            btn.style.opacity = '0.6';
+                            btn.style.opacity = '0.7';
                             var btnText = btn.querySelector( '.lre-contact__btn-text' );
-                            if ( btnText ) btnText.textContent = 'Encrypting & Transmitting...';
+                            if ( btnText ) {
+                                btnText.dataset.original = btnText.textContent;
+                                btnText.textContent = 'Transmitting Message...';
+                            }
                         }
 
                         setTimeout( function () {
-                            if ( btn ) btn.style.display = 'none';
+                            if ( btn ) {
+                                btn.disabled = false;
+                                btn.style.opacity = '1';
+                                var btnText = btn.querySelector( '.lre-contact__btn-text' );
+                                if ( btnText && btnText.dataset.original ) {
+                                    btnText.textContent = btnText.dataset.original;
+                                }
+                            }
                             if ( feedback ) {
-                                feedback.classList.add( 'active' );
+                                feedback.className = 'lre-contact__feedback lre-contact__feedback--success';
+                                feedback.innerHTML = 'Thank you. Your message has been transmitted directly to our advisory office. A senior associate will respond shortly.';
+                                feedback.style.display = 'block';
                                 feedback.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
                             }
-                        }, 600 );
+                            form.reset();
+                        }, 700 );
                     } );
                 }
             } );

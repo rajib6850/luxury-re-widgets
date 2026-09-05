@@ -1132,28 +1132,20 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'btn_bg_color',
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
 			array(
-				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#2b3340',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'background: {{VALUE}};',
-				),
+				'name'     => 'btn_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__submit-btn',
 			)
 		);
 
-		$this->add_control(
-			'btn_hover_bg_color',
-			array(
-				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'background: {{VALUE}}; border-color: {{VALUE}}; color: #08080c;',
-				),
-			)
+		$this->start_controls_tabs( 'tabs_submit_btn_style' );
+
+		$this->start_controls_tab(
+			'tab_submit_btn_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
 		);
 
 		$this->add_control(
@@ -1163,10 +1155,81 @@ class LRE_Contact_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn .lre-contact__btn-text' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
+
+		$this->add_control(
+			'btn_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.05)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.45)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_submit_btn_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'btn_hover_text_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#08080c',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn:hover .lre-contact__btn-text' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 
@@ -1440,7 +1503,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 							<!-- Submit Action -->
 							<div class="lre-contact__action">
-								<button type="submit" class="lre-contact__submit-btn">
+								<button type="submit" class="btn btn--outline-white lre-contact__submit-btn">
 									<span class="lre-contact__btn-text"><?php echo esc_html( $settings['submit_button_text'] ); ?></span>
 									<span class="lre-contact__btn-spinner" aria-hidden="true"></span>
 								</button>

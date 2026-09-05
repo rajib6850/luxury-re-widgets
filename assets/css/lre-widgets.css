@@ -10616,39 +10616,101 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: #dfba5c;
 }
 
-/* Submit Action Button */
+/* Submit Action Button — Harmonized with Hero & CTA buttons */
 .lre-contact__action {
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 10px;
 }
 
 .lre-contact__submit-btn {
-  background: #2b3340;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 50px;
-  padding: 14px 48px;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.5px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  padding: 1rem 2.8rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border-radius: 0 !important; /* Sharp architectural corners matching Hero & CTA */
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  --btn-hover-bg: #ffffff;
+}
+
+.lre-contact__submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff !important;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  z-index: 0;
+}
+
+.lre-contact__submit-btn:hover::before {
+  transform: translateY(0);
 }
 
 .lre-contact__submit-btn:hover {
-  background: #c5a047;
-  color: #08080c;
-  border-color: #c5a047;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #08080c !important;
+  border-color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(197, 160, 71, 0.32);
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25) !important;
+}
+
+.lre-contact__submit-btn .lre-contact__btn-text,
+.lre-contact__submit-btn .lre-contact__btn-spinner {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.lre-contact__submit-btn:hover .lre-contact__btn-text {
+  color: #08080c !important;
+}
+
+/* Diagonal reflection shine effect (exact parity with global .btn::after) */
+.lre-contact__submit-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+  z-index: 2;
+}
+
+.lre-contact__submit-btn:hover::after {
+  left: 140%;
+  transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lre-contact__submit-btn.is-loading {
@@ -10920,8 +10982,10 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 
   .lre-contact__submit-btn {
     width: 100% !important;
-    padding: 15px 24px !important;
-    font-size: 0.88rem !important;
+    padding: 1rem 1.8rem !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 2px !important;
+    border-radius: 0 !important;
     justify-content: center !important;
   }
 }

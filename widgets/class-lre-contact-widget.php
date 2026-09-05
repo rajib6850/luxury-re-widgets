@@ -51,6 +51,58 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
+		// ── SECTION: LAYOUT & MOBILE ORDERING ──
+		$this->start_controls_section(
+			'section_layout_ordering',
+			array(
+				'label' => __( 'Layout & Mobile Ordering', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'desktop_layout',
+			array(
+				'label'   => __( 'Desktop Layout', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'info_left',
+				'options' => array(
+					'info_left' => __( 'Info on Left, Form on Right', 'luxury-re-widgets' ),
+					'form_left' => __( 'Form on Left, Info on Right', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'tablet_stack_order',
+			array(
+				'label'   => __( 'Tablet Layout (1024px - 768px)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'form_top',
+				'options' => array(
+					'form_top'     => __( 'Stacked (Form on Top)', 'luxury-re-widgets' ),
+					'info_top'     => __( 'Stacked (Info on Top)', 'luxury-re-widgets' ),
+					'side_by_side' => __( 'Side-by-Side (2 Columns)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_stack_order',
+			array(
+				'label'       => __( 'Mobile Stack Order (Mobile Screens)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'form_top',
+				'options'     => array(
+					'form_top' => __( 'Form on Top, Info on Bottom (Recommended)', 'luxury-re-widgets' ),
+					'info_top' => __( 'Info on Top, Form on Bottom', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Choose whether the form card or the contact details appears first on phones.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// ── SECTION: ATMOSPHERE & BACKGROUND ──
 		$this->start_controls_section(
 			'section_atmosphere',
@@ -844,15 +896,29 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
-				'default'    => array(
+				'desktop_default' => array(
 					'top'      => '130',
 					'right'    => '40',
 					'bottom'   => '130',
 					'left'     => '40',
 					'isLinked' => false,
 				),
+				'tablet_default' => array(
+					'top'      => '80',
+					'right'    => '24',
+					'bottom'   => '80',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'mobile_default' => array(
+					'top'      => '50',
+					'right'    => '16',
+					'bottom'   => '50',
+					'left'     => '16',
+					'isLinked' => false,
+				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-contact' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-contact' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -953,11 +1019,25 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Card Padding', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
-				'default'    => array(
+				'desktop_default' => array(
 					'top'      => '44',
 					'right'    => '40',
 					'bottom'   => '44',
 					'left'     => '40',
+					'isLinked' => false,
+				),
+				'tablet_default' => array(
+					'top'      => '36',
+					'right'    => '28',
+					'bottom'   => '36',
+					'left'     => '28',
+					'isLinked' => false,
+				),
+				'mobile_default' => array(
+					'top'      => '28',
+					'right'    => '16',
+					'bottom'   => '28',
+					'left'     => '16',
 					'isLinked' => false,
 				),
 				'selectors'  => array(
@@ -1101,6 +1181,11 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		// Dynamic Form Fields array
 		$form_fields = ! empty( $settings['form_fields'] ) ? $settings['form_fields'] : array();
+
+		// Layout Ordering
+		$desktop_layout = ! empty( $settings['desktop_layout'] ) ? $settings['desktop_layout'] : 'info_left';
+		$tablet_layout  = ! empty( $settings['tablet_stack_order'] ) ? $settings['tablet_stack_order'] : 'form_top';
+		$mobile_order   = ! empty( $settings['mobile_stack_order'] ) ? $settings['mobile_stack_order'] : 'form_top';
 		?>
 		<section class="lre-contact" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>" aria-label="<?php echo esc_attr__( 'Contact Us', 'luxury-re-widgets' ); ?>">
 			
@@ -1109,7 +1194,7 @@ class LRE_Contact_Widget extends Widget_Base {
 			<div class="lre-contact__overlay" aria-hidden="true"></div>
 
 			<!-- Main Container -->
-			<div class="lre-contact__container">
+			<div class="lre-contact__container lre-layout-<?php echo esc_attr( $desktop_layout ); ?> lre-tab-<?php echo esc_attr( $tablet_layout ); ?> lre-mob-<?php echo esc_attr( $mobile_order ); ?>">
 
 				<!-- ================= LEFT COLUMN: HEADLINE & DIRECT CHANNELS ================= -->
 				<div class="lre-contact__left">

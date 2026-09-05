@@ -10023,12 +10023,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 
 /* ==========================================================================
    19. LUXURY CONTACT SUITE (lre_contact)
-   Rebuilt directly from user reference standards:
-   - Full-bleed dramatic architectural twilight estate photography canvas
-   - Left Column: Monumental high-fashion headline, narrative, direct phone/email,
-     and optional circular lead broker portrait card with address & social links
-   - Right Column: Sleek floating glassmorphism message card with 2-col inputs,
-     inquiry selector, consent accord, and rounded pill button
+   - Elementor Pro Style Dynamic Form Engine with Responsive Column Grid
+   - Intelligent Ordering: Form on Top or Info on Top for Mobile & Tablet
+   - Full Mobile & Tablet Responsiveness across all screen viewports
    ========================================================================== */
 
 .lre-contact {
@@ -10039,9 +10036,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 130px 24px !important;
+  padding: 130px 40px;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  overflow: hidden;
+  overflow-x: hidden;
   box-sizing: border-box;
 }
 
@@ -10072,17 +10069,28 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   pointer-events: none;
 }
 
-/* 2-Column Split Layout */
+/* 2-Column Split Container */
 .lre-contact__container {
   position: relative;
   z-index: 3;
-  max-width: 1240px;
+  max-width: 1280px;
   width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 64px;
   align-items: center;
+}
+
+/* Desktop Reordering */
+.lre-contact__container.lre-layout-form_left {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+.lre-contact__container.lre-layout-form_left .lre-contact__right {
+  order: 1;
+}
+.lre-contact__container.lre-layout-form_left .lre-contact__left {
+  order: 2;
 }
 
 /* ── LEFT COLUMN: HEADLINE & PROFILE ── */
@@ -10101,6 +10109,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   text-transform: uppercase;
   color: #ffffff;
   margin: 0 0 24px 0;
+  word-break: break-word;
 }
 
 .lre-contact__desc {
@@ -10113,7 +10122,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   font-weight: 300;
 }
 
-/* Direct Phone & Email Links (Image 1 Style) */
+/* Direct Phone & Email Links */
 .lre-contact__direct {
   display: flex;
   flex-direction: column;
@@ -10123,63 +10132,55 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 
 .lre-contact__direct-item {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-size: 0.98rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.96rem;
+  letter-spacing: 0.05em;
 }
 
-.lre-contact__direct-label {
-  color: rgba(255, 255, 255, 0.5);
+.lre-contact__direct-lbl {
+  color: #c5a047;
+  font-weight: 700;
   font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 600;
+  letter-spacing: 0.1em;
 }
 
 .lre-contact__direct-val {
   color: #ffffff;
   text-decoration: none;
-  border-bottom: 1px solid rgba(197, 160, 71, 0.35);
-  padding-bottom: 2px;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  font-weight: 400;
+  transition: color 0.25s ease;
+  word-break: break-all;
 }
 
 .lre-contact__direct-val:hover {
   color: #c5a047;
-  border-color: #c5a047;
 }
 
-/* Optional Lead Broker / Concierge Card (Image 2 Style) */
+/* Lead Broker Portrait Card */
 .lre-contact__agent {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 24px;
+  gap: 20px;
+  padding: 22px 26px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   max-width: 480px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.lre-contact__agent:hover {
-  border-color: rgba(197, 160, 71, 0.3);
-  transform: translateY(-2px);
+  width: 100%;
 }
 
 .lre-contact__agent-avatar-wrap {
-  width: 86px;
-  height: 86px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #c5a047;
   flex-shrink: 0;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .lre-contact__agent-avatar {
@@ -10190,13 +10191,14 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 }
 
 .lre-contact__agent-meta {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .lre-contact__agent-eyebrow {
   font-size: 0.68rem;
-  letter-spacing: 0.22em;
   text-transform: uppercase;
+  letter-spacing: 0.16em;
   color: #c5a047;
   font-weight: 600;
   margin-bottom: 4px;
@@ -10256,37 +10258,39 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 .lre-contact__right {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .lre-contact__card {
   width: 100%;
-  max-width: 540px;
-  background: rgba(14, 15, 22, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
-  padding: 44px 38px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  max-width: 580px;
+  background: rgba(15, 17, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 44px 40px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04);
   box-sizing: border-box;
 }
 
 .lre-contact__card-title {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: 1.65rem;
+  font-weight: 400;
   color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   margin: 0 0 8px 0;
   text-align: center;
 }
 
 .lre-contact__card-subtitle {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  margin: 0 0 28px 0;
+  margin: 0 0 30px 0;
   font-weight: 300;
 }
 
@@ -10452,6 +10456,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease;
   user-select: none;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .lre-contact__check-item:hover,
@@ -10541,9 +10547,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   gap: 10px;
   cursor: pointer;
   user-select: none;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.52);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .lre-contact__consent-checkbox {
@@ -10656,144 +10662,288 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   color: #e57373;
 }
 
-/* ── RESPONSIVE BREAKPOINT SUITE ── */
+/* ==========================================================================
+   RESPONSIVE BREAKPOINT SYSTEM FOR LUXURY CONTACT
+   ========================================================================== */
+
+/* ── TABLET BREAKPOINT (max-width: 1024px) ── */
 @media (max-width: 1024px) {
   .lre-contact {
-    padding: 100px 24px !important;
     min-height: auto;
+    padding: 80px 24px;
+    align-items: flex-start;
   }
+
   .lre-contact__container {
-    grid-template-columns: 1fr;
+    max-width: 720px;
     gap: 48px;
-    max-width: 680px;
+    margin: 0 auto;
   }
+
+  /* Tablet Stacked: Form on Top */
+  .lre-contact__container.lre-tab-form_top {
+    display: flex;
+    flex-direction: column;
+  }
+  .lre-contact__container.lre-tab-form_top .lre-contact__right {
+    order: 1;
+    width: 100%;
+  }
+  .lre-contact__container.lre-tab-form_top .lre-contact__left {
+    order: 2;
+    width: 100%;
+  }
+
+  /* Tablet Stacked: Info on Top */
+  .lre-contact__container.lre-tab-info_top {
+    display: flex;
+    flex-direction: column;
+  }
+  .lre-contact__container.lre-tab-info_top .lre-contact__left {
+    order: 1;
+    width: 100%;
+  }
+  .lre-contact__container.lre-tab-info_top .lre-contact__right {
+    order: 2;
+    width: 100%;
+  }
+
+  /* Tablet Side-by-Side */
+  .lre-contact__container.lre-tab-side_by_side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 980px;
+  }
+
   .lre-contact__left {
     align-items: center;
     text-align: center;
   }
+
   .lre-contact__headline {
     text-align: center;
   }
+
   .lre-contact__desc {
     max-width: 620px;
     text-align: center;
   }
+
   .lre-contact__direct {
     align-items: center;
   }
+
   .lre-contact__agent {
     max-width: 100%;
     width: 100%;
     margin: 0 auto;
   }
+
   .lre-contact__card {
     max-width: 100%;
+    width: 100%;
     margin: 0 auto;
+    padding: 38px 30px;
+  }
+
+  /* 3-col and 4-col inputs expand to 50% on tablet to avoid crushing */
+  .lre-col-25,
+  .lre-col-33 {
+    flex: 0 0 calc(50% - 7px) !important;
+    max-width: calc(50% - 7px) !important;
   }
 }
 
+/* ── MOBILE BREAKPOINT (max-width: 768px) ── */
 @media (max-width: 768px) {
   .lre-contact {
-    padding: 85px 20px !important;
+    min-height: auto;
+    padding: 55px 16px;
+    align-items: flex-start;
   }
+
   .lre-contact__container {
-    gap: 40px;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 36px !important;
+    margin: 0 auto !important;
   }
+
+  /* Mobile Stack Order */
+  .lre-contact__container.lre-mob-form_top .lre-contact__right {
+    order: 1 !important;
+    width: 100% !important;
+  }
+  .lre-contact__container.lre-mob-form_top .lre-contact__left {
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+  .lre-contact__container.lre-mob-info_top .lre-contact__left {
+    order: 1 !important;
+    width: 100% !important;
+  }
+  .lre-contact__container.lre-mob-info_top .lre-contact__right {
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+  /* Headline Fluid Scaling */
   .lre-contact__headline {
-    font-size: clamp(2rem, 6.5vw, 2.8rem);
-    margin-bottom: 18px;
+    font-size: clamp(1.85rem, 6.2vw, 2.6rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 16px !important;
+    word-break: break-word;
+    text-align: center;
   }
+
   .lre-contact__desc {
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin-bottom: 26px;
+    font-size: 0.92rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 24px !important;
+    text-align: center;
   }
+
+  /* Form Columns: ALL fields 100% on mobile */
   .lre-contact__form-grid {
-    gap: 12px;
+    gap: 12px !important;
+    width: 100% !important;
   }
+
   .lre-form-col {
     flex: 0 0 100% !important;
     max-width: 100% !important;
     width: 100% !important;
   }
-  .lre-contact__grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .lre-contact__card {
-    padding: 36px 24px;
-  }
-  .lre-contact__card-title {
-    font-size: 1.4rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .lre-contact {
-    padding: 70px 16px !important;
-  }
-  .lre-contact__container {
-    gap: 32px;
-  }
-  .lre-contact__headline {
-    font-size: clamp(1.75rem, 8vw, 2.3rem);
-    letter-spacing: -0.01em;
-  }
-  .lre-contact__direct-item {
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.9rem;
-  }
-  .lre-contact__direct-val {
-    word-break: break-all;
-  }
-  .lre-contact__agent {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px 16px;
-    gap: 16px;
-  }
-  .lre-contact__agent-avatar-wrap {
-    width: 76px;
-    height: 76px;
-  }
-  .lre-contact__social {
-    justify-content: center;
-  }
+  /* Form Card & Inputs */
   .lre-contact__card {
-    padding: 28px 16px;
-    border-radius: 10px;
+    padding: 30px 20px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
+
   .lre-contact__card-title {
-    font-size: 1.25rem;
+    font-size: 1.35rem !important;
+    margin-bottom: 6px !important;
   }
+
   .lre-contact__card-subtitle {
-    font-size: 0.85rem;
-    margin-bottom: 22px;
+    font-size: 0.82rem !important;
+    margin-bottom: 22px !important;
   }
+
+  /* Prevent iOS Safari auto-zoom by setting font-size to 16px */
   .lre-contact__input,
   .lre-contact__select,
   .lre-contact__textarea {
-    padding: 12px 14px;
-    font-size: 0.85rem;
+    font-size: 16px !important;
+    padding: 13px 14px !important;
+    border-radius: 6px !important;
   }
+
+  /* Submit Button: Full-width touch friendly */
+  .lre-contact__action {
+    width: 100% !important;
+  }
+
   .lre-contact__submit-btn {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 0.82rem;
+    width: 100% !important;
+    padding: 15px 24px !important;
+    font-size: 0.88rem !important;
+    justify-content: center !important;
+  }
+
+  /* Agent Profile Card on Mobile */
+  .lre-contact__agent {
+    padding: 20px 18px !important;
+    gap: 16px !important;
   }
 }
 
+/* ── SMALL MOBILE BREAKPOINT (max-width: 480px) ── */
+@media (max-width: 480px) {
+  .lre-contact {
+    padding: 42px 12px;
+  }
+
+  .lre-contact__container {
+    gap: 30px !important;
+  }
+
+  .lre-contact__headline {
+    font-size: clamp(1.65rem, 7.5vw, 2.1rem) !important;
+    letter-spacing: 0 !important;
+  }
+
+  .lre-contact__direct-item {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: 0.88rem !important;
+  }
+
+  .lre-contact__direct-val {
+    word-break: break-all !important;
+  }
+
+  .lre-contact__agent {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 20px 14px !important;
+    gap: 12px !important;
+  }
+
+  .lre-contact__agent-avatar-wrap {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .lre-contact__social {
+    justify-content: center !important;
+  }
+
+  .lre-contact__card {
+    padding: 24px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .lre-contact__card-title {
+    font-size: 1.2rem !important;
+  }
+
+  .lre-contact__consent-label {
+    font-size: 0.72rem !important;
+    gap: 8px !important;
+  }
+}
+
+/* ── ULTRA COMPACT MOBILE (max-width: 360px) ── */
 @media (max-width: 360px) {
   .lre-contact {
-    padding: 60px 12px !important;
+    padding: 32px 8px;
   }
+
   .lre-contact__headline {
-    font-size: 1.55rem;
+    font-size: 1.45rem !important;
   }
+
   .lre-contact__card {
-    padding: 22px 12px;
+    padding: 18px 10px !important;
+  }
+
+  .lre-contact__card-title {
+    font-size: 1.1rem !important;
+  }
+
+  .lre-contact__input,
+  .lre-contact__select,
+  .lre-contact__textarea {
+    padding: 11px 10px !important;
   }
 }
 

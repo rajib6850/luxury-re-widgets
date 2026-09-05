@@ -310,9 +310,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 				<header class="lre-guide__header <?php echo esc_attr( $reveal_class ); ?>">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 					<div class="lre-guide__eyebrow-wrap">
-						<span class="lre-guide__gold-bar" aria-hidden="true"></span>
 						<span class="lre-guide__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
-						<span class="lre-guide__gold-bar" aria-hidden="true"></span>
 					</div>
 					<?php endif; ?>
 

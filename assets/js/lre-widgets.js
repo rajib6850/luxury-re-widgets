@@ -1428,43 +1428,65 @@
     LREWidgets.Contact = {
         init: function ( $scope ) {
             LREWidgets.initReveals( $scope );
+            LREWidgets.initImageZoom( $scope );
+
             var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-            var forms = root.querySelectorAll( '.lre-contact__form' );
-            if ( ! forms.length ) return;
+            var contactSections = root.querySelectorAll( '.lre-contact' );
 
-            forms.forEach( function ( form ) {
-                form.addEventListener( 'submit', function ( e ) {
-                    e.preventDefault();
-                    var btn = form.querySelector( '.lre-contact__submit-btn' );
-                    var feedback = form.querySelector( '.lre-contact__feedback' );
-                    var nameInput  = form.querySelector( '[name="client_name"]' );
-                    var emailInput = form.querySelector( '[name="client_email"]' );
-
-                    if ( ! nameInput || ! emailInput ) return;
-
-                    if ( ! nameInput.value.trim() || ! emailInput.value.trim() ) {
-                        alert( 'Please provide your name and direct contact channel.' );
-                        return;
+            contactSections.forEach( function ( section ) {
+                // Watermark Parallax
+                if ( ! prefersReducedMotion ) {
+                    var watermark = section.querySelector( '.lre-contact__watermark' );
+                    if ( watermark ) {
+                        var updateContactParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
+                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateContactParallax, { passive: true } );
+                        updateContactParallax();
                     }
+                }
 
-                    if ( btn ) {
-                        btn.disabled = true;
-                        btn.style.opacity = '0.6';
-                        var btnText = btn.querySelector( '.lre-contact__btn-text' );
-                        if ( btnText ) btnText.textContent = 'Transmitting Inquiry...';
-                    }
+                // Consultation Form Handling
+                var form = section.querySelector( '.lre-contact__form' );
+                if ( form ) {
+                    form.addEventListener( 'submit', function ( e ) {
+                        e.preventDefault();
+                        var btn = form.querySelector( '.lre-contact__submit-btn' );
+                        var nameInput  = form.querySelector( '[name="principal_name"], [name="client_name"]' );
+                        var contactInput = form.querySelector( '[name="direct_contact"], [name="client_email"]' );
 
-                    setTimeout( function () {
-                        if ( feedback ) {
-                            feedback.style.display = 'flex';
-                            feedback.style.opacity = '0';
-                            feedback.style.transition = 'opacity 0.5s ease';
-                            setTimeout( function () {
-                                feedback.style.opacity = '1';
-                            }, 20 );
+                        if ( ! nameInput || ! contactInput ) return;
+
+                        if ( ! nameInput.value.trim() || ! contactInput.value.trim() ) {
+                            if ( ! nameInput.value.trim() ) nameInput.focus();
+                            else contactInput.focus();
+                            return;
                         }
-                    }, 800 );
-                } );
+
+                        if ( btn ) {
+                            btn.disabled = true;
+                            btn.style.opacity = '0.6';
+                            var btnText = btn.querySelector( '.lre-contact__btn-text' );
+                            if ( btnText ) btnText.textContent = 'Encrypting & Transmitting...';
+                        }
+
+                        setTimeout( function () {
+                            if ( btn ) btn.style.display = 'none';
+                            if ( feedback ) {
+                                feedback.classList.add( 'active' );
+                                feedback.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
+                            }
+                        }, 600 );
+                    } );
+                }
             } );
         }
     };

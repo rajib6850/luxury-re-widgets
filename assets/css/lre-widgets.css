@@ -331,6 +331,7 @@ p {
 }
 
 /* Center-Aligned Eyebrow Wrappers (Dual Gold Bars) */
+.lre-guide__eyebrow-wrap,
 .lre-sguide__eyebrow-wrap,
 .lre-team__eyebrow-wrap,
 .lre-phero__eyebrow-wrap,
@@ -340,8 +341,6 @@ p {
 }
 
 /* Universal Gold Bar Component */
-.lre-guide__gold-bar,
-.lre-sguide__gold-bar,
 .lre-contact__gold-bar,
 .lre-reviews__gold-bar,
 .lre-aserv__gold-bar,
@@ -364,7 +363,6 @@ p {
 }
 
 /* Symmetrical Right Bar for Center-Aligned Wrappers */
-.lre-sguide__eyebrow-wrap .lre-sguide__gold-bar:last-child,
 .lre-team__eyebrow-wrap .lre-team__gold-bar:last-child,
 .lre-phero__eyebrow-wrap .lre-phero__gold-bar:last-child,
 .cta__eyebrow-wrap .cta__gold-bar:last-child {
@@ -10023,751 +10021,576 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   19. CONTACT & BESPOKE ADVISORY SUITE (lre_contact)
-   ───────────────────────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   19. LUXURY CONTACT & PRIVATE CLIENT SALON (lre_contact)
+   Bespoke Single-Section Architecture — Museum-Grade Luxury Standard
+   ========================================================================== */
+
 .lre-contact {
-  --cnt-gold: var(--lre-cnt-gold, #c5a047);
-  --cnt-gold-light: var(--lre-cnt-gold-light, #d4b565);
-  --cnt-bg: var(--lre-cnt-bg, #08080c);
-  --cnt-text: var(--lre-cnt-text, #ffffff);
-  --cnt-card-bg: var(--lre-cnt-card-bg, rgba(255, 255, 255, 0.025));
-
   position: relative;
-  background: var(--cnt-bg, #08080c) !important;
-  color: #ffffff !important;
-  padding: 8rem 0 8.5rem;
-  box-sizing: border-box;
+  background: #08080c;
+  background-color: #08080c !important;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 0 !important;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
   overflow: hidden;
-  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Ambient Radial Glows (Parity with Reviews) */
-.lre-contact::before {
-  content: '';
-  position: absolute;
-  top: 5%;
-  right: -8%;
-  width: 55%;
-  height: 55%;
-  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.035) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
+.lre-contact *,
+.lre-contact *::before,
+.lre-contact *::after {
+  box-sizing: border-box;
 }
 
-.lre-contact::after {
-  content: '';
-  position: absolute;
-  bottom: -10%;
-  left: -8%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Background Typographic Watermark (Parity with About Services & Team) */
+/* Ambient Background Watermark (Matching Guides & About) */
 .lre-contact__watermark {
   position: absolute;
-  top: 3%;
+  top: 3.5rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: clamp(6rem, 16vw, 15rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: clamp(3.8rem, 8.5vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.018);
+  color: rgba(255, 255, 255, 0.032);
   white-space: nowrap;
+  pointer-events: none;
   user-select: none;
+  line-height: 1;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Subtle Ambient Mesh Lighting */
+.lre-contact__ambient-glow {
+  position: absolute;
+  top: 20%;
+  right: 8%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(197, 160, 71, 0.055) 0%, rgba(8, 8, 12, 0) 70%);
   pointer-events: none;
   z-index: 0;
+  filter: blur(70px);
 }
 
 .lre-contact__container {
-  width: 100%;
   max-width: 1320px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
-  box-sizing: border-box;
+  padding: 0 32px;
   position: relative;
   z-index: 1;
 }
 
-/* ── 1. Header (Gold Bar & Eyebrow Parity) ── */
-.lre-contact__header {
-  max-width: 840px;
-  margin: 0 auto 4.5rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
+/* ── Asymmetrical 2-Column Luxury Split ── */
+.lre-contact__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 75px;
+  align-items: center;
+}
+
+/* ── 1. LEFT COLUMN: EDITORIAL SALON & DIRECT CHANNELS ── */
+.lre-contact__editorial {
+  display: flex;
+  flex-direction: column;
 }
 
 .lre-contact__eyebrow-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 1.4rem;
-}
-
-.lre-contact__gold-bar {
-  width: 32px;
-  height: 1.5px;
-  background: linear-gradient(90deg, rgba(197, 160, 71, 0.6), rgba(255, 255, 255, 0.3)) !important;
-  display: inline-block;
-  flex-shrink: 0;
+  margin-bottom: 1.2rem;
 }
 
 .lre-contact__eyebrow {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--color-secondary, #c5a047);
+  display: inline-block;
 }
 
 .lre-contact__title {
-  font-family: var(--font-serif, 'Libre Baskerville', serif) !important;
-  font-size: var(--font-size-section-title) !important;
-  font-weight: 400 !important;
-  line-height: 1.25 !important;
-  letter-spacing: -0.01em !important;
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: clamp(2.3rem, 3.8vw, 3.3rem) !important;
+  font-weight: 400;
+  line-height: 1.22;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  margin: 0 0 1rem 0 !important;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.015em;
 }
 
-.lre-contact__title .title-mask > span,
-.lre-contact__title span {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+.lre-contact__narrative {
+  font-size: var(--font-size-section-subtitle, 0.92rem) !important;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.65) !important;
+  margin-bottom: 2.8rem;
+  font-weight: 300 !important;
+  max-width: 530px;
+  -webkit-font-smoothing: antialiased;
 }
 
-.lre-contact__description {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.7;
-  font-weight: 300;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-/* ── 2. Upper Tier: 3 Advisory Chamber Cards ── */
-.lre-contact__chambers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 3.5rem;
-}
-
-.lre-contact__chamber-card {
-  background: var(--cnt-card-bg, rgba(255, 255, 255, 0.025));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 2.4rem 2rem;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+/* Discreet Concierge Touchpoints */
+.lre-contact__channels {
   display: flex;
   flex-direction: column;
+  gap: 1.35rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 530px;
 }
 
-/* Signature Top Gold Accent Bar (Parity with Trust Pillar & Monolith) */
-.lre-contact__chamber-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cnt-gold, #c5a047), rgba(197, 160, 71, 0.15)) !important;
-}
-
-.lre-contact__chamber-card:hover {
-  border-color: rgba(197, 160, 71, 0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
-}
-
-.lre-contact__chamber-top {
+.lre-contact__channel-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.lre-contact__chamber-num {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: var(--cnt-gold, #c5a047);
-  line-height: 1;
-}
-
-.lre-contact__chamber-tag {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.5);
+.lre-contact__channel-label {
+  font-size: 0.72rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.45);
 }
 
-.lre-contact__chamber-title {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #ffffff !important;
-  margin: 0 0 0.75rem 0;
-  line-height: 1.35;
-}
-
-.lre-contact__chamber-desc {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  font-weight: 300;
-  flex-grow: 1;
-}
-
-.lre-contact__chamber-link {
+.lre-contact__channel-value {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-size: 1.15rem;
   color: #ffffff;
   text-decoration: none;
-  font-weight: 600;
   transition: color 0.3s ease;
-  margin-top: auto;
 }
 
-.lre-contact__chamber-arrow {
-  width: 14px;
-  height: 14px;
-  stroke: var(--cnt-gold, #c5a047);
-  transition: transform 0.3s ease;
+.lre-contact__channel-value:hover {
+  color: var(--color-secondary, #c5a047);
 }
 
-.lre-contact__chamber-card:hover .lre-contact__chamber-link {
-  color: var(--cnt-gold, #c5a047);
+.lre-contact__channel-icon {
+  color: var(--color-secondary, #c5a047);
+  stroke: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
 }
 
-.lre-contact__chamber-card:hover .lre-contact__chamber-arrow {
-  transform: translateX(4px);
+.lre-contact__channel-presence {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.05em;
 }
 
-/* ── 3. Lower Tier: Master Consultation Console ── */
-.lre-contact__console {
-  display: grid;
-  grid-template-columns: 1fr 1.45fr;
-  gap: 2.5rem;
-  align-items: stretch;
-}
-
-/* Left: Fiduciary Pillar (Matching Reviews Trust Pillar) */
-.lre-contact__fiduciary-pillar {
-  background: var(--cnt-card-bg, rgba(255, 255, 255, 0.025)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 4px;
-  padding: 2.75rem 2.25rem;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+/* Discretion Protocol Seal */
+.lre-contact__seal {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(197, 160, 71, 0.2);
+  border-radius: 2px;
+  max-width: 530px;
 }
 
-.lre-contact__fiduciary-pillar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cnt-gold, #c5a047), rgba(197, 160, 71, 0.15)) !important;
-}
-
-/* Rotating Trust Seal (Reviews Parity) */
-.lre-contact__seal-wrap {
+.lre-contact__seal-header {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  gap: 0.6rem;
 }
 
-.lre-contact__seal-ring {
-  width: 68px;
-  height: 68px;
+.lre-contact__seal-icon {
+  color: var(--color-secondary, #c5a047);
+  stroke: var(--color-secondary, #c5a047);
   flex-shrink: 0;
+}
+
+.lre-contact__seal-title {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-secondary, #c5a047);
+}
+
+.lre-contact__seal-desc {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* ── 2. RIGHT COLUMN: MINIMALIST ARCHITECTURAL CONSOLE ── */
+.lre-contact__console {
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.lre-contact__seal-svg {
+.lre-contact__console-glass {
   width: 100%;
-  height: 100%;
-  animation: lreSealSpin 30s linear infinite;
-}
-
-.lre-contact__seal-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.lre-contact__seal-top {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--cnt-gold, #c5a047);
-}
-
-.lre-contact__seal-bottom {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.5px;
-}
-
-/* Wire Block */
-.lre-contact__wire-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 2.2rem;
-}
-
-.lre-contact__wire-label {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 500;
-}
-
-.lre-contact__wire-phone {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.55rem;
-  color: #ffffff;
-  text-decoration: none;
-  line-height: 1.2;
-  transition: color 0.3s ease;
-}
-
-.lre-contact__wire-phone:hover {
-  color: var(--cnt-gold, #c5a047);
-}
-
-.lre-contact__wire-email {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.lre-contact__wire-email:hover {
-  color: var(--cnt-gold, #c5a047);
-}
-
-/* Live Metrics Grid (Parity with Reviews) */
-.lre-contact__metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.lre-contact__metric-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.lre-contact__metric-val {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: #ffffff !important;
-  line-height: 1.1;
-  margin-bottom: 0.35rem;
-}
-
-.lre-contact__metric-lbl {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.6rem;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.55) !important;
-  text-transform: uppercase;
-  line-height: 1.35;
-}
-
-/* Right: Bespoke Inquiry Dossier Brief */
-.lre-contact__dossier-inner {
-  background: var(--cnt-card-bg, rgba(255, 255, 255, 0.025)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 4px;
-  padding: 2.75rem 2.5rem;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  max-width: 560px;
+  background: rgba(14, 15, 23, 0.76);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 71, 0.18);
+  padding: 42px 38px;
+  border-radius: 2px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  height: 100%;
-  box-sizing: border-box;
 }
 
-.lre-contact__dossier-inner::before {
+.lre-contact__console-glass::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cnt-gold, #c5a047), rgba(197, 160, 71, 0.15)) !important;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(197, 160, 71, 0.4), transparent);
 }
 
-.lre-contact__dossier-header {
-  margin-bottom: 2rem;
+.lre-contact__console-header {
+  margin-bottom: 1.8rem;
 }
 
-.lre-contact__dossier-title {
+.lre-contact__console-title {
   font-family: var(--font-serif, 'Libre Baskerville', serif);
   font-size: 1.45rem;
   font-weight: 400;
-  color: #ffffff !important;
-  margin: 0 0 0.45rem 0;
-  line-height: 1.3;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
 }
 
-.lre-contact__dossier-sub {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.65);
+.lre-contact__console-sub {
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
   margin: 0;
   font-weight: 300;
-  line-height: 1.5;
 }
 
+/* Form Styles */
 .lre-contact__form {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.35rem;
 }
 
-/* Interactive Focus Pills */
-.lre-contact__focus-group {
+.lre-contact__form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .lre-contact__label {
-  display: block;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.8px;
-  color: rgba(255, 255, 255, 0.65);
-  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.lre-contact__label .req {
-  color: var(--cnt-gold, #c5a047);
+.lre-contact__req {
+  color: var(--color-secondary, #c5a047);
 }
 
-.lre-contact__focus-pills {
+/* 1-Click Minimal Chips */
+.lre-contact__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
-.lre-contact__focus-pill {
-  position: relative;
+.lre-contact__chip {
   cursor: pointer;
-  user-select: none;
   margin: 0;
 }
 
-.lre-contact__focus-pill input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.lre-contact__chip input {
+  display: none;
 }
 
-.lre-contact__focus-pill span {
+.lre-contact__chip span {
   display: inline-block;
-  padding: 0.55rem 0.95rem;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 15px;
+  font-size: 0.72rem;
   font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.lre-contact__focus-pill:hover span {
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
-}
-
-.lre-contact__focus-pill input:checked + span {
-  background: rgba(197, 160, 71, 0.12);
-  border-color: var(--cnt-gold, #c5a047);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(197, 160, 71, 0.2);
-}
-
-/* Fields */
-.lre-contact__row--2cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.4rem;
-}
-
-.lre-contact__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.lre-contact__input,
-.lre-contact__textarea {
-  width: 100%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 3px;
-  padding: 0.85rem 1rem;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.92rem;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.lre-contact__chip input:checked + span {
+  color: var(--color-secondary, #c5a047);
+  border-color: var(--color-secondary, #c5a047);
+  background: rgba(197, 160, 71, 0.08);
+}
+
+.lre-contact__chip:hover span {
+  border-color: rgba(197, 160, 71, 0.5);
   color: #ffffff;
+}
+
+/* Minimalist Inputs & Textarea */
+.lre-contact__input {
+  width: 100%;
+  background: #090a10;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  border-radius: 2px;
   outline: none;
-  transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-sizing: border-box;
 }
 
-.lre-contact__input:focus,
-.lre-contact__textarea:focus {
-  border-color: var(--cnt-gold, #c5a047);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 16px rgba(197, 160, 71, 0.15);
+.lre-contact__input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 0.82rem;
 }
 
-.lre-contact__input::placeholder,
-.lre-contact__textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-  font-weight: 300;
+.lre-contact__input:focus {
+  border-color: var(--color-secondary, #c5a047);
+  box-shadow: 0 0 0 2px rgba(197, 160, 71, 0.15);
+  background: #0c0d15;
 }
 
 .lre-contact__textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 85px;
   line-height: 1.6;
 }
 
-/* Submit Action (CTA Button Parity) */
-.lre-contact__action-box {
-  margin-top: 0.4rem;
+/* Submit Action Button */
+.lre-contact__action {
+  margin-top: 0.5rem;
 }
 
 .lre-contact__submit-btn {
-  display: inline-flex;
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.85rem;
-  padding: 1.15rem 2.5rem;
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  color: #ffffff !important;
-  border-radius: 0;
+  gap: 0.75rem;
+  padding: 15px 28px;
+  background: var(--color-secondary, #c5a047);
+  color: #08080c;
+  border: 1px solid var(--color-secondary, #c5a047);
+  border-radius: 2px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 2.2px;
-  font-weight: 500;
-  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 100%;
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 20px rgba(197, 160, 71, 0.25);
 }
 
 .lre-contact__submit-btn:hover {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  color: #08080c !important;
-  border-color: #ffffff !important;
-  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25);
-}
-
-.lre-contact__btn-line {
-  display: inline-block;
-  width: 28px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.35);
-  transition: width 0.4s ease, background 0.4s ease;
-}
-
-.lre-contact__submit-btn:hover .lre-contact__btn-line {
-  width: 44px;
-  background: #08080c;
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #08080c;
+  box-shadow: 0 6px 30px rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 .lre-contact__btn-arrow {
-  width: 14px;
-  height: 14px;
-  stroke: #ffffff;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .lre-contact__submit-btn:hover .lre-contact__btn-arrow {
   transform: translateX(4px);
-  stroke: #08080c;
 }
 
-.lre-contact__security-seal {
+/* Privacy Accord Notice */
+.lre-contact__privacy-accord {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.15rem;
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.5px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
 }
 
-.lre-contact__security-seal svg {
-  width: 13px;
-  height: 13px;
-  color: var(--cnt-gold, #c5a047);
+.lre-contact__privacy-accord svg {
+  flex-shrink: 0;
+  color: var(--color-secondary, #c5a047);
 }
 
 /* Feedback State */
 .lre-contact__feedback {
-  position: absolute;
-  inset: 0;
-  background: #0c0c12;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
+  margin-top: 1.2rem;
+  padding: 1.5rem;
+  background: rgba(197, 160, 71, 0.06);
+  border: 1px solid rgba(197, 160, 71, 0.3);
+  border-radius: 2px;
   text-align: center;
-  padding: 3rem 2rem;
-  z-index: 10;
+}
+
+.lre-contact__feedback.active {
+  display: block;
+  animation: lreContactFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lreContactFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .lre-contact__feedback-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(197, 160, 71, 0.12);
-  border: 1px solid var(--cnt-gold, #c5a047);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--cnt-gold, #c5a047);
-  margin: 0 auto 1.25rem auto;
-}
-
-.lre-contact__feedback-icon svg {
-  width: 24px;
-  height: 24px;
+  margin-bottom: 0.6rem;
 }
 
 .lre-contact__feedback-title {
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   color: #ffffff;
-  margin: 0 0 0.85rem 0;
+  margin: 0 0 0.4rem;
 }
 
-.lre-contact__feedback-text {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 440px;
-  margin: 0 auto;
+.lre-contact__feedback-msg {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
 }
 
-/* ── Responsive Refinements ── */
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS: CONTACT (lre_contact)
+   ========================================================================== */
+
 @media (max-width: 1024px) {
-  .lre-contact__chambers-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .lre-contact {
+    min-height: auto;
+    padding: 110px 0 !important;
   }
-  .lre-contact__console {
+  .lre-contact__grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 55px;
+  }
+  .lre-contact__editorial {
+    text-align: center;
+    align-items: center;
+  }
+  .lre-contact__narrative {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lre-contact__channels {
+    align-items: center;
+    width: 100%;
+  }
+  .lre-contact__seal {
+    width: 100%;
+  }
+  .lre-contact__console-glass {
+    max-width: 600px;
+    padding: 36px 30px;
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .lre-contact {
-    padding: 60px 0 !important;
+    padding: 85px 0 !important;
   }
   .lre-contact__container {
-    padding: 0 16px;
+    padding: 0 20px;
   }
-  .lre-contact__header {
-    margin-bottom: 2.5rem;
+  .lre-contact__watermark {
+    font-size: clamp(2.4rem, 8vw, 4rem);
+    top: 2.5rem;
   }
-  .lre-contact__row--2cols {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
+  .lre-contact__title {
+    font-size: clamp(1.9rem, 6.5vw, 2.4rem) !important;
   }
-  .lre-contact__fiduciary-pillar,
-  .lre-contact__dossier-inner {
-    padding: 2.2rem 1.6rem;
+  .lre-contact__console-glass {
+    padding: 30px 22px;
   }
-  .lre-contact__metrics-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
+  .lre-contact__chips {
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
   .lre-contact {
-    padding: 48px 0 !important;
+    padding: 65px 0 !important;
   }
-  .lre-contact__chamber-card {
-    padding: 1.8rem 1.4rem;
+  .lre-contact__container {
+    padding: 0 16px;
   }
-  .lre-contact__fiduciary-pillar,
-  .lre-contact__dossier-inner {
-    padding: 1.8rem 1.25rem;
+  .lre-contact__title {
+    font-size: clamp(1.65rem, 7.5vw, 2rem) !important;
+  }
+  .lre-contact__narrative {
+    font-size: 0.85rem !important;
+  }
+  .lre-contact__channel-value {
+    font-size: 1rem;
+  }
+  .lre-contact__console-glass {
+    padding: 24px 16px;
+  }
+  .lre-contact__console-title {
+    font-size: 1.25rem;
   }
   .lre-contact__submit-btn {
-    padding: 1rem 1.5rem;
-    font-size: 0.68rem;
-  }
-  .lre-contact__watermark {
-    display: none !important;
+    padding: 13px 20px;
+    font-size: 0.72rem;
   }
 }
+
+@media (max-width: 360px) {
+  .lre-contact__container {
+    padding: 0 12px;
+  }
+  .lre-contact__watermark {
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+  }
+  .lre-contact__console-glass {
+    padding: 20px 12px;
+  }
+}
+
+/* ── Elementor Live Editor Guarantee for Contact ── */
+body.elementor-editor-active .lre-contact__watermark {
+  opacity: 1 !important;
+  transform: translate3d(-50%, 0, 0) !important;
+  animation: none !important;
+  display: block !important;
+}
+
+body.elementor-editor-active .lre-contact__grid {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
 
 /* ==========================================================================
    20. BUYING GUIDE & ACQUISITION PROTOCOL (lre_buying_guide)
@@ -10823,6 +10646,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   text-align: center;
   max-width: 820px;
   margin: 0 auto 6.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .lre-guide__title {
@@ -11054,6 +10879,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   text-align: center;
   max-width: 820px;
   margin: 0 auto 6.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .lre-sguide__title {
@@ -11257,7 +11084,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   .lre-sguide__watermark {
     font-size: clamp(2.8rem, 7.5vw, 5.2rem);
     letter-spacing: 0.15em;
-    top: 2.4rem;
+    top: 8.5rem;
   }
   .lre-guide__chapters,
   .lre-sguide__chapters {
@@ -11293,9 +11120,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   }
   .lre-guide__watermark,
   .lre-sguide__watermark {
-    font-size: clamp(2rem, 7vw, 3.8rem);
+    font-size: clamp(2.2rem, 8vw, 3.6rem);
     letter-spacing: 0.12em;
-    top: 1.8rem;
+    top: 7.2rem;
   }
   .lre-guide__chapters,
   .lre-sguide__chapters {
@@ -11349,9 +11176,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   }
   .lre-guide__watermark,
   .lre-sguide__watermark {
-    font-size: clamp(1.5rem, 6.5vw, 2.6rem);
+    font-size: clamp(2rem, 9.5vw, 3.2rem);
     letter-spacing: 0.1em;
-    top: 1.4rem;
+    top: 6.2rem;
   }
   .lre-guide__chapters,
   .lre-sguide__chapters {
@@ -11425,9 +11252,9 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   }
   .lre-guide__watermark,
   .lre-sguide__watermark {
-    font-size: clamp(1.2rem, 6vw, 1.8rem);
+    font-size: clamp(1.6rem, 8.5vw, 2.2rem);
     letter-spacing: 0.08em;
-    top: 1.1rem;
+    top: 5.8rem;
   }
   .lre-guide__chapters,
   .lre-sguide__chapters {

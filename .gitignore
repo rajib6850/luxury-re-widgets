@@ -1,4 +1,4 @@
-﻿# OS files
+# OS files
 .DS_Store
 Thumbs.db
 
@@ -8,3 +8,7 @@ Thumbs.db
 # Temporary
 .temp/
 *.log
+
+# Editor / Workspace
+*.code-workspace
+.vscode/

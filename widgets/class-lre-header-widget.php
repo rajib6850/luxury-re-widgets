@@ -178,6 +178,15 @@ class LRE_Header_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'logo_style_tip',
+			array(
+				'type'      => Controls_Manager::RAW_HTML,
+				'raw'       => '<div style="background:rgba(197,160,71,0.08); border-left:3px solid #c5a047; padding:8px 12px; margin:8px 0 14px 0; font-size:12px; line-height:1.4; color:#ffffff;"><strong>Responsive Logo Sizing:</strong> Customize Logo Width, Height, Max Dimensions, and Object Fit for Desktop, Tablet, and Mobile in <strong>Style &gt; Brand Logo</strong>.</div>',
+				'condition' => array( 'logo_type' => 'image' ),
+			)
+		);
+
+		$this->add_control(
 			'brand_line_1',
 			array(
 				'label'     => __( 'Brand Line 1', 'luxury-re-widgets' ),
@@ -514,6 +523,342 @@ class LRE_Header_Widget extends Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .navbar' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// ── STYLE: BRAND LOGO (RESPONSIVE SIZING & TYPOGRAPHY) ──
+		$this->start_controls_section(
+			'style_logo',
+			array(
+				'label' => __( 'Brand Logo', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_image_logo_style',
+			array(
+				'label' => __( 'Image Logo Dimensions', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_width',
+			array(
+				'label'       => __( 'Logo Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw', 'rem' ),
+				'range'       => array(
+					'px'  => array(
+						'min'  => 20,
+						'max'  => 600,
+						'step' => 1,
+					),
+					'%'   => array(
+						'min'  => 5,
+						'max'  => 100,
+					),
+					'vw'  => array(
+						'min'  => 5,
+						'max'  => 60,
+					),
+					'rem' => array(
+						'min'  => 2,
+						'max'  => 40,
+						'step' => 0.5,
+					),
+				),
+				'description' => __( 'Responsive width for Desktop, Tablet, and Mobile.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__center'   => 'max-width: none;',
+					'{{WRAPPER}} .navbar__logo'     => 'max-width: none;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_height',
+			array(
+				'label'       => __( 'Logo Height', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', 'vh', 'rem' ),
+				'range'       => array(
+					'px'  => array(
+						'min'  => 15,
+						'max'  => 250,
+						'step' => 1,
+					),
+					'vh'  => array(
+						'min'  => 2,
+						'max'  => 30,
+					),
+					'rem' => array(
+						'min'  => 1,
+						'max'  => 18,
+						'step' => 0.5,
+					),
+				),
+				'description' => __( 'Responsive height for Desktop, Tablet, and Mobile.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'height: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__center'   => 'max-width: none;',
+					'{{WRAPPER}} .navbar__logo'     => 'max-width: none;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_max_width',
+			array(
+				'label'       => __( 'Logo Max Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 30,
+						'max' => 800,
+					),
+					'%'  => array(
+						'min' => 10,
+						'max' => 100,
+					),
+					'vw' => array(
+						'min' => 5,
+						'max' => 80,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_max_height',
+			array(
+				'label'       => __( 'Logo Max Height', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', 'vh' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 15,
+						'max' => 200,
+					),
+					'vh' => array(
+						'min' => 2,
+						'max' => 25,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'max-height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_object_fit',
+			array(
+				'label'     => __( 'Object Fit', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'contain',
+				'options'   => array(
+					'contain' => __( 'Contain (Keep Proportions)', 'luxury-re-widgets' ),
+					'cover'   => __( 'Cover', 'luxury-re-widgets' ),
+					'fill'    => __( 'Fill', 'luxury-re-widgets' ),
+					'none'    => __( 'None (Natural Size)', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'object-fit: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_center_max_width',
+			array(
+				'label'       => __( 'Center Container Max Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 80,
+						'max' => 600,
+					),
+					'%'  => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__center' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_opacity',
+			array(
+				'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.1,
+						'max'  => 1,
+						'step' => 0.05,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_hover_opacity',
+			array(
+				'label'     => __( 'Hover Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.1,
+						'max'  => 1,
+						'step' => 0.05,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo:hover' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		// ── Text & Crest Logo Styling ──
+		$this->add_control(
+			'heading_crest_text_style',
+			array(
+				'label'     => __( 'Text & Crest Logo Styling', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'crest_icon_size',
+			array(
+				'label'      => __( 'Crest Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 16,
+						'max' => 120,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo-icon' => 'width: {{SIZE}}{{UNIT}} !important; height: auto !important; max-width: none !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'crest_icon_color',
+			array(
+				'label'     => __( 'Crest Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-icon' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'brand_line_1_typography',
+				'label'    => __( 'Brand Line 1 Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar__logo-text span:first-child',
+			)
+		);
+
+		$this->add_control(
+			'brand_line_1_color',
+			array(
+				'label'     => __( 'Brand Line 1 Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-text span:first-child' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'brand_line_2_typography',
+				'label'    => __( 'Brand Line 2 Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar__logo-text span:last-child',
+			)
+		);
+
+		$this->add_control(
+			'brand_line_2_color',
+			array(
+				'label'     => __( 'Brand Line 2 Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-text span:last-child' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'brand_lines_gap',
+			array(
+				'label'      => __( 'Text Lines Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 20,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo-text' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'crest_text_gap',
+			array(
+				'label'      => __( 'Icon to Text Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 4,
+						'max' => 40,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);

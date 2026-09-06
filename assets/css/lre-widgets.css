@@ -802,6 +802,15 @@ button.btn {
   text-decoration: none;
 }
 
+.navbar__logo-img {
+  display: block;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
 .navbar__logo-icon {
   width: 30px;
   height: 36px;

@@ -1679,7 +1679,7 @@ class LRE_Header_Widget extends Widget_Base {
 		$is_sticky        = 'yes' === ( $settings['is_sticky'] ?? 'yes' );
 		$sticky_class     = $is_sticky ? ' navbar--sticky' : ' navbar--static';
 		$mobile_menu_type = $settings['mobile_menu_type'] ?? 'drawer';
-		$header_class     = 'site-header site-header--' . esc_attr( $mode ) . ( $is_sticky ? ' site-header--sticky' : '' ) . ' mobile-type--' . esc_attr( $mobile_menu_type );
+		$header_class     = 'site-header dynamic-header header-full-width site-header--' . esc_attr( $mode ) . ( $is_sticky ? ' site-header--sticky' : '' ) . ' mobile-type--' . esc_attr( $mobile_menu_type );
 
 		$logo_url    = ! empty( $settings['logo_link']['url'] ) ? $settings['logo_link']['url'] : '#';
 		$logo_target = ! empty( $settings['logo_link']['is_external'] ) ? '_blank' : '_self';

@@ -4346,7 +4346,25 @@ button.btn {
    â”€â”€ ELEMENTOR INTEGRATION & ZERO-FLOW HEADER OVERRIDES â”€â”€
    ========================================================================== */
 
-/* 1. Transparent Header Zero Flow Height (No top white gap) */
+/* 1. Universal Full-Width & Box-Sizing for Header Widget across ALL themes */
+.elementor-widget-lre_header,
+.elementor-widget-lre_header .elementor-widget-container,
+.elementor-widget-lre_header .site-header,
+header.site-header,
+header.site-header.dynamic-header,
+header.site-header.header-full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 2. Transparent Header Zero Flow Height (Overlay on Hero Banner) */
 .elementor-widget-lre_header:has(.site-header--transparent),
 .elementor-widget-lre_header .site-header--transparent,
 .site-header--transparent {
@@ -4364,6 +4382,107 @@ button.btn {
 .site-header--transparent .navbar,
 .site-header--transparent .side-menu {
   pointer-events: auto !important;
+}
+
+/* 3. Non-Transparent Headers: In-Flow Layout & Reserved Height for Dark and Light */
+.site-header--dark,
+.site-header--light {
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: var(--nav-height, 90px);
+  z-index: 1000;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Sticky vs Static Navigation */
+.navbar--sticky {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+}
+
+.navbar--static {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+}
+
+/* 4. Dedicated Dark Mode Styling */
+.navbar--dark {
+  background: rgba(10, 12, 16, 0.98) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.navbar--dark.scrolled {
+  background: rgba(8, 9, 12, 0.98) !important;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* 5. Dedicated Light Mode Styling */
+.navbar--light {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.navbar--light.scrolled {
+  background: rgba(255, 255, 255, 0.99) !important;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.1);
+}
+
+.navbar--light .navbar__link,
+.navbar--light a.navbar__link,
+.navbar--light .navbar__phone,
+.navbar--light a.navbar__phone,
+.navbar--light .navbar__info,
+.navbar--light a.navbar__info,
+.navbar--light .navbar__menu-btn {
+  color: #0c0c10 !important;
+}
+
+.navbar--light .navbar__link::after {
+  background: var(--color-secondary, #c5a047) !important;
+}
+
+.navbar--light .navbar__link:hover,
+.navbar--light a.navbar__link:hover,
+.navbar--light .navbar__dropdown:hover > a.navbar__link,
+.navbar--light .navbar__info:hover,
+.navbar--light .navbar__phone:hover {
+  color: var(--color-secondary, #c5a047) !important;
+}
+
+.navbar--light .navbar__logo-icon {
+  color: #0c0c10 !important;
+  fill: #0c0c10 !important;
+}
+
+.navbar--light .navbar__logo-text span {
+  color: #0c0c10 !important;
+}
+
+.navbar--light .navbar__menu-btn .hamburger span {
+  background: #0c0c10 !important;
+}
+
+.navbar--light .navbar__avatar {
+  background: #0c0c10 !important;
+}
+
+.navbar--light .navbar__avatar svg {
+  color: #ffffff !important;
+  fill: currentColor !important;
 }
 
 /* Remove unstyled theme default headers ONLY if not containing an Elementor/HFE header */

@@ -49,7 +49,7 @@
         }
 
         // Immediate smooth reveal for Hero section on page load / element ready
-        var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group' );
+        var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group, .lre-phero .reveal, .lre-contact, .lre-contact .reveal, .lre-contact .title-mask' );
         heroEls.forEach( function ( el ) {
             setTimeout( function () {
                 triggerElementReveal( el );
@@ -1434,6 +1434,15 @@
             var contactSections = root.querySelectorAll( '.lre-contact' );
 
             contactSections.forEach( function ( section ) {
+                // Immediate entrance animation on page load / widget mount
+                setTimeout( function () {
+                    section.classList.add( 'revealed' );
+                    var masks = section.querySelectorAll( '.title-mask' );
+                    masks.forEach( function ( m ) { m.classList.add( 'revealed' ); } );
+                    var reveals = section.querySelectorAll( '.reveal' );
+                    reveals.forEach( function ( r ) { r.classList.add( 'revealed' ); } );
+                }, 100 );
+
                 var form = section.querySelector( '.lre-contact__form' );
                 if ( form ) {
                     form.addEventListener( 'submit', function ( e ) {

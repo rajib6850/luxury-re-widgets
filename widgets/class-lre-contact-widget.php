@@ -1249,8 +1249,25 @@ class LRE_Contact_Widget extends Widget_Base {
 		$desktop_layout = ! empty( $settings['desktop_layout'] ) ? $settings['desktop_layout'] : 'info_left';
 		$tablet_layout  = ! empty( $settings['tablet_stack_order'] ) ? $settings['tablet_stack_order'] : 'form_top';
 		$mobile_order   = ! empty( $settings['mobile_stack_order'] ) ? $settings['mobile_stack_order'] : 'info_top';
+
+		$is_edit_mode = false;
+		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
+			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		}
+
+		$headline_raw   = $settings['headline'] ?? '';
+		$headline_lines = array_filter( array_map( 'trim', explode( "\n", $headline_raw ) ) );
+		if ( empty( $headline_lines ) ) {
+			$headline_lines = array( $headline_raw );
+		}
+
+		$card_title_raw   = $settings['card_title'] ?? '';
+		$card_title_lines = array_filter( array_map( 'trim', explode( "\n", $card_title_raw ) ) );
+		if ( empty( $card_title_lines ) ) {
+			$card_title_lines = array( $card_title_raw );
+		}
 		?>
-		<section class="lre-contact" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>" aria-label="<?php echo esc_attr__( 'Contact Us', 'luxury-re-widgets' ); ?>">
+		<section class="lre-contact reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>" id="lre-contact-<?php echo esc_attr( $this->get_id() ); ?>" aria-label="<?php echo esc_attr__( 'Contact Us', 'luxury-re-widgets' ); ?>">
 			
 			<!-- Atmosphere Backdrop -->
 			<div class="lre-contact__bg" role="img" aria-hidden="true"></div>
@@ -1262,20 +1279,25 @@ class LRE_Contact_Widget extends Widget_Base {
 				<!-- ================= LEFT COLUMN: HEADLINE & DIRECT CHANNELS ================= -->
 				<div class="lre-contact__left">
 					
-					<!-- Eyebrow & Monumental Title -->
-					<h1 class="lre-contact__headline">
-						<?php echo nl2br( esc_html( $settings['headline'] ) ); ?>
+					<!-- Eyebrow & Monumental Title with Curtain Clip-Mask Entrance -->
+					<h1 class="lre-contact__headline reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
+						<?php foreach ( $headline_lines as $h_idx => $h_line ) : ?>
+							<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
+								<span><?php echo esc_html( $h_line ); ?></span>
+							</span>
+							<?php if ( $h_idx < count( $headline_lines ) - 1 ) : ?><br><?php endif; ?>
+						<?php endforeach; ?>
 					</h1>
 
 					<!-- Editorial Narrative -->
 					<?php if ( ! empty( $settings['description'] ) ) : ?>
-						<p class="lre-contact__desc">
+						<p class="lre-contact__desc reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
 							<?php echo nl2br( esc_html( $settings['description'] ) ); ?>
 						</p>
 					<?php endif; ?>
 
 					<!-- Direct Coordinates -->
-					<div class="lre-contact__direct">
+					<div class="lre-contact__direct reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
 						<?php if ( ! empty( $settings['phone_number'] ) ) : ?>
 							<div class="lre-contact__direct-item">
 								<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['phone_label'] ); ?></span>
@@ -1297,7 +1319,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 					<!-- Lead Broker / Office Profile -->
 					<?php if ( 'yes' === $settings['show_agent_profile'] ) : ?>
-						<div class="lre-contact__agent">
+						<div class="lre-contact__agent reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
 							<?php if ( ! empty( $settings['agent_avatar']['url'] ) ) : ?>
 								<div class="lre-contact__agent-avatar-wrap">
 									<img src="<?php echo esc_url( $settings['agent_avatar']['url'] ); ?>" alt="<?php echo esc_attr( $settings['agent_name'] ); ?>" class="lre-contact__agent-avatar" loading="lazy" />
@@ -1310,7 +1332,9 @@ class LRE_Contact_Widget extends Widget_Base {
 								<?php endif; ?>
 
 								<?php if ( ! empty( $settings['agent_name'] ) ) : ?>
-									<h3 class="lre-contact__agent-name"><?php echo esc_html( $settings['agent_name'] ); ?></h3>
+									<h3 class="lre-contact__agent-name title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
+										<span><?php echo esc_html( $settings['agent_name'] ); ?></span>
+									</h3>
 								<?php endif; ?>
 
 								<?php if ( ! empty( $settings['agent_title'] ) ) : ?>
@@ -1351,10 +1375,17 @@ class LRE_Contact_Widget extends Widget_Base {
 
 				<!-- ================= RIGHT COLUMN: FLOATING MESSAGE CARD ================= -->
 				<div class="lre-contact__right">
-					<div class="lre-contact__card">
+					<div class="lre-contact__card reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
 						
 						<?php if ( ! empty( $settings['card_title'] ) ) : ?>
-							<h2 class="lre-contact__card-title"><?php echo esc_html( $settings['card_title'] ); ?></h2>
+							<h2 class="lre-contact__card-title reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
+								<?php foreach ( $card_title_lines as $c_idx => $c_line ) : ?>
+									<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
+										<span><?php echo esc_html( $c_line ); ?></span>
+									</span>
+									<?php if ( $c_idx < count( $card_title_lines ) - 1 ) : ?><br><?php endif; ?>
+								<?php endforeach; ?>
+							</h2>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $settings['card_subtitle'] ) ) : ?>

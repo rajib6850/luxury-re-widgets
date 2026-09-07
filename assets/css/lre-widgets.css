@@ -851,6 +851,20 @@ button.btn {
 }
 
 .navbar__info,
+.navbar a.navbar__info,
+.navbar__phone,
+.navbar a.navbar__phone,
+.navbar__email,
+.navbar a.navbar__email,
+.navbar__btn,
+.navbar a.navbar__btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: var(--lre-right-icon-gap, 0.5rem);
+  vertical-align: middle;
+}
+
+.navbar__info,
 .navbar a.navbar__info {
   font-size: 0.65rem;
   font-weight: 500;
@@ -875,6 +889,54 @@ button.btn {
   letter-spacing: 2px;
   color: var(--color-secondary, #c5a047) !important;
   text-decoration: none;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.navbar__phone:hover,
+.navbar a.navbar__phone:hover {
+  color: #ffffff !important;
+}
+
+/* Item Icon Container */
+.navbar__item-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+  color: inherit;
+}
+
+/* Bulletproof Universal SVG & Font Icon Sizing for Right Items */
+.navbar__item-icon svg,
+.navbar__item-icon i,
+.navbar__phone svg,
+.navbar__phone i,
+.navbar a.navbar__phone svg,
+.navbar a.navbar__phone i,
+.navbar__info svg,
+.navbar__info i,
+.navbar a.navbar__info svg,
+.navbar a.navbar__info i,
+.navbar__email svg,
+.navbar__email i,
+.navbar a.navbar__email svg,
+.navbar a.navbar__email i,
+.navbar__btn svg,
+.navbar__btn i,
+.navbar a.navbar__btn svg,
+.navbar a.navbar__btn i {
+  width: var(--lre-right-icon-size, 14px) !important;
+  height: var(--lre-right-icon-size, 14px) !important;
+  max-width: var(--lre-right-icon-size, 14px) !important;
+  max-height: var(--lre-right-icon-size, 14px) !important;
+  font-size: var(--lre-right-icon-size, 14px) !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+  fill: currentColor;
+  transition: color 0.3s ease, fill 0.3s ease, transform 0.3s ease;
 }
 
 .navbar__avatar {
@@ -3665,11 +3727,11 @@ button.btn {
   }
 
   .navbar__phone {
-    display: none;
+    display: none !important;
   }
 
   .navbar__avatar {
-    display: none;
+    display: none !important;
   }
 
   .navbar__center {

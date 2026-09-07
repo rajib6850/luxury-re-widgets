@@ -1107,6 +1107,145 @@ class LRE_Header_Widget extends Widget_Base {
 			)
 		);
 
+		// --- Heading: Item Icons ---
+		$this->add_control(
+			'heading_items_icon_style',
+			array(
+				'label'     => __( 'Item Icons (Phone, Email, Text)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'right_icon_size',
+			array(
+				'label'      => __( 'Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 8, 'max' => 48 ),
+					'rem' => array( 'min' => 0.5, 'max' => 3, 'step' => 0.1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 14 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i, {{WRAPPER}} .navbar__btn svg, {{WRAPPER}} .navbar__btn i' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important; font-size: {{SIZE}}{{UNIT}} !important; --lre-right-icon-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__item-icon' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'right_icon_gap',
+			array(
+				'label'      => __( 'Icon to Text Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 30 ),
+					'rem' => array( 'min' => 0, 'max' => 2, 'step' => 0.1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 8 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__phone, {{WRAPPER}} .navbar__info, {{WRAPPER}} .navbar__email, {{WRAPPER}} .navbar__btn' => 'gap: {{SIZE}}{{UNIT}} !important; --lre-right-icon-gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_right_icon_style' );
+
+		$this->start_controls_tab(
+			'tab_right_icon_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'right_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_right_icon_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'right_icon_hover_color',
+			array(
+				'label'     => __( 'Icon Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__phone:hover svg, {{WRAPPER}} .navbar__phone:hover i, {{WRAPPER}} .navbar__info:hover svg, {{WRAPPER}} .navbar__info:hover i, {{WRAPPER}} .navbar__email:hover svg, {{WRAPPER}} .navbar__email:hover i, {{WRAPPER}} a:hover .navbar__item-icon svg, {{WRAPPER}} a:hover .navbar__item-icon i' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// --- Heading: Phone Number Style ---
+		$this->add_control(
+			'heading_phone_style',
+			array(
+				'label'     => __( 'Phone Number Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'phone_typography',
+				'label'    => __( 'Phone Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone',
+			)
+		);
+
+		$this->add_control(
+			'phone_color',
+			array(
+				'label'     => __( 'Phone Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'phone_hover_color',
+			array(
+				'label'     => __( 'Phone Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__phone:hover, {{WRAPPER}} .navbar .navbar__phone:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		// --- Heading: Text Links Style ---
+		$this->add_control(
+			'heading_right_text_style',
+			array(
+				'label'     => __( 'Text Links Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
@@ -1139,14 +1278,28 @@ class LRE_Header_Widget extends Widget_Base {
 			)
 		);
 
+		// --- Heading: Avatar Style ---
 		$this->add_control(
-			'phone_color',
+			'heading_avatar_style',
 			array(
-				'label'     => __( 'Phone Number Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone' => 'color: {{VALUE}} !important;',
+				'label'     => __( 'Avatar / Profile Icon', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'avatar_size',
+			array(
+				'label'      => __( 'Avatar Circle Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 60 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__avatar' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important; min-width: {{SIZE}}{{UNIT}} !important; min-height: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1170,7 +1323,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0a0a0a',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__avatar svg' => 'color: {{VALUE}} !important; fill: currentColor;',
+					'{{WRAPPER}} .navbar__avatar svg, {{WRAPPER}} .navbar__avatar i' => 'color: {{VALUE}} !important; fill: currentColor;',
 				),
 			)
 		);
@@ -1769,18 +1922,24 @@ class LRE_Header_Widget extends Widget_Base {
 								$clean_phone = preg_replace( '/[^0-9+]/', '', $text );
 								echo '<a href="tel:' . esc_attr( $clean_phone ) . '" class="navbar__phone">';
 								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
 									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
-									echo ' ';
+									echo '</span>';
 								}
-								echo esc_html( $text );
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
 								echo '</a>';
 							} elseif ( 'email' === $type ) {
 								echo '<a href="mailto:' . esc_attr( $text ) . '" class="navbar__info navbar__email">';
 								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
 									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
-									echo ' ';
+									echo '</span>';
 								}
-								echo esc_html( $text );
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
 								echo '</a>';
 							} elseif ( 'avatar' === $type ) {
 								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="navbar__avatar" aria-label="' . esc_attr__( 'Account', 'luxury-re-widgets' ) . '">';
@@ -1793,29 +1952,35 @@ class LRE_Header_Widget extends Widget_Base {
 							} elseif ( 'button' === $type ) {
 								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="btn btn--outline-white navbar__btn" style="padding: 0.5rem 1.2rem; font-size: 0.65rem; text-decoration: none;">';
 								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
 									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
-									echo ' ';
+									echo '</span>';
 								}
-								echo esc_html( $text );
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
 								echo '</a>';
 							} else {
 								// Standard text link
 								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="navbar__info">';
 								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
 									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
-									echo ' ';
+									echo '</span>';
 								}
-								echo esc_html( $text );
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
 								echo '</a>';
 							}
 						}
 					} else {
 						// Backward compatibility fallback
 						if ( 'yes' === ( $settings['show_portfolio'] ?? 'yes' ) && ! empty( $settings['portfolio_text'] ) ) {
-							echo '<a href="' . esc_url( $settings['portfolio_link']['url'] ?? '#listings' ) . '" class="navbar__info">' . esc_html( $settings['portfolio_text'] ) . '</a>';
+							echo '<a href="' . esc_url( $settings['portfolio_link']['url'] ?? '#listings' ) . '" class="navbar__info"><span class="navbar__item-text">' . esc_html( $settings['portfolio_text'] ) . '</span></a>';
 						}
 						if ( 'yes' === ( $settings['show_phone'] ?? 'yes' ) && ! empty( $settings['phone_number'] ) ) {
-							echo '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ) . '" class="navbar__phone">' . esc_html( $settings['phone_number'] ) . '</a>';
+							echo '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ) . '" class="navbar__phone"><span class="navbar__item-text">' . esc_html( $settings['phone_number'] ) . '</span></a>';
 						}
 						if ( 'yes' === ( $settings['show_avatar'] ?? 'yes' ) ) {
 							echo '<div class="navbar__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg></div>';

@@ -756,30 +756,47 @@ class LRE_Hero_Widget extends Widget_Base {
 			<?php if ( 'slider' === $media_type ) :
 				$gallery  = ! empty( $settings['slider_images'] ) ? $settings['slider_images'] : array();
 				$interval = ! empty( $settings['slider_autoplay_interval'] ) ? intval( $settings['slider_autoplay_interval'] ) : 5000;
+				if ( empty( $gallery ) ) {
+					$fallback_url = ! empty( $settings['hero_bg_image']['url'] ) ? $settings['hero_bg_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85';
+					$gallery = array(
+						array( 'url' => $fallback_url ),
+						array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85' ),
+						array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85' ),
+					);
+				}
 			?>
 				<!-- Background Slider -->
 				<div class="hero__slider" data-autoplay-interval="<?php echo esc_attr( $interval ); ?>">
-					<?php if ( ! empty( $gallery ) ) :
-						$slide_idx = 0;
-						foreach ( $gallery as $img ) :
-							$img_url = '';
-							if ( ! empty( $img['url'] ) ) {
-								$img_url = $img['url'];
-							} elseif ( ! empty( $img['id'] ) ) {
-								$img_url = wp_get_attachment_image_url( $img['id'], 'full' );
-							}
-							if ( ! empty( $img_url ) ) :
-								$active = ( 0 === $slide_idx ) ? ' active' : '';
+					<?php
+					$slide_idx = 0;
+					foreach ( $gallery as $img ) :
+						$img_url = '';
+						if ( ! empty( $img['url'] ) ) {
+							$img_url = $img['url'];
+						} elseif ( ! empty( $img['id'] ) ) {
+							$img_url = wp_get_attachment_image_url( $img['id'], 'full' );
+						}
+						if ( ! empty( $img_url ) ) :
+							$active = ( 0 === $slide_idx ) ? ' active' : '';
 					?>
 					<div class="hero__slide<?php echo esc_attr( $active . $ken_burns ); ?>" data-index="<?php echo esc_attr( $slide_idx ); ?>">
 						<img src="<?php echo esc_url( $img_url ); ?>" alt="" aria-hidden="true" loading="<?php echo ( 0 === $slide_idx ) ? 'eager' : 'lazy'; ?>">
 					</div>
-					<?php $slide_idx++; endif; endforeach; endif; ?>
+					<?php $slide_idx++; endif; endforeach; ?>
 				</div>
 
 			<?php elseif ( 'video' === $media_type ) :
-				$video_source = $settings['video_source'] ?? 'self_hosted';
-				$poster_url   = ! empty( $settings['video_fallback_image']['url'] ) ? $settings['video_fallback_image']['url'] : '';
+				$video_source   = $settings['video_source'] ?? 'self_hosted';
+				$poster_url     = ! empty( $settings['video_fallback_image']['url'] ) ? $settings['video_fallback_image']['url'] : '';
+				if ( empty( $poster_url ) && ! empty( $settings['video_fallback_image']['id'] ) ) {
+					$poster_url = wp_get_attachment_image_url( $settings['video_fallback_image']['id'], 'full' );
+				}
+				$self_video_url = '';
+				if ( ! empty( $settings['video_file']['url'] ) ) {
+					$self_video_url = $settings['video_file']['url'];
+				} elseif ( ! empty( $settings['video_file']['id'] ) ) {
+					$self_video_url = wp_get_attachment_url( $settings['video_file']['id'] );
+				}
 			?>
 				<!-- Background Video -->
 				<div class="hero__video-wrap">
@@ -787,9 +804,9 @@ class LRE_Hero_Widget extends Widget_Base {
 						<div class="hero__video-poster" style="background-image: url('<?php echo esc_url( $poster_url ); ?>');"></div>
 					<?php endif; ?>
 
-					<?php if ( 'self_hosted' === $video_source && ! empty( $settings['video_file']['url'] ) ) : ?>
+					<?php if ( 'self_hosted' === $video_source && ! empty( $self_video_url ) ) : ?>
 						<video class="hero__video" autoplay muted loop playsinline poster="<?php echo esc_url( $poster_url ); ?>">
-							<source src="<?php echo esc_url( $settings['video_file']['url'] ); ?>" type="video/mp4">
+							<source src="<?php echo esc_url( $self_video_url ); ?>" type="video/mp4">
 						</video>
 					<?php elseif ( 'external' === $video_source && ! empty( $settings['video_url'] ) ) : ?>
 						<video class="hero__video" autoplay muted loop playsinline poster="<?php echo esc_url( $poster_url ); ?>">
@@ -831,6 +848,10 @@ class LRE_Hero_Widget extends Widget_Base {
 					<?php elseif ( $poster_url ) : ?>
 						<div class="hero__background<?php echo esc_attr( $ken_burns ); ?>">
 							<img src="<?php echo esc_url( $poster_url ); ?>" alt="" fetchpriority="high">
+						</div>
+					<?php else : ?>
+						<div class="hero__background<?php echo esc_attr( $ken_burns ); ?>">
+							<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85" alt="" fetchpriority="high">
 						</div>
 					<?php endif; ?>
 				</div>

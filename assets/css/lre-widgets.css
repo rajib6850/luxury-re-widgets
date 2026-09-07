@@ -1379,6 +1379,54 @@ button.btn {
   }
 }
 
+/* ── Hero Slideshow / Carousel Layer ── */
+.hero__slider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #0a0a0e;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.hero__slide.is-prev {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+}
+
+.hero__slide.ken-burns.active img,
+.hero__slide.ken-burns.is-prev img {
+  animation: heroKenBurns var(--lre-ken-burns-duration, 25s) ease-in-out infinite alternate;
+}
+
 /* ── Hero Video Background Layer ── */
 .hero__video-wrap {
   position: absolute;
@@ -1413,7 +1461,7 @@ button.btn {
   min-height: 100%;
   object-fit: cover;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 /* YouTube & Vimeo Iframe Background Video (Full Screen Cover) */
@@ -4719,6 +4767,18 @@ body.elementor-editor-active .lre-sguide__valuation-console,
 .elementor-editor-active .title-mask > span,
 .elementor-editor-preview .title-mask > span,
 .elementor-edit-mode .title-mask > span,
+.elementor-editor-active .hero-mask > span,
+.elementor-editor-preview .hero-mask > span,
+.elementor-edit-mode .hero-mask > span,
+.elementor-editor-active .hero__title,
+.elementor-editor-preview .hero__title,
+.elementor-edit-mode .hero__title,
+.elementor-editor-active .hero__subtitle,
+.elementor-editor-preview .hero__subtitle,
+.elementor-edit-mode .hero__subtitle,
+.elementor-editor-active .hero__cta-group,
+.elementor-editor-preview .hero__cta-group,
+.elementor-edit-mode .hero__cta-group,
 .elementor-editor-active .lre-comm-frame,
 .elementor-editor-preview .lre-comm-frame,
 .elementor-edit-mode .lre-comm-frame,

@@ -365,26 +365,53 @@
 
             // Trigger kinetic text animations on Hero Title, Subtitle, CTA
             var heroTitles = root.querySelectorAll ? root.querySelectorAll( '.hero-mask > span' ) : [];
-            for ( var m = 0; m < heroTitles.length; m++ ) {
-                ( function ( span, idx ) {
-                    span.style.animation = 'none';
-                    void span.offsetWidth;
-                    span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) ' + ( 0.3 + idx * 0.22 ) + 's forwards';
-                } )( heroTitles[m], m );
-            }
-
             var sub = root.querySelector ? root.querySelector( '.hero__subtitle' ) : null;
-            if ( sub ) {
-                sub.style.animation = 'none';
-                void sub.offsetWidth;
-                sub.style.animation = 'heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.7s forwards';
-            }
-
             var cta = root.querySelector ? root.querySelector( '.hero__cta-group' ) : null;
-            if ( cta ) {
-                cta.style.animation = 'none';
-                void cta.offsetWidth;
-                cta.style.animation = 'heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.9s forwards';
+
+            var isEdit = false;
+            try {
+                isEdit = ( window.elementorFrontend && window.elementorFrontend.isEditMode() ) ||
+                         document.body.classList.contains( 'elementor-editor-active' ) ||
+                         document.body.classList.contains( 'elementor-editor-preview' ) ||
+                         document.body.classList.contains( 'elementor-edit-mode' );
+            } catch ( e ) {}
+
+            if ( isEdit ) {
+                for ( var m = 0; m < heroTitles.length; m++ ) {
+                    heroTitles[m].style.animation = 'none';
+                    heroTitles[m].style.transform = 'none';
+                    heroTitles[m].style.opacity = '1';
+                }
+                if ( sub ) {
+                    sub.style.animation = 'none';
+                    sub.style.transform = 'none';
+                    sub.style.opacity = '1';
+                }
+                if ( cta ) {
+                    cta.style.animation = 'none';
+                    cta.style.transform = 'none';
+                    cta.style.opacity = '1';
+                }
+            } else {
+                for ( var m = 0; m < heroTitles.length; m++ ) {
+                    ( function ( span, idx ) {
+                        span.style.animation = 'none';
+                        void span.offsetWidth;
+                        span.style.animation = 'heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) ' + ( 0.3 + idx * 0.22 ) + 's forwards';
+                    } )( heroTitles[m], m );
+                }
+
+                if ( sub ) {
+                    sub.style.animation = 'none';
+                    void sub.offsetWidth;
+                    sub.style.animation = 'heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.7s forwards';
+                }
+
+                if ( cta ) {
+                    cta.style.animation = 'none';
+                    void cta.offsetWidth;
+                    cta.style.animation = 'heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.9s forwards';
+                }
             }
 
             var sliders = root.querySelectorAll ? root.querySelectorAll( '.hero__slider' ) : [];
@@ -395,6 +422,19 @@
             for ( var s = 0; s < sliders.length; s++ ) {
                 ( function ( slider ) {
                     var slides = slider.querySelectorAll( '.hero__slide' );
+                    if ( ! slides.length ) return;
+
+                    var hasActive = false;
+                    for ( var a = 0; a < slides.length; a++ ) {
+                        if ( slides[a].classList.contains( 'active' ) ) {
+                            hasActive = true;
+                            break;
+                        }
+                    }
+                    if ( ! hasActive ) {
+                        slides[0].classList.add( 'active' );
+                    }
+
                     if ( slides.length <= 1 ) return;
 
                     var rawInterval = slider.getAttribute( 'data-autoplay-interval' );

@@ -8,6 +8,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Background;
 use Elementor\Repeater;
 
 /**
@@ -494,12 +495,29 @@ class LRE_Header_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'navbar_background',
+				'label'    => __( 'Background Type', 'luxury-re-widgets' ),
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .navbar, {{WRAPPER}} .navbar.navbar--dark, {{WRAPPER}} .navbar.navbar--light, {{WRAPPER}} .navbar.navbar--transparent',
+			)
+		);
+
 		$this->add_control(
 			'navbar_bg_custom',
 			array(
 				'label'     => __( 'Custom Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .navbar' => 'background: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar'                             => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--dark'                => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--light'               => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--transparent'         => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .site-header .navbar'                => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}}'                                     => '--lre-navbar-bg: {{VALUE}} !important;',
+				),
 			)
 		);
 
@@ -508,7 +526,27 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Scrolled / Sticky Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .navbar.scrolled' => 'background: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar.scrolled'                             => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--dark.scrolled'                => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--light.scrolled'               => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--transparent.scrolled'         => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .site-header .navbar.scrolled'                => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}}'                                              => '--lre-navbar-scrolled-bg: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'navbar_border_color',
+			array(
+				'label'     => __( 'Bottom Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar' => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--dark' => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.navbar--light' => 'border-bottom-color: {{VALUE}} !important;',
+				),
 			)
 		);
 

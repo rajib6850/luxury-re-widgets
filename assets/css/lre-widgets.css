@@ -650,7 +650,7 @@ button.btn {
   align-items: center;
   justify-content: space-between;
   padding: 0 2.5rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%);
+  background: var(--lre-navbar-bg, linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%));
   z-index: var(--z-nav);
   transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     backdrop-filter 0.5s ease,
@@ -660,7 +660,7 @@ button.btn {
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 14, 0.94);
+  background: var(--lre-navbar-scrolled-bg, var(--lre-navbar-bg, rgba(10, 10, 14, 0.94)));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
@@ -4532,30 +4532,38 @@ header.site-header.header-full-width {
 }
 
 /* 4. Dedicated Dark Mode Styling */
+.navbar.navbar--dark,
+.site-header--dark .navbar,
 .navbar--dark {
-  background: rgba(10, 12, 16, 0.98) !important;
+  background: var(--lre-navbar-bg, rgba(10, 12, 16, 0.98));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
+.navbar.navbar--dark.scrolled,
+.site-header--dark .navbar.scrolled,
 .navbar--dark.scrolled {
-  background: rgba(8, 9, 12, 0.98) !important;
+  background: var(--lre-navbar-scrolled-bg, var(--lre-navbar-bg, rgba(8, 9, 12, 0.98)));
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.55);
 }
 
 /* 5. Dedicated Light Mode Styling */
+.navbar.navbar--light,
+.site-header--light .navbar,
 .navbar--light {
-  background: rgba(255, 255, 255, 0.98) !important;
+  background: var(--lre-navbar-bg, rgba(255, 255, 255, 0.98));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
+.navbar.navbar--light.scrolled,
+.site-header--light .navbar.scrolled,
 .navbar--light.scrolled {
-  background: rgba(255, 255, 255, 0.99) !important;
+  background: var(--lre-navbar-scrolled-bg, var(--lre-navbar-bg, rgba(255, 255, 255, 0.99)));
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.1);
 }
 

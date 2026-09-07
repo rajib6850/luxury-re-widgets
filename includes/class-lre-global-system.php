@@ -79,13 +79,13 @@ body,
 }
 
 /* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
-[class*="lre-"] button,
-[class*="lre-"] [type="button"],
-[class*="lre-"] [type="submit"],
-[class*="lre-"] a,
-[class*="elementor-widget-lre_"] button,
-[class*="elementor-widget-lre_"] [type="button"],
-[class*="elementor-widget-lre_"] a {
+[class*="lre-"] button:not(.btn),
+[class*="lre-"] [type="button"]:not(.btn),
+[class*="lre-"] [type="submit"]:not(.btn),
+[class*="lre-"] a:not(.btn),
+[class*="elementor-widget-lre_"] button:not(.btn),
+[class*="elementor-widget-lre_"] [type="button"]:not(.btn),
+[class*="elementor-widget-lre_"] a:not(.btn) {
   color: inherit !important;
   text-decoration: none !important;
 }
@@ -267,9 +267,7 @@ button.btn,
   color: inherit;
 }
 
-/* 1. Hero & Dark Section Buttons (.btn--outline-white / lre-aserv) - Default White Hover */
-.hero__cta-group .btn,
-.hero__cta-group a.btn,
+/* 1. Dark Section Buttons (lre-aserv) - Default White Hover */
 .lre-aserv .btn,
 .lre-aserv a.btn,
 .lre-aserv__mono-action .btn,
@@ -281,8 +279,6 @@ button.btn,
   --btn-hover-bg: #ffffff !important;
 }
 
-.hero__cta-group .btn span,
-.hero__cta-group a.btn span,
 .lre-aserv .btn span,
 .lre-aserv a.btn span,
 .lre-aserv__mono-action .btn span,
@@ -291,8 +287,6 @@ button.btn,
   transition: color 0.4s ease !important;
 }
 
-.hero__cta-group .btn svg,
-.hero__cta-group a.btn svg,
 .lre-aserv .btn svg,
 .lre-aserv a.btn svg,
 .lre-aserv__mono-action .btn svg,
@@ -301,7 +295,6 @@ button.btn,
   transition: stroke 0.4s ease, transform 0.35s ease !important;
 }
 
-.hero__cta-group .btn::before,
 .lre-aserv .btn::before,
 .lre-aserv a.btn::before,
 .lre-aserv__mono-action .btn::before,
@@ -310,8 +303,6 @@ button.btn,
   background-color: #ffffff !important;
 }
 
-.hero__cta-group .btn:hover,
-.hero__cta-group a.btn:hover,
 .lre-aserv .btn:hover,
 .lre-aserv a.btn:hover,
 .lre-aserv__mono-action .btn:hover,
@@ -322,8 +313,6 @@ button.btn,
   background-color: #ffffff !important;
 }
 
-.hero__cta-group .btn:hover span,
-.hero__cta-group a.btn:hover span,
 .lre-aserv .btn:hover span,
 .lre-aserv a.btn:hover span,
 .lre-aserv__mono-action .btn:hover span,
@@ -337,8 +326,6 @@ button.btn,
   color: #0a0a0a !important;
 }
 
-.hero__cta-group .btn:hover svg,
-.hero__cta-group a.btn:hover svg,
 .lre-aserv .btn:hover svg,
 .lre-aserv a.btn:hover svg,
 .lre-aserv__mono-action .btn:hover svg,
@@ -346,6 +333,97 @@ button.btn,
 .lre-comm-spotlight__action .btn:hover svg,
 .lre-comm-spotlight__action a.btn:hover svg {
   stroke: #0a0a0a !important;
+  transform: translateX(5px) !important;
+}
+
+/* 1b. Hero Action Buttons (Button 1 & Button 2) with Elementor Variable Bridge */
+.hero__cta-group .hero__btn-1,
+.hero__cta-group a.hero__btn-1 {
+  color: var(--hero-btn1-color, #ffffff) !important;
+  background: var(--hero-btn1-bg, transparent) !important;
+  background-color: var(--hero-btn1-bg, transparent) !important;
+  border-color: var(--hero-btn1-border, rgba(255, 255, 255, 0.4)) !important;
+  --btn-hover-bg: var(--hero-btn1-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-1 span,
+.hero__cta-group a.hero__btn-1 span {
+  color: var(--hero-btn1-color, inherit) !important;
+  transition: color 0.4s ease !important;
+}
+
+.hero__cta-group .hero__btn-1 svg,
+.hero__cta-group a.hero__btn-1 svg {
+  stroke: var(--hero-btn1-color, #ffffff) !important;
+  transition: stroke 0.4s ease, transform 0.35s ease !important;
+}
+
+.hero__cta-group .hero__btn-1::before {
+  background: var(--hero-btn1-hover-bg, #ffffff) !important;
+  background-color: var(--hero-btn1-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-1:hover,
+.hero__cta-group a.hero__btn-1:hover {
+  color: var(--hero-btn1-hover-color, #0a0a0a) !important;
+  border-color: var(--hero-btn1-hover-border, #ffffff) !important;
+  background: var(--hero-btn1-hover-bg, #ffffff) !important;
+  background-color: var(--hero-btn1-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-1:hover span,
+.hero__cta-group a.hero__btn-1:hover span {
+  color: var(--hero-btn1-hover-color, #0a0a0a) !important;
+}
+
+.hero__cta-group .hero__btn-1:hover svg,
+.hero__cta-group a.hero__btn-1:hover svg {
+  stroke: var(--hero-btn1-hover-color, #0a0a0a) !important;
+  transform: translateX(5px) !important;
+}
+
+.hero__cta-group .hero__btn-2,
+.hero__cta-group a.hero__btn-2 {
+  color: var(--hero-btn2-color, #ffffff) !important;
+  background: var(--hero-btn2-bg, transparent) !important;
+  background-color: var(--hero-btn2-bg, transparent) !important;
+  border-color: var(--hero-btn2-border, rgba(255, 255, 255, 0.4)) !important;
+  --btn-hover-bg: var(--hero-btn2-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-2 span,
+.hero__cta-group a.hero__btn-2 span {
+  color: var(--hero-btn2-color, inherit) !important;
+  transition: color 0.4s ease !important;
+}
+
+.hero__cta-group .hero__btn-2 svg,
+.hero__cta-group a.hero__btn-2 svg {
+  stroke: var(--hero-btn2-color, #ffffff) !important;
+  transition: stroke 0.4s ease, transform 0.35s ease !important;
+}
+
+.hero__cta-group .hero__btn-2::before {
+  background: var(--hero-btn2-hover-bg, #ffffff) !important;
+  background-color: var(--hero-btn2-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-2:hover,
+.hero__cta-group a.hero__btn-2:hover {
+  color: var(--hero-btn2-hover-color, #0a0a0a) !important;
+  border-color: var(--hero-btn2-hover-border, #ffffff) !important;
+  background: var(--hero-btn2-hover-bg, #ffffff) !important;
+  background-color: var(--hero-btn2-hover-bg, #ffffff) !important;
+}
+
+.hero__cta-group .hero__btn-2:hover span,
+.hero__cta-group a.hero__btn-2:hover span {
+  color: var(--hero-btn2-hover-color, #0a0a0a) !important;
+}
+
+.hero__cta-group .hero__btn-2:hover svg,
+.hero__cta-group a.hero__btn-2:hover svg {
+  stroke: var(--hero-btn2-hover-color, #0a0a0a) !important;
   transform: translateX(5px) !important;
 }
 

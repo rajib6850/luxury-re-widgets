@@ -601,6 +601,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--hero-btn1-hover-color: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover span' => 'color: {{VALUE}}; --hero-btn1-hover-color: {{VALUE}};',
 					),
 				)
@@ -612,7 +613,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--btn-hover-bg: {{VALUE}}; --hero-btn1-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'background-color: {{VALUE}}; --hero-btn1-hover-bg: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover::before' => 'background-color: {{VALUE}};',
 					),
 				)
@@ -623,6 +624,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--hero-btn1-hover-border: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}}; --hero-btn1-hover-border: {{VALUE}};',
 					),
 				)
@@ -681,6 +683,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--hero-btn2-hover-color: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover span' => 'color: {{VALUE}}; --hero-btn2-hover-color: {{VALUE}};',
 					),
 				)
@@ -692,7 +695,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--btn-hover-bg: {{VALUE}}; --hero-btn2-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'background-color: {{VALUE}}; --hero-btn2-hover-bg: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover::before' => 'background-color: {{VALUE}};',
 					),
 				)
@@ -703,6 +706,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--hero-btn2-hover-border: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}}; --hero-btn2-hover-border: {{VALUE}};',
 					),
 				)

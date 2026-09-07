@@ -636,11 +636,11 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'text_typography', 'label' => __( 'Text / Links Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' ) );
 		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .footer__info-text'   => 'color: {{VALUE}} !important;',
-			'{{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__info-text'   => 'color: {{VALUE}};',
+			'{{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}};',
 		) ) );
 		$this->add_control( 'text_hover_color', array( 'label' => __( 'Links Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}};',
 		) ) );
 		$this->end_controls_section();
 
@@ -761,10 +761,10 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link'          => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link svg'      => 'fill: {{VALUE}} !important; color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link svg path' => 'fill: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link i'        => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link'          => 'color: {{VALUE}}; --lre-soc-color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link svg'      => 'fill: {{VALUE}}; color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link svg path' => 'fill: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link i'        => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -775,7 +775,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link' => 'background-color: {{VALUE}}; --lre-soc-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -790,7 +790,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					),
 					'default'   => array( 'size' => 0.75 ),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link' => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__social-link' => 'opacity: {{SIZE}};',
 					),
 				)
 			);
@@ -808,10 +808,10 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Icon Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover'          => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link:hover svg'      => 'fill: {{VALUE}} !important; color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link:hover svg path' => 'fill: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__social-link:hover i'        => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover'          => 'color: {{VALUE}}; --lre-soc-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link:hover svg'      => 'fill: {{VALUE}}; color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link:hover svg path' => 'fill: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link:hover i'        => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -822,7 +822,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Background Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover' => 'background-color: {{VALUE}}; --lre-soc-hover-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -833,7 +833,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Border Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -848,7 +848,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					),
 					'default'   => array( 'size' => 1 ),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover' => 'opacity: {{SIZE}};',
 					),
 				)
 			);
@@ -863,7 +863,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'return_value' => 'yes',
 					'default'      => 'yes',
 					'selectors'    => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'transform: translateY(-3px) !important;',
+						'{{WRAPPER}} .footer__social-link:hover' => 'transform: translateY(-3px);',
 					),
 				)
 			);
@@ -919,7 +919,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Link Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -932,7 +932,7 @@ class LRE_Footer_Widget extends Widget_Base {
 						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link' => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__nav-link' => 'opacity: {{SIZE}};',
 					),
 				)
 			);
@@ -945,7 +945,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -958,7 +958,7 @@ class LRE_Footer_Widget extends Widget_Base {
 						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link:hover' => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__nav-link:hover' => 'opacity: {{SIZE}};',
 					),
 				)
 			);
@@ -1105,9 +1105,9 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Links Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a'      => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__copyright a'   => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__bottom-link'   => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__bottom a'      => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__copyright a'   => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__bottom-link'   => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -1121,9 +1121,9 @@ class LRE_Footer_Widget extends Widget_Base {
 						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a'      => 'opacity: {{SIZE}} !important;',
-						'{{WRAPPER}} .footer__copyright a'   => 'opacity: {{SIZE}} !important;',
-						'{{WRAPPER}} .footer__bottom-link'   => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__bottom a'      => 'opacity: {{SIZE}};',
+						'{{WRAPPER}} .footer__copyright a'   => 'opacity: {{SIZE}};',
+						'{{WRAPPER}} .footer__bottom-link'   => 'opacity: {{SIZE}};',
 					),
 				)
 			);
@@ -1141,9 +1141,9 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Links Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a:hover'      => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__copyright a:hover'   => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .footer__bottom-link:hover'   => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__bottom a:hover'      => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__copyright a:hover'   => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__bottom-link:hover'   => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -1157,9 +1157,9 @@ class LRE_Footer_Widget extends Widget_Base {
 						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a:hover'      => 'opacity: {{SIZE}} !important;',
-						'{{WRAPPER}} .footer__copyright a:hover'   => 'opacity: {{SIZE}} !important;',
-						'{{WRAPPER}} .footer__bottom-link:hover'   => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__bottom a:hover'      => 'opacity: {{SIZE}};',
+						'{{WRAPPER}} .footer__copyright a:hover'   => 'opacity: {{SIZE}};',
+						'{{WRAPPER}} .footer__bottom-link:hover'   => 'opacity: {{SIZE}};',
 					),
 				)
 			);

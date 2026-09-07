@@ -3253,7 +3253,8 @@ button.btn {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  color: var(--color-text, #ffffff);
+  color: var(--lre-soc-color, var(--color-text, #ffffff));
+  background-color: var(--lre-soc-bg, transparent);
   opacity: 0.75;
   text-decoration: none;
   border: 1px solid transparent;
@@ -3286,7 +3287,8 @@ button.btn {
 
 .footer__social-link:hover {
   opacity: 1;
-  color: var(--color-secondary, #c5a047);
+  color: var(--lre-soc-hover-color, var(--color-secondary, #c5a047));
+  background-color: var(--lre-soc-hover-bg, transparent);
   transform: translateY(-2px);
 }
 

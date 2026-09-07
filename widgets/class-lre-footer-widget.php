@@ -637,10 +637,11 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'text_typography', 'label' => __( 'Text / Links Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' ) );
 		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
 			'{{WRAPPER}} .footer__info-text'   => 'color: {{VALUE}};',
-			'{{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}};',
+			'{{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}} !important; --lre-footer-info-link-color: {{VALUE}};',
 		) ) );
 		$this->add_control( 'text_hover_color', array( 'label' => __( 'Links Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}};',
+			'{{WRAPPER}} .footer__info-text a'       => '--lre-footer-info-link-hover-color: {{VALUE}};',
+			'{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}} !important; --lre-footer-info-link-hover-color: {{VALUE}};',
 		) ) );
 		$this->end_controls_section();
 
@@ -919,7 +920,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Link Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}} !important; --lre-footer-nav-color: {{VALUE}};',
 					),
 				)
 			);
@@ -945,7 +946,8 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__nav-link'       => '--lre-footer-nav-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}} !important; --lre-footer-nav-hover-color: {{VALUE}};',
 					),
 				)
 			);
@@ -1105,13 +1107,10 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Links Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a'      => 'color: {{VALUE}};',
-						'{{WRAPPER}} .footer__copyright a'   => 'color: {{VALUE}};',
-						'{{WRAPPER}} .footer__bottom-link'   => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__bottom a, {{WRAPPER}} .footer__copyright a, {{WRAPPER}} .footer__bottom-link, {{WRAPPER}} .footer__legal a' => 'color: {{VALUE}} !important; --lre-footer-bottom-link-color: {{VALUE}};',
 					),
 				)
 			);
-
 			$this->add_control(
 				'bottom_links_opacity',
 				array(
@@ -1141,9 +1140,8 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Links Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__bottom a:hover'      => 'color: {{VALUE}};',
-						'{{WRAPPER}} .footer__copyright a:hover'   => 'color: {{VALUE}};',
-						'{{WRAPPER}} .footer__bottom-link:hover'   => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__bottom a, {{WRAPPER}} .footer__copyright a, {{WRAPPER}} .footer__bottom-link, {{WRAPPER}} .footer__legal a' => '--lre-footer-bottom-link-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .footer__bottom a:hover, {{WRAPPER}} .footer__copyright a:hover, {{WRAPPER}} .footer__bottom-link:hover, {{WRAPPER}} .footer__legal a:hover' => 'color: {{VALUE}} !important; --lre-footer-bottom-link-hover-color: {{VALUE}};',
 					),
 				)
 			);

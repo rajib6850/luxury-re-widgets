@@ -82,11 +82,14 @@ body,
 [class*="lre-"] button:not(.btn),
 [class*="lre-"] [type="button"]:not(.btn),
 [class*="lre-"] [type="submit"]:not(.btn),
-[class*="lre-"] a:not(.btn),
 [class*="elementor-widget-lre_"] button:not(.btn),
-[class*="elementor-widget-lre_"] [type="button"]:not(.btn),
-[class*="elementor-widget-lre_"] a:not(.btn) {
+[class*="elementor-widget-lre_"] [type="button"]:not(.btn) {
   color: inherit !important;
+}
+
+[class*="lre-"] a:not(.btn),
+[class*="elementor-widget-lre_"] a:not(.btn) {
+  color: inherit;
   text-decoration: none !important;
 }
 
@@ -425,6 +428,37 @@ button.btn,
 .hero__cta-group a.hero__btn-2:hover svg {
   stroke: var(--hero-btn2-hover-color, #0a0a0a) !important;
   transform: translateX(5px) !important;
+}
+
+/* 1c. Footer Links System Bridge (Info Grid, Nav Links, Legal & Bottom Copyright) */
+.footer__info-text a {
+  color: var(--lre-footer-info-link-color, inherit) !important;
+  text-decoration: none !important;
+}
+.footer__info-text a:hover {
+  color: var(--lre-footer-info-link-hover-color, var(--color-secondary, #c5a047)) !important;
+}
+
+.footer__nav-link {
+  color: var(--lre-footer-nav-color, var(--color-text, #ffffff)) !important;
+  text-decoration: none !important;
+}
+.footer__nav-link:hover {
+  color: var(--lre-footer-nav-hover-color, var(--color-secondary, #c5a047)) !important;
+}
+
+.footer__bottom a,
+.footer__copyright a,
+.footer__bottom-link,
+.footer__legal a {
+  color: var(--lre-footer-bottom-link-color, inherit) !important;
+  text-decoration: none !important;
+}
+.footer__bottom a:hover,
+.footer__copyright a:hover,
+.footer__bottom-link:hover,
+.footer__legal a:hover {
+  color: var(--lre-footer-bottom-link-hover-color, var(--color-secondary, #c5a047)) !important;
 }
 
 /* --- SERVICES: ULTRA-SMOOTH HOVER TRANSITION --- */

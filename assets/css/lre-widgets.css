@@ -3248,13 +3248,13 @@ button.btn {
 }
 
 .footer__info-text a {
-  color: inherit;
+  color: var(--lre-footer-info-link-color, inherit);
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 .footer__info-text a:hover {
-  color: var(--color-secondary, #c5a047);
+  color: var(--lre-footer-info-link-hover-color, var(--color-secondary, #c5a047));
 }
 
 .footer__social {
@@ -3327,7 +3327,7 @@ button.btn {
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--color-text, #ffffff);
+  color: var(--lre-footer-nav-color, var(--color-text, #ffffff));
   text-decoration: none;
   opacity: 0.75;
   transition: opacity 0.3s ease, color 0.3s ease;
@@ -3335,7 +3335,7 @@ button.btn {
 
 .footer__nav-link:hover {
   opacity: 1;
-  color: var(--color-secondary, #c5a047);
+  color: var(--lre-footer-nav-hover-color, var(--color-secondary, #c5a047));
 }
 
 .footer__legal {
@@ -3368,16 +3368,18 @@ button.btn {
 
 .footer__bottom a,
 .footer__copyright a,
-.footer__bottom-link {
-  color: inherit;
+.footer__bottom-link,
+.footer__legal a {
+  color: var(--lre-footer-bottom-link-color, inherit);
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 .footer__bottom a:hover,
 .footer__copyright a:hover,
-.footer__bottom-link:hover {
-  color: var(--color-secondary, #c5a047);
+.footer__bottom-link:hover,
+.footer__legal a:hover {
+  color: var(--lre-footer-bottom-link-hover-color, var(--color-secondary, #c5a047));
 }
 
 /* --- 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE --- */

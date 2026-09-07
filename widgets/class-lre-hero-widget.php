@@ -389,7 +389,7 @@ class LRE_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Custom Overlay Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .hero__overlay' => 'background: {{VALUE}};',
 				),
 				'condition' => array( 'show_overlay' => 'yes' ),
 			)
@@ -411,9 +411,8 @@ class LRE_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .hero__title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .hero__title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -469,9 +468,8 @@ class LRE_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .hero__subtitle' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .hero__subtitle' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -518,7 +516,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .hero__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -535,7 +533,7 @@ class LRE_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => 'rem', 'size' => 1.2 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .hero__cta-group' => 'gap: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .hero__cta-group' => 'gap: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -547,7 +545,7 @@ class LRE_Hero_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .hero__cta-group .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .hero__cta-group .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -569,9 +567,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1, {{WRAPPER}} .hero__cta-group .hero__btn-1 span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1, {{WRAPPER}} .hero__cta-group .hero__btn-1 span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -580,9 +577,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'transparent',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -591,9 +587,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'rgba(255, 255, 255, 0.5)',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -605,9 +600,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -616,11 +610,10 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -629,9 +622,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -655,9 +647,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2, {{WRAPPER}} .hero__cta-group .hero__btn-2 span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2, {{WRAPPER}} .hero__cta-group .hero__btn-2 span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -666,9 +657,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'transparent',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -677,9 +667,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'rgba(255, 255, 255, 0.5)',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -691,9 +680,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -702,11 +690,10 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -715,9 +702,8 @@ class LRE_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);

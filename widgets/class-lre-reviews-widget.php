@@ -336,12 +336,11 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#08080c',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews' => 'background-color: {{VALUE}} !important; --lre-rev-bg: {{VALUE}};',
+					'{{WRAPPER}} .lre-reviews' => 'background-color: {{VALUE}}; --lre-rev-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -382,7 +381,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Primary Accent (Gold / Brand)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
 				),
@@ -397,7 +395,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Secondary Accent (Light Gold)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#d4b565',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_ACCENT,
 				),
@@ -410,11 +407,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			array(
-				'label'     => __( 'Headline Color (White)', 'luxury-re-widgets' ),
+				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title .title-mask > span, {{WRAPPER}} .lre-reviews__title span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title .title-mask > span, {{WRAPPER}} .lre-reviews__title span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -422,9 +418,8 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			array(
-				'label'     => __( 'Body Text Color (White)', 'luxury-re-widgets' ),
+				'label'     => __( 'Body Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => '--lre-rev-text: {{VALUE}};',
 				),
@@ -436,7 +431,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Card Glass Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.025)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => '--lre-rev-card-bg: {{VALUE}};',
 				),
@@ -446,9 +440,8 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_control(
 			'verified_badge_color',
 			array(
-				'label'     => __( 'Verified Badge Color (Green Trust)', 'luxury-re-widgets' ),
+				'label'     => __( 'Verified Badge Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#34d399',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews' => '--lre-rev-verified-green: {{VALUE}};',
 				),

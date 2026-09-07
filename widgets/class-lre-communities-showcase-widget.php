@@ -306,9 +306,8 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#08080c',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-comm-showcase' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -349,9 +348,8 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__eyebrow' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-comm-showcase__eyebrow' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -361,9 +359,8 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Heading Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__title, {{WRAPPER}} .lre-comm-showcase__title .title-mask > span, {{WRAPPER}} .lre-comm-showcase__title span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-comm-showcase__title, {{WRAPPER}} .lre-comm-showcase__title .title-mask > span, {{WRAPPER}} .lre-comm-showcase__title span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -373,9 +370,8 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.65)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__description' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-comm-showcase__description' => 'color: {{VALUE}};',
 				),
 			)
 		);

@@ -287,7 +287,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#faf7f2',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story' => 'background-color: {{VALUE}};',
 				),
@@ -330,7 +329,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__eyebrow'  => 'color: {{VALUE}};',
 					'{{WRAPPER}} .lre-story__gold-bar' => 'background-color: {{VALUE}};',
@@ -343,7 +341,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0a0a0a',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__title' => 'color: {{VALUE}};',
 				),
@@ -363,7 +360,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Lead / Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#141418',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__lead' => 'color: {{VALUE}};',
 				),
@@ -375,7 +371,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Story Body Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#4a4a52',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__text, {{WRAPPER}} .lre-story__text p' => 'color: {{VALUE}};',
 				),
@@ -430,7 +425,6 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0a0a0a',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__btn' => 'color: {{VALUE}}; border-color: {{VALUE}};',
 					'{{WRAPPER}} .lre-story__btn svg' => 'stroke: {{VALUE}};',
@@ -443,9 +437,8 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0a0a0a',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-story__btn:hover' => 'background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-story__btn:hover' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -455,10 +448,9 @@ class LRE_Story_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-story__btn:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-story__btn:hover svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-story__btn:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-story__btn:hover svg' => 'stroke: {{VALUE}};',
 				),
 			)
 		);

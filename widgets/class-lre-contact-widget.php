@@ -131,7 +131,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Vignette Overlay', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(8, 8, 12, 0.78)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__overlay' => 'background: {{VALUE}};',
 				),
@@ -939,7 +938,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__headline' => 'color: {{VALUE}};',
 				),
@@ -959,7 +957,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.72)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__desc' => 'color: {{VALUE}};',
 				),
@@ -990,7 +987,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Card Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(15, 17, 24, 0.88)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__card' => 'background: {{VALUE}};',
 				),
@@ -1008,7 +1004,7 @@ class LRE_Contact_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
-				'name'     => 'card_box_shadow',
+				'name'     => 'card_shadow',
 				'selector' => '{{WRAPPER}} .lre-contact__card',
 			)
 		);
@@ -1018,55 +1014,55 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Card Padding', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'desktop_default' => array(
-					'top'      => '44',
-					'right'    => '40',
-					'bottom'   => '44',
-					'left'     => '40',
-					'isLinked' => false,
-				),
-				'tablet_default' => array(
-					'top'      => '36',
-					'right'    => '28',
-					'bottom'   => '36',
-					'left'     => '28',
-					'isLinked' => false,
-				),
-				'mobile_default' => array(
-					'top'      => '28',
-					'right'    => '16',
-					'bottom'   => '28',
-					'left'     => '16',
-					'isLinked' => false,
-				),
+				'size_units' => array( 'px', 'rem', 'em' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-contact__card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
 
+		$this->add_responsive_control(
+			'card_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
-		// --- STYLE: FORM INPUTS ---
+		// --- STYLE: FORM FIELDS ---
 		$this->start_controls_section(
 			'style_form_fields',
 			array(
-				'label' => __( 'Form Inputs & Selectors', 'luxury-re-widgets' ),
+				'label' => __( 'Form Fields', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
-		$this->add_responsive_control(
-			'grid_gap',
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
 			array(
-				'label'      => __( 'Field Gap (Row & Col)', 'luxury-re-widgets' ),
+				'name'     => 'field_typography',
+				'label'    => __( 'Field Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea',
+			)
+		);
+
+		$this->add_responsive_control(
+			'field_gap',
+			array(
+				'label'      => __( 'Field Spacing', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
+				'size_units' => array( 'px', 'rem' ),
 				'range'      => array(
-					'px' => array( 'min' => 6, 'max' => 30 ),
+					'px'  => array( 'min' => 8, 'max' => 48 ),
+					'rem' => array( 'min' => 0.5, 'max' => 3 ),
 				),
-				'default'    => array( 'size' => 14, 'unit' => 'px' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-contact__form-grid' => 'gap: {{SIZE}}{{UNIT}};',
 				),
@@ -1078,7 +1074,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Input Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.05)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'background: {{VALUE}};',
 				),
@@ -1090,7 +1085,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Input Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'color: {{VALUE}};',
 				),
@@ -1102,7 +1096,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Input Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.14)',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea' => 'border-color: {{VALUE}};',
 				),
@@ -1114,7 +1107,6 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Input Focus Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__input:focus, {{WRAPPER}} .lre-contact__select:focus, {{WRAPPER}} .lre-contact__textarea:focus' => 'border-color: {{VALUE}}; box-shadow: 0 0 0 1px {{VALUE}};',
 				),
@@ -1153,9 +1145,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn .lre-contact__btn-text' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn .lre-contact__btn-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1165,9 +1156,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.05)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1177,9 +1167,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.45)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1196,9 +1185,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#08080c',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn:hover .lre-contact__btn-text' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn:hover .lre-contact__btn-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1208,9 +1196,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn::before' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1220,9 +1207,8 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);

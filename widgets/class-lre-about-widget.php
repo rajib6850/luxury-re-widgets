@@ -123,7 +123,7 @@ class LRE_About_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .about .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .about .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -135,7 +135,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn' => 'color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -143,7 +143,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn' => 'background-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'background-color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -151,7 +151,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn' => 'border-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn' => 'border-color: {{VALUE}};' ),
 				)
 			);
 			$this->end_controls_tab();
@@ -162,7 +162,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -170,7 +170,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn:hover, {{WRAPPER}} .about .btn:hover::before' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover, {{WRAPPER}} .about .btn:hover::before' => 'background-color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -178,7 +178,7 @@ class LRE_About_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'border-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .about .btn:hover' => 'border-color: {{VALUE}};' ),
 				)
 			);
 			$this->end_controls_tab();

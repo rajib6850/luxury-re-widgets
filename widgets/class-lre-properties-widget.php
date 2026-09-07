@@ -454,7 +454,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .listings__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .listings__cta-group .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -471,7 +471,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => 'rem', 'size' => 0.75 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .listings__cta-group' => 'gap: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .listings__cta-group' => 'gap: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -493,7 +493,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -501,7 +501,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'background-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'background-color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -509,7 +509,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'border-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-1' => 'border-color: {{VALUE}};' ),
 				)
 			);
 			$this->end_controls_tab();
@@ -520,9 +520,8 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -531,11 +530,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1'         => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover'    => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -544,9 +542,8 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -570,7 +567,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -578,7 +575,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'background-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'background-color: {{VALUE}};' ),
 				)
 			);
 			$this->add_control(
@@ -586,7 +583,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'border-color: {{VALUE}} !important;' ),
+					'selectors' => array( '{{WRAPPER}} .listings__cta-group .listings__btn-2' => 'border-color: {{VALUE}};' ),
 				)
 			);
 			$this->end_controls_tab();
@@ -597,9 +594,8 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -608,11 +604,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2'         => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover'    => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -621,9 +616,8 @@ class LRE_Properties_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);

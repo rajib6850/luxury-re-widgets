@@ -305,12 +305,11 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#08080c',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv' => 'background-color: {{VALUE}} !important; --aserv-bg: {{VALUE}};',
+					'{{WRAPPER}} .lre-aserv' => 'background-color: {{VALUE}}; --aserv-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -318,11 +317,10 @@ class LRE_About_Services_Widget extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			array(
-				'label'     => __( 'Title Color (White)', 'luxury-re-widgets' ),
+				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__title, {{WRAPPER}} .lre-aserv__title .title-mask > span, {{WRAPPER}} .lre-aserv__title span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-aserv__title, {{WRAPPER}} .lre-aserv__title .title-mask > span, {{WRAPPER}} .lre-aserv__title span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -332,7 +330,6 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Accent Color (Gold)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
 				),
@@ -347,7 +344,6 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Secondary Accent (Light Gold)', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#d4b565',
 				'global'    => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_ACCENT,
 				),
@@ -360,9 +356,8 @@ class LRE_About_Services_Widget extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			array(
-				'label'     => __( 'Body Text Color (White)', 'luxury-re-widgets' ),
+				'label'     => __( 'Body Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-aserv' => '--aserv-text: {{VALUE}};',
 				),
@@ -385,9 +380,8 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.65)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__eyebrow' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-aserv__eyebrow' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -406,9 +400,8 @@ class LRE_About_Services_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.75)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__desc' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-aserv__desc' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -451,7 +444,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 					'size' => 1320,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-aserv__container' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-aserv__container' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -463,7 +456,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-aserv' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-aserv' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -475,7 +468,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-aserv__container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-aserv__container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -498,7 +491,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'label'     => __( 'Watermark Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__watermark' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-aserv__watermark' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -539,7 +532,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 					'size' => 6.2,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-aserv__watermark' => 'top: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-aserv__watermark' => 'top: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);

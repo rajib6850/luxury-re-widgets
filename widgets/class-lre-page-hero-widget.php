@@ -348,9 +348,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-phero__title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-phero__title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -406,9 +405,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255,255,255,0.78)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-phero__subtitle' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-phero__subtitle' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -419,6 +417,26 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'name'     => 'subtitle_typography',
 				'label'    => __( 'Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-phero__subtitle',
+			)
+		);
+
+		$this->add_responsive_control(
+			'subtitle_margin',
+			array(
+				'label'      => __( 'Margin', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'default'    => array(
+					'top'      => '0',
+					'right'    => '0',
+					'bottom'   => '2.2',
+					'left'     => '0',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-phero__subtitle' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
 			)
 		);
 
@@ -445,9 +463,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_button',
 			array(
-				'label'     => __( 'CTA Button Style', 'luxury-re-widgets' ),
+				'label'     => __( 'Button / Actions', 'luxury-re-widgets' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => array( 'show_cta' => 'yes' ),
 			)
 		);
 
@@ -457,7 +474,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'name'      => 'btn_typography',
 				'label'     => __( 'Typography', 'luxury-re-widgets' ),
-				'selector'  => '{{WRAPPER}} .lre-phero__actions .btn, {{WRAPPER}} .lre-phero__actions .btn span',
+				'selector'  => '{{WRAPPER}} .lre-phero__actions .btn',
 				'separator' => 'none',
 			)
 		);
@@ -478,7 +495,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-phero__actions .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'before',
 			)
@@ -500,7 +517,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-phero__actions .btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -518,7 +535,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				),
 				'default'   => array( 'size' => 1.2, 'unit' => 'rem' ),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-phero__actions' => 'gap: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-phero__actions' => 'gap: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -536,7 +553,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'%'   => array( 'min' => 0, 'max' => 100 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-phero__actions .btn' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'min-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -557,7 +574,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'isLinked' => true,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-phero__actions .btn' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important; border-style: solid !important;',
+					'{{WRAPPER}} .lre-phero__actions .btn' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; border-style: solid;',
 				),
 				'separator'  => 'before',
 			)
@@ -581,7 +598,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-phero__actions .btn,
 					 {{WRAPPER}} .lre-phero__actions .btn::before,
-					 {{WRAPPER}} .lre-phero__actions .btn::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					 {{WRAPPER}} .lre-phero__actions .btn::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -600,10 +617,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn'      => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn, {{WRAPPER}} .lre-phero__actions .btn span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -613,9 +628,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'transparent',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -625,9 +639,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'rgba(255,255,255,0.5)',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -654,10 +667,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#0c0c10',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn:hover'      => 'color: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover, {{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -667,12 +678,11 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'       => __( 'Fill Color (slide-up animation)', 'luxury-re-widgets' ),
 					'type'        => Controls_Manager::COLOR,
-					'default'     => '#ffffff',
 					'description' => __( 'Fills button bottom-to-top on hover via ::before animation (same as hero widget).', 'luxury-re-widgets' ),
 					'selectors'   => array(
-						'{{WRAPPER}} .lre-phero__actions .btn'        => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn:hover'   => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn'         => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover'    => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -682,9 +692,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -717,8 +726,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					),
 					'default'    => array( 'size' => 400, 'unit' => 'px' ),
 					'selectors'  => array(
-						'{{WRAPPER}} .lre-phero__actions .btn'        => 'transition-duration: {{SIZE}}ms !important;',
-						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'transition-duration: {{SIZE}}ms !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn'         => 'transition-duration: {{SIZE}}ms;',
+						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'transition-duration: {{SIZE}}ms;',
 					),
 				)
 			);

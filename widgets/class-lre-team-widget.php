@@ -453,9 +453,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Watermark Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(0, 0, 0, 0.038)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__watermark' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__watermark' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -502,9 +501,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#111116',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__title, {{WRAPPER}} .lre-team__title span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__title, {{WRAPPER}} .lre-team__title span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -526,9 +524,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(17, 17, 22, 0.65)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__desc' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__desc' => 'color: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -593,7 +590,6 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#111116',
 				'selectors' => array(
 					'{{WRAPPER}} .lre-team__card' => 'background-color: {{VALUE}};',
 				),
@@ -627,9 +623,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Name Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__name' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__name' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -639,9 +634,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Name Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#f8eed3',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__card:hover .lre-team__name' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__card:hover .lre-team__name' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -660,9 +654,8 @@ class LRE_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Role Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.82)',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-team__role' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-team__role' => 'color: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
@@ -730,9 +723,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#1a1a1a',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -742,9 +734,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow' => 'background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -754,9 +745,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => 'rgba(26, 26, 26, 0.25)',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow' => 'border-color: {{VALUE}};',
 					),
 				)
 			);
@@ -770,9 +760,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#ffffff',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow:hover' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow:hover' => 'color: {{VALUE}};',
 					),
 				)
 			);
@@ -782,9 +771,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#1a1a1a',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow:hover' => 'background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow:hover' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -794,9 +782,8 @@ class LRE_Team_Widget extends Widget_Base {
 				array(
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => '#1a1a1a',
 					'selectors' => array(
-						'{{WRAPPER}} .lre-team__arrow:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-team__arrow:hover' => 'border-color: {{VALUE}};',
 					),
 				)
 			);

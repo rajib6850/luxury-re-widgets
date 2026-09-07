@@ -181,6 +181,31 @@ class LRE_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'video_zoom',
+			array(
+				'label'     => __( 'Video Zoom / Crop Factor', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 1,
+						'max'  => 2,
+						'step' => 0.02,
+					),
+				),
+				'default'   => array(
+					'size' => 1.28,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .hero__video-iframe' => 'transform: translate(-50%, -50%) scale({{SIZE}});',
+				),
+				'condition' => array(
+					'bg_media_type' => 'video',
+					'video_source'  => array( 'youtube', 'vimeo' ),
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- Headlines & Content ---
@@ -758,6 +783,10 @@ class LRE_Hero_Widget extends Widget_Base {
 			?>
 				<!-- Background Video -->
 				<div class="hero__video-wrap">
+					<?php if ( ! empty( $poster_url ) ) : ?>
+						<div class="hero__video-poster" style="background-image: url('<?php echo esc_url( $poster_url ); ?>');"></div>
+					<?php endif; ?>
+
 					<?php if ( 'self_hosted' === $video_source && ! empty( $settings['video_file']['url'] ) ) : ?>
 						<video class="hero__video" autoplay muted loop playsinline poster="<?php echo esc_url( $poster_url ); ?>">
 							<source src="<?php echo esc_url( $settings['video_file']['url'] ); ?>" type="video/mp4">
@@ -767,17 +796,38 @@ class LRE_Hero_Widget extends Widget_Base {
 							<source src="<?php echo esc_url( $settings['video_url'] ); ?>" type="video/mp4">
 						</video>
 					<?php elseif ( 'youtube' === $video_source && ! empty( $settings['video_url'] ) ) :
-						$yt_id = $this->get_youtube_id( $settings['video_url'] );
+						$yt_id     = $this->get_youtube_id( $settings['video_url'] );
+						$yt_params = http_build_query( array(
+							'autoplay'       => 1,
+							'mute'           => 1,
+							'controls'       => 0,
+							'loop'           => 1,
+							'playlist'       => $yt_id,
+							'showinfo'       => 0,
+							'rel'            => 0,
+							'iv_load_policy' => 3,
+							'modestbranding' => 1,
+							'playsinline'    => 1,
+							'disablekb'      => 1,
+							'fs'             => 0,
+							'enablejsapi'    => 1,
+						) );
 					?>
 						<iframe class="hero__video-iframe"
-						        src="https://www.youtube.com/embed/<?php echo esc_attr( $yt_id ); ?>?autoplay=1&mute=1&controls=0&loop=1&playlist=<?php echo esc_attr( $yt_id ); ?>&showinfo=0&rel=0&enablejsapi=1&iv_load_policy=3"
-						        allow="autoplay; encrypted-media" frameborder="0" aria-hidden="true"></iframe>
+						        src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $yt_id ); ?>?<?php echo esc_attr( $yt_params ); ?>"
+						        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						        frameborder="0"
+						        tabindex="-1"
+						        aria-hidden="true"></iframe>
 					<?php elseif ( 'vimeo' === $video_source && ! empty( $settings['video_url'] ) ) :
 						$vimeo_id = $this->get_vimeo_id( $settings['video_url'] );
 					?>
 						<iframe class="hero__video-iframe"
 						        src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?autoplay=1&muted=1&loop=1&autopause=0&background=1"
-						        allow="autoplay; fullscreen" frameborder="0" aria-hidden="true"></iframe>
+						        allow="autoplay; fullscreen"
+						        frameborder="0"
+						        tabindex="-1"
+						        aria-hidden="true"></iframe>
 					<?php elseif ( $poster_url ) : ?>
 						<div class="hero__background<?php echo esc_attr( $ken_burns ); ?>">
 							<img src="<?php echo esc_url( $poster_url ); ?>" alt="" fetchpriority="high">
@@ -844,7 +894,7 @@ class LRE_Hero_Widget extends Widget_Base {
 	}
 
 	private function get_youtube_id( $url ) {
-		if ( preg_match( '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $url, $match ) ) {
+		if ( preg_match( '/(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $url, $match ) ) {
 			return $match[1];
 		}
 		return trim( $url );

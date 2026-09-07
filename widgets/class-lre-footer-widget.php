@@ -47,10 +47,96 @@ class LRE_Footer_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// --- BRAND ---
-		$this->start_controls_section( 'section_brand', array( 'label' => __( 'Brand Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$this->add_control( 'brand_name',     array( 'label' => __( 'Brand Name',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Victoria Crestwood', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'brand_subtitle', array( 'label' => __( 'Brand Subtitle', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => '& Associates',      'dynamic' => array( 'active' => true ) ) );
+		// --- BRAND & LOGO ---
+		$this->start_controls_section( 'section_brand', array( 'label' => __( 'Brand Header & Logo', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
+
+		$this->add_control(
+			'brand_display_type',
+			array(
+				'label'   => __( 'Brand Display Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'text'  => __( 'Text Only (Brand Name & Subtitle)', 'luxury-re-widgets' ),
+					'image' => __( 'Logo / Image Only', 'luxury-re-widgets' ),
+					'both'  => __( 'Both Logo Image & Text', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		// Logo image controls
+		$this->add_control(
+			'brand_logo',
+			array(
+				'label'       => __( 'Brand Logo Image', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
+					'url' => '',
+				),
+				'description' => __( 'Upload your brand logo (PNG, SVG, JPG, WebP).', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'brand_logo_link',
+			array(
+				'label'       => __( 'Logo Link URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-domain.com (Leave empty for no link)', 'luxury-re-widgets' ),
+				'default'     => array(
+					'url'         => '',
+					'is_external' => false,
+				),
+				'condition'   => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'brand_logo_alt',
+			array(
+				'label'       => __( 'Logo Alt Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'e.g. Victoria Crestwood Real Estate', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+				'condition'   => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		// Text controls
+		$this->add_control(
+			'brand_name',
+			array(
+				'label'     => __( 'Brand Name', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Victoria Crestwood',
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'brand_display_type' => array( 'text', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'brand_subtitle',
+			array(
+				'label'     => __( 'Brand Subtitle', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => '& Associates',
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'brand_display_type' => array( 'text', 'both' ),
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- 3-COLUMN CONTACT INFO ---
@@ -252,12 +338,295 @@ class LRE_Footer_Widget extends Widget_Base {
 		) ) );
 		$this->end_controls_section();
 
-		// --- STYLE: Brand ---
-		$this->start_controls_section( 'style_brand', array( 'label' => __( 'Brand Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'brand_typography', 'label' => __( 'Brand Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__brand' ) );
-		$this->add_control( 'brand_color', array( 'label' => __( 'Brand Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'sub_typography', 'label' => __( 'Subtitle Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__brand-sub' ) );
-		$this->add_control( 'sub_color', array( 'label' => __( 'Subtitle Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}} !important;' ) ) );
+		// --- STYLE: Brand & Logo ---
+		$this->start_controls_section( 'style_brand', array( 'label' => __( 'Brand Header & Logo Style', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+
+		// Logo Style Controls
+		$this->add_control(
+			'heading_logo_style',
+			array(
+				'label'     => __( 'Logo Image Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_width',
+			array(
+				'label'      => __( 'Logo Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'rem', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 5, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 100 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 180 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-img' => 'width: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_max_width',
+			array(
+				'label'      => __( 'Logo Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 30, 'max' => 1200, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-img' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_height',
+			array(
+				'label'      => __( 'Logo Height (Optional)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 400, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-img' => 'height: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_object_fit',
+			array(
+				'label'     => __( 'Object Fit', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'contain',
+				'options'   => array(
+					'contain' => __( 'Contain', 'luxury-re-widgets' ),
+					'cover'   => __( 'Cover', 'luxury-re-widgets' ),
+					'fill'    => __( 'Fill', 'luxury-re-widgets' ),
+					'none'    => __( 'None', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .footer__logo-img' => 'object-fit: {{VALUE}} !important;',
+				),
+				'condition' => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_alignment',
+			array(
+				'label'     => __( 'Alignment', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Center', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'   => 'center',
+				'selectors' => array(
+					'{{WRAPPER}} .footer__logo-wrap' => 'justify-content: {{VALUE}} !important; display: flex;',
+				),
+				'condition' => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_margin_bottom',
+			array(
+				'label'      => __( 'Margin Bottom', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 16 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 80 ),
+					'%'  => array( 'min' => 0, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-img' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_opacity',
+			array(
+				'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+				),
+				'default'   => array( 'size' => 1 ),
+				'selectors' => array(
+					'{{WRAPPER}} .footer__logo-img' => 'opacity: {{SIZE}} !important;',
+				),
+				'condition' => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_hover_opacity',
+			array(
+				'label'     => __( 'Hover Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .footer__logo-img:hover'                    => 'opacity: {{SIZE}} !important;',
+					'{{WRAPPER}} .footer__logo-link:hover .footer__logo-img' => 'opacity: {{SIZE}} !important;',
+				),
+				'condition' => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_hover_lift',
+			array(
+				'label'        => __( 'Hover Lift Effect', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+				'selectors'    => array(
+					'{{WRAPPER}} .footer__logo-img:hover, {{WRAPPER}} .footer__logo-link:hover .footer__logo-img' => 'transform: translateY(-3px) !important;',
+				),
+				'condition'    => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_transition_duration',
+			array(
+				'label'      => __( 'Transition Duration (s)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array(
+					's' => array( 'min' => 0.1, 'max' => 1.5, 'step' => 0.05 ),
+				),
+				'default'    => array( 'unit' => 's', 'size' => 0.3 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__logo-img' => 'transition: all {{SIZE}}s ease !important;',
+				),
+				'condition'  => array(
+					'brand_display_type' => array( 'image', 'both' ),
+				),
+			)
+		);
+
+		// Brand Name and Subtitle Text Style Controls
+		$this->add_control(
+			'heading_brand_text_style',
+			array(
+				'label'     => __( 'Brand Text Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'brand_display_type' => array( 'text', 'both' ),
+				),
+			)
+		);
+
+		$this->add_group_control( Group_Control_Typography::get_type(), array(
+			'name'      => 'brand_typography',
+			'label'     => __( 'Brand Typography', 'luxury-re-widgets' ),
+			'selector'  => '{{WRAPPER}} .footer__brand',
+			'condition' => array(
+				'brand_display_type' => array( 'text', 'both' ),
+			),
+		) );
+		$this->add_control( 'brand_color', array(
+			'label'     => __( 'Brand Color', 'luxury-re-widgets' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}} !important;' ),
+			'condition' => array(
+				'brand_display_type' => array( 'text', 'both' ),
+			),
+		) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array(
+			'name'      => 'sub_typography',
+			'label'     => __( 'Subtitle Typography', 'luxury-re-widgets' ),
+			'selector'  => '{{WRAPPER}} .footer__brand-sub',
+			'condition' => array(
+				'brand_display_type' => array( 'text', 'both' ),
+			),
+		) );
+		$this->add_control( 'sub_color', array(
+			'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}} !important;' ),
+			'condition' => array(
+				'brand_display_type' => array( 'text', 'both' ),
+			),
+		) );
+
+		// Gold Center Line
+		$this->add_control(
+			'heading_divider_style',
+			array(
+				'label'     => __( 'Divider Line', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
 		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}} !important;' ) ) );
 		$this->end_controls_section();
 
@@ -642,11 +1011,28 @@ class LRE_Footer_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'heading_copyright_style',
+			array(
+				'label'     => __( 'Bottom Copyright Row', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'copyright_typography',
+				'label'    => __( 'Copyright Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .footer__bottom, {{WRAPPER}} .footer__copyright',
+			)
+		);
+
+		$this->add_control(
 			'bottom_text_color',
 			array(
 				'label'     => __( 'Copyright Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'separator' => 'before',
 				'selectors' => array(
 					'{{WRAPPER}} .footer__bottom'    => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .footer__copyright' => 'color: {{VALUE}} !important;',
@@ -655,26 +1041,132 @@ class LRE_Footer_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'bottom_links_color',
+			'bottom_opacity',
 			array(
-				'label'     => __( 'Bottom Links Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Copyright Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+				),
+				'default'   => array( 'size' => 0.8 ),
 				'selectors' => array(
-					'{{WRAPPER}} .footer__bottom a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .footer__bottom'    => 'opacity: {{SIZE}} !important;',
+					'{{WRAPPER}} .footer__copyright' => 'opacity: {{SIZE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'bottom_links_hover_color',
+			'heading_bottom_links_style',
 			array(
-				'label'     => __( 'Bottom Links Hover Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .footer__bottom a:hover' => 'color: {{VALUE}} !important;',
+				'label'     => __( 'Bottom Links (Privacy / Terms)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'bottom_links_typography',
+				'label'    => __( 'Links Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .footer__bottom a, {{WRAPPER}} .footer__copyright a, {{WRAPPER}} .footer__bottom-link',
+			)
+		);
+
+		$this->add_control(
+			'bottom_links_transition',
+			array(
+				'label'      => __( 'Transition Duration (s)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array(
+					's' => array( 'min' => 0.1, 'max' => 1.5, 'step' => 0.05 ),
+				),
+				'default'    => array( 'unit' => 's', 'size' => 0.3 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__bottom a'      => 'transition: all {{SIZE}}s ease !important;',
+					'{{WRAPPER}} .footer__copyright a'   => 'transition: all {{SIZE}}s ease !important;',
+					'{{WRAPPER}} .footer__bottom-link'   => 'transition: all {{SIZE}}s ease !important;',
 				),
 			)
 		);
+
+		$this->start_controls_tabs( 'tabs_bottom_links_style' );
+
+			$this->start_controls_tab(
+				'tab_bottom_links_normal',
+				array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+			);
+
+			$this->add_control(
+				'bottom_links_color',
+				array(
+					'label'     => __( 'Links Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__bottom a'      => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__copyright a'   => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__bottom-link'   => 'color: {{VALUE}} !important;',
+					),
+				)
+			);
+
+			$this->add_control(
+				'bottom_links_opacity',
+				array(
+					'label'     => __( 'Links Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__bottom a'      => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__copyright a'   => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__bottom-link'   => 'opacity: {{SIZE}} !important;',
+					),
+				)
+			);
+
+			$this->end_controls_tab();
+
+			$this->start_controls_tab(
+				'tab_bottom_links_hover',
+				array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+			);
+
+			$this->add_control(
+				'bottom_links_hover_color',
+				array(
+					'label'     => __( 'Links Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__bottom a:hover'      => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__copyright a:hover'   => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__bottom-link:hover'   => 'color: {{VALUE}} !important;',
+					),
+				)
+			);
+
+			$this->add_control(
+				'bottom_links_hover_opacity',
+				array(
+					'label'     => __( 'Links Hover Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__bottom a:hover'      => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__copyright a:hover'   => 'opacity: {{SIZE}} !important;',
+						'{{WRAPPER}} .footer__bottom-link:hover'   => 'opacity: {{SIZE}} !important;',
+					),
+				)
+			);
+
+			$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}
@@ -805,13 +1297,40 @@ class LRE_Footer_Widget extends Widget_Base {
 		?>
 		<footer class="footer" id="footer" aria-label="<?php esc_attr_e( 'Site footer', 'luxury-re-widgets' ); ?>">
 			<div class="footer__main reveal">
-				<?php if ( ! empty( $settings['brand_name'] ) ) : ?>
+				<?php
+				$brand_display_type = $settings['brand_display_type'] ?? 'text';
+				$has_logo           = in_array( $brand_display_type, array( 'image', 'both' ), true ) && ! empty( $settings['brand_logo']['url'] );
+				$has_text           = in_array( $brand_display_type, array( 'text', 'both' ), true );
+				?>
+				<?php if ( $has_logo ) :
+					$logo_url    = ! empty( $settings['brand_logo_link']['url'] ) ? $settings['brand_logo_link']['url'] : '';
+					$logo_is_ext = ! empty( $settings['brand_logo_link']['is_external'] ) || (bool) preg_match( '#^(https?:)?//#i', $logo_url );
+					$logo_target = $logo_is_ext ? '_blank' : '_self';
+					$logo_rel    = $logo_is_ext ? ' rel="noopener noreferrer"' : '';
+					$logo_alt    = ! empty( $settings['brand_logo_alt'] ) ? $settings['brand_logo_alt'] : ( ! empty( $settings['brand_name'] ) ? $settings['brand_name'] : get_bloginfo( 'name' ) );
+				?>
+				<div class="footer__logo-wrap">
+					<?php if ( ! empty( $logo_url ) ) : ?>
+					<a href="<?php echo esc_url( $logo_url ); ?>" target="<?php echo esc_attr( $logo_target ); ?>"<?php echo $logo_rel; ?> class="footer__logo-link" aria-label="<?php echo esc_attr( $logo_alt ); ?>">
+						<img src="<?php echo esc_url( $settings['brand_logo']['url'] ); ?>" alt="<?php echo esc_attr( $logo_alt ); ?>" class="footer__logo-img">
+					</a>
+					<?php else : ?>
+					<img src="<?php echo esc_url( $settings['brand_logo']['url'] ); ?>" alt="<?php echo esc_attr( $logo_alt ); ?>" class="footer__logo-img">
+					<?php endif; ?>
+				</div>
+				<?php elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() && 'image' === $brand_display_type ) : ?>
+				<div class="footer__logo-wrap" style="padding: 16px 24px; border: 1px dashed rgba(255,255,255,0.3); border-radius: 6px; margin: 0 auto 20px; color: rgba(255,255,255,0.6); font-size: 13px; text-align: center; max-width: 400px;">
+					<?php esc_html_e( '[Choose an image for Brand Logo in Content > Brand Header & Logo]', 'luxury-re-widgets' ); ?>
+				</div>
+				<?php endif; ?>
+
+				<?php if ( $has_text && ! empty( $settings['brand_name'] ) ) : ?>
 				<h2 class="footer__brand">
 					<span class="title-mask"><span><?php echo esc_html( $settings['brand_name'] ); ?></span></span>
 				</h2>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $settings['brand_subtitle'] ) ) : ?>
+				<?php if ( $has_text && ! empty( $settings['brand_subtitle'] ) ) : ?>
 				<p class="footer__brand-sub delay-1"><?php echo esc_html( $settings['brand_subtitle'] ); ?></p>
 				<?php endif; ?>
 
@@ -967,9 +1486,9 @@ class LRE_Footer_Widget extends Widget_Base {
 			<div class="footer__bottom">
 				<span class="footer__copyright">
 					&copy; <?php echo date( 'Y' ); ?> <?php echo esc_html( $settings['copyright_brand'] ); ?>. <?php esc_html_e( 'All rights reserved. |', 'luxury-re-widgets' ); ?>
-					<a href="<?php echo esc_url( $privacy_url ); ?>" target="<?php echo esc_attr( $privacy_target ); ?>"<?php echo $privacy_rel; ?>><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="<?php echo esc_url( $terms_url ); ?>" target="<?php echo esc_attr( $terms_target ); ?>"<?php echo $terms_rel; ?>><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="<?php echo esc_url( $access_url ); ?>" target="<?php echo esc_attr( $access_target ); ?>"<?php echo $access_rel; ?>><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
+					<a href="<?php echo esc_url( $privacy_url ); ?>" target="<?php echo esc_attr( $privacy_target ); ?>"<?php echo $privacy_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $terms_url ); ?>" target="<?php echo esc_attr( $terms_target ); ?>"<?php echo $terms_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $access_url ); ?>" target="<?php echo esc_attr( $access_target ); ?>"<?php echo $access_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
 				</span>
 			</div>
 		</footer>

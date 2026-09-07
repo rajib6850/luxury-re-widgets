@@ -3145,6 +3145,32 @@ button.btn {
   text-align: center;
 }
 
+.footer__logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.25rem;
+  text-align: center;
+}
+
+.footer__logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.footer__logo-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 auto;
+}
+
 .footer__brand {
   font-family: inherit;
   font-size: clamp(1.5rem, 2.8vw, 2rem);
@@ -3317,12 +3343,18 @@ button.btn {
   color: var(--color-text-light);
 }
 
-.footer__copyright a {
-  transition: color 0.3s ease;
+.footer__bottom a,
+.footer__copyright a,
+.footer__bottom-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.footer__copyright a:hover {
-  color: var(--color-secondary);
+.footer__bottom a:hover,
+.footer__copyright a:hover,
+.footer__bottom-link:hover {
+  color: var(--color-secondary, #c5a047);
 }
 
 /* --- 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE --- */

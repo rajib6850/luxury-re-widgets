@@ -23,6 +23,24 @@ class LRE_Footer_Widget extends Widget_Base {
 	public function get_categories() { return array( 'luxury-re-widgets' ); }
 	public function get_keywords()   { return array( 'footer', 'copyright', 'contact', 'social', 'legal', 'luxury' ); }
 
+	/**
+	 * Get list of available WordPress navigation menus.
+	 *
+	 * @return array
+	 */
+	protected function get_wp_menus_options() {
+		$menus   = wp_get_nav_menus();
+		$options = array(
+			'' => esc_html__( '-- Select a WordPress Menu --', 'luxury-re-widgets' ),
+		);
+		if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+			foreach ( $menus as $menu ) {
+				$options[ (string) $menu->term_id ] = $menu->name;
+			}
+		}
+		return $options;
+	}
+
 	protected function register_controls() {
 
 		// =================================================================
@@ -153,13 +171,40 @@ class LRE_Footer_Widget extends Widget_Base {
 
 		// --- NAVIGATION LINKS ---
 		$this->start_controls_section( 'section_nav', array( 'label' => __( 'Navigation Links', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		
+
+		$this->add_control(
+			'nav_source',
+			array(
+				'label'   => __( 'Navigation Source', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'custom'  => __( 'Custom Links (Repeater)', 'luxury-re-widgets' ),
+					'wp_menu' => __( 'WordPress Menu', 'luxury-re-widgets' ),
+				),
+				'default' => 'custom',
+			)
+		);
+
+		$this->add_control(
+			'wp_menu_id',
+			array(
+				'label'       => __( 'Select WordPress Menu', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => $this->get_wp_menus_options(),
+				'default'     => '',
+				'condition'   => array(
+					'nav_source' => 'wp_menu',
+				),
+				'description' => __( 'Select any WordPress menu configured under Appearance > Menus.', 'luxury-re-widgets' ),
+			)
+		);
+
 		$repeater = new Repeater();
 		$repeater->add_control( 'link_title', array( 'label' => __( 'Link Title', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Home', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'link_url',   array( 'label' => __( 'Link URL',   'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#' ) ) );
 
 		$this->add_control( 'nav_links', array(
-			'label'       => __( 'Links', 'luxury-re-widgets' ),
+			'label'       => __( 'Custom Links', 'luxury-re-widgets' ),
 			'type'        => Controls_Manager::REPEATER,
 			'fields'      => $repeater->get_controls(),
 			'default'     => array(
@@ -173,6 +218,9 @@ class LRE_Footer_Widget extends Widget_Base {
 				array( 'link_title' => 'Contact',        'link_url' => array( 'url' => '#contact' ) ),
 			),
 			'title_field' => '{{{ link_title }}}',
+			'condition'   => array(
+				'nav_source' => 'custom',
+			),
 		) );
 		$this->end_controls_section();
 
@@ -195,31 +243,36 @@ class LRE_Footer_Widget extends Widget_Base {
 
 		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Footer Container', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_control( 'footer_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer' => 'background-color: {{VALUE}};' ) ) );
+		$this->add_control( 'footer_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer' => 'background-color: {{VALUE}} !important;' ) ) );
 		$this->add_control( 'border_color', array( 'label' => __( 'Divider & Border Lines Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .footer' => 'border-top-color: {{VALUE}};',
-			'{{WRAPPER}} .footer__nav' => 'border-top-color: {{VALUE}};',
-			'{{WRAPPER}} .footer__legal' => 'border-top-color: {{VALUE}};',
-			'{{WRAPPER}} .footer__bottom' => 'border-top-color: {{VALUE}};'
+			'{{WRAPPER}} .footer' => 'border-top-color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__nav' => 'border-top-color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__legal' => 'border-top-color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__bottom' => 'border-top-color: {{VALUE}} !important;'
 		) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Brand ---
 		$this->start_controls_section( 'style_brand', array( 'label' => __( 'Brand Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'brand_typography', 'label' => __( 'Brand Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__brand' ) );
-		$this->add_control( 'brand_color', array( 'label' => __( 'Brand Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'brand_color', array( 'label' => __( 'Brand Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'sub_typography', 'label' => __( 'Subtitle Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__brand-sub' ) );
-		$this->add_control( 'sub_color', array( 'label' => __( 'Subtitle Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}};' ) ) );
+		$this->add_control( 'sub_color', array( 'label' => __( 'Subtitle Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}} !important;' ) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Info Grid ---
 		$this->start_controls_section( 'style_info_grid', array( 'label' => __( 'Info Grid Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'label_typography', 'label' => __( 'Label Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-label' ) );
-		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'text_typography', 'label' => __( 'Text / Links Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' ) );
-		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'text_hover_color', array( 'label' => __( 'Links Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
+			'{{WRAPPER}} .footer__info-text'   => 'color: {{VALUE}} !important;',
+			'{{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}} !important;',
+		) ) );
+		$this->add_control( 'text_hover_color', array( 'label' => __( 'Links Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
+			'{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}} !important;',
+		) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Social Media Icons ---
@@ -242,9 +295,9 @@ class LRE_Footer_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => 'px', 'size' => 15 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .footer__social-link'     => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .footer__social-link i'   => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .footer__social-link svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social-link'          => 'font-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .footer__social-link i'        => 'font-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .footer__social-link svg'      => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -258,9 +311,9 @@ class LRE_Footer_Widget extends Widget_Base {
 				'range'      => array(
 					'px' => array( 'min' => 20, 'max' => 70, 'step' => 1 ),
 				),
-				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'default'    => array( 'unit' => 'px', 'size' => 34 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .footer__social-link' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social-link' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important; min-width: {{SIZE}}{{UNIT}} !important; min-height: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -276,7 +329,7 @@ class LRE_Footer_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => 'px', 'size' => 14 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .footer__social' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -293,7 +346,26 @@ class LRE_Footer_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => '%', 'size' => 50 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .footer__social-link' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social-link' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'social_transition_duration',
+			array(
+				'label'      => __( 'Transition Duration (s)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array(
+					's' => array( 'min' => 0.1, 'max' => 2.0, 'step' => 0.05 ),
+				),
+				'default'    => array( 'unit' => 's', 'size' => 0.3 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__social-link'          => 'transition: all {{SIZE}}s cubic-bezier(0.16, 1, 0.3, 1) !important;',
+					'{{WRAPPER}} .footer__social-link svg'      => 'transition: all {{SIZE}}s cubic-bezier(0.16, 1, 0.3, 1) !important;',
+					'{{WRAPPER}} .footer__social-link svg path' => 'transition: all {{SIZE}}s cubic-bezier(0.16, 1, 0.3, 1) !important;',
+					'{{WRAPPER}} .footer__social-link i'        => 'transition: all {{SIZE}}s cubic-bezier(0.16, 1, 0.3, 1) !important;',
 				),
 			)
 		);
@@ -320,7 +392,10 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link'          => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link svg'      => 'fill: {{VALUE}} !important; color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link svg path' => 'fill: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link i'        => 'color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -331,7 +406,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .footer__social-link' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -344,9 +419,9 @@ class LRE_Footer_Widget extends Widget_Base {
 					'range'     => array(
 						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 					),
-					'default'   => array( 'size' => 0.6 ),
+					'default'   => array( 'size' => 0.75 ),
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link' => 'opacity: {{SIZE}};',
+						'{{WRAPPER}} .footer__social-link' => 'opacity: {{SIZE}} !important;',
 					),
 				)
 			);
@@ -364,7 +439,10 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Icon Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover'          => 'color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover svg'      => 'fill: {{VALUE}} !important; color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover svg path' => 'fill: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover i'        => 'color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -375,7 +453,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'label'     => __( 'Background Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .footer__social-link:hover' => 'background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .footer__social-link:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -406,6 +484,21 @@ class LRE_Footer_Widget extends Widget_Base {
 				)
 			);
 
+			$this->add_control(
+				'social_hover_lift',
+				array(
+					'label'        => __( 'Hover Lift Effect', 'luxury-re-widgets' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+					'label_off'    => __( 'No', 'luxury-re-widgets' ),
+					'return_value' => 'yes',
+					'default'      => 'yes',
+					'selectors'    => array(
+						'{{WRAPPER}} .footer__social-link:hover' => 'transform: translateY(-3px) !important;',
+					),
+				)
+			);
+
 			$this->end_controls_tab();
 
 		$this->end_controls_tabs();
@@ -414,16 +507,175 @@ class LRE_Footer_Widget extends Widget_Base {
 
 		// --- STYLE: Nav Links ---
 		$this->start_controls_section( 'style_nav_links', array( 'label' => __( 'Navigation Links Row', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+
+		$this->add_responsive_control(
+			'nav_links_gap',
+			array(
+				'label'      => __( 'Gap Between Links', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'px' => array( 'min' => 8, 'max' => 60, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 28 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__nav' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_transition_duration',
+			array(
+				'label'      => __( 'Transition Duration (s)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array(
+					's' => array( 'min' => 0.1, 'max' => 1.5, 'step' => 0.05 ),
+				),
+				'default'    => array( 'unit' => 's', 'size' => 0.3 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__nav-link' => 'transition: all {{SIZE}}s ease !important;',
+				),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_nav_styling' );
+
 			$this->start_controls_tab( 'tab_nav_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
 			$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'nav_typography', 'selector' => '{{WRAPPER}} .footer__nav-link' ) );
-			$this->add_control( 'nav_link_color', array( 'label' => __( 'Link Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'nav_link_color',
+				array(
+					'label'     => __( 'Link Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__nav-link' => 'color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'nav_link_opacity',
+				array(
+					'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__nav-link' => 'opacity: {{SIZE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_nav_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'nav_link_hover_color', array( 'label' => __( 'Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'nav_link_hover_color',
+				array(
+					'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__nav-link:hover' => 'color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'nav_link_hover_opacity',
+				array(
+					'label'     => __( 'Hover Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__nav-link:hover' => 'opacity: {{SIZE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
+
 		$this->end_controls_tabs();
+		$this->end_controls_section();
+
+		// --- STYLE: Legal & Copyright ---
+		$this->start_controls_section(
+			'style_legal_bottom',
+			array(
+				'label' => __( 'Legal & Bottom Copyright Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'legal_typography',
+				'label'    => __( 'Legal Disclaimer Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .footer__legal-text',
+			)
+		);
+
+		$this->add_control(
+			'legal_text_color',
+			array(
+				'label'     => __( 'Legal Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .footer__legal-text' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'legal_opacity',
+			array(
+				'label'     => __( 'Legal Text Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .footer__legal-text' => 'opacity: {{SIZE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bottom_text_color',
+			array(
+				'label'     => __( 'Copyright Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'separator' => 'before',
+				'selectors' => array(
+					'{{WRAPPER}} .footer__bottom'    => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .footer__copyright' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bottom_links_color',
+			array(
+				'label'     => __( 'Bottom Links Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .footer__bottom a' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bottom_links_hover_color',
+			array(
+				'label'     => __( 'Bottom Links Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .footer__bottom a:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -479,6 +731,75 @@ class LRE_Footer_Widget extends Widget_Base {
 					array( 'social_title' => 'X (Twitter)','social_icon' => array( 'value' => 'fab fa-x-twitter',  'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
 					array( 'social_title' => 'TikTok',     'social_icon' => array( 'value' => 'fab fa-tiktok',     'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
 				);
+			}
+		}
+
+		// Process navigation links (WordPress Menu OR Custom Repeater)
+		$nav_source       = $settings['nav_source'] ?? 'custom';
+		$nav_items_output = array();
+
+		if ( 'wp_menu' === $nav_source ) {
+			$menu_id = ! empty( $settings['wp_menu_id'] ) ? $settings['wp_menu_id'] : '';
+			if ( empty( $menu_id ) ) {
+				$all_menus = wp_get_nav_menus();
+				if ( ! empty( $all_menus ) && ! is_wp_error( $all_menus ) ) {
+					$menu_id = $all_menus[0]->term_id;
+				}
+			}
+
+			if ( ! empty( $menu_id ) ) {
+				$wp_items = wp_get_nav_menu_items( (int) $menu_id );
+				if ( ! empty( $wp_items ) && ! is_wp_error( $wp_items ) ) {
+					foreach ( $wp_items as $menu_item ) {
+						$item_url    = $menu_item->url ?? '#';
+						$item_title  = $menu_item->title ?? '';
+						$item_target = ! empty( $menu_item->target ) ? $menu_item->target : '_self';
+						$is_ext      = (bool) preg_match( '#^(https?:)?//#i', $item_url );
+
+						if ( $is_ext && '_blank' === $item_target ) {
+							$rel = ' rel="noopener noreferrer"';
+						} else {
+							$rel = '';
+						}
+
+						$nav_items_output[] = array(
+							'title'  => $item_title,
+							'url'    => $item_url,
+							'target' => $item_target,
+							'rel'    => $rel,
+						);
+					}
+				}
+			}
+		} else {
+			// Custom repeater links
+			if ( ! empty( $settings['nav_links'] ) && is_array( $settings['nav_links'] ) ) {
+				foreach ( $settings['nav_links'] as $item ) {
+					$raw_url      = trim( $item['link_url']['url'] ?? '#' );
+					$is_external  = ! empty( $item['link_url']['is_external'] );
+					$is_nofollow  = ! empty( $item['link_url']['nofollow'] );
+					$is_ext_url   = (bool) preg_match( '#^(https?:)?//#i', $raw_url );
+
+					$should_blank = ( '#' !== $raw_url && ( $is_external || $is_ext_url ) );
+					$target       = $should_blank ? '_blank' : '_self';
+
+					$rel_parts = array();
+					if ( $should_blank ) {
+						$rel_parts[] = 'noopener';
+						$rel_parts[] = 'noreferrer';
+					}
+					if ( $is_nofollow ) {
+						$rel_parts[] = 'nofollow';
+					}
+					$rel = ! empty( $rel_parts ) ? ' rel="' . esc_attr( implode( ' ', $rel_parts ) ) . '"' : '';
+
+					$nav_items_output[] = array(
+						'title'  => $item['link_title'] ?? '',
+						'url'    => $raw_url,
+						'target' => $target,
+						'rel'    => $rel,
+					);
+				}
 			}
 		}
 		?>
@@ -603,17 +924,18 @@ class LRE_Footer_Widget extends Widget_Base {
 			</div>
 
 			<!-- Navigation Links Row -->
-			<?php if ( ! empty( $settings['nav_links'] ) ) : ?>
+			<?php if ( ! empty( $nav_items_output ) ) : ?>
 			<nav class="footer__nav reveal delay-3" aria-label="<?php esc_attr_e( 'Footer navigation', 'luxury-re-widgets' ); ?>">
-				<?php foreach ( $settings['nav_links'] as $item ) :
-					$link_url    = esc_url( $item['link_url']['url'] ?? '#' );
-					$link_target = ! empty( $item['link_url']['is_external'] ) ? '_blank' : '_self';
-				?>
-				<a href="<?php echo $link_url; ?>" target="<?php echo esc_attr( $link_target ); ?>" class="footer__nav-link">
-					<?php echo esc_html( $item['link_title'] ); ?>
+				<?php foreach ( $nav_items_output as $nav_item ) : ?>
+				<a href="<?php echo esc_url( $nav_item['url'] ); ?>" target="<?php echo esc_attr( $nav_item['target'] ); ?>"<?php echo $nav_item['rel']; ?> class="footer__nav-link">
+					<?php echo esc_html( $nav_item['title'] ); ?>
 				</a>
 				<?php endforeach; ?>
 			</nav>
+			<?php elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() && 'wp_menu' === $nav_source ) : ?>
+			<div class="footer__nav" style="color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 1px; justify-content: center; padding: 14px 0; border-top: 1px dashed rgba(255,255,255,0.2);">
+				<?php esc_html_e( '[WordPress Menu has no items assigned yet. Please assign items under Appearance > Menus]', 'luxury-re-widgets' ); ?>
+			</div>
 			<?php endif; ?>
 
 			<!-- Legal Disclaimer Row -->
@@ -626,12 +948,28 @@ class LRE_Footer_Widget extends Widget_Base {
 			<?php endif; ?>
 
 			<!-- Bottom Copyright Row -->
+			<?php
+			$privacy_url    = $settings['privacy_url']['url'] ?? '#';
+			$privacy_is_ext = ! empty( $settings['privacy_url']['is_external'] ) || (bool) preg_match( '#^(https?:)?//#i', $privacy_url );
+			$privacy_target = $privacy_is_ext ? '_blank' : '_self';
+			$privacy_rel    = $privacy_is_ext ? ' rel="noopener noreferrer"' : '';
+
+			$terms_url      = $settings['terms_url']['url'] ?? '#';
+			$terms_is_ext   = ! empty( $settings['terms_url']['is_external'] ) || (bool) preg_match( '#^(https?:)?//#i', $terms_url );
+			$terms_target   = $terms_is_ext ? '_blank' : '_self';
+			$terms_rel      = $terms_is_ext ? ' rel="noopener noreferrer"' : '';
+
+			$access_url     = $settings['accessibility_url']['url'] ?? '#';
+			$access_is_ext  = ! empty( $settings['accessibility_url']['is_external'] ) || (bool) preg_match( '#^(https?:)?//#i', $access_url );
+			$access_target  = $access_is_ext ? '_blank' : '_self';
+			$access_rel     = $access_is_ext ? ' rel="noopener noreferrer"' : '';
+			?>
 			<div class="footer__bottom">
 				<span class="footer__copyright">
 					&copy; <?php echo date( 'Y' ); ?> <?php echo esc_html( $settings['copyright_brand'] ); ?>. <?php esc_html_e( 'All rights reserved. |', 'luxury-re-widgets' ); ?>
-					<a href="<?php echo esc_url( $settings['privacy_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['privacy_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="<?php echo esc_url( $settings['terms_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['terms_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
-					<a href="<?php echo esc_url( $settings['accessibility_url']['url'] ?? '#' ); ?>" target="<?php echo ! empty( $settings['accessibility_url']['is_external'] ) ? '_blank' : '_self'; ?>"><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
+					<a href="<?php echo esc_url( $privacy_url ); ?>" target="<?php echo esc_attr( $privacy_target ); ?>"<?php echo $privacy_rel; ?>><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $terms_url ); ?>" target="<?php echo esc_attr( $terms_target ); ?>"<?php echo $terms_rel; ?>><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
+					<a href="<?php echo esc_url( $access_url ); ?>" target="<?php echo esc_attr( $access_target ); ?>"<?php echo $access_rel; ?>><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
 				</span>
 			</div>
 		</footer>

@@ -10834,6 +10834,25 @@ body.elementor-editor-active .lre-contact .reveal,
   resize: vertical;
   min-height: 100px;
   line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 160, 71, 0.35) transparent;
+}
+
+.lre-contact__textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lre-contact__textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lre-contact__textarea::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 71, 0.35);
+  border-radius: 4px;
+}
+
+.lre-contact__textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 160, 71, 0.7);
 }
 
 /* Radio & Checkbox Groups */

@@ -66,7 +66,7 @@ class LRE_Header_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── HEADER VARIATION & LAYOUT ──
+		// --- HEADER VARIATION & LAYOUT ---
 		$this->start_controls_section(
 			'section_nav_mode',
 			array(
@@ -117,7 +117,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── MAIN NAVIGATION MENU ──
+		// --- MAIN NAVIGATION MENU ---
 		$this->start_controls_section(
 			'section_menu',
 			array(
@@ -146,7 +146,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── BRAND LOGO ──
+		// --- BRAND LOGO ---
 		$this->start_controls_section(
 			'section_logo',
 			array(
@@ -220,7 +220,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── RIGHT CONTACT & INFO ITEMS (REPEATER) ──
+		// --- RIGHT CONTACT & INFO ITEMS (REPEATER) ---
 		$this->start_controls_section(
 			'section_right_items',
 			array(
@@ -317,7 +317,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SIDE DRAWER MENU (DYNAMIC REPEATER BOXES) ──
+		// --- SIDE DRAWER MENU (DYNAMIC REPEATER BOXES) ---
 		$this->start_controls_section(
 			'section_drawer_boxes',
 			array(
@@ -486,7 +486,7 @@ class LRE_Header_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: NAVBAR CONTAINER ──
+		// --- STYLE: NAVBAR CONTAINER ---
 		$this->start_controls_section(
 			'style_navbar',
 			array(
@@ -567,7 +567,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: BRAND LOGO (RESPONSIVE SIZING & TYPOGRAPHY) ──
+		// --- STYLE: BRAND LOGO (RESPONSIVE SIZING & TYPOGRAPHY) ---
 		$this->start_controls_section(
 			'style_logo',
 			array(
@@ -786,7 +786,7 @@ class LRE_Header_Widget extends Widget_Base {
 			)
 		);
 
-		// ── Text & Crest Logo Styling ──
+		// --- Text & Crest Logo Styling ---
 		$this->add_control(
 			'heading_crest_text_style',
 			array(
@@ -903,7 +903,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: MAIN NAVIGATION LINKS ──
+		// --- STYLE: MAIN NAVIGATION LINKS ---
 		$this->start_controls_section(
 			'style_nav_links',
 			array(
@@ -991,7 +991,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: DROPDOWN MENUS ──
+		// --- STYLE: DROPDOWN MENUS ---
 		$this->start_controls_section(
 			'style_dropdown_menu',
 			array(
@@ -1082,7 +1082,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: RIGHT INFO & CONTACT ITEMS ──
+		// --- STYLE: RIGHT INFO & CONTACT ITEMS ---
 		$this->start_controls_section(
 			'style_right_items_section',
 			array(
@@ -1330,7 +1330,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: MENU BUTTON (TOP RIGHT) ──
+		// --- STYLE: MENU BUTTON (TOP RIGHT) ---
 		$this->start_controls_section(
 			'style_menu_btn',
 			array(
@@ -1391,7 +1391,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: SIDE DRAWER MENU ──
+		// --- STYLE: SIDE DRAWER MENU ---
 		$this->start_controls_section(
 			'style_side_drawer',
 			array(
@@ -1639,7 +1639,7 @@ class LRE_Header_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: MOBILE DROPDOWN (CLASSIC ACCORDION) ──
+		// --- STYLE: MOBILE DROPDOWN (CLASSIC ACCORDION) ---
 		$this->start_controls_section(
 			'style_mobile_dropdown',
 			array(

@@ -28,7 +28,7 @@ class LRE_About_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── TEXT CONTENT ──
+		// --- TEXT CONTENT ---
 		$this->start_controls_section( 'section_content', array(
 			'label' => __( 'Content', 'luxury-re-widgets' ),
 			'tab'   => Controls_Manager::TAB_CONTENT,
@@ -44,7 +44,7 @@ class LRE_About_Widget extends Widget_Base {
 		$this->add_control( 'btn_url',  array( 'label' => __( 'Button URL',  'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#' ) ) );
 		$this->end_controls_section();
 
-		// ── MEDIA ──
+		// --- MEDIA ---
 		$this->start_controls_section( 'section_media', array(
 			'label' => __( 'Featured Image', 'luxury-re-widgets' ),
 			'tab'   => Controls_Manager::TAB_CONTENT,
@@ -61,37 +61,37 @@ class LRE_About_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section ──
+		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem', '%' ), 'selectors' => array( '{{WRAPPER}} .about' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Watermark ──
+		// --- STYLE: Watermark ---
 		$this->start_controls_section( 'style_watermark', array( 'label' => __( 'Watermark', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'watermark_typography', 'selector' => '{{WRAPPER}} .about__watermark' ) );
 		$this->add_control( 'watermark_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__watermark' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Eyebrow ──
+		// --- STYLE: Eyebrow ---
 		$this->start_controls_section( 'style_eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .section-label' ) );
 		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .section-label' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Heading ──
+		// --- STYLE: Heading ---
 		$this->start_controls_section( 'style_heading', array( 'label' => __( 'Heading', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .about__title' ) );
 		$this->add_control( 'heading_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__title' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Description ──
+		// --- STYLE: Description ---
 		$this->start_controls_section( 'style_desc', array( 'label' => __( 'Description', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .about__description' ) );
 		$this->add_control( 'desc_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__description' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Button ──
+		// --- STYLE: Button ---
 				$this->start_controls_section(
 			'style_btn',
 			array(
@@ -186,7 +186,7 @@ class LRE_About_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: Image Frame ──
+		// --- STYLE: Image Frame ---
 		$this->start_controls_section( 'style_frame', array( 'label' => __( 'Image Gold Frame', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'frame_color', array( 'label' => __( 'Frame Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__image-frame' => 'border-color: {{VALUE}};' ) ) );
 		$this->end_controls_section();

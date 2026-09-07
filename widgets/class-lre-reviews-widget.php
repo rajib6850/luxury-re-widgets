@@ -45,7 +45,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── 1. SECTION HEADER ──
+		// --- 1. SECTION HEADER ---
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -78,7 +78,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── 2. TRUST METRICS & FIDUCIARY PILLAR ──
+		// --- 2. TRUST METRICS & FIDUCIARY PILLAR ---
 		$this->start_controls_section(
 			'section_fiduciary_pillar',
 			array(
@@ -161,7 +161,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── 3. CLIENT DOSSIERS (REVIEWS REPEATER) ──
+		// --- 3. CLIENT DOSSIERS (REVIEWS REPEATER) ---
 		$this->start_controls_section(
 			'section_reviews_list',
 			array(
@@ -322,7 +322,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── SECTION STYLE ──
+		// --- SECTION STYLE ---
 		$this->start_controls_section(
 			'style_section',
 			array(
@@ -368,7 +368,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── ACCENTS & CARDS (CONNECTED TO ELEMENTOR KIT) ──
+		// --- ACCENTS & CARDS (CONNECTED TO ELEMENTOR KIT) ---
 		$this->start_controls_section(
 			'style_accents',
 			array(
@@ -457,7 +457,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── TYPOGRAPHY ──
+		// --- TYPOGRAPHY ---
 		$this->start_controls_section(
 			'style_typography',
 			array(

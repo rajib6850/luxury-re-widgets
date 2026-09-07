@@ -51,7 +51,7 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION: LAYOUT & MOBILE ORDERING ──
+		// --- SECTION: LAYOUT & MOBILE ORDERING ---
 		$this->start_controls_section(
 			'section_layout_ordering',
 			array(
@@ -103,7 +103,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: ATMOSPHERE & BACKGROUND ──
+		// --- SECTION: ATMOSPHERE & BACKGROUND ---
 		$this->start_controls_section(
 			'section_atmosphere',
 			array(
@@ -140,7 +140,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: HEADLINE & DIRECT CONTACT ──
+		// --- SECTION: HEADLINE & DIRECT CONTACT ---
 		$this->start_controls_section(
 			'section_headline',
 			array(
@@ -209,7 +209,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: BROKER & CONCIERGE PROFILE (OPTIONAL) ──
+		// --- SECTION: BROKER & CONCIERGE PROFILE (OPTIONAL) ---
 		$this->start_controls_section(
 			'section_agent_profile',
 			array(
@@ -352,7 +352,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: FLOATING MESSAGE CARD HEADER ──
+		// --- SECTION: FLOATING MESSAGE CARD HEADER ---
 		$this->start_controls_section(
 			'section_form_card_header',
 			array(
@@ -381,7 +381,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: FORM FIELDS (ELEMENTOR PRO STYLE REPEATER) ──
+		// --- SECTION: FORM FIELDS (ELEMENTOR PRO STYLE REPEATER) ---
 		$this->start_controls_section(
 			'section_form_fields',
 			array(
@@ -611,7 +611,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: SUBMIT BUTTON & CONSENT ──
+		// --- SECTION: SUBMIT BUTTON & CONSENT ---
 		$this->start_controls_section(
 			'section_submit_consent',
 			array(
@@ -681,7 +681,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: ACTIONS AFTER SUBMIT ──
+		// --- SECTION: ACTIONS AFTER SUBMIT ---
 		$this->start_controls_section(
 			'section_actions_after_submit',
 			array(
@@ -722,7 +722,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: EMAIL NOTIFICATION SETTINGS ──
+		// --- SECTION: EMAIL NOTIFICATION SETTINGS ---
 		$this->start_controls_section(
 			'section_email_settings',
 			array(
@@ -792,7 +792,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: CLIENT AUTO-RESPONDER ──
+		// --- SECTION: CLIENT AUTO-RESPONDER ---
 		$this->start_controls_section(
 			'section_autoresponder_settings',
 			array(
@@ -825,7 +825,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: REDIRECT SETTINGS ──
+		// --- SECTION: REDIRECT SETTINGS ---
 		$this->start_controls_section(
 			'section_redirect_settings',
 			array(
@@ -848,7 +848,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION: CUSTOM MESSAGES ──
+		// --- SECTION: CUSTOM MESSAGES ---
 		$this->start_controls_section(
 			'section_custom_messages',
 			array(
@@ -881,7 +881,7 @@ class LRE_Contact_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: LAYOUT & PADDING ──
+		// --- STYLE: LAYOUT & PADDING ---
 		$this->start_controls_section(
 			'style_layout',
 			array(
@@ -925,7 +925,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: HEADLINE & TEXT ──
+		// --- STYLE: HEADLINE & TEXT ---
 		$this->start_controls_section(
 			'style_typography',
 			array(
@@ -976,7 +976,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: FLOATING FORM CARD ──
+		// --- STYLE: FLOATING FORM CARD ---
 		$this->start_controls_section(
 			'style_form_card',
 			array(
@@ -1048,7 +1048,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: FORM INPUTS ──
+		// --- STYLE: FORM INPUTS ---
 		$this->start_controls_section(
 			'style_form_fields',
 			array(
@@ -1123,7 +1123,7 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: SUBMIT BUTTON ──
+		// --- STYLE: SUBMIT BUTTON ---
 		$this->start_controls_section(
 			'style_submit_button',
 			array(

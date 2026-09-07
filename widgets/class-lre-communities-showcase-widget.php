@@ -44,7 +44,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION 1: HEADER & TYPOGRAPHY ──
+		// --- SECTION 1: HEADER & TYPOGRAPHY ---
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -105,7 +105,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 2: MINIMAL FILTER BAR ──
+		// --- SECTION 2: MINIMAL FILTER BAR ---
 		$this->start_controls_section(
 			'section_filter',
 			array(
@@ -126,7 +126,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 3: COMMUNITIES REPEATER ──
+		// --- SECTION 3: COMMUNITIES REPEATER ---
 		$this->start_controls_section(
 			'section_communities',
 			array(
@@ -292,7 +292,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: SECTION & CANVAS ──
+		// --- STYLE: SECTION & CANVAS ---
 		$this->start_controls_section(
 			'style_section',
 			array(
@@ -335,7 +335,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: TYPOGRAPHY & HEADER ──
+		// --- STYLE: TYPOGRAPHY & HEADER ---
 		$this->start_controls_section(
 			'style_header',
 			array(
@@ -474,7 +474,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		<section class="lre-comm-showcase" id="communities-showcase" aria-label="<?php esc_attr_e( 'Featured Communities', 'luxury-re-widgets' ); ?>">
 			<div class="lre-comm-showcase__container">
 
-				<!-- ── SECTION HEADER (Matches H2 section titles across plugin) ── -->
+				<!-- --- SECTION HEADER (Matches H2 section titles across plugin) --- -->
 				<header class="lre-comm-showcase__header <?php echo esc_attr( $reveal_class ); ?>">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<div class="lre-comm-showcase__eyebrow-wrap">
@@ -504,7 +504,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					<?php endif; ?>
 				</header>
 
-				<!-- ── MINIMAL EDITORIAL FILTER TABS ── -->
+				<!-- --- MINIMAL EDITORIAL FILTER TABS --- -->
 				<?php if ( $show_filters ) : ?>
 				<nav class="lre-comm-showcase__filter-nav <?php echo esc_attr( $reveal_class ); ?>" aria-label="<?php esc_attr_e( 'Filter communities', 'luxury-re-widgets' ); ?>">
 					<button type="button" class="lre-comm-nav-item is-active" data-filter="all">
@@ -519,7 +519,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				</nav>
 				<?php endif; ?>
 
-				<!-- ── MINIMALIST ARCHITECTURAL GALLERY GRID ── -->
+				<!-- --- MINIMALIST ARCHITECTURAL GALLERY GRID --- -->
 				<div class="lre-comm-gallery" id="lre-comm-gallery">
 					<?php
 					foreach ( $communities as $c_idx => $c ) :

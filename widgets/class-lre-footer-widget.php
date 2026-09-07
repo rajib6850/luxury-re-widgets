@@ -28,13 +28,13 @@ class LRE_Footer_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── BRAND ──
+		// --- BRAND ---
 		$this->start_controls_section( 'section_brand', array( 'label' => __( 'Brand Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'brand_name',     array( 'label' => __( 'Brand Name',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Victoria Crestwood', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'brand_subtitle', array( 'label' => __( 'Brand Subtitle', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => '& Associates',      'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// ── 3-COLUMN CONTACT INFO ──
+		// --- 3-COLUMN CONTACT INFO ---
 		$this->start_controls_section( 'section_contact', array( 'label' => __( '3-Column Info Grid', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		
 		// Col 1
@@ -54,7 +54,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'office_addr', array( 'label' => __( 'Office Address', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => "1420 Sunset Plaza Drive, Suite 300<br>Los Angeles, CA 90069", 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// ── NAVIGATION LINKS ──
+		// --- NAVIGATION LINKS ---
 		$this->start_controls_section( 'section_nav', array( 'label' => __( 'Navigation Links', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		
 		$repeater = new Repeater();
@@ -79,7 +79,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		) );
 		$this->end_controls_section();
 
-		// ── LEGAL & COPYRIGHT ──
+		// --- LEGAL & COPYRIGHT ---
 		$this->start_controls_section( 'section_legal', array( 'label' => __( 'Legal & Copyright', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'legal_text', array(
 			'label'   => __( 'Legal Disclaimer', 'luxury-re-widgets' ),
@@ -96,7 +96,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section ──
+		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Footer Container', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'footer_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_control( 'border_color', array( 'label' => __( 'Divider & Border Lines Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
@@ -107,7 +107,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Brand ──
+		// --- STYLE: Brand ---
 		$this->start_controls_section( 'style_brand', array( 'label' => __( 'Brand Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'brand_typography', 'label' => __( 'Brand Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__brand' ) );
 		$this->add_control( 'brand_color', array( 'label' => __( 'Brand Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}};' ) ) );
@@ -116,7 +116,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Info Grid ──
+		// --- STYLE: Info Grid ---
 		$this->start_controls_section( 'style_info_grid', array( 'label' => __( 'Info Grid & Socials', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'label_typography', 'label' => __( 'Label Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-label' ) );
 		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}};' ) ) );
@@ -127,7 +127,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'social_hover_color', array( 'label' => __( 'Social Icons Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__social-link:hover' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Nav Links ──
+		// --- STYLE: Nav Links ---
 		$this->start_controls_section( 'style_nav_links', array( 'label' => __( 'Navigation Links Row', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->start_controls_tabs( 'tabs_nav_styling' );
 			$this->start_controls_tab( 'tab_nav_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );

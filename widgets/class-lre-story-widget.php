@@ -44,7 +44,7 @@ class LRE_Story_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION 1: LAYOUT SETTINGS ──
+		// --- SECTION 1: LAYOUT SETTINGS ---
 		$this->start_controls_section(
 			'section_layout',
 			array(
@@ -91,7 +91,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 2: EDITORIAL CONTENT ──
+		// --- SECTION 2: EDITORIAL CONTENT ---
 		$this->start_controls_section(
 			'section_content',
 			array(
@@ -179,7 +179,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 3: VERTICAL IMAGE ──
+		// --- SECTION 3: VERTICAL IMAGE ---
 		$this->start_controls_section(
 			'section_media',
 			array(
@@ -226,7 +226,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 4: CALL TO ACTION (OPTIONAL) ──
+		// --- SECTION 4: CALL TO ACTION (OPTIONAL) ---
 		$this->start_controls_section(
 			'section_cta',
 			array(
@@ -273,7 +273,7 @@ class LRE_Story_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: SECTION ──
+		// --- STYLE: SECTION ---
 		$this->start_controls_section(
 			'style_section',
 			array(
@@ -316,7 +316,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: TYPOGRAPHY ──
+		// --- STYLE: TYPOGRAPHY ---
 		$this->start_controls_section(
 			'style_typography',
 			array(
@@ -384,7 +384,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: VERTICAL IMAGE ──
+		// --- STYLE: VERTICAL IMAGE ---
 		$this->start_controls_section(
 			'style_image',
 			array(
@@ -415,7 +415,7 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: BUTTON ──
+		// --- STYLE: BUTTON ---
 		$this->start_controls_section(
 			'style_button',
 			array(

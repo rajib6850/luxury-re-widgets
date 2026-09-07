@@ -50,7 +50,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION 1: HEADER & WATERMARK ──
+		// --- SECTION 1: HEADER & WATERMARK ---
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -125,7 +125,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SECTION 2: EDITORIAL MONOGRAPH CHAPTERS ──
+		// --- SECTION 2: EDITORIAL MONOGRAPH CHAPTERS ---
 		$this->start_controls_section(
 			'section_chapters',
 			array(
@@ -306,7 +306,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 
 			<div class="container lre-guide__container">
 
-				<!-- ── 1. SECTION HEADER (Center-Aligned, Symmetrical Dual Gold Bars) ── -->
+				<!-- --- 1. SECTION HEADER (Center-Aligned, Symmetrical Dual Gold Bars) --- -->
 				<header class="lre-guide__header <?php echo esc_attr( $reveal_class ); ?>">
 					<?php if ( ! empty( $eyebrow ) ) : ?>
 					<div class="lre-guide__eyebrow-wrap">
@@ -325,7 +325,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 					<?php endif; ?>
 				</header>
 
-				<!-- ── 2. SEQUENTIAL EDITORIAL MONOGRAPH CHAPTERS ── -->
+				<!-- --- 2. SEQUENTIAL EDITORIAL MONOGRAPH CHAPTERS --- -->
 				<?php if ( ! empty( $chapters ) ) : ?>
 				<div class="lre-guide__chapters">
 					<?php foreach ( $chapters as $c_idx => $ch ) :

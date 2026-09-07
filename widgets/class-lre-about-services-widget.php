@@ -46,7 +46,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── 1. SECTION HEADER & WATERMARK ──
+		// --- 1. SECTION HEADER & WATERMARK ---
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -140,7 +140,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── 2. SERVICES REPEATER ──
+		// --- 2. SERVICES REPEATER ---
 		$this->start_controls_section(
 			'section_services_list',
 			array(
@@ -291,7 +291,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: THEME & ELEMENTOR KIT COLORS ──
+		// --- STYLE: THEME & ELEMENTOR KIT COLORS ---
 		$this->start_controls_section(
 			'style_theme_colors',
 			array(
@@ -371,7 +371,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: HEADER ──
+		// --- STYLE: HEADER ---
 		$this->start_controls_section(
 			'style_header',
 			array(
@@ -424,7 +424,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: CONTAINER & SPACING ──
+		// --- STYLE: CONTAINER & SPACING ---
 		$this->start_controls_section(
 			'style_container',
 			array(
@@ -482,7 +482,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── STYLE: WATERMARK ──
+		// --- STYLE: WATERMARK ---
 		$this->start_controls_section(
 			'style_watermark',
 			array(

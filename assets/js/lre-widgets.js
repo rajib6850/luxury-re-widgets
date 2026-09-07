@@ -1,5 +1,5 @@
 /**
- * Luxury Real Estate Widgets â€” Master Client-side JavaScript Suite
+ * Luxury Real Estate Widgets - Master Client-side JavaScript Suite
  * High-performance, GPU-accelerated luxury real estate interactivity.
  *
  * @package Luxury_RE_Widgets
@@ -1428,7 +1428,7 @@
     };
 
     // =========================================================================
-    // 16. COMMUNITIES SHOWCASE — Minimal Lifestyle Filter Navigation
+    // 16. COMMUNITIES SHOWCASE - Minimal Lifestyle Filter Navigation
     // =========================================================================
     LREWidgets.CommunitiesShowcase = {
         init: function ( $scope ) {
@@ -1598,7 +1598,7 @@
     // BUYING GUIDE & ACQUISITION PROTOCOL WIDGET
     // -------------------------------------------------------------------------
     // =========================================================================
-    // 18. BUYING GUIDE — Super-Luxury Editorial Monograph
+    // 18. BUYING GUIDE - Super-Luxury Editorial Monograph
     // =========================================================================
     LREWidgets.BuyingGuide = {
         init: function ( $scope ) {
@@ -1631,7 +1631,7 @@
     };
 
     // =========================================================================
-    // 19. SELLER'S GUIDE — Super-Luxury Editorial Monograph
+    // 19. SELLER'S GUIDE - Super-Luxury Editorial Monograph
     // =========================================================================
     LREWidgets.SellersGuide = {
         init: function ( $scope ) {

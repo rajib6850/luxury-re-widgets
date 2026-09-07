@@ -53,7 +53,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── BACKGROUND ──
+		// --- BACKGROUND ---
 		$this->start_controls_section(
 			'section_background',
 			array(
@@ -100,7 +100,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── OVERLAY ──
+		// --- OVERLAY ---
 		$this->start_controls_section(
 			'section_overlay',
 			array(
@@ -155,7 +155,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── TEXT CONTENT ──
+		// --- TEXT CONTENT ---
 		$this->start_controls_section(
 			'section_content',
 			array(
@@ -218,7 +218,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CTA BUTTON CONTENT ──
+		// --- CTA BUTTON CONTENT ---
 		$this->start_controls_section(
 			'section_cta',
 			array(
@@ -278,7 +278,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── BREADCRUMB ──
+		// --- BREADCRUMB ---
 		$this->start_controls_section(
 			'section_breadcrumb',
 			array(
@@ -334,7 +334,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── TITLE STYLE ──
+		// --- TITLE STYLE ---
 		$this->start_controls_section(
 			'style_title',
 			array(
@@ -392,7 +392,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── SUBTITLE STYLE ──
+		// --- SUBTITLE STYLE ---
 		$this->start_controls_section(
 			'style_subtitle',
 			array(
@@ -441,7 +441,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CTA BUTTON STYLE ──
+		// --- CTA BUTTON STYLE ---
 		$this->start_controls_section(
 			'style_button',
 			array(
@@ -586,10 +586,10 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			)
 		);
 
-		// ── Normal / Hover Tabs ──
+		// --- Normal / Hover Tabs ---
 		$this->start_controls_tabs( 'tabs_btn_style', array( 'separator' => 'before' ) );
 
-			// ── Normal Tab ──
+			// --- Normal Tab ---
 			$this->start_controls_tab(
 				'tab_btn_normal',
 				array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
@@ -643,7 +643,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 			$this->end_controls_tab();
 
-			// ── Hover Tab ──
+			// --- Hover Tab ---
 			$this->start_controls_tab(
 				'tab_btn_hover',
 				array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
@@ -729,7 +729,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── LAYOUT STYLE ──
+		// --- LAYOUT STYLE ---
 		$this->start_controls_section(
 			'style_layout',
 			array(

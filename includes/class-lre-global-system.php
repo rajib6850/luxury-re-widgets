@@ -52,7 +52,7 @@ final class LRE_Global_System {
 	 */
 	public function get_bridge_css() {
 		return '
-/* ─── LRE ELEMENTOR GLOBAL SYSTEM DYNAMIC BRIDGE ─── */
+/* --- LRE ELEMENTOR GLOBAL SYSTEM DYNAMIC BRIDGE --- */
 :root,
 body,
 [class*="elementor-kit-"] {
@@ -78,7 +78,7 @@ body,
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
 }
 
-/* ─── UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE ─── */
+/* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
 [class*="lre-"] button,
 [class*="lre-"] [type="button"],
 [class*="lre-"] [type="submit"],
@@ -102,7 +102,7 @@ body,
   box-shadow: none !important;
 }
 
-/* ─── GLOBAL RESPONSIVE CONTAINER SYSTEM (ALL WIDGETS & SECTIONS) ─── */
+/* --- GLOBAL RESPONSIVE CONTAINER SYSTEM (ALL WIDGETS & SECTIONS) --- */
 .container,
 .container--wide,
 .lre-story__container,
@@ -219,7 +219,7 @@ body,
   box-shadow: none !important;
 }
 
-/* ─── UNIFIED LUXURY BUTTON DESIGN SYSTEM (ALL WIDGETS) ─── */
+/* --- UNIFIED LUXURY BUTTON DESIGN SYSTEM (ALL WIDGETS) --- */
 .btn,
 a.btn,
 button.btn,
@@ -349,7 +349,7 @@ button.btn,
   transform: translateX(5px) !important;
 }
 
-/* ─── SERVICES: ULTRA-SMOOTH HOVER TRANSITION ─── */
+/* --- SERVICES: ULTRA-SMOOTH HOVER TRANSITION --- */
 .service-item {
   transition: 
     background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
@@ -592,7 +592,7 @@ button.btn,
   font-family: inherit;
 }
 
-/* ─── SITE HEADER / NAVBAR BULLETPROOF PROTECTION ─── */
+/* --- SITE HEADER / NAVBAR BULLETPROOF PROTECTION --- */
 .navbar a.navbar__link,
 .navbar .navbar__link,
 [class*="elementor-kit-"] .navbar a.navbar__link,
@@ -715,7 +715,7 @@ button.navbar__menu-btn:hover,
   padding-left: 1.65rem !important;
 }
 
-/* ─── POPUP MENU (SIDE MENU DRAWER) BULLETPROOF PROTECTION ─── */
+/* --- POPUP MENU (SIDE MENU DRAWER) BULLETPROOF PROTECTION --- */
 .side-menu a.side-menu__category-link,
 .side-menu .side-menu__category-link,
 [class*="elementor-kit-"] .side-menu a.side-menu__category-link,
@@ -847,7 +847,7 @@ button.navbar__menu-btn:hover,
   color: var(--color-secondary, #c5a047) !important;
 }
 
-/* ─── MOBILE DROPDOWN PROTECTION ─── */
+/* --- MOBILE DROPDOWN PROTECTION --- */
 .navbar__mobile-link,
 [class*="elementor-kit-"] .navbar__mobile-link {
   color: #ffffff !important;
@@ -962,7 +962,7 @@ button.navbar__mobile-toggle:active,
   transition: color var(--transition-fast, 0.25s ease);
 }
 
-/* ─── DARK LUXURY SECTIONS: PURE WHITE TITLES & HIGH-CONTRAST TEXT GUARANTEE ─── */
+/* --- DARK LUXURY SECTIONS: PURE WHITE TITLES & HIGH-CONTRAST TEXT GUARANTEE --- */
 .lre-reviews,
 .lre-aserv,
 .lre-comm-showcase,
@@ -1140,7 +1140,7 @@ button.navbar__mobile-toggle:active,
   }
 }
 
-/* ─── ELEMENTOR EDITOR PREVIEW VISIBILITY GUARANTEE ─── */
+/* --- ELEMENTOR EDITOR PREVIEW VISIBILITY GUARANTEE --- */
 body.elementor-editor-active .reveal,
 body.elementor-editor-active .reveal--left,
 body.elementor-editor-active .reveal--right,

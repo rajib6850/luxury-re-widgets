@@ -28,7 +28,7 @@ class LRE_Services_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── MEDIA ──
+		// --- MEDIA ---
 		$this->start_controls_section( 'section_media', array( 'label' => __( 'Left Image', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'section_image', array(
 			'label'   => __( 'Image', 'luxury-re-widgets' ),
@@ -38,7 +38,7 @@ class LRE_Services_Widget extends Widget_Base {
 		) );
 		$this->end_controls_section();
 
-		// ── HEADER ──
+		// --- HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'our services', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_line1', array( 'label' => __( 'Heading Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Real Estate Services', 'dynamic' => array( 'active' => true ) ) );
@@ -46,7 +46,7 @@ class LRE_Services_Widget extends Widget_Base {
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag', 'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT, 'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
 		$this->end_controls_section();
 
-		// ── SERVICE ITEMS ──
+		// --- SERVICE ITEMS ---
 		$this->start_controls_section( 'section_items', array( 'label' => __( 'Service Items', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$repeater = new Repeater();
@@ -73,26 +73,26 @@ class LRE_Services_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section ──
+		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .services' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem' ), 'selectors' => array( '{{WRAPPER}} .services' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Eyebrow ──
+		// --- STYLE: Eyebrow ---
 		$this->start_controls_section( 'style_eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .services__eyebrow-text' ) );
 		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .services__eyebrow-text' => 'color: {{VALUE}};' ) ) );
 		$this->add_control( 'eyebrow_line_color', array( 'label' => __( 'Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .services__eyebrow-line' => 'background: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Heading ──
+		// --- STYLE: Heading ---
 		$this->start_controls_section( 'style_heading', array( 'label' => __( 'Heading', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .services__title' ) );
 		$this->add_control( 'heading_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .services__title' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Service Items ──
+		// --- STYLE: Service Items ---
 		$this->start_controls_section( 'style_item', array( 'label' => __( 'Service Items', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->start_controls_tabs( 'tabs_service_items' );
 

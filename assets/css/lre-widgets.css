@@ -1,13 +1,13 @@
 /* ============================================================
-   LUXURY REAL ESTATE â€” MASTER STYLESHEET
+   LUXURY REAL ESTATE  -  MASTER STYLESHEET
    Ultra-premium, editorial-grade design system
    ============================================================ */
 
-/* â”€â”€ 0. CSS CUSTOM PROPERTIES (Design Tokens & Elementor Global Bridge) â”€â”€ */
+/* --- 0. CSS CUSTOM PROPERTIES (Design Tokens & Elementor Global Bridge) --- */
 :root,
 body,
 [class*="elementor-kit-"] {
-  /* Colors â”€â”€ Connected to Elementor Global Colors with Luxury Fallbacks */
+  /* Colors --- Connected to Elementor Global Colors with Luxury Fallbacks */
   --color-primary: var(--e-global-color-primary, #0a0a0a);
   --color-secondary: var(--e-global-color-secondary, #c5a047);
   --color-secondary-light: var(--e-global-color-accent, #d4b565);
@@ -47,7 +47,7 @@ body,
   --font-size-card-price: 1.28rem;
   --font-size-watermark: clamp(5.5rem, 13vw, 11.5rem);
 
-  /* Spacing â€” generous whitespace for luxury feel */
+  /* Spacing  -  generous whitespace for luxury feel */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -62,7 +62,7 @@ body,
   --container-wide: 1440px;
   --nav-height: 64px;
 
-  /* Transitions â€” smooth and elegant */
+  /* Transitions  -  smooth and elegant */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -157,7 +157,7 @@ body.menu-open {
   overflow: hidden;
 }
 
-/* â”€â”€ Luxury Floating Back to Top Capsule â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- Luxury Floating Back to Top Capsule --- */
 .back-to-top {
   position: fixed;
   bottom: 2.2rem;
@@ -260,7 +260,7 @@ ol {
   top: 0;
 }
 
-/* â”€â”€ 2. TYPOGRAPHY (Elementor Theme Style & Site Settings Cascade) â”€â”€â”€â”€ */
+/* --- 2. TYPOGRAPHY (Elementor Theme Style & Site Settings Cascade) --- */
 h1,
 h2,
 h3,
@@ -489,7 +489,7 @@ p {
   }
 }
 
-/* â”€â”€ 3b. SECTION LABELS / EYEBROWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 3b. SECTION LABELS / EYEBROWS --- */
 .section-label {
   display: inline-block;
   font-family: var(--font-sans);
@@ -505,7 +505,7 @@ p {
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* â”€â”€ 4. BUTTONS â€” Premium feel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 4. BUTTONS  -  Premium feel --- */
 .btn,
 a.btn,
 button.btn {
@@ -639,7 +639,7 @@ button.btn {
   transform: scale(0.97);
 }
 
-/* â”€â”€ 5. TOP NAVIGATION BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 5. TOP NAVIGATION BAR --- */
 .navbar {
   position: fixed;
   top: 0;
@@ -722,7 +722,7 @@ button.btn {
   transform: translateY(1px);
 }
 
-/* â”€â”€ Navbar Dropdown System â”€â”€ */
+/* --- Navbar Dropdown System --- */
 .navbar__dropdown {
   position: relative;
   padding: 0.5rem 0;
@@ -1007,7 +1007,7 @@ button.btn {
   width: 100%;
 }
 
-/* â”€â”€ 6. SIDE MENU â€” 5 Column boxes with separate images â”€â”€â”€â”€ */
+/* --- 6. SIDE MENU  -  5 Column boxes with separate images --- */
 .side-menu {
   position: fixed;
   inset: 0;
@@ -1026,7 +1026,7 @@ button.btn {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Close button â€” circle X icon + text */
+/* Close button  -  circle X icon + text */
 .side-menu__close {
   position: absolute;
   top: 1.6rem;
@@ -1067,14 +1067,14 @@ button.btn {
   height: 22px;
 }
 
-/* â”€â”€ Columns container â€” 5 columns side by side â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- Columns container  -  5 columns side by side --- */
 .side-menu__columns {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-/* â”€â”€ Individual box/column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- Individual box/column --- */
 .side-menu__box {
   position: relative;
   flex: 1;
@@ -1183,7 +1183,7 @@ button.btn {
       rgba(15, 15, 20, 0.5) 100%);
 }
 
-/* â”€â”€ Box content positioning â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- Box content positioning --- */
 .side-menu__box-content {
   position: relative;
   z-index: 2;
@@ -1333,7 +1333,7 @@ button.btn {
 }
 
 
-/* â”€â”€ 7. HERO SECTION â€” Cinematic and editorial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 7. HERO SECTION  -  Cinematic and editorial --- */
 .hero {
   position: relative;
   width: 100%;
@@ -1762,13 +1762,13 @@ button.btn {
   }
 }
 
-/* â”€â”€ 6. CONTAINER UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 6. CONTAINER UTILITY --- */
 .container {
   max-width: var(--container-max, 1320px);
   margin: 0 auto;
 }
 
-/* â”€â”€ 7. ABOUT SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 7. ABOUT SECTION --- */
 .about {
   padding: 7.5rem 0 6.5rem;
   background: var(--color-white);
@@ -1911,7 +1911,7 @@ button.btn {
   filter: grayscale(100%) brightness(0.88) contrast(1.05);
 }
 
-/* â”€â”€ 7B. OUR SERVICES (Matched to exact design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 7B. OUR SERVICES (Matched to exact design) --- */
 .services {
   position: relative;
   background: #08080a;
@@ -2167,7 +2167,7 @@ button.btn {
   transform: translate3d(5px, -3px, 0);
 }
 
-/* â”€â”€ 8. FEATURED LISTINGS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 8. FEATURED LISTINGS --- */
 .listings {
   padding: 5rem 0 6rem;
   background: var(--color-white);
@@ -2217,7 +2217,7 @@ button.btn {
   display: none;
 }
 
-/* Listing Card â€” Seamless Luxury Editorial */
+/* Listing Card  -  Seamless Luxury Editorial */
 .listing-card {
   flex: 0 0 calc(25% - 1.125rem);
   min-width: 290px;
@@ -2523,7 +2523,7 @@ button.btn {
   border-color: var(--color-dark, #0a0a0a) !important;
 }
 
-/* â”€â”€ 9. TESTIMONIAL SECTION (Matched to Design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 9. TESTIMONIAL SECTION (Matched to Design) --- */
 .testimonial {
   position: relative;
   display: grid;
@@ -2810,7 +2810,7 @@ button.btn {
   transform: scale(1.1);
 }
 
-/* â”€â”€ 10. FEATURED COMMUNITIES (Matched to exact design) â”€â”€â”€â”€ */
+/* --- 10. FEATURED COMMUNITIES (Matched to exact design) --- */
 .communities {
   background: #ede9e2;
   padding: 6rem 0 5.5rem;
@@ -3020,7 +3020,7 @@ button.btn {
   align-items: center;
 }
 
-/* â”€â”€ 13. CALL TO ACTION â€” Cinematic fullwidth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 13. CALL TO ACTION  -  Cinematic fullwidth --- */
 .cta {
   position: relative;
   min-height: 520px;
@@ -3133,7 +3133,7 @@ button.btn {
   color: #08080c !important;
 }
 
-/* â”€â”€ 14. FOOTER â€” Refined and editorial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 14. FOOTER  -  Refined and editorial --- */
 .footer {
   position: relative;
   background: var(--color-white);
@@ -3289,7 +3289,7 @@ button.btn {
   color: var(--color-secondary);
 }
 
-/* â”€â”€ 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE â”€â”€ */
+/* --- 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE --- */
 .reveal {
   opacity: 0;
   transform: translateY(46px);
@@ -3388,7 +3388,7 @@ button.btn {
   animation: heroFadeUp 1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.48s forwards !important;
 }
 
-/* â”€â”€ 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) â”€â”€ */
+/* --- 15B. LUXURY CURTAIN WIPE & SCALE IMAGE REVEAL (From Plugin) --- */
 .image-reveal {
   position: relative;
   overflow: hidden;
@@ -3412,7 +3412,7 @@ button.btn {
   will-change: transform, filter;
 }
 
-/* Shutter Curtain Overlay â€” 100% Solid Ultra-Luxury Obsidian */
+/* Shutter Curtain Overlay  -  100% Solid Ultra-Luxury Obsidian */
 .image-reveal::after {
   content: '';
   position: absolute;
@@ -3494,7 +3494,7 @@ button.btn {
   color: #f8eed3;
 }
 
-/* â”€â”€ 15C. BULLETPROOF ULTRA-LUXURY GRAYSCALE HOVER SYSTEM â”€â”€ */
+/* --- 15C. BULLETPROOF ULTRA-LUXURY GRAYSCALE HOVER SYSTEM --- */
 .about__image:hover img,
 .about__image-wrapper:hover img,
 .about__image-inner:hover img,
@@ -3507,7 +3507,7 @@ button.btn {
   filter: grayscale(100%) brightness(0.88) contrast(1.06) blur(0px) !important;
 }
 
-/* â”€â”€ 16. RESPONSIVE: TABLET (<= 1024px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 16. RESPONSIVE: TABLET (<= 1024px) --- */
 @media (max-width: 1024px) {
   :root {
     --font-size-hero: clamp(2rem, 4.2vw, 3.2rem);
@@ -3707,7 +3707,7 @@ button.btn {
   }
 }
 
-/* â”€â”€ 17. RESPONSIVE: MOBILE (<= 768px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 17. RESPONSIVE: MOBILE (<= 768px) --- */
 @media (max-width: 768px) {
   :root {
     --nav-height: 60px;
@@ -4257,7 +4257,7 @@ button.btn {
   }
 }
 
-/* â”€â”€ 17B. RESPONSIVE: SMALL MOBILE (<= 480px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 17B. RESPONSIVE: SMALL MOBILE (<= 480px) --- */
 @media (max-width: 480px) {
   :root {
     --font-size-hero: clamp(1.65rem, 7vw, 2.1rem);
@@ -4462,7 +4462,7 @@ button.btn {
   }
 }
 
-/* â”€â”€ 18. REDUCED MOTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 18. REDUCED MOTION --- */
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -4502,7 +4502,7 @@ button.btn {
   }
 }
 
-/* â”€â”€ 19. PRINT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* --- 19. PRINT --- */
 @media print {
 
   .navbar,
@@ -4523,7 +4523,7 @@ button.btn {
 
 
 /* ==========================================================================
-   â”€â”€ ELEMENTOR INTEGRATION & ZERO-FLOW HEADER OVERRIDES â”€â”€
+   --- ELEMENTOR INTEGRATION & ZERO-FLOW HEADER OVERRIDES ---
    ========================================================================== */
 
 /* 1. Universal Full-Width & Box-Sizing for Header Widget across ALL themes */
@@ -4877,7 +4877,7 @@ body.elementor-editor-active .hero__scroll-indicator {
 
 
 /* ==========================================================================
-   â”€â”€ 100% BULLETPROOF ZERO-PINK RESETS (HELLO ELEMENTOR & WP BUTTON OVERRIDES) â”€â”€
+   --- 100% BULLETPROOF ZERO-PINK RESETS (HELLO ELEMENTOR & WP BUTTON OVERRIDES) ---
    ========================================================================== */
 
 /* 1. Global Reset for ALL button elements anywhere inside LRE plugin */
@@ -4990,7 +4990,7 @@ button.navbar__menu-btn:hover .hamburger span:nth-child(2),
   width: 100% !important;
 }
 
-/* 3. TESTIMONIAL SLIDER ARROWS (#testimonial-prev, #testimonial-next) â€” Zero Pink Circle */
+/* 3. TESTIMONIAL SLIDER ARROWS (#testimonial-prev, #testimonial-next)  -  Zero Pink Circle */
 button.testimonial__arrow,
 button#testimonial-prev,
 button#testimonial-next,
@@ -5047,7 +5047,7 @@ button.testimonial__arrow:hover svg,
   transform: scale(1.1) !important;
 }
 
-/* 4. TESTIMONIAL NAV DOTS â€” Zero Pink */
+/* 4. TESTIMONIAL NAV DOTS  -  Zero Pink */
 button.testimonial__nav-dot,
 .testimonial__nav-dot,
 .testimonial__dots button {
@@ -5081,7 +5081,7 @@ button.testimonial__nav-dot.active,
   box-shadow: 0 0 14px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* 5. PROPERTIES / LISTINGS ARROWS â€” Zero Pink */
+/* 5. PROPERTIES / LISTINGS ARROWS  -  Zero Pink */
 button.listings__arrow,
 .listings__arrow,
 .listings__arrows button {
@@ -5125,7 +5125,7 @@ button.listings__arrow svg,
   color: currentColor !important;
 }
 
-/* 6. PROPERTIES / LISTINGS DOTS â€” Zero Pink */
+/* 6. PROPERTIES / LISTINGS DOTS  -  Zero Pink */
 button.listings__nav-dot,
 .listings__nav-dot,
 .listings__dots button {
@@ -5216,7 +5216,7 @@ button.communities__nav-dot.active,
   background: linear-gradient(90deg, #1a1a1a 0%, #3a3a3a 100%) !important;
   background-color: #1a1a1a !important;
 }
-/* 8. SIDE MENU CLOSE BUTTON â€” Zero Pink */
+/* 8. SIDE MENU CLOSE BUTTON  -  Zero Pink */
 button.side-menu__close,
 button#menu-close-btn,
 .side-menu__close,
@@ -5270,10 +5270,10 @@ a:focus-visible {
 
 
 /* ==========================================================================
-   â”€â”€ PROPERTIES WIDGET VISIBILITY & SVG ARROW UNIFICATION â”€â”€
+   --- PROPERTIES WIDGET VISIBILITY & SVG ARROW UNIFICATION ---
    ========================================================================== */
 
-/* 1. Favorite Heart Button â€” 100% Guaranteed Visibility */
+/* 1. Favorite Heart Button  -  100% Guaranteed Visibility */
 button.listing-card__like-btn,
 .listing-card__like-btn {
   position: absolute !important;
@@ -5347,7 +5347,7 @@ button.listing-card__like-btn.liked svg,
   100% { transform: scale(1); }
 }
 
-/* 2. Listings Navigation Arrows â€” Unified with Communities & Testimonials */
+/* 2. Listings Navigation Arrows  -  Unified with Communities & Testimonials */
 button.listings__arrow,
 .listings__arrow,
 .listings__arrows button {
@@ -5439,7 +5439,7 @@ button.listings__arrow:hover svg,
   padding-top: 0 !important;
 }
 
-/* â”€â”€â”€ CLASSIC MOBILE SLIDE-DOWN DROPDOWN MENU â”€â”€â”€ */
+/* --- CLASSIC MOBILE SLIDE-DOWN DROPDOWN MENU --- */
 .navbar__mobile-dropdown {
   display: none !important;
   position: fixed !important;
@@ -5646,7 +5646,7 @@ button.navbar__mobile-toggle:active,
 }
 
 /* ==========================================================================
-   15. ABOUT PAGE SUITE â€” ULTRA-LUXURY DESIGN EXTENSIONS
+   15. ABOUT PAGE SUITE  -  ULTRA-LUXURY DESIGN EXTENSIONS
    (Our Story, Meet The Team, Comprehensive Services, Client Reviews, Press)
    ========================================================================== */
 
@@ -5779,7 +5779,7 @@ button.navbar__mobile-toggle:active,
   margin: 1.6rem 0 3rem;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ---
 /* ==========================================================================
    A. ABOUT OUR STORY & DETAILS (lre_story) — Minimal Luxury Editorial
    ========================================================================== */
@@ -7134,7 +7134,7 @@ body.elementor-editor-active .lre-team__media.image-reveal img {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ---
 /* ─── C. COMPREHENSIVE ADVISORY & SERVICES — Ultra-Luxury Obsidian Showcase ─── */
 .lre-aserv {
   --aserv-gold: var(--lre-aserv-gold, var(--e-global-color-secondary, var(--color-secondary, #c5a047)));
@@ -9656,9 +9656,9 @@ button.lre-reviews__nav-btn:focus,
 
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ---
    RESPONSIVE ADJUSTMENTS FOR ABOUT PAGE WIDGETS
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   --- */
 @media (max-width: 1024px) {
   .lre-story__grid {
     grid-template-columns: 1fr;

@@ -28,14 +28,14 @@ class LRE_Communities_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── HEADER ──
+		// --- HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Discover Local', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading',     array( 'label' => __( 'Heading',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Featured Communities',   'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag', 'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT, 'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
 		$this->end_controls_section();
 
-		// ── COMMUNITIES REPEATER ──
+		// --- COMMUNITIES REPEATER ---
 		$this->start_controls_section( 'section_communities', array( 'label' => __( 'Communities', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$repeater = new Repeater();
@@ -64,19 +64,19 @@ class LRE_Communities_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section ──
+		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem' ), 'selectors' => array( '{{WRAPPER}} .communities' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Card Typography & Colors ──
+		// --- STYLE: Card Typography & Colors ---
 		$this->start_controls_section( 'style_cards', array( 'label' => __( 'Community Cards', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'card_typography', 'selector' => '{{WRAPPER}} .community-card__name' ) );
 		$this->add_control( 'card_title_color', array( 'label' => __( 'Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .community-card__name' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Navigation Arrows ──
+		// --- STYLE: Navigation Arrows ---
 		$this->start_controls_section( 'style_nav_arrows', array( 'label' => __( 'Navigation Arrows', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->start_controls_tabs( 'tabs_arrows' );
 			$this->start_controls_tab( 'tab_arrows_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );

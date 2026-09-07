@@ -27,7 +27,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── MEDIA ──
+		// --- MEDIA ---
 		$this->start_controls_section( 'section_media', array( 'label' => __( 'Background Image', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'bg_image', array(
 			'label'   => __( 'Image', 'luxury-re-widgets' ),
@@ -37,7 +37,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		) );
 		$this->end_controls_section();
 
-		// ── CONTENT ──
+		// --- CONTENT ---
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Text Content', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Let\'s Connect', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_1',   array( 'label' => __( 'Title Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,     'default' => 'Your Next Chapter', 'dynamic' => array( 'active' => true ) ) );
@@ -46,7 +46,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->add_control( 'description', array( 'label' => __( 'Description',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Whether you\'re envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// ── BUTTONS ──
+		// --- BUTTONS ---
 		$this->start_controls_section( 'section_buttons', array( 'label' => __( 'Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'btn1_text', array( 'label' => __( 'Button 1 Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Get A Private Valuation', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn1_url',  array( 'label' => __( 'Button 1 URL',  'luxury-re-widgets' ), 'type' => Controls_Manager::URL,  'default' => array( 'url' => '#contact' ) ) );
@@ -58,13 +58,13 @@ class LRE_CTA_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section & Overlay ──
+		// --- STYLE: Section & Overlay ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section & Overlay', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'overlay_color', array( 'label' => __( 'Overlay Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__overlay' => 'background: {{VALUE}};' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem' ), 'selectors' => array( '{{WRAPPER}} .cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Typography ──
+		// --- STYLE: Typography ---
 		$this->start_controls_section( 'style_typo', array( 'label' => __( 'Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'title_typography', 'label' => __( 'Title Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .cta__title' ) );
 		$this->add_control( 'title_color', array( 'label' => __( 'Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__title' => 'color: {{VALUE}};' ) ) );
@@ -73,8 +73,8 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->add_control( 'desc_color', array( 'label' => __( 'Description Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__description' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Buttons ──
-		// ─── STYLE: Buttons ───
+		// --- STYLE: Buttons ---
+		// --- STYLE: Buttons ---
 				$this->start_controls_section( 'style_buttons', array( 'label' => __( 'Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 
 		$this->add_group_control(

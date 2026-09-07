@@ -51,7 +51,7 @@ class LRE_Team_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── SECTION HEADER ──
+		// --- SECTION HEADER ---
 		$this->start_controls_section(
 			'section_header',
 			array(
@@ -161,7 +161,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── TEAM MEMBERS REPEATER ──
+		// --- TEAM MEMBERS REPEATER ---
 		$this->start_controls_section(
 			'section_team_members',
 			array(
@@ -310,7 +310,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CAROUSEL SETTINGS ──
+		// --- CAROUSEL SETTINGS ---
 		$this->start_controls_section(
 			'section_carousel_settings',
 			array(
@@ -393,7 +393,7 @@ class LRE_Team_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── SECTION STYLE ──
+		// --- SECTION STYLE ---
 		$this->start_controls_section(
 			'style_section',
 			array(
@@ -438,7 +438,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── WATERMARK STYLE ──
+		// --- WATERMARK STYLE ---
 		$this->start_controls_section(
 			'style_watermark',
 			array(
@@ -488,7 +488,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── HEADER (TITLE & SUBTITLE) STYLE ──
+		// --- HEADER (TITLE & SUBTITLE) STYLE ---
 		$this->start_controls_section(
 			'style_header',
 			array(
@@ -562,7 +562,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── TEAM CARDS STYLE ──
+		// --- TEAM CARDS STYLE ---
 		$this->start_controls_section(
 			'style_cards',
 			array(
@@ -613,7 +613,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── CARD TYPOGRAPHY (NAME & ROLE) ──
+		// --- CARD TYPOGRAPHY (NAME & ROLE) ---
 		$this->start_controls_section(
 			'style_card_typography',
 			array(
@@ -679,7 +679,7 @@ class LRE_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// ── NAVIGATION ARROWS STYLE (Matching other widgets) ──
+		// --- NAVIGATION ARROWS STYLE (Matching other widgets) ---
 		$this->start_controls_section(
 			'style_navigation',
 			array(

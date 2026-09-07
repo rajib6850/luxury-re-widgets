@@ -28,7 +28,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// ── MEDIA & HEADER ──
+		// --- MEDIA & HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header & Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
 		$this->add_control( 'portrait_image', array(
@@ -42,7 +42,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_control( 'heading_brand', array( 'label' => __( 'Heading Brand', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Victoria Crestwood Group', 'dynamic' => array( 'active' => true ) ) );
 		$this->end_controls_section();
 
-		// ── TESTIMONIALS REPEATER ──
+		// --- TESTIMONIALS REPEATER ---
 		$this->start_controls_section( 'section_testimonials', array( 'label' => __( 'Testimonials', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$repeater = new Repeater();
@@ -84,7 +84,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		// TAB: STYLE
 		// =================================================================
 
-		// ── STYLE: Section Layout & Height ──
+		// --- STYLE: Section Layout & Height ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section Layout & Height', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_responsive_control( 'section_min_height', array(
 			'label'      => __( 'Section Min Height (px)', 'luxury-re-widgets' ),
@@ -117,7 +117,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial' => 'background-color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Typography ──
+		// --- STYLE: Typography ---
 		$this->start_controls_section( 'style_typo', array( 'label' => __( 'Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'quote_typography', 'label' => __( 'Quote Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .testimonial__quote' ) );
 		$this->add_control( 'quote_color', array( 'label' => __( 'Quote Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial__quote' => 'color: {{VALUE}};' ) ) );
@@ -128,7 +128,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_control( 'result_color', array( 'label' => __( 'Result Subtitle Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial__author-result' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// ── STYLE: Navigation ──
+		// --- STYLE: Navigation ---
 		$this->start_controls_section( 'style_nav', array( 'label' => __( 'Slider Arrows & Dots', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->start_controls_tabs( 'tabs_slider_nav' );
 			$this->start_controls_tab( 'tab_nav_btn_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );

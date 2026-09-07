@@ -568,7 +568,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1, {{WRAPPER}} .hero__cta-group .hero__btn-1 span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1, {{WRAPPER}} .hero__cta-group .hero__btn-1 span' => 'color: {{VALUE}}; --hero-btn1-color: {{VALUE}};',
 					),
 				)
 			);
@@ -578,7 +578,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'background-color: {{VALUE}}; --hero-btn1-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -588,7 +588,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => 'border-color: {{VALUE}}; --hero-btn1-border: {{VALUE}};',
 					),
 				)
 			);
@@ -601,7 +601,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover, {{WRAPPER}} .hero__cta-group .hero__btn-1:hover span' => 'color: {{VALUE}}; --hero-btn1-hover-color: {{VALUE}};',
 					),
 				)
 			);
@@ -611,9 +611,9 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--btn-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1' => '--btn-hover-bg: {{VALUE}}; --hero-btn1-hover-bg: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover::before' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -623,7 +623,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-1:hover' => 'border-color: {{VALUE}}; --hero-btn1-hover-border: {{VALUE}};',
 					),
 				)
 			);
@@ -648,7 +648,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2, {{WRAPPER}} .hero__cta-group .hero__btn-2 span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2, {{WRAPPER}} .hero__cta-group .hero__btn-2 span' => 'color: {{VALUE}}; --hero-btn2-color: {{VALUE}};',
 					),
 				)
 			);
@@ -658,7 +658,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'background-color: {{VALUE}}; --hero-btn2-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -668,7 +668,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => 'border-color: {{VALUE}}; --hero-btn2-border: {{VALUE}};',
 					),
 				)
 			);
@@ -681,7 +681,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover, {{WRAPPER}} .hero__cta-group .hero__btn-2:hover span' => 'color: {{VALUE}}; --hero-btn2-hover-color: {{VALUE}};',
 					),
 				)
 			);
@@ -691,9 +691,9 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--btn-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2' => '--btn-hover-bg: {{VALUE}}; --hero-btn2-hover-bg: {{VALUE}};',
 						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover::before' => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -703,7 +703,7 @@ class LRE_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .hero__cta-group .hero__btn-2:hover' => 'border-color: {{VALUE}}; --hero-btn2-hover-border: {{VALUE}};',
 					),
 				)
 			);
@@ -876,13 +876,13 @@ class LRE_Hero_Widget extends Widget_Base {
 
 				<div class="hero__cta-group">
 					<?php if ( ! empty( $btn1_text ) ) : ?>
-					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn btn--outline-white hero__btn-1">
+					<a href="<?php echo esc_url( $btn1_url ); ?>" target="<?php echo esc_attr( $btn1_target ); ?>" class="btn hero__btn-1">
 						<span><?php echo esc_html( $btn1_text ); ?></span>
 					</a>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $btn2_text ) ) : ?>
-					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn btn--outline-white hero__btn-2">
+					<a href="<?php echo esc_url( $btn2_url ); ?>" target="<?php echo esc_attr( $btn2_target ); ?>" class="btn hero__btn-2">
 						<span><?php echo esc_html( $btn2_text ); ?></span>
 					</a>
 					<?php endif; ?>

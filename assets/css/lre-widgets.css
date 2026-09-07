@@ -1647,10 +1647,8 @@ button.btn {
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  padding: 0.85rem 1.8rem !important;
+  padding: 0.85rem 1.8rem;
   min-height: 42px;
-  color: #ffffff;
-  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.5);
   text-decoration: none;
   display: inline-flex;
@@ -1661,22 +1659,52 @@ button.btn {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero__cta-group .btn,
-.hero__cta-group a.btn {
-  color: #ffffff;
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.5);
-  --btn-hover-bg: #ffffff;
+.hero__cta-group .hero__btn-1,
+.hero__cta-group a.hero__btn-1 {
+  color: var(--hero-btn1-color, #ffffff);
+  background-color: var(--hero-btn1-bg, transparent);
+  border-color: var(--hero-btn1-border, rgba(255, 255, 255, 0.5));
+  --btn-hover-bg: var(--hero-btn1-hover-bg, #ffffff);
 }
 
-.hero__cta-group .btn::before {
-  background: var(--btn-hover-bg, #ffffff);
+.hero__cta-group .hero__btn-1 span,
+.hero__cta-group a.hero__btn-1 span {
+  color: inherit;
 }
 
-.hero__cta-group .btn:hover,
-.hero__cta-group a.btn:hover {
-  color: #0a0a0a;
-  border-color: #ffffff;
+.hero__cta-group .hero__btn-1:hover,
+.hero__cta-group a.hero__btn-1:hover {
+  color: var(--hero-btn1-hover-color, #0a0a0a);
+  border-color: var(--hero-btn1-hover-border, #ffffff);
+}
+
+.hero__cta-group .hero__btn-1:hover span,
+.hero__cta-group a.hero__btn-1:hover span {
+  color: inherit;
+}
+
+.hero__cta-group .hero__btn-2,
+.hero__cta-group a.hero__btn-2 {
+  color: var(--hero-btn2-color, #ffffff);
+  background-color: var(--hero-btn2-bg, transparent);
+  border-color: var(--hero-btn2-border, rgba(255, 255, 255, 0.5));
+  --btn-hover-bg: var(--hero-btn2-hover-bg, #ffffff);
+}
+
+.hero__cta-group .hero__btn-2 span,
+.hero__cta-group a.hero__btn-2 span {
+  color: inherit;
+}
+
+.hero__cta-group .hero__btn-2:hover,
+.hero__cta-group a.hero__btn-2:hover {
+  color: var(--hero-btn2-hover-color, #0a0a0a);
+  border-color: var(--hero-btn2-hover-border, #ffffff);
+}
+
+.hero__cta-group .hero__btn-2:hover span,
+.hero__cta-group a.hero__btn-2:hover span {
+  color: inherit;
 }
 
 @keyframes heroMaskUp {

@@ -329,12 +329,12 @@ class LRE_Footer_Widget extends Widget_Base {
 
 		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Footer Container', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_control( 'footer_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer' => 'background-color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'footer_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_control( 'border_color', array( 'label' => __( 'Divider & Border Lines Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .footer' => 'border-top-color: {{VALUE}} !important;',
-			'{{WRAPPER}} .footer__nav' => 'border-top-color: {{VALUE}} !important;',
-			'{{WRAPPER}} .footer__legal' => 'border-top-color: {{VALUE}} !important;',
-			'{{WRAPPER}} .footer__bottom' => 'border-top-color: {{VALUE}} !important;'
+			'{{WRAPPER}} .footer' => 'border-top-color: {{VALUE}};',
+			'{{WRAPPER}} .footer__nav' => 'border-top-color: {{VALUE}};',
+			'{{WRAPPER}} .footer__legal' => 'border-top-color: {{VALUE}};',
+			'{{WRAPPER}} .footer__bottom' => 'border-top-color: {{VALUE}};'
 		) ) );
 		$this->end_controls_section();
 
@@ -596,7 +596,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'brand_color', array(
 			'label'     => __( 'Brand Color', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}} !important;' ),
+			'selectors' => array( '{{WRAPPER}} .footer__brand' => 'color: {{VALUE}};' ),
 			'condition' => array(
 				'brand_display_type' => array( 'text', 'both' ),
 			),
@@ -612,7 +612,7 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'sub_color', array(
 			'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
 			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}} !important;' ),
+			'selectors' => array( '{{WRAPPER}} .footer__brand-sub' => 'color: {{VALUE}};' ),
 			'condition' => array(
 				'brand_display_type' => array( 'text', 'both' ),
 			),
@@ -627,13 +627,13 @@ class LRE_Footer_Widget extends Widget_Base {
 				'separator' => 'before',
 			)
 		);
-		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'gold_divider_color', array( 'label' => __( 'Gold Center Line Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__divider' => 'background: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Info Grid ---
 		$this->start_controls_section( 'style_info_grid', array( 'label' => __( 'Info Grid Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'label_typography', 'label' => __( 'Label Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-label' ) );
-		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'text_typography', 'label' => __( 'Text / Links Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' ) );
 		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
 			'{{WRAPPER}} .footer__info-text'   => 'color: {{VALUE}};',
@@ -991,7 +991,7 @@ class LRE_Footer_Widget extends Widget_Base {
 				'label'     => __( 'Legal Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .footer__legal-text' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .footer__legal-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1005,7 +1005,7 @@ class LRE_Footer_Widget extends Widget_Base {
 					'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .footer__legal-text' => 'opacity: {{SIZE}} !important;',
+					'{{WRAPPER}} .footer__legal-text' => 'opacity: {{SIZE}};',
 				),
 			)
 		);
@@ -1034,8 +1034,8 @@ class LRE_Footer_Widget extends Widget_Base {
 				'label'     => __( 'Copyright Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .footer__bottom'    => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .footer__copyright' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .footer__bottom'    => 'color: {{VALUE}};',
+					'{{WRAPPER}} .footer__copyright' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1050,8 +1050,8 @@ class LRE_Footer_Widget extends Widget_Base {
 				),
 				'default'   => array( 'size' => 0.8 ),
 				'selectors' => array(
-					'{{WRAPPER}} .footer__bottom'    => 'opacity: {{SIZE}} !important;',
-					'{{WRAPPER}} .footer__copyright' => 'opacity: {{SIZE}} !important;',
+					'{{WRAPPER}} .footer__bottom'    => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .footer__copyright' => 'opacity: {{SIZE}};',
 				),
 			)
 		);

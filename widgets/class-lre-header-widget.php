@@ -511,12 +511,12 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Custom Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar'                             => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--dark'                => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--light'               => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--transparent'         => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .site-header .navbar'                => 'background: {{VALUE}} !important; --lre-navbar-bg: {{VALUE}} !important;',
-					'{{WRAPPER}}'                                     => '--lre-navbar-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar'                             => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark'                => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light'               => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--transparent'         => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .site-header .navbar'                => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}}'                                     => '--lre-navbar-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -527,12 +527,12 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Scrolled / Sticky Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar.scrolled'                             => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--dark.scrolled'                => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--light.scrolled'               => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--transparent.scrolled'         => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
-					'{{WRAPPER}} .site-header .navbar.scrolled'                => 'background: {{VALUE}} !important; --lre-navbar-scrolled-bg: {{VALUE}} !important;',
-					'{{WRAPPER}}'                                              => '--lre-navbar-scrolled-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar.scrolled'                             => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark.scrolled'                => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light.scrolled'               => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--transparent.scrolled'         => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .site-header .navbar.scrolled'                => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}}'                                              => '--lre-navbar-scrolled-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -543,9 +543,9 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Bottom Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar' => 'border-bottom-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--dark' => 'border-bottom-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .navbar.navbar--light' => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar' => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark' => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light' => 'border-bottom-color: {{VALUE}};',
 				),
 			)
 		);
@@ -820,7 +820,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Crest Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__logo-icon' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__logo-icon' => 'color: {{VALUE}}; fill: {{VALUE}}; --navbar-crest-color: {{VALUE}};',
 				),
 			)
 		);
@@ -840,7 +840,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Brand Line 1 Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__logo-text span:first-child' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__logo-text span:first-child' => 'color: {{VALUE}}; --navbar-brand-l1-color: {{VALUE}};',
 				),
 			)
 		);
@@ -860,7 +860,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Brand Line 2 Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__logo-text span:last-child' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__logo-text span:last-child' => 'color: {{VALUE}}; --navbar-brand-l2-color: {{VALUE}};',
 				),
 			)
 		);
@@ -949,7 +949,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Link Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__link, {{WRAPPER}} .navbar .navbar__link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__link, {{WRAPPER}} .navbar .navbar__link' => 'color: {{VALUE}}; --navbar-link-color: {{VALUE}};',
 				),
 			)
 		);
@@ -968,7 +968,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__link:hover, {{WRAPPER}} .navbar .navbar__dropdown:hover > a.navbar__link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__link:hover, {{WRAPPER}} .navbar .navbar__dropdown:hover > a.navbar__link' => 'color: {{VALUE}}; --navbar-link-hover-color: {{VALUE}};',
 				),
 			)
 		);
@@ -980,7 +980,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__link::after' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__link::after' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1007,7 +1007,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(12, 12, 16, 0.96)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1027,7 +1027,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.82)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link' => 'color: {{VALUE}}; --navbar-submenu-link-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1039,7 +1039,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#d4b565',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'color: {{VALUE}}; --navbar-submenu-link-hover-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1051,7 +1051,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.06)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'background: {{VALUE}}; --navbar-submenu-link-hover-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -1063,7 +1063,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.12)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1075,7 +1075,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.08)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__submenu-divider' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__submenu-divider' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1166,7 +1166,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i' => 'color: {{VALUE}}; fill: {{VALUE}};',
 				),
 			)
 		);
@@ -1185,7 +1185,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__phone:hover svg, {{WRAPPER}} .navbar__phone:hover i, {{WRAPPER}} .navbar__info:hover svg, {{WRAPPER}} .navbar__info:hover i, {{WRAPPER}} .navbar__email:hover svg, {{WRAPPER}} .navbar__email:hover i, {{WRAPPER}} a:hover .navbar__item-icon svg, {{WRAPPER}} a:hover .navbar__item-icon i' => 'color: {{VALUE}} !important; fill: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__phone:hover svg, {{WRAPPER}} .navbar__phone:hover i, {{WRAPPER}} .navbar__info:hover svg, {{WRAPPER}} .navbar__info:hover i, {{WRAPPER}} .navbar__email:hover svg, {{WRAPPER}} .navbar__email:hover i, {{WRAPPER}} a:hover .navbar__item-icon svg, {{WRAPPER}} a:hover .navbar__item-icon i' => 'color: {{VALUE}}; fill: {{VALUE}};',
 				),
 			)
 		);
@@ -1219,7 +1219,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone' => 'color: {{VALUE}}; --navbar-phone-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1231,7 +1231,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__phone:hover, {{WRAPPER}} .navbar .navbar__phone:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__phone:hover, {{WRAPPER}} .navbar .navbar__phone:hover' => 'color: {{VALUE}}; --navbar-phone-hover-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1261,7 +1261,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Text Link Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__info, {{WRAPPER}} .navbar .navbar__info' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__info, {{WRAPPER}} .navbar .navbar__info' => 'color: {{VALUE}}; --navbar-info-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1273,7 +1273,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar a.navbar__info:hover, {{WRAPPER}} .navbar .navbar__info:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar a.navbar__info:hover, {{WRAPPER}} .navbar .navbar__info:hover' => 'color: {{VALUE}}; --navbar-info-hover-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1311,7 +1311,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__avatar' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__avatar' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1323,7 +1323,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0a0a0a',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__avatar svg, {{WRAPPER}} .navbar__avatar i' => 'color: {{VALUE}} !important; fill: currentColor;',
+					'{{WRAPPER}} .navbar__avatar svg, {{WRAPPER}} .navbar__avatar i' => 'color: {{VALUE}}; fill: currentColor;',
 				),
 			)
 		);
@@ -1361,7 +1361,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Button Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__menu-btn' => 'color: {{VALUE}} !important; border: none !important; background: transparent !important;',
+					'{{WRAPPER}} .navbar__menu-btn' => 'color: {{VALUE}}; border: none; background: transparent;',
 				),
 			)
 		);
@@ -1380,7 +1380,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__menu-btn:hover' => 'color: {{VALUE}} !important; border: none !important; background: transparent !important;',
+					'{{WRAPPER}} .navbar__menu-btn:hover' => 'color: {{VALUE}}; border: none; background: transparent;',
 				),
 			)
 		);
@@ -1407,7 +1407,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0a0c10',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1437,7 +1437,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__category-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__category-link' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1449,7 +1449,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__category-link:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__category-link:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1470,7 +1470,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu h3.side-menu__col-title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu h3.side-menu__col-title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1491,7 +1491,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.75)',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__link' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1503,7 +1503,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__link:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__link:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1534,7 +1534,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn, {{WRAPPER}} .side-menu a.side-menu__find-btn span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn, {{WRAPPER}} .side-menu a.side-menu__find-btn span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1546,7 +1546,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'transparent',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1558,7 +1558,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.35)',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1580,7 +1580,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0c0c10',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover, {{WRAPPER}} .side-menu a.side-menu__find-btn:hover span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover, {{WRAPPER}} .side-menu a.side-menu__find-btn:hover span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1592,7 +1592,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1604,7 +1604,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1620,7 +1620,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu__close' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu__close' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1632,7 +1632,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu__close:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .side-menu__close:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1656,7 +1656,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0f1117',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-dropdown' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-dropdown' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1668,7 +1668,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-link' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1680,7 +1680,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-link:hover, {{WRAPPER}} .navbar__mobile-link.active' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-link:hover, {{WRAPPER}} .navbar__mobile-link.active' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1692,7 +1692,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.7)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-toggle' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-toggle' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1704,7 +1704,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-item.open .navbar__mobile-toggle, {{WRAPPER}} .navbar__mobile-toggle:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-item.open .navbar__mobile-toggle, {{WRAPPER}} .navbar__mobile-toggle:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1716,7 +1716,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(0, 0, 0, 0.35)',
 				'selectors' => array(
-					'{{WRAPPER}} .navbar__mobile-sub' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .navbar__mobile-sub' => 'background: {{VALUE}};',
 				),
 			)
 		);

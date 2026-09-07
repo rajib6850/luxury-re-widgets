@@ -3210,22 +3210,48 @@ button.btn {
 
 .footer__social {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 0;
+  gap: 0.75rem 1rem;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .footer__social-link {
-  width: 18px;
-  height: 18px;
-  color: var(--color-text);
-  opacity: 0.45;
-  transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--color-text, #ffffff);
+  opacity: 0.65;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.footer__social-link svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  stroke: none;
+  display: block;
+}
+
+.footer__social-link i {
+  font-size: 15px;
+  line-height: 1;
+  display: inline-block;
+  color: inherit;
 }
 
 .footer__social-link:hover {
   opacity: 1;
-  color: var(--color-secondary);
+  color: var(--color-secondary, #c5a047);
   transform: translateY(-2px);
 }
 

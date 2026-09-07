@@ -7,6 +7,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Repeater;
+use Elementor\Icons_Manager;
 
 /**
  * LRE_Footer_Widget
@@ -43,11 +44,107 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->add_control( 'email_addr',   array( 'label' => __( 'Email Address',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'hello@crestwoodassociates.com', 'dynamic' => array( 'active' => true ) ) );
 
 		// Col 2
-		$this->add_control( 'col2_label', array( 'label' => __( 'Column 2 Label (DRE)', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'DRE #. 01987456', 'separator' => 'before', 'dynamic' => array( 'active' => true ) ) );
-		$this->add_control( 'social_facebook',  array( 'label' => __( 'Facebook URL',  'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
-		$this->add_control( 'social_instagram', array( 'label' => __( 'Instagram URL', 'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
-		$this->add_control( 'social_tiktok',    array( 'label' => __( 'TikTok URL',    'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
-		$this->add_control( 'social_linkedin',  array( 'label' => __( 'LinkedIn URL',  'luxury-re-widgets' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
+		$this->add_control( 'col2_label', array( 'label' => __( 'Column 2 Label (DRE / Socials)', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'DRE #. 01987456', 'separator' => 'before', 'dynamic' => array( 'active' => true ) ) );
+
+		$rep_social = new Repeater();
+
+		$rep_social->add_control(
+			'social_title',
+			array(
+				'label'       => __( 'Platform / Title', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Instagram',
+				'placeholder' => __( 'e.g. Facebook, Instagram, YouTube, X, TikTok, WhatsApp', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_social->add_control(
+			'social_icon',
+			array(
+				'label'   => __( 'Icon', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::ICONS,
+				'default' => array(
+					'value'   => 'fab fa-instagram',
+					'library' => 'fa-brands',
+				),
+			)
+		);
+
+		$rep_social->add_control(
+			'social_url',
+			array(
+				'label'       => __( 'Link URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-profile-url.com', 'luxury-re-widgets' ),
+				'default'     => array(
+					'url'         => '#',
+					'is_external' => true,
+				),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_social->add_control(
+			'open_new_tab',
+			array(
+				'label'        => __( 'Always Open in New Tab', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => __( 'External links automatically open in a new tab for seamless user experience.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'social_links',
+			array(
+				'label'       => __( 'Social Media Links (Repeater)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $rep_social->get_controls(),
+				'default'     => array(
+					array(
+						'social_title' => 'Facebook',
+						'social_icon'  => array( 'value' => 'fab fa-facebook-f', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'Instagram',
+						'social_icon'  => array( 'value' => 'fab fa-instagram', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'TikTok',
+						'social_icon'  => array( 'value' => 'fab fa-tiktok', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'LinkedIn',
+						'social_icon'  => array( 'value' => 'fab fa-linkedin-in', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'YouTube',
+						'social_icon'  => array( 'value' => 'fab fa-youtube', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'X (Twitter)',
+						'social_icon'  => array( 'value' => 'fab fa-x-twitter', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+				),
+				'title_field' => '{{{ social_title }}}',
+			)
+		);
 
 		// Col 3
 		$this->add_control( 'col3_label',  array( 'label' => __( 'Column 3 Label', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Office', 'separator' => 'before', 'dynamic' => array( 'active' => true ) ) );
@@ -117,14 +214,202 @@ class LRE_Footer_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		// --- STYLE: Info Grid ---
-		$this->start_controls_section( 'style_info_grid', array( 'label' => __( 'Info Grid & Socials', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->start_controls_section( 'style_info_grid', array( 'label' => __( 'Info Grid Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'label_typography', 'label' => __( 'Label Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-label' ) );
 		$this->add_control( 'label_color', array( 'label' => __( 'Label Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-label' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'text_typography', 'label' => __( 'Text / Links Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' ) );
 		$this->add_control( 'text_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-text, {{WRAPPER}} .footer__info-text a' => 'color: {{VALUE}};' ) ) );
 		$this->add_control( 'text_hover_color', array( 'label' => __( 'Links Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__info-text a:hover' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'social_color', array( 'label' => __( 'Social Icons Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__social-link' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'social_hover_color', array( 'label' => __( 'Social Icons Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .footer__social-link:hover' => 'color: {{VALUE}};' ) ) );
+		$this->end_controls_section();
+
+		// --- STYLE: Social Media Icons ---
+		$this->start_controls_section(
+			'style_social_section',
+			array(
+				'label' => __( 'Social Media Icons Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'social_icon_size',
+			array(
+				'label'      => __( 'Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'px' => array( 'min' => 10, 'max' => 48, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 15 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__social-link'     => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social-link i'   => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .footer__social-link svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'social_box_size',
+			array(
+				'label'      => __( 'Button / Circle Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 70, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__social-link' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'social_gap',
+			array(
+				'label'      => __( 'Gap Between Icons', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'px' => array( 'min' => 4, 'max' => 40, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 14 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__social' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'social_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 50 ),
+					'%'  => array( 'min' => 0, 'max' => 50 ),
+				),
+				'default'    => array( 'unit' => '%', 'size' => 50 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .footer__social-link' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'social_border',
+				'label'    => __( 'Border', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .footer__social-link',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_social_style' );
+
+			$this->start_controls_tab(
+				'tab_social_normal',
+				array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+			);
+
+			$this->add_control(
+				'social_color',
+				array(
+					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link' => 'color: {{VALUE}};',
+					),
+				)
+			);
+
+			$this->add_control(
+				'social_bg_color',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link' => 'background-color: {{VALUE}};',
+					),
+				)
+			);
+
+			$this->add_control(
+				'social_opacity',
+				array(
+					'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'default'   => array( 'size' => 0.6 ),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link' => 'opacity: {{SIZE}};',
+					),
+				)
+			);
+
+			$this->end_controls_tab();
+
+			$this->start_controls_tab(
+				'tab_social_hover',
+				array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+			);
+
+			$this->add_control(
+				'social_hover_color',
+				array(
+					'label'     => __( 'Icon Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link:hover' => 'color: {{VALUE}} !important;',
+					),
+				)
+			);
+
+			$this->add_control(
+				'social_hover_bg_color',
+				array(
+					'label'     => __( 'Background Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link:hover' => 'background-color: {{VALUE}} !important;',
+					),
+				)
+			);
+
+			$this->add_control(
+				'social_hover_border_color',
+				array(
+					'label'     => __( 'Border Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link:hover' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
+
+			$this->add_control(
+				'social_hover_opacity',
+				array(
+					'label'     => __( 'Hover Opacity', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array( 'min' => 0.1, 'max' => 1, 'step' => 0.05 ),
+					),
+					'default'   => array( 'size' => 1 ),
+					'selectors' => array(
+						'{{WRAPPER}} .footer__social-link:hover' => 'opacity: {{SIZE}} !important;',
+					),
+				)
+			);
+
+			$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		// --- STYLE: Nav Links ---
@@ -144,10 +429,58 @@ class LRE_Footer_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$fb_url   = esc_url( $settings['social_facebook']['url'] ?? '#' );
-		$ig_url   = esc_url( $settings['social_instagram']['url'] ?? '#' );
-		$tt_url   = esc_url( $settings['social_tiktok']['url'] ?? '#' );
-		$li_url   = esc_url( $settings['social_linkedin']['url'] ?? '#' );
+
+		// Retrieve social links with seamless backward compatibility
+		$social_links = array();
+		if ( ! empty( $settings['social_links'] ) && is_array( $settings['social_links'] ) ) {
+			$social_links = $settings['social_links'];
+		} else {
+			// Backward compatibility fallback for posts saved with legacy individual controls
+			if ( ! empty( $settings['social_facebook']['url'] ) && '#' !== $settings['social_facebook']['url'] ) {
+				$social_links[] = array(
+					'social_title' => 'Facebook',
+					'social_icon'  => array( 'value' => 'fab fa-facebook-f', 'library' => 'fa-brands' ),
+					'social_url'   => $settings['social_facebook'],
+					'open_new_tab' => 'yes',
+				);
+			}
+			if ( ! empty( $settings['social_instagram']['url'] ) && '#' !== $settings['social_instagram']['url'] ) {
+				$social_links[] = array(
+					'social_title' => 'Instagram',
+					'social_icon'  => array( 'value' => 'fab fa-instagram', 'library' => 'fa-brands' ),
+					'social_url'   => $settings['social_instagram'],
+					'open_new_tab' => 'yes',
+				);
+			}
+			if ( ! empty( $settings['social_tiktok']['url'] ) && '#' !== $settings['social_tiktok']['url'] ) {
+				$social_links[] = array(
+					'social_title' => 'TikTok',
+					'social_icon'  => array( 'value' => 'fab fa-tiktok', 'library' => 'fa-brands' ),
+					'social_url'   => $settings['social_tiktok'],
+					'open_new_tab' => 'yes',
+				);
+			}
+			if ( ! empty( $settings['social_linkedin']['url'] ) && '#' !== $settings['social_linkedin']['url'] ) {
+				$social_links[] = array(
+					'social_title' => 'LinkedIn',
+					'social_icon'  => array( 'value' => 'fab fa-linkedin-in', 'library' => 'fa-brands' ),
+					'social_url'   => $settings['social_linkedin'],
+					'open_new_tab' => 'yes',
+				);
+			}
+
+			// Default set if nothing was saved
+			if ( empty( $social_links ) ) {
+				$social_links = array(
+					array( 'social_title' => 'Facebook',   'social_icon' => array( 'value' => 'fab fa-facebook-f', 'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+					array( 'social_title' => 'Instagram',  'social_icon' => array( 'value' => 'fab fa-instagram',  'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+					array( 'social_title' => 'LinkedIn',   'social_icon' => array( 'value' => 'fab fa-linkedin-in', 'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+					array( 'social_title' => 'YouTube',    'social_icon' => array( 'value' => 'fab fa-youtube',    'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+					array( 'social_title' => 'X (Twitter)','social_icon' => array( 'value' => 'fab fa-x-twitter',  'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+					array( 'social_title' => 'TikTok',     'social_icon' => array( 'value' => 'fab fa-tiktok',     'library' => 'fa-brands' ), 'social_url' => array( 'url' => '#', 'is_external' => true ), 'open_new_tab' => 'yes' ),
+				);
+			}
+		}
 		?>
 		<footer class="footer" id="footer" aria-label="<?php esc_attr_e( 'Site footer', 'luxury-re-widgets' ); ?>">
 			<div class="footer__main reveal">
@@ -188,20 +521,71 @@ class LRE_Footer_Widget extends Widget_Base {
 						<?php if ( ! empty( $settings['col2_label'] ) ) : ?>
 						<p class="footer__info-label"><?php echo esc_html( $settings['col2_label'] ); ?></p>
 						<?php endif; ?>
+						<?php if ( ! empty( $social_links ) ) : ?>
 						<div class="footer__social">
-							<a href="<?php echo esc_url( $fb_url ); ?>" class="footer__social-link" aria-label="Facebook">
-								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+							<?php
+							foreach ( $social_links as $item ) :
+								$title   = ! empty( $item['social_title'] ) ? $item['social_title'] : 'Social Link';
+								$raw_url = '';
+								$is_external_setting = false;
+								$is_nofollow         = false;
+
+								if ( is_array( $item['social_url'] ?? null ) ) {
+									$raw_url             = trim( $item['social_url']['url'] ?? '' );
+									$is_external_setting = ! empty( $item['social_url']['is_external'] );
+									$is_nofollow         = ! empty( $item['social_url']['nofollow'] );
+								} elseif ( is_string( $item['social_url'] ?? null ) ) {
+									$raw_url = trim( $item['social_url'] );
+								}
+
+								if ( empty( $raw_url ) ) {
+									$raw_url = '#';
+								}
+
+								$url = esc_url( $raw_url );
+
+								// External link determination:
+								// 1. Any external link (https?://) ALWAYS opens in a new tab
+								// 2. OR open_new_tab is explicitly 'yes'
+								// 3. OR is_external setting is toggled on in URL control
+								$is_external_url       = (bool) preg_match( '#^(https?:)?//#i', $raw_url );
+								$force_new_tab         = ( isset( $item['open_new_tab'] ) && 'yes' === $item['open_new_tab'] );
+								$user_checked_external = ! empty( $item['social_url']['is_external'] );
+
+								if ( $is_external_url ) {
+									$should_open_new_tab = true;
+								} elseif ( '#' === $raw_url ) {
+									$should_open_new_tab = false;
+								} else {
+									$should_open_new_tab = ( $force_new_tab || $user_checked_external );
+								}
+
+								$target    = $should_open_new_tab ? '_blank' : '_self';
+								$rel_parts = array();
+								if ( $should_open_new_tab ) {
+									$rel_parts[] = 'noopener';
+									$rel_parts[] = 'noreferrer';
+								}
+								if ( $is_nofollow ) {
+									$rel_parts[] = 'nofollow';
+								}
+								$rel_attr = ! empty( $rel_parts ) ? ' rel="' . esc_attr( implode( ' ', $rel_parts ) ) . '"' : '';
+							?>
+							<a href="<?php echo $url; ?>"
+							   target="<?php echo esc_attr( $target ); ?>"<?php echo $rel_attr; ?>
+							   class="footer__social-link elementor-repeater-item-<?php echo esc_attr( $item['_id'] ?? '' ); ?>"
+							   aria-label="<?php echo esc_attr( $title ); ?>">
+								<?php
+								if ( ! empty( $item['social_icon']['value'] ) ) {
+									Icons_Manager::render_icon( $item['social_icon'], array( 'aria-hidden' => 'true' ) );
+								} else {
+									echo '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
+								}
+								?>
 							</a>
-							<a href="<?php echo esc_url( $ig_url ); ?>" class="footer__social-link" aria-label="Instagram">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-							</a>
-							<a href="<?php echo esc_url( $tt_url ); ?>" class="footer__social-link" aria-label="TikTok">
-								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-.87-.13 2.88 2.88 0 01-2-2.73 2.89 2.89 0 012.88-2.88 2.86 2.86 0 01.87.13V9.4a6.33 6.33 0 00-1-.08A6.34 6.34 0 003 15.66 6.34 6.34 0 009.37 22a6.34 6.34 0 006.34-6.34V9.36a8.16 8.16 0 004.79 1.56v-3.4a4.85 4.85 0 01-.91-.83z"/></svg>
-							</a>
-							<a href="<?php echo esc_url( $li_url ); ?>" class="footer__social-link" aria-label="LinkedIn">
-								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
-							</a>
+							<?php endforeach; ?>
 						</div>
+						<?php endif; ?>
 					</div>
 
 					<!-- Col 3: Office -->

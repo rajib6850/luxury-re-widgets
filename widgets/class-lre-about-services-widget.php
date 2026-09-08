@@ -381,7 +381,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-aserv__eyebrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-aserv__eyebrow, {{WRAPPER}} .lre-aserv .lre-aserv__eyebrow' => 'color: {{VALUE}}; -webkit-text-fill-color: currentColor; --aserv-eyebrow-color: {{VALUE}};',
 				),
 			)
 		);

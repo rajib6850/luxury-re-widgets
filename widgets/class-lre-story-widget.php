@@ -330,8 +330,8 @@ class LRE_Story_Widget extends Widget_Base {
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-story__eyebrow'  => 'color: {{VALUE}};',
-					'{{WRAPPER}} .lre-story__gold-bar' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-story__eyebrow, {{WRAPPER}} .lre-story .lre-story__eyebrow'  => 'color: {{VALUE}}; -webkit-text-fill-color: currentColor; --story-eyebrow-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-story__gold-bar, {{WRAPPER}} .lre-story .lre-story__gold-bar' => 'background-color: {{VALUE}};',
 				),
 			)
 		);

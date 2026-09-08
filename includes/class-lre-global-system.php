@@ -1138,27 +1138,36 @@ button.navbar__mobile-toggle:active,
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Universal Eyebrow Gold Color Parity */
+/* Universal Eyebrow Gold Color Parity (Widgets without custom color controls) */
 .lre-reviews .lre-reviews__eyebrow,
-.lre-aserv .lre-aserv__eyebrow,
 .lre-contact .lre-contact__eyebrow,
 .lre-guide .lre-guide__eyebrow,
 .lre-sguide .lre-sguide__eyebrow,
-.lre-story .lre-story__eyebrow,
 .lre-team .lre-team__eyebrow,
 .lre-phero .lre-phero__eyebrow,
-.lre-comm-showcase .lre-comm-showcase__eyebrow,
 .cta .cta__eyebrow,
 .listings .listings__eyebrow,
-.communities .communities__eyebrow,
-.testimonial .testimonial__eyebrow,
-.services .services__eyebrow-text {
+.testimonial .testimonial__eyebrow {
   color: var(--color-secondary, #c5a047) !important;
   -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
 }
 
-.about .about__eyebrow {
+/* Widgets with dedicated Elementor eyebrow color controls (allows global & custom colors) */
+.about .about__eyebrow,
+.about .section-label,
+.about__eyebrow-wrap .about__eyebrow {
   color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lre-story .lre-story__eyebrow,
+.lre-story__eyebrow-wrap .lre-story__eyebrow {
+  color: var(--story-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lre-aserv .lre-aserv__eyebrow {
+  color: var(--aserv-eyebrow-color, var(--color-secondary, #c5a047));
   -webkit-text-fill-color: currentColor;
 }
 

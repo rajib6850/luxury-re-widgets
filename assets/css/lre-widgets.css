@@ -2567,7 +2567,7 @@ button.btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--listing-arrow-color, var(--color-dark, #0a0a0a));
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, var(--color-dark, #0a0a0a)));
   transition: all 0.4s var(--ease-out-expo);
   background: var(--listing-arrow-bg, var(--color-white, #ffffff));
   cursor: pointer;
@@ -2576,7 +2576,7 @@ button.btn {
 
 .listings__arrow:hover {
   background: var(--listing-arrow-hover-bg, var(--color-dark, #0a0a0a));
-  color: var(--listing-arrow-hover-color, var(--color-white, #ffffff));
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, var(--color-white, #ffffff)));
   border-color: var(--listing-arrow-hover-border, var(--color-dark, #0a0a0a));
   transform: scale(1.08);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
@@ -2585,11 +2585,14 @@ button.btn {
 .listings__arrow svg {
   width: var(--listing-arrow-icon-size, 14px);
   height: var(--listing-arrow-icon-size, 14px);
-  transition: transform 0.3s ease;
+  stroke: var(--listing-arrow-icon-color, var(--listing-arrow-color, currentColor));
+  fill: none;
+  transition: transform 0.3s ease, stroke 0.3s ease, color 0.3s ease;
 }
 
 .listings__arrow:hover svg {
   transform: scale(1.1);
+  stroke: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, currentColor));
 }
 
 .listings__cta-group {
@@ -4865,7 +4868,7 @@ button.listings__arrow,
 .listings__arrows button {
   background: var(--listing-arrow-bg, #ffffff) !important;
   background-color: var(--listing-arrow-bg, #ffffff) !important;
-  color: var(--listing-arrow-color, #0a0a0a) !important;
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, #0a0a0a)) !important;
   border: 1px solid var(--listing-arrow-border, rgba(0, 0, 0, 0.12)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
@@ -4875,7 +4878,7 @@ button.listings__arrow:hover,
 .listings__arrows button:hover {
   background: var(--listing-arrow-hover-bg, #0a0a0a) !important;
   background-color: var(--listing-arrow-hover-bg, #0a0a0a) !important;
-  color: var(--listing-arrow-hover-color, #ffffff) !important;
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, #ffffff)) !important;
   border-color: var(--listing-arrow-hover-border, #0a0a0a) !important;
 }
 
@@ -5251,7 +5254,7 @@ button.listings__arrow,
   justify-content: center !important;
   background: var(--listing-arrow-bg, #ffffff) !important;
   background-color: var(--listing-arrow-bg, #ffffff) !important;
-  color: var(--listing-arrow-color, #0a0a0a) !important;
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, #0a0a0a)) !important;
   cursor: pointer !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
   padding: 0 !important;
@@ -5265,7 +5268,7 @@ button.listings__arrow:hover,
 .listings__arrows button:hover {
   background: var(--listing-arrow-hover-bg, #0a0a0a) !important;
   background-color: var(--listing-arrow-hover-bg, #0a0a0a) !important;
-  color: var(--listing-arrow-hover-color, #ffffff) !important;
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, #ffffff)) !important;
   border-color: var(--listing-arrow-hover-border, #0a0a0a) !important;
   transform: scale(1.08) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16) !important;
@@ -5275,9 +5278,17 @@ button.listings__arrow svg,
 .listings__arrow svg {
   width: var(--listing-arrow-icon-size, 14px) !important;
   height: var(--listing-arrow-icon-size, 14px) !important;
-  stroke: currentColor !important;
-  fill: currentColor !important;
-  color: currentColor !important;
+  stroke: var(--listing-arrow-icon-color, var(--listing-arrow-color, currentColor)) !important;
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, currentColor)) !important;
+  fill: none !important;
+  transition: transform 0.3s ease, stroke 0.3s ease, color 0.3s ease !important;
+}
+
+button.listings__arrow:hover svg,
+.listings__arrow:hover svg {
+  stroke: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, currentColor)) !important;
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, currentColor)) !important;
+  fill: none !important;
 }
 
 /* 6. PROPERTIES / LISTINGS DOTS  -  Zero Pink */
@@ -5517,7 +5528,7 @@ button.listings__arrow,
   justify-content: center !important;
   background: var(--listing-arrow-bg, #ffffff) !important;
   background-color: var(--listing-arrow-bg, #ffffff) !important;
-  color: var(--listing-arrow-color, #0a0a0a) !important;
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, #0a0a0a)) !important;
   cursor: pointer !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
   padding: 0 !important;
@@ -5531,7 +5542,7 @@ button.listings__arrow:hover,
 .listings__arrows button:hover {
   background: var(--listing-arrow-hover-bg, #0a0a0a) !important;
   background-color: var(--listing-arrow-hover-bg, #0a0a0a) !important;
-  color: var(--listing-arrow-hover-color, #ffffff) !important;
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, #ffffff)) !important;
   border-color: var(--listing-arrow-hover-border, #0a0a0a) !important;
   transform: scale(1.08) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16) !important;
@@ -5541,16 +5552,20 @@ button.listings__arrow svg,
 .listings__arrow svg {
   width: var(--listing-arrow-icon-size, 18px) !important;
   height: var(--listing-arrow-icon-size, 18px) !important;
-  stroke: currentColor !important;
+  stroke: var(--listing-arrow-icon-color, var(--listing-arrow-color, currentColor)) !important;
+  color: var(--listing-arrow-icon-color, var(--listing-arrow-color, currentColor)) !important;
   stroke-width: 1.4 !important;
   fill: none !important;
   display: block !important;
-  transition: transform 0.3s ease !important;
+  transition: transform 0.3s ease, stroke 0.3s ease, color 0.3s ease !important;
 }
 
 button.listings__arrow:hover svg,
 .listings__arrow:hover svg {
   transform: scale(1.1) !important;
+  stroke: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, currentColor)) !important;
+  color: var(--listing-arrow-hover-icon-color, var(--listing-arrow-hover-color, currentColor)) !important;
+  fill: none !important;
 }
 
 

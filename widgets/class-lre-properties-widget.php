@@ -1290,7 +1290,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow, {{WRAPPER}} .listings__arrow svg, {{WRAPPER}} button.listings__arrow svg' => 'color: {{VALUE}}; stroke: {{VALUE}}; --listing-arrow-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'color: {{VALUE}} !important; --listing-arrow-icon-color: {{VALUE}}; --listing-arrow-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow svg, {{WRAPPER}} button.listings__arrow svg' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__arrow svg path, {{WRAPPER}} button.listings__arrow svg path' => 'stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1300,7 +1302,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-arrow-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --listing-arrow-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -1310,7 +1312,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'border-color: {{VALUE}}; --listing-arrow-border: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'border-color: {{VALUE}} !important; --listing-arrow-border: {{VALUE}};',
 					),
 				)
 			);
@@ -1323,7 +1325,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Icon Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover, {{WRAPPER}} .listings__arrow:hover svg, {{WRAPPER}} button.listings__arrow:hover svg' => 'color: {{VALUE}}; stroke: {{VALUE}}; --listing-arrow-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'color: {{VALUE}} !important; --listing-arrow-hover-icon-color: {{VALUE}}; --listing-arrow-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow:hover svg, {{WRAPPER}} button.listings__arrow:hover svg' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__arrow:hover svg path, {{WRAPPER}} button.listings__arrow:hover svg path' => 'stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1333,7 +1337,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-arrow-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --listing-arrow-hover-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -1343,7 +1347,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'border-color: {{VALUE}}; --listing-arrow-hover-border: {{VALUE}};',
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'border-color: {{VALUE}} !important; --listing-arrow-hover-border: {{VALUE}};',
 					),
 				)
 			);

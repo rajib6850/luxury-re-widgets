@@ -79,11 +79,11 @@ body,
 }
 
 /* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
-[class*="lre-"] button:not(.btn),
-[class*="lre-"] [type="button"]:not(.btn),
+[class*="lre-"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]),
+[class*="lre-"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]),
 [class*="lre-"] [type="submit"]:not(.btn),
-[class*="elementor-widget-lre_"] button:not(.btn),
-[class*="elementor-widget-lre_"] [type="button"]:not(.btn) {
+[class*="elementor-widget-lre_"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]),
+[class*="elementor-widget-lre_"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]) {
   color: inherit !important;
 }
 

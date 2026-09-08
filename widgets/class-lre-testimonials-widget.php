@@ -143,7 +143,18 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			),
 			'selectors'  => array( '{{WRAPPER}} .testimonial__content-col' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
 		) );
-		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial' => 'background-color: {{VALUE}};' ) ) );
+		$this->add_control(
+			'section_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial'             => 'background-color: {{VALUE}} !important; --testimonial-bg: {{VALUE}};',
+					'{{WRAPPER}} .testimonial__content-col' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__image-col'   => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Eyebrow ---
@@ -245,7 +256,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			array(
 				'name'     => 'heading_main_typography',
 				'label'    => __( 'Main Title Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .testimonial__heading, {{WRAPPER}} .testimonial__heading-main, {{WRAPPER}} .testimonial__heading-main span, {{WRAPPER}} .testimonial__heading-main .title-mask span',
+				'selector' => '{{WRAPPER}} .testimonial__heading-main',
 			)
 		);
 		$this->add_control(
@@ -254,7 +265,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Main Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__heading-main, {{WRAPPER}} .testimonial__heading-main span, {{WRAPPER}} .testimonial__heading-main .title-mask span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --testimonial-heading-color: {{VALUE}};',
+					'{{WRAPPER}} .testimonial__heading-main' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -272,18 +283,29 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			array(
 				'name'     => 'heading_brand_typography',
 				'label'    => __( 'Brand Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .testimonial__heading-brand, {{WRAPPER}} .testimonial__heading-brand span, {{WRAPPER}} .testimonial__heading-brand .title-mask span',
+				'selector' => '{{WRAPPER}} .testimonial__heading-brand, {{WRAPPER}} .testimonial__heading-brand *',
 			)
 		);
 		$this->add_control(
 			'heading_brand_color',
 			array(
-				'label'       => __( 'Brand Custom Color', 'luxury-re-widgets' ),
-				'description' => __( 'Overrides the default animated gold sweep with a solid color.', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::COLOR,
-				'selectors'   => array(
-					'{{WRAPPER}} .testimonial__heading-brand, {{WRAPPER}} .testimonial__heading-brand span, {{WRAPPER}} .testimonial__heading-brand .title-mask span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; background: none !important; -webkit-background-clip: unset !important; filter: none !important;',
+				'label'     => __( 'Brand Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__heading-brand' => '--brand-custom-color: {{VALUE}}; color: {{VALUE}};',
 				),
+			)
+		);
+		$this->add_control(
+			'enable_brand_shimmer',
+			array(
+				'label'        => __( 'Brand Shimmer Animation', 'luxury-re-widgets' ),
+				'description'  => __( 'Animates a luxury gleaming light sweep across the text (works with custom/global colors as well as default gold).', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
 			)
 		);
 
@@ -404,6 +426,27 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Helper to get resolved color value (supporting both manual hex and Elementor Global Colors)
+	 */
+	protected function get_resolved_color( $settings, $control_name, $default = '' ) {
+		$globals = ! empty( $settings['__globals__'] ) ? $settings['__globals__'] : ( method_exists( $this, 'get_settings' ) ? $this->get_settings( '__globals__' ) : array() );
+
+		if ( ! empty( $globals[ $control_name ] ) ) {
+			$global_val = $globals[ $control_name ];
+			// Pattern: globals/colors?id=primary or globals/colors?id=08c543c
+			if ( preg_match( '/id=([a-zA-Z0-9_-]+)/', $global_val, $matches ) ) {
+				return 'var(--e-global-color-' . $matches[1] . ')';
+			}
+		}
+
+		if ( ! empty( $settings[ $control_name ] ) ) {
+			return $settings[ $control_name ];
+		}
+
+		return $default;
+	}
+
 	protected function render() {
 		$settings         = $this->get_settings_for_display();
 		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
@@ -411,34 +454,68 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$tag              = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
+
+		// Robust color resolution supporting both manual hex/rgb and Elementor Global Colors
+		$bg_color      = $this->get_resolved_color( $settings, 'section_bg', '' );
+		$bg_style      = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . ' !important; --testimonial-bg: ' . esc_attr( $bg_color ) . ';"' : '';
+		$col_style     = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . ' !important;"' : '';
+		$fade_style    = $bg_color ? ' style="background: linear-gradient(to right, transparent 65%, ' . esc_attr( $bg_color ) . ' 100%), linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 40%);"' : '';
+
+		$is_shimmer  = ( ! isset( $settings['enable_brand_shimmer'] ) || 'yes' === $settings['enable_brand_shimmer'] );
+		$brand_color = $this->get_resolved_color( $settings, 'heading_brand_color', '' );
+
+		if ( $is_shimmer ) {
+			if ( ! empty( $brand_color ) ) {
+				// Shimmer active WITH user's chosen custom or global color!
+				$brand_class = 'testimonial__heading-brand has-shimmer has-custom-color';
+				$brand_style = ' style="--brand-custom-color: ' . esc_attr( $brand_color ) . ';"';
+			} else {
+				// Shimmer active with default rich gold sweep gradient
+				$brand_class = 'testimonial__heading-brand has-shimmer';
+				$brand_style = '';
+			}
+		} else {
+			// Shimmer turned OFF: clean solid color
+			$brand_class = 'testimonial__heading-brand no-shimmer';
+			$brand_style = ! empty( $brand_color ) ? ' style="color: ' . esc_attr( $brand_color ) . ' !important; -webkit-text-fill-color: ' . esc_attr( $brand_color ) . ' !important;"' : '';
+		}
+
+		$main_color    = $this->get_resolved_color( $settings, 'heading_main_color', '' );
+		$main_style    = $main_color ? ' style="color: ' . esc_attr( $main_color ) . ' !important;"' : '';
+
+		$eyebrow_color = $this->get_resolved_color( $settings, 'eyebrow_color', '' );
+		$eyebrow_style = $eyebrow_color ? ' style="color: ' . esc_attr( $eyebrow_color ) . ' !important;"' : '';
+
+		$bar_color     = $this->get_resolved_color( $settings, 'gold_bar_color', '' );
+		$bar_style     = $bar_color ? ' style="background: ' . esc_attr( $bar_color ) . ' !important; background-color: ' . esc_attr( $bar_color ) . ' !important;"' : '';
 		?>
-		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>">
-			<div class="testimonial__image-col image-reveal">
+		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>"<?php echo $bg_style; ?>>
+			<div class="testimonial__image-col image-reveal"<?php echo $col_style; ?>>
 				<?php if ( ! empty( $portrait_url ) ) : ?>
 				<img src="<?php echo esc_url( $portrait_url ); ?>"
 				     alt="<?php esc_attr_e( 'Luxury homeowners', 'luxury-re-widgets' ); ?>"
 				     loading="lazy">
 				<?php endif; ?>
-				<div class="testimonial__image-overlay"></div>
+				<div class="testimonial__image-overlay"<?php echo $fade_style; ?>></div>
 			</div>
 
-			<div class="testimonial__content-col">
+			<div class="testimonial__content-col"<?php echo $col_style; ?>>
 				<div class="testimonial__inner reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<div class="testimonial__eyebrow-wrap">
 						<?php if ( $show_gold_bar ) : ?>
-						<span class="testimonial__gold-bar testimonial__eyebrow-bar" aria-hidden="true"></span>
+						<span class="testimonial__gold-bar testimonial__eyebrow-bar" aria-hidden="true"<?php echo $bar_style; ?>></span>
 						<?php endif; ?>
-						<span class="section-label section-label--light testimonial__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+						<span class="section-label section-label--light testimonial__eyebrow"<?php echo $eyebrow_style; ?>><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					</div>
 					<?php endif; ?>
 
 					<<?php echo $tag; ?> class="testimonial__heading">
 						<?php if ( ! empty( $settings['heading_main'] ) ) : ?>
-						<span class="testimonial__heading-main"><span class="title-mask"><span><?php echo esc_html( $settings['heading_main'] ); ?></span></span></span>
+						<span class="testimonial__heading-main"<?php echo $main_style; ?>><?php echo esc_html( $settings['heading_main'] ); ?></span>
 						<?php endif; ?>
 						<?php if ( ! empty( $settings['heading_brand'] ) ) : ?>
-						<span class="testimonial__heading-brand"><span class="title-mask"><span><?php echo esc_html( $settings['heading_brand'] ); ?></span></span></span>
+						<span class="<?php echo esc_attr( $brand_class ); ?>"<?php echo $brand_style; ?>><?php echo esc_html( $settings['heading_brand'] ); ?></span>
 						<?php endif; ?>
 					</<?php echo $tag; ?>>
 

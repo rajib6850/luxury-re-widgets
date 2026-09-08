@@ -25,6 +25,7 @@ class LRE_Widgets_Loader {
 		'class-lre-testimonials-widget.php'   => 'LRE_Testimonials_Widget',
 		'class-lre-communities-widget.php'    => 'LRE_Communities_Widget',
 		'class-lre-cta-widget.php'            => 'LRE_CTA_Widget',
+		'class-lre-dual-cta-widget.php'       => 'LRE_Dual_CTA_Widget',
 		'class-lre-footer-widget.php'         => 'LRE_Footer_Widget',
 		// About Page Suite
 		'class-lre-story-widget.php'          => 'LRE_Story_Widget',

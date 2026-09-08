@@ -46,6 +46,31 @@ class LRE_Properties_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_eyebrow',
+			array(
+				'label'        => __( 'Show Eyebrow', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_gold_bar',
+			array(
+				'label'        => __( 'Show Accent Gold Line', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_eyebrow' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
 			'eyebrow',
 			array(
 				'label'       => __( 'Eyebrow / Section Label', 'luxury-re-widgets' ),
@@ -53,6 +78,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				'default'     => __( 'Curated Residences', 'luxury-re-widgets' ),
 				'placeholder' => __( 'Curated Residences', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
+				'condition'   => array( 'show_eyebrow' => 'yes' ),
 			)
 		);
 
@@ -60,20 +86,46 @@ class LRE_Properties_Widget extends Widget_Base {
 			'heading',
 			array(
 				'label'       => __( 'Section Heading', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 3,
 				'default'     => __( 'New To The Market', 'luxury-re-widgets' ),
 				'placeholder' => __( 'New To The Market', 'luxury-re-widgets' ),
+				'description' => __( 'Supports multiple lines with Enter or <br> tags (with staggered luxury mask reveal animation).', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
+				'separator'   => 'before',
 			)
 		);
 
 		$this->add_control(
 			'heading_tag',
 			array(
-				'label'   => __( 'Heading Tag', 'luxury-re-widgets' ),
+				'label'   => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h2',
-				'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ),
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_description',
+			array(
+				'label'        => __( 'Show Description', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
 			)
 		);
 
@@ -82,10 +134,39 @@ class LRE_Properties_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Description', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'rows'        => 3,
+				'rows'        => 4,
 				'default'     => __( "Each of these properties has been carefully selected for its architectural distinction, exceptional location, and unparalleled lifestyle. Explore our newest additions before they're gone.", 'luxury-re-widgets' ),
 				'placeholder' => __( "Each of these properties has been carefully selected for its architectural distinction, exceptional location, and unparalleled lifestyle. Explore our newest additions before they're gone.", 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
+				'condition'   => array( 'show_description' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'header_align',
+			array(
+				'label'     => __( 'Alignment', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => __( 'Left', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'   => 'center',
+				'separator' => 'before',
+				'selectors' => array(
+					'{{WRAPPER}} .listings__header'      => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .listings__description' => 'text-align: {{VALUE}};',
+				),
 			)
 		);
 
@@ -349,6 +430,278 @@ class LRE_Properties_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// =========================================================================
+		// STYLE: Section Header Typography & Style
+		// =========================================================================
+		$this->start_controls_section(
+			'style_header',
+			array(
+				'label' => __( 'Section Header Typography & Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'header_alignment_style',
+			array(
+				'label'     => __( 'Header Alignment', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => __( 'Left', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .listings__header'      => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .listings__description' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'header_max_width',
+			array(
+				'label'      => __( 'Header Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 400, 'max' => 1400, 'step' => 10 ),
+					'%'  => array( 'min' => 30,  'max' => 100 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__header' => 'max-width: {{SIZE}}{{UNIT}}; margin-left: auto; margin-right: auto;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'header_spacing',
+			array(
+				'label'      => __( 'Header Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 140 ),
+					'rem' => array( 'min' => 0, 'max' => 8 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 3.5 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__header' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// --- Eyebrow Styling ---
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label'     => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .listings__eyebrow, {{WRAPPER}} .listings__eyebrow-wrap .section-label',
+			)
+		);
+
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listings__eyebrow, {{WRAPPER}} .listings__eyebrow-wrap .section-label' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Eyebrow Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60 ),
+					'rem' => array( 'min' => 0, 'max' => 4 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Accent Gold Bar
+		$this->add_control(
+			'gold_bar_color',
+			array(
+				'label'     => __( 'Gold Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listings__gold-bar' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'gold_bar_width',
+			array(
+				'label'      => __( 'Gold Line Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 10, 'max' => 100 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__gold-bar' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'gold_bar_height',
+			array(
+				'label'      => __( 'Gold Line Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 8 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 1 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__gold-bar' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// --- Heading Styling ---
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label'     => __( 'Heading / Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .listings__title, {{WRAPPER}} .listings__title span, {{WRAPPER}} .listings__title .title-mask > span',
+			)
+		);
+
+		$this->add_control(
+			'heading_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listings__title, {{WRAPPER}} .listings__title span, {{WRAPPER}} .listings__title .title-mask > span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Heading Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80 ),
+					'rem' => array( 'min' => 0, 'max' => 5 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// --- Description Styling ---
+		$this->add_control(
+			'heading_style_description',
+			array(
+				'label'     => __( 'Description', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'description_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .listings__description',
+			)
+		);
+
+		$this->add_control(
+			'description_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listings__description' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'description_max_width',
+			array(
+				'label'      => __( 'Description Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 200, 'max' => 1200, 'step' => 10 ),
+					'rem' => array( 'min' => 15,  'max' => 70 ),
+					'%'   => array( 'min' => 20,  'max' => 100 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 580 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__description' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'description_spacing',
+			array(
+				'label'      => __( 'Description Top Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60 ),
+					'rem' => array( 'min' => 0, 'max' => 4 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__description' => 'margin-top: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// --- Style: Card Typography & Colors ---
 		$this->start_controls_section(
 			'style_card',
@@ -531,9 +884,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1'         => '--btn-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before' => 'background-color: {{VALUE}};',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover'    => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1'               => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover'         => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -605,9 +958,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2'         => '--btn-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before' => 'background-color: {{VALUE}};',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover'    => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2'               => '--btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover::before' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover'         => 'background-color: {{VALUE}};',
 					),
 				)
 			);
@@ -628,15 +981,20 @@ class LRE_Properties_Widget extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$tag      = ! empty( $settings['heading_tag'] ) ? $settings['heading_tag'] : 'h2';
-		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'div' ), true ) ? $tag : 'h2';
+		$settings         = $this->get_settings_for_display();
+		$tag              = ! empty( $settings['heading_tag'] ) ? $settings['heading_tag'] : 'h2';
+		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ), true ) ? $tag : 'h2';
+		$show_eyebrow     = ! isset( $settings['show_eyebrow'] ) || 'yes' === $settings['show_eyebrow'];
+		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
+		$show_description = ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'];
 		?>
 		<section class="listings" id="listings" aria-label="<?php esc_attr_e( 'Featured property listings', 'luxury-re-widgets' ); ?>">
 			<div class="listings__header reveal">
-				<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
+				<?php if ( $show_eyebrow && ! empty( $settings['eyebrow'] ) ) : ?>
 				<div class="listings__eyebrow-wrap">
+					<?php if ( $show_gold_bar ) : ?>
 					<span class="listings__gold-bar" aria-hidden="true"></span>
+					<?php endif; ?>
 					<span class="section-label listings__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 				</div>
 				<?php endif; ?>
@@ -655,7 +1013,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					<?php endforeach; ?>
 				</<?php echo $tag; ?>>
 
-				<?php if ( ! empty( $settings['description'] ) ) : ?>
+				<?php if ( $show_description && ! empty( $settings['description'] ) ) : ?>
 				<p class="listings__description"><?php echo esc_html( $settings['description'] ); ?></p>
 				<?php endif; ?>
 			</div>

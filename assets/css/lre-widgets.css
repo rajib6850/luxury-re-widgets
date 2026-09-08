@@ -343,13 +343,14 @@ p {
 .cta__eyebrow-bar,
 .listings__eyebrow-bar,
 .about__eyebrow-bar,
+.about__gold-bar,
 .communities__eyebrow-bar,
 .testimonial__eyebrow-bar,
 .services__eyebrow-line {
   display: inline-block;
   width: 2rem;
   height: 1px;
-  background: var(--color-secondary, #c5a047);
+  background: var(--about-gold-bar-color, var(--color-secondary, #c5a047));
   flex-shrink: 0;
   vertical-align: middle;
 }
@@ -375,7 +376,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-secondary, #c5a047);
+  color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
   line-height: 1;
   margin: 0;
 }
@@ -412,7 +413,6 @@ p {
 .lre-aserv__desc,
 .lre-team__desc,
 .lre-reviews__desc,
-.about__description,
 .cta__description {
   margin-left: auto;
   margin-right: auto;
@@ -420,7 +420,8 @@ p {
 }
 
 /* Left-Aligned Subtitle */
-.listings__description {
+.listings__description,
+.about__description {
   margin-left: 0;
   margin-right: 0;
   text-align: left;
@@ -1820,14 +1821,14 @@ button.btn {
 .about__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: var(--about-content-gap, 2.75rem);
   align-items: center;
   position: relative;
   z-index: 1;
 }
 
 .about__text {
-  max-width: 520px;
+  max-width: 540px;
 }
 
 .about__title {
@@ -1871,18 +1872,20 @@ button.btn {
   }
 }
 
-.about__description {
-  color: var(--color-text-muted);
+.about__description,
+.about__description p {
+  color: var(--about-desc-color, var(--color-text-muted));
   font-size: 0.92rem;
   line-height: 1.85;
   margin-bottom: 2.2rem;
+  text-align: left;
 }
 
 .about__image-wrapper {
   position: relative;
   width: 100%;
   max-width: 480px;
-  margin-left: auto;
+  margin-left: 0;
   padding: 16px;
   box-sizing: border-box;
 }
@@ -3794,7 +3797,7 @@ button.btn {
   .about__content {
     display: flex;
     flex-direction: column;
-    gap: 3.5rem;
+    gap: var(--about-content-gap, 2.75rem);
   }
 
   .about__text {
@@ -4001,7 +4004,7 @@ button.btn {
   .about__content {
     display: flex;
     flex-direction: column;
-    gap: 2.8rem;
+    gap: var(--about-content-gap, 2.2rem);
   }
 
   .about__text {

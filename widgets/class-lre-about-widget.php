@@ -35,6 +35,20 @@ class LRE_About_Widget extends Widget_Base {
 		) );
 		$this->add_control( 'watermark', array( 'label' => __( 'Watermark Text', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'ABOUT', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow Label', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Our Story', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control(
+			'show_gold_bar',
+			array(
+				'label'        => __( 'Show Eyebrow Line', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'eyebrow!' => '',
+				),
+			)
+		);
 		$this->add_control( 'heading_line1', array( 'label' => __( 'Heading Line 1', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Redefining Luxury', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_line2', array( 'label' => __( 'Heading Line 2', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Real Estate On The', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_line3', array( 'label' => __( 'Heading Accent Line 3', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'West Coast.', 'dynamic' => array( 'active' => true ) ) );
@@ -63,32 +77,127 @@ class LRE_About_Widget extends Widget_Base {
 
 		// --- STYLE: Section ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about' => 'background-color: {{VALUE}};' ) ) );
+		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about' => 'background-color: {{VALUE}} !important;' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem', '%' ), 'selectors' => array( '{{WRAPPER}} .about' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
+		$this->add_responsive_control(
+			'content_gap',
+			array(
+				'label'      => __( 'Columns Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 10, 'max' => 120, 'step' => 2 ),
+					'rem' => array( 'min' => 0.5, 'max' => 8, 'step' => 0.25 ),
+				),
+				'default'    => array(
+					'unit' => 'rem',
+					'size' => 2.5,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .about__content' => 'gap: {{SIZE}}{{UNIT}} !important; --about-content-gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Watermark ---
 		$this->start_controls_section( 'style_watermark', array( 'label' => __( 'Watermark', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'watermark_typography', 'selector' => '{{WRAPPER}} .about__watermark' ) );
-		$this->add_control( 'watermark_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__watermark' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'watermark_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__watermark' => 'color: {{VALUE}} !important;' ) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Eyebrow ---
 		$this->start_controls_section( 'style_eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .section-label' ) );
-		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .section-label' => 'color: {{VALUE}};' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .about__eyebrow, {{WRAPPER}} .section-label' ) );
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .about__eyebrow, {{WRAPPER}} .section-label, {{WRAPPER}} .section-label.about__eyebrow, {{WRAPPER}} .about__eyebrow-wrap .section-label' => 'color: {{VALUE}} !important; --about-eyebrow-color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_gold_bar',
+			array(
+				'label'     => __( 'Eyebrow Accent Line', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'gold_bar_color',
+			array(
+				'label'     => __( 'Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .about__gold-bar, {{WRAPPER}} .about__eyebrow-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --about-gold-bar-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_width',
+			array(
+				'label'      => __( 'Line Width (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 8, 'max' => 80, 'step' => 2 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .about__gold-bar, {{WRAPPER}} .about__eyebrow-bar' => 'width: {{SIZE}}px !important;',
+				),
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_height',
+			array(
+				'label'      => __( 'Line Height (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 6, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 1 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .about__gold-bar, {{WRAPPER}} .about__eyebrow-bar' => 'height: {{SIZE}}px !important;',
+				),
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Heading ---
 		$this->start_controls_section( 'style_heading', array( 'label' => __( 'Heading', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .about__title' ) );
-		$this->add_control( 'heading_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__title' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'heading_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__title, {{WRAPPER}} .about__title span:not(.about__title-accent)' => 'color: {{VALUE}} !important;' ) ) );
 		$this->end_controls_section();
 
 		// --- STYLE: Description ---
 		$this->start_controls_section( 'style_desc', array( 'label' => __( 'Description', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .about__description' ) );
-		$this->add_control( 'desc_color', array( 'label' => __( 'Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .about__description' => 'color: {{VALUE}};' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .about__description, {{WRAPPER}} .about__description p' ) );
+		$this->add_control(
+			'desc_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .about__description, {{WRAPPER}} .about__description p, {{WRAPPER}} .about__description span, {{WRAPPER}} .about__description *' => 'color: {{VALUE}} !important; --about-desc-color: {{VALUE}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Button ---
@@ -209,7 +318,9 @@ class LRE_About_Widget extends Widget_Base {
 				<div class="about__text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<div class="about__eyebrow-wrap">
+						<?php if ( ! empty( $settings['show_gold_bar'] ) && 'yes' === $settings['show_gold_bar'] ) : ?>
 						<span class="about__gold-bar" aria-hidden="true"></span>
+						<?php endif; ?>
 						<span class="section-label about__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					</div>
 					<?php endif; ?>

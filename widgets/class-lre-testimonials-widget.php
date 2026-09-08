@@ -40,6 +40,35 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Client Testimonials', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_main', array( 'label' => __( 'Heading Main', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Why people choose', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_brand', array( 'label' => __( 'Heading Brand', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Victoria Crestwood Group', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control(
+			'heading_tag',
+			array(
+				'label'   => __( 'Heading Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'  => 'H1',
+					'h2'  => 'H2',
+					'h3'  => 'H3',
+					'h4'  => 'H4',
+					'div' => 'div',
+				),
+			)
+		);
+		$this->add_control(
+			'show_gold_bar',
+			array(
+				'label'        => __( 'Show Eyebrow Line', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array(
+					'eyebrow!' => '',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- TESTIMONIALS REPEATER ---
@@ -117,15 +146,246 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial' => 'background-color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
 
-		// --- STYLE: Typography ---
-		$this->start_controls_section( 'style_typo', array( 'label' => __( 'Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'quote_typography', 'label' => __( 'Quote Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .testimonial__quote' ) );
-		$this->add_control( 'quote_color', array( 'label' => __( 'Quote Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial__quote' => 'color: {{VALUE}};' ) ) );
+		// --- STYLE: Eyebrow ---
+		$this->start_controls_section( 'style_eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .testimonial__eyebrow, {{WRAPPER}} .testimonial__eyebrow-wrap .section-label, {{WRAPPER}} .testimonial .testimonial__eyebrow',
+			)
+		);
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__eyebrow, {{WRAPPER}} .testimonial__eyebrow-wrap .section-label, {{WRAPPER}} .testimonial .testimonial__eyebrow, {{WRAPPER}} .testimonial .section-label' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --testimonial-eyebrow-color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .testimonial__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_gold_bar',
+			array(
+				'label'     => __( 'Eyebrow Accent Line', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'gold_bar_color',
+			array(
+				'label'     => __( 'Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_width',
+			array(
+				'label'      => __( 'Line Width (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+				'range'      => array(
+					'px' => array( 'min' => 8, 'max' => 120, 'step' => 2 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'width: {{SIZE}}px !important; min-width: {{SIZE}}px !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_height',
+			array(
+				'label'      => __( 'Line Height (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'height: {{SIZE}}px !important;',
+				),
+			)
+		);
+		$this->end_controls_section();
 
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'name_typography', 'label' => __( 'Client Name Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .testimonial__author-name' ) );
-		$this->add_control( 'name_color', array( 'label' => __( 'Client Name Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial__author-name' => 'color: {{VALUE}};' ) ) );
+		// --- STYLE: Heading ---
+		$this->start_controls_section( 'style_heading', array( 'label' => __( 'Heading', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_main_typography',
+				'label'    => __( 'Main Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .testimonial__heading, {{WRAPPER}} .testimonial__heading-main, {{WRAPPER}} .testimonial__heading-main span, {{WRAPPER}} .testimonial__heading-main .title-mask span',
+			)
+		);
+		$this->add_control(
+			'heading_main_color',
+			array(
+				'label'     => __( 'Main Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__heading-main, {{WRAPPER}} .testimonial__heading-main span, {{WRAPPER}} .testimonial__heading-main .title-mask span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --testimonial-heading-color: {{VALUE}};',
+				),
+			)
+		);
 
-		$this->add_control( 'result_color', array( 'label' => __( 'Result Subtitle Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .testimonial__author-result' => 'color: {{VALUE}};' ) ) );
+		$this->add_control(
+			'heading_brand_heading',
+			array(
+				'label'     => __( 'Brand Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_brand_typography',
+				'label'    => __( 'Brand Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .testimonial__heading-brand, {{WRAPPER}} .testimonial__heading-brand span, {{WRAPPER}} .testimonial__heading-brand .title-mask span',
+			)
+		);
+		$this->add_control(
+			'heading_brand_color',
+			array(
+				'label'       => __( 'Brand Custom Color', 'luxury-re-widgets' ),
+				'description' => __( 'Overrides the default animated gold sweep with a solid color.', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'selectors'   => array(
+					'{{WRAPPER}} .testimonial__heading-brand, {{WRAPPER}} .testimonial__heading-brand span, {{WRAPPER}} .testimonial__heading-brand .title-mask span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; background: none !important; -webkit-background-clip: unset !important; filter: none !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 6, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .testimonial__heading' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->end_controls_section();
+
+		// --- STYLE: Quote & Author Typography ---
+		$this->start_controls_section( 'style_typo', array( 'label' => __( 'Quote & Author Typography', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_typography',
+				'label'    => __( 'Quote Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .testimonial__quote',
+			)
+		);
+		$this->add_control(
+			'quote_color',
+			array(
+				'label'     => __( 'Quote Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__quote' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'quote_spacing',
+			array(
+				'label'      => __( 'Quote Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 50, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 4, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .testimonial__quote' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_author_typo',
+			array(
+				'label'     => __( 'Author Details', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'name_typography',
+				'label'    => __( 'Client Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .testimonial__author-name',
+			)
+		);
+		$this->add_control(
+			'name_color',
+			array(
+				'label'     => __( 'Client Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__author-name' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'result_typography',
+				'label'    => __( 'Result Subtitle Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .testimonial__author-result',
+			)
+		);
+		$this->add_control(
+			'result_color',
+			array(
+				'label'     => __( 'Result Subtitle Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__author-result' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Navigation ---
@@ -148,6 +408,9 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$settings         = $this->get_settings_for_display();
 		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
 		$portrait_url     = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : $default_portrait;
+		$tag              = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
 		?>
 		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>">
 			<div class="testimonial__image-col image-reveal">
@@ -163,19 +426,21 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				<div class="testimonial__inner reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<div class="testimonial__eyebrow-wrap">
-						<span class="testimonial__gold-bar" aria-hidden="true"></span>
+						<?php if ( $show_gold_bar ) : ?>
+						<span class="testimonial__gold-bar testimonial__eyebrow-bar" aria-hidden="true"></span>
+						<?php endif; ?>
 						<span class="section-label section-label--light testimonial__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					</div>
 					<?php endif; ?>
 
-					<h2 class="testimonial__heading">
+					<<?php echo $tag; ?> class="testimonial__heading">
 						<?php if ( ! empty( $settings['heading_main'] ) ) : ?>
 						<span class="testimonial__heading-main"><span class="title-mask"><span><?php echo esc_html( $settings['heading_main'] ); ?></span></span></span>
 						<?php endif; ?>
 						<?php if ( ! empty( $settings['heading_brand'] ) ) : ?>
 						<span class="testimonial__heading-brand"><span class="title-mask"><span><?php echo esc_html( $settings['heading_brand'] ); ?></span></span></span>
 						<?php endif; ?>
-					</h2>
+					</<?php echo $tag; ?>>
 
 					<div class="testimonial__card-frame">
 						<div class="testimonial__slider" id="testimonial-slider">

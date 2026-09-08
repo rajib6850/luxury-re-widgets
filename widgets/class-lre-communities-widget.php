@@ -202,6 +202,26 @@ class LRE_Communities_Widget extends Widget_Base {
 				),
 			)
 		);
+		$this->add_responsive_control(
+			'gold_bar_offset_y',
+			array(
+				'label'      => __( 'Line Vertical Offset (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => -20, 'max' => 20, 'step' => 1 ),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__gold-bar, {{WRAPPER}} .communities__eyebrow-bar' => 'transform: translateY({{SIZE}}px);',
+				),
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
 
 		// Sub-heading: Title / Heading
 		$this->add_control(

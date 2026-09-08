@@ -60,28 +60,148 @@ class LRE_CTA_Widget extends Widget_Base {
 
 		// --- STYLE: Section & Overlay ---
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section & Overlay', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_control( 'overlay_color', array( 'label' => __( 'Overlay Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__overlay' => 'background: {{VALUE}};' ) ) );
-		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem' ), 'selectors' => array( '{{WRAPPER}} .cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
+		$this->add_control(
+			'overlay_color',
+			array(
+				'label'     => __( 'Overlay Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .cta__overlay' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'section_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->end_controls_section();
+
+		// --- STYLE: Eyebrow ---
+		$this->start_controls_section( 'style_eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .cta__eyebrow, {{WRAPPER}} .cta__eyebrow-wrap .section-label, {{WRAPPER}} .cta .cta__eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .cta__eyebrow, {{WRAPPER}} .cta__eyebrow-wrap .section-label, {{WRAPPER}} .cta .cta__eyebrow, {{WRAPPER}} .section-label' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --cta-eyebrow-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .cta__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- STYLE: Typography ---
 		$this->start_controls_section( 'style_typo', array( 'label' => __( 'Typography & Colors', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'title_typography', 'label' => __( 'Title Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .cta__title' ) );
-		$this->add_control( 'title_color', array( 'label' => __( 'Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__title' => 'color: {{VALUE}};' ) ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_typography',
+				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .cta__title, {{WRAPPER}} .cta__title span, {{WRAPPER}} .cta__title .title-mask span',
+			)
+		);
+		$this->add_control(
+			'title_color',
+			array(
+				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .cta__title, {{WRAPPER}} .cta__title span, {{WRAPPER}} .cta__title .title-mask span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 4, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .cta__title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'label' => __( 'Description Typography', 'luxury-re-widgets' ), 'selector' => '{{WRAPPER}} .cta__description' ) );
-		$this->add_control( 'desc_color', array( 'label' => __( 'Description Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__description' => 'color: {{VALUE}};' ) ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'label'    => __( 'Description Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .cta__description',
+			)
+		);
+		$this->add_control(
+			'desc_color',
+			array(
+				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .cta__description' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'desc_spacing',
+			array(
+				'label'      => __( 'Description Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .cta__description' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Buttons ---
-		// --- STYLE: Buttons ---
-				$this->start_controls_section( 'style_buttons', array( 'label' => __( 'Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->start_controls_section( 'style_buttons', array( 'label' => __( 'Action Buttons', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'btn_typography',
-				'selector' => '{{WRAPPER}} .cta__buttons .btn',
+				'selector' => '{{WRAPPER}} .cta__buttons .btn, {{WRAPPER}} .cta__buttons a.btn',
 			)
 		);
 
@@ -100,7 +220,7 @@ class LRE_CTA_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .cta__buttons .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .cta__buttons .btn, {{WRAPPER}} .cta__buttons a.btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -115,9 +235,9 @@ class LRE_CTA_Widget extends Widget_Base {
 					'px'  => array( 'min' => 0, 'max' => 50 ),
 					'rem' => array( 'min' => 0, 'max' => 3 ),
 				),
-				'default'    => array( 'unit' => 'rem', 'size' => 1 ),
+				'default'    => array( 'unit' => 'rem', 'size' => 1.25 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .cta__buttons' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .cta__buttons' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -133,15 +253,70 @@ class LRE_CTA_Widget extends Widget_Base {
 
 		$this->start_controls_tabs( 'tabs_cta_btn1' );
 			$this->start_controls_tab( 'tab_cta_btn1_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn1_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons .cta__btn-1 span' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn1_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'background-color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn1_border', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn1_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons a.cta__btn-1, {{WRAPPER}} .cta__buttons .cta__btn-1 span, {{WRAPPER}} .cta__buttons a.cta__btn-1 span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn1_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons a.cta__btn-1' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn1_border',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons a.cta__btn-1' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_cta_btn1_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn1_hover_color', array( 'label' => __( 'Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1:hover, {{WRAPPER}} .cta__buttons .cta__btn-1:hover span' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn1_hover_bg', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1:hover, {{WRAPPER}} .cta__buttons .cta__btn-1:hover::before' => 'background-color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn1_hover_border', array( 'label' => __( 'Hover Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-1:hover' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn1_hover_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1:hover, {{WRAPPER}} .cta__buttons a.cta__btn-1:hover, {{WRAPPER}} .cta__buttons .cta__btn-1:hover span, {{WRAPPER}} .cta__buttons a.cta__btn-1:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn1_hover_bg',
+				array(
+					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1, {{WRAPPER}} .cta__buttons a.cta__btn-1' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .cta__buttons .cta__btn-1::before, {{WRAPPER}} .cta__buttons a.cta__btn-1::before, {{WRAPPER}} .cta__buttons .cta__btn-1:hover::before, {{WRAPPER}} .cta__buttons a.cta__btn-1:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn1_hover_border',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-1:hover, {{WRAPPER}} .cta__buttons a.cta__btn-1:hover' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
 		$this->end_controls_tabs();
 
@@ -156,15 +331,70 @@ class LRE_CTA_Widget extends Widget_Base {
 
 		$this->start_controls_tabs( 'tabs_cta_btn2' );
 			$this->start_controls_tab( 'tab_cta_btn2_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn2_color', array( 'label' => __( 'Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2, {{WRAPPER}} .cta__buttons .cta__btn-2 span' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2' => 'background-color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_border', array( 'label' => __( 'Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn2_color',
+				array(
+					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2, {{WRAPPER}} .cta__buttons a.cta__btn-2, {{WRAPPER}} .cta__buttons .cta__btn-2 span, {{WRAPPER}} .cta__buttons a.cta__btn-2 span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn2_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2, {{WRAPPER}} .cta__buttons a.cta__btn-2' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn2_border',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2, {{WRAPPER}} .cta__buttons a.cta__btn-2' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_cta_btn2_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'btn2_hover_color', array( 'label' => __( 'Hover Text Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2:hover, {{WRAPPER}} .cta__buttons .cta__btn-2:hover span' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_hover_bg', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2:hover, {{WRAPPER}} .cta__buttons .cta__btn-2:hover::before' => 'background-color: {{VALUE}};' ) ) );
-			$this->add_control( 'btn2_hover_border', array( 'label' => __( 'Hover Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .cta__buttons .cta__btn-2:hover' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'btn2_hover_color',
+				array(
+					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2:hover, {{WRAPPER}} .cta__buttons a.cta__btn-2:hover, {{WRAPPER}} .cta__buttons .cta__btn-2:hover span, {{WRAPPER}} .cta__buttons a.cta__btn-2:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn2_hover_bg',
+				array(
+					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2, {{WRAPPER}} .cta__buttons a.cta__btn-2' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .cta__buttons .cta__btn-2::before, {{WRAPPER}} .cta__buttons a.cta__btn-2::before, {{WRAPPER}} .cta__buttons .cta__btn-2:hover::before, {{WRAPPER}} .cta__buttons a.cta__btn-2:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'btn2_hover_border',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .cta__buttons .cta__btn-2:hover, {{WRAPPER}} .cta__buttons a.cta__btn-2:hover' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
 			$this->end_controls_tab();
 		$this->end_controls_tabs();
 
@@ -172,19 +402,19 @@ class LRE_CTA_Widget extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings    = $this->get_settings_for_display();
-		$tag         = esc_attr( $settings['heading_tag'] ?? 'h2' );
-		$tag         = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
-		$img_url     = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80';
-		$btn1_url    = ! empty( $settings['btn1_url']['url'] ) ? $settings['btn1_url']['url'] : '#contact';
-		$btn1_target = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
-		$btn2_url    = ! empty( $settings['btn2_url']['url'] ) ? $settings['btn2_url']['url'] : '#contact';
-		$btn2_target = ! empty( $settings['btn2_url']['is_external'] ) ? '_blank' : '_self';
+		$settings      = $this->get_settings_for_display();
+		$tag           = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag           = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$img_url       = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80';
+		$btn1_url      = ! empty( $settings['btn1_url']['url'] ) ? $settings['btn1_url']['url'] : '#contact';
+		$btn1_target   = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
+		$btn2_url      = ! empty( $settings['btn2_url']['url'] ) ? $settings['btn2_url']['url'] : '#contact';
+		$btn2_target   = ! empty( $settings['btn2_url']['is_external'] ) ? '_blank' : '_self';
 
-		$eyebrow     = $settings['eyebrow'] ?? "Let's Connect";
-		$heading_1   = $settings['heading_1'] ?? 'Your Next Chapter';
-		$heading_2   = $settings['heading_2'] ?? 'Starts Here';
-		$description = $settings['description'] ?? "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
+		$eyebrow       = $settings['eyebrow'] ?? "Let's Connect";
+		$heading_1     = $settings['heading_1'] ?? 'Your Next Chapter';
+		$heading_2     = $settings['heading_2'] ?? 'Starts Here';
+		$description   = $settings['description'] ?? "Whether you're envisioning a new beginning, planning a strategic sale, or simply curious about what your home is worth—our team is ready to deliver answers and results with the discretion you expect.";
 		?>
 		<section class="cta" id="contact" aria-label="<?php esc_attr_e( 'Call to action', 'luxury-re-widgets' ); ?>">
 			<div class="cta__background">
@@ -199,9 +429,7 @@ class LRE_CTA_Widget extends Widget_Base {
 			<div class="cta__content reveal">
 				<?php if ( ! empty( $eyebrow ) ) : ?>
 				<div class="cta__eyebrow-wrap">
-					<span class="cta__gold-bar" aria-hidden="true"></span>
 					<span class="section-label section-label--gold cta__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
-					<span class="cta__gold-bar" aria-hidden="true"></span>
 				</div>
 				<?php endif; ?>
 

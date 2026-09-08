@@ -183,8 +183,7 @@ body,
 .listings__title,
 .communities__title,
 .cta__title,
-.footer__brand,
-.testimonial__heading-main {
+.footer__brand {
   font-family: var(--font-serif);
 }
 
@@ -320,8 +319,6 @@ button.btn,
 .lre-aserv a.btn:hover span,
 .lre-aserv__mono-action .btn:hover span,
 .lre-aserv__btn:hover span,
-.cta__buttons .btn:hover span,
-.cta__buttons a.btn:hover span,
 .lre-comm-spotlight__action .btn:hover span,
 .lre-comm-spotlight__action a.btn:hover span,
 .lre-comm-no-results .btn:hover span,
@@ -559,7 +556,7 @@ button.btn,
 /* 4. CTA Banner Buttons — Ultra-Luxury Editorial Parity */
 .cta__buttons {
   display: flex !important;
-  gap: 1.25rem !important;
+  gap: 1.25rem;
   justify-content: center !important;
   align-items: center !important;
   flex-wrap: wrap !important;
@@ -570,15 +567,14 @@ button.btn,
 .cta__buttons a.cta__btn-1,
 .cta__buttons .cta__btn-2,
 .cta__buttons a.cta__btn-2 {
-  background: rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
-  font-weight: 500 !important;
-  letter-spacing: 2px !important;
+  background: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+  letter-spacing: 2px;
   --btn-hover-bg: #ffffff;
 }
 
@@ -586,36 +582,32 @@ button.btn,
 .cta__buttons a.cta__btn-1 span,
 .cta__buttons .cta__btn-2 span,
 .cta__buttons a.cta__btn-2 span {
-  color: #ffffff !important;
-  font-weight: 500 !important;
-  letter-spacing: 2px !important;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 2px;
 }
 
 .cta__buttons .cta__btn-1::before,
 .cta__buttons a.cta__btn-1::before,
 .cta__buttons .cta__btn-2::before,
 .cta__buttons a.cta__btn-2::before {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  background: var(--btn-hover-bg, #ffffff);
+  background-color: var(--btn-hover-bg, #ffffff);
 }
 
 .cta__buttons .cta__btn-1:hover,
 .cta__buttons a.cta__btn-1:hover,
 .cta__buttons .cta__btn-2:hover,
 .cta__buttons a.cta__btn-2:hover {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #08080c !important;
-  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25) !important;
-  transform: translateY(-2px) !important;
+  border-color: #ffffff;
+  color: #08080c;
 }
 
 .cta__buttons .cta__btn-1:hover span,
 .cta__buttons a.cta__btn-1:hover span,
 .cta__buttons .cta__btn-2:hover span,
 .cta__buttons a.cta__btn-2:hover span {
-  color: #08080c !important;
+  color: #08080c;
 }
 
 /* Mobile responsive sizing across all buttons */
@@ -663,11 +655,11 @@ button.btn,
 
 .cta__title {
   line-height: 1.2 !important;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .cta__description {
-  color: #ffffff !important;
+  color: #ffffff;
   line-height: 1.85 !important;
 }
 
@@ -676,26 +668,28 @@ button.btn,
   color: var(--color-dark);
 }
 
+.testimonial__heading,
 .testimonial__heading-main {
-  line-height: 1.2 !important;
-  color: #ffffff !important;
+  line-height: 1.2;
+  color: var(--testimonial-heading-color, #ffffff);
 }
 
 /* Dark section headings & descriptions must remain white on dark backgrounds */
 [class*="elementor-kit-"] .hero__title,
 [class*="elementor-kit-"] .lre-phero__title,
-[class*="elementor-kit-"] .services__title,
-[class*="elementor-kit-"] .cta__title,
-[class*="elementor-kit-"] .testimonial__heading-main {
+[class*="elementor-kit-"] .services__title {
   color: #ffffff !important;
 }
-
-[class*="elementor-kit-"] .cta__description {
-  color: #ffffff !important;
+[class*="elementor-kit-"] .testimonial__heading,
+[class*="elementor-kit-"] .testimonial__heading-main {
+  color: var(--testimonial-heading-color, #ffffff);
 }
 
 /* Body typography inheritance for descriptions and general text */
 [class*="elementor-kit-"] p,
+[class*="elementor-kit-"] .testimonial__quote,
+[class*="elementor-kit-"] .testimonial__author-name,
+[class*="elementor-kit-"] .testimonial__author-result,
 [class*="elementor-kit-"] .about__description,
 [class*="elementor-kit-"] .services__card-desc,
 [class*="elementor-kit-"] .listing-card__address,
@@ -1138,6 +1132,33 @@ button.navbar__mobile-toggle:active,
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
+/* Universal Eyebrow Typography Standard (Consistent 0.72rem uppercase across all widgets) */
+.section-label,
+.lre-guide__eyebrow,
+.lre-sguide__eyebrow,
+.lre-contact__eyebrow,
+.lre-contact__agent-eyebrow,
+.lre-reviews__eyebrow,
+.lre-aserv__eyebrow,
+.lre-story__eyebrow,
+.lre-team__eyebrow,
+.lre-team-modal__eyebrow,
+.lre-phero__eyebrow,
+.lre-comm-showcase__eyebrow,
+.cta__eyebrow,
+.listings__eyebrow,
+.about__eyebrow,
+.communities__eyebrow,
+.testimonial__eyebrow,
+.services__eyebrow-text {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
 /* Universal Eyebrow Gold Color Parity (Widgets without custom color controls) */
 .lre-reviews .lre-reviews__eyebrow,
 .lre-contact .lre-contact__eyebrow,
@@ -1145,14 +1166,26 @@ button.navbar__mobile-toggle:active,
 .lre-sguide .lre-sguide__eyebrow,
 .lre-team .lre-team__eyebrow,
 .lre-phero .lre-phero__eyebrow,
-.cta .cta__eyebrow,
-.listings .listings__eyebrow,
-.testimonial .testimonial__eyebrow {
+.listings .listings__eyebrow {
   color: var(--color-secondary, #c5a047) !important;
   -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
 }
 
 /* Widgets with dedicated Elementor eyebrow color controls (allows global & custom colors) */
+.testimonial .testimonial__eyebrow,
+.testimonial .section-label,
+.testimonial__eyebrow-wrap .testimonial__eyebrow,
+.testimonial__eyebrow-wrap .section-label {
+  color: var(--testimonial-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.cta .cta__eyebrow,
+.cta__eyebrow-wrap .cta__eyebrow {
+  color: var(--cta-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
 .about .about__eyebrow,
 .about .section-label,
 .about__eyebrow-wrap .about__eyebrow {
@@ -1171,12 +1204,43 @@ button.navbar__mobile-toggle:active,
   -webkit-text-fill-color: currentColor;
 }
 
+.cta__eyebrow-wrap,
+.communities__eyebrow-wrap,
+.lre-comm-showcase__eyebrow-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+}
+
+.communities__eyebrow-wrap .communities__gold-bar,
+.communities__eyebrow-wrap .communities__eyebrow-bar,
+.lre-comm-showcase__eyebrow-wrap .lre-comm-showcase__gold-bar,
+.lre-comm-showcase__eyebrow-wrap .lre-comm-showcase__eyebrow-bar {
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  align-self: center !important;
+  line-height: 1 !important;
+}
+
 .communities .communities__eyebrow,
 .communities .section-label,
 .communities__eyebrow-wrap .section-label,
-.communities__eyebrow-wrap .communities__eyebrow {
+.communities__eyebrow-wrap .communities__eyebrow,
+.lre-comm-showcase__eyebrow-wrap .section-label,
+.lre-comm-showcase__eyebrow-wrap .lre-comm-showcase__eyebrow {
   color: var(--communities-eyebrow-color, var(--color-secondary, #c5a047));
   -webkit-text-fill-color: currentColor;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  align-self: center !important;
 }
 
 /* Gold Accents Requested by User */

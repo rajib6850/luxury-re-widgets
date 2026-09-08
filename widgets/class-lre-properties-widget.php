@@ -340,6 +340,19 @@ class LRE_Properties_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'show_wishlist',
+			array(
+				'label'        => __( 'Show Wishlist / Favorite Button', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- Bottom CTAs ---
@@ -1034,11 +1047,13 @@ class LRE_Properties_Widget extends Widget_Base {
 							<?php if ( ! empty( $prop['prop_badge'] ) ) : ?>
 							<span class="<?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $prop['prop_badge'] ); ?></span>
 							<?php endif; ?>
+							<?php if ( ! empty( $settings['show_wishlist'] ) && 'yes' === $settings['show_wishlist'] ) : ?>
 							<button class="listing-card__like-btn" aria-label="<?php esc_attr_e( 'Save to favorites', 'luxury-re-widgets' ); ?>" title="<?php esc_attr_e( 'Save to favorites', 'luxury-re-widgets' ); ?>">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
 									<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
 								</svg>
 							</button>
+							<?php endif; ?>
 						</div>
 						<div class="listing-card__price"><?php echo esc_html( $prop['prop_price'] ); ?></div>
 						<div class="listing-card__address"><?php echo esc_html( $prop['prop_address'] ); ?></div>

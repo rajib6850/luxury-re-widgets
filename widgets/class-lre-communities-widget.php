@@ -31,6 +31,17 @@ class LRE_Communities_Widget extends Widget_Base {
 		// --- HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 		$this->add_control( 'eyebrow',     array( 'label' => __( 'Eyebrow',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Discover Local', 'dynamic' => array( 'active' => true ) ) );
+		$this->add_control(
+			'show_gold_bar',
+			array(
+				'label'        => __( 'Show Eyebrow Line', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+			)
+		);
 		$this->add_control( 'heading',     array( 'label' => __( 'Heading',     'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,   'default' => 'Featured Communities',   'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_tag', array( 'label' => __( 'Heading Tag', 'luxury-re-widgets' ), 'type' => Controls_Manager::SELECT, 'default' => 'h2', 'options' => array( 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'div' => 'div' ) ) );
 		$this->end_controls_section();
@@ -82,6 +93,193 @@ class LRE_Communities_Widget extends Widget_Base {
 		$this->start_controls_section( 'style_section', array( 'label' => __( 'Section', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'section_bg', array( 'label' => __( 'Background Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities' => 'background-color: {{VALUE}};' ) ) );
 		$this->add_responsive_control( 'section_padding', array( 'label' => __( 'Padding', 'luxury-re-widgets' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => array( 'px', 'em', 'rem' ), 'selectors' => array( '{{WRAPPER}} .communities' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ) ) );
+		$this->end_controls_section();
+
+		// --- STYLE: Header Content ---
+		$this->start_controls_section(
+			'style_header',
+			array(
+				'label' => __( 'Header Content', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Sub-heading: Eyebrow
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label'     => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .communities__eyebrow, {{WRAPPER}} .communities__eyebrow-wrap .section-label, {{WRAPPER}} .communities .communities__eyebrow',
+			)
+		);
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .communities__eyebrow, {{WRAPPER}} .section-label, {{WRAPPER}} .communities .communities__eyebrow, {{WRAPPER}} .communities .section-label, {{WRAPPER}} .communities__eyebrow-wrap .communities__eyebrow, {{WRAPPER}} .communities__eyebrow-wrap .section-label' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}}; --communities-eyebrow-color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Sub-heading: Eyebrow Line (Gold Bar)
+		$this->add_control(
+			'heading_style_gold_bar',
+			array(
+				'label'     => __( 'Eyebrow Line', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'gold_bar_color',
+			array(
+				'label'     => __( 'Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .communities__gold-bar, {{WRAPPER}} .communities__eyebrow-bar' => 'background: {{VALUE}}; background-color: {{VALUE}}; --communities-gold-bar-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_width',
+			array(
+				'label'      => __( 'Line Width (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 8, 'max' => 100, 'step' => 2 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__gold-bar, {{WRAPPER}} .communities__eyebrow-bar' => 'width: {{SIZE}}px !important; min-width: {{SIZE}}px !important;',
+				),
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'gold_bar_height',
+			array(
+				'label'      => __( 'Line Height (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 8, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__gold-bar, {{WRAPPER}} .communities__eyebrow-bar' => 'height: {{SIZE}}px !important;',
+				),
+				'condition'  => array(
+					'show_gold_bar' => 'yes',
+				),
+			)
+		);
+
+		// Sub-heading: Title / Heading
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label'     => __( 'Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_typography',
+				'selector' => '{{WRAPPER}} .communities__title, {{WRAPPER}} .communities__title span, {{WRAPPER}} .communities__title .title-mask > span',
+			)
+		);
+		$this->add_control(
+			'title_color',
+			array(
+				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .communities__title, {{WRAPPER}} .communities__title span, {{WRAPPER}} .communities__title .title-mask > span' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Sub-heading: Header Layout & Spacing
+		$this->add_control(
+			'heading_style_header_layout',
+			array(
+				'label'     => __( 'Header Layout & Spacing', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_responsive_control(
+			'header_margin_bottom',
+			array(
+				'label'      => __( 'Header Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 120, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 8, 'step' => 0.25 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__header' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'header_padding',
+			array(
+				'label'      => __( 'Header Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__header' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		// --- STYLE: Card Typography & Colors ---
@@ -240,7 +438,9 @@ class LRE_Communities_Widget extends Widget_Base {
 				<div class="communities__header-text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
 					<div class="communities__eyebrow-wrap">
+						<?php if ( ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'] ) : ?>
 						<span class="communities__gold-bar" aria-hidden="true"></span>
+						<?php endif; ?>
 						<span class="section-label communities__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					</div>
 					<?php endif; ?>

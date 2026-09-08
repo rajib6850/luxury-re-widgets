@@ -345,12 +345,13 @@ p {
 .about__eyebrow-bar,
 .about__gold-bar,
 .communities__eyebrow-bar,
+.communities__gold-bar,
 .testimonial__eyebrow-bar,
 .services__eyebrow-line {
   display: inline-block;
   width: 2rem;
   height: 1px;
-  background: var(--about-gold-bar-color, var(--color-secondary, #c5a047));
+  background: var(--communities-gold-bar-color, var(--about-gold-bar-color, var(--color-secondary, #c5a047)));
   flex-shrink: 0;
   vertical-align: middle;
 }
@@ -386,6 +387,14 @@ p {
 .about__eyebrow-wrap .section-label,
 .about__eyebrow-wrap .about__eyebrow {
   color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.communities .communities__eyebrow,
+.communities .section-label,
+.communities__eyebrow-wrap .section-label,
+.communities__eyebrow-wrap .communities__eyebrow {
+  color: var(--communities-eyebrow-color, var(--color-secondary, #c5a047));
   -webkit-text-fill-color: currentColor;
 }
 
@@ -2928,7 +2937,8 @@ button.btn {
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-secondary, #c5a047);
+  color: var(--communities-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 0.6rem;
@@ -2942,7 +2952,7 @@ button.btn {
   letter-spacing: 5px;
   text-transform: uppercase;
   margin: 0;
-  line-height: 1.2 !important;
+  line-height: 1.2;
 }
 
 .communities__arrows {

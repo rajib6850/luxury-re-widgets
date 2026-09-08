@@ -1171,6 +1171,14 @@ button.navbar__mobile-toggle:active,
   -webkit-text-fill-color: currentColor;
 }
 
+.communities .communities__eyebrow,
+.communities .section-label,
+.communities__eyebrow-wrap .section-label,
+.communities__eyebrow-wrap .communities__eyebrow {
+  color: var(--communities-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
 /* Gold Accents Requested by User */
 .lre-reviews .lre-reviews__trust-pillar::before {
   background: linear-gradient(90deg, var(--rev-gold, #c5a047), rgba(197, 160, 71, 0.2)) !important;

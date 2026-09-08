@@ -784,6 +784,50 @@ class LRE_Properties_Widget extends Widget_Base {
 			)
 		);
 
+		// Badge Styling
+		$this->add_control(
+			'heading_badge_style',
+			array(
+				'label'     => __( 'Badge', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'badge_bg_color',
+			array(
+				'label'     => __( 'Badge Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listing-card__badge:not(.listing-card__badge--gold)' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --listing-badge-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'badge_text_color',
+			array(
+				'label'     => __( 'Badge Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .listing-card__badge:not(.listing-card__badge--gold)' => 'color: {{VALUE}} !important; --listing-badge-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'badge_padding',
+			array(
+				'label'      => __( 'Badge Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listing-card__badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// =========================================================================

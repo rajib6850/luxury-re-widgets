@@ -405,6 +405,94 @@ class LRE_Properties_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// --- Navigation & Carousel (Content Tab) ---
+		$this->start_controls_section(
+			'section_navigation',
+			array(
+				'label' => __( 'Navigation & Carousel', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_navigation',
+			array(
+				'label'        => __( 'Show Navigation Controls', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_arrows',
+			array(
+				'label'        => __( 'Show Navigation Arrows', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_navigation' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_dots',
+			array(
+				'label'        => __( 'Show Pagination Dots', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_navigation' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'autoplay',
+			array(
+				'label'        => __( 'Autoplay Carousel', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
+		$this->add_control(
+			'autoplay_speed',
+			array(
+				'label'     => __( 'Autoplay Speed (ms)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 4500,
+				'min'       => 1500,
+				'max'       => 15000,
+				'step'      => 500,
+				'condition' => array( 'autoplay' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'pause_on_hover',
+			array(
+				'label'        => __( 'Pause on Hover', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'autoplay' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// =================================================================
 		// TAB: STYLE
 		// =================================================================
@@ -1035,6 +1123,365 @@ class LRE_Properties_Widget extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
+
+		// =========================================================================
+		// STYLE: Carousel Navigation & Arrows
+		// =========================================================================
+		$this->start_controls_section(
+			'style_navigation',
+			array(
+				'label'     => __( 'Navigation (Arrows & Dots)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'show_navigation' => 'yes' ),
+			)
+		);
+
+		// --- Controls Row Layout ---
+		$this->add_responsive_control(
+			'nav_row_align',
+			array(
+				'label'     => __( 'Row Alignment', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start'    => array(
+						'title' => __( 'Start', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center'        => array(
+						'title' => __( 'Center', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'space-between' => array(
+						'title' => __( 'Space Between', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-h-align-stretch',
+					),
+					'flex-end'      => array(
+						'title' => __( 'End', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'default'   => 'space-between',
+				'selectors' => array(
+					'{{WRAPPER}} .listings__controls' => 'justify-content: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'nav_gap',
+			array(
+				'label'      => __( 'Dots & Arrows Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 60 ),
+					'rem' => array( 'min' => 0, 'max' => 4 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 1.5 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__nav' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'controls_margin',
+			array(
+				'label'      => __( 'Controls Margin', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__controls' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'controls_padding',
+			array(
+				'label'      => __( 'Controls Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__controls' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		// --- Navigation Arrows ---
+		$this->add_control(
+			'heading_nav_arrows',
+			array(
+				'label'     => __( 'Navigation Arrows', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_arrows' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrow_size',
+			array(
+				'label'      => __( 'Button Diameter (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 30, 'max' => 70, 'step' => 2 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 42 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'width: {{SIZE}}px; height: {{SIZE}}px; min-width: {{SIZE}}px; min-height: {{SIZE}}px; --listing-arrow-size: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_arrows' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrow_icon_size',
+			array(
+				'label'      => __( 'Icon Size (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 10, 'max' => 32, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 14 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__arrow svg, {{WRAPPER}} button.listings__arrow svg' => 'width: {{SIZE}}px; height: {{SIZE}}px; --listing-arrow-icon-size: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_arrows' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrow_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; --listing-arrow-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_arrows' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrows_spacing',
+			array(
+				'label'      => __( 'Gap Between Arrows', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 40 ),
+					'rem' => array( 'min' => 0, 'max' => 3 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 0.6 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__arrows' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_arrows' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_nav_arrow_style', array( 'condition' => array( 'show_arrows' => 'yes' ) ) );
+			$this->start_controls_tab( 'tab_nav_arrow_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'arrow_icon_color',
+				array(
+					'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow, {{WRAPPER}} .listings__arrow svg, {{WRAPPER}} button.listings__arrow svg' => 'color: {{VALUE}}; stroke: {{VALUE}}; --listing-arrow-color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_bg_color',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-arrow-bg: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_border_color',
+				array(
+					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow, {{WRAPPER}} button.listings__arrow' => 'border-color: {{VALUE}}; --listing-arrow-border: {{VALUE}};',
+					),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_nav_arrow_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'arrow_hover_icon_color',
+				array(
+					'label'     => __( 'Hover Icon Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover, {{WRAPPER}} .listings__arrow:hover svg, {{WRAPPER}} button.listings__arrow:hover svg' => 'color: {{VALUE}}; stroke: {{VALUE}}; --listing-arrow-hover-color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_hover_bg_color',
+				array(
+					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-arrow-hover-bg: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_hover_border_color',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__arrow:hover, {{WRAPPER}} button.listings__arrow:hover' => 'border-color: {{VALUE}}; --listing-arrow-hover-border: {{VALUE}};',
+					),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// --- Navigation Dots ---
+		$this->add_control(
+			'heading_nav_dots',
+			array(
+				'label'     => __( 'Pagination Dots', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'dot_width',
+			array(
+				'label'      => __( 'Dot Inactive Width (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 4, 'max' => 24, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 8 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__nav-dot, {{WRAPPER}} button.listings__nav-dot' => 'width: {{SIZE}}px; --listing-dot-width: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'dot_height',
+			array(
+				'label'      => __( 'Dot Height (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 3, 'max' => 16, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 6 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__nav-dot, {{WRAPPER}} button.listings__nav-dot' => 'height: {{SIZE}}px; --listing-dot-height: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'dot_active_width',
+			array(
+				'label'      => __( 'Active Dot Width (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 12, 'max' => 64, 'step' => 2 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 36 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__nav-dot.active, {{WRAPPER}} button.listings__nav-dot.active' => 'width: {{SIZE}}px; --listing-dot-active-width: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'dot_border_radius',
+			array(
+				'label'      => __( 'Dot Border Radius (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 12, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 3 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__nav-dot, {{WRAPPER}} button.listings__nav-dot' => 'border-radius: {{SIZE}}px; --listing-dot-radius: {{SIZE}}px;',
+				),
+				'condition'  => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'dots_spacing',
+			array(
+				'label'      => __( 'Gap Between Dots', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 30 ),
+					'rem' => array( 'min' => 0, 'max' => 2 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 0.6 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__dots' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_dots' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_nav_dots_style', array( 'condition' => array( 'show_dots' => 'yes' ) ) );
+			$this->start_controls_tab( 'tab_nav_dots_normal', array( 'label' => __( 'Inactive', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'dots_inactive_color',
+				array(
+					'label'     => __( 'Inactive Dots Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__nav-dot:not(.active), {{WRAPPER}} button.listings__nav-dot:not(.active), {{WRAPPER}} .listings__nav-dot, {{WRAPPER}} button.listings__nav-dot' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-dot-bg: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'dots_hover_color',
+				array(
+					'label'     => __( 'Dots Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__nav-dot:hover, {{WRAPPER}} button.listings__nav-dot:hover' => 'background: {{VALUE}}; background-color: {{VALUE}};',
+					),
+				)
+			);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab( 'tab_nav_dots_active', array( 'label' => __( 'Active', 'luxury-re-widgets' ) ) );
+			$this->add_control(
+				'dots_active_color',
+				array(
+					'label'     => __( 'Active Dot Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__nav-dot.active, {{WRAPPER}} button.listings__nav-dot.active' => 'background: {{VALUE}}; background-color: {{VALUE}}; --listing-dot-active-bg: {{VALUE}}; box-shadow: 0 2px 10px rgba(0,0,0,0.2);',
+					),
+				)
+			);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -1044,6 +1491,12 @@ class LRE_Properties_Widget extends Widget_Base {
 		$show_eyebrow     = ! isset( $settings['show_eyebrow'] ) || 'yes' === $settings['show_eyebrow'];
 		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
 		$show_description = ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'];
+		$show_navigation  = ! isset( $settings['show_navigation'] ) || 'yes' === $settings['show_navigation'];
+		$show_arrows      = ! isset( $settings['show_arrows'] ) || 'yes' === $settings['show_arrows'];
+		$show_dots        = ! isset( $settings['show_dots'] ) || 'yes' === $settings['show_dots'];
+		$autoplay         = ! empty( $settings['autoplay'] ) && 'yes' === $settings['autoplay'] ? 'yes' : 'no';
+		$autoplay_speed   = ! empty( $settings['autoplay_speed'] ) ? absint( $settings['autoplay_speed'] ) : 4500;
+		$pause_on_hover   = ! isset( $settings['pause_on_hover'] ) || 'yes' === $settings['pause_on_hover'] ? 'yes' : 'no';
 		?>
 		<section class="listings" id="listings" aria-label="<?php esc_attr_e( 'Featured property listings', 'luxury-re-widgets' ); ?>">
 			<div class="listings__header reveal">
@@ -1076,7 +1529,7 @@ class LRE_Properties_Widget extends Widget_Base {
 			</div>
 
 			<div class="listings__carousel-wrapper">
-				<div class="listings__carousel" id="listings-carousel" data-stagger>
+				<div class="listings__carousel" id="listings-carousel" data-stagger data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-autoplay-speed="<?php echo esc_attr( $autoplay_speed ); ?>" data-pause-on-hover="<?php echo esc_attr( $pause_on_hover ); ?>">
 					<?php if ( ! empty( $settings['listings'] ) ) :
 						foreach ( $settings['listings'] as $prop ) :
 							$img_url     = ! empty( $prop['prop_image']['url'] ) ? $prop['prop_image']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85';
@@ -1128,13 +1581,27 @@ class LRE_Properties_Widget extends Widget_Base {
 				</div>
 			</div>
 
-			<div class="listings__controls">
+			<?php
+			$has_ctas = ( ! empty( $settings['cta1_text'] ) || ! empty( $settings['cta2_text'] ) );
+			$has_nav  = $show_navigation && ( $show_arrows || $show_dots );
+			if ( $has_nav || $has_ctas ) :
+			?>
+			<div class="listings__controls<?php echo ! $has_nav ? ' listings__controls--no-nav' : ''; ?>">
+				<?php if ( $has_nav ) : ?>
 				<div class="listings__nav">
+					<?php if ( $show_dots ) : ?>
 					<div class="listings__dots">
-						<button class="listings__nav-dot active" aria-label="<?php esc_attr_e( 'Page 1', 'luxury-re-widgets' ); ?>" data-page="0"></button>
-						<button class="listings__nav-dot" aria-label="<?php esc_attr_e( 'Page 2', 'luxury-re-widgets' ); ?>" data-page="1"></button>
-						<button class="listings__nav-dot" aria-label="<?php esc_attr_e( 'Page 3', 'luxury-re-widgets' ); ?>" data-page="2"></button>
+						<?php
+						$listings_count = ! empty( $settings['listings'] ) ? count( $settings['listings'] ) : 0;
+						$dots_count     = max( 2, min( 6, (int) ceil( $listings_count / 2 ) ) );
+						for ( $d = 0; $d < $dots_count; $d++ ) :
+						?>
+						<button class="listings__nav-dot<?php echo 0 === $d ? ' active' : ''; ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Page %d', 'luxury-re-widgets' ), $d + 1 ) ); ?>" data-page="<?php echo esc_attr( $d ); ?>"></button>
+						<?php endfor; ?>
 					</div>
+					<?php endif; ?>
+
+					<?php if ( $show_arrows ) : ?>
 					<div class="listings__arrows">
 						<button class="listings__arrow" id="listings-prev" aria-label="<?php esc_attr_e( 'Previous listings', 'luxury-re-widgets' ); ?>" title="<?php esc_attr_e( 'Previous', 'luxury-re-widgets' ); ?>">
 							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
@@ -1143,7 +1610,11 @@ class LRE_Properties_Widget extends Widget_Base {
 							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
 						</button>
 					</div>
+					<?php endif; ?>
 				</div>
+				<?php endif; ?>
+
+				<?php if ( $has_ctas ) : ?>
 				<div class="listings__cta-group">
 					<?php if ( ! empty( $settings['cta1_text'] ) ) : ?>
 					<a href="<?php echo esc_url( $settings['cta1_url']['url'] ?? '#contact' ); ?>" class="btn btn--primary listings__btn-1">
@@ -1156,7 +1627,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					</a>
 					<?php endif; ?>
 				</div>
+				<?php endif; ?>
 			</div>
+			<?php endif; ?>
 		</section>
 		<?php
 	}

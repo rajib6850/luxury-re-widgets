@@ -644,6 +644,40 @@
                     carousel.scrollLeft = scrollLeftVal - walk;
                 } );
 
+                // Autoplay Support
+                var autoplayEnabled = carousel.getAttribute( 'data-autoplay' ) === 'yes';
+                var autoplaySpeed = parseInt( carousel.getAttribute( 'data-autoplay-speed' ), 10 ) || 4500;
+                var pauseOnHover = carousel.getAttribute( 'data-pause-on-hover' ) !== 'no';
+                var autoplayTimer = null;
+
+                var startAutoplay = function () {
+                    if ( ! autoplayEnabled || autoplayTimer ) return;
+                    autoplayTimer = setInterval( function () {
+                        var maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                        if ( maxScroll <= 0 ) return;
+                        if ( carousel.scrollLeft >= maxScroll - 15 ) {
+                            carousel.scrollTo( { left: 0, behavior: 'smooth' } );
+                        } else {
+                            carousel.scrollBy( { left: getScrollAmount(), behavior: 'smooth' } );
+                        }
+                    }, autoplaySpeed );
+                };
+
+                var stopAutoplay = function () {
+                    if ( autoplayTimer ) {
+                        clearInterval( autoplayTimer );
+                        autoplayTimer = null;
+                    }
+                };
+
+                if ( autoplayEnabled ) {
+                    startAutoplay();
+                    if ( pauseOnHover ) {
+                        carousel.addEventListener( 'mouseenter', stopAutoplay );
+                        carousel.addEventListener( 'mouseleave', startAutoplay );
+                    }
+                }
+
                 // Heart Favorite Button Toggle
                 var likeButtons = carousel.querySelectorAll( '.listing-card__like-btn' );
                 likeButtons.forEach( function ( btn ) {

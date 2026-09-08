@@ -58,6 +58,20 @@ class LRE_Communities_Widget extends Widget_Base {
 			'title_field' => '{{{ comm_name }}}',
 		) );
 
+		$this->add_control(
+			'slider_mode',
+			array(
+				'label'   => __( 'Slider Mode', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'auto',
+				'options' => array(
+					'auto'    => __( 'Auto (Slide if 4+ items, Grid if 3 or less)', 'luxury-re-widgets' ),
+					'enable'  => __( 'Always Slide', 'luxury-re-widgets' ),
+					'disable' => __( 'Always Grid (No Slide)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// =================================================================
@@ -78,26 +92,150 @@ class LRE_Communities_Widget extends Widget_Base {
 
 		// --- STYLE: Navigation Arrows ---
 		$this->start_controls_section( 'style_nav_arrows', array( 'label' => __( 'Navigation Arrows', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+
+		$this->add_responsive_control(
+			'arrow_size',
+			array(
+				'label'     => __( 'Button Diameter (px)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 30, 'max' => 70, 'step' => 2 ),
+				),
+				'default'   => array( 'unit' => 'px', 'size' => 44 ),
+				'selectors' => array(
+					'{{WRAPPER}} .communities__arrow, {{WRAPPER}} button.communities__arrow, {{WRAPPER}} .communities__arrows button' => 'width: {{SIZE}}px !important; height: {{SIZE}}px !important; min-width: {{SIZE}}px !important; min-height: {{SIZE}}px !important; --communities-arrow-size: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrow_icon_size',
+			array(
+				'label'     => __( 'Icon Size (px)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 10, 'max' => 32, 'step' => 1 ),
+				),
+				'default'   => array( 'unit' => 'px', 'size' => 18 ),
+				'selectors' => array(
+					'{{WRAPPER}} .communities__arrow svg, {{WRAPPER}} button.communities__arrow svg' => 'width: {{SIZE}}px !important; height: {{SIZE}}px !important; --communities-arrow-icon-size: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'arrows_gap',
+			array(
+				'label'      => __( 'Gap Between Arrows', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 40 ),
+					'rem' => array( 'min' => 0, 'max' => 3 ),
+				),
+				'default'    => array( 'unit' => 'rem', 'size' => 0.75 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .communities__arrows' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_arrows' );
 			$this->start_controls_tab( 'tab_arrows_normal', array( 'label' => __( 'Normal', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'arrow_color', array( 'label' => __( 'Arrow Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities__arrow' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'arrow_border', array( 'label' => __( 'Arrow Border Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities__arrow' => 'border-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'arrow_bg',
+				array(
+					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow, {{WRAPPER}} button.communities__arrow, {{WRAPPER}} .communities__arrows button' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --communities-arrow-bg: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_color',
+				array(
+					'label'     => __( 'Arrow Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow, {{WRAPPER}} button.communities__arrow, {{WRAPPER}} .communities__arrows button' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important; --communities-arrow-color: {{VALUE}};',
+						'{{WRAPPER}} .communities__arrow svg, {{WRAPPER}} button.communities__arrow svg' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
+						'{{WRAPPER}} .communities__arrow svg path, {{WRAPPER}} button.communities__arrow svg path' => 'stroke: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_border',
+				array(
+					'label'     => __( 'Arrow Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow, {{WRAPPER}} button.communities__arrow, {{WRAPPER}} .communities__arrows button' => 'border-color: {{VALUE}} !important; --communities-arrow-border: {{VALUE}};',
+					),
+				)
+			);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab( 'tab_arrows_hover', array( 'label' => __( 'Hover', 'luxury-re-widgets' ) ) );
-			$this->add_control( 'arrow_color_hover', array( 'label' => __( 'Hover Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities__arrow:hover' => 'color: {{VALUE}};' ) ) );
-			$this->add_control( 'arrow_bg_hover', array( 'label' => __( 'Hover Background', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .communities__arrow:hover' => 'background-color: {{VALUE}};' ) ) );
+			$this->add_control(
+				'arrow_bg_hover',
+				array(
+					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow:hover, {{WRAPPER}} button.communities__arrow:hover, {{WRAPPER}} .communities__arrows button:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --communities-arrow-hover-bg: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_color_hover',
+				array(
+					'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow:hover, {{WRAPPER}} button.communities__arrow:hover, {{WRAPPER}} .communities__arrows button:hover' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important; --communities-arrow-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .communities__arrow:hover svg, {{WRAPPER}} button.communities__arrow:hover svg' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
+						'{{WRAPPER}} .communities__arrow:hover svg path, {{WRAPPER}} button.communities__arrow:hover svg path' => 'stroke: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'arrow_border_hover',
+				array(
+					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .communities__arrow:hover, {{WRAPPER}} button.communities__arrow:hover, {{WRAPPER}} .communities__arrows button:hover' => 'border-color: {{VALUE}} !important; --communities-arrow-hover-border: {{VALUE}};',
+					),
+				)
+			);
 			$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
-		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$settings    = $this->get_settings_for_display();
+		$tag         = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag         = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array();
+		$comm_count  = count( $communities );
+
+		$slider_mode = $settings['slider_mode'] ?? 'auto';
+		if ( 'enable' === $slider_mode ) {
+			$is_slider = true;
+		} elseif ( 'disable' === $slider_mode ) {
+			$is_slider = false;
+		} else {
+			// Auto: 4 or more items slide; 3 or fewer do not slide.
+			$is_slider = ( $comm_count > 3 );
+		}
+
+		$section_classes   = array( 'communities' );
+		$section_classes[] = $is_slider ? 'communities--has-slider' : 'communities--no-slider';
+		$comm_style_var    = '--comm-count: ' . max( 1, min( 3, $comm_count ) ) . ';';
 		?>
-		<section class="communities" id="communities" aria-label="<?php esc_attr_e( 'Featured communities', 'luxury-re-widgets' ); ?>">
+		<section class="<?php echo esc_attr( implode( ' ', $section_classes ) ); ?>" id="communities" style="<?php echo esc_attr( $comm_style_var ); ?>" aria-label="<?php esc_attr_e( 'Featured communities', 'luxury-re-widgets' ); ?>">
 			<div class="communities__header">
 				<div class="communities__header-text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
@@ -122,6 +260,7 @@ class LRE_Communities_Widget extends Widget_Base {
 					</<?php echo $tag; ?>>
 				</div>
 
+				<?php if ( $is_slider ) : ?>
 				<div class="communities__arrows">
 					<button class="communities__arrow" id="communities-prev" aria-label="<?php esc_attr_e( 'Previous communities', 'luxury-re-widgets' ); ?>">
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -130,12 +269,13 @@ class LRE_Communities_Widget extends Widget_Base {
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 					</button>
 				</div>
+				<?php endif; ?>
 			</div>
 
-			<div class="communities__slider" id="communities-slider">
+			<div class="communities__slider" id="communities-slider" data-slide-enabled="<?php echo $is_slider ? 'true' : 'false'; ?>">
 				<div class="communities__track" id="communities-track">
-					<?php if ( ! empty( $settings['communities'] ) ) :
-						foreach ( $settings['communities'] as $c ) :
+					<?php if ( ! empty( $communities ) ) :
+						foreach ( $communities as $c ) :
 							$img_url     = ! empty( $c['comm_image']['url'] ) ? $c['comm_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85';
 							$link_url    = ! empty( $c['comm_link']['url'] ) ? esc_url( $c['comm_link']['url'] ) : '#';
 							$link_target = ! empty( $c['comm_link']['is_external'] ) ? '_blank' : '_self';

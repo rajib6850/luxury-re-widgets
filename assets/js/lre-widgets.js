@@ -752,10 +752,19 @@
                 if ( communitiesTrack.dataset.sliderInit === 'true' ) {
                     return;
                 }
-                communitiesTrack.dataset.sliderInit = 'true';
 
                 var rawCards = Array.prototype.slice.call( communitiesTrack.children );
                 var baseCount = rawCards.length;
+                var slideDisabled = communitiesSlider.getAttribute( 'data-slide-enabled' ) === 'false';
+
+                // 3 or fewer items or slide disabled: static luxury grid, no slider needed
+                if ( baseCount <= 3 || slideDisabled ) {
+                    communitiesTrack.dataset.sliderInit = 'static';
+                    communitiesSlider.style.cursor = 'default';
+                    return;
+                }
+
+                communitiesTrack.dataset.sliderInit = 'true';
 
                 if ( baseCount > 0 ) {
                     rawCards.forEach( function ( card ) {

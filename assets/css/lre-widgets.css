@@ -2952,30 +2952,33 @@ button.btn {
 }
 
 .communities__arrow {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(26, 26, 26, 0.25);
+  width: var(--communities-arrow-size, 44px);
+  height: var(--communities-arrow-size, 44px);
+  border-radius: var(--communities-arrow-radius, 50%);
+  border: 1px solid var(--communities-arrow-border, rgba(26, 26, 26, 0.25));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1a1a1a;
-  background: transparent;
+  color: var(--communities-arrow-color, #1a1a1a);
+  background: var(--communities-arrow-bg, transparent);
   cursor: pointer;
   transition: all 0.4s var(--ease-out-expo);
 }
 
 .communities__arrow:hover {
-  background: #1a1a1a;
-  color: #ffffff;
-  border-color: #1a1a1a;
+  background: var(--communities-arrow-hover-bg, #1a1a1a);
+  color: var(--communities-arrow-hover-color, #ffffff);
+  border-color: var(--communities-arrow-hover-border, #1a1a1a);
   transform: scale(1.08);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .communities__arrow svg {
-  width: 18px;
-  height: 18px;
+  width: var(--communities-arrow-icon-size, 18px);
+  height: var(--communities-arrow-icon-size, 18px);
+  stroke: currentColor;
+  fill: none;
+  color: inherit;
   transition: transform 0.3s ease;
 }
 
@@ -3069,6 +3072,73 @@ button.btn {
   color: #f8eed3;
   text-shadow: 0 2px 15px rgba(248, 238, 211, 0.4);
   transform: rotate(180deg) translateY(6px);
+}
+
+/* --- FEATURED COMMUNITIES STATIC GRID (When 3 or fewer items - No slide needed) --- */
+.communities.communities--no-slider .communities__arrows {
+  display: none !important;
+}
+
+.communities.communities--no-slider .communities__slider {
+  padding: 0 3.5rem;
+  overflow: visible;
+  cursor: default;
+}
+
+.communities.communities--no-slider .communities__track {
+  display: grid;
+  grid-template-columns: repeat(var(--comm-count, 3), minmax(0, 1fr));
+  gap: 1.8rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  transform: none !important;
+}
+
+.communities.communities--no-slider .community-card {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 9 / 13;
+  height: auto;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.14);
+}
+
+@media (max-width: 991px) {
+  .communities.communities--no-slider .communities__slider {
+    padding: 0 2rem;
+  }
+  .communities.communities--no-slider .communities__track {
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .communities.communities--no-slider .communities__slider {
+    padding: 0 1.25rem;
+    overflow: visible;
+  }
+  .communities.communities--no-slider .communities__track {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .communities.communities--no-slider .community-card {
+    aspect-ratio: 16 / 11;
+    height: auto;
+  }
+  .communities.communities--no-slider .community-card__name {
+    writing-mode: horizontal-tb;
+    transform: none;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+  }
+  .communities.communities--no-slider .community-card:hover .community-card__name {
+    transform: translateY(-4px);
+  }
 }
 
 .communities__controls {
@@ -4895,16 +4965,18 @@ button.listings__arrow:hover,
 
 button.communities__arrow,
 .communities__arrow {
-  background: transparent !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(26, 26, 26, 0.25) !important;
+  background: var(--communities-arrow-bg, transparent) !important;
+  background-color: var(--communities-arrow-bg, transparent) !important;
+  color: var(--communities-arrow-color, #1a1a1a) !important;
+  border: 1px solid var(--communities-arrow-border, rgba(26, 26, 26, 0.25)) !important;
 }
 
 button.communities__arrow:hover,
 .communities__arrow:hover {
-  background: #1a1a1a !important;
-  color: #ffffff !important;
-  border-color: #1a1a1a !important;
+  background: var(--communities-arrow-hover-bg, #1a1a1a) !important;
+  background-color: var(--communities-arrow-hover-bg, #1a1a1a) !important;
+  color: var(--communities-arrow-hover-color, #ffffff) !important;
+  border-color: var(--communities-arrow-hover-border, #1a1a1a) !important;
 }
 
 button.listings__nav-dot,
@@ -5332,18 +5404,18 @@ button.listings__nav-dot.active,
 button.communities__arrow,
 .communities__arrow,
 .communities__arrows button {
-  width: 44px !important;
-  height: 44px !important;
-  min-width: 44px !important;
-  min-height: 44px !important;
-  border-radius: 50% !important;
-  border: 1px solid rgba(26, 26, 26, 0.25) !important;
+  width: var(--communities-arrow-size, 44px) !important;
+  height: var(--communities-arrow-size, 44px) !important;
+  min-width: var(--communities-arrow-size, 44px) !important;
+  min-height: var(--communities-arrow-size, 44px) !important;
+  border-radius: var(--communities-arrow-radius, 50%) !important;
+  border: 1px solid var(--communities-arrow-border, rgba(26, 26, 26, 0.25)) !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  color: #1a1a1a !important;
+  background: var(--communities-arrow-bg, transparent) !important;
+  background-color: var(--communities-arrow-bg, transparent) !important;
+  color: var(--communities-arrow-color, #1a1a1a) !important;
   cursor: pointer !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -5354,21 +5426,21 @@ button.communities__arrow,
 button.communities__arrow:hover,
 .communities__arrow:hover,
 .communities__arrows button:hover {
-  background: #1a1a1a !important;
-  background-color: #1a1a1a !important;
-  color: #ffffff !important;
-  border-color: #1a1a1a !important;
+  background: var(--communities-arrow-hover-bg, #1a1a1a) !important;
+  background-color: var(--communities-arrow-hover-bg, #1a1a1a) !important;
+  color: var(--communities-arrow-hover-color, #ffffff) !important;
+  border-color: var(--communities-arrow-hover-border, #1a1a1a) !important;
   transform: scale(1.08) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 button.communities__arrow svg,
 .communities__arrow svg {
-  width: 18px !important;
-  height: 18px !important;
+  width: var(--communities-arrow-icon-size, 18px) !important;
+  height: var(--communities-arrow-icon-size, 18px) !important;
   stroke: currentColor !important;
   fill: none !important;
-  color: currentColor !important;
+  color: inherit !important;
   transition: transform 0.3s ease !important;
 }
 

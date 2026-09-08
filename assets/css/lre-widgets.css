@@ -2344,10 +2344,10 @@ button.btn {
   color: var(--listing-badge-color, #ffffff);
   font-size: 0.58rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 0.22rem 0.85rem;
+  padding: 0.28rem 0.85rem;
   border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 2;

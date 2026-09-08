@@ -1150,12 +1150,16 @@ button.navbar__mobile-toggle:active,
 .lre-comm-showcase .lre-comm-showcase__eyebrow,
 .cta .cta__eyebrow,
 .listings .listings__eyebrow,
-.about .about__eyebrow,
 .communities .communities__eyebrow,
 .testimonial .testimonial__eyebrow,
 .services .services__eyebrow-text {
   color: var(--color-secondary, #c5a047) !important;
   -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
+}
+
+.about .about__eyebrow {
+  color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
 }
 
 /* Gold Accents Requested by User */

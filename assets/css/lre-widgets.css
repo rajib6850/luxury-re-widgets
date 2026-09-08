@@ -381,6 +381,14 @@ p {
   margin: 0;
 }
 
+.about .about__eyebrow,
+.about .section-label,
+.about__eyebrow-wrap .section-label,
+.about__eyebrow-wrap .about__eyebrow {
+  color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+}
+
 /* ==========================================================================
    UNIVERSAL SECTION SUBTITLE / DESCRIPTION ARCHITECTURE
    (Strictly unified across all widgets with Home Page standard: 0.92rem)

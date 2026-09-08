@@ -115,7 +115,7 @@ class LRE_About_Widget extends Widget_Base {
 				'label'     => __( 'Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .about__eyebrow, {{WRAPPER}} .section-label, {{WRAPPER}} .about .about__eyebrow, {{WRAPPER}} .about .section-label, {{WRAPPER}} .about__eyebrow-wrap .about__eyebrow, {{WRAPPER}} .about__eyebrow-wrap .section-label' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --about-eyebrow-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .about__eyebrow, {{WRAPPER}} .section-label, {{WRAPPER}} .about .about__eyebrow, {{WRAPPER}} .about .section-label, {{WRAPPER}} .about__eyebrow-wrap .about__eyebrow, {{WRAPPER}} .about__eyebrow-wrap .section-label' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}}; --about-eyebrow-color: {{VALUE}};',
 				),
 			)
 		);
@@ -136,7 +136,7 @@ class LRE_About_Widget extends Widget_Base {
 				'label'     => __( 'Line Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .about__gold-bar, {{WRAPPER}} .about__eyebrow-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; --about-gold-bar-color: {{VALUE}};',
+					'{{WRAPPER}} .about__gold-bar, {{WRAPPER}} .about__eyebrow-bar' => 'background: {{VALUE}}; background-color: {{VALUE}}; --about-gold-bar-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'show_gold_bar' => 'yes',
@@ -317,23 +317,11 @@ class LRE_About_Widget extends Widget_Base {
 			<div class="container about__content">
 				<div class="about__text reveal">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?>
-					<?php
-					$eyebrow_style_attr = '';
-					if ( ! empty( $settings['__globals__']['eyebrow_color'] ) ) {
-						if ( preg_match( '/id=([a-zA-Z0-9_-]+)/', $settings['__globals__']['eyebrow_color'], $gm ) ) {
-							$gvar = 'var(--e-global-color-' . esc_attr( $gm[1] ) . ')';
-							$eyebrow_style_attr = ' style="color: ' . $gvar . ' !important; -webkit-text-fill-color: ' . $gvar . ' !important; --about-eyebrow-color: ' . $gvar . ' !important;"';
-						}
-					} elseif ( ! empty( $settings['eyebrow_color'] ) ) {
-						$ecol = esc_attr( $settings['eyebrow_color'] );
-						$eyebrow_style_attr = ' style="color: ' . $ecol . ' !important; -webkit-text-fill-color: ' . $ecol . ' !important; --about-eyebrow-color: ' . $ecol . ' !important;"';
-					}
-					?>
 					<div class="about__eyebrow-wrap">
 						<?php if ( ! empty( $settings['show_gold_bar'] ) && 'yes' === $settings['show_gold_bar'] ) : ?>
 						<span class="about__gold-bar" aria-hidden="true"></span>
 						<?php endif; ?>
-						<span class="section-label about__eyebrow"<?php echo $eyebrow_style_attr; ?>><?php echo esc_html( $settings['eyebrow'] ); ?></span>
+						<span class="section-label about__eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></span>
 					</div>
 					<?php endif; ?>
 

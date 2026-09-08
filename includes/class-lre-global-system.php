@@ -1159,7 +1159,7 @@ button.navbar__mobile-toggle:active,
 
 .about .about__eyebrow {
   color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
-  -webkit-text-fill-color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
 }
 
 /* Gold Accents Requested by User */

@@ -386,7 +386,7 @@ p {
 .about__eyebrow-wrap .section-label,
 .about__eyebrow-wrap .about__eyebrow {
   color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
-  -webkit-text-fill-color: var(--about-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
 }
 
 /* ==========================================================================

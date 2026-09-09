@@ -197,21 +197,22 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'text_align',
 			array(
-				'label'   => __( 'Text Alignment', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'options' => array(
+				'label'        => __( 'Text Alignment', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
 					'left'   => array( 'title' => __( 'Left', 'luxury-re-widgets' ), 'icon' => 'eicon-text-align-left' ),
 					'center' => array( 'title' => __( 'Center', 'luxury-re-widgets' ), 'icon' => 'eicon-text-align-center' ),
 					'right'  => array( 'title' => __( 'Right', 'luxury-re-widgets' ), 'icon' => 'eicon-text-align-right' ),
 				),
-				'default'   => 'center',
-				'selectors' => array(
+				'default'      => 'center',
+				'prefix_class' => 'lre-phero--align-',
+				'selectors'    => array(
 					'{{WRAPPER}} .lre-phero__content'      => 'text-align: {{VALUE}};',
-					'{{WRAPPER}} .lre-phero__eyebrow-wrap' => 'justify-content: {{VALUE}};',
-					'{{WRAPPER}} .lre-phero__actions'      => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .lre-phero__title'        => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .lre-phero__subtitle'     => 'text-align: {{VALUE}};',
 				),
 			)
 		);
@@ -242,7 +243,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Button Label', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Meet the Team',
+				'default'   => 'Schedule A Conversation',
 				'dynamic'   => array( 'active' => true ),
 				'condition' => array( 'show_cta' => 'yes' ),
 			)
@@ -253,8 +254,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Button URL', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://...',
-				'default'     => array( 'url' => '#' ),
+				'placeholder' => '/contact/',
+				'default'     => array( 'url' => '/contact/' ),
 				'dynamic'     => array( 'active' => true ),
 				'condition'   => array( 'show_cta' => 'yes' ),
 			)
@@ -618,7 +619,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn, {{WRAPPER}} .lre-phero__actions .btn span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'color: {{VALUE}} !important; --phero-btn-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn span' => 'color: inherit !important;',
 					),
 				)
 			);
@@ -629,7 +631,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'background-color: {{VALUE}} !important; --phero-btn-bg: {{VALUE}};',
 					),
 				)
 			);
@@ -640,7 +642,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn' => 'border-color: {{VALUE}} !important; --phero-btn-border: {{VALUE}};',
 					),
 				)
 			);
@@ -668,7 +670,8 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn:hover, {{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover' => 'color: {{VALUE}} !important; --phero-btn-hover-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover span' => 'color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -680,9 +683,9 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'type'        => Controls_Manager::COLOR,
 					'description' => __( 'Fills button bottom-to-top on hover via ::before animation (same as hero widget).', 'luxury-re-widgets' ),
 					'selectors'   => array(
-						'{{WRAPPER}} .lre-phero__actions .btn'         => '--btn-hover-bg: {{VALUE}};',
-						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'background-color: {{VALUE}};',
-						'{{WRAPPER}} .lre-phero__actions .btn:hover'    => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn'         => '--btn-hover-bg: {{VALUE}} !important; --phero-btn-hover-bg: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn::before' => 'background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover'    => 'background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -693,7 +696,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .lre-phero__actions .btn:hover' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .lre-phero__actions .btn:hover' => 'border-color: {{VALUE}} !important; --phero-btn-hover-border: {{VALUE}};',
 					),
 				)
 			);
@@ -793,9 +796,13 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$eyebrow     = esc_html( $settings['eyebrow'] ?? '' );
 		$title       = wp_kses( $settings['title'] ?? 'About Us', array( 'br' => array(), 'span' => array( 'class' => array() ) ) );
 		$subtitle    = esc_html( $settings['subtitle'] ?? '' );
-		$show_cta    = $settings['show_cta'] ?? 'yes';
-		$cta_text    = esc_html( $settings['cta_text'] ?? 'Meet the Team' );
-		$cta_url     = ! empty( $settings['cta_url']['url'] ) ? esc_url( $settings['cta_url']['url'] ) : '#';
+		$align       = esc_attr( $settings['text_align'] ?? 'center' );
+		if ( empty( $align ) ) {
+			$align = 'center';
+		}
+		$show_cta    = ! empty( $settings['show_cta'] ) && 'no' !== $settings['show_cta'];
+		$cta_text    = esc_html( ! empty( $settings['cta_text'] ) ? $settings['cta_text'] : 'Schedule A Conversation' );
+		$cta_url     = ! empty( $settings['cta_url']['url'] ) ? esc_url( $settings['cta_url']['url'] ) : '/contact/';
 		$cta_target  = ! empty( $settings['cta_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 		$cta_variant = esc_attr( $settings['cta_variant'] ?? 'btn--outline-white' );
 		$show_bc     = $settings['show_breadcrumb'] ?? 'no';
@@ -805,7 +812,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$show_overlay = ( 'yes' === ( $settings['show_overlay'] ?? 'yes' ) );
 		?>
 
-		<section class="lre-phero" id="page-hero" aria-label="<?php echo esc_attr( $title ); ?>">
+		<section class="lre-phero lre-phero--align-<?php echo $align; ?>" id="page-hero" aria-label="<?php echo esc_attr( $title ); ?>">
 
 			<?php if ( $show_overlay ) : ?>
 				<div class="lre-phero__overlay" aria-hidden="true"></div>
@@ -844,7 +851,7 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<!-- CTA Button — .btn system (fill + sweep animations built-in) -->
-					<?php if ( 'yes' === $show_cta && ! empty( $cta_text ) ) : ?>
+					<?php if ( $show_cta && ! empty( $cta_text ) ) : ?>
 						<div class="lre-phero__actions">
 							<a href="<?php echo $cta_url; ?>"
 							   class="btn <?php echo $cta_variant; ?> lre-phero__btn"<?php echo $cta_target; ?>>

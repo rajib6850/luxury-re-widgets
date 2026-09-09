@@ -290,12 +290,11 @@ input[type="submit"].btn:not(.lre-contact__submit-btn),
 .lre-guide__btn,
 .lre-sguide .btn,
 .lre-sguide__btn,
-.lre-phero__actions .btn,
 .lre-comm-spotlight__action .btn,
 .lre-comm-no-results .btn,
-.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn),
-.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn),
-.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn) {
+.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn),
+.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn),
+.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn) {
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -401,7 +400,11 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-contact button[type="submit"],
 .lre-contact__submit-btn,
 .lre-contact__submit-btn .lre-contact__btn-text,
-.lre-contact .lre-contact__feedback {
+.lre-contact .lre-contact__feedback,
+.lre-phero .lre-phero__subtitle,
+.lre-phero .lre-phero__eyebrow,
+.lre-phero .lre-phero__actions .btn,
+.lre-phero .lre-phero__actions .btn span {
   font-family: inherit !important;
 }
 

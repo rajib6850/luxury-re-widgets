@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
 
 /**
  * LRE_Press_Widget
@@ -336,16 +338,6 @@ class LRE_Press_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'show_borders',
-			array(
-				'label'        => __( 'Show Subtle Hairlines', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
 		$this->add_responsive_control(
 			'strip_padding',
 			array(
@@ -437,6 +429,580 @@ class LRE_Press_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// --- EXHIBIT BOXES (CARDS) STYLE ---
+		$this->start_controls_section(
+			'style_boxes',
+			array(
+				'label' => __( 'Exhibit Boxes (Cards)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_box_style' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_box_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'box_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'box_border',
+				'label'    => __( 'Border', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-press-portal',
+			)
+		);
+
+		$this->add_responsive_control(
+			'box_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'box_shadow',
+				'label'    => __( 'Box Shadow', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-press-portal',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_box_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'box_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'box_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'box_hover_shadow',
+				'label'    => __( 'Hover Box Shadow', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-press-portal:hover',
+			)
+		);
+
+		$this->add_responsive_control(
+			'box_hover_lift',
+			array(
+				'label'      => __( 'Hover Lift (Translate Y)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 25, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal:hover' => 'transform: translate3d(0, -{{SIZE}}{{UNIT}}, 0) !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'box_glow_color',
+			array(
+				'label'       => __( 'Aura Glow Color', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'description' => __( 'Soft ambient halo behind the card on hover.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-press-portal__glow' => 'background: radial-gradient(ellipse at center, {{VALUE}} 0%, transparent 70%) !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'box_padding',
+			array(
+				'label'      => __( 'Box Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'separator'  => 'before',
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- BOX CATEGORY TITLES (TAGS) STYLE ---
+		$this->start_controls_section(
+			'style_box_tags',
+			array(
+				'label' => __( 'Box Category Titles (Tags)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'tag_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-press-portal__tag',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_tag_style' );
+
+		// Normal Tag Tab
+		$this->start_controls_tab(
+			'tab_tag_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'tag_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal__tag' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tag Tab
+		$this->start_controls_tab(
+			'tab_tag_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'tag_hover_color',
+			array(
+				'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__tag, {{WRAPPER}} .lre-press-portal__tag:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; opacity: 1 !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'tag_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'separator'  => 'before',
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 50, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 3, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal__tag' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- BRAND PORTALS (ACTION LINKS / BUTTONS) STYLE ---
+		$this->start_controls_section(
+			'style_portals',
+			array(
+				'label' => __( 'Action Links (Buttons)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'portal_action_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-press-portal__action, {{WRAPPER}} .lre-press-portal__action-text',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_action_btn' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_action_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'portal_action_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal__action, {{WRAPPER}} .lre-press-portal__action-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'portal_action_arrow_color',
+			array(
+				'label'     => __( 'Arrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal__arrow' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'portal_action_line_color',
+			array(
+				'label'     => __( 'Underline Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal__action-text::after' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_action_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'portal_action_hover_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#c5a047',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action, {{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text, {{WRAPPER}} .lre-press-portal__action:hover, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'portal_action_hover_arrow_color',
+			array(
+				'label'     => __( 'Hover Arrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__arrow, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__arrow' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'portal_action_hover_line_color',
+			array(
+				'label'     => __( 'Hover Underline Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text::after, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text::after' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'portal_arrow_size',
+			array(
+				'label'      => __( 'Arrow Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'separator'  => 'before',
+				'range'      => array(
+					'px' => array( 'min' => 8, 'max' => 32, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal__arrow' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'portal_action_gap',
+			array(
+				'label'      => __( 'Text & Arrow Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 30, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 2, 'step' => 0.05 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal__action' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'portal_show_underline',
+			array(
+				'label'        => __( 'Show Hover Underline', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'selectors'    => array(
+					'{{WRAPPER}} .lre-press-portal__action-text::after' => 'display: block;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- DIVIDERS & ACCENTS STYLE ---
+		$this->start_controls_section(
+			'style_dividers',
+			array(
+				'label' => __( 'Dividers & Accents', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Central Spire
+		$this->add_control(
+			'heading_spire_div',
+			array(
+				'label' => __( 'Central Vertical Spire', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_control(
+			'show_spire',
+			array(
+				'label'        => __( 'Show Central Spire', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'spire_line_color',
+			array(
+				'label'     => __( 'Spire Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_spire' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-editorial__spire-line' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent) !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'spire_diamond_color',
+			array(
+				'label'     => __( 'Diamond Accent Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_spire' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-editorial__spire-diamond' => 'background-color: {{VALUE}} !important; box-shadow: 0 0 10px {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'spire_diamond_size',
+			array(
+				'label'      => __( 'Diamond Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'condition'  => array( 'show_spire' => 'yes' ),
+				'range'      => array(
+					'px' => array( 'min' => 2, 'max' => 20, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-editorial__spire-diamond' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'spire_min_height',
+			array(
+				'label'      => __( 'Spire Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'condition'  => array( 'show_spire' => 'yes' ),
+				'range'      => array(
+					'px' => array( 'min' => 50, 'max' => 400, 'step' => 5 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-editorial__spire' => 'min-height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Box Dividers
+		$this->add_control(
+			'heading_portal_div',
+			array(
+				'label'     => __( 'Dividers Between Exhibit Cards', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'show_portal_dividers',
+			array(
+				'label'        => __( 'Show Card Dividers', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'portal_divider_color',
+			array(
+				'label'     => __( 'Divider Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_portal_dividers' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-portal:not(:last-child)::after' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent) !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'portal_divider_height',
+			array(
+				'label'      => __( 'Divider Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%' ),
+				'condition'  => array( 'show_portal_dividers' => 'yes' ),
+				'range'      => array(
+					'%' => array( 'min' => 10, 'max' => 100, 'step' => 5 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal:not(:last-child)::after' => 'height: {{SIZE}}% !important; top: calc((100% - {{SIZE}}%) / 2) !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'portal_divider_width',
+			array(
+				'label'      => __( 'Divider Thickness', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'condition'  => array( 'show_portal_dividers' => 'yes' ),
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-portal:not(:last-child)::after' => 'width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Section Top & Bottom Hairlines
+		$this->add_control(
+			'heading_section_hairlines',
+			array(
+				'label'     => __( 'Section Top & Bottom Borders', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'show_borders',
+			array(
+				'label'        => __( 'Show Top & Bottom Borders', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'return_value' => 'yes',
+				'description'  => __( 'Off by default for clean section flow without top/bottom border lines.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'section_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_borders' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-strip.has-hairline' => 'border-top-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'section_border_width',
+			array(
+				'label'      => __( 'Border Thickness', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'condition'  => array( 'show_borders' => 'yes' ),
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-strip.has-hairline' => 'border-top-width: {{SIZE}}{{UNIT}} !important; border-bottom-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// --- WATERMARK STYLE ---
 		$this->start_controls_section(
 			'style_watermark',
@@ -485,48 +1051,17 @@ class LRE_Press_Widget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
-		// --- BRAND PORTALS (ACTION LINKS) STYLE ---
-		$this->start_controls_section(
-			'style_portals',
-			array(
-				'label' => __( 'Action Links (Buttons)', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
-
-		$this->add_control(
-			'portal_action_color',
-			array(
-				'label'     => __( 'Button Color (Normal)', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal__action' => 'color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'portal_action_hover_color',
-			array(
-				'label'     => __( 'Button Color (Hover)', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#c5a047',
-				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action, {{WRAPPER}} .lre-press-portal__action:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text::after, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text::after' => 'background-color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$settings     = $this->get_settings_for_display();
-		$border_class = 'yes' === ( $settings['show_borders'] ?? 'yes' ) ? 'has-hairline' : '';
-		$has_header   = ( 'yes' === ( $settings['show_header'] ?? 'yes' ) && ( ! empty( $settings['title'] ) || ! empty( $settings['eyebrow'] ) ) );
+		$settings           = $this->get_settings_for_display();
+		$show_borders       = ! empty( $settings['show_borders'] ) && 'yes' === $settings['show_borders'];
+		$border_class       = $show_borders ? 'has-hairline' : '';
+		$has_header         = ( 'yes' === ( $settings['show_header'] ?? 'yes' ) && ( ! empty( $settings['title'] ) || ! empty( $settings['eyebrow'] ) ) );
+		$show_spire         = ! isset( $settings['show_spire'] ) || 'yes' === $settings['show_spire'];
+		$spire_class        = $show_spire ? 'has-spire' : 'no-spire';
+		$show_dividers      = ! isset( $settings['show_portal_dividers'] ) || 'yes' === $settings['show_portal_dividers'];
+		$flow_divider_class = $show_dividers ? 'has-dividers' : 'no-dividers';
 
 		$default_voyage  = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
 		$default_serhant = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
@@ -552,7 +1087,7 @@ class LRE_Press_Widget extends Widget_Base {
 			<div class="lre-press-strip__container">
 
 				<!-- Asymmetric Editorial Composition (Left Masthead / Right 3 Brand Portals) -->
-				<div class="lre-press-editorial <?php echo $has_header ? 'has-masthead' : 'no-masthead'; ?> reveal">
+				<div class="lre-press-editorial <?php echo $has_header ? 'has-masthead' : 'no-masthead'; ?> <?php echo esc_attr( $spire_class ); ?> reveal">
 
 					<!-- Left Masthead Anchor -->
 					<?php if ( $has_header ) : ?>
@@ -584,16 +1119,18 @@ class LRE_Press_Widget extends Widget_Base {
 							<?php endif; ?>
 						</div>
 
+						<?php if ( $show_spire ) : ?>
 						<!-- Center Vertical Dividing Spire -->
 						<div class="lre-press-editorial__spire" aria-hidden="true">
 							<span class="lre-press-editorial__spire-line"></span>
 							<span class="lre-press-editorial__spire-diamond"></span>
 							<span class="lre-press-editorial__spire-line"></span>
 						</div>
+						<?php endif; ?>
 					<?php endif; ?>
 
 					<!-- Right Floating Brand Exhibits Flow -->
-					<div class="lre-press-editorial__flow">
+					<div class="lre-press-editorial__flow <?php echo esc_attr( $flow_divider_class ); ?>">
 
 						<!-- Exhibit 1: Voyage LA Interview -->
 						<a href="<?php echo $voyage_url; ?>" target="_blank" rel="noopener noreferrer nofollow" class="lre-press-portal" title="<?php esc_attr_e( 'Read Voyage LA Feature', 'luxury-re-widgets' ); ?>">

@@ -37,6 +37,17 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			'default' => array( 'url' => $default_portrait ),
 			'dynamic' => array( 'active' => true ),
 		) );
+		$this->add_control(
+			'show_image_overlay',
+			array(
+				'label'        => __( 'Show Image Dark Gradient Overlay', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Client Testimonials', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_main', array( 'label' => __( 'Heading Main', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Why people choose', 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'heading_brand', array( 'label' => __( 'Heading Brand', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Victoria Crestwood Group', 'dynamic' => array( 'active' => true ) ) );
@@ -454,6 +465,8 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$tag              = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
+		$show_overlay     = ! empty( $settings['show_image_overlay'] ) && 'yes' === $settings['show_image_overlay'];
+		$overlay_class    = $show_overlay ? ' has-overlay' : '';
 
 		// Robust color resolution supporting both manual hex/rgb and Elementor Global Colors
 		$bg_color      = $this->get_resolved_color( $settings, 'section_bg', '' );
@@ -489,14 +502,16 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$bar_color     = $this->get_resolved_color( $settings, 'gold_bar_color', '' );
 		$bar_style     = $bar_color ? ' style="background: ' . esc_attr( $bar_color ) . ' !important; background-color: ' . esc_attr( $bar_color ) . ' !important;"' : '';
 		?>
-		<section class="testimonial" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>"<?php echo $bg_style; ?>>
+		<section class="testimonial<?php echo esc_attr( $overlay_class ); ?>" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>"<?php echo $bg_style; ?>>
 			<div class="testimonial__image-col image-reveal"<?php echo $col_style; ?>>
 				<?php if ( ! empty( $portrait_url ) ) : ?>
 				<img src="<?php echo esc_url( $portrait_url ); ?>"
 				     alt="<?php esc_attr_e( 'Luxury homeowners', 'luxury-re-widgets' ); ?>"
 				     loading="lazy">
 				<?php endif; ?>
+				<?php if ( $show_overlay ) : ?>
 				<div class="testimonial__image-overlay"<?php echo $fade_style; ?>></div>
+				<?php endif; ?>
 			</div>
 
 			<div class="testimonial__content-col"<?php echo $col_style; ?>>

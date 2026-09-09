@@ -1050,6 +1050,33 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'direct_val_typography',
+				'label'    => __( 'Direct Phone/Email Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__direct-val, {{WRAPPER}} .lre-contact__direct-item',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'agent_name_typography',
+				'label'    => __( 'Agent Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__agent-name',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'agent_meta_typography',
+				'label'    => __( 'Agent Title/Address Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__agent-title, {{WRAPPER}} .lre-contact__agent-address',
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- STYLE: FLOATING FORM CARD ---
@@ -1058,6 +1085,24 @@ class LRE_Contact_Widget extends Widget_Base {
 			array(
 				'label' => __( 'Form Card Appearance', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'card_title_typography',
+				'label'    => __( 'Card Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__card-title',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'card_subtitle_typography',
+				'label'    => __( 'Card Subtitle Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__card-subtitle',
 			)
 		);
 
@@ -1126,9 +1171,27 @@ class LRE_Contact_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
+				'name'     => 'field_label_typography',
+				'label'    => __( 'Labels Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__field-label, {{WRAPPER}} .lre-contact__group-label',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
 				'name'     => 'field_typography',
-				'label'    => __( 'Field Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea',
+				'label'    => __( 'Field Inputs Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__input, {{WRAPPER}} .lre-contact__select, {{WRAPPER}} .lre-contact__textarea, {{WRAPPER}} .lre-contact__select option',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'consent_typography',
+				'label'    => __( 'Legal Consent Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__consent-label, {{WRAPPER}} .lre-contact__consent-text, {{WRAPPER}} .lre-contact__privacy-link',
 			)
 		);
 

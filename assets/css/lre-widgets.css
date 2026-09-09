@@ -10752,7 +10752,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   align-items: center;
   justify-content: center;
   padding: 130px 40px;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   overflow: visible;
   overflow-x: clip;
   box-sizing: border-box;
@@ -10888,7 +10888,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__headline {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: clamp(2.4rem, 4.2vw, 3.8rem);
   font-weight: 700;
   line-height: 1.12;
@@ -10900,7 +10900,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__desc {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 1.02rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.76);
@@ -10921,7 +10921,7 @@ body.elementor-editor-active .lre-contact .reveal,
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.96rem;
   letter-spacing: 0.05em;
 }
@@ -10931,6 +10931,7 @@ body.elementor-editor-active .lre-contact .reveal,
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
+  font-family: inherit;
 }
 
 .lre-contact__direct-val {
@@ -10939,6 +10940,7 @@ body.elementor-editor-active .lre-contact .reveal,
   font-weight: 400;
   transition: color 0.25s ease;
   word-break: break-all;
+  font-family: inherit;
 }
 
 .lre-contact__direct-val:hover {
@@ -10983,7 +10985,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__agent-eyebrow {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.22em;
@@ -10993,7 +10995,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__agent-name {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: inherit;
   font-size: 1.22rem;
   color: #ffffff;
   margin: 0 0 3px 0;
@@ -11001,6 +11003,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__agent-title {
+  font-family: inherit;
   font-size: 0.76rem;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
@@ -11009,6 +11012,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__agent-address {
+  font-family: inherit;
   font-size: 0.74rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.46);
@@ -11063,7 +11067,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__card-title {
-  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-family: inherit;
   font-size: 1.65rem;
   font-weight: 400;
   color: #ffffff;
@@ -11074,7 +11078,7 @@ body.elementor-editor-active .lre-contact .reveal,
 }
 
 .lre-contact__card-subtitle {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
@@ -11129,7 +11133,7 @@ body.elementor-editor-active .lre-contact .reveal,
 
 .lre-contact__field-label {
   display: block;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.74rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -11152,7 +11156,7 @@ body.elementor-editor-active .lre-contact .reveal,
   border-radius: 6px;
   padding: 13px 16px;
   color: #ffffff;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.88rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
@@ -11231,7 +11235,7 @@ body.elementor-editor-active .lre-contact .reveal,
 /* Radio & Checkbox Groups */
 .lre-contact__group-label {
   display: block;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.74rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -11258,7 +11262,7 @@ body.elementor-editor-active .lre-contact .reveal,
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 4px;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease;
@@ -11357,6 +11361,7 @@ body.elementor-editor-active .lre-contact .reveal,
   font-size: 0.74rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.55);
+  font-family: inherit;
 }
 
 .lre-contact__consent-checkbox {
@@ -11401,6 +11406,7 @@ body.elementor-editor-active .lre-contact .reveal,
   font-weight: 600;
   margin-left: 3px;
   transition: color 0.2s ease;
+  font-family: inherit;
 }
 
 .lre-contact__privacy-link:hover {
@@ -11420,7 +11426,7 @@ body.elementor-editor-active .lre-contact .reveal,
   align-items: center !important;
   justify-content: center !important;
   gap: 0.75rem !important;
-  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-family: inherit !important;
   font-size: 0.68rem !important;
   font-weight: 600 !important;
   letter-spacing: 2.5px !important;
@@ -11473,6 +11479,7 @@ body.elementor-editor-active .lre-contact .reveal,
   position: relative;
   z-index: 1;
   transition: color 0.35s ease;
+  font-family: inherit;
 }
 
 .lre-contact__submit-btn:hover .lre-contact__btn-text {
@@ -11516,7 +11523,7 @@ body.elementor-editor-active .lre-contact .reveal,
   font-size: 0.85rem;
   text-align: center;
   letter-spacing: 0.02em;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
 }
 
 .lre-contact__feedback--success {

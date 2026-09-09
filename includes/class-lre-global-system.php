@@ -222,10 +222,10 @@ body,
 }
 
 /* --- UNIFIED LUXURY BUTTON DESIGN SYSTEM (ALL WIDGETS - EXACT HERO SIZING) --- */
-.btn,
-a.btn,
-button.btn,
-input[type="submit"].btn,
+.btn:not(.lre-contact__submit-btn),
+a.btn:not(.lre-contact__submit-btn),
+button.btn:not(.lre-contact__submit-btn),
+input[type="submit"].btn:not(.lre-contact__submit-btn),
 .hero__cta-group .btn,
 .hero__cta-group a,
 .about .btn,
@@ -255,12 +255,9 @@ input[type="submit"].btn,
 .lre-phero__actions .btn,
 .lre-comm-spotlight__action .btn,
 .lre-comm-no-results .btn,
-.lre-contact__btn,
-.lre-contact .btn,
-.lre-contact button[type="submit"],
-.elementor-widget .btn:not(.lre-newsletter-white__btn),
-.elementor-widget a.btn:not(.lre-newsletter-white__btn),
-.elementor-widget button.btn:not(.lre-newsletter-white__btn) {
+.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn),
+.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn),
+.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn) {
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -329,6 +326,45 @@ body .elementor-element .lre-phero__actions .btn {
   vertical-align: middle !important;
   white-space: nowrap !important;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, color 0.4s ease !important;
+}
+
+/* Contact Section Elementor Site Settings & Global Typography Cascade */
+.lre-contact,
+.lre-contact p,
+.lre-contact input,
+.lre-contact select,
+.lre-contact textarea,
+.lre-contact option,
+.lre-contact .lre-contact__desc,
+.lre-contact .lre-contact__direct,
+.lre-contact .lre-contact__direct-item,
+.lre-contact .lre-contact__direct-lbl,
+.lre-contact .lre-contact__direct-val,
+.lre-contact .lre-contact__agent-eyebrow,
+.lre-contact .lre-contact__agent-title,
+.lre-contact .lre-contact__agent-address,
+.lre-contact .lre-contact__card-subtitle,
+.lre-contact .lre-contact__field-label,
+.lre-contact .lre-contact__group-label,
+.lre-contact .lre-contact__input,
+.lre-contact .lre-contact__select,
+.lre-contact .lre-contact__textarea,
+.lre-contact .lre-contact__check-item,
+.lre-contact .lre-contact__radio-item,
+.lre-contact .lre-contact__check-text,
+.lre-contact .lre-contact__radio-text,
+.lre-contact .lre-contact__consent,
+.lre-contact .lre-contact__consent-label,
+.lre-contact .lre-contact__consent-text,
+.lre-contact .lre-contact__privacy-link,
+.lre-contact .lre-contact__submit-btn,
+.lre-contact .lre-contact__btn-text,
+.lre-contact .btn,
+.lre-contact button[type="submit"],
+.lre-contact__submit-btn,
+.lre-contact__submit-btn .lre-contact__btn-text,
+.lre-contact .lre-contact__feedback {
+  font-family: inherit !important;
 }
 
 .btn span,

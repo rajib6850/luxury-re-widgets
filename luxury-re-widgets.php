@@ -40,7 +40,15 @@ if ( ! function_exists( 'lre_asset_url' ) ) {
 	 * @return string
 	 */
 	function lre_asset_url( $path = '' ) {
-		return LRE_ASSETS_URL . ltrim( $path, '/' );
+		$url = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . ltrim( $path, '/' ) : plugins_url( 'assets/' . ltrim( $path, '/' ), __FILE__ );
+		if ( 0 === strpos( $url, ':/wp-content' ) ) {
+			$url = content_url( substr( $url, 13 ) );
+		} elseif ( 0 === strpos( $url, '://wp-content' ) ) {
+			$url = content_url( substr( $url, 14 ) );
+		} elseif ( 0 === strpos( $url, '/wp-content' ) ) {
+			$url = content_url( substr( $url, 11 ) );
+		}
+		return $url;
 	}
 }
 
@@ -59,6 +67,15 @@ if ( ! function_exists( 'lre_resolve_image_url' ) ) {
 				return '';
 			}
 			return false !== strpos( $fallback, '://' ) ? $fallback : lre_asset_url( $fallback );
+		}
+
+		// Normalize corrupted or relative scheme prefixes like ":/wp-content", "://wp-content", or "/wp-content"
+		if ( 0 === strpos( $url, ':/wp-content' ) ) {
+			$url = content_url( substr( $url, 13 ) );
+		} elseif ( 0 === strpos( $url, '://wp-content' ) ) {
+			$url = content_url( substr( $url, 14 ) );
+		} elseif ( 0 === strpos( $url, '/wp-content' ) ) {
+			$url = content_url( substr( $url, 11 ) );
 		}
 
 		$map = array(

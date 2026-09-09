@@ -1997,9 +1997,7 @@ class LRE_Header_Widget extends Widget_Base {
 							if ( empty( $img_url ) && ! empty( $box['box_img']['id'] ) ) {
 								$img_url = wp_get_attachment_image_url( $box['box_img']['id'], 'full' );
 							}
-							if ( empty( $img_url ) ) {
-								$img_url = lre_asset_url( 'images/property-1.jpg' );
-							}
+							$img_url = lre_resolve_image_url( $img_url, 'images/property-1.jpg' );
 
 							echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
 							echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $box_title ) . '" loading="lazy"></div>';
@@ -2055,11 +2053,11 @@ class LRE_Header_Widget extends Widget_Base {
 						}
 					} else {
 						// Backward compatibility fallback for legacy Box 1 to 5
-						$b1_img = ! empty( $settings['drawer_box1_img']['url'] ) ? $settings['drawer_box1_img']['url'] : lre_asset_url( 'images/property-2.jpg' );
-						$b2_img = ! empty( $settings['drawer_box2_img']['url'] ) ? $settings['drawer_box2_img']['url'] : lre_asset_url( 'images/property-3.jpg' );
-						$b3_img = ! empty( $settings['drawer_box3_img']['url'] ) ? $settings['drawer_box3_img']['url'] : lre_asset_url( 'images/property-1.jpg' );
-						$b4_img = ! empty( $settings['drawer_box4_img']['url'] ) ? $settings['drawer_box4_img']['url'] : lre_asset_url( 'images/property-8.jpg' );
-						$b5_img = ! empty( $settings['drawer_box5_img']['url'] ) ? $settings['drawer_box5_img']['url'] : lre_asset_url( 'images/property-9.jpg' );
+						$b1_img = lre_resolve_image_url( $settings['drawer_box1_img']['url'] ?? '', 'images/property-2.jpg' );
+						$b2_img = lre_resolve_image_url( $settings['drawer_box2_img']['url'] ?? '', 'images/property-3.jpg' );
+						$b3_img = lre_resolve_image_url( $settings['drawer_box3_img']['url'] ?? '', 'images/property-1.jpg' );
+						$b4_img = lre_resolve_image_url( $settings['drawer_box4_img']['url'] ?? '', 'images/property-8.jpg' );
+						$b5_img = lre_resolve_image_url( $settings['drawer_box5_img']['url'] ?? '', 'images/property-9.jpg' );
 						?>
 						<div class="side-menu__box" data-delay="1">
 							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b1_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box1_title'] ?? 'Buyers' ); ?>" loading="lazy"></div>

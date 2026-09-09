@@ -1536,7 +1536,19 @@ class LRE_Properties_Widget extends Widget_Base {
 				<div class="listings__carousel" id="listings-carousel" data-stagger data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-autoplay-speed="<?php echo esc_attr( $autoplay_speed ); ?>" data-pause-on-hover="<?php echo esc_attr( $pause_on_hover ); ?>">
 					<?php if ( ! empty( $settings['listings'] ) ) :
 						foreach ( $settings['listings'] as $prop ) :
-							$img_url     = ! empty( $prop['prop_image']['url'] ) ? $prop['prop_image']['url'] : lre_asset_url( 'images/property-2.jpg' );
+							$img_url = '';
+							if ( ! empty( $prop['prop_image'] ) ) {
+								if ( is_array( $prop['prop_image'] ) ) {
+									if ( ! empty( $prop['prop_image']['url'] ) ) {
+										$img_url = $prop['prop_image']['url'];
+									} elseif ( ! empty( $prop['prop_image']['id'] ) ) {
+										$img_url = wp_get_attachment_image_url( $prop['prop_image']['id'], 'full' );
+									}
+								} elseif ( is_string( $prop['prop_image'] ) ) {
+									$img_url = $prop['prop_image'];
+								}
+							}
+							$img_url     = lre_resolve_image_url( $img_url, 'images/property-2.jpg' );
 							$is_gold     = ! empty( $prop['prop_is_gold'] ) && 'yes' === $prop['prop_is_gold'];
 							$badge_class = $is_gold ? 'listing-card__badge listing-card__badge--gold' : 'listing-card__badge';
 					?>

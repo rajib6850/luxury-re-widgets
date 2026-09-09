@@ -557,9 +557,6 @@ class LRE_Newsletter_Widget extends Widget_Base {
 				'name'     => 'title_typography',
 				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-newsletter-white__title, {{WRAPPER}} .lre-newsletter-white__title span, {{WRAPPER}} .lre-newsletter-white__title .title-mask > span',
-				'global'   => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
-				),
 			)
 		);
 

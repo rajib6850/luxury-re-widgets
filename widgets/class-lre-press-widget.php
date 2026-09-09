@@ -395,9 +395,6 @@ class LRE_Press_Widget extends Widget_Base {
 				'name'     => 'title_typography',
 				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-press-editorial__title, {{WRAPPER}} .lre-press-editorial__title span, {{WRAPPER}} .lre-press-editorial__title .title-mask > span',
-				'global'   => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
-				),
 			)
 		);
 

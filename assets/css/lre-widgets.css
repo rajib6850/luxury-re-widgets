@@ -13200,9 +13200,9 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 }
 
 .lre-press-editorial__title {
-  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
+  font-family: inherit;
   font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
-  font-weight: var(--font-weight-primary, 400);
+  font-weight: inherit;
   letter-spacing: -0.015em;
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
@@ -13676,11 +13676,11 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   vertical-align: middle;
 }
 
-/* Headline Typography (Libre Baskerville Serif Standard) */
+/* Headline Typography (Inherits Heading Font from Site Settings) */
 .lre-newsletter-white__title {
-  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
+  font-family: inherit;
   font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
-  font-weight: var(--font-weight-primary, 400);
+  font-weight: inherit;
   letter-spacing: -0.015em;
   color: var(--color-primary, #02293f);
   -webkit-text-fill-color: var(--color-primary, #02293f);

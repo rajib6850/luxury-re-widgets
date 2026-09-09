@@ -183,13 +183,7 @@ body,
 .listings__title,
 .communities__title,
 .cta__title,
-.footer__brand,
-.lre-press-editorial__title,
-.lre-press-editorial__title span,
-.lre-press-editorial__title .title-mask > span,
-.lre-newsletter-white__title,
-.lre-newsletter-white__title span,
-.lre-newsletter-white__title .title-mask > span {
+.footer__brand {
   font-family: var(--font-serif);
 }
 

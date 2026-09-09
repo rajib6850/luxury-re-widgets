@@ -13201,12 +13201,22 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 
 .lre-press-editorial__title {
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
-  font-size: var(--font-size-section-title, clamp(1.85rem, 3.2vw, 2.65rem));
+  font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
   font-weight: var(--font-weight-primary, 400);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.015em;
   color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
   line-height: 1.25 !important;
   margin: 0;
+}
+
+.lre-press-editorial__title span,
+.lre-press-editorial__title .title-mask > span {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 
 /* Vertical Dividing Spire Between Left & Right */
@@ -13528,7 +13538,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   }
 
   .lre-press-editorial__title {
-    font-size: clamp(1.6rem, 5.5vw, 2rem);
+    font-size: clamp(1.75rem, 5.5vw, 2.25rem);
     line-height: 1.25;
   }
 
@@ -13669,12 +13679,22 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 /* Headline Typography (Libre Baskerville Serif Standard) */
 .lre-newsletter-white__title {
   font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
-  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+  font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
   font-weight: var(--font-weight-primary, 400);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.015em;
   color: var(--color-primary, #02293f);
-  line-height: 1.25;
-  margin: 0 0 0.65rem;
+  -webkit-text-fill-color: var(--color-primary, #02293f);
+  line-height: 1.25 !important;
+  margin: 0 0 0.85rem;
+}
+
+.lre-newsletter-white__title span,
+.lre-newsletter-white__title .title-mask > span {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 
 /* Subtitle */
@@ -13902,6 +13922,11 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 @media (max-width: 1024px) {
   .lre-newsletter-white {
     padding: 3.25rem 1.5rem 3.5rem;
+  }
+
+  .lre-newsletter-white__title {
+    font-size: clamp(1.75rem, 5.5vw, 2.25rem);
+    line-height: 1.25;
   }
 
   .lre-newsletter-white--oneline .lre-newsletter-white__container {

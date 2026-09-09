@@ -79,11 +79,34 @@ class LRE_Press_Widget extends Widget_Base {
 			'title',
 			array(
 				'label'       => __( 'Section Title', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => 'Featured in & Industry Recognition',
-				'description' => __( 'Refined luxury headline matching section titles across other widgets.', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 3,
+				'default'     => __( 'Featured in & Industry Recognition', 'luxury-re-widgets' ),
+				'placeholder' => __( 'Featured in & Industry Recognition', 'luxury-re-widgets' ),
+				'description' => __( 'Supports multiple lines with Enter or <br> tags (with staggered luxury mask reveal animation).', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
 				'condition'   => array( 'show_header' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'title_tag',
+			array(
+				'label'     => __( 'Title HTML Tag', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'condition' => array( 'show_header' => 'yes' ),
 			)
 		);
 
@@ -361,7 +384,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-editorial__title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-editorial__title, {{WRAPPER}} .lre-press-editorial__title span, {{WRAPPER}} .lre-press-editorial__title .title-mask > span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -371,9 +394,25 @@ class LRE_Press_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-press-editorial__title',
+				'selector' => '{{WRAPPER}} .lre-press-editorial__title, {{WRAPPER}} .lre-press-editorial__title span, {{WRAPPER}} .lre-press-editorial__title .title-mask > span',
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-editorial__title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -528,8 +567,23 @@ class LRE_Press_Widget extends Widget_Base {
 								</div>
 							<?php endif; ?>
 
-							<?php if ( ! empty( $settings['title'] ) ) : ?>
-								<h2 class="lre-press-editorial__title"><?php echo esc_html( $settings['title'] ); ?></h2>
+							<?php if ( ! empty( $settings['title'] ) ) : 
+								$is_edit_mode  = \Elementor\Plugin::$instance->editor->is_edit_mode();
+								$p_tag         = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2';
+								$p_tag         = in_array( $p_tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ), true ) ? $p_tag : 'h2';
+								$heading_raw   = $settings['title'];
+								$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+								$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
+								$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
+								if ( empty( $heading_lines ) ) {
+									$heading_lines = array( $heading_raw );
+								}
+							?>
+								<<?php echo $p_tag; ?> class="lre-press-editorial__title">
+									<?php foreach ( $heading_lines as $h_idx => $h_line ) : ?>
+										<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
+									<?php endforeach; ?>
+								</<?php echo $p_tag; ?>>
 							<?php endif; ?>
 						</div>
 

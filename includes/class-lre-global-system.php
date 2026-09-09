@@ -183,7 +183,13 @@ body,
 .listings__title,
 .communities__title,
 .cta__title,
-.footer__brand {
+.footer__brand,
+.lre-press-editorial__title,
+.lre-press-editorial__title span,
+.lre-press-editorial__title .title-mask > span,
+.lre-newsletter-white__title,
+.lre-newsletter-white__title span,
+.lre-newsletter-white__title .title-mask > span {
   font-family: var(--font-serif);
 }
 
@@ -672,6 +678,16 @@ button.btn,
 .testimonial__heading-main {
   line-height: 1.2;
   color: var(--testimonial-heading-color, #ffffff);
+}
+
+.lre-press-editorial__title {
+  line-height: 1.25 !important;
+  color: #ffffff;
+}
+
+.lre-newsletter-white__title {
+  line-height: 1.25 !important;
+  color: var(--color-primary, #02293f);
 }
 
 /* Dark section headings & descriptions must remain white on dark backgrounds */

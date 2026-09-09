@@ -91,10 +91,33 @@ class LRE_Newsletter_Widget extends Widget_Base {
 		$this->add_control(
 			'title',
 			array(
-				'label'   => __( 'Headline', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Stay Ahead of the Southern California Market.',
-				'dynamic' => array( 'active' => true ),
+				'label'       => __( 'Headline', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 3,
+				'default'     => __( 'Stay Ahead of the Southern California Market.', 'luxury-re-widgets' ),
+				'placeholder' => __( 'Stay Ahead of the Southern California Market.', 'luxury-re-widgets' ),
+				'description' => __( 'Supports multiple lines with Enter or <br> tags (with staggered luxury mask reveal animation).', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'title_tag',
+			array(
+				'label'   => __( 'Headline HTML Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
 			)
 		);
 
@@ -533,7 +556,7 @@ class LRE_Newsletter_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-newsletter-white__title',
+				'selector' => '{{WRAPPER}} .lre-newsletter-white__title, {{WRAPPER}} .lre-newsletter-white__title span, {{WRAPPER}} .lre-newsletter-white__title .title-mask > span',
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
@@ -547,7 +570,23 @@ class LRE_Newsletter_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#02293f',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-newsletter-white__title' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-newsletter-white__title, {{WRAPPER}} .lre-newsletter-white__title span, {{WRAPPER}} .lre-newsletter-white__title .title-mask > span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'title_spacing',
+			array(
+				'label'      => __( 'Headline Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 80, 'step' => 1 ),
+					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-newsletter-white__title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -684,7 +723,24 @@ class LRE_Newsletter_Widget extends Widget_Base {
 						</div>
 					<?php endif; ?>
 
-					<h3 class="lre-newsletter-white__title"><?php echo esc_html( $settings['title'] ); ?></h3>
+					<?php if ( ! empty( $settings['title'] ) ) : 
+						$is_edit_mode  = \Elementor\Plugin::$instance->editor->is_edit_mode();
+						$n_tag         = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2';
+						$n_tag         = in_array( $n_tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ), true ) ? $n_tag : 'h2';
+						$heading_raw   = $settings['title'];
+						$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+						$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
+						$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
+						if ( empty( $heading_lines ) ) {
+							$heading_lines = array( $heading_raw );
+						}
+					?>
+						<<?php echo $n_tag; ?> class="lre-newsletter-white__title">
+							<?php foreach ( $heading_lines as $h_idx => $h_line ) : ?>
+								<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
+							<?php endforeach; ?>
+						</<?php echo $n_tag; ?>>
+					<?php endif; ?>
 
 					<?php if ( ! empty( $settings['subtitle'] ) ) : ?>
 						<p class="lre-newsletter-white__subtitle"><?php echo esc_html( $settings['subtitle'] ); ?></p>

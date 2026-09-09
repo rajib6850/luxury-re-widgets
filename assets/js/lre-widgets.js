@@ -17,7 +17,7 @@
     // =========================================================================
     LREWidgets.initReveals = function ( $scope ) {
         var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
-        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .lre-comm-frame, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main' );
+        var revealEls = root.querySelectorAll( '.reveal, .reveal--left, .reveal--right, .reveal--zoom, .reveal--stagger, .title-mask, .lre-story__header, .lre-team__header, .lre-aserv__header, .lre-reviews__header, .lre-comm-showcase__header, .lre-comm-frame, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .about__text, .services__header, .listings__header, .testimonial__inner, .communities__header-text, .cta__content, .footer__main, .lre-press-editorial__masthead, .lre-press-editorial, .lre-newsletter-white__info, .lre-newsletter-white' );
         var imageRevealEls = root.querySelectorAll( '.image-reveal' );
 
         var triggerElementReveal = function ( el ) {
@@ -43,7 +43,7 @@
         if ( isEditor ) {
             revealEls.forEach( triggerElementReveal );
             imageRevealEls.forEach( triggerElementReveal );
-            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__chapter, .lre-sguide__header, .lre-sguide__chapter' );
+            var allEditorElements = root.querySelectorAll( '.reveal, .title-mask, .lre-comm-frame, .lre-comm-showcase__header, .lre-comm-showcase__filter-nav, .lre-contact__header, .lre-contact__desk, .lre-contact__form-wrapper, .lre-guide__header, .lre-guide__chapter, .lre-sguide__header, .lre-sguide__chapter, .lre-press-editorial__masthead, .lre-press-editorial, .lre-newsletter-white__info, .lre-newsletter-white' );
             allEditorElements.forEach( triggerElementReveal );
             return;
         }

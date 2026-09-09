@@ -1271,7 +1271,10 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link'          => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link svg'      => 'fill: {{VALUE}}; color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link svg path' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link i'        => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1282,7 +1285,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1293,7 +1296,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1311,7 +1314,10 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link:hover'          => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link:hover svg'      => 'fill: {{VALUE}}; color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link:hover svg path' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__social-link:hover i'        => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1322,7 +1328,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -1333,7 +1339,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__social-link:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);

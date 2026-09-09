@@ -11036,6 +11036,7 @@ body.elementor-editor-active .lre-contact .reveal,
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.7);
+  fill: currentColor;
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 13px;
@@ -11046,18 +11047,34 @@ body.elementor-editor-active .lre-contact .reveal,
   width: 14px;
   height: 14px;
   display: block;
+  fill: currentColor;
+  color: inherit;
+  transition: fill 0.3s ease, color 0.3s ease;
+}
+
+.lre-contact__social-link svg path {
+  fill: currentColor;
+  transition: fill 0.3s ease;
 }
 
 .lre-contact__social-link i {
   font-size: 13px;
   line-height: 1;
   display: inline-block;
+  color: inherit;
+  transition: color 0.3s ease;
 }
 
 .lre-contact__social-link:hover {
   border-color: #c5a047;
   color: #c5a047;
+  fill: #c5a047;
   background: rgba(197, 160, 71, 0.12);
+}
+
+.lre-contact__social-link:hover svg,
+.lre-contact__social-link:hover svg path {
+  fill: currentColor;
 }
 
 /* ── RIGHT COLUMN: FLOATING MESSAGE CARD ── */

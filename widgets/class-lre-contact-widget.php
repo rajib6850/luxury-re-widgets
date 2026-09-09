@@ -1288,7 +1288,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn .lre-contact__btn-text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn .lre-contact__btn-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1299,7 +1299,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1310,7 +1310,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1328,7 +1328,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn:hover .lre-contact__btn-text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn:hover .lre-contact__btn-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1339,7 +1339,9 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover, {{WRAPPER}} .lre-contact__submit-btn::before' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn' => '--btn-hover-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1350,7 +1352,8 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__submit-btn' => '--btn-hover-border: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-contact__submit-btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1358,6 +1361,32 @@ class LRE_Contact_Widget extends Widget_Base {
 		$this->end_controls_tab();
 
 		$this->end_controls_tabs();
+
+		// Border Radius
+		$this->add_responsive_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__submit-btn, {{WRAPPER}} .lre-contact__submit-btn::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// Padding
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__submit-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
 
 		$this->end_controls_section();
 

@@ -245,7 +245,40 @@ class LRE_Ajax_Handler {
 			do_action( 'elementor_pro/forms/new_record', $submission_data );
 		}
 
-		// 6. Response Message & Redirect
+		// 6. Follow Up Boss (FUB CRM Integration)
+		$enable_fub = isset( $_POST['enable_fub'] ) && 'yes' === $_POST['enable_fub'];
+		if ( $enable_fub && class_exists( 'LRE_FollowUpBoss' ) && ! empty( $client_email ) ) {
+			$fub_key    = isset( $_POST['fub_api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['fub_api_key'] ) ) : '';
+			$fub_source = isset( $_POST['fub_source'] ) && ! empty( $_POST['fub_source'] )
+				? sanitize_text_field( wp_unslash( $_POST['fub_source'] ) )
+				: 'Website - Contact Page';
+			$fub_type   = isset( $_POST['fub_type'] ) && ! empty( $_POST['fub_type'] )
+				? sanitize_text_field( wp_unslash( $_POST['fub_type'] ) )
+				: 'General Inquiry';
+			$fub_tags   = isset( $_POST['fub_tags'] ) ? sanitize_text_field( wp_unslash( $_POST['fub_tags'] ) ) : '';
+			$fub_stage  = isset( $_POST['fub_stage'] ) ? sanitize_text_field( wp_unslash( $_POST['fub_stage'] ) ) : 'Lead';
+
+			$fub_desc = "Website Contact Form Submission:\n";
+			foreach ( $submitted_fields as $lbl => $val ) {
+				$fub_desc .= "• " . $lbl . ": " . $val . "\n";
+			}
+
+			LRE_FollowUpBoss::instance()->send_event( array(
+				'first_name'  => $client_first,
+				'last_name'   => $client_last,
+				'name'        => $client_name,
+				'email'       => $client_email,
+				'phone'       => $client_phone,
+				'source'      => $fub_source,
+				'type'        => $fub_type,
+				'stage'       => $fub_stage,
+				'tags'        => $fub_tags,
+				'message'     => ! empty( $client_message ) ? $client_message : ( 'Inquiry regarding: ' . $client_interest ),
+				'description' => $fub_desc,
+			), $fub_key );
+		}
+
+		// 7. Response Message & Redirect
 		$success_msg = isset( $_POST['success_message'] ) && ! empty( $_POST['success_message'] )
 			? sanitize_text_field( wp_unslash( $_POST['success_message'] ) )
 			: __( 'Thank you. Your message has been received. A senior associate will respond shortly.', 'luxury-re-widgets' );
@@ -258,22 +291,175 @@ class LRE_Ajax_Handler {
 		) );
 	}
 
-	/** Processes the Newsletter widget email capture. */
+	/** Processes the Newsletter widget email capture with FUB CRM sync, Admin Alert & Auto-responder. */
 	public function handle_newsletter() {
-		check_ajax_referer( 'lre_nonce', 'nonce' );
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! empty( $nonce ) && ! wp_verify_nonce( $nonce, 'lre_nonce' ) ) {
+			if ( ! check_ajax_referer( 'lre_nonce', 'nonce', false ) && ! is_user_logged_in() ) {
+				if ( empty( $_POST['email'] ) ) {
+					wp_send_json_error( array( 'message' => __( 'Security verification expired. Please refresh the page and try again.', 'luxury-re-widgets' ) ) );
+				}
+			}
+		}
 
 		$email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
 
-		if ( ! is_email( $email ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'luxury-re-widgets' ) ) );
+		$invalid_msg = isset( $_POST['invalid_email_message'] ) && ! empty( $_POST['invalid_email_message'] )
+			? sanitize_text_field( wp_unslash( $_POST['invalid_email_message'] ) )
+			: __( 'Please enter a valid email address.', 'luxury-re-widgets' );
+
+		if ( empty( $email ) || ! is_email( $email ) ) {
+			wp_send_json_error( array( 'message' => $invalid_msg ) );
 		}
 
+		// 1. Save to WordPress Option archive
 		$subscribers = get_option( 'lre_newsletter_subscribers', array() );
 		if ( ! in_array( $email, $subscribers, true ) ) {
 			$subscribers[] = $email;
 			update_option( 'lre_newsletter_subscribers', $subscribers, false );
 		}
 
-		wp_send_json_success( array( 'message' => __( 'Thank you for subscribing.', 'luxury-re-widgets' ) ) );
+		// 2. Admin Notification Email
+		$enable_admin_mail = isset( $_POST['enable_email_notification'] ) && 'yes' === $_POST['enable_email_notification'];
+		if ( $enable_admin_mail ) {
+			$raw_to = isset( $_POST['email_to'] ) ? wp_unslash( $_POST['email_to'] ) : '';
+			$admin_recipients = array();
+			if ( ! empty( $raw_to ) ) {
+				$split_emails = explode( ',', $raw_to );
+				foreach ( $split_emails as $em ) {
+					$clean = sanitize_email( trim( $em ) );
+					if ( ! empty( $clean ) && is_email( $clean ) ) {
+						$admin_recipients[] = $clean;
+					}
+				}
+			}
+			if ( empty( $admin_recipients ) ) {
+				$admin_recipients[] = get_option( 'admin_email' );
+			}
+
+			$raw_subject = isset( $_POST['email_subject'] ) && ! empty( $_POST['email_subject'] )
+				? sanitize_text_field( wp_unslash( $_POST['email_subject'] ) )
+				: 'New VIP Newsletter Subscriber: {{email}}';
+			$admin_subject = str_replace( '{{email}}', $email, $raw_subject );
+
+			$site_name    = get_bloginfo( 'name' );
+			$sender_name  = isset( $_POST['sender_name'] ) && ! empty( $_POST['sender_name'] )
+				? sanitize_text_field( wp_unslash( $_POST['sender_name'] ) )
+				: ( ! empty( $site_name ) ? $site_name : 'Adolfo Aguirre Real Estate' );
+			$sender_email = isset( $_POST['sender_email'] ) && ! empty( $_POST['sender_email'] )
+				? sanitize_email( wp_unslash( $_POST['sender_email'] ) )
+				: ( ! empty( $admin_recipients[0] ) ? $admin_recipients[0] : get_option( 'admin_email' ) );
+
+			$admin_headers = array(
+				'Content-Type: text/html; charset=UTF-8',
+				'From: ' . $sender_name . ' <' . $sender_email . '>',
+				'Reply-To: ' . $email . ' <' . $email . '>',
+			);
+
+			if ( ! empty( $_POST['email_cc'] ) ) {
+				$admin_headers[] = 'Cc: ' . sanitize_text_field( wp_unslash( $_POST['email_cc'] ) );
+			}
+			if ( ! empty( $_POST['email_bcc'] ) ) {
+				$admin_headers[] = 'Bcc: ' . sanitize_text_field( wp_unslash( $_POST['email_bcc'] ) );
+			}
+
+			$admin_body  = "<div style=\"font-family: 'Montserrat', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111116; line-height: 1.6; padding: 32px; border: 1px solid #c5a047; background-color: #fcfcfb; border-radius: 6px;\">";
+			$admin_body .= "<div style=\"border-bottom: 2px solid #02293f; padding-bottom: 14px; margin-bottom: 20px;\">";
+			$admin_body .= "<span style=\"color: #c5a047; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;\">THE AGUIRRE REPORT</span>";
+			$admin_body .= "<h2 style=\"color: #02293f; margin: 6px 0 0 0; font-size: 20px; font-family: 'Georgia', serif; font-weight: 400;\">New VIP Subscriber</h2>";
+			$admin_body .= "</div>";
+			$admin_body .= "<p style=\"font-size: 14px; margin: 0 0 12px;\">A new subscriber has joined the Private Market Intelligence report:</p>";
+			$admin_body .= "<p style=\"font-size: 16px; font-weight: 600; color: #02293f; background: #efebe2; padding: 12px 16px; border-radius: 4px; margin: 0 0 20px;\">" . esc_html( $email ) . "</p>";
+			$admin_body .= "<div style=\"font-size: 11px; color: #8f8b82; border-top: 1px solid #eae7e1; padding-top: 14px;\">Transmitted via Luxury Real Estate Suite Engine • " . esc_html( current_time( 'F j, Y g:i A' ) ) . "</div>";
+			$admin_body .= "</div>";
+
+			foreach ( $admin_recipients as $recipient ) {
+				wp_mail( $recipient, $admin_subject, $admin_body, $admin_headers );
+			}
+		}
+
+		// 3. Client Welcome / Auto-Responder Email
+		$enable_auto = isset( $_POST['enable_autoresponder'] ) && 'yes' === $_POST['enable_autoresponder'];
+		if ( $enable_auto && ! empty( $email ) ) {
+			$site_name = get_bloginfo( 'name' );
+			$raw_auto_subject = isset( $_POST['autoresponder_subject'] ) && ! empty( $_POST['autoresponder_subject'] )
+				? sanitize_text_field( wp_unslash( $_POST['autoresponder_subject'] ) )
+				: 'Welcome to The Aguirre Report | Private Market Intelligence';
+
+			$raw_auto_msg = isset( $_POST['autoresponder_message'] ) && ! empty( $_POST['autoresponder_message'] )
+				? wp_kses_post( wp_unslash( $_POST['autoresponder_message'] ) )
+				: "Dear Subscriber,\n\nThank you for subscribing to The Aguirre Report.\n\nYou now have priority access to curated off-market architectural acquisitions, private quarterly market insights, and Southern California luxury intelligence delivered discreetly.\n\nWarm regards,\nAdolfo Aguirre | SERHANT.";
+
+			$user_headers = array(
+				'Content-Type: text/html; charset=UTF-8',
+				'From: ' . ( ! empty( $sender_name ) ? $sender_name : 'Adolfo Aguirre' ) . ' <' . ( ! empty( $sender_email ) ? $sender_email : get_option( 'admin_email' ) ) . '>',
+				'Reply-To: ' . ( ! empty( $sender_email ) ? $sender_email : get_option( 'admin_email' ) ),
+			);
+
+			$client_body  = "<div style=\"font-family: 'Montserrat', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111116; line-height: 1.7; padding: 32px; border: 1px solid #eae7e1; background-color: #ffffff;\">";
+			$client_body .= "<div style=\"border-bottom: 2px solid #c5a047; padding-bottom: 12px; margin-bottom: 20px;\">";
+			$client_body .= "<h2 style=\"color: #02293f; margin: 0; font-size: 18px; font-family: 'Georgia', serif; letter-spacing: 0.05em;\">" . esc_html( $site_name ) . "</h2>";
+			$client_body .= "<span style=\"color: #c5a047; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;\">PRIVATE MARKET INTELLIGENCE</span>";
+			$client_body .= "</div>";
+			$client_body .= "<div style=\"font-size: 14px; color: #222228;\">" . nl2br( $raw_auto_msg ) . "</div>";
+			$client_body .= "<hr style=\"border: none; border-top: 1px solid #eae7e1; margin: 28px 0;\">";
+			$client_body .= "<p style=\"font-size: 11px; color: #888888; margin: 0;\">" . esc_html( $site_name ) . " • SERHANT. Real Estate Advisory</p>";
+			$client_body .= "</div>";
+
+			wp_mail( $email, $raw_auto_subject, $client_body, $user_headers );
+		}
+
+		// 4. Follow Up Boss (FUB CRM Integration)
+		$enable_fub = isset( $_POST['enable_fub'] ) && 'yes' === $_POST['enable_fub'];
+		if ( $enable_fub && class_exists( 'LRE_FollowUpBoss' ) && ! empty( $email ) ) {
+			$fub_key    = isset( $_POST['fub_api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['fub_api_key'] ) ) : '';
+			$fub_source = isset( $_POST['fub_source'] ) && ! empty( $_POST['fub_source'] )
+				? sanitize_text_field( wp_unslash( $_POST['fub_source'] ) )
+				: 'Website - Newsletter Sign-up';
+			$fub_type   = isset( $_POST['fub_type'] ) && ! empty( $_POST['fub_type'] )
+				? sanitize_text_field( wp_unslash( $_POST['fub_type'] ) )
+				: 'Registration';
+			$fub_tags   = isset( $_POST['fub_tags'] ) && ! empty( $_POST['fub_tags'] )
+				? sanitize_text_field( wp_unslash( $_POST['fub_tags'] ) )
+				: 'Newsletter Subscriber, The Aguirre Report, Website Lead';
+			$fub_stage  = isset( $_POST['fub_stage'] ) ? sanitize_text_field( wp_unslash( $_POST['fub_stage'] ) ) : 'Lead';
+
+			LRE_FollowUpBoss::instance()->send_event( array(
+				'email'       => $email,
+				'source'      => $fub_source,
+				'type'        => $fub_type,
+				'stage'       => $fub_stage,
+				'tags'        => $fub_tags,
+				'message'     => 'Subscribed to Private Market Intelligence / The Aguirre Report',
+				'description' => 'User joined private newsletter list via website pre-footer bar.',
+			), $fub_key );
+		}
+
+		// 5. Elementor Pro Submissions Archival (if active)
+		if ( class_exists( '\ElementorPro\Plugin' ) ) {
+			$submission_data = array(
+				'post_id' => isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0,
+				'form_id' => isset( $_POST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_POST['widget_id'] ) ) : 'lre_newsletter',
+				'fields'  => array( 'email' => $email ),
+				'meta'    => array(
+					'remote_ip'  => $_SERVER['REMOTE_ADDR'] ?? '',
+					'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+					'date'       => current_time( 'mysql' ),
+				),
+			);
+			do_action( 'elementor_pro/forms/new_record', $submission_data );
+		}
+
+		// 6. Response Message & Redirect
+		$success_msg = isset( $_POST['success_message'] ) && ! empty( $_POST['success_message'] )
+			? sanitize_text_field( wp_unslash( $_POST['success_message'] ) )
+			: __( 'Thank you for subscribing. Welcome to The Aguirre Report.', 'luxury-re-widgets' );
+
+		$redirect_url = isset( $_POST['redirect_url'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_url'] ) ) : '';
+
+		wp_send_json_success( array(
+			'message'      => $success_msg,
+			'redirect_url' => $redirect_url,
+		) );
 	}
 }

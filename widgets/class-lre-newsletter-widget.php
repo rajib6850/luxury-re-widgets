@@ -118,13 +118,355 @@ class LRE_Newsletter_Widget extends Widget_Base {
 			)
 		);
 
+		$this->end_controls_section();
+
+		// --- SECTION: SUBMIT BUTTON & CONSENT ---
+		$this->start_controls_section(
+			'section_submit_consent',
+			array(
+				'label' => __( 'Submit Button & Consent', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
 		$this->add_control(
 			'button_text',
 			array(
 				'label'   => __( 'Button Text', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'SUBSCRIBE',
+				'default' => 'JOIN THE REPORT',
 				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'show_consent',
+			array(
+				'label'        => __( 'Show Legal Consent Checkbox', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+			)
+		);
+
+		$this->add_control(
+			'consent_text',
+			array(
+				'label'     => __( 'Legal Consent Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXTAREA,
+				'rows'      => 3,
+				'default'   => 'I agree to receive private real estate market intelligence, noteworthy transaction reports, and property insights from Adolfo Aguirre. Unsubscribe at any time.',
+				'condition' => array(
+					'show_consent' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'privacy_link_text',
+			array(
+				'label'     => __( 'Privacy Policy Link Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'PRIVACY POLICY *',
+				'condition' => array(
+					'show_consent' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'privacy_link_url',
+			array(
+				'label'       => __( 'Privacy Policy URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://...',
+				'default'     => array( 'url' => '#' ),
+				'condition'   => array(
+					'show_consent' => 'yes',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: ACTIONS AFTER SUBMIT ---
+		$this->start_controls_section(
+			'section_actions_after_submit',
+			array(
+				'label' => __( 'Actions After Submit', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'enable_email_notification',
+			array(
+				'label'        => __( 'Send Admin Email Notification', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_client_autoresponder',
+			array(
+				'label'        => __( 'Send Subscriber Welcome Email', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_redirect',
+			array(
+				'label'        => __( 'Redirect After Submit', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_fub',
+			array(
+				'label'        => __( 'Send Subscriber to Follow Up Boss (FUB)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: EMAIL NOTIFICATION SETTINGS (ADMIN) ---
+		$this->start_controls_section(
+			'section_email_settings',
+			array(
+				'label'     => __( 'Email Notification (Admin)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_email_notification' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'email_to',
+			array(
+				'label'       => __( 'To Email(s)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_option( 'admin_email' ),
+				'description' => __( 'Comma-separated list of emails. Defaults to WordPress admin email.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'email_subject',
+			array(
+				'label'   => __( 'Subject', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'New VIP Newsletter Subscriber: {{email}}', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_name',
+			array(
+				'label'       => __( 'From Name', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_bloginfo( 'name' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_email',
+			array(
+				'label'       => __( 'From Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_option( 'admin_email' ),
+			)
+		);
+
+		$this->add_control(
+			'email_cc',
+			array(
+				'label'       => __( 'Cc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'cc@example.com',
+			)
+		);
+
+		$this->add_control(
+			'email_bcc',
+			array(
+				'label'       => __( 'Bcc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'bcc@example.com',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: CLIENT AUTO-RESPONDER ---
+		$this->start_controls_section(
+			'section_autoresponder_settings',
+			array(
+				'label'     => __( 'Subscriber Auto-Responder Email', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_client_autoresponder' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_subject',
+			array(
+				'label'   => __( 'Subject', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Welcome to The Aguirre Report | Private Market Intelligence', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_message',
+			array(
+				'label'   => __( 'Message Body (HTML Allowed)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 6,
+				'default' => __( "Dear Subscriber,\n\nThank you for subscribing to The Aguirre Report.\n\nYou now have priority access to curated off-market architectural acquisitions, private quarterly market insights, and Southern California luxury intelligence delivered discreetly.\n\nWarm regards,\nAdolfo Aguirre | SERHANT.", 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: REDIRECT SETTINGS ---
+		$this->start_controls_section(
+			'section_redirect_settings',
+			array(
+				'label'     => __( 'Redirect Settings', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_redirect' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'redirect_url',
+			array(
+				'label'       => __( 'Redirect URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://yoursite.com/thank-you',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: FOLLOW UP BOSS CRM INTEGRATION ---
+		$this->start_controls_section(
+			'section_fub_settings',
+			array(
+				'label'     => __( 'Follow Up Boss (FUB CRM)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_fub' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_api_key',
+			array(
+				'label'       => __( 'FUB API Key (Optional Override)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Leave blank to use Global API Key', 'luxury-re-widgets' ),
+				'description' => __( 'Leave empty to inherit the global API key configured in WordPress Settings > General.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_source',
+			array(
+				'label'   => __( 'Lead Source', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Website - Newsletter Sign-up',
+			)
+		);
+
+		$this->add_control(
+			'fub_type',
+			array(
+				'label'   => __( 'Event Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'Registration',
+				'options' => array(
+					'Registration'            => __( 'Registration', 'luxury-re-widgets' ),
+					'General Inquiry'         => __( 'General Inquiry', 'luxury-re-widgets' ),
+					'Newsletter Subscription' => __( 'Newsletter Subscription', 'luxury-re-widgets' ),
+					'Market Report'           => __( 'Market Report', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_tags',
+			array(
+				'label'       => __( 'Tags (Comma-Separated)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Newsletter Subscriber, The Aguirre Report, Website Lead',
+				'description' => __( 'Tags automatically applied to the subscriber in Follow Up Boss.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_stage',
+			array(
+				'label'   => __( 'Lead Stage', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Lead',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: CUSTOM MESSAGES ---
+		$this->start_controls_section(
+			'section_custom_messages',
+			array(
+				'label' => __( 'Custom Messages', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'success_message',
+			array(
+				'label'   => __( 'Success Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Thank you for subscribing. Welcome to The Aguirre Report.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'error_message',
+			array(
+				'label'   => __( 'General Error Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'An error occurred. Please try again.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'invalid_email_message',
+			array(
+				'label'   => __( 'Invalid Email Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Please enter a valid email address.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -351,9 +693,35 @@ class LRE_Newsletter_Widget extends Widget_Base {
 
 				<!-- Luxury Form -->
 				<div class="lre-newsletter-white__form-wrap">
-					<form class="lre-newsletter__form lre-newsletter-white__form" method="post" action="#">
+					<form class="lre-newsletter__form lre-newsletter-white__form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 						<input type="hidden" name="action" value="lre_newsletter_submit">
 						<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'lre_nonce' ) ); ?>">
+						<input type="hidden" name="widget_id" value="<?php echo esc_attr( $this->get_id() ); ?>">
+						<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
+
+						<!-- Passing Configurations for Email & Notifications -->
+						<input type="hidden" name="enable_email_notification" value="<?php echo esc_attr( $settings['enable_email_notification'] ?? 'yes' ); ?>">
+						<input type="hidden" name="email_to" value="<?php echo esc_attr( $settings['email_to'] ?? '' ); ?>">
+						<input type="hidden" name="email_subject" value="<?php echo esc_attr( $settings['email_subject'] ?? '' ); ?>">
+						<input type="hidden" name="sender_name" value="<?php echo esc_attr( $settings['sender_name'] ?? '' ); ?>">
+						<input type="hidden" name="sender_email" value="<?php echo esc_attr( $settings['sender_email'] ?? '' ); ?>">
+						<input type="hidden" name="email_cc" value="<?php echo esc_attr( $settings['email_cc'] ?? '' ); ?>">
+						<input type="hidden" name="email_bcc" value="<?php echo esc_attr( $settings['email_bcc'] ?? '' ); ?>">
+						<input type="hidden" name="enable_autoresponder" value="<?php echo esc_attr( $settings['enable_client_autoresponder'] ?? 'yes' ); ?>">
+						<input type="hidden" name="autoresponder_subject" value="<?php echo esc_attr( $settings['autoresponder_subject'] ?? '' ); ?>">
+						<input type="hidden" name="autoresponder_message" value="<?php echo esc_attr( $settings['autoresponder_message'] ?? '' ); ?>">
+						<input type="hidden" name="redirect_url" value="<?php echo esc_attr( $settings['redirect_url']['url'] ?? '' ); ?>">
+						<input type="hidden" name="success_message" value="<?php echo esc_attr( $settings['success_message'] ?? '' ); ?>">
+						<input type="hidden" name="error_message" value="<?php echo esc_attr( $settings['error_message'] ?? '' ); ?>">
+						<input type="hidden" name="invalid_email_message" value="<?php echo esc_attr( $settings['invalid_email_message'] ?? '' ); ?>">
+
+						<!-- Follow Up Boss (FUB CRM) -->
+						<input type="hidden" name="enable_fub" value="<?php echo esc_attr( $settings['enable_fub'] ?? 'yes' ); ?>">
+						<input type="hidden" name="fub_api_key" value="<?php echo esc_attr( $settings['fub_api_key'] ?? '' ); ?>">
+						<input type="hidden" name="fub_source" value="<?php echo esc_attr( $settings['fub_source'] ?? 'Website - Newsletter Sign-up' ); ?>">
+						<input type="hidden" name="fub_type" value="<?php echo esc_attr( $settings['fub_type'] ?? 'Registration' ); ?>">
+						<input type="hidden" name="fub_tags" value="<?php echo esc_attr( $settings['fub_tags'] ?? 'Newsletter Subscriber, The Aguirre Report, Website Lead' ); ?>">
+						<input type="hidden" name="fub_stage" value="<?php echo esc_attr( $settings['fub_stage'] ?? 'Lead' ); ?>">
 
 						<div class="lre-newsletter-white__input-box">
 							<input 
@@ -376,6 +744,22 @@ class LRE_Newsletter_Widget extends Widget_Base {
 								<span class="lre-newsletter__spinner" aria-hidden="true"></span>
 							</button>
 						</div>
+
+						<?php if ( 'yes' === ( $settings['show_consent'] ?? 'no' ) ) : ?>
+							<div class="lre-newsletter-white__consent">
+								<label class="lre-newsletter-white__consent-label">
+									<input type="checkbox" name="consent" class="lre-newsletter-white__consent-check" required>
+									<span class="lre-newsletter-white__consent-text">
+										<?php echo esc_html( $settings['consent_text'] ?? '' ); ?>
+										<?php if ( ! empty( $settings['privacy_link_text'] ) && ! empty( $settings['privacy_link_url']['url'] ) ) : ?>
+											<a href="<?php echo esc_url( $settings['privacy_link_url']['url'] ); ?>" class="lre-newsletter-white__privacy-link" target="_blank" rel="noopener noreferrer">
+												<?php echo esc_html( $settings['privacy_link_text'] ); ?>
+											</a>
+										<?php endif; ?>
+									</span>
+								</label>
+							</div>
+						<?php endif; ?>
 
 						<div class="lre-newsletter__message" aria-live="polite"></div>
 					</form>

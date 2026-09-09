@@ -719,6 +719,16 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'enable_fub',
+			array(
+				'label'        => __( 'Send Lead to Follow Up Boss (FUB)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- SECTION: EMAIL NOTIFICATION SETTINGS ---
@@ -842,6 +852,75 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'       => __( 'Redirect URL', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::URL,
 				'placeholder' => 'https://yoursite.com/thank-you',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION: FOLLOW UP BOSS CRM INTEGRATION ---
+		$this->start_controls_section(
+			'section_fub_settings',
+			array(
+				'label'     => __( 'Follow Up Boss (FUB CRM)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_fub' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_api_key',
+			array(
+				'label'       => __( 'FUB API Key (Optional Override)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Leave blank to use Global API Key', 'luxury-re-widgets' ),
+				'description' => __( 'Leave empty to inherit the global API key configured in WordPress Settings > General.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_source',
+			array(
+				'label'   => __( 'Lead Source', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Website - Contact Page',
+			)
+		);
+
+		$this->add_control(
+			'fub_type',
+			array(
+				'label'   => __( 'Event Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'General Inquiry',
+				'options' => array(
+					'General Inquiry'        => __( 'General Inquiry', 'luxury-re-widgets' ),
+					'Contact Form'           => __( 'Contact Form', 'luxury-re-widgets' ),
+					'Seller Consultation'    => __( 'Seller Consultation', 'luxury-re-widgets' ),
+					'Buyer Consultation'     => __( 'Buyer Consultation', 'luxury-re-widgets' ),
+					'Home Valuation Request' => __( 'Home Valuation Request', 'luxury-re-widgets' ),
+					'Registration'           => __( 'Registration', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_tags',
+			array(
+				'label'       => __( 'Tags (Comma-Separated)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Website Lead, Contact Form, Advisory Inquiry',
+				'description' => __( 'Tags automatically applied to the lead in Follow Up Boss.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_stage',
+			array(
+				'label'   => __( 'Lead Stage', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Lead',
 			)
 		);
 
@@ -1398,6 +1477,14 @@ class LRE_Contact_Widget extends Widget_Base {
 							<input type="hidden" name="redirect_url" value="<?php echo esc_attr( $settings['redirect_url']['url'] ?? '' ); ?>">
 							<input type="hidden" name="success_message" value="<?php echo esc_attr( $settings['success_message'] ?? '' ); ?>">
 							<input type="hidden" name="error_message" value="<?php echo esc_attr( $settings['error_message'] ?? '' ); ?>">
+
+							<!-- Follow Up Boss (FUB CRM) -->
+							<input type="hidden" name="enable_fub" value="<?php echo esc_attr( $settings['enable_fub'] ?? 'no' ); ?>">
+							<input type="hidden" name="fub_api_key" value="<?php echo esc_attr( $settings['fub_api_key'] ?? '' ); ?>">
+							<input type="hidden" name="fub_source" value="<?php echo esc_attr( $settings['fub_source'] ?? 'Website - Contact Page' ); ?>">
+							<input type="hidden" name="fub_type" value="<?php echo esc_attr( $settings['fub_type'] ?? 'General Inquiry' ); ?>">
+							<input type="hidden" name="fub_tags" value="<?php echo esc_attr( $settings['fub_tags'] ?? '' ); ?>">
+							<input type="hidden" name="fub_stage" value="<?php echo esc_attr( $settings['fub_stage'] ?? 'Lead' ); ?>">
 
 							<div class="lre-contact__form-grid">
 								<?php

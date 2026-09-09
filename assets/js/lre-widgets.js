@@ -1743,9 +1743,20 @@
                     var nonce = ( nonceInput && nonceInput.value ) ? nonceInput.value : ( window.LREData && LREData.nonce ? LREData.nonce : '' );
                     var ajaxUrl = ( window.LREData && LREData.ajaxUrl ) ? LREData.ajaxUrl : '/wp-admin/admin-ajax.php';
 
-                    if ( ! email || email.indexOf( '@' ) === -1 || email.indexOf( '.' ) === -1 ) {
+                    var consentInput = form.querySelector( 'input[name="consent"]' );
+                    if ( consentInput && ! consentInput.checked ) {
                         if ( msgBox ) {
-                            msgBox.textContent = 'Please enter a valid email address.';
+                            msgBox.textContent = 'Please agree to the privacy policy to continue.';
+                            msgBox.className = 'lre-newsletter__message is-active is-error';
+                        }
+                        return;
+                    }
+
+                    if ( ! email || email.indexOf( '@' ) === -1 || email.indexOf( '.' ) === -1 ) {
+                        var invalidMsgInput = form.querySelector( 'input[name="invalid_email_message"]' );
+                        var invalidMsg = invalidMsgInput && invalidMsgInput.value ? invalidMsgInput.value : 'Please enter a valid email address.';
+                        if ( msgBox ) {
+                            msgBox.textContent = invalidMsg;
                             msgBox.className = 'lre-newsletter__message is-active is-error';
                         }
                         return;
@@ -1761,10 +1772,13 @@
                         msgBox.textContent = '';
                     }
 
-                    var formData = new FormData();
-                    formData.append( 'action', 'lre_newsletter_submit' );
-                    formData.append( 'email', email );
-                    formData.append( 'nonce', nonce );
+                    var formData = new FormData( form );
+                    if ( ! formData.get( 'action' ) ) {
+                        formData.append( 'action', 'lre_newsletter_submit' );
+                    }
+                    if ( ! formData.get( 'nonce' ) && nonce ) {
+                        formData.append( 'nonce', nonce );
+                    }
 
                     fetch( ajaxUrl, {
                         method: 'POST',
@@ -1782,8 +1796,12 @@
                             if ( data && data.success ) {
                                 msgBox.textContent = ( data.data && data.data.message ) ? data.data.message : 'Thank you for subscribing. Welcome to The Aguirre Report.';
                                 msgBox.className = 'lre-newsletter__message is-active is-success';
-                                if ( emailInput ) {
-                                    emailInput.value = '';
+                                form.reset();
+
+                                if ( data.data && data.data.redirect_url ) {
+                                    setTimeout( function () {
+                                        window.location.href = data.data.redirect_url;
+                                    }, 1200 );
                                 }
                             } else {
                                 msgBox.textContent = ( data && data.data && data.data.message ) ? data.data.message : 'Subscription failed. Please try again.';

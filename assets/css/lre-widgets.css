@@ -13853,6 +13853,40 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   box-shadow: 0 4px 15px rgba(2, 41, 63, 0.12);
 }
 
+/* Legal Consent Checkbox */
+.lre-newsletter-white__consent {
+  margin-top: 0.85rem;
+}
+
+.lre-newsletter-white__consent-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: rgba(2, 41, 63, 0.68);
+  cursor: pointer;
+  user-select: none;
+}
+
+.lre-newsletter-white__consent-check {
+  margin-top: 2px;
+  accent-color: var(--color-secondary, #c5a047);
+  cursor: pointer;
+}
+
+.lre-newsletter-white__privacy-link {
+  color: var(--color-secondary, #c5a047);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.25s ease;
+  font-weight: 500;
+}
+
+.lre-newsletter-white__privacy-link:hover {
+  color: var(--color-primary, #02293f);
+}
+
 /* Toast Message */
 .lre-newsletter-white .lre-newsletter__message {
   margin-top: 0.65rem;

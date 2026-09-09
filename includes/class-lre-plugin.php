@@ -82,7 +82,11 @@ final class LRE_Plugin {
 		require_once LRE_PATH . 'includes/class-lre-ajax-handler.php';
 		new LRE_Ajax_Handler();
 
-		// 7. Load Elementor Global System Bridge.
+		// 7. Load Follow Up Boss CRM Integration.
+		require_once LRE_PATH . 'includes/class-lre-followupboss.php';
+		LRE_FollowUpBoss::instance();
+
+		// 8. Load Elementor Global System Bridge.
 		require_once LRE_PATH . 'includes/class-lre-global-system.php';
 		LRE_Global_System::instance();
 

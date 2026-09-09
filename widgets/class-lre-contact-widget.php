@@ -1250,7 +1250,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Input Focus Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-contact__input:focus, {{WRAPPER}} .lre-contact__select:focus, {{WRAPPER}} .lre-contact__textarea:focus' => 'border-color: {{VALUE}}; box-shadow: 0 0 0 1px {{VALUE}};',
+					'{{WRAPPER}} .lre-contact__input:focus, {{WRAPPER}} .lre-contact__select:focus, {{WRAPPER}} .lre-contact__textarea:focus, {{WRAPPER}} .lre-contact__input:focus-visible, {{WRAPPER}} .lre-contact__select:focus-visible, {{WRAPPER}} .lre-contact__textarea:focus-visible' => 'border-color: {{VALUE}} !important; outline: none !important; box-shadow: none !important;',
 				),
 			)
 		);

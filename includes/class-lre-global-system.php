@@ -105,6 +105,44 @@ body,
   box-shadow: none !important;
 }
 
+/* --- UNIVERSAL INPUT FOCUS OUTLINE & SHADOW SUPPRESSION --- */
+.lre-contact input,
+.lre-contact select,
+.lre-contact textarea,
+.lre-contact [tabindex]:focus,
+.lre-contact [tabindex]:focus-visible,
+[class*="elementor-widget-lre_contact"] input,
+[class*="elementor-widget-lre_contact"] select,
+[class*="elementor-widget-lre_contact"] textarea {
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.lre-contact input:focus,
+.lre-contact select:focus,
+.lre-contact textarea:focus,
+.lre-contact input:focus-visible,
+.lre-contact select:focus-visible,
+.lre-contact textarea:focus-visible,
+[class*="elementor-widget-lre_contact"] input:focus,
+[class*="elementor-widget-lre_contact"] select:focus,
+[class*="elementor-widget-lre_contact"] textarea:focus,
+[class*="elementor-widget-lre_contact"] input:focus-visible,
+[class*="elementor-widget-lre_contact"] select:focus-visible,
+[class*="elementor-widget-lre_contact"] textarea:focus-visible {
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
 /* --- GLOBAL RESPONSIVE CONTAINER SYSTEM (ALL WIDGETS & SECTIONS) --- */
 .container,
 .container--wide,

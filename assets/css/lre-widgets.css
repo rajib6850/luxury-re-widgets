@@ -11149,26 +11149,71 @@ body.elementor-editor-active .lre-contact .reveal,
 
 .lre-contact__input,
 .lre-contact__select,
-.lre-contact__textarea {
+.lre-contact__textarea,
+.lre-contact input.lre-contact__input,
+.lre-contact textarea.lre-contact__textarea,
+.lre-contact select.lre-contact__select,
+.lre-contact input[type="text"],
+.lre-contact input[type="email"],
+.lre-contact input[type="tel"],
+.lre-contact input[type="number"],
+.lre-contact textarea,
+.lre-contact select {
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 6px;
   padding: 13px 16px;
   color: #ffffff;
   font-family: inherit;
   font-size: 0.88rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
   box-sizing: border-box;
 }
 
 .lre-contact__input:focus,
 .lre-contact__select:focus,
-.lre-contact__textarea:focus {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #c5a047;
-  box-shadow: 0 0 0 3px rgba(197, 160, 71, 0.16);
+.lre-contact__textarea:focus,
+.lre-contact__input:focus-visible,
+.lre-contact__select:focus-visible,
+.lre-contact__textarea:focus-visible,
+.lre-contact input.lre-contact__input:focus,
+.lre-contact textarea.lre-contact__textarea:focus,
+.lre-contact select.lre-contact__select:focus,
+.lre-contact input.lre-contact__input:focus-visible,
+.lre-contact textarea.lre-contact__textarea:focus-visible,
+.lre-contact select.lre-contact__select:focus-visible,
+.lre-contact input[type="text"]:focus,
+.lre-contact input[type="email"]:focus,
+.lre-contact input[type="tel"]:focus,
+.lre-contact input[type="number"]:focus,
+.lre-contact textarea:focus,
+.lre-contact select:focus,
+.lre-contact input[type="text"]:focus-visible,
+.lre-contact input[type="email"]:focus-visible,
+.lre-contact input[type="tel"]:focus-visible,
+.lre-contact input[type="number"]:focus-visible,
+.lre-contact textarea:focus-visible,
+.lre-contact select:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
 
 .lre-contact__input::placeholder,

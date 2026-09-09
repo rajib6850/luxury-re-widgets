@@ -32,7 +32,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		$this->add_control( 'bg_image', array(
 			'label'   => __( 'Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
-			'default' => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80' ),
+			'default' => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
 			'dynamic' => array( 'active' => true ),
 		) );
 		$this->end_controls_section();
@@ -405,7 +405,7 @@ class LRE_CTA_Widget extends Widget_Base {
 		$settings      = $this->get_settings_for_display();
 		$tag           = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag           = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
-		$img_url       = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80';
+		$img_url       = ! empty( $settings['bg_image']['url'] ) ? $settings['bg_image']['url'] : lre_asset_url( 'images/property-4.jpg' );
 		$btn1_url      = ! empty( $settings['btn1_url']['url'] ) ? $settings['btn1_url']['url'] : '#contact';
 		$btn1_target   = ! empty( $settings['btn1_url']['is_external'] ) ? '_blank' : '_self';
 		$btn2_url      = ! empty( $settings['btn2_url']['url'] ) ? $settings['btn2_url']['url'] : '#contact';

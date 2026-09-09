@@ -157,7 +157,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 				'label'   => __( 'Architectural Image', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85',
+					'url' => lre_asset_url( 'images/property-1.jpg' ),
 				),
 				'dynamic' => array( 'active' => true ),
 			)
@@ -254,7 +254,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 						'service_title'        => 'Discreet Buyer Advisory',
 						'service_desc'         => 'Exclusive representation for high-net-worth principals, providing priority access to premier off-market properties and institutional-grade negotiation.',
 						'service_capabilities' => "Confidential Off-Market Sourcing\nArchitectural Due Diligence\nDiscreet Offer Structuring",
-						'service_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85' ),
+						'service_image'        => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
 						'show_btn'             => 'yes',
 						'btn_text'             => 'Explore Advisory',
 						'btn_url'              => array( 'url' => '#contact' ),
@@ -265,7 +265,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 						'service_title'        => 'Architectural Realization & Curation',
 						'service_desc'         => 'Comprehensive development guidance, spatial redesign consulting, and high-yield estate curation engineered to maximize long-term asset prestige.',
 						'service_capabilities' => "Development Feasibility Advisory\nSpatial Optimization & Curation\nHigh-Yield Valuation Strategy",
-						'service_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=85' ),
+						'service_image'        => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'show_btn'             => 'yes',
 						'btn_text'             => 'Explore Advisory',
 						'btn_url'              => array( 'url' => '#contact' ),
@@ -276,7 +276,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 						'service_title'        => 'Elite Cross-Border Divestment',
 						'service_desc'         => 'Targeted global marketing syndication connecting trophy estates with pre-vetted international buyers across key wealth corridors.',
 						'service_capabilities' => "Global Private Syndication\nCinematic Media Production\nPrivate Transaction Closing",
-						'service_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85' ),
+						'service_image'        => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'show_btn'             => 'yes',
 						'btn_text'             => 'Explore Advisory',
 						'btn_url'              => array( 'url' => '#contact' ),
@@ -598,7 +598,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 								$cat       = esc_html( $s['service_category'] ?? '' );
 								$stitle    = esc_html( $s['service_title'] ?? '' );
 								$sdesc     = esc_html( $s['service_desc'] ?? '' );
-								$img_url   = ! empty( $s['service_image']['url'] ) ? esc_url( $s['service_image']['url'] ) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85';
+								$img_url   = ! empty( $s['service_image']['url'] ) ? esc_url( $s['service_image']['url'] ) : lre_asset_url( 'images/property-1.jpg' );
 								$show_btn  = ( 'yes' === ( $s['show_btn'] ?? 'yes' ) );
 								$btn_text  = esc_html( $s['btn_text'] ?? 'Explore Advisory' );
 								$cta_url   = ! empty( $s['btn_url']['url'] ) ? esc_url( $s['btn_url']['url'] ) : '#contact';
@@ -669,7 +669,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 						<div class="lre-aserv__split">
 							<div class="lre-aserv__split-media">
 								<div class="lre-aserv__split-frame image-reveal">
-									<?php $first_img = ! empty( $services[0]['service_image']['url'] ) ? $services[0]['service_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85'; ?>
+									<?php $first_img = ! empty( $services[0]['service_image']['url'] ) ? $services[0]['service_image']['url'] : lre_asset_url( 'images/property-1.jpg' ); ?>
 									<img src="<?php echo esc_url( $first_img ); ?>" id="lre-aserv-showcase-img" alt="<?php esc_attr_e( 'Service showcase', 'luxury-re-widgets' ); ?>" loading="lazy">
 									<div class="lre-aserv__card-overlay" aria-hidden="true"></div>
 								</div>
@@ -733,7 +733,7 @@ class LRE_About_Services_Widget extends Widget_Base {
 								$cat      = esc_html( $s['service_category'] ?? '' );
 								$stitle   = esc_html( $s['service_title'] ?? '' );
 								$sdesc    = esc_html( $s['service_desc'] ?? '' );
-								$img_url  = ! empty( $s['service_image']['url'] ) ? esc_url( $s['service_image']['url'] ) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85';
+								$img_url  = ! empty( $s['service_image']['url'] ) ? esc_url( $s['service_image']['url'] ) : lre_asset_url( 'images/property-1.jpg' );
 								$show_btn = ( 'yes' === ( $s['show_btn'] ?? 'yes' ) );
 								$btn_text = esc_html( $s['btn_text'] ?? 'Explore Advisory' );
 								$cta_url  = ! empty( $s['btn_url']['url'] ) ? esc_url( $s['btn_url']['url'] ) : '#contact';

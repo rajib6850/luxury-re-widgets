@@ -118,7 +118,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'   => __( 'Backdrop Photography', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85',
+					'url' => lre_asset_url( 'images/property-1.jpg' ),
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .lre-contact__bg' => 'background-image: url("{{URL}}");',
@@ -235,7 +235,7 @@ class LRE_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Broker Portrait', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::MEDIA,
 				'default'   => array(
-					'url' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=85',
+					'url' => lre_asset_url( 'images/team-1.jpg' ),
 				),
 				'condition' => array(
 					'show_agent_profile' => 'yes',

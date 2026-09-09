@@ -30,7 +30,11 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 		// --- MEDIA & HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header & Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
+		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
+		$blank_avatar     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-blank.svg' : plugins_url( 'assets/images/avatar-blank.svg', dirname( dirname( __FILE__ ) ) );
+		$avatar_1         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-1.jpg' : plugins_url( 'assets/images/avatar-1.jpg', dirname( dirname( __FILE__ ) ) );
+		$avatar_2         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-2.jpg' : plugins_url( 'assets/images/avatar-2.jpg', dirname( dirname( __FILE__ ) ) );
+		$avatar_3         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-3.jpg' : plugins_url( 'assets/images/avatar-3.jpg', dirname( dirname( __FILE__ ) ) );
 		$this->add_control( 'portrait_image', array(
 			'label'   => __( 'Left Portrait Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
@@ -89,7 +93,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$repeater->add_control( 'quote',         array( 'label' => __( 'Quote', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => '"They helped us get 8 offers on our home within 3 days and all of them were above the asking price. If you don\'t want any hassles, definitely choose Victoria Crestwood Group"', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'client_name',   array( 'label' => __( 'Client Name', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'The Blalock Family', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'client_result', array( 'label' => __( 'Result / Subtitle', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Sold in 7 days for 111.2% of their asking price', 'dynamic' => array( 'active' => true ) ) );
-		$repeater->add_control( 'client_avatar', array( 'label' => __( 'Client Avatar', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80' ) ) );
+		$repeater->add_control( 'client_avatar', array( 'label' => __( 'Client Avatar', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => $blank_avatar ) ) );
 
 		$this->add_control( 'testimonials', array(
 			'label'       => __( 'Testimonials', 'luxury-re-widgets' ),
@@ -100,19 +104,19 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'quote'         => '"They helped us get 8 offers on our home within 3 days and all of them were above the asking price. If you don\'t want any hassles, if you want to get top value for your money and if you just want a simple streamline process...definitely choose Victoria Crestwood Group"',
 					'client_name'   => 'The Blalock Family',
 					'client_result' => 'Sold in 7 days for 111.2% of their asking price',
-					'client_avatar' => array( 'url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80' ),
+					'client_avatar' => array( 'url' => $avatar_1 ),
 				),
 				array(
 					'quote'         => '"From our initial private consultation to closing on our Malibu oceanfront villa, Victoria and her team handled every detail flawlessly. We secured our dream residence $320,000 under original asking price in a multiple-offer scenario."',
 					'client_name'   => 'Marcus & Elena Rivera',
 					'client_result' => 'Purchased in Malibu — Closed in 14 days',
-					'client_avatar' => array( 'url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80' ),
+					'client_avatar' => array( 'url' => $avatar_2 ),
 				),
 				array(
 					'quote'         => '"An unprecedented standard of discretion and market intelligence. They identified an off-market Bel Air architectural estate before it ever hit public exchanges, saving our family months of searching."',
 					'client_name'   => 'Dr. Aris Thorne & Family',
 					'client_result' => 'Acquired off-market for 96.5% of appraisal value',
-					'client_avatar' => array( 'url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80' ),
+					'client_avatar' => array( 'url' => $avatar_3 ),
 				),
 			),
 			'title_field' => '{{{ client_name }}}',
@@ -460,7 +464,8 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings         = $this->get_settings_for_display();
-		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=85';
+		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
+		$blank_avatar     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-blank.svg' : plugins_url( 'assets/images/avatar-blank.svg', dirname( dirname( __FILE__ ) ) );
 		$portrait_url     = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : $default_portrait;
 		$tag              = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
@@ -539,8 +544,20 @@ class LRE_Testimonials_Widget extends Widget_Base {
 							<div class="testimonial__track" id="testimonial-track">
 								<?php if ( ! empty( $settings['testimonials'] ) ) :
 									foreach ( $settings['testimonials'] as $index => $item ) :
-										$avatar_url = ! empty( $item['client_avatar']['url'] ) ? $item['client_avatar']['url'] : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80';
-										$active     = 0 === $index ? ' active' : '';
+										$avatar_url = '';
+										if ( ! empty( $item['client_avatar'] ) ) {
+											if ( is_array( $item['client_avatar'] ) && ! empty( $item['client_avatar']['url'] ) ) {
+												$avatar_url = trim( $item['client_avatar']['url'] );
+											} elseif ( is_string( $item['client_avatar'] ) ) {
+												$avatar_url = trim( $item['client_avatar'] );
+											}
+										}
+										if ( empty( $avatar_url ) ) {
+											$avatar_url = $blank_avatar;
+										} else {
+											$avatar_url = lre_resolve_image_url( $avatar_url, $blank_avatar );
+										}
+										$active = 0 === $index ? ' active' : '';
 								?>
 								<div class="testimonial__slide<?php echo esc_attr( $active ); ?>" data-slide="<?php echo esc_attr( $index ); ?>">
 									<blockquote class="testimonial__quote">
@@ -551,7 +568,8 @@ class LRE_Testimonials_Widget extends Widget_Base {
 										<div class="testimonial__author-avatar">
 											<img src="<?php echo esc_url( $avatar_url ); ?>"
 											     alt="<?php echo esc_attr( $item['client_name'] ); ?>"
-											     loading="lazy" width="88" height="88">
+											     loading="lazy" width="88" height="88"
+											     onerror="this.onerror=null;this.src='<?php echo esc_url( $blank_avatar ); ?>';">
 										</div>
 										<div class="testimonial__author-info">
 											<span class="testimonial__author-name"><?php echo esc_html( $item['client_name'] ); ?></span>

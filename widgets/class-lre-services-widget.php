@@ -33,7 +33,7 @@ class LRE_Services_Widget extends Widget_Base {
 		$this->add_control( 'section_image', array(
 			'label'   => __( 'Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
-			'default' => array( 'url' => 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85' ),
+			'default' => array( 'url' => lre_asset_url( 'images/property-9.jpg' ) ),
 			'dynamic' => array( 'active' => true ),
 		) );
 		$this->end_controls_section();
@@ -120,7 +120,7 @@ class LRE_Services_Widget extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
-		$img_url  = ! empty( $settings['section_image']['url'] ) ? $settings['section_image']['url'] : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85';
+		$img_url  = ! empty( $settings['section_image']['url'] ) ? $settings['section_image']['url'] : lre_asset_url( 'images/property-9.jpg' );
 		?>
 		<section class="services" id="services" aria-label="<?php esc_attr_e( 'Our services', 'luxury-re-widgets' ); ?>">
 			<div class="container services__container">

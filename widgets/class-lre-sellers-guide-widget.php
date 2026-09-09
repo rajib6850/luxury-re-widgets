@@ -195,7 +195,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
 				),
 			)
 		);
@@ -227,7 +227,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'Every landmark estate possesses an architectural narrative that transcends conventional appraisal. We conduct exhaustive provenance forensics and cross-border capital liquidity modeling to establish peak sovereign valuation.',
 						'chapter_detail_label' => 'Fiduciary Focus',
 						'chapter_detail_val'   => 'Off-market capital flow analysis & architectural lineage audit',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -237,7 +237,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'The most valuable assets are rarely seen on public portals. We place landmark estates directly into the hands of pre-vetted family offices, sovereign wealth principals, and institutional trustees under strict bilateral non-disclosure agreements.',
 						'chapter_detail_label' => 'Syndication Protocol',
 						'chapter_detail_val'   => 'Direct unlisted placement across verified global family office registries',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'image_align'          => 'right',
 					),
 					array(
@@ -247,7 +247,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'For estates destined for international prominence, we produce director-led 8K architectural cinema and commission bespoke 50-copy clothbound hardcover monographs, distributed exclusively to qualified global collectors and top design publications.',
 						'chapter_detail_label' => 'Media Standard',
 						'chapter_detail_val'   => 'Director-led 8K cinema, hardcover monographs & curated AD / FT press embargo',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -257,7 +257,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'Complete fiduciary discretion from the first confidential memorandum to private wire settlement. We orchestrate blind trust entity deeds and fortified escrow channels to guarantee zero public digital footprint.',
 						'chapter_detail_label' => 'Closing Architecture',
 						'chapter_detail_val'   => 'Blind trust deed filings, multi-currency escrow & complete archival handover',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
 						'image_align'          => 'right',
 					),
 				),
@@ -330,7 +330,7 @@ class LRE_Sellers_Guide_Widget extends Widget_Base {
 					<?php foreach ( $chapters as $c_idx => $ch ) :
 						$align     = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
 						$c_num     = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
-						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85';
+						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : lre_asset_url( 'images/property-2.jpg' );
 						$det_label = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : '';
 						$det_val   = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
 					?>

@@ -189,7 +189,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label'   => __( 'Property Image', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85',
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
 				),
 				'dynamic' => array( 'active' => true ),
 			)
@@ -279,7 +279,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				'fields'      => $repeater->get_controls(),
 				'default'     => array(
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'prop_price'   => '$4,750,000',
 						'prop_address' => '1247 Stoneridge Terrace, Pacific Palisades, CA',
 						'prop_beds'    => 5,
@@ -288,7 +288,7 @@ class LRE_Properties_Widget extends Widget_Base {
 						'prop_badge'   => 'New',
 					),
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'prop_price'   => '$7,280,000',
 						'prop_address' => '802 Emerald Bay Road, Malibu, CA 90265',
 						'prop_beds'    => 6,
@@ -298,7 +298,7 @@ class LRE_Properties_Widget extends Widget_Base {
 						'prop_is_gold' => 'yes',
 					),
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
 						'prop_price'   => '$11,950,000',
 						'prop_address' => '456 Bellagio Road, Bel Air, CA 90077',
 						'prop_beds'    => 8,
@@ -307,7 +307,7 @@ class LRE_Properties_Widget extends Widget_Base {
 						'prop_badge'   => 'New',
 					),
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ),
 						'prop_price'   => '$15,400,000',
 						'prop_address' => '2190 Coldwater Canyon Dr, Beverly Hills, CA',
 						'prop_beds'    => 7,
@@ -317,7 +317,7 @@ class LRE_Properties_Widget extends Widget_Base {
 						'prop_is_gold' => 'yes',
 					),
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-6.jpg' ) ),
 						'prop_price'   => '$8,900,000',
 						'prop_address' => '1054 Ocean Avenue, Santa Monica, CA 90403',
 						'prop_beds'    => 5,
@@ -326,7 +326,7 @@ class LRE_Properties_Widget extends Widget_Base {
 						'prop_badge'   => 'Price Improved',
 					),
 					array(
-						'prop_image'   => array( 'url' => 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=700&q=85' ),
+						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-7.jpg' ) ),
 						'prop_price'   => '$18,250,000',
 						'prop_address' => '312 Meadow Lane, Montecito, CA 93108',
 						'prop_beds'    => 6,
@@ -1536,7 +1536,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				<div class="listings__carousel" id="listings-carousel" data-stagger data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-autoplay-speed="<?php echo esc_attr( $autoplay_speed ); ?>" data-pause-on-hover="<?php echo esc_attr( $pause_on_hover ); ?>">
 					<?php if ( ! empty( $settings['listings'] ) ) :
 						foreach ( $settings['listings'] as $prop ) :
-							$img_url     = ! empty( $prop['prop_image']['url'] ) ? $prop['prop_image']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85';
+							$img_url     = ! empty( $prop['prop_image']['url'] ) ? $prop['prop_image']['url'] : lre_asset_url( 'images/property-2.jpg' );
 							$is_gold     = ! empty( $prop['prop_is_gold'] ) && 'yes' === $prop['prop_is_gold'];
 							$badge_class = $is_gold ? 'listing-card__badge listing-card__badge--gold' : 'listing-card__badge';
 					?>

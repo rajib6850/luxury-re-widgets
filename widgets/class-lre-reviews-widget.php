@@ -214,7 +214,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'   => __( 'Property Backdrop Photo (Optional)', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
 				),
 			)
 		);
@@ -273,10 +273,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'transaction_badge'  => 'Acquisition — $16.5M Bel Air Architectural',
 						'transaction_timing' => '18 Days Off-Market • Complete Discretion',
 						'property_image'     => array(
-							'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+							'url' => lre_asset_url( 'images/property-2.jpg' ),
 						),
 						'client_avatar'      => array(
-							'url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+							'url' => lre_asset_url( 'images/avatar-2.jpg' ),
 						),
 						'star_rating'        => 5,
 						'review_quote'       => 'The discretion and institutional depth they brought to our Bel Air acquisition were unprecedented. They negotiated off-market terms that protected our family privacy and secured an irreplaceable architectural masterwork without a single headline.',
@@ -288,10 +288,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'transaction_badge'  => 'Disposition — $12.2M Malibu Coastal Estate',
 						'transaction_timing' => 'Private Tender • 3 Vetted Sovereign Buyers',
 						'property_image'     => array(
-							'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+							'url' => lre_asset_url( 'images/property-4.jpg' ),
 						),
 						'client_avatar'      => array(
-							'url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+							'url' => lre_asset_url( 'images/team-2.jpg' ),
 						),
 						'star_rating'        => 5,
 						'review_quote'       => 'Selling our family estate of fifteen years required advisors who revered the home’s soul. Within three weeks, they introduced vetted international principals without a single intrusive public showing. An exceptional, sovereign execution.',
@@ -303,10 +303,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'transaction_badge'  => 'Portfolio Advisory — 3 Multi-State Holdings',
 						'transaction_timing' => 'Cross-Jurisdictional Tax & Trust Structuring',
 						'property_image'     => array(
-							'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+							'url' => lre_asset_url( 'images/property-1.jpg' ),
 						),
 						'client_avatar'      => array(
-							'url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+							'url' => lre_asset_url( 'images/avatar-3.jpg' ),
 						),
 						'star_rating'        => 5,
 						'review_quote'       => 'In thirty years of advising multi-generational wealth, I have rarely encountered brokers with such sophisticated mastery of trust structures, fiduciary duty, and off-market valuations. They are true counselors to elite capital.',
@@ -579,9 +579,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 								<div class="lre-reviews__index-items">
 									<?php
 									$default_client_avatars = array(
-										'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
-										'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
-										'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+										lre_asset_url( 'images/avatar-2.jpg' ),
+										lre_asset_url( 'images/team-2.jpg' ),
+										lre_asset_url( 'images/avatar-3.jpg' ),
 									);
 									foreach ( $reviews as $idx => $r ) :
 										$name       = esc_html( $r['client_name'] ?? '' );

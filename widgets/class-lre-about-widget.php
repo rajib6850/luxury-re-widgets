@@ -66,7 +66,7 @@ class LRE_About_Widget extends Widget_Base {
 		$this->add_control( 'main_image', array(
 			'label'   => __( 'Main Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
-			'default' => array( 'url' => 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=85' ),
+			'default' => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ),
 			'dynamic' => array( 'active' => true ),
 		) );
 		$this->end_controls_section();
@@ -306,7 +306,7 @@ class LRE_About_Widget extends Widget_Base {
 		$tag        = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag        = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
 		$watermark  = esc_html( $settings['watermark'] ?? '' );
-		$img_url    = ! empty( $settings['main_image']['url'] ) ? $settings['main_image']['url'] : 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=85';
+		$img_url    = ! empty( $settings['main_image']['url'] ) ? $settings['main_image']['url'] : lre_asset_url( 'images/property-5.jpg' );
 		$btn_url    = ! empty( $settings['btn_url']['url'] ) ? esc_url( $settings['btn_url']['url'] ) : '#';
 		$btn_target = ! empty( $settings['btn_url']['is_external'] ) ? '_blank' : '_self';
 		?>

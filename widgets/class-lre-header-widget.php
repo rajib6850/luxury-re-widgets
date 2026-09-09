@@ -357,7 +357,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'   => __( 'Background Image', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=90&auto=format',
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
 				),
 			)
 		);
@@ -439,28 +439,28 @@ class LRE_Header_Widget extends Widget_Base {
 					array(
 						'box_type'     => 'category',
 						'box_title'    => 'Buyers',
-						'box_img'      => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=90&auto=format' ),
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'box_width'    => 'standard',
 						'category_url' => array( 'url' => '#listings' ),
 					),
 					array(
 						'box_type'     => 'category',
 						'box_title'    => 'Sellers',
-						'box_img'      => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=90&auto=format' ),
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'box_width'    => 'standard',
 						'category_url' => array( 'url' => '#contact' ),
 					),
 					array(
 						'box_type'     => 'category',
 						'box_title'    => 'Investors',
-						'box_img'      => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=90&auto=format' ),
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
 						'box_width'    => 'standard',
 						'category_url' => array( 'url' => '#services' ),
 					),
 					array(
 						'box_type'     => 'links_list',
 						'box_title'    => 'Neighborhoods',
-						'box_img'      => array( 'url' => 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90&auto=format' ),
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-8.jpg' ) ),
 						'box_width'    => 'wide',
 						'column_links' => "Pacific Palisades | #communities\nBel Air | #communities\nBrentwood | #communities\nMalibu | #communities\nHolmby Hills | #communities\nBeverly Hills | #communities",
 						'btn_text'     => 'Find Your Neighborhood',
@@ -469,7 +469,7 @@ class LRE_Header_Widget extends Widget_Base {
 					array(
 						'box_type'     => 'links_list',
 						'box_title'    => 'About Us',
-						'box_img'      => array( 'url' => 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90&auto=format' ),
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-9.jpg' ) ),
 						'box_width'    => 'wide',
 						'column_links' => "Our Story | #about\nMeet The Team | #about\nFeatured Listings | #listings\nClient Reviews | #testimonial\nConnect With Us | #contact\nMarket Insights | #services",
 						'btn_text'     => '',
@@ -1998,7 +1998,7 @@ class LRE_Header_Widget extends Widget_Base {
 								$img_url = wp_get_attachment_image_url( $box['box_img']['id'], 'full' );
 							}
 							if ( empty( $img_url ) ) {
-								$img_url = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=90&auto=format';
+								$img_url = lre_asset_url( 'images/property-1.jpg' );
 							}
 
 							echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
@@ -2055,11 +2055,11 @@ class LRE_Header_Widget extends Widget_Base {
 						}
 					} else {
 						// Backward compatibility fallback for legacy Box 1 to 5
-						$b1_img = ! empty( $settings['drawer_box1_img']['url'] ) ? $settings['drawer_box1_img']['url'] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=90&auto=format';
-						$b2_img = ! empty( $settings['drawer_box2_img']['url'] ) ? $settings['drawer_box2_img']['url'] : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=90&auto=format';
-						$b3_img = ! empty( $settings['drawer_box3_img']['url'] ) ? $settings['drawer_box3_img']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=90&auto=format';
-						$b4_img = ! empty( $settings['drawer_box4_img']['url'] ) ? $settings['drawer_box4_img']['url'] : 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=90&auto=format';
-						$b5_img = ! empty( $settings['drawer_box5_img']['url'] ) ? $settings['drawer_box5_img']['url'] : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90&auto=format';
+						$b1_img = ! empty( $settings['drawer_box1_img']['url'] ) ? $settings['drawer_box1_img']['url'] : lre_asset_url( 'images/property-2.jpg' );
+						$b2_img = ! empty( $settings['drawer_box2_img']['url'] ) ? $settings['drawer_box2_img']['url'] : lre_asset_url( 'images/property-3.jpg' );
+						$b3_img = ! empty( $settings['drawer_box3_img']['url'] ) ? $settings['drawer_box3_img']['url'] : lre_asset_url( 'images/property-1.jpg' );
+						$b4_img = ! empty( $settings['drawer_box4_img']['url'] ) ? $settings['drawer_box4_img']['url'] : lre_asset_url( 'images/property-8.jpg' );
+						$b5_img = ! empty( $settings['drawer_box5_img']['url'] ) ? $settings['drawer_box5_img']['url'] : lre_asset_url( 'images/property-9.jpg' );
 						?>
 						<div class="side-menu__box" data-delay="1">
 							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b1_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box1_title'] ?? 'Buyers' ); ?>" loading="lazy"></div>

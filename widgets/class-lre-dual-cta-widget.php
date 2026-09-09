@@ -59,7 +59,7 @@ class LRE_Dual_CTA_Widget extends Widget_Base {
 				'label'   => __( 'Background Image', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85',
+					'url' => lre_asset_url( 'images/property-1.jpg' ),
 				),
 				'dynamic' => array( 'active' => true ),
 			)
@@ -141,7 +141,7 @@ class LRE_Dual_CTA_Widget extends Widget_Base {
 				'label'   => __( 'Background Image', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85',
+					'url' => lre_asset_url( 'images/property-4.jpg' ),
 				),
 				'dynamic' => array( 'active' => true ),
 			)
@@ -570,8 +570,8 @@ class LRE_Dual_CTA_Widget extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$left_img_url   = ! empty( $settings['left_image']['url'] ) ? $settings['left_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85';
-		$right_img_url  = ! empty( $settings['right_image']['url'] ) ? $settings['right_image']['url'] : 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85';
+		$left_img_url   = ! empty( $settings['left_image']['url'] ) ? $settings['left_image']['url'] : lre_asset_url( 'images/property-1.jpg' );
+		$right_img_url  = ! empty( $settings['right_image']['url'] ) ? $settings['right_image']['url'] : lre_asset_url( 'images/property-4.jpg' );
 
 		$left_btn_url   = ! empty( $settings['left_btn_url']['url'] ) ? $settings['left_btn_url']['url'] : '#contact';
 		$left_target    = ! empty( $settings['left_btn_url']['is_external'] ) ? '_blank' : '_self';

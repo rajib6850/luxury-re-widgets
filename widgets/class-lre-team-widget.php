@@ -178,7 +178,7 @@ class LRE_Team_Widget extends Widget_Base {
 				'label'   => __( 'Portrait Photo', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=85',
+					'url' => lre_asset_url( 'images/team-1.jpg' ),
 				),
 			)
 		);
@@ -266,7 +266,7 @@ class LRE_Team_Widget extends Widget_Base {
 						'member_bio'   => 'A premier luxury real estate specialist with an unparalleled track record in high-stakes negotiations and discreet off-market transactions. Spencer represents discerning clients, cultural icons, and private family offices across prime architectural enclaves.',
 						'member_email' => 'spencer@crestwoodre.com',
 						'member_phone' => '+1 (310) 849-2041',
-						'member_photo' => array( 'url' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=85' ),
+						'member_photo' => array( 'url' => lre_asset_url( 'images/team-1.jpg' ) ),
 					),
 					array(
 						'member_name'  => 'Jill Howell',
@@ -275,7 +275,7 @@ class LRE_Team_Widget extends Widget_Base {
 						'member_bio'   => 'Renowned for her sophisticated marketing strategies and intimate market intelligence, Jill has facilitated over $650M in career volume. Her deep architectural fluency and white-glove approach ensure an effortless acquisition and disposition process.',
 						'member_email' => 'jill@crestwoodre.com',
 						'member_phone' => '+1 (310) 849-2042',
-						'member_photo' => array( 'url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85' ),
+						'member_photo' => array( 'url' => lre_asset_url( 'images/team-2.jpg' ) ),
 					),
 					array(
 						'member_name'  => 'Randi Petersen - Rimando',
@@ -284,7 +284,7 @@ class LRE_Team_Widget extends Widget_Base {
 						'member_bio'   => 'Specializing in prime coastal sanctuaries and landmark estates, Randi blends data-driven valuation acumen with bespoke concierge advisory. Recognized internationally for her unwavering discretion and client-first philosophy.',
 						'member_email' => 'randi@crestwoodre.com',
 						'member_phone' => '+1 (310) 849-2043',
-						'member_photo' => array( 'url' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=85' ),
+						'member_photo' => array( 'url' => lre_asset_url( 'images/team-3.jpg' ) ),
 					),
 					array(
 						'member_name'  => 'Victoria Sterling',
@@ -293,7 +293,7 @@ class LRE_Team_Widget extends Widget_Base {
 						'member_bio'   => 'With over two decades shaping the prime luxury real estate landscape, Victoria steers the firm\'s strategic acquisitions, architectural restorations, and global syndicate partnerships with visionary poise.',
 						'member_email' => 'victoria@crestwoodre.com',
 						'member_phone' => '+1 (310) 849-2040',
-						'member_photo' => array( 'url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900&q=85' ),
+						'member_photo' => array( 'url' => lre_asset_url( 'images/avatar-1.jpg' ) ),
 					),
 					array(
 						'member_name'  => 'Julian Montgomery',
@@ -302,7 +302,7 @@ class LRE_Team_Widget extends Widget_Base {
 						'member_bio'   => 'Former private wealth advisor specializing in mid-century architectural masterworks and confidential off-market acquisitions. Julian delivers rigorous market analysis paired with tailored transaction structuring.',
 						'member_email' => 'julian@crestwoodre.com',
 						'member_phone' => '+1 (310) 849-2045',
-						'member_photo' => array( 'url' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=900&q=85' ),
+						'member_photo' => array( 'url' => lre_asset_url( 'images/team-4.jpg' ) ),
 					),
 				),
 			)
@@ -869,7 +869,7 @@ class LRE_Team_Widget extends Widget_Base {
 						<div class="lre-team__viewport" data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-interval="<?php echo esc_attr( $interval ); ?>">
 							<div class="lre-team__track">
 								<?php foreach ( $members as $idx => $m ) :
-									$photo_url   = ! empty( $m['member_photo']['url'] ) ? esc_url( $m['member_photo']['url'] ) : 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=85';
+									$photo_url   = ! empty( $m['member_photo']['url'] ) ? esc_url( $m['member_photo']['url'] ) : lre_asset_url( 'images/team-1.jpg' );
 									$name        = esc_html( $m['member_name'] ?? '' );
 									$role        = esc_html( $m['member_role'] ?? 'Realtor®' );
 									$lic         = esc_html( $m['member_lic'] ?? '' );

@@ -194,7 +194,7 @@ class LRE_Story_Widget extends Widget_Base {
 				'label'   => __( 'Portrait / Vertical Photo', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85',
+					'url' => lre_asset_url( 'images/property-1.jpg' ),
 				),
 				'dynamic' => array( 'active' => true ),
 			)
@@ -474,7 +474,7 @@ class LRE_Story_Widget extends Widget_Base {
 		$lead         = esc_html( $settings['lead_text'] ?? '' );
 		$story_text   = wp_kses_post( $settings['story_text'] ?? '' );
 
-		$img_url      = ! empty( $settings['image']['url'] ) ? esc_url( $settings['image']['url'] ) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85';
+		$img_url      = ! empty( $settings['image']['url'] ) ? esc_url( $settings['image']['url'] ) : lre_asset_url( 'images/property-1.jpg' );
 		$aspect_ratio = esc_attr( $settings['image_aspect_ratio'] ?? '3/4' );
 		$aspect_style = ( 'auto' !== $aspect_ratio ) ? 'aspect-ratio: ' . $aspect_ratio . ';' : '';
 		$tagline      = esc_html( $settings['image_tagline'] ?? '' );

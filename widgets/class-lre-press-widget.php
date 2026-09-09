@@ -144,8 +144,9 @@ class LRE_Press_Widget extends Widget_Base {
 			)
 		);
 
-		$default_voyage  = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
-		$default_serhant = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_voyage      = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_serhant     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_award_badge = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/effectiveagents-badge.svg' : plugins_url( 'assets/images/effectiveagents-badge.svg', dirname( dirname( __FILE__ ) ) );
 
 		// Entity 1: Voyage LA
 		$this->add_control(
@@ -213,7 +214,7 @@ class LRE_Press_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Official SVG Badge URL', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'https://www.effectiveagents.com/api/awards/badge/adolfo-aguirre/4.svg?variant=green',
+				'default' => $default_award_badge,
 			)
 		);
 
@@ -1270,8 +1271,9 @@ class LRE_Press_Widget extends Widget_Base {
 
 		$strip_style = ! empty( $css_vars ) ? implode( '; ', $css_vars ) . ';' : '';
 
-		$default_voyage  = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
-		$default_serhant = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_voyage      = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_serhant     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
+		$default_award_badge = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/effectiveagents-badge.svg' : plugins_url( 'assets/images/effectiveagents-badge.svg', dirname( dirname( __FILE__ ) ) );
 
 		$voyage_logo_url = ! empty( $settings['voyage_logo']['url'] ) 
 			? esc_url( $settings['voyage_logo']['url'] ) 
@@ -1280,6 +1282,11 @@ class LRE_Press_Widget extends Widget_Base {
 		$serhant_logo_url = ! empty( $settings['serhant_logo']['url'] ) 
 			? esc_url( $settings['serhant_logo']['url'] ) 
 			: $default_serhant;
+
+		$award_badge_url = ! empty( $settings['award_badge_svg'] ) ? esc_url( $settings['award_badge_svg'] ) : $default_award_badge;
+		if ( false !== strpos( $award_badge_url, 'effectiveagents.com/api/awards/badge' ) ) {
+			$award_badge_url = $default_award_badge;
+		}
 
 		$voyage_url  = ! empty( $settings['voyage_link']['url'] ) ? esc_url( $settings['voyage_link']['url'] ) : '#';
 		$award_url   = ! empty( $settings['award_link']['url'] ) ? esc_url( $settings['award_link']['url'] ) : '#';
@@ -1366,8 +1373,8 @@ class LRE_Press_Widget extends Widget_Base {
 								<span class="lre-press-portal__tag"><?php echo esc_html( $settings['award_tag'] ); ?></span>
 							<?php endif; ?>
 							<div class="lre-press-portal__logo-box">
-								<?php if ( ! empty( $settings['award_badge_svg'] ) ) : ?>
-									<img src="<?php echo esc_url( $settings['award_badge_svg'] ); ?>" alt="<?php esc_attr_e( 'Top Real Estate Agent Award', 'luxury-re-widgets' ); ?>" width="165" height="52" loading="lazy" class="lre-press-portal__img lre-press-portal__img--award">
+								<?php if ( ! empty( $award_badge_url ) ) : ?>
+									<img src="<?php echo esc_url( $award_badge_url ); ?>" alt="<?php esc_attr_e( 'Top Real Estate Agent Award', 'luxury-re-widgets' ); ?>" width="165" height="52" loading="lazy" class="lre-press-portal__img lre-press-portal__img--award">
 								<?php endif; ?>
 							</div>
 							<?php if ( ! empty( $settings['award_btn_text'] ) ) : ?>

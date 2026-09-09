@@ -68,7 +68,7 @@ class LRE_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Background Image', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::MEDIA,
 				'default'   => array(
-					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85',
+					'url' => lre_asset_url( 'images/property-1.jpg' ),
 				),
 				'condition' => array( 'bg_media_type' => 'image' ),
 			)
@@ -80,9 +80,9 @@ class LRE_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Slideshow Gallery Images', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::GALLERY,
 				'default'   => array(
-					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85' ),
-					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85' ),
-					array( 'id' => 0, 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85' ),
+					array( 'id' => 0, 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
+					array( 'id' => 0, 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
+					array( 'id' => 0, 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 				),
 				'condition' => array( 'bg_media_type' => 'slider' ),
 			)
@@ -747,11 +747,11 @@ class LRE_Hero_Widget extends Widget_Base {
 				$gallery  = ! empty( $settings['slider_images'] ) ? $settings['slider_images'] : array();
 				$interval = ! empty( $settings['slider_autoplay_interval'] ) ? intval( $settings['slider_autoplay_interval'] ) : 5000;
 				if ( empty( $gallery ) ) {
-					$fallback_url = ! empty( $settings['hero_bg_image']['url'] ) ? $settings['hero_bg_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85';
+					$fallback_url = ! empty( $settings['hero_bg_image']['url'] ) ? $settings['hero_bg_image']['url'] : lre_asset_url( 'images/property-1.jpg' );
 					$gallery = array(
 						array( 'url' => $fallback_url ),
-						array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85' ),
-						array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85' ),
+						array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
+						array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 					);
 				}
 			?>
@@ -841,13 +841,13 @@ class LRE_Hero_Widget extends Widget_Base {
 						</div>
 					<?php else : ?>
 						<div class="hero__background<?php echo esc_attr( $ken_burns ); ?>">
-							<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85" alt="" fetchpriority="high">
+							<img src=lre_asset_url( 'images/property-1.jpg' ) alt="" fetchpriority="high">
 						</div>
 					<?php endif; ?>
 				</div>
 
 			<?php else :
-				$bg_url = ! empty( $settings['hero_bg_image']['url'] ) ? $settings['hero_bg_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85';
+				$bg_url = ! empty( $settings['hero_bg_image']['url'] ) ? $settings['hero_bg_image']['url'] : lre_asset_url( 'images/property-1.jpg' );
 			?>
 				<!-- Single Background Image -->
 				<div class="hero__background<?php echo esc_attr( $ken_burns ); ?>">

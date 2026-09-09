@@ -196,7 +196,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => array(
-					'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85',
+					'url' => lre_asset_url( 'images/property-3.jpg' ),
 				),
 			)
 		);
@@ -228,7 +228,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'Over seventy percent of landmark architectural estates never reach public market channels. We unlock private generational trusts, sovereign registries, and unlisted portfolios directly for vetted principals.',
 						'chapter_detail_label' => 'Curation Standard',
 						'chapter_detail_val'   => 'Off-market provenance forensics & direct family office syndication',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -238,7 +238,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'Beyond aesthetic grandeur lies structural lineage. We assemble world-tier structural engineers, conservation historians, and municipal land-sovereignty advisors before contractual commitment.',
 						'chapter_detail_label' => 'Advisory Audit',
 						'chapter_detail_val'   => 'Engineering integrity audit, boundary sovereignty & archival provenance',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'image_align'          => 'right',
 					),
 					array(
@@ -248,7 +248,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'Structuring multi-jurisdictional acquisitions with absolute discretion. We coordinate bilateral non-disclosure frameworks, domestic blind trusts, and confidential multi-currency escrow facilities.',
 						'chapter_detail_label' => 'Legal Architecture',
 						'chapter_detail_val'   => 'Fiduciary entity shielding, foreign tax treaty optimization & private escrow',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -258,7 +258,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 						'chapter_narrative'    => 'From discreet wire closing to secure biometric key exchange. We orchestrate private physical security transition, staff curation, and perpetual estate management concierge.',
 						'chapter_detail_label' => 'Handover Protocol',
 						'chapter_detail_val'   => 'Direct wire escrow, white-glove archival handover & perpetual concierge retention',
-						'chapter_image'        => array( 'url' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85' ),
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
 						'image_align'          => 'right',
 					),
 				),
@@ -331,7 +331,7 @@ class LRE_Buying_Guide_Widget extends Widget_Base {
 					<?php foreach ( $chapters as $c_idx => $ch ) :
 						$align     = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
 						$c_num     = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
-						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85';
+						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : lre_asset_url( 'images/property-3.jpg' );
 						$det_label = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : '';
 						$det_val   = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
 					?>

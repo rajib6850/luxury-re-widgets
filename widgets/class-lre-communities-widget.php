@@ -50,7 +50,7 @@ class LRE_Communities_Widget extends Widget_Base {
 		$this->start_controls_section( 'section_communities', array( 'label' => __( 'Communities', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
 		$repeater = new Repeater();
-		$repeater->add_control( 'comm_image', array( 'label' => __( 'Community Image', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85' ), 'dynamic' => array( 'active' => true ) ) );
+		$repeater->add_control( 'comm_image', array( 'label' => __( 'Community Image', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ), 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'comm_name',  array( 'label' => __( 'Community Name',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,  'default' => 'Pacific Palisades', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'comm_link',  array( 'label' => __( 'Community URL',   'luxury-re-widgets' ), 'type' => Controls_Manager::URL,   'default' => array( 'url' => '#' ) ) );
 
@@ -59,12 +59,12 @@ class LRE_Communities_Widget extends Widget_Base {
 			'type'        => Controls_Manager::REPEATER,
 			'fields'      => $repeater->get_controls(),
 			'default'     => array(
-				array( 'comm_name' => 'Pacific Palisades', 'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85' ) ),
-				array( 'comm_name' => 'Bel Air',           'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85' ) ),
-				array( 'comm_name' => 'Brentwood',         'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=85' ) ),
-				array( 'comm_name' => 'Malibu',            'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=85' ) ),
-				array( 'comm_name' => 'Holmby Hills',      'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=700&q=85' ) ),
-				array( 'comm_name' => 'Beverly Hills',     'comm_image' => array( 'url' => 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=700&q=85' ) ),
+				array( 'comm_name' => 'Pacific Palisades', 'comm_image' => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ) ),
+				array( 'comm_name' => 'Bel Air',           'comm_image' => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ) ),
+				array( 'comm_name' => 'Brentwood',         'comm_image' => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ) ),
+				array( 'comm_name' => 'Malibu',            'comm_image' => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ) ),
+				array( 'comm_name' => 'Holmby Hills',      'comm_image' => array( 'url' => lre_asset_url( 'images/property-6.jpg' ) ) ),
+				array( 'comm_name' => 'Beverly Hills',     'comm_image' => array( 'url' => lre_asset_url( 'images/property-7.jpg' ) ) ),
 			),
 			'title_field' => '{{{ comm_name }}}',
 		) );
@@ -496,7 +496,7 @@ class LRE_Communities_Widget extends Widget_Base {
 				<div class="communities__track" id="communities-track">
 					<?php if ( ! empty( $communities ) ) :
 						foreach ( $communities as $c ) :
-							$img_url     = ! empty( $c['comm_image']['url'] ) ? $c['comm_image']['url'] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85';
+							$img_url     = ! empty( $c['comm_image']['url'] ) ? $c['comm_image']['url'] : lre_asset_url( 'images/property-1.jpg' );
 							$link_url    = ! empty( $c['comm_link']['url'] ) ? esc_url( $c['comm_link']['url'] ) : '#';
 							$link_target = ! empty( $c['comm_link']['is_external'] ) ? '_blank' : '_self';
 					?>

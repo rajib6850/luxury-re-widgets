@@ -30,11 +30,11 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 		// --- MEDIA & HEADER ---
 		$this->start_controls_section( 'section_header', array( 'label' => __( 'Header & Media', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
-		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
-		$blank_avatar     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-blank.svg' : plugins_url( 'assets/images/avatar-blank.svg', dirname( dirname( __FILE__ ) ) );
-		$avatar_1         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-1.jpg' : plugins_url( 'assets/images/avatar-1.jpg', dirname( dirname( __FILE__ ) ) );
-		$avatar_2         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-2.jpg' : plugins_url( 'assets/images/avatar-2.jpg', dirname( dirname( __FILE__ ) ) );
-		$avatar_3         = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-3.jpg' : plugins_url( 'assets/images/avatar-3.jpg', dirname( dirname( __FILE__ ) ) );
+		$default_portrait   = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
+		$elementor_fallback = class_exists( '\Elementor\Utils' ) ? \Elementor\Utils::get_placeholder_image_src() : '';
+		$avatar_1           = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-1.jpg' : plugins_url( 'assets/images/avatar-1.jpg', dirname( dirname( __FILE__ ) ) );
+		$avatar_2           = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-2.jpg' : plugins_url( 'assets/images/avatar-2.jpg', dirname( dirname( __FILE__ ) ) );
+		$avatar_3           = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-3.jpg' : plugins_url( 'assets/images/avatar-3.jpg', dirname( dirname( __FILE__ ) ) );
 		$this->add_control( 'portrait_image', array(
 			'label'   => __( 'Left Portrait Image', 'luxury-re-widgets' ),
 			'type'    => Controls_Manager::MEDIA,
@@ -93,7 +93,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$repeater->add_control( 'quote',         array( 'label' => __( 'Quote', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXTAREA, 'default' => '"They helped us get 8 offers on our home within 3 days and all of them were above the asking price. If you don\'t want any hassles, definitely choose Victoria Crestwood Group"', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'client_name',   array( 'label' => __( 'Client Name', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'The Blalock Family', 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'client_result', array( 'label' => __( 'Result / Subtitle', 'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT, 'default' => 'Sold in 7 days for 111.2% of their asking price', 'dynamic' => array( 'active' => true ) ) );
-		$repeater->add_control( 'client_avatar', array( 'label' => __( 'Client Avatar', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => $blank_avatar ) ) );
+		$repeater->add_control( 'client_avatar', array( 'label' => __( 'Client Avatar', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => $elementor_fallback ) ) );
 
 		$this->add_control( 'testimonials', array(
 			'label'       => __( 'Testimonials', 'luxury-re-widgets' ),
@@ -464,8 +464,8 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings         = $this->get_settings_for_display();
-		$default_portrait = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
-		$blank_avatar     = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/avatar-blank.svg' : plugins_url( 'assets/images/avatar-blank.svg', dirname( dirname( __FILE__ ) ) );
+		$default_portrait   = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/testimonial-clients.jpg' : plugins_url( 'assets/images/testimonial-clients.jpg', dirname( dirname( __FILE__ ) ) );
+		$elementor_fallback = class_exists( '\Elementor\Utils' ) ? \Elementor\Utils::get_placeholder_image_src() : '';
 		$portrait_url     = ! empty( $settings['portrait_image']['url'] ) ? $settings['portrait_image']['url'] : $default_portrait;
 		$tag              = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
@@ -552,10 +552,10 @@ class LRE_Testimonials_Widget extends Widget_Base {
 												$avatar_url = trim( $item['client_avatar'] );
 											}
 										}
-										if ( empty( $avatar_url ) ) {
-											$avatar_url = $blank_avatar;
+										if ( empty( $avatar_url ) || false !== strpos( $avatar_url, 'avatar-blank.svg' ) ) {
+											$avatar_url = $elementor_fallback;
 										} else {
-											$avatar_url = lre_resolve_image_url( $avatar_url, $blank_avatar );
+											$avatar_url = lre_resolve_image_url( $avatar_url, $elementor_fallback );
 										}
 										$active = 0 === $index ? ' active' : '';
 								?>
@@ -569,7 +569,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 											<img src="<?php echo esc_url( $avatar_url ); ?>"
 											     alt="<?php echo esc_attr( $item['client_name'] ); ?>"
 											     loading="lazy" width="88" height="88"
-											     onerror="this.onerror=null;this.src='<?php echo esc_url( $blank_avatar ); ?>';">
+											     onerror="this.onerror=null;this.src='<?php echo esc_url( $elementor_fallback ); ?>';">
 										</div>
 										<div class="testimonial__author-info">
 											<span class="testimonial__author-name"><?php echo esc_html( $item['client_name'] ); ?></span>

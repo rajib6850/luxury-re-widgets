@@ -589,7 +589,8 @@ button.btn {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   line-height: 1;
-  padding: 0.85rem 1.8rem;
+  padding: 1.3rem 2.2rem;
+  min-height: 54px;
   border-width: 1px;
   border-style: solid;
   border-color: transparent;
@@ -1724,8 +1725,8 @@ button.btn {
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  padding: 0.85rem 1.8rem;
-  min-height: 42px;
+  padding: 1.3rem 2.2rem;
+  min-height: 54px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   text-decoration: none;
   display: inline-flex;
@@ -12784,9 +12785,10 @@ body.elementor-editor-active .lre-sguide__watermark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.95rem 2.2rem;
+  padding: 1.3rem 2.2rem;
+  min-height: 54px;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;

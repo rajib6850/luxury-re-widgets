@@ -487,9 +487,9 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'rem', 'em' ),
 				'default'    => array(
-					'top'      => '0.95',
+					'top'      => '1.3',
 					'right'    => '2.2',
-					'bottom'   => '0.95',
+					'bottom'   => '1.3',
 					'left'     => '2.2',
 					'unit'     => 'rem',
 					'isLinked' => false,

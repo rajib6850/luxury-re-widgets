@@ -699,6 +699,79 @@ class LRE_Newsletter_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'heading_btn_spacing',
+			array(
+				'label'     => __( 'Button Padding & Spacing', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Button Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '0.85',
+					'right'    => '1.8',
+					'bottom'   => '0.85',
+					'left'     => '1.8',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-newsletter-white__btn, {{WRAPPER}} .btn.lre-newsletter-white__btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_margin',
+			array(
+				'label'      => __( 'Button Margin / Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-newsletter-white__btn, {{WRAPPER}} .btn.lre-newsletter-white__btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_gap',
+			array(
+				'label'      => __( 'Icon Spacing (Gap)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 40 ),
+					'rem' => array( 'min' => 0, 'max' => 3 ),
+				),
+				'default'    => array(
+					'unit' => 'rem',
+					'size' => 0.55,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-newsletter-white__btn' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-newsletter-white__btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

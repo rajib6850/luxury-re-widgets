@@ -247,9 +247,6 @@ input[type="submit"].btn,
 .lre-dual-cta .btn,
 .lre-dual-cta__btn,
 .lre-dual-cta a.btn,
-.lre-newsletter__btn,
-.lre-newsletter-white__btn,
-.btn.lre-newsletter-white__btn,
 .side-menu__find-btn,
 .lre-guide .btn,
 .lre-guide__btn,
@@ -261,9 +258,9 @@ input[type="submit"].btn,
 .lre-contact__btn,
 .lre-contact .btn,
 .lre-contact button[type="submit"],
-.elementor-widget .btn,
-.elementor-widget a.btn,
-.elementor-widget button.btn {
+.elementor-widget .btn:not(.lre-newsletter-white__btn),
+.elementor-widget a.btn:not(.lre-newsletter-white__btn),
+.elementor-widget button.btn:not(.lre-newsletter-white__btn) {
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -289,9 +286,9 @@ input[type="submit"].btn,
 }
 
 /* High-specificity override for per-widget Elementor compiled rules */
-body .elementor-element .btn,
-body .elementor-element a.btn,
-body .elementor-element button.btn,
+body .elementor-element .btn:not(.lre-newsletter-white__btn),
+body .elementor-element a.btn:not(.lre-newsletter-white__btn),
+body .elementor-element button.btn:not(.lre-newsletter-white__btn),
 body .elementor-element .listings__cta-group .btn,
 body .elementor-element .about .btn,
 body .elementor-element .cta__buttons .btn,
@@ -299,14 +296,39 @@ body .elementor-element .cta__buttons a.btn,
 body .elementor-element .lre-dual-cta__btn,
 body .elementor-element .lre-story .btn,
 body .elementor-element .lre-aserv .btn,
-body .elementor-element .lre-phero__actions .btn,
-body .elementor-element .lre-newsletter-white__btn {
+body .elementor-element .lre-phero__actions .btn {
   padding: 1.3rem 2.2rem !important;
   min-height: 54px !important;
   font-size: 0.65rem !important;
   letter-spacing: 2.5px !important;
   line-height: 1 !important;
   box-sizing: border-box !important;
+}
+
+/* Newsletter Submit Button (Reduced / Compact Capsule Sizing with Full Elementor Control) */
+.lre-newsletter-white__btn,
+.btn.lre-newsletter-white__btn,
+.lre-newsletter-white .lre-newsletter__btn {
+  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.2px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  padding: 0.85rem 1.8rem;
+  min-height: 44px;
+  border: none !important;
+  border-radius: 3px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, color 0.4s ease !important;
 }
 
 .btn span,

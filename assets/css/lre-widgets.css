@@ -11023,6 +11023,7 @@ body.elementor-editor-active .lre-contact .reveal,
 
 .lre-contact__social {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -11031,19 +11032,32 @@ body.elementor-editor-active .lre-contact .reveal,
   height: 32px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: all 0.3s ease;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.lre-contact__social-link svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.lre-contact__social-link i {
+  font-size: 13px;
+  line-height: 1;
+  display: inline-block;
 }
 
 .lre-contact__social-link:hover {
   border-color: #c5a047;
   color: #c5a047;
   background: rgba(197, 160, 71, 0.12);
-  transform: translateY(-2px);
 }
 
 /* ── RIGHT COLUMN: FLOATING MESSAGE CARD ── */

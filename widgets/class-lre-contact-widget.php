@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
+use Elementor\Icons_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -170,39 +171,77 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'phone_label',
+		$rep_contact = new Repeater();
+
+		$rep_contact->add_control(
+			'item_label',
 			array(
-				'label'   => __( 'Phone Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'PHONE:',
+				'label'       => __( 'Label', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'PHONE:',
+				'placeholder' => 'e.g. PHONE:, EMAIL:, OFFICE:, DRE #:, DIRECT:',
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_contact->add_control(
+			'item_value',
+			array(
+				'label'       => __( 'Value / Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '877-976-5348',
+				'placeholder' => 'e.g. 877-976-5348, info@example.com',
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_contact->add_control(
+			'link_type',
+			array(
+				'label'   => __( 'Link Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'tel',
+				'options' => array(
+					'none'   => __( 'None (Plain Text)', 'luxury-re-widgets' ),
+					'tel'    => __( 'Phone Call (tel:)', 'luxury-re-widgets' ),
+					'mailto' => __( 'Email (mailto:)', 'luxury-re-widgets' ),
+					'custom' => __( 'Custom URL / Web Link', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$rep_contact->add_control(
+			'custom_url',
+			array(
+				'label'       => __( 'Custom Link URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://...',
+				'condition'   => array(
+					'link_type' => 'custom',
+				),
+				'dynamic'     => array( 'active' => true ),
 			)
 		);
 
 		$this->add_control(
-			'phone_number',
+			'contact_coordinates',
 			array(
-				'label'   => __( 'Phone Number', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '877-976-5348',
-			)
-		);
-
-		$this->add_control(
-			'email_label',
-			array(
-				'label'   => __( 'Email Label', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'EMAIL:',
-			)
-		);
-
-		$this->add_control(
-			'email_address',
-			array(
-				'label'   => __( 'Email Address', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'INFO@YREALTYINC.COM',
+				'label'       => __( 'Contact Information (Repeater)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $rep_contact->get_controls(),
+				'default'     => array(
+					array(
+						'item_label' => 'PHONE:',
+						'item_value' => '877-976-5348',
+						'link_type'  => 'tel',
+					),
+					array(
+						'item_label' => 'EMAIL:',
+						'item_value' => 'INFO@YREALTYINC.COM',
+						'link_type'  => 'mailto',
+					),
+				),
+				'title_field' => '{{{ item_label }}} {{{ item_value }}}',
 			)
 		);
 
@@ -307,41 +346,90 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'social_facebook',
+		$rep_agent_social = new Repeater();
+
+		$rep_agent_social->add_control(
+			'social_title',
 			array(
-				'label'       => __( 'Facebook URL', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://facebook.com/...',
-				'default'     => array( 'url' => '#' ),
-				'condition'   => array(
-					'show_agent_profile' => 'yes',
-					'show_social_links'  => 'yes',
+				'label'       => __( 'Platform / Title', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Instagram',
+				'placeholder' => __( 'e.g. Facebook, Instagram, YouTube, LinkedIn, X, TikTok, WhatsApp', 'luxury-re-widgets' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_agent_social->add_control(
+			'social_icon',
+			array(
+				'label'   => __( 'Icon', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::ICONS,
+				'default' => array(
+					'value'   => 'fab fa-instagram',
+					'library' => 'fa-brands',
 				),
 			)
 		);
 
-		$this->add_control(
-			'social_instagram',
+		$rep_agent_social->add_control(
+			'social_url',
 			array(
-				'label'       => __( 'Instagram URL', 'luxury-re-widgets' ),
+				'label'       => __( 'Link URL', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://instagram.com/...',
-				'default'     => array( 'url' => '#' ),
-				'condition'   => array(
-					'show_agent_profile' => 'yes',
-					'show_social_links'  => 'yes',
+				'placeholder' => __( 'https://your-profile-url.com', 'luxury-re-widgets' ),
+				'default'     => array(
+					'url'         => '#',
+					'is_external' => true,
 				),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$rep_agent_social->add_control(
+			'open_new_tab',
+			array(
+				'label'        => __( 'Always Open in New Tab', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
 			)
 		);
 
 		$this->add_control(
-			'social_youtube',
+			'agent_social_links',
 			array(
-				'label'       => __( 'YouTube URL', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://youtube.com/...',
-				'default'     => array( 'url' => '#' ),
+				'label'       => __( 'Social Media Links (Repeater)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $rep_agent_social->get_controls(),
+				'default'     => array(
+					array(
+						'social_title' => 'Facebook',
+						'social_icon'  => array( 'value' => 'fab fa-facebook-f', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'Instagram',
+						'social_icon'  => array( 'value' => 'fab fa-instagram', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'YouTube',
+						'social_icon'  => array( 'value' => 'fab fa-youtube', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+					array(
+						'social_title' => 'LinkedIn',
+						'social_icon'  => array( 'value' => 'fab fa-linkedin-in', 'library' => 'fa-brands' ),
+						'social_url'   => array( 'url' => '#', 'is_external' => true ),
+						'open_new_tab' => 'yes',
+					),
+				),
+				'title_field' => '{{{ social_title }}}',
 				'condition'   => array(
 					'show_agent_profile' => 'yes',
 					'show_social_links'  => 'yes',
@@ -1050,12 +1138,74 @@ class LRE_Contact_Widget extends Widget_Base {
 			)
 		);
 
+		// --- Coordinates Styling ---
+		$this->add_control(
+			'heading_direct_style',
+			array(
+				'label'     => __( 'Coordinates / Contact Info', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'direct_lbl_color',
+			array(
+				'label'     => __( 'Label Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__direct-lbl' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'direct_lbl_typography',
+				'label'    => __( 'Label Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-contact__direct-lbl',
+			)
+		);
+
+		$this->add_control(
+			'direct_val_color',
+			array(
+				'label'     => __( 'Value Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__direct-val' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'direct_val_hover_color',
+			array(
+				'label'     => __( 'Value Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} a.lre-contact__direct-val:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'direct_val_typography',
-				'label'    => __( 'Direct Phone/Email Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Value Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-contact__direct-val, {{WRAPPER}} .lre-contact__direct-item',
+			)
+		);
+
+		// --- Broker Profile Styling ---
+		$this->add_control(
+			'heading_agent_style',
+			array(
+				'label'     => __( 'Broker Profile Card', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -1076,6 +1226,121 @@ class LRE_Contact_Widget extends Widget_Base {
 				'selector' => '{{WRAPPER}} .lre-contact__agent-title, {{WRAPPER}} .lre-contact__agent-address',
 			)
 		);
+
+		$this->add_responsive_control(
+			'social_icon_size',
+			array(
+				'label'      => __( 'Social Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 10, 'max' => 28 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__social-link svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .lre-contact__social-link i'   => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'social_box_size',
+			array(
+				'label'      => __( 'Social Circle Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 24, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-contact__social-link' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_profile_social_style' );
+
+		$this->start_controls_tab(
+			'tab_profile_social_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'profile_social_color',
+			array(
+				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'profile_social_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'profile_social_border',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_profile_social_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'profile_social_hover_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'profile_social_hover_bg',
+			array(
+				'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'profile_social_hover_border',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-contact__social-link:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 
@@ -1455,22 +1720,73 @@ class LRE_Contact_Widget extends Widget_Base {
 
 					<!-- Direct Coordinates -->
 					<div class="lre-contact__direct reveal <?php echo $is_edit_mode ? 'revealed' : ''; ?>">
-						<?php if ( ! empty( $settings['phone_number'] ) ) : ?>
-							<div class="lre-contact__direct-item">
-								<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['phone_label'] ); ?></span>
-								<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ); ?>" class="lre-contact__direct-val">
-									<?php echo esc_html( $settings['phone_number'] ); ?>
-								</a>
-							</div>
-						<?php endif; ?>
+						<?php
+						$coordinates = ! empty( $settings['contact_coordinates'] ) ? $settings['contact_coordinates'] : array();
+						if ( ! empty( $coordinates ) ) :
+							foreach ( $coordinates as $c_item ) :
+								$c_label   = $c_item['item_label'] ?? '';
+								$c_val     = $c_item['item_value'] ?? '';
+								$link_type = $c_item['link_type'] ?? 'none';
+								if ( empty( $c_label ) && empty( $c_val ) ) {
+									continue;
+								}
+								$href   = '';
+								$target = '_self';
+								$rel    = '';
 
-						<?php if ( ! empty( $settings['email_address'] ) ) : ?>
-							<div class="lre-contact__direct-item">
-								<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['email_label'] ); ?></span>
-								<a href="mailto:<?php echo esc_attr( $settings['email_address'] ); ?>" class="lre-contact__direct-val">
-									<?php echo esc_html( $settings['email_address'] ); ?>
-								</a>
-							</div>
+								if ( 'tel' === $link_type && ! empty( $c_val ) ) {
+									$clean_tel = preg_replace( '/[^0-9+]/', '', $c_val );
+									$href      = 'tel:' . esc_attr( $clean_tel );
+								} elseif ( 'mailto' === $link_type && ! empty( $c_val ) ) {
+									$href = 'mailto:' . esc_attr( trim( $c_val ) );
+								} elseif ( 'custom' === $link_type ) {
+									$raw_url = $c_item['custom_url']['url'] ?? '';
+									if ( ! empty( $raw_url ) ) {
+										$href = esc_url( $raw_url );
+										if ( ! empty( $c_item['custom_url']['is_external'] ) ) {
+											$target = '_blank';
+											$rel    = ' rel="noopener noreferrer"';
+										}
+									}
+								}
+						?>
+								<div class="lre-contact__direct-item elementor-repeater-item-<?php echo esc_attr( $c_item['_id'] ?? '' ); ?>">
+									<?php if ( ! empty( $c_label ) ) : ?>
+										<span class="lre-contact__direct-lbl"><?php echo esc_html( $c_label ); ?></span>
+									<?php endif; ?>
+
+									<?php if ( ! empty( $href ) ) : ?>
+										<a href="<?php echo $href; ?>" class="lre-contact__direct-val" target="<?php echo esc_attr( $target ); ?>"<?php echo $rel; ?>>
+											<?php echo esc_html( $c_val ); ?>
+										</a>
+									<?php else : ?>
+										<span class="lre-contact__direct-val">
+											<?php echo esc_html( $c_val ); ?>
+										</span>
+									<?php endif; ?>
+								</div>
+						<?php
+							endforeach;
+						else :
+							// Backward Compatibility for legacy single phone & email
+						?>
+							<?php if ( ! empty( $settings['phone_number'] ) ) : ?>
+								<div class="lre-contact__direct-item">
+									<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['phone_label'] ?? 'PHONE:' ); ?></span>
+									<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ); ?>" class="lre-contact__direct-val">
+										<?php echo esc_html( $settings['phone_number'] ); ?>
+									</a>
+								</div>
+							<?php endif; ?>
+
+							<?php if ( ! empty( $settings['email_address'] ) ) : ?>
+								<div class="lre-contact__direct-item">
+									<span class="lre-contact__direct-lbl"><?php echo esc_html( $settings['email_label'] ?? 'EMAIL:' ); ?></span>
+									<a href="mailto:<?php echo esc_attr( $settings['email_address'] ); ?>" class="lre-contact__direct-val">
+										<?php echo esc_html( $settings['email_address'] ); ?>
+									</a>
+								</div>
+							<?php endif; ?>
 						<?php endif; ?>
 					</div>
 
@@ -1502,25 +1818,67 @@ class LRE_Contact_Widget extends Widget_Base {
 									<p class="lre-contact__agent-address"><?php echo nl2br( esc_html( $settings['office_address'] ) ); ?></p>
 								<?php endif; ?>
 
-								<!-- Social Links -->
+								<!-- Social Links Repeater -->
 								<?php if ( 'yes' === $settings['show_social_links'] ) : ?>
 									<div class="lre-contact__social">
-										<?php if ( ! empty( $settings['social_facebook']['url'] ) ) : ?>
-											<a href="<?php echo esc_url( $settings['social_facebook']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-												<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.808C10.595 0 9 1.582 9 4.615V8z"/></svg>
-											</a>
-										<?php endif; ?>
+										<?php
+										$agent_socials = ! empty( $settings['agent_social_links'] ) ? $settings['agent_social_links'] : array();
+										if ( ! empty( $agent_socials ) ) :
+											foreach ( $agent_socials as $s_item ) :
+												$s_title = ! empty( $s_item['social_title'] ) ? $s_item['social_title'] : 'Social Link';
+												$raw_url = '';
+												if ( is_array( $s_item['social_url'] ?? null ) ) {
+													$raw_url = trim( $s_item['social_url']['url'] ?? '' );
+												} elseif ( is_string( $s_item['social_url'] ?? null ) ) {
+													$raw_url = trim( $s_item['social_url'] );
+												}
+												if ( empty( $raw_url ) ) {
+													$raw_url = '#';
+												}
+												$s_url = esc_url( $raw_url );
 
-										<?php if ( ! empty( $settings['social_instagram']['url'] ) ) : ?>
-											<a href="<?php echo esc_url( $settings['social_instagram']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-												<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-											</a>
-										<?php endif; ?>
+												$is_external_url = (bool) preg_match( '#^(https?:)?//#i', $raw_url );
+												$force_new_tab   = ( isset( $s_item['open_new_tab'] ) && 'yes' === $s_item['open_new_tab'] );
+												$user_checked    = ! empty( $s_item['social_url']['is_external'] );
 
-										<?php if ( ! empty( $settings['social_youtube']['url'] ) ) : ?>
-											<a href="<?php echo esc_url( $settings['social_youtube']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-												<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-											</a>
+												$should_new_tab  = ( '#' === $raw_url ) ? false : ( $is_external_url || $force_new_tab || $user_checked );
+												$target          = $should_new_tab ? '_blank' : '_self';
+												$rel             = $should_new_tab ? ' rel="noopener noreferrer"' : '';
+										?>
+												<a href="<?php echo $s_url; ?>"
+												   target="<?php echo esc_attr( $target ); ?>"<?php echo $rel; ?>
+												   class="lre-contact__social-link elementor-repeater-item-<?php echo esc_attr( $s_item['_id'] ?? '' ); ?>"
+												   aria-label="<?php echo esc_attr( $s_title ); ?>">
+													<?php
+													if ( ! empty( $s_item['social_icon']['value'] ) ) {
+														Icons_Manager::render_icon( $s_item['social_icon'], array( 'aria-hidden' => 'true' ) );
+													} else {
+														echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
+													}
+													?>
+												</a>
+										<?php
+											endforeach;
+										else :
+											// Legacy single socials fallback
+										?>
+											<?php if ( ! empty( $settings['social_facebook']['url'] ) ) : ?>
+												<a href="<?php echo esc_url( $settings['social_facebook']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+													<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.808C10.595 0 9 1.582 9 4.615V8z"/></svg>
+												</a>
+											<?php endif; ?>
+
+											<?php if ( ! empty( $settings['social_instagram']['url'] ) ) : ?>
+												<a href="<?php echo esc_url( $settings['social_instagram']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+													<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+												</a>
+											<?php endif; ?>
+
+											<?php if ( ! empty( $settings['social_youtube']['url'] ) ) : ?>
+												<a href="<?php echo esc_url( $settings['social_youtube']['url'] ); ?>" class="lre-contact__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+													<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+												</a>
+											<?php endif; ?>
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>

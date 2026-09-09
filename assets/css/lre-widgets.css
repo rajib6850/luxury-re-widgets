@@ -323,7 +323,9 @@ p {
 .about__eyebrow-wrap,
 .communities__eyebrow-wrap,
 .testimonial__eyebrow-wrap,
-.services__eyebrow-wrap {
+.services__eyebrow-wrap,
+.lre-press-editorial__eyebrow-wrap,
+.lre-newsletter-white__eyebrow-wrap {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
@@ -348,7 +350,9 @@ p {
 .communities__gold-bar,
 .testimonial__eyebrow-bar,
 .testimonial__gold-bar,
-.services__eyebrow-line {
+.services__eyebrow-line,
+.lre-press-editorial__gold-bar,
+.lre-newsletter-white__gold-bar {
   display: inline-block;
   width: 2rem;
   height: 1px;
@@ -375,7 +379,9 @@ p {
 .about__eyebrow,
 .communities__eyebrow,
 .testimonial__eyebrow,
-.services__eyebrow-text {
+.services__eyebrow-text,
+.lre-press-editorial__eyebrow,
+.lre-newsletter-white__eyebrow {
   font-family: inherit;
   font-size: 0.72rem;
   font-weight: 600;
@@ -13047,3 +13053,868 @@ body.elementor-editor-active .lre-dual-cta {
 body.elementor-editor-active .lre-dual-cta__panel {
   min-height: 520px;
 }
+/* =========================================================================
+   23. PRESS & RECOGNITION (QUIET LUXURY ASYMMETRIC EDITORIAL)
+   ========================================================================= */
+.lre-press-strip {
+  --lre-press-gold: #c5a047;
+  position: relative;
+  overflow: hidden;
+  background-color: #080c14; /* Deep dark default, inherits primary navy seamlessly */
+  color: #efebe2;
+  padding: 6.5rem 1.5rem 6.75rem;
+  border-top: 1px solid rgba(197, 160, 71, 0.22);
+  border-bottom: 1px solid rgba(197, 160, 71, 0.22);
+  transition: background-color 0.4s ease;
+}
+
+/* Ambient Subtle Radial Glow */
+.lre-press-strip::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(197, 160, 71, 0.05) 0%, rgba(2, 41, 63, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Background Typographic Watermark (Matching About, Team & Story widgets - Upper Section & Animated) */
+.lre-press-strip__watermark {
+  position: absolute;
+  top: 2.5rem;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
+  font-size: clamp(3.2rem, 7.5vw, 6.8rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.032);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1;
+  z-index: 0;
+  will-change: transform;
+}
+
+.lre-press-strip.has-hairline {
+  border-top: 1px solid rgba(197, 160, 71, 0.25);
+  border-bottom: 1px solid rgba(197, 160, 71, 0.25);
+}
+
+.lre-press-strip__container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Reveal entrance animations */
+.lre-press-strip .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press-strip .revealed,
+body.elementor-editor-active .lre-press-strip .reveal,
+body.elementor-edit-mode .lre-press-strip .reveal,
+body.elementor-editor-preview .lre-press-strip .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lre-press-strip .delay-1 {
+  transition-delay: 0.1s;
+}
+.lre-press-strip .delay-2 {
+  transition-delay: 0.2s;
+}
+.lre-press-strip .delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* =========================================================================
+   23. PRESS & RECOGNITION (QUIET LUXURY ASYMMETRIC EDITORIAL)
+   ========================================================================= */
+
+/* Asymmetric Editorial Composition */
+.lre-press-editorial {
+  display: grid;
+  grid-template-columns: 320px 1px 1fr;
+  align-items: center;
+  gap: 2.75rem;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press-editorial.no-masthead {
+  grid-template-columns: 1fr;
+}
+
+/* Left Masthead Anchor */
+.lre-press-editorial__masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Eyebrow Unified Architecture (Strictly adheres to universal design system) */
+.lre-press-editorial__eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
+.lre-press-editorial__gold-bar {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background-color: var(--lre-press-gold, var(--color-secondary, #c5a047));
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.lre-press-editorial__eyebrow,
+.lre-press-editorial .section-label {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lre-press-gold, var(--color-secondary, #c5a047));
+  line-height: 1;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.lre-press-editorial__title {
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
+  font-size: var(--font-size-section-title, clamp(1.85rem, 3.2vw, 2.65rem));
+  font-weight: var(--font-weight-primary, 400);
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  line-height: 1.25 !important;
+  margin: 0;
+}
+
+/* Vertical Dividing Spire Between Left & Right */
+.lre-press-editorial__spire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  height: auto;
+  min-height: 160px;
+  position: relative;
+  opacity: 0.85;
+}
+
+.lre-press-editorial__spire-line {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent, rgba(197, 160, 71, 0.38) 50%, transparent);
+}
+
+.lre-press-editorial__spire-diamond {
+  width: 5px;
+  height: 5px;
+  background-color: var(--lre-press-gold, #c5a047);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(197, 160, 71, 0.85);
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+/* Right Floating Brand Exhibits Flow */
+.lre-press-editorial__flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  align-items: center;
+  width: 100%;
+}
+
+/* Brand Portal Cardless Exhibit */
+.lre-press-portal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  padding: 1.85rem 1.35rem;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.lre-press-portal:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(197, 160, 71, 0.22) 50%, transparent);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.lre-press-portal:hover {
+  transform: translate3d(0, -3px, 0);
+  background-color: rgba(255, 255, 255, 0.025);
+  border-color: rgba(197, 160, 71, 0.2);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45), 0 0 1px rgba(197, 160, 71, 0.4);
+}
+
+/* Soft Golden Aura Glow Behind Portal */
+.lre-press-portal__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+  width: 220px;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.12) 0%, rgba(197, 160, 71, 0) 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.lre-press-portal:hover .lre-press-portal__glow {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+}
+
+/* Portal Micro Category Tag */
+.lre-press-portal__tag {
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lre-press-gold, #c5a047);
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0.88;
+  transition: color 0.35s ease, opacity 0.35s ease;
+}
+
+.lre-press-portal:hover .lre-press-portal__tag {
+  opacity: 1;
+  color: #ffffff;
+}
+
+/* Portal Logo Box */
+.lre-press-portal__logo-box {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.15rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.lre-press-portal__img {
+  display: block;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press-portal__img--voyage {
+  max-width: 180px;
+  max-height: 38px;
+}
+
+.lre-press-portal__img--award {
+  max-width: 165px;
+  max-height: 52px;
+}
+
+.lre-press-portal__img--serhant {
+  max-width: 160px;
+  max-height: 32px;
+}
+
+.lre-press-portal:hover .lre-press-portal__img {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1.03);
+}
+
+.lre-press-portal:hover .lre-press-portal__img--award {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1.03);
+}
+
+/* Minimalist Action Link with Sliding Arrow */
+.lre-press-portal__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.lre-press-portal:hover .lre-press-portal__action,
+.lre-press-portal__action:hover {
+  color: var(--lre-press-gold, #c5a047);
+}
+
+.lre-press-portal__action-text {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.lre-press-portal__action-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--lre-press-gold, #c5a047);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press-portal:hover .lre-press-portal__action-text::after,
+.lre-press-portal__action:hover .lre-press-portal__action-text::after {
+  transform: scaleX(1);
+}
+
+.lre-press-portal__arrow {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-press-portal:hover .lre-press-portal__arrow,
+.lre-press-portal__action:hover .lre-press-portal__arrow {
+  transform: translate3d(3px, -3px, 0);
+}
+
+/* =========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================= */
+@media (max-width: 1024px) {
+  .lre-press-editorial {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    text-align: center;
+  }
+
+  .lre-press-editorial__masthead {
+    align-items: center;
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .lre-press-strip {
+    padding: 5.5rem 1.5rem 5.75rem;
+  }
+
+  .lre-press-editorial__eyebrow-wrap {
+    justify-content: center;
+  }
+
+  .lre-press-editorial__spire {
+    display: none;
+  }
+
+  .lre-press-editorial__flow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .lre-press-portal {
+    padding: 1.5rem 0.85rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .lre-press-strip {
+    padding: 4.5rem 1.25rem 4.75rem;
+  }
+
+  .lre-press-strip__watermark {
+    top: 1.8rem;
+    font-size: clamp(2.2rem, 11vw, 3.8rem);
+    letter-spacing: 0.14em;
+  }
+
+  .lre-press-editorial__flow {
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .lre-press-portal:not(:last-child)::after {
+    display: none;
+  }
+
+  .lre-press-portal {
+    border: none !important;
+    border-bottom: 1px solid rgba(197, 160, 71, 0.15) !important;
+    border-radius: 0;
+    padding: 1.6rem 1rem 1.75rem;
+    box-shadow: none !important;
+  }
+
+  .lre-press-portal:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (hover: none) {
+  .lre-press-portal:hover {
+    transform: none;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .lre-press-strip {
+    padding: 3.75rem 1rem 4rem;
+  }
+
+  .lre-press-strip__watermark {
+    top: 1.5rem;
+    font-size: clamp(1.8rem, 9.5vw, 2.75rem);
+    letter-spacing: 0.12em;
+  }
+
+  .lre-press-editorial__title {
+    font-size: clamp(1.6rem, 5.5vw, 2rem);
+    line-height: 1.25;
+  }
+
+  .lre-press-editorial__eyebrow-wrap {
+    gap: 0.65rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .lre-press-editorial__gold-bar {
+    width: 1.5rem;
+  }
+
+  .lre-press-portal {
+    padding: 1.35rem 0.5rem;
+  }
+
+  .lre-press-portal__img--voyage {
+    max-width: 150px;
+    max-height: 32px;
+  }
+
+  .lre-press-portal__img--award {
+    max-width: 140px;
+    max-height: 44px;
+  }
+
+  .lre-press-portal__img--serhant {
+    max-width: 135px;
+    max-height: 28px;
+  }
+
+  .lre-press-portal__action {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* =========================================================================
+   24. WHITE LUXURY NEWSLETTER SECTION (.lre-newsletter-white)
+   Ultra-luxury, pure white background pre-footer newsletter.
+   Editorial deep navy typography (#02293F), champagne gold accents (#c5a047),
+   and signature slide-up fill button.
+   ========================================================================= */
+.lre-newsletter-white {
+  position: relative;
+  background-color: #ffffff;
+  padding: 3.6rem 2rem 3.85rem;
+  overflow: hidden;
+}
+
+.lre-newsletter-white::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 82% 50%, rgba(197, 160, 71, 0.045) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lre-newsletter-white__container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Horizontal 1-Line Layout */
+.lre-newsletter-white--oneline .lre-newsletter-white__container {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.lre-newsletter-white--oneline .lre-newsletter-white__info {
+  min-width: 0;
+}
+
+.lre-newsletter-white--oneline .lre-newsletter-white__form-wrap {
+  width: 100%;
+  position: relative;
+}
+
+/* Centered Layout */
+.lre-newsletter-white--centered .lre-newsletter-white__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 780px;
+}
+
+.lre-newsletter-white--centered .lre-newsletter-white__info {
+  margin-bottom: 2rem;
+}
+
+.lre-newsletter-white--centered .lre-newsletter-white__eyebrow-wrap {
+  justify-content: center;
+}
+
+.lre-newsletter-white--centered .lre-newsletter-white__form-wrap {
+  width: 100%;
+  max-width: 520px;
+  position: relative;
+}
+
+/* Eyebrow Unified Architecture */
+.lre-newsletter-white__eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.95rem;
+}
+
+.lre-newsletter-white__gold-bar {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background-color: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.lre-newsletter-white__eyebrow,
+.lre-newsletter-white .section-label {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+  line-height: 1;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Headline Typography (Libre Baskerville Serif Standard) */
+.lre-newsletter-white__title {
+  font-family: var(--font-serif, var(--e-global-typography-primary-font-family, 'Libre Baskerville', Garamond, serif));
+  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+  font-weight: var(--font-weight-primary, 400);
+  letter-spacing: 0.5px;
+  color: var(--color-primary, #02293f);
+  line-height: 1.25;
+  margin: 0 0 0.65rem;
+}
+
+/* Subtitle */
+.lre-newsletter-white__subtitle {
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(2, 41, 63, 0.75);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Integrated Luxury Capsule (Framed & Refined Form Box) */
+.lre-newsletter-white__input-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(197, 160, 71, 0.45);
+  border-radius: 4px;
+  padding: 5px 5px 5px 18px;
+  box-shadow: 0 4px 18px rgba(2, 41, 63, 0.05);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+  position: relative;
+}
+
+.lre-newsletter-white__input-box:focus-within {
+  border-color: var(--color-secondary, #c5a047);
+  box-shadow: 0 6px 24px rgba(197, 160, 71, 0.2), 0 0 0 1px var(--color-secondary, #c5a047);
+}
+
+.lre-newsletter-white .lre-newsletter-white__form input.lre-newsletter-white__input,
+.lre-newsletter-white .lre-newsletter-white__input-box input[type="email"],
+.lre-newsletter-white input[type="email"].lre-newsletter-white__input,
+.lre-newsletter-white .lre-newsletter-white__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-radius: 0;
+  background: transparent;
+  background-color: transparent;
+  outline: 0;
+  outline-style: none;
+  outline-color: transparent;
+  outline-offset: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: #02293f;
+  padding: 0.65rem 0.75rem 0.65rem 0;
+  margin: 0;
+  height: auto;
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.lre-newsletter-white .lre-newsletter-white__form input.lre-newsletter-white__input:focus,
+.lre-newsletter-white .lre-newsletter-white__input-box input[type="email"]:focus,
+.lre-newsletter-white input[type="email"].lre-newsletter-white__input:focus,
+.lre-newsletter-white .lre-newsletter-white__input:focus {
+  border: 0;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  outline: 0;
+  outline-style: none;
+  outline-color: transparent;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background: transparent;
+  background-color: transparent;
+}
+
+.lre-newsletter-white .lre-newsletter-white__input::placeholder {
+  color: rgba(2, 41, 63, 0.45);
+  font-size: 0.9rem;
+}
+
+/* Luxury Action Button */
+.lre-newsletter-white__btn,
+.btn.lre-newsletter-white__btn {
+  --btn-hover-bg: #c5a047;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.82rem 1.75rem;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background-color: #02293f;
+  color: #ffffff;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.lre-newsletter-white__btn:not(:has(.lre-newsletter__btn-text)),
+.lre-newsletter-white__btn:has(.lre-newsletter__btn-text:empty) {
+  padding: 0.82rem 1.15rem;
+}
+
+/* Slide-up fill on button */
+.lre-newsletter-white__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--btn-hover-bg, #c5a047);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.lre-newsletter-white__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(2, 41, 63, 0.25);
+}
+
+.lre-newsletter-white__btn:hover::before {
+  transform: translateY(0);
+}
+
+.lre-newsletter-white__btn:hover,
+.lre-newsletter-white__btn:hover span,
+.lre-newsletter-white__btn:focus,
+.lre-newsletter-white__btn:focus span,
+.lre-newsletter-white__btn:active,
+.lre-newsletter-white__btn:active span {
+  color: #ffffff;
+}
+
+.lre-newsletter-white__btn .lre-newsletter__btn-text,
+.lre-newsletter-white__btn .lre-newsletter__btn-icon,
+.lre-newsletter-white__btn .lre-newsletter__spinner {
+  position: relative;
+  z-index: 2;
+}
+
+.lre-newsletter-white__btn .lre-newsletter__btn-icon {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.8;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lre-newsletter-white__btn:hover .lre-newsletter__btn-icon {
+  transform: translateX(3px);
+}
+
+/* Underline Style Alternate */
+.lre-newsletter-white--form-underline .lre-newsletter-white__input-box {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--color-accent, #c5a047);
+  border-radius: 0;
+  padding: 0.25rem 0;
+  box-shadow: none;
+}
+
+.lre-newsletter-white--form-underline .lre-newsletter-white__input-box:focus-within {
+  border-bottom-color: var(--color-primary, #02293f);
+  box-shadow: 0 4px 15px rgba(2, 41, 63, 0.12);
+}
+
+/* Toast Message */
+.lre-newsletter-white .lre-newsletter__message {
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+/* Responsive Newsletter White */
+@media (max-width: 1024px) {
+  .lre-newsletter-white {
+    padding: 3.25rem 1.5rem 3.5rem;
+  }
+
+  .lre-newsletter-white--oneline .lre-newsletter-white__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .lre-newsletter-white--oneline .lre-newsletter-white__info {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .lre-newsletter-white--oneline .lre-newsletter-white__eyebrow-wrap {
+    justify-content: center;
+  }
+
+  .lre-newsletter-white--oneline .lre-newsletter-white__form-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .lre-newsletter-white {
+    padding: 2.75rem 1.25rem 3rem;
+  }
+
+  .lre-newsletter-white__input-box {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+    gap: 0.65rem;
+  }
+
+  .lre-newsletter-white__input {
+    padding: 0.5rem 0.5rem 0.5rem;
+    text-align: center;
+  }
+
+  .lre-newsletter-white__btn,
+  .btn.lre-newsletter-white__btn {
+    width: 100%;
+    padding: 0.85rem;
+  }
+}
+
+
+
+

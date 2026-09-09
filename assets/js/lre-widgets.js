@@ -1707,6 +1707,152 @@
     };
 
     // =========================================================================
+    // 20. PRESS & RECOGNITION - Reveal & Interactivity
+    // =========================================================================
+    LREWidgets.Press = {
+        init: function ( $scope ) {
+            LREWidgets.initReveals( $scope );
+        }
+    };
+
+    // =========================================================================
+    // 21. GLOBAL NEWSLETTER - AJAX Lead Capture
+    // =========================================================================
+    LREWidgets.Newsletter = {
+        init: function ( $scope ) {
+            LREWidgets.initReveals( $scope );
+
+            var root = $scope ? $scope[0] : document;
+            var forms = root.querySelectorAll( '.lre-newsletter__form' );
+
+            forms.forEach( function ( form ) {
+                if ( form.dataset.lreBound ) {
+                    return;
+                }
+                form.dataset.lreBound = 'true';
+
+                form.addEventListener( 'submit', function ( e ) {
+                    e.preventDefault();
+
+                    var emailInput = form.querySelector( 'input[name="email"]' );
+                    var submitBtn  = form.querySelector( '.lre-newsletter__btn' );
+                    var msgBox     = form.querySelector( '.lre-newsletter__message' );
+                    var nonceInput = form.querySelector( 'input[name="nonce"]' );
+
+                    var email = emailInput ? emailInput.value.trim() : '';
+                    var nonce = ( nonceInput && nonceInput.value ) ? nonceInput.value : ( window.LREData && LREData.nonce ? LREData.nonce : '' );
+                    var ajaxUrl = ( window.LREData && LREData.ajaxUrl ) ? LREData.ajaxUrl : '/wp-admin/admin-ajax.php';
+
+                    if ( ! email || email.indexOf( '@' ) === -1 || email.indexOf( '.' ) === -1 ) {
+                        if ( msgBox ) {
+                            msgBox.textContent = 'Please enter a valid email address.';
+                            msgBox.className = 'lre-newsletter__message is-active is-error';
+                        }
+                        return;
+                    }
+
+                    // Loading State
+                    if ( submitBtn ) {
+                        submitBtn.classList.add( 'is-loading' );
+                        submitBtn.disabled = true;
+                    }
+                    if ( msgBox ) {
+                        msgBox.className = 'lre-newsletter__message';
+                        msgBox.textContent = '';
+                    }
+
+                    var formData = new FormData();
+                    formData.append( 'action', 'lre_newsletter_submit' );
+                    formData.append( 'email', email );
+                    formData.append( 'nonce', nonce );
+
+                    fetch( ajaxUrl, {
+                        method: 'POST',
+                        body: formData
+                    } )
+                    .then( function ( res ) {
+                        return res.json();
+                    } )
+                    .then( function ( data ) {
+                        if ( submitBtn ) {
+                            submitBtn.classList.remove( 'is-loading' );
+                            submitBtn.disabled = false;
+                        }
+                        if ( msgBox ) {
+                            if ( data && data.success ) {
+                                msgBox.textContent = ( data.data && data.data.message ) ? data.data.message : 'Thank you for subscribing. Welcome to The Aguirre Report.';
+                                msgBox.className = 'lre-newsletter__message is-active is-success';
+                                if ( emailInput ) {
+                                    emailInput.value = '';
+                                }
+                            } else {
+                                msgBox.textContent = ( data && data.data && data.data.message ) ? data.data.message : 'Subscription failed. Please try again.';
+                                msgBox.className = 'lre-newsletter__message is-active is-error';
+                            }
+                        }
+                    } )
+                    .catch( function () {
+                        if ( submitBtn ) {
+                            submitBtn.classList.remove( 'is-loading' );
+                            submitBtn.disabled = false;
+                        }
+                        if ( msgBox ) {
+                            msgBox.textContent = 'A connection error occurred. Please try again.';
+                            msgBox.className = 'lre-newsletter__message is-active is-error';
+                        }
+                    } );
+                } );
+            } );
+        }
+    };
+
+    // =========================================================================
+    // PRESS & RECOGNITION (EDITORIAL MAGAZINE SPREAD)
+    // =========================================================================
+    LREWidgets.Press = {
+        init: function ( $scope ) {
+            var $strip = $scope ? $( $scope ).find( '.lre-press-strip' ) : $( '.lre-press-strip' );
+            if ( ! $strip.length ) {
+                return;
+            }
+
+            if ( typeof LREWidgets.initReveals === 'function' ) {
+                LREWidgets.initReveals();
+            }
+
+            // Watermark Scroll Parallax (matching About, Team, Story & Services widgets)
+            if ( ! prefersReducedMotion ) {
+                $strip.each( function () {
+                    var section = this;
+                    var watermark = section.querySelector( '.lre-press-strip__watermark' );
+                    if ( watermark && ! watermark._lreParallaxAttached ) {
+                        watermark._lreParallaxAttached = true;
+                        var updatePressParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 14 : 32 );
+                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updatePressParallax, { passive: true } );
+                        window.addEventListener( 'resize', updatePressParallax, { passive: true } );
+                        updatePressParallax();
+                    }
+                } );
+            }
+
+            // If in Elementor editor mode, immediately show revealed items
+            if ( $( 'body' ).hasClass( 'elementor-editor-active' ) || $( 'body' ).hasClass( 'elementor-edit-mode' ) ) {
+                $strip.find( '.reveal' ).addClass( 'revealed' );
+            }
+        }
+    };
+
+    // =========================================================================
     // ELEMENTOR HOOK BINDINGS
     // =========================================================================
     function lreBindElementorHooks() {
@@ -1733,6 +1879,8 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_contact.default',              function ( $scope ) { LREWidgets.Contact.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_buying_guide.default',         function ( $scope ) { LREWidgets.BuyingGuide.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sellers_guide.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_press.default',                function ( $scope ) { LREWidgets.Press.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
     }
 
     // Auto-run on DOM ready
@@ -1755,6 +1903,8 @@
         if ( LREWidgets.Contact )             LREWidgets.Contact.init();
         if ( LREWidgets.BuyingGuide )         LREWidgets.BuyingGuide.init();
         if ( LREWidgets.SellersGuide )        LREWidgets.SellersGuide.init();
+        if ( LREWidgets.Press )               LREWidgets.Press.init();
+        if ( LREWidgets.Newsletter )          LREWidgets.Newsletter.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

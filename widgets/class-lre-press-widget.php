@@ -321,7 +321,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'default'     => '',
 				'description' => __( 'Defaults to rich dark navy (#080c14). Select your theme Primary Color to match your palette.', 'luxury-re-widgets' ),
 				'selectors'   => array(
-					'{{WRAPPER}} .lre-press-strip' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-strip' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -376,7 +376,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-editorial__title, {{WRAPPER}} .lre-press-editorial__title span, {{WRAPPER}} .lre-press-editorial__title .title-mask > span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-editorial__title, {{WRAPPER}} .lre-press-editorial__title span, {{WRAPPER}} .lre-press-editorial__title .title-mask > span' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}};',
 				),
 			)
 		);
@@ -421,8 +421,8 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .section-label, {{WRAPPER}} .lre-press-editorial__eyebrow' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-press-editorial__gold-bar' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .section-label, {{WRAPPER}} .lre-press-editorial__eyebrow' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-press-editorial__gold-bar' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -501,7 +501,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal:hover' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -512,7 +512,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal:hover' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -548,7 +548,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'        => Controls_Manager::COLOR,
 				'description' => __( 'Soft ambient halo behind the card on hover.', 'luxury-re-widgets' ),
 				'selectors'   => array(
-					'{{WRAPPER}} .lre-press-portal__glow' => 'background: radial-gradient(ellipse at center, {{VALUE}} 0%, transparent 70%) !important;',
+					'{{WRAPPER}} .lre-press-portal__glow' => 'background: radial-gradient(ellipse at center, {{VALUE}} 0%, transparent 70%);',
 				),
 			)
 		);
@@ -604,7 +604,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal__tag' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal__tag' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -623,7 +623,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__tag, {{WRAPPER}} .lre-press-portal__tag:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; opacity: 1 !important;',
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__tag, {{WRAPPER}} .lre-press-portal__tag:hover' => 'color: {{VALUE}}; opacity: 1;',
 				),
 			)
 		);
@@ -684,7 +684,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal__action, {{WRAPPER}} .lre-press-portal__action-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal__action, {{WRAPPER}} .lre-press-portal__action-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -695,7 +695,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Arrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal__arrow' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal__arrow' => 'stroke: {{VALUE}}; color: {{VALUE}};',
 				),
 			)
 		);
@@ -706,7 +706,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Underline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal__action-text::after' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal__action-text::after' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -726,7 +726,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action, {{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text, {{WRAPPER}} .lre-press-portal__action:hover, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action, {{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text, {{WRAPPER}} .lre-press-portal__action:hover, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -737,7 +737,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Hover Arrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__arrow, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__arrow' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__arrow, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__arrow' => 'stroke: {{VALUE}}; color: {{VALUE}};',
 				),
 			)
 		);
@@ -748,7 +748,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Hover Underline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text::after, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text::after' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-portal:hover .lre-press-portal__action-text::after, {{WRAPPER}} .lre-press-portal__action:hover .lre-press-portal__action-text::after' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -839,7 +839,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_spire' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-editorial__spire-line' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent) !important;',
+					'{{WRAPPER}} .lre-press-editorial__spire-line' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent);',
 				),
 			)
 		);
@@ -851,7 +851,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_spire' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-editorial__spire-diamond' => 'background-color: {{VALUE}} !important; box-shadow: 0 0 10px {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-editorial__spire-diamond' => 'background-color: {{VALUE}}; box-shadow: 0 0 10px {{VALUE}};',
 				),
 			)
 		);
@@ -915,7 +915,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_portal_dividers' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-portal:not(:last-child)::after' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent) !important;',
+					'{{WRAPPER}} .lre-press-portal:not(:last-child)::after' => 'background: linear-gradient(180deg, transparent, {{VALUE}} 50%, transparent);',
 				),
 			)
 		);
@@ -956,47 +956,86 @@ class LRE_Press_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_section_hairlines',
 			array(
-				'label'     => __( 'Section Top & Bottom Borders', 'luxury-re-widgets' ),
+				'label'     => __( 'Section Hairline Borders', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
 		);
 
 		$this->add_control(
-			'show_borders',
+			'show_top_border',
 			array(
-				'label'        => __( 'Show Top & Bottom Borders', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Top Border', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'default'      => '',
+				'default'      => 'yes',
 				'return_value' => 'yes',
-				'description'  => __( 'Off by default for clean section flow without top/bottom border lines.', 'luxury-re-widgets' ),
+				'description'  => __( 'Restores the elegant 1px hairline border at the top of the section.', 'luxury-re-widgets' ),
 			)
 		);
 
 		$this->add_control(
-			'section_border_color',
+			'top_border_color',
 			array(
-				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Top Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'condition' => array( 'show_borders' => 'yes' ),
+				'condition' => array( 'show_top_border' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-strip.has-hairline' => 'border-top-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-strip' => 'border-top-color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->add_responsive_control(
-			'section_border_width',
+			'top_border_width',
 			array(
-				'label'      => __( 'Border Thickness', 'luxury-re-widgets' ),
+				'label'      => __( 'Top Border Thickness', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
-				'condition'  => array( 'show_borders' => 'yes' ),
+				'condition'  => array( 'show_top_border' => 'yes' ),
 				'range'      => array(
 					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-press-strip.has-hairline' => 'border-top-width: {{SIZE}}{{UNIT}} !important; border-bottom-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-press-strip' => 'border-top-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_bottom_border',
+			array(
+				'label'        => __( 'Show Bottom Border', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'return_value' => 'yes',
+				'description'  => __( 'Optional bottom border hairline (off by default for seamless flow).', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'bottom_border_color',
+			array(
+				'label'     => __( 'Bottom Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_bottom_border' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-press-strip' => 'border-bottom-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'bottom_border_width',
+			array(
+				'label'      => __( 'Bottom Border Thickness', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'condition'  => array( 'show_bottom_border' => 'yes' ),
+				'range'      => array(
+					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-press-strip' => 'border-bottom-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1019,7 +1058,7 @@ class LRE_Press_Widget extends Widget_Base {
 				'label'     => __( 'Watermark Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-press-strip__watermark' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-press-strip__watermark' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1053,15 +1092,183 @@ class LRE_Press_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Helper to get resolved color value (supporting both manual hex and Elementor Global Colors)
+	 *
+	 * @param array  $settings
+	 * @param string $control_name
+	 * @param string $default
+	 * @return string
+	 */
+	protected function get_resolved_color( $settings, $control_name, $default = '' ) {
+		$globals = ! empty( $settings['__globals__'] ) 
+			? $settings['__globals__'] 
+			: ( method_exists( $this, 'get_settings' ) ? $this->get_settings( '__globals__' ) : array() );
+
+		if ( ! empty( $globals[ $control_name ] ) ) {
+			$global_val = $globals[ $control_name ];
+			// Pattern: globals/colors?id=primary or globals/colors?id=08c543c
+			if ( preg_match( '/id=([a-zA-Z0-9_-]+)/', $global_val, $matches ) ) {
+				return 'var(--e-global-color-' . $matches[1] . ')';
+			}
+		}
+
+		if ( ! empty( $settings[ $control_name ] ) ) {
+			return $settings[ $control_name ];
+		}
+
+		return $default;
+	}
+
 	protected function render() {
 		$settings           = $this->get_settings_for_display();
-		$show_borders       = ! empty( $settings['show_borders'] ) && 'yes' === $settings['show_borders'];
-		$border_class       = $show_borders ? 'has-hairline' : '';
+		$show_top_border    = ! isset( $settings['show_top_border'] ) || 'yes' === $settings['show_top_border'] || ( ! empty( $settings['show_borders'] ) && 'yes' === $settings['show_borders'] );
+		$show_bottom_border = ( ! empty( $settings['show_bottom_border'] ) && 'yes' === $settings['show_bottom_border'] ) || ( ! empty( $settings['show_borders'] ) && 'yes' === $settings['show_borders'] );
+
+		$border_classes = array();
+		if ( ! $show_top_border ) {
+			$border_classes[] = 'no-top-border';
+		}
+		if ( $show_bottom_border ) {
+			$border_classes[] = 'has-bottom-border';
+		}
+		$border_class_str = implode( ' ', $border_classes );
+
 		$has_header         = ( 'yes' === ( $settings['show_header'] ?? 'yes' ) && ( ! empty( $settings['title'] ) || ! empty( $settings['eyebrow'] ) ) );
 		$show_spire         = ! isset( $settings['show_spire'] ) || 'yes' === $settings['show_spire'];
 		$spire_class        = $show_spire ? 'has-spire' : 'no-spire';
 		$show_dividers      = ! isset( $settings['show_portal_dividers'] ) || 'yes' === $settings['show_portal_dividers'];
 		$flow_divider_class = $show_dividers ? 'has-dividers' : 'no-dividers';
+
+		// Resolve all colors (supporting both manual hex and Elementor Global Colors)
+		$css_vars = array();
+
+		$res_bg = $this->get_resolved_color( $settings, 'bg_color' );
+		if ( $res_bg ) {
+			$css_vars[] = '--lre-press-bg: ' . $res_bg;
+			$css_vars[] = 'background-color: ' . $res_bg;
+		}
+
+		$res_gold = $this->get_resolved_color( $settings, 'accent_gold' );
+		if ( $res_gold ) {
+			$css_vars[] = '--lre-press-gold: ' . $res_gold;
+		}
+
+		$res_title = $this->get_resolved_color( $settings, 'title_color' );
+		if ( $res_title ) {
+			$css_vars[] = '--lre-press-title-color: ' . $res_title;
+		}
+
+		$res_eyebrow = $this->get_resolved_color( $settings, 'eyebrow_color' );
+		if ( $res_eyebrow ) {
+			$css_vars[] = '--lre-press-eyebrow-color: ' . $res_eyebrow;
+		}
+
+		$res_box_bg = $this->get_resolved_color( $settings, 'box_bg_color' );
+		if ( $res_box_bg ) {
+			$css_vars[] = '--lre-press-box-bg: ' . $res_box_bg;
+		}
+
+		$res_box_hover_bg = $this->get_resolved_color( $settings, 'box_hover_bg_color' );
+		if ( $res_box_hover_bg ) {
+			$css_vars[] = '--lre-press-box-hover-bg: ' . $res_box_hover_bg;
+		}
+
+		$res_box_hover_border = $this->get_resolved_color( $settings, 'box_hover_border_color' );
+		if ( $res_box_hover_border ) {
+			$css_vars[] = '--lre-press-box-hover-border: ' . $res_box_hover_border;
+		}
+
+		$res_box_glow = $this->get_resolved_color( $settings, 'box_glow_color' );
+		if ( $res_box_glow ) {
+			$css_vars[] = '--lre-press-box-glow: ' . $res_box_glow;
+		}
+
+		$res_tag = $this->get_resolved_color( $settings, 'tag_color' );
+		if ( $res_tag ) {
+			$css_vars[] = '--lre-press-tag-color: ' . $res_tag;
+		}
+
+		$res_tag_hover = $this->get_resolved_color( $settings, 'tag_hover_color' );
+		if ( $res_tag_hover ) {
+			$css_vars[] = '--lre-press-tag-hover-color: ' . $res_tag_hover;
+		}
+
+		$res_action = $this->get_resolved_color( $settings, 'portal_action_color' );
+		if ( $res_action ) {
+			$css_vars[] = '--lre-press-action-color: ' . $res_action;
+		}
+
+		$res_action_hover = $this->get_resolved_color( $settings, 'portal_action_hover_color' );
+		if ( $res_action_hover ) {
+			$css_vars[] = '--lre-press-action-hover-color: ' . $res_action_hover;
+		}
+
+		$res_arrow = $this->get_resolved_color( $settings, 'portal_action_arrow_color' );
+		if ( $res_arrow ) {
+			$css_vars[] = '--lre-press-arrow-color: ' . $res_arrow;
+		}
+
+		$res_arrow_hover = $this->get_resolved_color( $settings, 'portal_action_hover_arrow_color' );
+		if ( $res_arrow_hover ) {
+			$css_vars[] = '--lre-press-arrow-hover-color: ' . $res_arrow_hover;
+		}
+
+		$res_line = $this->get_resolved_color( $settings, 'portal_action_line_color' );
+		if ( $res_line ) {
+			$css_vars[] = '--lre-press-action-line: ' . $res_line;
+		}
+
+		$res_line_hover = $this->get_resolved_color( $settings, 'portal_action_hover_line_color' );
+		if ( $res_line_hover ) {
+			$css_vars[] = '--lre-press-action-hover-line: ' . $res_line_hover;
+		}
+
+		$res_spire_line = $this->get_resolved_color( $settings, 'spire_line_color' );
+		if ( $res_spire_line ) {
+			$css_vars[] = '--lre-press-spire-line: ' . $res_spire_line;
+		}
+
+		$res_spire_diamond = $this->get_resolved_color( $settings, 'spire_diamond_color' );
+		if ( $res_spire_diamond ) {
+			$css_vars[] = '--lre-press-spire-diamond: ' . $res_spire_diamond;
+		}
+
+		$res_portal_divider = $this->get_resolved_color( $settings, 'portal_divider_color' );
+		if ( $res_portal_divider ) {
+			$css_vars[] = '--lre-press-divider-color: ' . $res_portal_divider;
+		}
+
+		$res_top_border = $this->get_resolved_color( $settings, 'top_border_color' );
+		if ( ! $res_top_border ) {
+			$res_top_border = $this->get_resolved_color( $settings, 'section_border_color' );
+		}
+		if ( $res_top_border ) {
+			$css_vars[] = '--lre-press-top-border: ' . $res_top_border;
+		}
+
+		if ( ! empty( $settings['top_border_width']['size'] ) ) {
+			$css_vars[] = '--lre-press-top-border-width: ' . intval( $settings['top_border_width']['size'] ) . ( $settings['top_border_width']['unit'] ?? 'px' );
+		}
+
+		$res_bottom_border = $this->get_resolved_color( $settings, 'bottom_border_color' );
+		if ( ! $res_bottom_border ) {
+			$res_bottom_border = $this->get_resolved_color( $settings, 'section_border_color' );
+		}
+		if ( $res_bottom_border ) {
+			$css_vars[] = '--lre-press-bottom-border: ' . $res_bottom_border;
+		}
+
+		if ( ! empty( $settings['bottom_border_width']['size'] ) ) {
+			$css_vars[] = '--lre-press-bottom-border-width: ' . intval( $settings['bottom_border_width']['size'] ) . ( $settings['bottom_border_width']['unit'] ?? 'px' );
+		}
+
+		$res_watermark = $this->get_resolved_color( $settings, 'watermark_color' );
+		if ( $res_watermark ) {
+			$css_vars[] = '--lre-press-watermark-color: ' . $res_watermark;
+		}
+
+		$strip_style = ! empty( $css_vars ) ? implode( '; ', $css_vars ) . ';' : '';
 
 		$default_voyage  = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/voyagela-logo-white.png' : plugins_url( 'assets/images/voyagela-logo-white.png', dirname( dirname( __FILE__ ) ) );
 		$default_serhant = defined( 'LRE_ASSETS_URL' ) ? LRE_ASSETS_URL . 'images/serhant-logo-white.png' : plugins_url( 'assets/images/serhant-logo-white.png', dirname( dirname( __FILE__ ) ) );
@@ -1078,7 +1285,7 @@ class LRE_Press_Widget extends Widget_Base {
 		$award_url   = ! empty( $settings['award_link']['url'] ) ? esc_url( $settings['award_link']['url'] ) : '#';
 		$serhant_url = ! empty( $settings['serhant_link']['url'] ) ? esc_url( $settings['serhant_link']['url'] ) : '#';
 		?>
-		<div class="lre-press-strip <?php echo esc_attr( $border_class ); ?>" id="press-recognition" aria-label="<?php esc_attr_e( 'Press and Recognition', 'luxury-re-widgets' ); ?>">
+		<div class="lre-press-strip <?php echo esc_attr( $border_class_str ); ?>" id="press-recognition" aria-label="<?php esc_attr_e( 'Press and Recognition', 'luxury-re-widgets' ); ?>"<?php echo $strip_style ? ' style="' . esc_attr( $strip_style ) . '"' : ''; ?>>
 			
 			<?php if ( 'yes' === ( $settings['show_watermark'] ?? 'yes' ) && ! empty( $settings['watermark_text'] ) ) : ?>
 				<div class="lre-press-strip__watermark" aria-hidden="true"><?php echo esc_html( $settings['watermark_text'] ); ?></div>

@@ -13065,11 +13065,21 @@ body.elementor-editor-active .lre-dual-cta__panel {
   --lre-press-gold: #c5a047;
   position: relative;
   overflow: hidden;
-  background-color: #080c14; /* Deep dark default, inherits primary navy seamlessly */
+  background-color: var(--lre-press-bg, #080c14); /* Deep dark default, inherits primary navy seamlessly */
   color: #efebe2;
   padding: 6.5rem 1.5rem 6.75rem;
   border: none;
+  border-top: var(--lre-press-top-border-width, 1px) solid var(--lre-press-top-border, rgba(197, 160, 71, 0.22));
+  border-bottom: none;
   transition: background-color 0.4s ease;
+}
+
+.lre-press-strip.no-top-border {
+  border-top: none !important;
+}
+
+.lre-press-strip.has-bottom-border {
+  border-bottom: var(--lre-press-bottom-border-width, 1px) solid var(--lre-press-bottom-border, rgba(197, 160, 71, 0.22));
 }
 
 /* Ambient Subtle Radial Glow */
@@ -13097,7 +13107,7 @@ body.elementor-editor-active .lre-dual-cta__panel {
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.032);
+  color: var(--lre-press-watermark-color, rgba(255, 255, 255, 0.032));
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
@@ -13107,8 +13117,8 @@ body.elementor-editor-active .lre-dual-cta__panel {
 }
 
 .lre-press-strip.has-hairline {
-  border-top: 1px solid rgba(197, 160, 71, 0.25);
-  border-bottom: 1px solid rgba(197, 160, 71, 0.25);
+  border-top: var(--lre-press-top-border-width, 1px) solid var(--lre-press-top-border, rgba(197, 160, 71, 0.25));
+  border-bottom: var(--lre-press-bottom-border-width, 1px) solid var(--lre-press-bottom-border, rgba(197, 160, 71, 0.25));
 }
 
 .lre-press-strip__container {
@@ -13200,7 +13210,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lre-press-gold, var(--color-secondary, #c5a047));
+  color: var(--lre-press-eyebrow-color, var(--lre-press-gold, var(--color-secondary, #c5a047)));
+  -webkit-text-fill-color: currentColor;
   line-height: 1;
   margin: 0;
   display: inline-block;
@@ -13212,8 +13223,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
   font-weight: inherit;
   letter-spacing: -0.015em;
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
+  color: var(--lre-press-title-color, #ffffff);
+  -webkit-text-fill-color: currentColor;
   line-height: 1.25 !important;
   margin: 0;
 }
@@ -13225,6 +13236,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   font-weight: inherit;
   line-height: inherit;
   letter-spacing: inherit;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
 }
 
 /* Vertical Dividing Spire Between Left & Right */
@@ -13243,15 +13256,15 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 .lre-press-editorial__spire-line {
   width: 1px;
   flex: 1;
-  background: linear-gradient(180deg, transparent, rgba(197, 160, 71, 0.38) 50%, transparent);
+  background: linear-gradient(180deg, transparent, var(--lre-press-spire-line, rgba(197, 160, 71, 0.38)) 50%, transparent);
 }
 
 .lre-press-editorial__spire-diamond {
   width: 5px;
   height: 5px;
-  background-color: var(--lre-press-gold, #c5a047);
+  background-color: var(--lre-press-spire-diamond, var(--lre-press-gold, #c5a047));
   transform: rotate(45deg);
-  box-shadow: 0 0 10px rgba(197, 160, 71, 0.85);
+  box-shadow: 0 0 10px var(--lre-press-spire-diamond, rgba(197, 160, 71, 0.85));
   margin: 8px 0;
   flex-shrink: 0;
 }
@@ -13277,7 +13290,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   border-radius: 6px;
   position: relative;
   overflow: hidden;
-  background-color: transparent;
+  background-color: var(--lre-press-box-bg, transparent);
   border: 1px solid transparent;
   box-shadow: none;
   transform: translate3d(0, 0, 0);
@@ -13294,7 +13307,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   top: 15%;
   height: 70%;
   width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(197, 160, 71, 0.22) 50%, transparent);
+  background: linear-gradient(180deg, transparent, var(--lre-press-divider-color, rgba(197, 160, 71, 0.22)) 50%, transparent);
   pointer-events: none;
   transition: opacity 0.35s ease;
 }
@@ -13305,8 +13318,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 
 .lre-press-portal:hover {
   transform: translate3d(0, -3px, 0);
-  background-color: rgba(255, 255, 255, 0.025);
-  border-color: rgba(197, 160, 71, 0.2);
+  background-color: var(--lre-press-box-hover-bg, rgba(255, 255, 255, 0.025));
+  border-color: var(--lre-press-box-hover-border, rgba(197, 160, 71, 0.2));
   box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45), 0 0 1px rgba(197, 160, 71, 0.4);
 }
 
@@ -13318,7 +13331,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   transform: translate3d(-50%, -50%, 0) scale(0.9);
   width: 220px;
   height: 120px;
-  background: radial-gradient(ellipse at center, rgba(197, 160, 71, 0.12) 0%, rgba(197, 160, 71, 0) 70%);
+  background: radial-gradient(ellipse at center, var(--lre-press-box-glow, rgba(197, 160, 71, 0.12)) 0%, transparent 70%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -13337,7 +13350,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lre-press-gold, #c5a047);
+  color: var(--lre-press-tag-color, var(--lre-press-gold, #c5a047));
+  -webkit-text-fill-color: currentColor;
   margin-bottom: 1.2rem;
   position: relative;
   z-index: 1;
@@ -13347,7 +13361,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 
 .lre-press-portal:hover .lre-press-portal__tag {
   opacity: 1;
-  color: #ffffff;
+  color: var(--lre-press-tag-hover-color, #ffffff);
+  -webkit-text-fill-color: currentColor;
 }
 
 /* Portal Logo Box */
@@ -13407,7 +13422,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--lre-press-action-color, #ffffff);
   position: relative;
   z-index: 1;
   transition: color 0.35s ease;
@@ -13416,8 +13431,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 .lre-press-portal__action-text {
   position: relative;
   padding-bottom: 2px;
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
   transition: color 0.35s ease;
 }
 
@@ -13428,7 +13443,7 @@ body.elementor-editor-preview .lre-press-strip .reveal {
   left: 0;
   width: 100%;
   height: 1px;
-  background: var(--lre-press-gold, #c5a047);
+  background-color: var(--lre-press-action-line, var(--lre-press-gold, #c5a047));
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease;
@@ -13438,19 +13453,21 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 .lre-press-portal:hover .lre-press-portal__action-text,
 .lre-press-portal__action:hover,
 .lre-press-portal__action:hover .lre-press-portal__action-text {
-  color: var(--lre-press-gold, #c5a047);
-  -webkit-text-fill-color: var(--lre-press-gold, #c5a047);
+  color: var(--lre-press-action-hover-color, var(--lre-press-gold, #c5a047));
+  -webkit-text-fill-color: currentColor;
 }
 
 .lre-press-portal:hover .lre-press-portal__action-text::after,
 .lre-press-portal__action:hover .lre-press-portal__action-text::after {
   transform: scaleX(1);
+  background-color: var(--lre-press-action-hover-line, var(--lre-press-action-hover-color, var(--lre-press-gold, #c5a047)));
 }
 
 .lre-press-portal__arrow {
   width: 11px;
   height: 11px;
-  stroke: currentColor;
+  stroke: var(--lre-press-arrow-color, currentColor);
+  color: var(--lre-press-arrow-color, currentColor);
   transform: translate3d(0, 0, 0);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.35s ease, color 0.35s ease;
 }
@@ -13458,7 +13475,8 @@ body.elementor-editor-preview .lre-press-strip .reveal {
 .lre-press-portal:hover .lre-press-portal__arrow,
 .lre-press-portal__action:hover .lre-press-portal__arrow {
   transform: translate3d(3px, -3px, 0);
-  stroke: currentColor;
+  stroke: var(--lre-press-arrow-hover-color, var(--lre-press-action-hover-color, var(--lre-press-gold, #c5a047)));
+  color: var(--lre-press-arrow-hover-color, var(--lre-press-action-hover-color, var(--lre-press-gold, #c5a047)));
 }
 
 /* =========================================================================

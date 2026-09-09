@@ -10753,7 +10753,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   justify-content: center;
   padding: 130px 40px;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  overflow-x: hidden;
+  overflow: visible;
+  overflow-x: clip;
   box-sizing: border-box;
 }
 

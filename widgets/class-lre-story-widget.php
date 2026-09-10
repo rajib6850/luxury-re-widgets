@@ -315,12 +315,61 @@ class LRE_Story_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- STYLE: TYPOGRAPHY ---
+		// --- STYLE: WATERMARK ---
+		$this->start_controls_section(
+			'style_watermark',
+			array(
+				'label' => __( 'Watermark', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'watermark_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__watermark',
+			)
+		);
+
+		$this->add_control(
+			'watermark_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-story__watermark' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: TYPOGRAPHY & COLORS ---
 		$this->start_controls_section(
 			'style_typography',
 			array(
 				'label' => __( 'Typography & Colors', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Eyebrow
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'label'    => __( 'Eyebrow Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__eyebrow',
 			)
 		);
 
@@ -336,6 +385,25 @@ class LRE_Story_Widget extends Widget_Base {
 			)
 		);
 
+		// Main Title
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label'     => __( 'Main Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_typography',
+				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__title',
+			)
+		);
+
 		$this->add_control(
 			'title_color',
 			array(
@@ -347,18 +415,29 @@ class LRE_Story_Widget extends Widget_Base {
 			)
 		);
 
+		// Lead / Subtitle
+		$this->add_control(
+			'heading_style_lead',
+			array(
+				'label'     => __( 'Lead / Subtitle', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'title_typography',
-				'selector' => '{{WRAPPER}} .lre-story__title',
+				'name'     => 'lead_typography',
+				'label'    => __( 'Lead Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__lead',
 			)
 		);
 
 		$this->add_control(
 			'lead_color',
 			array(
-				'label'     => __( 'Lead / Subtitle Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Lead Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__lead' => 'color: {{VALUE}};',
@@ -366,10 +445,29 @@ class LRE_Story_Widget extends Widget_Base {
 			)
 		);
 
+		// Story Body Text
+		$this->add_control(
+			'heading_style_story',
+			array(
+				'label'     => __( 'Story Body Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'story_typography',
+				'label'    => __( 'Body Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__text, {{WRAPPER}} .lre-story__text p',
+			)
+		);
+
 		$this->add_control(
 			'story_color',
 			array(
-				'label'     => __( 'Story Body Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Body Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .lre-story__text, {{WRAPPER}} .lre-story__text p' => 'color: {{VALUE}};',
@@ -417,6 +515,15 @@ class LRE_Story_Widget extends Widget_Base {
 				'label'     => __( 'Button Style', 'luxury-re-widgets' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'show_button' => 'yes' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'button_typography',
+				'label'    => __( 'Button Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-story__btn, {{WRAPPER}} .lre-story .btn',
 			)
 		);
 

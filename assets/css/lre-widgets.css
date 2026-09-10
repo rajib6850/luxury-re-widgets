@@ -6088,7 +6088,15 @@ button.navbar__mobile-toggle:active,
   flex-shrink: 0;
 }
 
-.lre-story__eyebrow,
+.lre-story__eyebrow {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--story-eyebrow-color, var(--color-secondary, #c5a047));
+}
+
 .lre-team__eyebrow,
 .lre-aserv__eyebrow,
 .lre-reviews__eyebrow {
@@ -6123,7 +6131,7 @@ button.navbar__mobile-toggle:active,
 }
 
 .lre-story__desc {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.95rem;
   line-height: 1.8;
   color: var(--color-text-muted, #6b6b6b);
@@ -6334,23 +6342,25 @@ button.navbar__mobile-toggle:active,
 
 /* Lead Paragraph */
 .lre-story__lead {
-  font-family: var(--font-serif, 'Libre Baskerville', serif);
+  font-family: inherit;
   font-size: clamp(1.12rem, 1.35vw, 1.28rem);
   line-height: 1.8;
-  color: #141418;
+  color: var(--color-dark, #141418);
   margin-bottom: 1.6rem;
   font-weight: 400;
 }
 
 /* Rich Story Details */
 .lre-story__text {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: inherit;
   font-size: 0.94rem;
   line-height: 1.88;
-  color: #4a4a52;
+  color: var(--color-text, #4a4a52);
 }
 
 .lre-story__text p {
+  font-family: inherit;
+  color: inherit;
   margin-bottom: 1.25rem;
 }
 
@@ -8817,7 +8827,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--lre-rev-eyebrow-color, rgba(255, 255, 255, 0.7));
 }
 
 .lre-reviews__title {
@@ -8825,7 +8835,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-size: clamp(2.2rem, 3.8vw, 3.2rem);
   font-weight: 400;
   line-height: 1.25;
-  color: #ffffff !important;
+  color: var(--lre-rev-title-color, #ffffff);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -8834,9 +8844,9 @@ body.elementor-editor-active .lre-aserv__watermark {
 .lre-reviews__title .title-mask,
 .lre-reviews__title .title-mask > span,
 .lre-reviews__title span {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  background: none !important;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 /* Split Architectural Stage */
@@ -8957,7 +8967,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-family: inherit;
   font-size: 1.45rem;
   font-weight: 400;
-  color: #ffffff !important;
+  color: var(--lre-rev-metric-val-color, #ffffff);
   line-height: 1.1;
   margin-bottom: 0.35rem;
 }
@@ -8966,7 +8976,7 @@ body.elementor-editor-active .lre-aserv__watermark {
   font-family: inherit;
   font-size: 0.6rem;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: var(--lre-rev-metric-lbl-color, rgba(255, 255, 255, 0.55));
   text-transform: uppercase;
   line-height: 1.35;
 }
@@ -9132,7 +9142,7 @@ button.lre-reviews__tab-btn.is-active,
   font-family: inherit;
   font-size: 0.92rem;
   font-weight: 500;
-  color: #ffffff !important;
+  color: var(--lre-rev-tab-name-color, #ffffff);
   display: block;
   width: 100%;
   max-width: 100%;
@@ -9144,7 +9154,7 @@ button.lre-reviews__tab-btn.is-active,
 .lre-reviews__tab-tx {
   font-family: inherit;
   font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: var(--lre-rev-tab-tx-color, rgba(255, 255, 255, 0.5));
   display: block;
   width: 100%;
   max-width: 100%;
@@ -9357,8 +9367,8 @@ button.lre-reviews__tab-btn.is-active,
   font-style: italic;
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
   line-height: 1.65;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--lre-rev-quote-color, var(--rev-text, #ffffff));
+  -webkit-text-fill-color: currentColor;
   margin: 0;
   position: relative;
   z-index: 1;
@@ -9427,14 +9437,14 @@ button.lre-reviews__tab-btn.is-active,
   font-family: var(--e-global-typography-primary-font-family, inherit);
   font-size: 1.15rem;
   font-weight: 400;
-  color: #ffffff !important;
+  color: var(--lre-rev-author-name-color, #ffffff);
   margin: 0;
 }
 
 .lre-reviews__author-title {
   font-family: inherit;
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.65) !important;
+  color: var(--lre-rev-author-title-color, rgba(255, 255, 255, 0.65));
   letter-spacing: 0.5px;
 }
 
@@ -9483,24 +9493,24 @@ button.lre-reviews__tab-btn.is-active,
 .lre-reviews__counter {
   font-family: inherit;
   font-size: 1.25rem;
-  color: var(--rev-gold, #c5a047) !important;
+  color: var(--lre-rev-counter-color, var(--rev-gold, #c5a047));
   display: flex;
   align-items: baseline;
   gap: 6px;
 }
 
 .lre-reviews__active-num {
-  color: var(--rev-gold, #c5a047) !important;
+  color: var(--lre-rev-counter-active-color, var(--rev-gold, #c5a047));
   font-weight: 700;
 }
 
 .lre-reviews__counter-slash {
-  color: rgba(197, 160, 71, 0.45) !important;
+  color: var(--lre-rev-counter-slash-color, rgba(197, 160, 71, 0.45));
   font-size: 0.95rem;
 }
 
 .lre-reviews__total-num {
-  color: rgba(197, 160, 71, 0.65) !important;
+  color: var(--lre-rev-counter-total-color, rgba(197, 160, 71, 0.65));
   font-size: 0.95rem;
 }
 
@@ -9509,25 +9519,36 @@ button.lre-reviews__tab-btn.is-active,
   gap: 1rem;
 }
 
-/* Nav Button - Complete Theme Pink Override */
+/* Nav Button - Elementor Customizable with Fallbacks */
 button.lre-reviews__nav-btn,
 [type="button"].lre-reviews__nav-btn,
 .lre-reviews__nav-btn {
-  padding: 0.65rem 1.4rem !important;
-  font-family: inherit !important;
-  font-size: 0.68rem !important;
-  letter-spacing: 2px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 0 !important;
-  color: #ffffff !important;
-  cursor: pointer !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  outline: none !important;
-  box-shadow: none !important;
+  padding: var(--lre-rev-nav-btn-padding, 0.65rem 1.4rem);
+  font-family: inherit;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--lre-rev-nav-btn-bg, transparent);
+  border: 1px solid var(--lre-rev-nav-btn-border-color, rgba(255, 255, 255, 0.3));
+  border-radius: var(--lre-rev-nav-btn-radius, 0);
+  color: var(--lre-rev-nav-btn-color, #ffffff);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  box-shadow: none;
+}
+
+.lre-reviews__nav-btn::before,
+.lre-reviews__nav-btn::after {
+  display: none !important;
+  content: none !important;
+}
+
+.lre-reviews__nav-btn span {
+  color: inherit;
+  transition: color 0.3s ease;
 }
 
 button.lre-reviews__nav-btn:hover,
@@ -9536,11 +9557,16 @@ button.lre-reviews__nav-btn:focus,
 [type="button"].lre-reviews__nav-btn:focus,
 .lre-reviews__nav-btn:hover,
 .lre-reviews__nav-btn:focus {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #000000 !important;
-  outline: none !important;
-  box-shadow: none !important;
+  background-color: var(--lre-rev-nav-btn-hover-bg, #ffffff);
+  border-color: var(--lre-rev-nav-btn-hover-border-color, #ffffff);
+  color: var(--lre-rev-nav-btn-hover-color, #000000);
+  outline: none;
+  box-shadow: none;
+}
+
+.lre-reviews__nav-btn:hover span,
+.lre-reviews__nav-btn:focus span {
+  color: inherit;
 }
 
 /* Responsive Breakpoints */
@@ -9987,8 +10013,8 @@ button.lre-reviews__nav-btn:focus,
   }
 
   .lre-reviews__nav-btn {
-    padding: 0.55rem 1rem !important;
-    font-size: 0.6rem !important;
+    padding: var(--lre-rev-nav-btn-padding, 0.55rem 1rem);
+    font-size: 0.6rem;
   }
 }
 

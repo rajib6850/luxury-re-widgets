@@ -322,8 +322,10 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 /* Base button font inherit for customized widgets */
 .elementor-widget .btn.lre-contact__submit-btn,
 .elementor-widget .btn.lre-phero__btn,
-.elementor-widget .btn.lre-reviews__nav-btn {
-  font-family: inherit !important;
+.elementor-widget .btn.lre-reviews__nav-btn,
+.elementor-widget .lre-story .btn,
+.elementor-widget .lre-story__btn {
+  font-family: inherit;
 }
 
 /* Secondary Button - Unified Outlined Style */
@@ -377,15 +379,14 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 }
 
 /* High-specificity override for per-widget Elementor compiled rules */
-body .elementor-element .btn:not(.lre-newsletter-white__btn),
-body .elementor-element a.btn:not(.lre-newsletter-white__btn),
-body .elementor-element button.btn:not(.lre-newsletter-white__btn),
+body .elementor-element .btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
+body .elementor-element a.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
+body .elementor-element button.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
 body .elementor-element .listings__cta-group .btn,
 body .elementor-element .about .btn,
 body .elementor-element .cta__buttons .btn,
 body .elementor-element .cta__buttons a.btn,
 body .elementor-element .lre-dual-cta__btn,
-body .elementor-element .lre-story .btn,
 body .elementor-element .lre-aserv .btn,
 body .elementor-element .lre-phero__actions .btn {
   padding: 1.3rem 2.2rem !important;
@@ -490,7 +491,7 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-reviews .lre-reviews__total-num,
 .lre-reviews .lre-reviews__nav-btn,
 .lre-reviews .lre-reviews__nav-btn span {
-  font-family: inherit !important;
+  font-family: inherit;
 }
 
 /* Reviews & Testimonials Headings Cascade to Site Settings Heading Font */

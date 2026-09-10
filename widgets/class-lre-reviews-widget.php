@@ -538,17 +538,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'title_color',
-			array(
-				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title .title-mask > span, {{WRAPPER}} .lre-reviews__title span' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
 			'text_color',
 			array(
 				'label'     => __( 'Body Text Color', 'luxury-re-widgets' ),
@@ -583,12 +572,21 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- TYPOGRAPHY ---
+		// --- TYPOGRAPHY & COLORS ---
 		$this->start_controls_section(
 			'style_typography',
 			array(
-				'label' => __( 'Typography', 'luxury-re-widgets' ),
+				'label' => __( 'Typography & Colors', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// 1. Headline
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label' => __( 'Headline', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
 			)
 		);
 
@@ -597,7 +595,28 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span',
+				'selector' => '{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span, {{WRAPPER}} .lre-reviews__title .title-mask > span',
+			)
+		);
+
+		$this->add_control(
+			'title_color',
+			array(
+				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span, {{WRAPPER}} .lre-reviews__title .title-mask > span' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 2. Eyebrow
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label'     => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -610,12 +629,54 @@ class LRE_Reviews_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 3. Quotation (Review Body)
+		$this->add_control(
+			'heading_style_quote',
+			array(
+				'label'     => __( 'Quotation (Review Text)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'quote_typography',
 				'label'    => __( 'Quotation Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__quote-text',
+			)
+		);
+
+		$this->add_control(
+			'quote_color',
+			array(
+				'label'     => __( 'Quotation Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__quote-text' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 4. Author Name
+		$this->add_control(
+			'heading_style_author_name',
+			array(
+				'label'     => __( 'Author Name', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -628,12 +689,54 @@ class LRE_Reviews_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'author_name_color',
+			array(
+				'label'     => __( 'Author Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__author-name' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 5. Author Role / Title
+		$this->add_control(
+			'heading_style_author_title',
+			array(
+				'label'     => __( 'Author Role / Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'author_title_typography',
-				'label'    => __( 'Author Role / Title Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Author Role Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__author-title',
+			)
+		);
+
+		$this->add_control(
+			'author_title_color',
+			array(
+				'label'     => __( 'Author Role Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__author-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 6. Dossier Tab Name
+		$this->add_control(
+			'heading_style_tab_name',
+			array(
+				'label'     => __( 'Dossier Tab Name', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -641,8 +744,29 @@ class LRE_Reviews_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'tab_name_typography',
-				'label'    => __( 'Dossier Tab Name Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Tab Name Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__tab-name',
+			)
+		);
+
+		$this->add_control(
+			'tab_name_color',
+			array(
+				'label'     => __( 'Tab Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__tab-name' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 7. Dossier Tab Badge
+		$this->add_control(
+			'heading_style_tab_badge',
+			array(
+				'label'     => __( 'Dossier Tab Badge', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -650,8 +774,29 @@ class LRE_Reviews_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'tab_tx_typography',
-				'label'    => __( 'Dossier Tab Badge Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Tab Badge Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__tab-tx',
+			)
+		);
+
+		$this->add_control(
+			'tab_tx_color',
+			array(
+				'label'     => __( 'Tab Badge Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__tab-tx' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 8. Trust Metrics Values
+		$this->add_control(
+			'heading_style_metrics_val',
+			array(
+				'label'     => __( 'Trust Metrics Value', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -659,8 +804,29 @@ class LRE_Reviews_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'metrics_val_typography',
-				'label'    => __( 'Trust Metrics Value Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Metrics Value Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__metric-val',
+			)
+		);
+
+		$this->add_control(
+			'metrics_val_color',
+			array(
+				'label'     => __( 'Metrics Value Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__metric-val' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 9. Trust Metrics Labels
+		$this->add_control(
+			'heading_style_metrics_lbl',
+			array(
+				'label'     => __( 'Trust Metrics Label', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -668,8 +834,29 @@ class LRE_Reviews_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'metrics_lbl_typography',
-				'label'    => __( 'Trust Metrics Label Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Metrics Label Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__metric-lbl',
+			)
+		);
+
+		$this->add_control(
+			'metrics_lbl_color',
+			array(
+				'label'     => __( 'Metrics Label Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__metric-lbl' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 10. Monogram Crest
+		$this->add_control(
+			'heading_style_monogram',
+			array(
+				'label'     => __( 'Monogram Crest', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -679,6 +866,17 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'name'     => 'monogram_typography',
 				'label'    => __( 'Monogram Crest Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__monogram, {{WRAPPER}} .lre-reviews__tab-monogram',
+			)
+		);
+
+		$this->add_control(
+			'monogram_color',
+			array(
+				'label'     => __( 'Monogram Crest Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__monogram, {{WRAPPER}} .lre-reviews__tab-monogram' => 'color: {{VALUE}};',
+				),
 			)
 		);
 
@@ -698,7 +896,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'name'     => 'nav_typography',
 				'label'    => __( 'Button Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn span',
+				'selector' => '{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn span',
 			)
 		);
 
@@ -717,7 +915,8 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => 'color: {{VALUE}}; --lre-rev-nav-btn-color: {{VALUE}};',
+					'{{WRAPPER}} button.lre-reviews__nav-btn span, {{WRAPPER}} .lre-reviews__nav-btn span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -728,7 +927,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => 'background-color: {{VALUE}}; --lre-rev-nav-btn-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -739,7 +938,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => 'border-color: {{VALUE}}; --lre-rev-nav-btn-border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -759,7 +958,8 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn:hover, {{WRAPPER}} .lre-reviews__nav-btn:hover, {{WRAPPER}} button.lre-reviews__nav-btn:focus, {{WRAPPER}} .lre-reviews__nav-btn:focus' => 'color: {{VALUE}}; --lre-rev-nav-btn-hover-color: {{VALUE}};',
+					'{{WRAPPER}} button.lre-reviews__nav-btn:hover span, {{WRAPPER}} .lre-reviews__nav-btn:hover span, {{WRAPPER}} button.lre-reviews__nav-btn:focus span, {{WRAPPER}} .lre-reviews__nav-btn:focus span' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -770,7 +970,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn:hover, {{WRAPPER}} .lre-reviews__nav-btn:hover, {{WRAPPER}} button.lre-reviews__nav-btn:focus, {{WRAPPER}} .lre-reviews__nav-btn:focus' => 'background-color: {{VALUE}}; --lre-rev-nav-btn-hover-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -781,7 +981,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn:hover, {{WRAPPER}} .lre-reviews__nav-btn:hover, {{WRAPPER}} button.lre-reviews__nav-btn:focus, {{WRAPPER}} .lre-reviews__nav-btn:focus' => 'border-color: {{VALUE}}; --lre-rev-nav-btn-hover-border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -798,7 +998,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'separator'  => 'before',
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; --lre-rev-nav-btn-padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -810,7 +1010,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews__nav-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; --lre-rev-nav-btn-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -839,7 +1039,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Active Number Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__active-num' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-reviews__active-num' => 'color: {{VALUE}}; --lre-rev-counter-active-color: {{VALUE}};',
 				),
 			)
 		);
@@ -850,7 +1050,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Separator Slash Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__counter-slash' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-reviews__counter-slash' => 'color: {{VALUE}}; --lre-rev-counter-slash-color: {{VALUE}};',
 				),
 			)
 		);
@@ -861,7 +1061,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Total Number Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__total-num' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-reviews__total-num' => 'color: {{VALUE}}; --lre-rev-counter-total-color: {{VALUE}};',
 				),
 			)
 		);

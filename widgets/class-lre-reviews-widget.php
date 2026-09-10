@@ -76,6 +76,25 @@ class LRE_Reviews_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'title_tag',
+			array(
+				'label'   => __( 'Title HTML Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'span' => 'span',
+					'div'  => 'div',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- 2. TRUST METRICS & FIDUCIARY PILLAR ---
@@ -595,7 +614,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span, {{WRAPPER}} .lre-reviews__title .title-mask > span',
+				'selector' => '{{WRAPPER}} .lre-reviews__title',
 			)
 		);
 
@@ -605,7 +624,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span, {{WRAPPER}} .lre-reviews__title .title-mask > span' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-reviews__title' => 'color: {{VALUE}}; --lre-rev-title-color: {{VALUE}};',
 				),
 			)
 		);
@@ -970,7 +989,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} button.lre-reviews__nav-btn:hover, {{WRAPPER}} .lre-reviews__nav-btn:hover, {{WRAPPER}} button.lre-reviews__nav-btn:focus, {{WRAPPER}} .lre-reviews__nav-btn:focus' => 'background-color: {{VALUE}}; --lre-rev-nav-btn-hover-bg: {{VALUE}};',
+					'{{WRAPPER}} button.lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn' => '--lre-rev-nav-btn-hover-bg: {{VALUE}}; --btn-hover-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -1074,6 +1093,8 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$eyebrow        = esc_html( $settings['eyebrow'] ?? 'Client Accolades & Fiduciary Trust' );
 		$title          = $settings['title'] ?? "Words from Those Who\nEntrusted Us with Masterworks";
+		$title_tag      = esc_attr( $settings['title_tag'] ?? 'h2' );
+		$title_tag      = in_array( $title_tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span' ), true ) ? $title_tag : 'h2';
 
 		// Pillar
 		$seal_top       = esc_html( $settings['seal_text_top'] ?? 'PRIVATE WEALTH ADVISORY' );
@@ -1128,11 +1149,11 @@ class LRE_Reviews_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $title_lines ) ) : ?>
-						<h2 class="lre-reviews__title">
+						<<?php echo $title_tag; ?> class="lre-reviews__title">
 							<?php foreach ( $title_lines as $t_idx => $t_line ) : ?>
 								<span class="title-mask"><span><?php echo wp_kses( $t_line, array( 'span' => array( 'class' => array() ), 'em' => array() ) ); ?></span></span><?php if ( $t_idx < count( $title_lines ) - 1 ) : ?><br><?php endif; ?>
 							<?php endforeach; ?>
-						</h2>
+						</<?php echo $title_tag; ?>>
 					<?php endif; ?>
 				</div>
 

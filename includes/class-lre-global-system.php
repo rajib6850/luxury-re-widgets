@@ -221,7 +221,8 @@ body,
 .listings__title,
 .communities__title,
 .cta__title,
-.footer__brand {
+.footer__brand,
+.lre-reviews__title {
   font-family: var(--font-serif);
 }
 
@@ -463,7 +464,6 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-phero .lre-phero__eyebrow,
 .lre-phero .lre-phero__actions .btn,
 .lre-phero .lre-phero__actions .btn span,
-.lre-reviews,
 .lre-reviews p,
 .lre-reviews blockquote,
 .lre-reviews .lre-reviews__quote-text,
@@ -492,18 +492,6 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-reviews .lre-reviews__nav-btn,
 .lre-reviews .lre-reviews__nav-btn span {
   font-family: inherit;
-}
-
-/* Reviews & Testimonials Headings Cascade to Site Settings Heading Font */
-.lre-reviews .lre-reviews__title,
-.lre-reviews .lre-reviews__title span,
-.lre-reviews .lre-reviews__title .title-mask > span,
-.lre-reviews .lre-reviews__author-name,
-.lre-reviews h1,
-.lre-reviews h2,
-.lre-reviews h3,
-.lre-reviews h4 {
-  font-family: var(--e-global-typography-primary-font-family, inherit);
 }
 
 .lre-phero__title {

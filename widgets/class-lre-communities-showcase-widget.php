@@ -206,11 +206,26 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'show_button',
+			array(
+				'label'        => __( 'Show Action Button', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$repeater->add_control(
 			'link_text',
 			array(
-				'label'   => __( 'Link Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Explore Enclave',
+				'label'     => __( 'Link Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Explore Enclave',
+				'condition' => array(
+					'show_button' => 'yes',
+				),
 			)
 		);
 
@@ -286,6 +301,20 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'show_button',
+			array(
+				'label'        => __( 'Show Action Button / Link', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
+				'description'  => __( 'Show or hide the "Explore Enclave" action button / link across all enclaves.', 'luxury-re-widgets' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// =================================================================
@@ -334,23 +363,61 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- STYLE: TYPOGRAPHY & HEADER ---
+		// --- STYLE: HEADER TYPOGRAPHY & COLORS ---
 		$this->start_controls_section(
 			'style_header',
 			array(
-				'label' => __( 'Typography & Colors', 'luxury-re-widgets' ),
+				'label' => __( 'Header Typography & Colors', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Eyebrow
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'label'    => __( 'Eyebrow Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-showcase__eyebrow, {{WRAPPER}} .lre-comm-showcase__eyebrow-wrap .section-label',
 			)
 		);
 
 		$this->add_control(
 			'eyebrow_color',
 			array(
-				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Eyebrow & Accent Bar Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__eyebrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-showcase__eyebrow, {{WRAPPER}} .lre-comm-showcase .lre-comm-showcase__eyebrow, {{WRAPPER}} .lre-comm-showcase__eyebrow-wrap .section-label' => 'color: {{VALUE}}; -webkit-text-fill-color: currentColor; --communities-eyebrow-color: {{VALUE}}; --lre-comm-eyebrow-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-showcase__gold-bar, {{WRAPPER}} .lre-comm-showcase .lre-comm-showcase__gold-bar, {{WRAPPER}} .lre-comm-showcase__eyebrow-wrap .lre-comm-showcase__gold-bar' => 'background-color: {{VALUE}}; --communities-gold-bar-color: {{VALUE}};',
 				),
+			)
+		);
+
+		// Heading
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label'     => __( 'Heading / Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_typography',
+				'label'    => __( 'Heading Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-showcase__title',
 			)
 		);
 
@@ -360,8 +427,27 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__title, {{WRAPPER}} .lre-comm-showcase__title .title-mask > span, {{WRAPPER}} .lre-comm-showcase__title span' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-showcase__title, {{WRAPPER}} .lre-comm-showcase__title .title-mask > span, {{WRAPPER}} .lre-comm-showcase__title span, {{WRAPPER}} .lre-comm-showcase .lre-comm-showcase__title' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}}; --lre-comm-title-color: {{VALUE}};',
 				),
+			)
+		);
+
+		// Description
+		$this->add_control(
+			'heading_style_desc',
+			array(
+				'label'     => __( 'Description', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'label'    => __( 'Description Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-showcase__description',
 			)
 		);
 
@@ -371,7 +457,356 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-comm-showcase__description' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-showcase__description' => 'color: {{VALUE}}; --lre-comm-desc-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: FILTER NAVIGATION ---
+		$this->start_controls_section(
+			'style_filters',
+			array(
+				'label' => __( 'Filter Navigation', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'filter_typography',
+				'label'    => __( 'Filter Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-nav-item',
+			)
+		);
+
+		$this->add_control(
+			'filter_color',
+			array(
+				'label'     => __( 'Normal Tab Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-nav-item' => 'color: {{VALUE}}; --lre-comm-filter-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'filter_active_color',
+			array(
+				'label'     => __( 'Active & Hover Tab Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-nav-item:hover, {{WRAPPER}} .lre-comm-nav-item.is-active' => 'color: {{VALUE}}; --lre-comm-filter-active-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'filter_accent_color',
+			array(
+				'label'     => __( 'Active Underline Accent Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-nav-item.is-active::after' => 'background-color: {{VALUE}}; box-shadow: 0 0 8px {{VALUE}}; --lre-comm-filter-accent: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'filter_sep_color',
+			array(
+				'label'     => __( 'Divider Slash Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-nav-sep' => 'color: {{VALUE}}; --lre-comm-filter-sep: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: ENCLAVE CARDS ---
+		$this->start_controls_section(
+			'style_cards',
+			array(
+				'label' => __( 'Enclave Cards & Gallery', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_style_card_box',
+			array(
+				'label' => __( 'Card Box / Container', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_card_box' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_card_box_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'card_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame' => 'background-color: {{VALUE}}; --lre-comm-card-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame' => 'border-color: {{VALUE}}; --lre-comm-card-border: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_card_box_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'card_hover_accent_color',
+			array(
+				'label'       => __( 'Hover Accent Color (All Gold Elements)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'description' => __( 'Changes the hover gold border, glow shadow, and action arrow together.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-comm-frame:hover' => 'border-color: {{VALUE}}; --lre-comm-card-hover-border: {{VALUE}}; --lre-comm-card-hover-glow: {{VALUE}}; --lre-comm-card-hover-accent: {{VALUE}}; box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 24px {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__action-line' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__action-arrow' => 'stroke: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame:hover' => 'border-color: {{VALUE}}; --lre-comm-card-hover-border: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_hover_glow_color',
+			array(
+				'label'       => __( 'Hover Glow / Shadow Color', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'description' => __( 'Controls the soft gold shadow glow aura surrounding the box on hover.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-comm-frame:hover' => '--lre-comm-card-hover-glow: {{VALUE}}; box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 24px {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// Index Number
+		$this->add_control(
+			'heading_style_card_index',
+			array(
+				'label'     => __( 'Index Number', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'index_typography',
+				'label'    => __( 'Index Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-frame__index',
+			)
+		);
+
+		$this->add_control(
+			'index_color',
+			array(
+				'label'     => __( 'Index Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__index' => 'color: {{VALUE}}; --lre-comm-index-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Category Badge
+		$this->add_control(
+			'heading_style_card_category',
+			array(
+				'label'     => __( 'Category Badge', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'category_typography',
+				'label'    => __( 'Category Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-frame__category',
+			)
+		);
+
+		$this->add_control(
+			'category_color',
+			array(
+				'label'     => __( 'Category Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__category' => 'color: {{VALUE}}; --lre-comm-category-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Enclave Name / Title
+		$this->add_control(
+			'heading_style_card_name',
+			array(
+				'label'     => __( 'Enclave Name / Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'card_name_typography',
+				'label'    => __( 'Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-frame__name',
+			)
+		);
+
+		$this->add_control(
+			'card_name_color',
+			array(
+				'label'     => __( 'Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__name, {{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__name' => 'color: {{VALUE}}; -webkit-text-fill-color: currentColor; --lre-comm-card-title-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Tagline / Descriptor
+		$this->add_control(
+			'heading_style_card_tagline',
+			array(
+				'label'     => __( 'Descriptor / Tagline', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'card_tagline_typography',
+				'label'    => __( 'Tagline Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-comm-frame__tagline',
+			)
+		);
+
+		$this->add_control(
+			'card_tagline_color',
+			array(
+				'label'     => __( 'Tagline Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__tagline' => 'color: {{VALUE}}; --lre-comm-tagline-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Action Link & Line
+		$this->add_control(
+			'heading_style_card_action',
+			array(
+				'label'     => __( 'Action Link & Arrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'show_button' => 'yes',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'card_action_typography',
+				'label'     => __( 'Action Link Typography', 'luxury-re-widgets' ),
+				'selector'  => '{{WRAPPER}} .lre-comm-frame__action-text',
+				'condition' => array(
+					'show_button' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_action_color',
+			array(
+				'label'     => __( 'Action Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__action-text, {{WRAPPER}} .lre-comm-frame__action-arrow' => 'color: {{VALUE}}; stroke: {{VALUE}}; --lre-comm-action-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_button' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_action_hover_color',
+			array(
+				'label'     => __( 'Action Hover Accent Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__action-text, {{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__action-arrow, {{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__action-line' => 'color: {{VALUE}}; stroke: {{VALUE}}; background-color: {{VALUE}}; --lre-comm-action-hover-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_button' => 'yes',
 				),
 			)
 		);
@@ -380,9 +815,10 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
-		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$settings     = $this->get_settings_for_display();
+		$tag          = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag          = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$show_button  = ! isset( $settings['show_button'] ) || 'yes' === $settings['show_button'];
 
 		// Detect if inside Elementor editor / preview mode
 		$is_edit_mode = false;
@@ -552,6 +988,10 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 								<p class="lre-comm-frame__tagline"><?php echo esc_html( $c['tagline'] ); ?></p>
 								<?php endif; ?>
 
+								<?php
+								$item_show_btn = ! isset( $c['show_button'] ) || 'yes' === $c['show_button'];
+								if ( $show_button && $item_show_btn ) :
+								?>
 								<div class="lre-comm-frame__action">
 									<span class="lre-comm-frame__action-text"><?php echo esc_html( $c['link_text'] ?? 'Explore Enclave' ); ?></span>
 									<span class="lre-comm-frame__action-line" aria-hidden="true"></span>
@@ -560,6 +1000,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 										<polyline points="12 5 19 12 12 19"></polyline>
 									</svg>
 								</div>
+								<?php endif; ?>
 							</div>
 						</a>
 					</article>

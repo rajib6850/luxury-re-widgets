@@ -547,7 +547,8 @@
     };
 
     // =========================================================================
-    // 8. FEATURED PROPERTIES (CAROUSEL & LIKES)
+    // =========================================================================
+    // 8. FEATURED PROPERTIES (CAROUSEL, GRID PAGINATION & LIKES)
     // =========================================================================
     LREWidgets.Properties = {
         init: function ( $scope ) {
@@ -557,6 +558,19 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
+            // --- A. Heart Favorite / Wishlist Button Toggle (Grid & Carousel) ---
+            var likeButtons = root.querySelectorAll( '.listing-card__like-btn' );
+            likeButtons.forEach( function ( btn ) {
+                if ( btn.getAttribute( 'data-lre-bound' ) ) return;
+                btn.setAttribute( 'data-lre-bound', 'true' );
+                btn.addEventListener( 'click', function ( e ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    btn.classList.toggle( 'liked' );
+                } );
+            } );
+
+            // --- B. Carousel Mode ---
             var carousel = root.querySelector( '#listings-carousel' ) || root.querySelector( '.listings__carousel' );
             var prevBtn = root.querySelector( '#listings-prev' );
             var nextBtn = root.querySelector( '#listings-next' );
@@ -677,16 +691,138 @@
                         carousel.addEventListener( 'mouseleave', startAutoplay );
                     }
                 }
+            }
 
-                // Heart Favorite Button Toggle
-                var likeButtons = carousel.querySelectorAll( '.listing-card__like-btn' );
-                likeButtons.forEach( function ( btn ) {
-                    btn.addEventListener( 'click', function ( e ) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        btn.classList.toggle( 'liked' );
-                    } );
-                } );
+            // --- C. Grid Mode & Pagination ---
+            var gridWrapper = root.querySelector( '.listings__grid-wrapper' );
+            var grid = root.querySelector( '#listings-grid' ) || root.querySelector( '.listings__grid' );
+
+            if ( gridWrapper && grid ) {
+                var paginationType = gridWrapper.getAttribute( 'data-pagination-type' ) || 'numbers';
+                var totalPages = parseInt( gridWrapper.getAttribute( 'data-total-pages' ), 10 ) || 1;
+                var cards = grid.querySelectorAll( '.listing-card' );
+
+                // 1. Numbered Pagination
+                if ( paginationType === 'numbers' && totalPages > 1 ) {
+                    var paginationNav = gridWrapper.querySelector( '.listings__pagination' );
+                    if ( paginationNav ) {
+                        var pageButtons = paginationNav.querySelectorAll( '.listings__pagination-btn[data-page]' );
+                        var prevPageBtn = paginationNav.querySelector( '.listings__pagination-prev' );
+                        var nextPageBtn = paginationNav.querySelector( '.listings__pagination-next' );
+                        var currentPage = 1;
+
+                        var goToPage = function ( page, shouldScroll ) {
+                            if ( page < 1 || page > totalPages ) return;
+                            currentPage = page;
+
+                            // Update cards visibility
+                            cards.forEach( function ( card ) {
+                                var cardPage = parseInt( card.getAttribute( 'data-page' ), 10 ) || 1;
+                                if ( cardPage === currentPage ) {
+                                    card.classList.remove( 'is-hidden' );
+                                    card.classList.remove( 'fade-in-up' );
+                                    // Trigger reflow for smooth re-animation
+                                    void card.offsetWidth;
+                                    card.classList.add( 'fade-in-up' );
+                                } else {
+                                    card.classList.add( 'is-hidden' );
+                                    card.classList.remove( 'fade-in-up' );
+                                }
+                            } );
+
+                            // Update number buttons
+                            pageButtons.forEach( function ( btn ) {
+                                var btnPage = parseInt( btn.getAttribute( 'data-page' ), 10 );
+                                var isActive = ( btnPage === currentPage );
+                                btn.classList.toggle( 'is-active', isActive );
+                                btn.setAttribute( 'aria-current', isActive ? 'page' : 'false' );
+                            } );
+
+                            // Update prev/next arrows
+                            if ( prevPageBtn ) {
+                                prevPageBtn.disabled = ( currentPage <= 1 );
+                            }
+                            if ( nextPageBtn ) {
+                                nextPageBtn.disabled = ( currentPage >= totalPages );
+                            }
+
+                            // Re-init image reveal & zoom
+                            LREWidgets.initReveals( $scope );
+                            LREWidgets.initImageZoom( $scope );
+
+                            // Smooth scroll up to widget header
+                            if ( shouldScroll ) {
+                                var headerEl = root.querySelector( '.listings__header' ) || gridWrapper;
+                                if ( headerEl ) {
+                                    var headerRect = headerEl.getBoundingClientRect();
+                                    var offsetTop = window.pageYOffset + headerRect.top - 80;
+                                    window.scrollTo( { top: Math.max( 0, offsetTop ), behavior: 'smooth' } );
+                                }
+                            }
+                        };
+
+                        pageButtons.forEach( function ( btn ) {
+                            btn.addEventListener( 'click', function ( e ) {
+                                e.preventDefault();
+                                var targetPage = parseInt( btn.getAttribute( 'data-page' ), 10 );
+                                if ( targetPage && targetPage !== currentPage ) {
+                                    goToPage( targetPage, true );
+                                }
+                            } );
+                        } );
+
+                        if ( prevPageBtn ) {
+                            prevPageBtn.addEventListener( 'click', function ( e ) {
+                                e.preventDefault();
+                                if ( currentPage > 1 ) {
+                                    goToPage( currentPage - 1, true );
+                                }
+                            } );
+                        }
+
+                        if ( nextPageBtn ) {
+                            nextPageBtn.addEventListener( 'click', function ( e ) {
+                                e.preventDefault();
+                                if ( currentPage < totalPages ) {
+                                    goToPage( currentPage + 1, true );
+                                }
+                            } );
+                        }
+                    }
+                }
+
+                // 2. Load More Button
+                if ( paginationType === 'load_more' && totalPages > 1 ) {
+                    var loadMoreBtn = gridWrapper.querySelector( '.listings__load-more-btn' );
+                    if ( loadMoreBtn ) {
+                        loadMoreBtn.addEventListener( 'click', function ( e ) {
+                            e.preventDefault();
+                            var curPage = parseInt( loadMoreBtn.getAttribute( 'data-current-page' ), 10 ) || 1;
+                            var nxtPage = curPage + 1;
+
+                            if ( nxtPage <= totalPages ) {
+                                cards.forEach( function ( card ) {
+                                    var cardPage = parseInt( card.getAttribute( 'data-page' ), 10 ) || 1;
+                                    if ( cardPage === nxtPage ) {
+                                        card.classList.remove( 'is-hidden' );
+                                        card.classList.remove( 'fade-in-up' );
+                                        void card.offsetWidth;
+                                        card.classList.add( 'fade-in-up' );
+                                    }
+                                } );
+
+                                loadMoreBtn.setAttribute( 'data-current-page', nxtPage );
+
+                                if ( nxtPage >= totalPages ) {
+                                    loadMoreBtn.classList.add( 'is-hidden' );
+                                }
+
+                                LREWidgets.initReveals( $scope );
+                                LREWidgets.initImageZoom( $scope );
+                            }
+                        } );
+                    }
+                }
             }
         }
     };

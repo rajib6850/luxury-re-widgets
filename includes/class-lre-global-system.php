@@ -222,7 +222,9 @@ body,
 .communities__title,
 .cta__title,
 .footer__brand,
-.lre-reviews__title {
+.lre-reviews__title,
+.lre-comm-showcase__title,
+.lre-comm-frame__name {
   font-family: var(--font-serif);
 }
 
@@ -332,7 +334,6 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 /* Secondary Button - Unified Outlined Style */
 .btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
 .hero__cta-group .btn--secondary,
-.listings__cta-group .btn--secondary,
 .cta__buttons .btn--secondary,
 .lre-dual-cta .btn--secondary,
 .lre-dual-cta__btn--secondary {
@@ -343,7 +344,6 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 
 .btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
 .hero__cta-group .btn--secondary:hover,
-.listings__cta-group .btn--secondary:hover,
 .cta__buttons .btn--secondary:hover,
 .lre-dual-cta .btn--secondary:hover,
 .lre-dual-cta__btn--secondary:hover {
@@ -357,7 +357,6 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 /* Primary Button - Unified Brand Style */
 .btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
 .hero__cta-group .btn--primary,
-.listings__cta-group .btn--primary,
 .cta__buttons .btn--primary,
 .lre-dual-cta .btn--primary,
 .lre-dual-cta__btn--primary {
@@ -368,7 +367,6 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 
 .btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
 .hero__cta-group .btn--primary:hover,
-.listings__cta-group .btn--primary:hover,
 .cta__buttons .btn--primary:hover,
 .lre-dual-cta .btn--primary:hover,
 .lre-dual-cta__btn--primary:hover {
@@ -1355,10 +1353,6 @@ button.navbar__mobile-toggle:active,
 .lre-aserv .lre-aserv__title .title-mask,
 .lre-aserv .lre-aserv__title .title-mask > span,
 .lre-aserv .lre-aserv__title span,
-.lre-comm-showcase .lre-comm-showcase__title,
-.lre-comm-showcase .lre-comm-showcase__title .title-mask,
-.lre-comm-showcase .lre-comm-showcase__title .title-mask > span,
-.lre-comm-showcase .lre-comm-showcase__title span,
 .lre-contact .lre-contact__title,
 .lre-contact .lre-contact__title .title-mask,
 .lre-contact .lre-contact__title .title-mask > span,

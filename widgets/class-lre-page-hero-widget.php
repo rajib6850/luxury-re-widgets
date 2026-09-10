@@ -842,9 +842,6 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 						<span class="phero-mask"><span><?php echo $title; ?></span></span>
 					</h1>
 
-					<!-- Gold divider -->
-					<div class="lre-phero__divider" aria-hidden="true"></div>
-
 					<!-- Subtitle -->
 					<?php if ( ! empty( $subtitle ) ) : ?>
 						<p class="lre-phero__subtitle"><?php echo $subtitle; ?></p>

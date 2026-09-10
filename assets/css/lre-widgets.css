@@ -10188,7 +10188,7 @@ button.lre-reviews__nav-btn:focus,
   max-width: 920px;
   width: 100%;
   margin-top: 0 !important;
-  margin-bottom: 1.2rem !important;
+  margin-bottom: 0.5rem !important;
   letter-spacing: -0.01em;
   text-shadow: none !important;
   box-shadow: none !important;
@@ -10199,7 +10199,7 @@ button.lre-reviews__nav-btn:focus,
   display: block;
   overflow: hidden;
   margin: 0 !important;
-  padding: 0 0 0.22em 0 !important;
+  padding: 0 0 0.15em 0 !important;
   line-height: inherit;
   text-shadow: none !important;
   box-shadow: none !important;
@@ -10210,30 +10210,25 @@ button.lre-reviews__nav-btn:focus,
   transform: translateY(115%);
   animation: heroMaskUp 1.2s cubic-bezier(0.16, 0.84, 0.44, 1) 0.3s forwards;
   margin: 0 !important;
-  padding: 0 0 0.22em 0 !important;
+  padding: 0 0 0.15em 0 !important;
   line-height: inherit;
   text-shadow: none !important;
   box-shadow: none !important;
   filter: none !important;
 }
 
-/* Gold divider */
+/* Gold divider — hidden as requested */
 .lre-phero__divider {
-  width: 50px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #c5a047, transparent);
-  margin: 0.8rem auto 1.4rem;
-  opacity: 0;
-  animation: heroFadeUp 1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.55s forwards;
+  display: none !important;
 }
 
 /* Subtitle — heroFadeUp */
 .lre-phero__subtitle {
   font-family: inherit;
   font-size: 1.02rem;
-  line-height: 1.75;
+  line-height: 1.7;
   color: rgba(255, 255, 255, 0.82);
-  margin: 0 auto 2.4rem;
+  margin: 0 auto 2.2rem;
   max-width: 620px;
   width: 100%;
   opacity: 0;

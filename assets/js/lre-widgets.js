@@ -1381,11 +1381,48 @@
 
                 if ( ! totalCards ) return;
 
-                var currentIndex = 0;
+                var isAutoplay    = section.getAttribute( 'data-autoplay' ) === 'yes';
+                var autoplaySpeed = parseInt( section.getAttribute( 'data-speed' ), 10 ) || 5000;
+                var pauseOnHover  = section.getAttribute( 'data-pause-hover' ) !== 'no';
+                var infiniteLoop  = section.getAttribute( 'data-loop' ) !== 'no';
+                var autoplayTimer = null;
+                var isPaused      = false;
+                var currentIndex  = 0;
+
+                var updateNavState = function () {
+                    if ( ! infiniteLoop ) {
+                        if ( prevBtn ) {
+                            if ( currentIndex <= 0 ) {
+                                prevBtn.setAttribute( 'disabled', 'disabled' );
+                                prevBtn.classList.add( 'is-disabled' );
+                            } else {
+                                prevBtn.removeAttribute( 'disabled' );
+                                prevBtn.classList.remove( 'is-disabled' );
+                            }
+                        }
+                        if ( nextBtn ) {
+                            if ( currentIndex >= totalCards - 1 ) {
+                                nextBtn.setAttribute( 'disabled', 'disabled' );
+                                nextBtn.classList.add( 'is-disabled' );
+                            } else {
+                                nextBtn.removeAttribute( 'disabled' );
+                                nextBtn.classList.remove( 'is-disabled' );
+                            }
+                        }
+                    }
+                };
 
                 var switchDossier = function ( newIndex ) {
-                    if ( newIndex < 0 ) newIndex = totalCards - 1;
-                    if ( newIndex >= totalCards ) newIndex = 0;
+                    if ( ! infiniteLoop ) {
+                        if ( newIndex < 0 || newIndex >= totalCards ) {
+                            updateNavState();
+                            return;
+                        }
+                    } else {
+                        if ( newIndex < 0 ) newIndex = totalCards - 1;
+                        if ( newIndex >= totalCards ) newIndex = 0;
+                    }
+
                     if ( newIndex === currentIndex ) return;
 
                     tabBtns.forEach( function ( btn ) {
@@ -1410,7 +1447,53 @@
                     if ( counterEl ) {
                         counterEl.textContent = ( currentIndex + 1 < 10 ? '0' : '' ) + ( currentIndex + 1 );
                     }
+
+                    updateNavState();
                 };
+
+                // Initial navigation state
+                updateNavState();
+
+                // Autoplay Engine
+                var startAutoplay = function () {
+                    if ( ! isAutoplay || totalCards <= 1 ) return;
+                    stopAutoplay();
+                    autoplayTimer = setInterval( function () {
+                        if ( ! isPaused ) {
+                            var nextIdx = currentIndex + 1;
+                            if ( nextIdx >= totalCards && ! infiniteLoop ) {
+                                nextIdx = 0; // loop back on autoplay even if manual nav is non-infinite
+                            }
+                            switchDossier( nextIdx );
+                        }
+                    }, autoplaySpeed );
+                };
+
+                var stopAutoplay = function () {
+                    if ( autoplayTimer ) {
+                        clearInterval( autoplayTimer );
+                        autoplayTimer = null;
+                    }
+                };
+
+                var resetAutoplay = function () {
+                    if ( isAutoplay ) {
+                        stopAutoplay();
+                        startAutoplay();
+                    }
+                };
+
+                if ( isAutoplay ) {
+                    startAutoplay();
+                    if ( pauseOnHover ) {
+                        section.addEventListener( 'mouseenter', function () {
+                            isPaused = true;
+                        } );
+                        section.addEventListener( 'mouseleave', function () {
+                            isPaused = false;
+                        } );
+                    }
+                }
 
                 // Tab Click
                 tabBtns.forEach( function ( btn ) {
@@ -1418,6 +1501,7 @@
                         var targetIdx = parseInt( this.getAttribute( 'data-index' ), 10 );
                         if ( ! isNaN( targetIdx ) ) {
                             switchDossier( targetIdx );
+                            resetAutoplay();
                         }
                     } );
                 } );
@@ -1426,11 +1510,13 @@
                 if ( prevBtn ) {
                     prevBtn.addEventListener( 'click', function () {
                         switchDossier( currentIndex - 1 );
+                        resetAutoplay();
                     } );
                 }
                 if ( nextBtn ) {
                     nextBtn.addEventListener( 'click', function () {
                         switchDossier( currentIndex + 1 );
+                        resetAutoplay();
                     } );
                 }
 
@@ -1442,6 +1528,9 @@
 
                     wrapper.addEventListener( 'touchstart', function ( e ) {
                         touchStartX = e.changedTouches[0].screenX;
+                        if ( isAutoplay && pauseOnHover ) {
+                            isPaused = true;
+                        }
                     }, { passive: true } );
 
                     wrapper.addEventListener( 'touchend', function ( e ) {
@@ -1453,6 +1542,10 @@
                             } else {
                                 switchDossier( currentIndex - 1 );
                             }
+                            resetAutoplay();
+                        }
+                        if ( isAutoplay && pauseOnHover ) {
+                            setTimeout( function () { isPaused = false; }, 1000 );
                         }
                     }, { passive: true } );
                 }

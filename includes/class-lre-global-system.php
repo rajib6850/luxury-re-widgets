@@ -260,10 +260,10 @@ body,
 }
 
 /* --- UNIFIED LUXURY BUTTON DESIGN SYSTEM (ALL WIDGETS - EXACT HERO SIZING) --- */
-.btn:not(.lre-contact__submit-btn),
-a.btn:not(.lre-contact__submit-btn),
-button.btn:not(.lre-contact__submit-btn),
-input[type="submit"].btn:not(.lre-contact__submit-btn),
+.btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+a.btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+button.btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
 .hero__cta-group .btn,
 .hero__cta-group a,
 .about .btn,
@@ -292,9 +292,9 @@ input[type="submit"].btn:not(.lre-contact__submit-btn),
 .lre-sguide__btn,
 .lre-comm-spotlight__action .btn,
 .lre-comm-no-results .btn,
-.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn),
-.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn),
-.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn) {
+.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
+.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
+.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn) {
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -317,6 +317,63 @@ input[type="submit"].btn:not(.lre-contact__submit-btn),
   vertical-align: middle !important;
   white-space: nowrap !important;
   transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease !important;
+}
+
+/* Base button font inherit for customized widgets */
+.elementor-widget .btn.lre-contact__submit-btn,
+.elementor-widget .btn.lre-phero__btn,
+.elementor-widget .btn.lre-reviews__nav-btn {
+  font-family: inherit !important;
+}
+
+/* Secondary Button - Unified Outlined Style */
+.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+.hero__cta-group .btn--secondary,
+.listings__cta-group .btn--secondary,
+.cta__buttons .btn--secondary,
+.lre-dual-cta .btn--secondary,
+.lre-dual-cta__btn--secondary {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
+.hero__cta-group .btn--secondary:hover,
+.listings__cta-group .btn--secondary:hover,
+.cta__buttons .btn--secondary:hover,
+.lre-dual-cta .btn--secondary:hover,
+.lre-dual-cta__btn--secondary:hover {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Primary Button - Unified Brand Style */
+.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+.hero__cta-group .btn--primary,
+.listings__cta-group .btn--primary,
+.cta__buttons .btn--primary,
+.lre-dual-cta .btn--primary,
+.lre-dual-cta__btn--primary {
+  background: var(--hero-btn-bg, #ffffff) !important;
+  border: 1px solid var(--hero-btn-bg, #ffffff) !important;
+  color: var(--hero-btn-color, #000000) !important;
+}
+
+.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
+.hero__cta-group .btn--primary:hover,
+.listings__cta-group .btn--primary:hover,
+.cta__buttons .btn--primary:hover,
+.lre-dual-cta .btn--primary:hover,
+.lre-dual-cta__btn--primary:hover {
+  background: transparent !important;
+  border-color: var(--hero-btn-bg, #ffffff) !important;
+  color: var(--hero-btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* High-specificity override for per-widget Elementor compiled rules */
@@ -404,8 +461,65 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-phero .lre-phero__subtitle,
 .lre-phero .lre-phero__eyebrow,
 .lre-phero .lre-phero__actions .btn,
-.lre-phero .lre-phero__actions .btn span {
+.lre-phero .lre-phero__actions .btn span,
+.lre-reviews,
+.lre-reviews p,
+.lre-reviews blockquote,
+.lre-reviews .lre-reviews__quote-text,
+.lre-reviews .lre-reviews__quote-mark,
+.lre-reviews .lre-reviews__eyebrow,
+.lre-reviews .lre-reviews__seal-top,
+.lre-reviews .lre-reviews__seal-bottom,
+.lre-reviews .lre-reviews__metric-lbl,
+.lre-reviews .lre-reviews__metric-val,
+.lre-reviews .lre-reviews__index-title,
+.lre-reviews .lre-reviews__index-count,
+.lre-reviews .lre-reviews__tab-num,
+.lre-reviews .lre-reviews__tab-name,
+.lre-reviews .lre-reviews__tab-tx,
+.lre-reviews .lre-reviews__tab-arrow,
+.lre-reviews .lre-reviews__prop-badge,
+.lre-reviews .lre-reviews__timing-badge,
+.lre-reviews .lre-reviews__record-id,
+.lre-reviews .lre-reviews__author-title,
+.lre-reviews .lre-reviews__verification-pill,
+.lre-reviews .lre-reviews__monogram,
+.lre-reviews .lre-reviews__tab-monogram,
+.lre-reviews .lre-reviews__counter,
+.lre-reviews .lre-reviews__active-num,
+.lre-reviews .lre-reviews__total-num,
+.lre-reviews .lre-reviews__nav-btn,
+.lre-reviews .lre-reviews__nav-btn span {
   font-family: inherit !important;
+}
+
+/* Reviews & Testimonials Headings Cascade to Site Settings Heading Font */
+.lre-reviews .lre-reviews__title,
+.lre-reviews .lre-reviews__title span,
+.lre-reviews .lre-reviews__title .title-mask > span,
+.lre-reviews .lre-reviews__author-name,
+.lre-reviews h1,
+.lre-reviews h2,
+.lre-reviews h3,
+.lre-reviews h4 {
+  font-family: var(--e-global-typography-primary-font-family, inherit);
+}
+
+.lre-phero__title {
+  margin-bottom: 0.35rem !important;
+  line-height: 1.05 !important;
+}
+.lre-phero__title .phero-mask,
+.lre-phero__title .phero-mask > span {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.lre-phero__subtitle {
+  margin-top: 0 !important;
+  line-height: 1.35 !important;
+}
+.lre-phero__divider {
+  display: none !important;
 }
 
 .btn span,

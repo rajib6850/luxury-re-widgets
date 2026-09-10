@@ -251,11 +251,27 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'avatar_type',
+			array(
+				'label'   => __( 'Avatar Display Mode', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'auto',
+				'options' => array(
+					'auto'     => __( 'Auto (Image with Monogram Fallback)', 'luxury-re-widgets' ),
+					'image'    => __( 'Image Only', 'luxury-re-widgets' ),
+					'monogram' => __( 'Monogram Crest Only', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'monogram',
 			array(
-				'label'   => __( 'Monogram Crest (Fallback Initials)', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'AV',
+				'label'       => __( 'Monogram Crest (Initials)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'e.g. DS', 'luxury-re-widgets' ),
+				'description' => __( 'Leave empty to automatically generate initials from Client Name.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -313,6 +329,123 @@ class LRE_Reviews_Widget extends Widget_Base {
 						'monogram'           => 'DH',
 					),
 				),
+			)
+		);
+
+		$this->add_control(
+			'fallback_avatar',
+			array(
+				'label'       => __( 'Global Fallback Avatar Photo (Optional)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array( 'url' => '' ),
+				'description' => __( 'If a client dossier has no photo and monogram mode is not selected, this fallback photo will display.', 'luxury-re-widgets' ),
+				'separator'   => 'before',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 4. NAVIGATION & CAROUSEL CONTROLS ---
+		$this->start_controls_section(
+			'section_navigation',
+			array(
+				'label' => __( 'Navigation & Carousel Controls', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_nav',
+			array(
+				'label'        => __( 'Show Prev / Next Buttons', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_counter',
+			array(
+				'label'        => __( 'Show Record Counter', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_tab_index',
+			array(
+				'label'        => __( 'Show Left Ledger Index (Dossiers)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'prev_text',
+			array(
+				'label'     => __( 'Previous Button Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'PREV',
+				'condition' => array( 'show_nav' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'next_text',
+			array(
+				'label'     => __( 'Next Button Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'NEXT',
+				'condition' => array( 'show_nav' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'enable_autoplay',
+			array(
+				'label'        => __( 'Enable Autoplay', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
+		$this->add_control(
+			'autoplay_speed',
+			array(
+				'label'     => __( 'Autoplay Speed (ms)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::NUMBER,
+				'min'       => 2000,
+				'max'       => 20000,
+				'step'      => 500,
+				'default'   => 5000,
+				'condition' => array( 'enable_autoplay' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'pause_on_hover',
+			array(
+				'label'        => __( 'Pause on Hover', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_autoplay' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'infinite_loop',
+			array(
+				'label'        => __( 'Infinite Loop', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
 			)
 		);
 
@@ -464,7 +597,16 @@ class LRE_Reviews_Widget extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .lre-reviews__title',
+				'selector' => '{{WRAPPER}} .lre-reviews__title, {{WRAPPER}} .lre-reviews__title span',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'label'    => __( 'Eyebrow Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__eyebrow',
 			)
 		);
 
@@ -474,6 +616,253 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'name'     => 'quote_typography',
 				'label'    => __( 'Quotation Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .lre-reviews__quote-text',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'author_name_typography',
+				'label'    => __( 'Author Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__author-name',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'author_title_typography',
+				'label'    => __( 'Author Role / Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__author-title',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'tab_name_typography',
+				'label'    => __( 'Dossier Tab Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__tab-name',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'tab_tx_typography',
+				'label'    => __( 'Dossier Tab Badge Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__tab-tx',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'metrics_val_typography',
+				'label'    => __( 'Trust Metrics Value Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__metric-val',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'metrics_lbl_typography',
+				'label'    => __( 'Trust Metrics Label Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__metric-lbl',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'monogram_typography',
+				'label'    => __( 'Monogram Crest Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__monogram, {{WRAPPER}} .lre-reviews__tab-monogram',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- NAVIGATION & COUNTER STYLE ---
+		$this->start_controls_section(
+			'style_navigation',
+			array(
+				'label' => __( 'Navigation Buttons & Counter Style', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'nav_typography',
+				'label'    => __( 'Button Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__nav-btn, {{WRAPPER}} .lre-reviews__nav-btn span',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_nav_btn_style' );
+
+		$this->start_controls_tab(
+			'tab_nav_btn_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_nav_btn_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_hover_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_hover_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_hover_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'nav_btn_padding',
+			array(
+				'label'      => __( 'Button Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'separator'  => 'before',
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_btn_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-reviews__nav-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'counter_heading',
+			array(
+				'label'     => __( 'Counter Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'counter_typography',
+				'label'    => __( 'Counter Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__counter',
+			)
+		);
+
+		$this->add_control(
+			'counter_active_color',
+			array(
+				'label'     => __( 'Active Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__active-num' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'counter_slash_color',
+			array(
+				'label'     => __( 'Separator Slash Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__counter-slash' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'counter_total_color',
+			array(
+				'label'     => __( 'Total Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__total-num' => 'color: {{VALUE}} !important;',
+				),
 			)
 		);
 
@@ -496,6 +885,18 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$m3_val         = esc_html( $settings['metric_3_val'] ?? '150+' );
 		$m3_lbl         = esc_html( $settings['metric_3_lbl'] ?? 'UHNW Families Entrusted' );
 
+		// Navigation & Control Settings
+		$show_nav        = ( $settings['show_nav'] ?? 'yes' ) === 'yes';
+		$show_counter    = ( $settings['show_counter'] ?? 'yes' ) === 'yes';
+		$show_tab_index  = ( $settings['show_tab_index'] ?? 'yes' ) === 'yes';
+		$prev_text       = esc_html( ! empty( $settings['prev_text'] ) ? $settings['prev_text'] : 'PREV' );
+		$next_text       = esc_html( ! empty( $settings['next_text'] ) ? $settings['next_text'] : 'NEXT' );
+		$enable_autoplay = ( $settings['enable_autoplay'] ?? 'no' ) === 'yes' ? 'yes' : 'no';
+		$autoplay_speed  = intval( $settings['autoplay_speed'] ?? 5000 );
+		$pause_on_hover  = ( $settings['pause_on_hover'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
+		$infinite_loop   = ( $settings['infinite_loop'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
+		$fallback_avatar = ! empty( $settings['fallback_avatar']['url'] ) ? esc_url( $settings['fallback_avatar']['url'] ) : '';
+
 		$reviews        = ! empty( $settings['reviews'] ) ? $settings['reviews'] : array();
 		$total_reviews  = count( $reviews );
 
@@ -509,7 +910,13 @@ class LRE_Reviews_Widget extends Widget_Base {
 		}
 		?>
 
-		<section class="lre-reviews" id="client-reviews" aria-label="<?php esc_attr_e( 'Client Accolades & Fiduciary Trust', 'luxury-re-widgets' ); ?>">
+		<section class="lre-reviews <?php echo ! $show_tab_index ? 'lre-reviews--no-tabs' : ''; ?>"
+			id="client-reviews"
+			data-autoplay="<?php echo esc_attr( $enable_autoplay ); ?>"
+			data-speed="<?php echo esc_attr( $autoplay_speed ); ?>"
+			data-pause-hover="<?php echo esc_attr( $pause_on_hover ); ?>"
+			data-loop="<?php echo esc_attr( $infinite_loop ); ?>"
+			aria-label="<?php esc_attr_e( 'Client Accolades & Fiduciary Trust', 'luxury-re-widgets' ); ?>">
 			<div class="container lre-reviews__container">
 				<!-- Section Header -->
 				<div class="lre-reviews__header reveal">
@@ -570,49 +977,67 @@ class LRE_Reviews_Widget extends Widget_Base {
 							</div>
 
 							<!-- Ledger Dossier Selector Tabs -->
-							<div class="lre-reviews__ledger-index" role="tablist" aria-label="<?php esc_attr_e( 'Client Dossier Index', 'luxury-re-widgets' ); ?>">
-								<div class="lre-reviews__index-header">
-									<span class="lre-reviews__index-title"><?php esc_html_e( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' ); ?></span>
-									<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php esc_html_e( 'RECORDS', 'luxury-re-widgets' ); ?></span>
-								</div>
+							<?php if ( $show_tab_index ) : ?>
+								<div class="lre-reviews__ledger-index" role="tablist" aria-label="<?php esc_attr_e( 'Client Dossier Index', 'luxury-re-widgets' ); ?>">
+									<div class="lre-reviews__index-header">
+										<span class="lre-reviews__index-title"><?php esc_html_e( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' ); ?></span>
+										<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php esc_html_e( 'RECORDS', 'luxury-re-widgets' ); ?></span>
+									</div>
 
-								<div class="lre-reviews__index-items">
-									<?php
-									$default_client_avatars = array(
-										lre_asset_url( 'images/avatar-2.jpg' ),
-										lre_asset_url( 'images/team-2.jpg' ),
-										lre_asset_url( 'images/avatar-3.jpg' ),
-									);
-									foreach ( $reviews as $idx => $r ) :
-										$name       = esc_html( $r['client_name'] ?? '' );
-										$tx_badge   = esc_html( $r['transaction_badge'] ?? '' );
-										$avatar_url = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : ( $default_client_avatars[ $idx % count( $default_client_avatars ) ] ?? '' );
-										$monogram   = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
-										$is_first   = ( 0 === $idx );
-										?>
-										<button type="button"
-											class="lre-reviews__tab-btn <?php echo $is_first ? 'is-active' : ''; ?>"
-											role="tab"
-											aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>"
-											aria-controls="lre-dossier-<?php echo $idx; ?>"
-											data-index="<?php echo $idx; ?>">
-											<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
-											<span class="lre-reviews__tab-avatar">
-												<?php if ( ! empty( $avatar_url ) ) : ?>
-													<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
-												<?php else : ?>
-													<span class="lre-reviews__tab-monogram"><?php echo $monogram; ?></span>
-												<?php endif; ?>
-											</span>
-											<span class="lre-reviews__tab-content">
-												<strong class="lre-reviews__tab-name"><?php echo $name; ?></strong>
-												<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
-											</span>
-											<span class="lre-reviews__tab-arrow" aria-hidden="true">&rarr;</span>
-										</button>
-									<?php endforeach; ?>
+									<div class="lre-reviews__index-items">
+										<?php
+										foreach ( $reviews as $idx => $r ) :
+											$name     = esc_html( $r['client_name'] ?? '' );
+											$tx_badge = esc_html( $r['transaction_badge'] ?? '' );
+											$is_first = ( 0 === $idx );
+
+											// Smart Initials / Monogram Generation
+											$monogram = trim( $r['monogram'] ?? '' );
+											if ( empty( $monogram ) && ! empty( $name ) ) {
+												$words = preg_split( '/[\s,]+/', trim( $name ) );
+												$initials = '';
+												foreach ( $words as $w ) {
+													if ( ! empty( $w ) && ctype_alnum( $w[0] ) ) {
+														$initials .= strtoupper( $w[0] );
+														if ( strlen( $initials ) >= 2 ) {
+															break;
+														}
+													}
+												}
+												$monogram = ! empty( $initials ) ? $initials : strtoupper( substr( $name, 0, 2 ) );
+											}
+											if ( empty( $monogram ) ) {
+												$monogram = 'AA';
+											}
+
+											$avatar_mode  = $r['avatar_type'] ?? 'auto';
+											$user_avatar  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+											$final_avatar = ! empty( $user_avatar ) ? $user_avatar : $fallback_avatar;
+											$has_avatar   = ( 'monogram' !== $avatar_mode ) && ! empty( $final_avatar );
+											?>
+											<button type="button"
+												class="lre-reviews__tab-btn <?php echo $is_first ? 'is-active' : ''; ?>"
+												role="tab"
+												aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>"
+												aria-controls="lre-dossier-<?php echo $idx; ?>"
+												data-index="<?php echo $idx; ?>">
+												<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
+												<span class="lre-reviews__tab-avatar">
+													<?php if ( $has_avatar ) : ?>
+														<img src="<?php echo $final_avatar; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
+													<?php endif; ?>
+													<span class="lre-reviews__tab-monogram" style="<?php echo $has_avatar ? 'display:none;' : 'display:flex;'; ?>"><?php echo $monogram; ?></span>
+												</span>
+												<span class="lre-reviews__tab-content">
+													<strong class="lre-reviews__tab-name"><?php echo $name; ?></strong>
+													<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
+												</span>
+												<span class="lre-reviews__tab-arrow" aria-hidden="true">&rarr;</span>
+											</button>
+										<?php endforeach; ?>
+									</div>
 								</div>
-							</div>
+							<?php endif; ?>
 						</aside>
 
 						<!-- RIGHT: The Primary Testimonial Stage & Showcase -->
@@ -626,9 +1051,31 @@ class LRE_Reviews_Widget extends Widget_Base {
 									$prop_img    = ! empty( $r['property_image']['url'] ) ? esc_url( $r['property_image']['url'] ) : '';
 									$quote       = esc_html( $r['review_quote'] ?? '' );
 									$stars_count = intval( $r['star_rating'] ?? 5 );
-									$avatar_url  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : ( $default_client_avatars[ $idx % count( $default_client_avatars ) ] ?? '' );
-									$monogram    = esc_html( $r['monogram'] ?? substr( $name, 0, 2 ) );
 									$is_first    = ( 0 === $idx );
+
+									// Smart Initials / Monogram Generation
+									$monogram = trim( $r['monogram'] ?? '' );
+									if ( empty( $monogram ) && ! empty( $name ) ) {
+										$words = preg_split( '/[\s,]+/', trim( $name ) );
+										$initials = '';
+										foreach ( $words as $w ) {
+											if ( ! empty( $w ) && ctype_alnum( $w[0] ) ) {
+												$initials .= strtoupper( $w[0] );
+												if ( strlen( $initials ) >= 2 ) {
+													break;
+												}
+											}
+										}
+										$monogram = ! empty( $initials ) ? $initials : strtoupper( substr( $name, 0, 2 ) );
+									}
+									if ( empty( $monogram ) ) {
+										$monogram = 'AA';
+									}
+
+									$avatar_mode  = $r['avatar_type'] ?? 'auto';
+									$user_avatar  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
+									$final_avatar = ! empty( $user_avatar ) ? $user_avatar : $fallback_avatar;
+									$has_avatar   = ( 'monogram' !== $avatar_mode ) && ! empty( $final_avatar );
 									?>
 									<article id="lre-dossier-<?php echo $idx; ?>"
 										class="lre-reviews__dossier-card <?php echo $is_first ? 'is-active' : ''; ?>"
@@ -683,11 +1130,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 											<div class="lre-reviews__author-bar">
 												<div class="lre-reviews__author-left">
 													<div class="lre-reviews__avatar">
-														<?php if ( ! empty( $avatar_url ) ) : ?>
-															<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
-														<?php else : ?>
-															<span class="lre-reviews__monogram"><?php echo $monogram; ?></span>
+														<?php if ( $has_avatar ) : ?>
+															<img src="<?php echo $final_avatar; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
 														<?php endif; ?>
+														<span class="lre-reviews__monogram" style="<?php echo $has_avatar ? 'display:none;' : 'display:flex;'; ?>"><?php echo $monogram; ?></span>
 													</div>
 
 													<div class="lre-reviews__author-info">
@@ -714,24 +1160,32 @@ class LRE_Reviews_Widget extends Widget_Base {
 							</div>
 
 							<!-- Bottom Dossier Controls (Prev / Next & Counter) -->
-							<div class="lre-reviews__controls">
-								<div class="lre-reviews__counter">
-									<span class="lre-reviews__active-num">01</span>
-									<span class="lre-reviews__counter-slash">/</span>
-									<span class="lre-reviews__total-num"><?php echo sprintf( '%02d', $total_reviews ); ?></span>
-								</div>
+							<?php if ( $show_counter || $show_nav ) : ?>
+								<div class="lre-reviews__controls">
+									<?php if ( $show_counter ) : ?>
+										<div class="lre-reviews__counter">
+											<span class="lre-reviews__active-num">01</span>
+											<span class="lre-reviews__counter-slash">/</span>
+											<span class="lre-reviews__total-num"><?php echo sprintf( '%02d', $total_reviews ); ?></span>
+										</div>
+									<?php else : ?>
+										<div></div>
+									<?php endif; ?>
 
-								<div class="lre-reviews__nav-actions">
-									<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--prev btn btn--secondary" aria-label="<?php esc_attr_e( 'Previous Record', 'luxury-re-widgets' ); ?>">
-										<span aria-hidden="true">&larr;</span>
-										<span><?php esc_html_e( 'PREV', 'luxury-re-widgets' ); ?></span>
-									</button>
-									<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--next btn btn--secondary" aria-label="<?php esc_attr_e( 'Next Record', 'luxury-re-widgets' ); ?>">
-										<span><?php esc_html_e( 'NEXT', 'luxury-re-widgets' ); ?></span>
-										<span aria-hidden="true">&rarr;</span>
-									</button>
+									<?php if ( $show_nav ) : ?>
+										<div class="lre-reviews__nav-actions">
+											<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--prev btn btn--secondary" aria-label="<?php esc_attr_e( 'Previous Record', 'luxury-re-widgets' ); ?>">
+												<span aria-hidden="true">&larr;</span>
+												<span><?php echo $prev_text; ?></span>
+											</button>
+											<button type="button" class="lre-reviews__nav-btn lre-reviews__nav-btn--next btn btn--secondary" aria-label="<?php esc_attr_e( 'Next Record', 'luxury-re-widgets' ); ?>">
+												<span><?php echo $next_text; ?></span>
+												<span aria-hidden="true">&rarr;</span>
+											</button>
+										</div>
+									<?php endif; ?>
 								</div>
-							</div>
+							<?php endif; ?>
 						</div>
 					</div>
 				<?php endif; ?>

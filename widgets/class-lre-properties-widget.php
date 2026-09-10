@@ -1236,7 +1236,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1246,7 +1246,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1259,7 +1259,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover span, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover span, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover span, {{WRAPPER}} .listings__cta-group a.btn--primary:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover span, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover span, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover span, {{WRAPPER}} .listings__cta-group a.btn--primary:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1269,9 +1269,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before, {{WRAPPER}} .listings__cta-group a.listings__btn-1::before, {{WRAPPER}} .listings__cta-group .btn--primary::before, {{WRAPPER}} .listings__cta-group a.btn--primary::before, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover::before, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover::before, {{WRAPPER}} .listings__cta-group .btn--primary:hover::before, {{WRAPPER}} .listings__cta-group a.btn--primary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1, {{WRAPPER}} .listings__cta-group a.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1, {{WRAPPER}} .listings__cta-group .btn--primary, {{WRAPPER}} .listings__cta-group a.btn--primary' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1::before, {{WRAPPER}} .listings__cta-group a.listings__btn-1::before, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1::before, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1::before, {{WRAPPER}} .listings__cta-group .btn--primary::before, {{WRAPPER}} .listings__cta-group a.btn--primary::before, {{WRAPPER}} .listings__cta-group .listings__btn-1:hover::before, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover::before, {{WRAPPER}} .listings__cta-group .btn--primary:hover::before, {{WRAPPER}} .listings__cta-group a.btn--primary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1281,7 +1281,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-1:hover, {{WRAPPER}} .listings__cta-group .btn--primary:hover, {{WRAPPER}} .listings__cta-group a.btn--primary:hover' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1320,7 +1320,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1330,7 +1330,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1343,7 +1343,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover span, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover span, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover span, {{WRAPPER}} .listings__cta-group a.btn--outline:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover span, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover span, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover span, {{WRAPPER}} .listings__cta-group a.btn--outline:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1353,9 +1353,9 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => '--btn-hover-bg: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before, {{WRAPPER}} .listings__cta-group a.listings__btn-2::before, {{WRAPPER}} .listings__cta-group .btn--outline::before, {{WRAPPER}} .listings__cta-group a.btn--outline::before, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover::before, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover::before, {{WRAPPER}} .listings__cta-group .btn--outline:hover::before, {{WRAPPER}} .listings__cta-group a.btn--outline:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2, {{WRAPPER}} .listings__cta-group a.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2, {{WRAPPER}} .listings__cta-group .btn--outline, {{WRAPPER}} .listings__cta-group a.btn--outline' => '--btn-hover-bg: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2::before, {{WRAPPER}} .listings__cta-group a.listings__btn-2::before, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2::before, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2::before, {{WRAPPER}} .listings__cta-group .btn--outline::before, {{WRAPPER}} .listings__cta-group a.btn--outline::before, {{WRAPPER}} .listings__cta-group .listings__btn-2:hover::before, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover::before, {{WRAPPER}} .listings__cta-group .btn--outline:hover::before, {{WRAPPER}} .listings__cta-group a.btn--outline:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1365,7 +1365,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover' => 'border-color: {{VALUE}} !important;',
+						'{{WRAPPER}} .listings__cta-group .listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group a.btn.listings__btn-2:hover, {{WRAPPER}} .listings__cta-group .btn--outline:hover, {{WRAPPER}} .listings__cta-group a.btn--outline:hover' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);

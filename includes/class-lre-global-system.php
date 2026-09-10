@@ -332,7 +332,7 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 }
 
 /* Secondary Button - Unified Outlined Style */
-.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):not(.listings__btn-1):not(.listings__btn-2),
 .hero__cta-group .btn--secondary,
 .cta__buttons .btn--secondary,
 .lre-dual-cta .btn--secondary,
@@ -342,7 +342,7 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
   color: #ffffff !important;
 }
 
-.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
+.btn--secondary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):not(.listings__btn-1):not(.listings__btn-2):hover,
 .hero__cta-group .btn--secondary:hover,
 .cta__buttons .btn--secondary:hover,
 .lre-dual-cta .btn--secondary:hover,
@@ -355,7 +355,7 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 }
 
 /* Primary Button - Unified Brand Style */
-.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn),
+.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):not(.listings__btn-1):not(.listings__btn-2),
 .hero__cta-group .btn--primary,
 .cta__buttons .btn--primary,
 .lre-dual-cta .btn--primary,
@@ -365,7 +365,7 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
   color: var(--hero-btn-color, #000000) !important;
 }
 
-.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):hover,
+.btn--primary:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn):not(.listings__btn-1):not(.listings__btn-2):hover,
 .hero__cta-group .btn--primary:hover,
 .cta__buttons .btn--primary:hover,
 .lre-dual-cta .btn--primary:hover,

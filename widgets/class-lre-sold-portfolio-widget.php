@@ -560,77 +560,18 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_row',
 			array(
-				'label' => __( 'Ledger Rows & Hover States', 'luxury-re-widgets' ),
+				'label' => __( 'Ledger Rows', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
-		$this->add_control(
-			'row_num_color',
-			array(
-				'label'     => __( 'Number Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#656972',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .num' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'row_num_hover_color',
-			array(
-				'label'     => __( 'Number Hover Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C2A882',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .num' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'row_name_color',
-			array(
-				'label'     => __( 'Property Name Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .name' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
+		// Typography Controls (Shared)
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'row_name_typo',
 				'label'    => __( 'Property Name Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .ledger-row .name',
-			)
-		);
-
-		$this->add_control(
-			'row_name_hover_color',
-			array(
-				'label'     => __( 'Property Name Hover Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#E2C99B',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .name' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'row_price_color',
-			array(
-				'label'     => __( 'Price Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .price' => 'color: {{VALUE}};',
-				),
 			)
 		);
 
@@ -652,6 +593,113 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'row_padding',
+			array(
+				'label'      => __( 'Row Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'after',
+			)
+		);
+
+		// Two State Tabs: Normal & Hover
+		$this->start_controls_tabs( 'tabs_ledger_row_style' );
+
+		// ------------------ TAB: NORMAL ------------------
+		$this->start_controls_tab(
+			'tab_ledger_row_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'row_bg_color',
+			array(
+				'label'     => __( 'Row Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_border_color',
+			array(
+				'label'     => __( 'Row Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#23262D',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'border-bottom-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_name_color',
+			array(
+				'label'     => __( 'Property Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .name' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_location_color',
+			array(
+				'label'     => __( 'Location Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#8A8D96',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .name small' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_price_color',
+			array(
+				'label'     => __( 'Price Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .price' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_num_color',
+			array(
+				'label'     => __( 'Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#656972',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .num' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_meta_color',
+			array(
+				'label'     => __( 'Specs Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#A3A7AF',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->add_control(
 			'icon_color',
 			array(
@@ -665,16 +713,162 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'arrow_btn_bg',
+			array(
+				'label'     => __( 'Arrow Button Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.06)',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'arrow_btn_color',
+			array(
+				'label'     => __( 'Arrow Button Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#8A8D96',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// ------------------ TAB: HOVER ------------------
+		$this->start_controls_tab(
+			'tab_ledger_row_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
 			'row_hover_bg',
 			array(
 				'label'     => __( 'Row Hover Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.04)',
+				'default'   => 'rgba(255, 255, 255, 0.045)',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover, {{WRAPPER}} .lre-ledger-row:hover' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
+
+		$this->add_control(
+			'row_border_hover_color',
+			array(
+				'label'     => __( 'Row Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(201, 168, 106, 0.3)',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover, {{WRAPPER}} .lre-ledger-row:hover' => 'border-bottom-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_name_hover_color',
+			array(
+				'label'     => __( 'Property Name Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#E2C99B',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .name' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_location_hover_color',
+			array(
+				'label'     => __( 'Location Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#A8ACB5',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .name small' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_price_hover_color',
+			array(
+				'label'     => __( 'Price Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .price' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_num_hover_color',
+			array(
+				'label'     => __( 'Number Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C2A882',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .num' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'row_meta_hover_color',
+			array(
+				'label'     => __( 'Specs Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .meta, {{WRAPPER}} .ledger-row:hover .lre-spec-item' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_hover_color',
+			array(
+				'label'     => __( 'Bed & Bath Icon Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#E2C99B',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .lre-meta-icon' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'arrow_btn_hover_bg',
+			array(
+				'label'     => __( 'Arrow Button Hover Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'arrow_btn_hover_color',
+			array(
+				'label'     => __( 'Arrow Button Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0D0E10',
+				'selectors' => array(
+					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 

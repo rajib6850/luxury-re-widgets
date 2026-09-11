@@ -16467,6 +16467,11 @@ button.lre-insights__filter-btn.active,
   color: #FFFFFF;
   text-align: right;
   letter-spacing: 0.5px;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ledger-row:hover .price {
+  color: #FFFFFF;
 }
 
 .ledger-row .ledger-arrow {

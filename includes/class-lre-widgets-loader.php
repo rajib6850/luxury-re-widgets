@@ -44,6 +44,8 @@ class LRE_Widgets_Loader {
 		'class-lre-page-hero-widget.php'      => 'LRE_Page_Hero_Widget',
 		'class-lre-press-widget.php'          => 'LRE_Press_Widget',
 		'class-lre-newsletter-widget.php'     => 'LRE_Newsletter_Widget',
+		// Market Insights Suite
+		'class-lre-insights-widget.php'       => 'LRE_Insights_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

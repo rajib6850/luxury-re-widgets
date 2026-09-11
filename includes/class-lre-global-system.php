@@ -71,6 +71,9 @@ body,
   --font-sans: var(--e-global-typography-text-font-family, \'Montserrat\', \'Helvetica Neue\', sans-serif);
   --font-accent: var(--e-global-typography-accent-font-family, \'Cormorant Garamond\', \'Georgia\', serif);
   --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
+  --font-heading: var(--font-serif);
+  --font-primary: var(--font-sans);
+  --font-body: var(--font-sans);
 
   --font-weight-primary: var(--e-global-typography-primary-font-weight, 400);
   --font-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
@@ -79,12 +82,55 @@ body,
 }
 
 /* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
-[class*="lre-"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]),
-[class*="lre-"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]),
+[class*="lre-"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
+[class*="lre-"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
 [class*="lre-"] [type="submit"]:not(.btn),
-[class*="elementor-widget-lre_"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]),
-[class*="elementor-widget-lre_"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]) {
+[class*="elementor-widget-lre_"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
+[class*="elementor-widget-lre_"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]) {
   color: inherit !important;
+}
+
+/* --- Filter & Tab Buttons High-Contrast Luxury Style --- */
+.lre-insights__filter-btn,
+button.lre-insights__filter-btn,
+[class*="lre-"] button.lre-insights__filter-btn,
+.elementor-widget-lre_insights .lre-insights__filter-btn {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  padding: 0.65rem 1.4rem !important;
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer !important;
+  border-radius: 30px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  line-height: 1.4;
+}
+
+.lre-insights__filter-btn:hover,
+button.lre-insights__filter-btn:hover,
+[class*="lre-"] button.lre-insights__filter-btn:hover,
+.elementor-widget-lre_insights .lre-insights__filter-btn:hover {
+  border-color: var(--lre-gold, #c5a059) !important;
+  color: #FFFFFF !important;
+  background: rgba(197, 160, 89, 0.18) !important;
+  transform: translateY(-2px);
+}
+
+.lre-insights__filter-btn.active,
+button.lre-insights__filter-btn.active,
+[class*="lre-"] button.lre-insights__filter-btn.active,
+.elementor-widget-lre_insights .lre-insights__filter-btn.active {
+  background: var(--lre-gold, #c5a059) !important;
+  border-color: var(--lre-gold, #c5a059) !important;
+  color: #0b0b0c !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 18px rgba(197, 160, 89, 0.4) !important;
+  transform: translateY(-2px);
 }
 
 [class*="lre-"] a:not(.btn),

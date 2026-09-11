@@ -46,6 +46,18 @@ class LRE_Properties_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_header',
+			array(
+				'label'        => __( 'Show Section Header', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
 			'show_eyebrow',
 			array(
 				'label'        => __( 'Show Eyebrow', 'luxury-re-widgets' ),
@@ -54,6 +66,9 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
 				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
+				'condition'    => array(
+					'show_header' => 'yes',
+				),
 			)
 		);
 
@@ -66,7 +81,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
 				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
-				'condition'    => array( 'show_eyebrow' => 'yes' ),
+				'condition'    => array(
+					'show_header'  => 'yes',
+					'show_eyebrow' => 'yes',
+				),
 			)
 		);
 
@@ -78,7 +96,26 @@ class LRE_Properties_Widget extends Widget_Base {
 				'default'     => __( 'Curated Residences', 'luxury-re-widgets' ),
 				'placeholder' => __( 'Curated Residences', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
-				'condition'   => array( 'show_eyebrow' => 'yes' ),
+				'condition'   => array(
+					'show_header'  => 'yes',
+					'show_eyebrow' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_heading',
+			array(
+				'label'        => __( 'Show Heading / Title', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
+				'condition'    => array(
+					'show_header' => 'yes',
+				),
 			)
 		);
 
@@ -92,17 +129,20 @@ class LRE_Properties_Widget extends Widget_Base {
 				'placeholder' => __( 'New To The Market', 'luxury-re-widgets' ),
 				'description' => __( 'Supports multiple lines with Enter or <br> tags (with staggered luxury mask reveal animation).', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
-				'separator'   => 'before',
+				'condition'   => array(
+					'show_header'  => 'yes',
+					'show_heading' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
 			'heading_tag',
 			array(
-				'label'   => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'h2',
-				'options' => array(
+				'label'     => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
 					'h1'   => 'H1',
 					'h2'   => 'H2',
 					'h3'   => 'H3',
@@ -112,6 +152,10 @@ class LRE_Properties_Widget extends Widget_Base {
 					'div'  => 'div',
 					'span' => 'span',
 					'p'    => 'p',
+				),
+				'condition' => array(
+					'show_header'  => 'yes',
+					'show_heading' => 'yes',
 				),
 			)
 		);
@@ -126,6 +170,9 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
 				'separator'    => 'before',
+				'condition'    => array(
+					'show_header' => 'yes',
+				),
 			)
 		);
 
@@ -138,7 +185,10 @@ class LRE_Properties_Widget extends Widget_Base {
 				'default'     => __( "Each of these properties has been carefully selected for its architectural distinction, exceptional location, and unparalleled lifestyle. Explore our newest additions before they're gone.", 'luxury-re-widgets' ),
 				'placeholder' => __( "Each of these properties has been carefully selected for its architectural distinction, exceptional location, and unparalleled lifestyle. Explore our newest additions before they're gone.", 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
-				'condition'   => array( 'show_description' => 'yes' ),
+				'condition'   => array(
+					'show_header'      => 'yes',
+					'show_description' => 'yes',
+				),
 			)
 		);
 
@@ -166,6 +216,9 @@ class LRE_Properties_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .listings__header'      => 'text-align: {{VALUE}};',
 					'{{WRAPPER}} .listings__description' => 'text-align: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_header' => 'yes',
 				),
 			)
 		);
@@ -752,8 +805,11 @@ class LRE_Properties_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_header',
 			array(
-				'label' => __( 'Section Header Typography & Style', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'label'     => __( 'Section Header Typography & Style', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'show_header' => 'yes',
+				),
 			)
 		);
 
@@ -1853,7 +1909,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:not(.is-active)' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:not(.is-active), {{WRAPPER}} .listings__pagination-btn:not(.is-active) svg, {{WRAPPER}} button.listings__pagination-btn:not(.is-active)' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1863,7 +1919,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Background', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:not(.is-active)' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:not(.is-active), {{WRAPPER}} button.listings__pagination-btn:not(.is-active)' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1873,7 +1929,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:not(.is-active)' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:not(.is-active), {{WRAPPER}} button.listings__pagination-btn:not(.is-active)' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1886,7 +1942,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:hover:not(.is-active)' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} .listings__pagination-btn:hover:not(:disabled) svg, {{WRAPPER}} button.listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} .listings__pagination-btn.is-active:hover svg, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1896,7 +1952,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:hover:not(.is-active)' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} button.listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1906,7 +1962,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn:hover:not(.is-active)' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} button.listings__pagination-btn:hover:not(:disabled), {{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1919,7 +1975,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Active Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn.is-active' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn.is-active, {{WRAPPER}} .listings__pagination-btn.is-active svg, {{WRAPPER}} button.listings__pagination-btn.is-active' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1929,7 +1985,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Active Background', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn.is-active' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn.is-active, {{WRAPPER}} button.listings__pagination-btn.is-active' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1939,7 +1995,37 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Active Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__pagination-btn.is-active' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__pagination-btn.is-active, {{WRAPPER}} button.listings__pagination-btn.is-active' => 'border-color: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'pagination_active_hover_color',
+				array(
+					'label'     => __( 'Active Hover Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} .listings__pagination-btn.is-active:hover svg, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'pagination_active_hover_bg',
+				array(
+					'label'     => __( 'Active Hover Background', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+					),
+				)
+			);
+			$this->add_control(
+				'pagination_active_hover_border',
+				array(
+					'label'     => __( 'Active Hover Border Color', 'luxury-re-widgets' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						'{{WRAPPER}} .listings__pagination-btn.is-active:hover, {{WRAPPER}} button.listings__pagination-btn.is-active:hover' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1978,7 +2064,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn, {{WRAPPER}} .listings__load-more-btn span, {{WRAPPER}} .listings__load-more-btn svg, {{WRAPPER}} button.listings__load-more-btn' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1988,7 +2074,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn, {{WRAPPER}} button.listings__load-more-btn' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -1998,7 +2084,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn, {{WRAPPER}} button.listings__load-more-btn' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -2011,7 +2097,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn:hover' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn:hover, {{WRAPPER}} .listings__load-more-btn:hover span, {{WRAPPER}} .listings__load-more-btn:hover svg, {{WRAPPER}} button.listings__load-more-btn:hover' => 'color: {{VALUE}} !important; stroke: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -2021,7 +2107,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn:hover, {{WRAPPER}} button.listings__load-more-btn:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -2031,7 +2117,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
-						'{{WRAPPER}} .listings__load-more-btn:hover' => 'border-color: {{VALUE}};',
+						'{{WRAPPER}} .listings__load-more-btn:hover, {{WRAPPER}} button.listings__load-more-btn:hover' => 'border-color: {{VALUE}} !important;',
 					),
 				)
 			);
@@ -2143,9 +2229,11 @@ class LRE_Properties_Widget extends Widget_Base {
 		$settings         = $this->get_settings_for_display();
 		$tag              = ! empty( $settings['heading_tag'] ) ? $settings['heading_tag'] : 'h2';
 		$tag              = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ), true ) ? $tag : 'h2';
-		$show_eyebrow     = ! isset( $settings['show_eyebrow'] ) || 'yes' === $settings['show_eyebrow'];
-		$show_gold_bar    = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
-		$show_description = ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'];
+		$show_header      = ! isset( $settings['show_header'] ) || 'yes' === $settings['show_header'];
+		$show_eyebrow     = $show_header && ( ! isset( $settings['show_eyebrow'] ) || 'yes' === $settings['show_eyebrow'] );
+		$show_gold_bar    = $show_eyebrow && ( ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'] );
+		$show_heading     = $show_header && ( ! isset( $settings['show_heading'] ) || 'yes' === $settings['show_heading'] );
+		$show_description = $show_header && ( ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'] );
 		$layout_type      = ! empty( $settings['layout_type'] ) ? $settings['layout_type'] : 'slider';
 		$listings         = ! empty( $settings['listings'] ) ? $settings['listings'] : array();
 		$listings_count   = count( $listings );
@@ -2180,6 +2268,13 @@ class LRE_Properties_Widget extends Widget_Base {
 		$cta2_rel         = ! empty( $settings['cta2_url']['nofollow'] ) ? ' rel="nofollow"' : '';
 		?>
 		<section class="listings listings--<?php echo esc_attr( $layout_type ); ?>" id="listings" aria-label="<?php esc_attr_e( 'Featured property listings', 'luxury-re-widgets' ); ?>">
+			<?php
+			$has_header_content = ( $show_eyebrow && ! empty( $settings['eyebrow'] ) )
+				|| ( $show_heading && ! empty( $settings['heading'] ) )
+				|| ( $show_description && ! empty( $settings['description'] ) );
+
+			if ( $show_header && $has_header_content ) :
+			?>
 			<div class="listings__header reveal">
 				<?php if ( $show_eyebrow && ! empty( $settings['eyebrow'] ) ) : ?>
 				<div class="listings__eyebrow-wrap">
@@ -2190,6 +2285,7 @@ class LRE_Properties_Widget extends Widget_Base {
 				</div>
 				<?php endif; ?>
 
+				<?php if ( $show_heading && ! empty( $settings['heading'] ) ) : ?>
 				<<?php echo $tag; ?> class="listings__title">
 					<?php
 					$heading_raw   = $settings['heading'] ?? 'New To The Market';
@@ -2203,11 +2299,13 @@ class LRE_Properties_Widget extends Widget_Base {
 						<span class="title-mask"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
 					<?php endforeach; ?>
 				</<?php echo $tag; ?>>
+				<?php endif; ?>
 
 				<?php if ( $show_description && ! empty( $settings['description'] ) ) : ?>
 				<p class="listings__description"><?php echo esc_html( $settings['description'] ); ?></p>
 				<?php endif; ?>
 			</div>
+			<?php endif; ?>
 
 			<?php if ( 'grid' === $layout_type ) : ?>
 				<!-- GRID LAYOUT -->

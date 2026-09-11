@@ -1584,10 +1584,14 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 					
 					<!-- Section Header -->
 					<div class="lre-home-val__header wss-home-eval-header wss-reveal">
-						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
+						<?php
+						$raw_eyebrow  = ! empty( $s['eyebrow'] ) ? $s['eyebrow'] : '';
+						$clean_eyebrow = preg_replace( '/^[\s—\-–]+/u', '', trim( $raw_eyebrow ) );
+						if ( ! empty( $clean_eyebrow ) ) :
+						?>
 							<div class="lre-home-val__eyebrow-wrap wss-home-eval-eyebrow-wrap">
 								<span class="lre-home-val__eyebrow-bar wss-home-eval-eyebrow-bar"></span>
-								<span class="lre-home-val__eyebrow wss-home-eval-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+								<span class="section-label lre-home-val__eyebrow wss-home-eval-eyebrow"><?php echo esc_html( $clean_eyebrow ); ?></span>
 							</div>
 						<?php endif; ?>
 

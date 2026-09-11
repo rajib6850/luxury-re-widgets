@@ -15171,29 +15171,24 @@ button.lre-insights__filter-btn.active,
   margin: 0 auto 50px;
 }
 
-.wss-home-eval-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--wss-font-accent);
-  font-size: 10px;
-  font-weight: var(--wss-weight-accent, 700);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--wss-grey, #777777) !important;
-  margin-bottom: 20px;
+.wss-home-eval-eyebrow,
+.lre-home-val__eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--color-secondary, #c5a047) !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  -webkit-text-fill-color: var(--color-secondary, #c5a047) !important;
 }
 
-.wss-home-eval--dark .wss-home-eval-eyebrow {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
-.wss-home-eval-eyebrow::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
+.wss-home-eval-eyebrow::before,
+.lre-home-val__eyebrow::before {
+  display: none !important;
+  content: none !important;
 }
 
 .wss-home-eval-title {

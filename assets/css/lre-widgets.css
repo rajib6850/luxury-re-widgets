@@ -16612,7 +16612,7 @@ button.lre-insights__filter-btn.active,
 /* --- Property Quick Detail Modal (Sharp Architecture, Zero Radius) --- */
 .lre-ledger-modal {
   border: none;
-  border-radius: 0 !important;
+  border-radius: 0;
   padding: 0;
   background: transparent;
   max-width: 620px;
@@ -16621,8 +16621,19 @@ button.lre-insights__filter-btn.active,
   margin: auto;
 }
 
+.lre-ledger-modal.is-editor-preview {
+  display: block !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 999999 !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
 .lre-ledger-modal::backdrop {
-  background: rgba(13, 14, 16, 0.88);
+  background-color: rgba(13, 14, 16, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -16630,7 +16641,7 @@ button.lre-insights__filter-btn.active,
 .lre-ledger-modal-card {
   background: #14161A;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0 !important;
+  border-radius: 0;
   padding: 2.25rem;
   color: #FFFFFF;
   position: relative;
@@ -16643,7 +16654,7 @@ button.lre-insights__filter-btn.active,
   right: 1.25rem;
   width: 38px;
   height: 38px;
-  border-radius: 0 !important;
+  border-radius: 0;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
@@ -16662,7 +16673,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-modal-img-wrap {
-  border-radius: 0 !important;
+  border-radius: 0;
   overflow: hidden;
   height: 270px;
   margin-bottom: 1.5rem;
@@ -16710,7 +16721,7 @@ button.lre-insights__filter-btn.active,
   color: #FFFFFF;
   background: rgba(255, 255, 255, 0.06);
   padding: 0.35rem 0.85rem;
-  border-radius: 0 !important;
+  border-radius: 0;
   margin-bottom: 1rem;
 }
 
@@ -16723,12 +16734,30 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-inquire-btn {
-  border-radius: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.9rem 1.75rem;
+  background-color: var(--color-secondary, #C9A86A);
+  color: #0D0E10;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .lre-ledger-inquire-btn:hover {
-  background: #E2C99B !important;
-  color: #000000 !important;
+  background-color: #E2C99B;
+  color: #000000;
 }
 
 /* --- Responsive Media Queries --- */

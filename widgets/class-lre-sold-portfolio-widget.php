@@ -405,6 +405,176 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// --- 5. QUICK DETAIL POPUP / DOSSIER SETTINGS ---
+		$this->start_controls_section(
+			'section_modal_content',
+			array(
+				'label' => __( 'Quick Detail Popup / Dossier', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'enable_property_modal',
+			array(
+				'label'        => __( 'Enable Quick Detail Popup', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => __( 'When enabled, clicking a ledger row opens a confidential quick dossier popup.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_preview_in_editor',
+			array(
+				'label'        => __( 'Preview Popup in Editor', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'return_value' => 'yes',
+				'description'  => __( 'Turn ON to keep the popup open inside Elementor editor while styling it. Turn OFF before saving/publishing.', 'luxury-re-widgets' ),
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_img',
+			array(
+				'label'        => __( 'Show Property Image', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_title',
+			array(
+				'label'        => __( 'Show Property Title', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_location',
+			array(
+				'label'        => __( 'Show Location', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_price',
+			array(
+				'label'        => __( 'Show Closed Price', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_specs',
+			array(
+				'label'        => __( 'Show Specifications Badge', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_desc',
+			array(
+				'label'        => __( 'Show Description', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_fallback_desc',
+			array(
+				'label'       => __( 'Fallback / Default Description', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => __( 'Confidential estate transaction and representation details under SERHANT.', 'luxury-re-widgets' ),
+				'description' => __( 'Shown if an individual property does not have a dedicated dossier summary.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+					'modal_show_desc'       => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_btn',
+			array(
+				'label'        => __( 'Show Action Button', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_text',
+			array(
+				'label'       => __( 'Button Label', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+					'modal_show_btn'        => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_link',
+			array(
+				'label'       => __( 'Button Link', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-link.com or /contact/', 'luxury-re-widgets' ),
+				'default'     => array(
+					'url'         => '/contact/',
+					'is_external' => false,
+					'nofollow'    => false,
+				),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+					'modal_show_btn'        => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_show_btn_icon',
+			array(
+				'label'        => __( 'Show Button Arrow Icon (↗)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => array(
+					'enable_property_modal' => 'yes',
+					'modal_show_btn'        => 'yes',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// =================================================================
 		// TAB: STYLE
 		// =================================================================
@@ -907,6 +1077,873 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		// =================================================================
+		// STYLE TAB: QUICK DETAIL POPUP / DOSSIER STYLE
+		// =================================================================
+		$this->start_controls_section(
+			'section_modal_style',
+			array(
+				'label'     => __( 'Quick Detail Popup Style', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'enable_property_modal' => 'yes' ),
+			)
+		);
+
+		// 1. Backdrop Overlay
+		$this->add_control(
+			'heading_modal_backdrop_style',
+			array(
+				'label' => __( 'Backdrop & Overlay', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_control(
+			'modal_backdrop_color',
+			array(
+				'label'     => __( 'Backdrop Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(13, 14, 16, 0.88)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal::backdrop' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_backdrop_blur',
+			array(
+				'label'      => __( 'Backdrop Blur', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 40,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 12,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal::backdrop' => 'backdrop-filter: blur({{SIZE}}px); -webkit-backdrop-filter: blur({{SIZE}}px);',
+				),
+			)
+		);
+
+		// 2. Modal Card / Box
+		$this->add_control(
+			'heading_modal_card_style',
+			array(
+				'label'     => __( 'Modal Card (Box)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_card_max_width',
+			array(
+				'label'      => __( 'Card Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 320,
+						'max'  => 1100,
+						'step' => 10,
+					),
+					'%'  => array(
+						'min' => 40,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 620,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_card_bg',
+			array(
+				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#14161A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-card' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_card_padding',
+			array(
+				'label'      => __( 'Card Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '36',
+					'right'    => '36',
+					'bottom'   => '36',
+					'left'     => '36',
+					'unit'     => 'px',
+					'isLinked' => true,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'modal_card_border',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-card',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_card_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal, {{WRAPPER}} .lre-ledger-modal-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'modal_card_shadow',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal',
+			)
+		);
+
+		// 3. Close Button
+		$this->add_control(
+			'heading_modal_close_btn',
+			array(
+				'label'     => __( 'Close Button', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_close_btn_size',
+			array(
+				'label'      => __( 'Button Box Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 24,
+						'max'  => 64,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 38,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'width: {{SIZE}}px; height: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_close_btn_font_size',
+			array(
+				'label'      => __( 'Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 10,
+						'max'  => 36,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 18,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'font-size: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_close_btn_radius',
+			array(
+				'label'      => __( 'Close Button Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_modal_close_btn' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_modal_close_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_color',
+			array(
+				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.08)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.1)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_modal_close_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_hover_color',
+			array(
+				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0D0E10',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_hover_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_close_hover_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// 4. Property Image
+		$this->add_control(
+			'heading_modal_image_style',
+			array(
+				'label'     => __( 'Property Image', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_image_height',
+			array(
+				'label'      => __( 'Image Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 120,
+						'max'  => 600,
+						'step' => 5,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 270,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-img-wrap' => 'height: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'modal_image_border',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-img-wrap',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_image_radius',
+			array(
+				'label'      => __( 'Image Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-img-wrap, {{WRAPPER}} .lre-ledger-modal-img-wrap img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_image_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 60,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 24,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-img-wrap' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 5. Property Title
+		$this->add_control(
+			'heading_modal_title_style',
+			array(
+				'label'     => __( 'Property Title', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'modal_title_color',
+			array(
+				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-header h3, {{WRAPPER}} #prop-modal-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_title_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-header h3, {{WRAPPER}} #prop-modal-title',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_title_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 40,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 6,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-header h3, {{WRAPPER}} #prop-modal-title' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 6. Location
+		$this->add_control(
+			'heading_modal_loc_style',
+			array(
+				'label'     => __( 'Location', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'modal_loc_color',
+			array(
+				'label'     => __( 'Location Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#8A8D96',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-location' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_loc_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-location',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_loc_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 40,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 8,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-location' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 7. Closed Price / Valuation
+		$this->add_control(
+			'heading_modal_price_style',
+			array(
+				'label'     => __( 'Closed Price / Valuation', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'modal_price_color',
+			array(
+				'label'     => __( 'Price Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-price' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_price_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-price',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_price_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 40,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 16,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-price' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 8. Specifications Badge
+		$this->add_control(
+			'heading_modal_specs_style',
+			array(
+				'label'     => __( 'Specifications Badge', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'modal_specs_color',
+			array(
+				'label'     => __( 'Specs Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_specs_bg',
+			array(
+				'label'     => __( 'Specs Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.06)',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_specs_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-specs',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_specs_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '6',
+					'right'    => '14',
+					'bottom'   => '6',
+					'left'     => '14',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'modal_specs_border',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-specs',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_specs_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_specs_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 40,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 16,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 9. Description Text
+		$this->add_control(
+			'heading_modal_desc_style',
+			array(
+				'label'     => __( 'Description / Dossier Summary', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'modal_desc_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#A3A7AF',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-desc' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_desc_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-modal-desc',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_desc_mb',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 60,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 24,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-modal-desc' => 'margin-bottom: {{SIZE}}px;',
+				),
+			)
+		);
+
+		// 10. Inquire / Action Button
+		$this->add_control(
+			'heading_modal_btn_style',
+			array(
+				'label'     => __( 'Inquire / Action Button', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_btn_typography',
+				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_btn_padding',
+			array(
+				'label'      => __( 'Button Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'default'    => array(
+					'top'      => '14',
+					'right'    => '28',
+					'bottom'   => '14',
+					'left'     => '28',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_btn_radius',
+			array(
+				'label'      => __( 'Button Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_modal_btn_style' );
+
+		// Button Normal Tab
+		$this->start_controls_tab(
+			'tab_modal_btn_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0D0E10',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'modal_btn_border',
+				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'modal_btn_shadow',
+				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Button Hover Tab
+		$this->start_controls_tab(
+			'tab_modal_btn_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_hover_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#000000',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_hover_bg',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#E2C99B',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_hover_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'modal_btn_hover_shadow',
+				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn:hover',
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -918,7 +1955,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 	 * @param int   $offset Pagination offset.
 	 * @return string HTML output.
 	 */
-	public static function render_ledger_row_html( $item, $index, $offset = 0 ) {
+	public static function render_ledger_row_html( $item, $index, $offset = 0, $enable_modal = true ) {
 		$num_str  = sprintf( '%03d', $offset + $index + 1 );
 		$title    = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
 		$loc      = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
@@ -938,7 +1975,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		ob_start();
 		?>
-		<div class="ledger-row lre-ledger-row trigger-prop-modal"
+		<div class="ledger-row lre-ledger-row<?php echo $enable_modal ? ' trigger-prop-modal' : ''; ?>"
 			data-category="<?php echo esc_attr( $cat ); ?>"
 			data-title="<?php echo esc_attr( $title ); ?>"
 			data-price="<?php echo esc_attr( $price ); ?>"
@@ -946,9 +1983,11 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			data-specs="<?php echo esc_attr( $specs_str ); ?>"
 			data-desc="<?php echo esc_attr( $desc ); ?>"
 			data-img="<?php echo esc_url( $img ); ?>"
+			<?php if ( $enable_modal ) : ?>
 			tabindex="0"
 			role="button"
-			aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $title, $price ) ); ?>">
+			aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $title, $price ) ); ?>"
+			<?php endif; ?>>
 
 			<span class="num"><?php echo esc_html( $num_str ); ?></span>
 
@@ -1080,6 +2119,22 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		$show_filters    = ! empty( $settings['show_filters'] ) && 'yes' === $settings['show_filters'];
 		$show_pagination = ! empty( $settings['show_pagination'] ) && 'yes' === $settings['show_pagination'];
+
+		$enable_modal   = ! empty( $settings['enable_property_modal'] ) ? $settings['enable_property_modal'] : 'yes';
+		$modal_preview  = ! empty( $settings['modal_preview_in_editor'] ) && 'yes' === $settings['modal_preview_in_editor'] && \Elementor\Plugin::$instance->editor->is_edit_mode();
+		$show_img       = ! empty( $settings['modal_show_img'] ) ? $settings['modal_show_img'] : 'yes';
+		$show_title     = ! empty( $settings['modal_show_title'] ) ? $settings['modal_show_title'] : 'yes';
+		$show_loc       = ! empty( $settings['modal_show_location'] ) ? $settings['modal_show_location'] : 'yes';
+		$show_price     = ! empty( $settings['modal_show_price'] ) ? $settings['modal_show_price'] : 'yes';
+		$show_specs     = ! empty( $settings['modal_show_specs'] ) ? $settings['modal_show_specs'] : 'yes';
+		$show_desc      = ! empty( $settings['modal_show_desc'] ) ? $settings['modal_show_desc'] : 'yes';
+		$fallback_desc  = ! empty( $settings['modal_fallback_desc'] ) ? $settings['modal_fallback_desc'] : __( 'Confidential estate transaction and representation details under SERHANT.', 'luxury-re-widgets' );
+		$show_btn       = ! empty( $settings['modal_show_btn'] ) ? $settings['modal_show_btn'] : 'yes';
+		$btn_text       = ! empty( $settings['modal_btn_text'] ) ? $settings['modal_btn_text'] : __( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' );
+		$btn_url        = ! empty( $settings['modal_btn_link']['url'] ) ? $settings['modal_btn_link']['url'] : '/contact/';
+		$btn_target     = ! empty( $settings['modal_btn_link']['is_external'] ) ? ' target="_blank"' : '';
+		$btn_nofollow   = ! empty( $settings['modal_btn_link']['nofollow'] ) ? ' rel="nofollow"' : '';
+		$show_btn_icon  = ! empty( $settings['modal_show_btn_icon'] ) ? $settings['modal_show_btn_icon'] : 'yes';
 
 		$paged      = 1;
 		$max_pages  = 1;
@@ -1226,7 +2281,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					<?php
 					if ( ! empty( $entries ) ) :
 						foreach ( $entries as $index => $item ) :
-							echo self::render_ledger_row_html( $item, $index, 0 );
+							echo self::render_ledger_row_html( $item, $index, 0, ( 'yes' === $enable_modal ) );
 						endforeach;
 					else :
 						?>
@@ -1246,30 +2301,55 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 			</div>
 
+			<?php if ( 'yes' === $enable_modal ) : ?>
 			<!-- Built-in Property Quick Detail Modal (Dialog) -->
-			<dialog id="property-modal" class="custom-modal lre-ledger-modal" aria-labelledby="prop-modal-title">
+			<dialog id="property-modal" class="custom-modal lre-ledger-modal<?php echo $modal_preview ? ' is-editor-preview' : ''; ?>" aria-labelledby="prop-modal-title"<?php echo $modal_preview ? ' open' : ''; ?>>
 				<div class="modal-card lre-ledger-modal-card">
 					<button id="close-prop-modal" class="modal-close-btn lre-ledger-modal-close" aria-label="<?php esc_attr_e( 'Close dossier dialog', 'luxury-re-widgets' ); ?>">✕</button>
+					
+					<?php if ( 'yes' === $show_img ) : ?>
 					<div class="lre-ledger-modal-img-wrap">
-						<img id="prop-modal-img" src="" alt="<?php esc_attr_e( 'Property Preview', 'luxury-re-widgets' ); ?>" />
+						<img id="prop-modal-img" src="<?php echo esc_url( $modal_preview && ! empty( $entries[0]['image_url'] ) ? $entries[0]['image_url'] : '' ); ?>" alt="<?php esc_attr_e( 'Property Preview', 'luxury-re-widgets' ); ?>" />
 					</div>
+					<?php endif; ?>
+
 					<div class="modal-header lre-ledger-modal-header">
-						<h3 id="prop-modal-title"><?php esc_html_e( 'Property Title', 'luxury-re-widgets' ); ?></h3>
-						<div id="prop-modal-location" class="lre-ledger-modal-location"><?php esc_html_e( 'Location', 'luxury-re-widgets' ); ?></div>
-						<div id="prop-modal-price" class="lre-ledger-modal-price"><?php esc_html_e( 'Price', 'luxury-re-widgets' ); ?></div>
-						<div id="prop-modal-specs" class="lre-ledger-modal-specs"><?php esc_html_e( 'Specs', 'luxury-re-widgets' ); ?></div>
-						<p id="prop-modal-desc" class="lre-ledger-modal-desc">
-							<?php esc_html_e( 'Confidential estate transaction and representation details.', 'luxury-re-widgets' ); ?>
+						<?php if ( 'yes' === $show_title ) : ?>
+						<h3 id="prop-modal-title"><?php echo esc_html( $modal_preview && ! empty( $entries[0]['title'] ) ? $entries[0]['title'] : __( 'Property Title', 'luxury-re-widgets' ) ); ?></h3>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $show_loc ) : ?>
+						<div id="prop-modal-location" class="lre-ledger-modal-location"><?php echo esc_html( $modal_preview && ! empty( $entries[0]['location'] ) ? $entries[0]['location'] : __( 'Location', 'luxury-re-widgets' ) ); ?></div>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $show_price ) : ?>
+						<div id="prop-modal-price" class="lre-ledger-modal-price"><?php echo esc_html( $modal_preview && ! empty( $entries[0]['price'] ) ? $entries[0]['price'] : __( 'Price', 'luxury-re-widgets' ) ); ?></div>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $show_specs ) : ?>
+						<div id="prop-modal-specs" class="lre-ledger-modal-specs"><?php echo esc_html( $modal_preview ? '4 BD • 3 BA • 4,200 SQFT' : __( 'Specs', 'luxury-re-widgets' ) ); ?></div>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $show_desc ) : ?>
+						<p id="prop-modal-desc" class="lre-ledger-modal-desc" data-default-desc="<?php echo esc_attr( $fallback_desc ); ?>">
+							<?php echo esc_html( $modal_preview && ! empty( $entries[0]['description'] ) ? $entries[0]['description'] : $fallback_desc ); ?>
 						</p>
+						<?php endif; ?>
 					</div>
+
+					<?php if ( 'yes' === $show_btn ) : ?>
 					<div class="lre-ledger-modal-actions">
-						<a href="/contact/" class="lre-ledger-inquire-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;padding:0.9rem 1.75rem;background:#C9A86A;color:#0D0E10;font-family:inherit;font-size:0.84rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s ease;">
-							<span><?php esc_html_e( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' ); ?></span>
-							<span aria-hidden="true">↗</span>
+						<a href="<?php echo esc_url( $btn_url ); ?>" class="lre-ledger-inquire-btn"<?php echo $btn_target . $btn_nofollow; ?>>
+							<span><?php echo esc_html( $btn_text ); ?></span>
+							<?php if ( 'yes' === $show_btn_icon ) : ?>
+								<span aria-hidden="true">↗</span>
+							<?php endif; ?>
 						</a>
 					</div>
+					<?php endif; ?>
 				</div>
 			</dialog>
+			<?php endif; ?>
 		</section>
 		<?php
 	}

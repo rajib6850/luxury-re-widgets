@@ -2383,8 +2383,15 @@
                                 if ( modalPrice ) modalPrice.textContent = price;
                                 if ( modalLoc )   modalLoc.textContent = loc;
                                 if ( modalSpecs ) modalSpecs.textContent = specs;
-                                if ( modalDesc )  modalDesc.textContent = desc;
-                                if ( modalImg && img ) modalImg.src = img;
+                                if ( modalDesc )  modalDesc.textContent = desc || modalDesc.getAttribute( 'data-default-desc' ) || '';
+                                if ( modalImg ) {
+                                    if ( img ) {
+                                        modalImg.src = img;
+                                        if ( modalImg.parentElement ) modalImg.parentElement.style.display = '';
+                                    } else {
+                                        if ( modalImg.parentElement ) modalImg.parentElement.style.display = 'none';
+                                    }
+                                }
 
                                 if ( typeof modal.showModal === 'function' ) {
                                     modal.showModal();

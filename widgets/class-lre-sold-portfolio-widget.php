@@ -533,7 +533,8 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Button Label', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' ),
+				'default'     => __( 'Acquisition Inquiry', 'luxury-re-widgets' ),
+				'placeholder' => __( 'Acquisition Inquiry', 'luxury-re-widgets' ),
 				'condition'   => array(
 					'enable_property_modal' => 'yes',
 					'modal_show_btn'        => 'yes',
@@ -1801,7 +1802,56 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'modal_btn_typography',
-				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn',
+				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn, {{WRAPPER}} .lre-ledger-inquire-btn span',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_btn_width',
+			array(
+				'label'       => __( 'Button Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'full',
+				'options'     => array(
+					'full' => __( 'Full Width (100%)', 'luxury-re-widgets' ),
+					'auto' => __( 'Auto / Content Width', 'luxury-re-widgets' ),
+				),
+				'selectors_dictionary' => array(
+					'full' => 'width: 100%;',
+					'auto' => 'width: auto; display: inline-flex;',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => '{{VALUE}}',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_btn_align',
+			array(
+				'label'     => __( 'Alignment', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Center', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'luxury-re-widgets' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'   => 'center',
+				'condition' => array(
+					'modal_btn_width' => 'auto',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-ledger-modal-actions' => 'justify-content: {{VALUE}};',
+				),
 			)
 		);
 
@@ -1820,7 +1870,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1832,7 +1882,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-ledger-inquire-btn, {{WRAPPER}} .lre-ledger-inquire-btn::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1852,9 +1902,8 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0D0E10',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-inquire-btn, {{WRAPPER}} .lre-ledger-inquire-btn span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1864,9 +1913,8 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-inquire-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1902,9 +1950,8 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#000000',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover, {{WRAPPER}} .lre-ledger-inquire-btn:hover span' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1914,9 +1961,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#E2C99B',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-ledger-inquire-btn'       => '--btn-hover-bg: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -2130,7 +2177,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$show_desc      = ! empty( $settings['modal_show_desc'] ) ? $settings['modal_show_desc'] : 'yes';
 		$fallback_desc  = ! empty( $settings['modal_fallback_desc'] ) ? $settings['modal_fallback_desc'] : __( 'Confidential estate transaction and representation details under SERHANT.', 'luxury-re-widgets' );
 		$show_btn       = ! empty( $settings['modal_show_btn'] ) ? $settings['modal_show_btn'] : 'yes';
-		$btn_text       = ! empty( $settings['modal_btn_text'] ) ? $settings['modal_btn_text'] : __( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' );
+		$btn_text       = ! empty( $settings['modal_btn_text'] ) ? $settings['modal_btn_text'] : __( 'Acquisition Inquiry', 'luxury-re-widgets' );
 		$btn_url        = ! empty( $settings['modal_btn_link']['url'] ) ? $settings['modal_btn_link']['url'] : '/contact/';
 		$btn_target     = ! empty( $settings['modal_btn_link']['is_external'] ) ? ' target="_blank"' : '';
 		$btn_nofollow   = ! empty( $settings['modal_btn_link']['nofollow'] ) ? ' rel="nofollow"' : '';
@@ -2339,10 +2386,10 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 					<?php if ( 'yes' === $show_btn ) : ?>
 					<div class="lre-ledger-modal-actions">
-						<a href="<?php echo esc_url( $btn_url ); ?>" class="lre-ledger-inquire-btn"<?php echo $btn_target . $btn_nofollow; ?>>
-							<span><?php echo esc_html( $btn_text ); ?></span>
+						<a href="<?php echo esc_url( $btn_url ); ?>" class="btn btn--gold lre-ledger-inquire-btn"<?php echo $btn_target . $btn_nofollow; ?>>
+							<span class="btn__text"><?php echo esc_html( $btn_text ); ?></span>
 							<?php if ( 'yes' === $show_btn_icon ) : ?>
-								<span aria-hidden="true">↗</span>
+								<span class="btn__icon" aria-hidden="true">↗</span>
 							<?php endif; ?>
 						</a>
 					</div>

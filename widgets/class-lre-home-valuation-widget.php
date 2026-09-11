@@ -1392,6 +1392,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 		$this->start_controls_tabs( 'tabs_btn_style' );
 
 		// Normal Tab
+		// Normal Tab
 		$this->start_controls_tab(
 			'tab_btn_normal',
 			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
@@ -1403,8 +1404,9 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Text / Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .lre-home-val__reset-btn' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-home-val__btn svg, {{WRAPPER}} .lre-home-val__btn--next svg, {{WRAPPER}} .lre-home-val__btn--submit svg, {{WRAPPER}} .lre-home-val__reset-btn svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn *, {{WRAPPER}} .lre-home-val__btn .lre-home-val__btn-text, {{WRAPPER}} .lre-home-val__btn .lre-home-val__btn-arrow, {{WRAPPER}} .lre-home-val__btn span, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--next *, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .lre-home-val__btn--submit *, {{WRAPPER}} .lre-home-val__reset-btn, {{WRAPPER}} .lre-home-val__reset-btn *' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn svg, {{WRAPPER}} .lre-home-val__btn--next svg, {{WRAPPER}} .lre-home-val__btn--submit svg, {{WRAPPER}} .lre-home-val__reset-btn svg' => 'stroke: {{VALUE}} !important; fill: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn i, {{WRAPPER}} .lre-home-val__btn--next i, {{WRAPPER}} .lre-home-val__btn--submit i, {{WRAPPER}} .lre-home-val__reset-btn i' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1453,8 +1455,9 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Hover Text / Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__btn:hover, {{WRAPPER}} .lre-home-val__btn--next:hover, {{WRAPPER}} .lre-home-val__btn--submit:hover, {{WRAPPER}} .lre-home-val__reset-btn:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-home-val__btn:hover svg, {{WRAPPER}} .lre-home-val__btn--next:hover svg, {{WRAPPER}} .lre-home-val__btn--submit:hover svg, {{WRAPPER}} .lre-home-val__reset-btn:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn:hover, {{WRAPPER}} .lre-home-val__btn:hover *, {{WRAPPER}} .lre-home-val__btn:hover .lre-home-val__btn-text, {{WRAPPER}} .lre-home-val__btn:hover .lre-home-val__btn-arrow, {{WRAPPER}} .lre-home-val__btn:hover span, {{WRAPPER}} .lre-home-val__btn--next:hover, {{WRAPPER}} .lre-home-val__btn--next:hover *, {{WRAPPER}} .lre-home-val__btn--submit:hover, {{WRAPPER}} .lre-home-val__btn--submit:hover *, {{WRAPPER}} .lre-home-val__reset-btn:hover, {{WRAPPER}} .lre-home-val__reset-btn:hover *' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn:hover svg, {{WRAPPER}} .lre-home-val__btn--next:hover svg, {{WRAPPER}} .lre-home-val__btn--submit:hover svg, {{WRAPPER}} .lre-home-val__reset-btn:hover svg' => 'stroke: {{VALUE}} !important; fill: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn:hover i, {{WRAPPER}} .lre-home-val__btn--next:hover i, {{WRAPPER}} .lre-home-val__btn--submit:hover i, {{WRAPPER}} .lre-home-val__reset-btn:hover i' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1517,7 +1520,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Back Button Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__btn-back' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back, {{WRAPPER}} .lre-home-val__btn-back *, {{WRAPPER}} .lre-home-val__btn-arrow-back' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back svg' => 'stroke: {{VALUE}} !important; fill: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1528,7 +1532,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Back Button Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__btn-back:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back:hover, {{WRAPPER}} .lre-home-val__btn-back:hover *, {{WRAPPER}} .lre-home-val__btn-back:hover .lre-home-val__btn-arrow-back' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back:hover svg' => 'stroke: {{VALUE}} !important; fill: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1691,12 +1696,12 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 											</div><!-- /.lre-home-val__grid -->
 											<div class="lre-home-val__btn-row">
 												<?php if ( $step_index > 1 ) : ?>
-													<button type="button" class="lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
+													<button type="button" class="btn lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 												<?php else : ?>
 													<div></div>
 												<?php endif; ?>
 												
-												<button type="button" class="lre-home-val__btn lre-home-val__btn--next" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
+												<button type="button" class="btn lre-home-val__btn lre-home-val__btn--next" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
 													<span class="lre-home-val__btn-text"><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'luxury-re-widgets' ) ); ?></span>
 													<span class="lre-home-val__btn-arrow">→</span>
 												</button>
@@ -1832,12 +1837,12 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 
 								<div class="lre-home-val__btn-row">
 									<?php if ( $step_index > 1 ) : ?>
-										<button type="button" class="lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
+										<button type="button" class="btn lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 									<?php else : ?>
 										<div></div>
 									<?php endif; ?>
 
-									<button type="submit" class="lre-home-val__btn lre-home-val__btn--submit">
+									<button type="submit" class="btn lre-home-val__btn lre-home-val__btn--submit">
 										<span class="lre-home-val__btn-text"><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'luxury-re-widgets' ) ); ?></span>
 										<span class="lre-home-val__btn-arrow">→</span>
 									</button>
@@ -1862,7 +1867,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 							</div>
 							<h3 class="lre-home-val__success-title"><?php echo esc_html( $s['success_title'] ?? __( 'Valuation Request Received', 'luxury-re-widgets' ) ); ?></h3>
 							<p class="lre-home-val__success-desc"><?php echo nl2br( esc_html( $s['success_message'] ?? __( 'Thank you. Adolfo Aguirre and our analytics team have initiated your sub-market comparative study. Your confidential property dossier is being assembled.', 'luxury-re-widgets' ) ) ); ?></p>
-							<button type="button" class="lre-home-val__reset-btn">
+							<button type="button" class="btn lre-home-val__reset-btn">
 								<span><?php echo esc_html( $s['reset_btn_text'] ?? __( 'Submit Another Property', 'luxury-re-widgets' ) ); ?></span>
 							</button>
 						</div>

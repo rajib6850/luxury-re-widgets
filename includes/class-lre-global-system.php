@@ -82,12 +82,12 @@ body,
 }
 
 /* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
-[class*="lre-"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
-[class*="lre-"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
-[class*="lre-"] [type="submit"]:not(.btn),
-[class*="elementor-widget-lre_"] button:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
-[class*="elementor-widget-lre_"] [type="button"]:not(.btn):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]) {
-  color: inherit !important;
+[class*="lre-"] button:not(.btn):not([class*="btn"]):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
+[class*="lre-"] [type="button"]:not(.btn):not([class*="btn"]):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
+[class*="lre-"] [type="submit"]:not(.btn):not([class*="btn"]),
+[class*="elementor-widget-lre_"] button:not(.btn):not([class*="btn"]):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]),
+[class*="elementor-widget-lre_"] [type="button"]:not(.btn):not([class*="btn"]):not([class*="arrow"]):not([class*="dot"]):not([class*="pagination"]):not([class*="load-more"]):not([class*="filter"]):not([class*="tab"]) {
+  color: inherit;
 }
 
 /* --- Filter & Tab Buttons High-Contrast Luxury Style --- */

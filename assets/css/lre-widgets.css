@@ -15749,6 +15749,8 @@ button.lre-insights__filter-btn.active,
 
 .lre-home-val__btn-arrow-back {
   display: inline-block;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
   transition: transform 0.3s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
@@ -15843,13 +15845,23 @@ button.lre-insights__filter-btn.active,
 .lre-home-val__btn-text {
   position: relative;
   z-index: 2;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
 }
 
 .lre-home-val__btn-arrow {
   position: relative;
   z-index: 2;
   display: inline-block;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
   transition: transform 0.3s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.lre-home-val__btn svg {
+  color: inherit;
+  stroke: currentColor;
+  fill: currentColor;
 }
 
 .lre-home-val__btn:hover .lre-home-val__btn-arrow {

@@ -1922,8 +1922,30 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
-				'name'     => 'modal_btn_border',
-				'selector' => '{{WRAPPER}} .lre-ledger-inquire-btn',
+				'name'           => 'modal_btn_border',
+				'selector'       => '{{WRAPPER}} .lre-ledger-inquire-btn, {{WRAPPER}} .lre-ledger-modal-actions .lre-ledger-inquire-btn.btn',
+				'fields_options' => array(
+					'border' => array(
+						'default' => 'solid',
+					),
+					'width'  => array(
+						'default' => array(
+							'top'      => '1',
+							'right'    => '1',
+							'bottom'   => '1',
+							'left'     => '1',
+							'isLinked' => true,
+						),
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+						),
+					),
+					'color'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}} !important;',
+						),
+					),
+				),
 			)
 		);
 
@@ -1974,7 +1996,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-inquire-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-ledger-inquire-btn:hover, {{WRAPPER}} .lre-ledger-modal-actions .lre-ledger-inquire-btn.btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);

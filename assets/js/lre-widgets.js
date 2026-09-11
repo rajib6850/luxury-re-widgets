@@ -2435,6 +2435,45 @@
 
                     bindModalTriggers();
 
+                    // Ultra-Smooth Floating Thumbnail Cursor Parallax
+                    function bindThumbParallax() {
+                        var rows = sec.querySelectorAll( '.ledger-row, .lre-ledger-row' );
+                        for ( var r = 0; r < rows.length; r++ ) {
+                            ( function ( row ) {
+                                if ( row._thumbParallaxInit ) return;
+                                row._thumbParallaxInit = true;
+
+                                var thumb = row.querySelector( '.ledger-thumb' );
+                                if ( ! thumb ) return;
+
+                                var ticking = false;
+                                var targetY = 0;
+
+                                row.addEventListener( 'mousemove', function ( e ) {
+                                    var rect = row.getBoundingClientRect();
+                                    var relY = e.clientY - rect.top;
+                                    var centerY = rect.height / 2;
+                                    // Smooth micro-float (-22px to +22px)
+                                    targetY = Math.max( -22, Math.min( 22, ( relY - centerY ) * 0.35 ) );
+
+                                    if ( ! ticking ) {
+                                        window.requestAnimationFrame( function () {
+                                            thumb.style.transform = 'translateY(calc(-50% + ' + targetY + 'px)) scale(1) translate3d(0,0,0)';
+                                            ticking = false;
+                                        } );
+                                        ticking = true;
+                                    }
+                                }, { passive: true } );
+
+                                row.addEventListener( 'mouseleave', function () {
+                                    thumb.style.transform = '';
+                                } );
+                            } )( rows[r] );
+                        }
+                    }
+
+                    bindThumbParallax();
+
                     // AJAX Pagination and Filtering
                     function fetchPage( page, category ) {
                         var ajaxUrl = ( typeof LREData !== 'undefined' && LREData.ajaxUrl ) ? LREData.ajaxUrl : '/wp-admin/admin-ajax.php';
@@ -2467,6 +2506,7 @@
                                     paginationWrap.innerHTML = data.data.pagination_html;
                                 }
                                 bindModalTriggers();
+                                bindThumbParallax();
                                 bindPaginationEvents();
 
                                 // Smooth gentle scroll into view

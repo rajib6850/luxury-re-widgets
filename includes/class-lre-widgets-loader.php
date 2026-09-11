@@ -48,6 +48,8 @@ class LRE_Widgets_Loader {
 		'class-lre-insights-widget.php'       => 'LRE_Insights_Widget',
 		// Home Valuation Suite
 		'class-lre-home-valuation-widget.php' => 'LRE_Home_Valuation_Widget',
+		// Sold Portfolio Suite
+		'class-lre-sold-portfolio-widget.php' => 'LRE_Sold_Portfolio_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

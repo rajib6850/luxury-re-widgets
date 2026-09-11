@@ -90,6 +90,10 @@ final class LRE_Plugin {
 		require_once LRE_PATH . 'includes/class-lre-global-system.php';
 		LRE_Global_System::instance();
 
+		// 9. Load Custom Post Types (Past Sold Properties).
+		require_once LRE_PATH . 'includes/class-lre-post-types.php';
+		LRE_Post_Types::instance();
+
 		// 8. Enqueue assets.
 		add_action( 'wp_enqueue_scripts',               array( $this, 'enqueue_styles' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );

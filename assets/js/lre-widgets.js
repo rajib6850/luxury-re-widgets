@@ -2333,6 +2333,137 @@
             } );
         }
     };
+
+    LREWidgets.SoldPortfolio = {
+        init: function ( $scope ) {
+            var root = $scope ? ( $scope[0] || $scope ) : document;
+            var portfolios = root.querySelectorAll ? root.querySelectorAll( '.lre-sold-portfolio' ) : [];
+            if ( ! portfolios.length && root.classList && root.classList.contains( 'lre-sold-portfolio' ) ) {
+                portfolios = [ root ];
+            }
+
+            for ( var p = 0; p < portfolios.length; p++ ) {
+                ( function ( port ) {
+                    if ( port._soldInit ) return;
+                    port._soldInit = true;
+
+                    // 1. Filter Tabs
+                    var filterBtns = port.querySelectorAll( '.lre-sold-filter-btn' );
+                    var cards = port.querySelectorAll( '.lre-sold-card' );
+
+                    for ( var b = 0; b < filterBtns.length; b++ ) {
+                        filterBtns[b].addEventListener( 'click', function () {
+                            for ( var ob = 0; ob < filterBtns.length; ob++ ) {
+                                filterBtns[ob].classList.remove( 'is-active' );
+                                filterBtns[ob].setAttribute( 'aria-selected', 'false' );
+                            }
+                            this.classList.add( 'is-active' );
+                            this.setAttribute( 'aria-selected', 'true' );
+
+                            var filter = this.getAttribute( 'data-filter' );
+                            for ( var c = 0; c < cards.length; c++ ) {
+                                var card = cards[c];
+                                var cat = card.getAttribute( 'data-category' ) || '';
+                                if ( filter === 'all' || cat.indexOf( filter ) !== -1 ) {
+                                    card.classList.remove( 'is-hidden' );
+                                    card.style.opacity = '0';
+                                    card.style.transform = 'translateY(15px)';
+                                    ( function ( el ) {
+                                        setTimeout( function () {
+                                            el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                                            el.style.opacity = '1';
+                                            el.style.transform = 'translateY(0)';
+                                        }, 30 );
+                                    } )( card );
+                                } else {
+                                    card.classList.add( 'is-hidden' );
+                                }
+                            }
+                        } );
+                    }
+
+                    // 2. Case Study Modal / Drawer
+                    var modal = port.querySelector( '.lre-sold-modal' );
+                    if ( ! modal ) modal = document.querySelector( '.lre-sold-modal' );
+
+                    if ( modal ) {
+                        var openBtns = port.querySelectorAll( '.js-open-sold-modal' );
+                        var closeBtns = modal.querySelectorAll( '.js-close-sold-modal' );
+
+                        var modalImg     = modal.querySelector( '#lreModalImg' );
+                        var modalBadge   = modal.querySelector( '#lreModalBadge' );
+                        var modalArch    = modal.querySelector( '#lreModalArch' );
+                        var modalPrice   = modal.querySelector( '#lreModalPrice' );
+                        var modalTitle   = modal.querySelector( '#lreModalTitle' );
+                        var modalCity    = modal.querySelector( '#lreModalCity' );
+                        var modalBeds    = modal.querySelector( '#lreModalBeds' );
+                        var modalBaths   = modal.querySelector( '#lreModalBaths' );
+                        var modalSqft    = modal.querySelector( '#lreModalSqft' );
+                        var modalYear    = modal.querySelector( '#lreModalYear' );
+                        var modalDesc    = modal.querySelector( '#lreModalDesc' );
+                        var modalSerhant = modal.querySelector( '#lreModalSerhant' );
+
+                        var openModal = function ( card ) {
+                            if ( modalImg )     modalImg.src = card.getAttribute( 'data-image' ) || '';
+                            if ( modalBadge )   modalBadge.textContent = card.getAttribute( 'data-badge' ) || '';
+                            if ( modalArch )    modalArch.textContent = card.getAttribute( 'data-arch' ) || 'ARCHITECTURAL RECORD';
+                            if ( modalPrice )   modalPrice.textContent = card.getAttribute( 'data-price' ) || '';
+                            if ( modalTitle )   modalTitle.textContent = card.getAttribute( 'data-address' ) || card.getAttribute( 'data-title' ) || '';
+                            if ( modalCity )    modalCity.textContent = card.getAttribute( 'data-city' ) || '';
+                            if ( modalBeds )    modalBeds.textContent = ( card.getAttribute( 'data-beds' ) || '—' ) + ' Beds';
+                            if ( modalBaths )   modalBaths.textContent = ( card.getAttribute( 'data-baths' ) || '—' ) + ' Baths';
+                            if ( modalSqft )    modalSqft.textContent = ( card.getAttribute( 'data-sqft' ) || '—' ) + ' Sq Ft';
+                            if ( modalYear )    modalYear.textContent = card.getAttribute( 'data-year' ) || '—';
+                            if ( modalDesc )    modalDesc.textContent = card.getAttribute( 'data-desc' ) || '';
+
+                            var sUrl = card.getAttribute( 'data-serhant' );
+                            if ( modalSerhant ) {
+                                if ( sUrl ) {
+                                    modalSerhant.href = sUrl;
+                                    modalSerhant.style.display = 'inline-flex';
+                                } else {
+                                    modalSerhant.style.display = 'none';
+                                }
+                            }
+
+                            modal.classList.add( 'is-active' );
+                            modal.setAttribute( 'aria-hidden', 'false' );
+                            document.body.style.overflow = 'hidden';
+                        };
+
+                        var closeModal = function () {
+                            modal.classList.remove( 'is-active' );
+                            modal.setAttribute( 'aria-hidden', 'true' );
+                            document.body.style.overflow = '';
+                        };
+
+                        for ( var ob = 0; ob < openBtns.length; ob++ ) {
+                            openBtns[ob].addEventListener( 'click', function ( e ) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                var card = this.closest( '.lre-sold-card' );
+                                if ( card ) openModal( card );
+                            } );
+                        }
+
+                        for ( var cb = 0; cb < closeBtns.length; cb++ ) {
+                            closeBtns[cb].addEventListener( 'click', function ( e ) {
+                                e.preventDefault();
+                                closeModal();
+                            } );
+                        }
+
+                        document.addEventListener( 'keydown', function ( e ) {
+                            if ( e.key === 'Escape' && modal.classList.contains( 'is-active' ) ) {
+                                closeModal();
+                            }
+                        } );
+                    }
+                } )( portfolios[p] );
+            }
+        }
+    };
+
     function lreBindElementorHooks() {
         if ( typeof elementorFrontend === 'undefined' || ! elementorFrontend.hooks ) {
             return;
@@ -2361,7 +2492,8 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_valuation.default',     function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
-            }
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sold_portfolio.default',      function ( $scope ) { LREWidgets.SoldPortfolio.init( $scope ); } );
+    }
 
     // Auto-run on DOM ready
     function lreInitAllWidgets() {
@@ -2386,6 +2518,7 @@
         if ( LREWidgets.Press )               LREWidgets.Press.init();
         if ( LREWidgets.Newsletter )          LREWidgets.Newsletter.init();
         if ( LREWidgets.HomeValuation )       LREWidgets.HomeValuation.init();
+        if ( LREWidgets.SoldPortfolio )       LREWidgets.SoldPortfolio.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

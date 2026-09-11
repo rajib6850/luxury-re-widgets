@@ -2104,13 +2104,13 @@
     // =========================================================================
     
     // =========================================================================
-    // HOME VALUATION & MULTI-STEP VALUATION ENGINE
+    // LRE HOME VALUATION & MULTI-STEP VALUATION ENGINE
     // =========================================================================
-    LREWidgets.HomeValuation = LREWidgets.HomeEvaluation = {
+    LREWidgets.HomeValuation = {
         init: function ( $scope ) {
             var context = ( $scope && $scope[0] ) ? $scope[0] : document;
-            var sections = context.querySelectorAll( '[data-lre-widget="lre-home-valuation"], [data-wss-widget="wss-home-evaluation"], [data-lre-widget="lre-home-evaluation"]' );
-            if ( ! sections.length && context.classList && ( context.classList.contains( 'wss-home-eval-section' ) || context.classList.contains( 'lre-home-eval-section' ) ) ) {
+            var sections = context.querySelectorAll( '[data-lre-widget="lre-home-valuation"]' );
+            if ( ! sections.length && context.classList && context.classList.contains( 'lre-home-val' ) ) {
                 sections = [ context ];
             }
 
@@ -2118,12 +2118,12 @@
                 if ( section.getAttribute( 'data-eval-initialized' ) === 'true' ) return;
                 section.setAttribute( 'data-eval-initialized', 'true' );
 
-                var form = section.querySelector( '.lre-home-val__form, .wss-home-eval-form, .lre-home-eval-form' );
-                var tabs = section.querySelectorAll( '.lre-home-val__step-tab, .wss-home-eval-step-tab, .lre-home-eval-step-tab' );
-                var panes = section.querySelectorAll( '.lre-home-val__step-pane, .wss-home-eval-step-pane, .lre-home-eval-step-pane' );
-                var successBox = section.querySelector( '.wss-home-eval-success-state, .lre-home-eval-success-state' );
-                var resetBtn = section.querySelector( '.wss-home-eval-reset-btn, .lre-home-eval-reset-btn' );
-                var progressFill = section.querySelector( '.lre-home-val__progress-bar, .wss-home-eval-progress-fill, .lre-home-eval-progress-fill' );
+                var form = section.querySelector( '.lre-home-val__form' );
+                var tabs = section.querySelectorAll( '.lre-home-val__step-tab' );
+                var panes = section.querySelectorAll( '.lre-home-val__step-pane' );
+                var successBox = section.querySelector( '.lre-home-val__success-state' );
+                var resetBtn = section.querySelector( '.lre-home-val__reset-btn' );
+                var progressFill = section.querySelector( '.lre-home-val__progress-bar' );
 
                 function goToStep( targetStep ) {
                     tabs.forEach( function ( tab ) {
@@ -2160,7 +2160,7 @@
                 }
 
                 function validateStep( currentStep ) {
-                    var currentPane = section.querySelector( '.lre-home-val__step-pane[data-step-pane="' + currentStep + '"], .wss-home-eval-step-pane[data-step-pane="' + currentStep + '"], .lre-home-eval-step-pane[data-step-pane="' + currentStep + '"]' );
+                    var currentPane = section.querySelector( '.lre-home-val__step-pane[data-step-pane="' + currentStep + '"]' );
                     if ( ! currentPane ) return true;
 
                     var requiredInputs = currentPane.querySelectorAll( '[required]' );
@@ -2170,10 +2170,10 @@
                     requiredInputs.forEach( function ( input ) {
                         if ( ! input.value || ! input.value.trim() ) {
                             isValid = false;
-                            input.classList.add( 'wss-input-error' );
+                            input.classList.add( 'lre-input-error' );
                             if ( ! firstInvalid ) firstInvalid = input;
                         } else {
-                            input.classList.remove( 'wss-input-error' );
+                            input.classList.remove( 'lre-input-error' );
                         }
                     } );
 
@@ -2188,7 +2188,7 @@
                 tabs.forEach( function ( tab ) {
                     tab.addEventListener( 'click', function () {
                         var targetStep = parseInt( tab.getAttribute( 'data-step' ), 10 );
-                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active, .wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active' );
                         var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 1;
 
                         if ( targetStep > currentStep ) {
@@ -2199,7 +2199,7 @@
                 } );
 
                 // Next buttons
-                var nextBtns = section.querySelectorAll( '.lre-home-val__btn--next, .wss-home-eval-next-btn, .lre-home-eval-next-btn' );
+                var nextBtns = section.querySelectorAll( '.lre-home-val__btn--next' );
                 nextBtns.forEach( function ( btn ) {
                     btn.addEventListener( 'click', function () {
                         var nextStep = parseInt( btn.getAttribute( 'data-next' ), 10 );
@@ -2211,7 +2211,7 @@
                 } );
 
                 // Back buttons
-                var backBtns = section.querySelectorAll( '.lre-home-val__btn-back, .lre-home-val__btn--prev, .wss-btn-back, .lre-btn-back' );
+                var backBtns = section.querySelectorAll( '.lre-home-val__btn-back' );
                 backBtns.forEach( function ( btn ) {
                     btn.addEventListener( 'click', function () {
                         var prevStep = parseInt( btn.getAttribute( 'data-prev' ), 10 );
@@ -2219,9 +2219,9 @@
                     } );
                 } );
 
-                // Amenity Box Sync
-                var amenityBoxes = section.querySelectorAll( '.wss-home-eval-amenity-box, .lre-home-eval-amenity-box' );
-                amenityBoxes.forEach( function ( box ) {
+                // Check Item / Radio Box Sync
+                var checkItems = section.querySelectorAll( '.lre-home-val__check-item' );
+                checkItems.forEach( function ( box ) {
                     var input = box.querySelector( 'input' );
                     if ( ! input ) return;
 
@@ -2229,7 +2229,7 @@
                         if ( input.type === 'radio' ) {
                             var group = section.querySelectorAll( 'input[name="' + input.name + '"]' );
                             group.forEach( function ( r ) {
-                                var p = r.closest( '.wss-home-eval-amenity-box, .lre-home-eval-amenity-box' );
+                                var p = r.closest( '.lre-home-val__check-item' );
                                 if ( p ) p.classList.toggle( 'is-checked', r.checked );
                             } );
                         } else {
@@ -2242,10 +2242,10 @@
                 } );
 
                 // Input error clear
-                var allInputs = section.querySelectorAll( '.wss-home-eval-input, .lre-home-eval-input' );
+                var allInputs = section.querySelectorAll( '.lre-home-val__input' );
                 allInputs.forEach( function ( input ) {
                     input.addEventListener( 'input', function () {
-                        input.classList.remove( 'wss-input-error' );
+                        input.classList.remove( 'lre-input-error' );
                     } );
                 } );
 
@@ -2254,11 +2254,11 @@
                     form.addEventListener( 'submit', function ( e ) {
                         e.preventDefault();
 
-                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active, .wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active' );
                         var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 3;
                         if ( ! validateStep( currentStep ) ) return;
 
-                        var submitBtn = form.querySelector( '.lre-home-val__btn--submit, .wss-home-eval-submit-btn, .lre-home-eval-submit-btn' );
+                        var submitBtn = form.querySelector( '.lre-home-val__btn--submit' );
                         var originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
 
                         if ( submitBtn ) {
@@ -2268,9 +2268,7 @@
 
                         var ajaxUrl = ( window.LREData && window.LREData.ajaxUrl )
                             ? window.LREData.ajaxUrl
-                            : ( ( window.wss_ajax_obj && window.wss_ajax_obj.ajax_url )
-                                ? window.wss_ajax_obj.ajax_url
-                                : ( form.getAttribute( 'action' ) || ( window.location.origin + '/wp-admin/admin-ajax.php' ) ) );
+                            : ( form.getAttribute( 'action' ) || ( window.location.origin + '/wp-admin/admin-ajax.php' ) );
 
                         var formData = new FormData( form );
 
@@ -2306,7 +2304,7 @@
                             }
                         } )
                         .catch( function ( err ) {
-                            console.error( 'Home Evaluation Submit Error:', err );
+                            console.error( 'Home Valuation Submit Error:', err );
                             alert( 'Submission could not be completed. Please try again.' );
                             if ( submitBtn ) {
                                 submitBtn.disabled = false;
@@ -2322,7 +2320,7 @@
                         if ( form ) {
                             form.reset();
                             form.style.display = 'block';
-                            amenityBoxes.forEach( function ( b ) {
+                            checkItems.forEach( function ( b ) {
                                 b.classList.remove( 'is-checked' );
                             } );
                         }
@@ -2363,8 +2361,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_valuation.default',     function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/wss_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
-    }
+            }
 
     // Auto-run on DOM ready
     function lreInitAllWidgets() {

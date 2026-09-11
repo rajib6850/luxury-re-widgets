@@ -30,8 +30,6 @@ class LRE_Ajax_Handler {
 		add_action( 'wp_ajax_nopriv_lre_home_valuation_submit', array( $this, 'handle_home_valuation' ) );
 		add_action( 'wp_ajax_lre_home_evaluation_submit',       array( $this, 'handle_home_valuation' ) );
 		add_action( 'wp_ajax_nopriv_lre_home_evaluation_submit',array( $this, 'handle_home_valuation' ) );
-		add_action( 'wp_ajax_wss_home_evaluation_submit',       array( $this, 'handle_home_valuation' ) );
-		add_action( 'wp_ajax_nopriv_wss_home_evaluation_submit',array( $this, 'handle_home_valuation' ) );
 	}
 
 	// =========================================================================
@@ -474,17 +472,17 @@ class LRE_Ajax_Handler {
 	/** Processes the Multi-Step Home Valuation form submission. */
 	public function handle_home_valuation() {
 		// Nonce verification with caching resilience
-		$nonce = isset( $_POST["lre_val_nonce"] ) ? sanitize_text_field( wp_unslash( $_POST["lre_val_nonce"] ) ) : ( isset( $_POST["wss_eval_nonce"] ) ? sanitize_text_field( wp_unslash( $_POST["wss_eval_nonce"] ) ) : "" );
-		if ( ! empty( $nonce ) && ! wp_verify_nonce( $nonce, "lre_home_valuation_nonce" ) && ! wp_verify_nonce( $nonce, "lre_home_evaluation_nonce" ) && ! wp_verify_nonce( $nonce, "wss_home_evaluation_nonce" ) ) {
-			if ( ! check_ajax_referer( "lre_home_valuation_nonce", "lre_val_nonce", false ) && ! check_ajax_referer( "wss_home_evaluation_nonce", "wss_eval_nonce", false ) && ! is_user_logged_in() ) {
-				if ( empty( $_POST["wss_fields"] ) && empty( $_POST["lre_fields"] ) ) {
+		$nonce = isset( $_POST["lre_val_nonce"] ) ? sanitize_text_field( wp_unslash( $_POST["lre_val_nonce"] ) ) : "";
+		if ( ! empty( $nonce ) && ! wp_verify_nonce( $nonce, "lre_home_valuation_nonce" ) && ! wp_verify_nonce( $nonce, "lre_home_evaluation_nonce" ) ) {
+			if ( ! check_ajax_referer( "lre_home_valuation_nonce", "lre_val_nonce", false ) && ! is_user_logged_in() ) {
+				if ( empty( $_POST["lre_fields"] ) ) {
 					wp_send_json_error( array( "message" => __( "Security verification expired. Please refresh the page and try again.", "luxury-re-widgets" ) ) );
 				}
 			}
 		}
 
 		// Collect Fields
-		$raw_fields = isset( $_POST["wss_fields"] ) ? $_POST["wss_fields"] : ( isset( $_POST["lre_fields"] ) ? $_POST["lre_fields"] : array() );
+		$raw_fields = isset( $_POST["lre_fields"] ) ? $_POST["lre_fields"] : array();
 		$submitted_fields = array();
 		$client_name  = "";
 		$client_first = "";

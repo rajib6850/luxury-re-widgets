@@ -29,7 +29,7 @@ body,
   --color-overlay-heavy: rgba(5, 5, 8, 0.82);
 
   /* Typography Families ── Connected to Elementor Global Fonts with Luxury Fallbacks */
-  --font-serif: var(--e-global-typography-primary-font-family, 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif);
+  --font-serif: 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', 'Hoefler Text', Garamond, 'Times New Roman', serif;
   --font-sans: var(--e-global-typography-text-font-family, 'Montserrat', 'Helvetica Neue', sans-serif);
   --font-accent: var(--e-global-typography-accent-font-family, 'Cormorant Garamond', 'Georgia', serif);
   --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
@@ -326,7 +326,8 @@ p {
 .testimonial__eyebrow-wrap,
 .services__eyebrow-wrap,
 .lre-press-editorial__eyebrow-wrap,
-.lre-newsletter-white__eyebrow-wrap {
+.lre-newsletter-white__eyebrow-wrap,
+.lre-ledger__eyebrow-wrap {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
@@ -384,7 +385,9 @@ p {
 .testimonial__eyebrow,
 .services__eyebrow-text,
 .lre-press-editorial__eyebrow,
-.lre-newsletter-white__eyebrow {
+.lre-newsletter-white__eyebrow,
+.lre-ledger__eyebrow,
+.ledger-eyebrow {
   font-family: inherit;
   font-size: 0.72rem;
   font-weight: 600;
@@ -16218,7 +16221,6 @@ button.lre-insights__filter-btn.active,
   position: relative;
   border-top: 1px solid #1F2127;
   border-bottom: 1px solid #1F2127;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -16256,35 +16258,36 @@ button.lre-insights__filter-btn.active,
   flex-wrap: wrap;
 }
 
-.ledger-eyebrow {
+.ledger-eyebrow,
+.lre-ledger__eyebrow {
   color: var(--color-secondary, #C9A86A);
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.82rem;
+  font-family: inherit;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.65rem;
+  letter-spacing: 0.22em;
+  margin-bottom: 0.85rem;
   display: inline-block;
+  line-height: 1;
 }
 
 .ledger-head .section-title,
 .lre-ledger-title {
   color: #FFFFFF;
-  font-family: var(--font-accent, 'Cormorant Garamond', Georgia, serif);
-  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-size: var(--font-size-section-title, clamp(2.1rem, 3.8vw, 3.2rem));
+  font-weight: var(--font-weight-primary, 400);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   margin: 0;
 }
 
 .ledger-subtitle {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.95rem;
+  font-family: var(--font-sans, inherit);
+  font-size: var(--font-size-section-subtitle, 0.92rem);
   color: var(--color-text-muted, #9EA2AA);
   max-width: 480px;
-  line-height: 1.7;
-  font-weight: 400;
+  line-height: 1.75;
+  font-weight: var(--font-weight-text, 400);
   margin: 0;
 }
 
@@ -16302,10 +16305,10 @@ button.lre-insights__filter-btn.active,
   border-radius: 0 !important;
   color: #8E929B;
   padding: 0.65rem 1.45rem;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.75rem;
+  font-family: var(--font-sans, inherit);
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -16360,9 +16363,9 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .num {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #656972;
   letter-spacing: 0.08em;
   transition: color 0.3s ease;
@@ -16373,12 +16376,13 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .name {
-  font-family: var(--font-accent, 'Cormorant Garamond', Georgia, serif);
-  font-size: 1.55rem;
-  font-weight: 500;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.35rem;
+  font-weight: 400;
   color: #FFFFFF;
   transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   padding-right: 1rem;
+  letter-spacing: 0.01em;
 }
 
 .ledger-row:hover .name {
@@ -16387,13 +16391,13 @@ button.lre-insights__filter-btn.active,
 
 .ledger-row .name small {
   display: block;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.8rem;
+  font-family: var(--font-sans, inherit);
+  font-size: 0.78rem;
   color: #8A8D96;
   font-weight: 400;
   margin-top: 0.25rem;
   font-style: normal;
-  letter-spacing: normal;
+  letter-spacing: 0.04em;
   transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -16403,7 +16407,7 @@ button.lre-insights__filter-btn.active,
 
 /* --- Bed, Bath & SqFt Meta with Luxury SVG Icons --- */
 .ledger-row .meta {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.85rem;
   color: #A3A7AF;
   font-weight: 500;
@@ -16422,8 +16426,8 @@ button.lre-insights__filter-btn.active,
   align-items: center;
   gap: 0.35rem;
   color: #A3A7AF;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 0.84rem;
+  font-family: var(--font-sans, inherit);
+  font-size: 0.82rem;
   font-weight: 500;
   transition: color 0.3s ease;
 }
@@ -16453,12 +16457,12 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .price {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.22rem;
+  font-weight: 400;
   color: #FFFFFF;
   text-align: right;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.5px;
 }
 
 .ledger-row .ledger-arrow {
@@ -16568,7 +16572,7 @@ button.lre-insights__filter-btn.active,
   border: 1px solid transparent;
   border-radius: 0 !important;
   color: var(--color-text-muted, #9EA2AA);
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -16666,24 +16670,24 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-modal-header h3 {
-  font-family: var(--font-accent, 'Cormorant Garamond', Georgia, serif);
-  font-size: 2rem;
+  font-family: var(--font-serif, inherit);
+  font-size: 1.85rem;
   font-weight: 500;
   color: #FFFFFF;
   margin: 0 0 0.35rem;
 }
 
 .lre-ledger-modal-location {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.85rem;
   color: #8A8D96;
   margin-bottom: 0.5rem;
 }
 
 .lre-ledger-modal-price {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--font-serif, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
   color: var(--color-secondary, #C9A86A);
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
@@ -16691,7 +16695,7 @@ button.lre-insights__filter-btn.active,
 
 .lre-ledger-modal-specs {
   display: inline-block;
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -16704,7 +16708,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-modal-desc {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-family: var(--font-sans, inherit);
   font-size: 0.92rem;
   color: #A3A7AF;
   line-height: 1.65;

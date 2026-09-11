@@ -456,15 +456,46 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		// Eyebrow
+		$this->add_control(
+			'heading_style_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'label'    => __( 'Eyebrow Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .section-label, {{WRAPPER}} .lre-ledger__eyebrow, {{WRAPPER}} .ledger-eyebrow',
+			)
+		);
+
 		$this->add_control(
 			'eyebrow_color',
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
+				),
 				'default'   => '#C9A86A',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-eyebrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .section-label, {{WRAPPER}} .lre-ledger__eyebrow, {{WRAPPER}} .ledger-eyebrow' => 'color: {{VALUE}};',
 				),
+			)
+		);
+
+		// Headline / Title
+		$this->add_control(
+			'heading_style_title',
+			array(
+				'label'     => __( 'Headline', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -472,7 +503,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typo',
-				'label'    => __( 'Title Typography', 'luxury-re-widgets' ),
+				'label'    => __( 'Headline Typography', 'luxury-re-widgets' ),
 				'selector' => '{{WRAPPER}} .section-title, {{WRAPPER}} .lre-ledger-title',
 			)
 		);
@@ -480,7 +511,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			array(
-				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => array(
@@ -489,11 +520,33 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		// Subtitle
+		$this->add_control(
+			'heading_style_subtitle',
+			array(
+				'label'     => __( 'Subtitle', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'subtitle_typo',
+				'label'    => __( 'Subtitle Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .ledger-subtitle',
+			)
+		);
+
 		$this->add_control(
 			'subtitle_color',
 			array(
 				'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
+				),
 				'default'   => '#9EA2AA',
 				'selectors' => array(
 					'{{WRAPPER}} .ledger-subtitle' => 'color: {{VALUE}};',
@@ -548,6 +601,15 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'row_name_typo',
+				'label'    => __( 'Property Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .ledger-row .name',
+			)
+		);
+
 		$this->add_control(
 			'row_name_hover_color',
 			array(
@@ -569,6 +631,24 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .ledger-row .price' => 'color: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'row_price_typo',
+				'label'    => __( 'Price Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .ledger-row .price',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'row_meta_typo',
+				'label'    => __( 'Specs / Meta Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item, {{WRAPPER}} .ledger-row .num',
 			)
 		);
 
@@ -930,7 +1010,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					<div class="ledger-head">
 						<div>
 							<?php if ( ! empty( $eyebrow ) ) : ?>
-								<div class="ledger-eyebrow"><?php echo esc_html( $eyebrow ); ?></div>
+								<div class="lre-ledger__eyebrow-wrap">
+									<span class="section-label lre-ledger__eyebrow ledger-eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+								</div>
 							<?php endif; ?>
 							<<?php echo esc_html( $title_tag ); ?> class="section-title lre-ledger-title">
 								<?php echo esc_html( $title ); ?>

@@ -489,10 +489,26 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark: permanently centered, no scroll drift or jitter
-            var watermark = root.querySelector( '.about__watermark' );
-            if ( watermark ) {
-                watermark.style.transform = 'translate3d(-50%, 0, 0)';
+            // Watermark Scroll Parallax (Permanently Centered Horizontally)
+            if ( ! prefersReducedMotion ) {
+                var aboutSec = root.querySelector( '.about' ) || root;
+                var watermark = root.querySelector( '.about__watermark' );
+                if ( aboutSec && watermark && ! watermark._lreParallaxAttached ) {
+                    watermark._lreParallaxAttached = true;
+                    var updateAboutParallax = function () {
+                        var rect = aboutSec.getBoundingClientRect();
+                        var winH = window.innerHeight;
+                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                            var progress = ( winH - rect.top ) / ( winH + rect.height );
+                            var isMobile = window.innerWidth <= 768;
+                            var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                            watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                        }
+                    };
+                    window.addEventListener( 'scroll', updateAboutParallax, { passive: true } );
+                    window.addEventListener( 'resize', updateAboutParallax, { passive: true } );
+                    updateAboutParallax();
+                }
             }
         }
     };
@@ -1050,10 +1066,25 @@
                 var nextBtn  = section.querySelector( '.lre-team__arrow--next' );
                 var modal    = section.querySelector( '.lre-team-modal' );
 
-                // Watermark: permanently centered, no scroll drift or jitter
-                var teamWatermark = section.querySelector( '.lre-team__watermark' );
-                if ( teamWatermark ) {
-                    teamWatermark.style.transform = 'translate3d(-50%, 0, 0)';
+                // Watermark Scroll Parallax (Permanently Centered Horizontally)
+                if ( ! prefersReducedMotion ) {
+                    var teamWatermark = section.querySelector( '.lre-team__watermark' );
+                    if ( teamWatermark && ! teamWatermark._lreParallaxAttached ) {
+                        teamWatermark._lreParallaxAttached = true;
+                        var updateTeamParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                teamWatermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateTeamParallax, { passive: true } );
+                        window.addEventListener( 'resize', updateTeamParallax, { passive: true } );
+                        updateTeamParallax();
+                    }
                 }
 
                 // Super-Luxury Person Details Modal
@@ -1359,10 +1390,26 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark: permanently centered, no scroll drift or jitter
-            var watermark = root.querySelector( '.lre-story__watermark' );
-            if ( watermark ) {
-                watermark.style.transform = 'translate3d(-50%, 0, 0)';
+            // Watermark Scroll Parallax (Permanently Centered Horizontally)
+            if ( ! prefersReducedMotion ) {
+                var storySec = root.querySelector( '.lre-story' ) || root;
+                var watermark = root.querySelector( '.lre-story__watermark' );
+                if ( storySec && watermark && ! watermark._lreParallaxAttached ) {
+                    watermark._lreParallaxAttached = true;
+                    var updateStoryParallax = function () {
+                        var rect = storySec.getBoundingClientRect();
+                        var winH = window.innerHeight;
+                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                            var progress = ( winH - rect.top ) / ( winH + rect.height );
+                            var isMobile = window.innerWidth <= 768;
+                            var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                            watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                        }
+                    };
+                    window.addEventListener( 'scroll', updateStoryParallax, { passive: true } );
+                    window.addEventListener( 'resize', updateStoryParallax, { passive: true } );
+                    updateStoryParallax();
+                }
             }
         }
     };
@@ -1382,10 +1429,25 @@
             }
 
             aservSections.forEach( function ( section ) {
-                // Watermark: permanently centered, no scroll drift or jitter
-                var aservWatermark = section.querySelector( '.lre-aserv__watermark' );
-                if ( aservWatermark ) {
-                    aservWatermark.style.transform = 'translate3d(-50%, 0, 0)';
+                // Watermark Scroll Parallax (Permanently Centered Horizontally)
+                if ( ! prefersReducedMotion ) {
+                    var aservWatermark = section.querySelector( '.lre-aserv__watermark' );
+                    if ( aservWatermark && ! aservWatermark._lreParallaxAttached ) {
+                        aservWatermark._lreParallaxAttached = true;
+                        var updateAservParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                aservWatermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateAservParallax, { passive: true } );
+                        window.addEventListener( 'resize', updateAservParallax, { passive: true } );
+                        updateAservParallax();
+                    }
                 }
             } );
 
@@ -1820,10 +1882,25 @@
             var root = $scope ? $scope[0] : document;
             var guideSections = root.querySelectorAll( '.lre-guide' );
             guideSections.forEach( function ( section ) {
-                // Watermark: permanently centered, no scroll drift or jitter
-                var watermark = section.querySelector( '.lre-guide__watermark' );
-                if ( watermark ) {
-                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
+                // Watermark Scroll Parallax (Permanently Centered Horizontally)
+                if ( ! prefersReducedMotion ) {
+                    var watermark = section.querySelector( '.lre-guide__watermark' );
+                    if ( watermark && ! watermark._lreParallaxAttached ) {
+                        watermark._lreParallaxAttached = true;
+                        var updateGuideParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateGuideParallax, { passive: true } );
+                        window.addEventListener( 'resize', updateGuideParallax, { passive: true } );
+                        updateGuideParallax();
+                    }
                 }
             } );
         }
@@ -1840,10 +1917,25 @@
             var root = $scope ? $scope[0] : document;
             var sguideSections = root.querySelectorAll( '.lre-sguide' );
             sguideSections.forEach( function ( section ) {
-                // Watermark: permanently centered, no scroll drift or jitter
-                var watermark = section.querySelector( '.lre-sguide__watermark' );
-                if ( watermark ) {
-                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
+                // Watermark Scroll Parallax (Permanently Centered Horizontally)
+                if ( ! prefersReducedMotion ) {
+                    var watermark = section.querySelector( '.lre-sguide__watermark' );
+                    if ( watermark && ! watermark._lreParallaxAttached ) {
+                        watermark._lreParallaxAttached = true;
+                        var updateSguideParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updateSguideParallax, { passive: true } );
+                        window.addEventListener( 'resize', updateSguideParallax, { passive: true } );
+                        updateSguideParallax();
+                    }
                 }
             } );
         }
@@ -1981,13 +2073,29 @@
                 LREWidgets.initReveals();
             }
 
-            // Watermark: permanently centered, no scroll drift or jitter
-            $strip.each( function () {
-                var watermark = this.querySelector( '.lre-press-strip__watermark' );
-                if ( watermark ) {
-                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
-                }
-            } );
+            // Watermark Scroll Parallax (Permanently Centered Horizontally)
+            if ( ! prefersReducedMotion ) {
+                $strip.each( function () {
+                    var section = this;
+                    var watermark = section.querySelector( '.lre-press-strip__watermark' );
+                    if ( watermark && ! watermark._lreParallaxAttached ) {
+                        watermark._lreParallaxAttached = true;
+                        var updatePressParallax = function () {
+                            var rect = section.getBoundingClientRect();
+                            var winH = window.innerHeight;
+                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                                var isMobile = window.innerWidth <= 768;
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 20 : 44 );
+                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                            }
+                        };
+                        window.addEventListener( 'scroll', updatePressParallax, { passive: true } );
+                        window.addEventListener( 'resize', updatePressParallax, { passive: true } );
+                        updatePressParallax();
+                    }
+                } );
+            }
 
             // If in Elementor editor mode, immediately show revealed items
             if ( $( 'body' ).hasClass( 'elementor-editor-active' ) || $( 'body' ).hasClass( 'elementor-edit-mode' ) ) {

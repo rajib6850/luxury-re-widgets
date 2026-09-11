@@ -584,19 +584,34 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_canvas',
 			array(
-				'label' => __( 'Canvas & Borders', 'luxury-re-widgets' ),
+				'label' => __( 'Theme & Canvas', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'theme_preset',
+			array(
+				'label'   => __( 'Theme Preset', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'dark',
+				'options' => array(
+					'dark'  => __( 'Dark Luxury (Default)', 'luxury-re-widgets' ),
+					'white' => __( 'White / Light Luxury', 'luxury-re-widgets' ),
+				),
+				'prefix_class' => 'lre-ledger-theme-',
 			)
 		);
 
 		$this->add_control(
 			'bg_color',
 			array(
-				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0D0E10',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-section' => 'background-color: {{VALUE}};',
+				'label'       => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'default'     => '',
+				'description' => __( 'Overrides the theme preset background color if specified.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .ledger-section, {{WRAPPER}} .lre-ledger-section' => 'background-color: {{VALUE}} !important; --lre-ledger-bg: {{VALUE}};',
 				),
 			)
 		);
@@ -604,14 +619,15 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->add_control(
 			'border_color',
 			array(
-				'label'     => __( 'Divider & Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#1F2127',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-section'        => 'border-top-color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-					'{{WRAPPER}} .ledger'               => 'border-top-color: {{VALUE}};',
-					'{{WRAPPER}} .ledger-row'           => 'border-bottom-color: {{VALUE}};',
-					'{{WRAPPER}} .lre-ledger-pagination'=> 'border-color: {{VALUE}};',
+				'label'       => __( 'Divider & Border Color', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'default'     => '',
+				'description' => __( 'Controls all table dividers, row borders, and section borders.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .ledger-section, {{WRAPPER}} .lre-ledger-section' => '--lre-ledger-border: {{VALUE}}; border-top-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .ledger, {{WRAPPER}} .lre-ledger'                 => 'border-top-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row'         => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-ledger-pagination'                          => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -650,12 +666,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
-				),
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .section-label, {{WRAPPER}} .lre-ledger__eyebrow, {{WRAPPER}} .ledger-eyebrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .section-label, {{WRAPPER}} .lre-ledger__eyebrow, {{WRAPPER}} .ledger-eyebrow' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -684,9 +697,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Headline Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .section-title, {{WRAPPER}} .lre-ledger-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .section-title, {{WRAPPER}} .lre-ledger-title' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -715,12 +728,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,
-				),
-				'default'   => '#9EA2AA',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-subtitle' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-subtitle' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -794,7 +804,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'label'     => __( 'Row Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -802,11 +812,12 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->add_control(
 			'row_border_color',
 			array(
-				'label'     => __( 'Row Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#23262D',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'border-bottom-color: {{VALUE}};',
+				'label'       => __( 'Row Border Color', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::COLOR,
+				'default'     => '',
+				'description' => __( 'Optionally override only the row divider borders.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .ledger-row, {{WRAPPER}} .lre-ledger-row' => 'border-bottom-color: {{VALUE}} !important; --lre-ledger-row-border: {{VALUE}};',
 				),
 			)
 		);
@@ -816,9 +827,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Property Name Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .name' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .name' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -828,9 +839,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Location Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#8A8D96',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .name small' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .name small' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -840,9 +851,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Price Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .price' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .price' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -852,9 +863,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Number Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#656972',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .num' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .num' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -864,9 +875,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Specs Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#A3A7AF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item, {{WRAPPER}} .lre-spec-item span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -876,9 +887,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Bed & Bath Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-meta-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-meta-icon' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -888,9 +899,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Button Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.06)',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -900,9 +911,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Button Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#8A8D96',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row .btn-circle-icon' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -922,9 +933,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Row Hover Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.045)',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover, {{WRAPPER}} .lre-ledger-row:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover, {{WRAPPER}} .lre-ledger-row:hover' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -935,9 +946,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Property Name Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#E2C99B',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .name' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .name' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -947,9 +958,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Location Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#A8ACB5',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .name small' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .name small' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -959,9 +970,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Price Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .price' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .price' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -971,9 +982,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Number Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C2A882',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .num' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .num' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -983,9 +994,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Specs Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .meta, {{WRAPPER}} .ledger-row:hover .lre-spec-item' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .meta, {{WRAPPER}} .ledger-row:hover .lre-spec-item, {{WRAPPER}} .ledger-row:hover .lre-spec-item span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -995,9 +1006,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Bed & Bath Icon Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#E2C99B',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .lre-meta-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .lre-meta-icon' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1007,9 +1018,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Button Hover Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1019,9 +1030,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Arrow Button Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0D0E10',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row:hover .btn-circle-icon' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1046,9 +1057,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Page Button Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#9EA2AA',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-page-btn' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1058,9 +1069,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Active Page Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1070,9 +1081,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Active Page Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0D0E10',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1177,9 +1188,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#14161A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-card' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-card' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1315,9 +1326,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1327,9 +1338,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.08)',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1339,9 +1350,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.1)',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1361,9 +1372,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0D0E10',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1373,9 +1384,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1385,9 +1396,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-close:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1486,9 +1497,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-header h3, {{WRAPPER}} #prop-modal-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-header h3, {{WRAPPER}} #prop-modal-title' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1539,9 +1550,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Location Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#8A8D96',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-location' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-location' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1592,9 +1603,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Price Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#C9A86A',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-price' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-price' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1645,9 +1656,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Specs Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-specs' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1657,9 +1668,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Specs Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.06)',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-specs' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-specs' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1750,9 +1761,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#A3A7AF',
+				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-ledger-modal-desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-modal-desc' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -2176,6 +2187,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$show_header     = ! empty( $settings['show_header'] ) && 'yes' === $settings['show_header'];
+		$theme_preset    = ! empty( $settings['theme_preset'] ) ? $settings['theme_preset'] : 'dark';
 		$eyebrow         = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : '';
 		$title           = ! empty( $settings['title'] ) ? $settings['title'] : 'The Private Ledger';
 		$title_tag       = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2';
@@ -2302,8 +2314,173 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		}
 
 		$section_id = 'ledger-' . $this->get_id();
+
+		// --- Smart theme CSS injection ---
+		// Each rule is injected only when the user hasn't set a custom control value.
+		// When the user sets a control, Elementor generates its own CSS — we skip our rule so theirs wins.
+		if ( 'white' === $theme_preset ) {
+			$sid = esc_attr( $section_id );
+
+			// Read user-set control values (empty string = not set by user)
+			$c_eyebrow         = ! empty( $settings['eyebrow_color'] ) ? $settings['eyebrow_color'] : '';
+			$c_title           = ! empty( $settings['title_color'] ) ? $settings['title_color'] : '';
+			$c_subtitle        = ! empty( $settings['subtitle_color'] ) ? $settings['subtitle_color'] : '';
+			$c_name            = ! empty( $settings['row_name_color'] ) ? $settings['row_name_color'] : '';
+			$c_location        = ! empty( $settings['row_location_color'] ) ? $settings['row_location_color'] : '';
+			$c_price           = ! empty( $settings['row_price_color'] ) ? $settings['row_price_color'] : '';
+			$c_num             = ! empty( $settings['row_num_color'] ) ? $settings['row_num_color'] : '';
+			$c_meta            = ! empty( $settings['row_meta_color'] ) ? $settings['row_meta_color'] : '';
+			$c_icon            = ! empty( $settings['icon_color'] ) ? $settings['icon_color'] : '';
+			$c_name_hover      = ! empty( $settings['row_name_hover_color'] ) ? $settings['row_name_hover_color'] : '';
+			$c_location_hover  = ! empty( $settings['row_location_hover_color'] ) ? $settings['row_location_hover_color'] : '';
+			$c_price_hover     = ! empty( $settings['row_price_hover_color'] ) ? $settings['row_price_hover_color'] : '';
+			$c_num_hover       = ! empty( $settings['row_num_hover_color'] ) ? $settings['row_num_hover_color'] : '';
+			$c_meta_hover      = ! empty( $settings['row_meta_hover_color'] ) ? $settings['row_meta_hover_color'] : '';
+			$c_icon_hover      = ! empty( $settings['icon_hover_color'] ) ? $settings['icon_hover_color'] : '';
+			$c_mod_title       = ! empty( $settings['modal_title_color'] ) ? $settings['modal_title_color'] : '';
+			$c_mod_loc         = ! empty( $settings['modal_loc_color'] ) ? $settings['modal_loc_color'] : '';
+			$c_mod_price       = ! empty( $settings['modal_price_color'] ) ? $settings['modal_price_color'] : '';
+			$c_mod_specs       = ! empty( $settings['modal_specs_color'] ) ? $settings['modal_specs_color'] : '';
+			$c_mod_desc        = ! empty( $settings['modal_desc_color'] ) ? $settings['modal_desc_color'] : '';
+			$c_page_btn        = ! empty( $settings['page_btn_color'] ) ? $settings['page_btn_color'] : '';
+			$c_page_active_bg  = ! empty( $settings['page_btn_active_bg'] ) ? $settings['page_btn_active_bg'] : '';
+			$c_page_active_clr = ! empty( $settings['page_btn_active_color'] ) ? $settings['page_btn_active_color'] : '';
+			?>
+			<style>
+				/* LEDGER WHITE THEME — auto-injected per widget, yields to user controls */
+				#<?php echo $sid; ?>,
+				#<?php echo $sid; ?> .lre-ledger-section {
+					background-color: var(--lre-ledger-bg, #FFFFFF) !important;
+					color: #111215 !important;
+				}
+				<?php if ( empty( $c_eyebrow ) ) : ?>
+				#<?php echo $sid; ?> .section-label,
+				#<?php echo $sid; ?> .ledger-eyebrow,
+				#<?php echo $sid; ?> .lre-ledger__eyebrow { color: #A37B32 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_title ) ) : ?>
+				#<?php echo $sid; ?> .section-title,
+				#<?php echo $sid; ?> .lre-ledger-title { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_subtitle ) ) : ?>
+				#<?php echo $sid; ?> .ledger-subtitle { color: #555962 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_name ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row .name { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_location ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row .name small { color: #6B7280 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_name_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .name { color: #A37B32 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_location_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .name small { color: #374151 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_price ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row .price { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_price_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .price { color: #A37B32 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_num ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row .num { color: #9CA3AF !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_num_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .num { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_meta ) ) : ?>
+				#<?php echo $sid; ?> .lre-spec-item,
+				#<?php echo $sid; ?> .lre-spec-item span { color: #4B5563 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_meta_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .lre-spec-item,
+				#<?php echo $sid; ?> .ledger-row:hover .lre-spec-item span { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_icon ) ) : ?>
+				#<?php echo $sid; ?> .lre-meta-icon { color: #8A8D96 !important; }
+				#<?php echo $sid; ?> .lre-meta-sep { color: #D1D5DB !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_icon_hover ) ) : ?>
+				#<?php echo $sid; ?> .ledger-row:hover .lre-meta-icon { color: #A37B32 !important; }
+				<?php endif; ?>
+				/* Structural — no user control for borders and row hover */
+				#<?php echo $sid; ?> .ledger-row { border-bottom: 1px solid var(--lre-ledger-row-border, #E5E7EB) !important; }
+				#<?php echo $sid; ?> .ledger-row:hover { background-color: #F8F9FA !important; }
+				#<?php echo $sid; ?> .ledger-row .btn-circle-icon {
+					background-color: #F9FAFB !important;
+					border-color: #E5E7EB !important;
+					color: #111215 !important;
+				}
+				#<?php echo $sid; ?> .ledger-row:hover .btn-circle-icon {
+					background-color: #111215 !important;
+					border-color: #111215 !important;
+					color: #FFFFFF !important;
+				}
+				#<?php echo $sid; ?> .ledger,
+				#<?php echo $sid; ?> .lre-ledger { border-top: 1px solid #E5E7EB !important; }
+				#<?php echo $sid; ?> .lre-ledger-filter {
+					background: #F3F4F6 !important;
+					border: 1px solid #E5E7EB !important;
+					color: #555962 !important;
+				}
+				#<?php echo $sid; ?> .lre-ledger-filter:hover,
+				#<?php echo $sid; ?> .lre-ledger-filter.is-active {
+					background: #111215 !important;
+					border-color: #111215 !important;
+					color: #FFFFFF !important;
+				}
+				#<?php echo $sid; ?> .lre-ledger-pagination {
+					background: #F9FAFB !important;
+					border: 1px solid #E5E7EB !important;
+				}
+				<?php if ( empty( $c_page_btn ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-page-btn { color: #6B7280 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_page_active_bg ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-page-btn.is-active {
+					background: #111215 !important;
+					border-color: #111215 !important;
+				}
+				<?php endif; ?>
+				<?php if ( empty( $c_page_active_clr ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-page-btn.is-active { color: #FFFFFF !important; }
+				<?php endif; ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-card {
+					background-color: #FFFFFF !important;
+					color: #111215 !important;
+					border: 1px solid #E5E7EB !important;
+				}
+				<?php if ( empty( $c_mod_title ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-header h3,
+				#<?php echo $sid; ?> #prop-modal-title { color: #111215 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_mod_loc ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-location { color: #6B7280 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_mod_price ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-price { color: #A37B32 !important; }
+				<?php endif; ?>
+				<?php if ( empty( $c_mod_specs ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-specs {
+					background: #F3F4F6 !important;
+					color: #111215 !important;
+					border: 1px solid #E5E7EB !important;
+				}
+				<?php endif; ?>
+				<?php if ( empty( $c_mod_desc ) ) : ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-desc { color: #4B5563 !important; }
+				<?php endif; ?>
+				#<?php echo $sid; ?> .lre-ledger-modal-close {
+					background: #F3F4F6 !important;
+					color: #111215 !important;
+					border-color: #E5E7EB !important;
+				}
+			</style>
+			<?php
+		}
 		?>
-		<section class="ledger-section lre-ledger-section"
+		<section class="ledger-section lre-ledger-section lre-ledger--theme-<?php echo esc_attr( $theme_preset ); ?>"
 			id="<?php echo esc_attr( $section_id ); ?>"
 			data-source="<?php echo esc_attr( $source ); ?>"
 			data-posts-per-page="<?php echo esc_attr( $posts_per_page ); ?>"

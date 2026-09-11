@@ -1467,7 +1467,6 @@ button.navbar__mobile-toggle:active,
 .lre-reviews .lre-reviews__eyebrow,
 .lre-contact .lre-contact__eyebrow,
 .lre-guide .lre-guide__eyebrow,
-.lre-sguide .lre-sguide__eyebrow,
 .lre-team .lre-team__eyebrow,
 .lre-phero .lre-phero__eyebrow,
 .listings .listings__eyebrow {
@@ -1505,6 +1504,12 @@ button.navbar__mobile-toggle:active,
 
 .lre-aserv .lre-aserv__eyebrow {
   color: var(--aserv-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lre-sguide .lre-sguide__eyebrow,
+.lre-sguide__eyebrow-wrap .lre-sguide__eyebrow {
+  color: var(--sguide-eyebrow-color, var(--color-secondary, #c5a047));
   -webkit-text-fill-color: currentColor;
 }
 

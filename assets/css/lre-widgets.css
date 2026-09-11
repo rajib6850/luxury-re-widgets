@@ -16377,13 +16377,12 @@ button.lre-insights__filter-btn.active,
   font-size: 1.55rem;
   font-weight: 500;
   color: #FFFFFF;
-  transition: all 0.3s ease;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   padding-right: 1rem;
 }
 
 .ledger-row:hover .name {
   color: #E2C99B;
-  font-style: italic;
 }
 
 .ledger-row .name small {
@@ -16395,6 +16394,11 @@ button.lre-insights__filter-btn.active,
   margin-top: 0.25rem;
   font-style: normal;
   letter-spacing: normal;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ledger-row:hover .name small {
+  color: #A8ACB5;
 }
 
 /* --- Bed, Bath & SqFt Meta with Luxury SVG Icons --- */

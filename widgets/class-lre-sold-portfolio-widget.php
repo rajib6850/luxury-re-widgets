@@ -1047,7 +1047,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						endforeach;
 					else :
 						?>
-						<div class="lre-ledger-empty" style="padding:3rem 0;text-align:center;color:#8E929B;font-family:var(--font-sans);font-size:0.95rem;">
+						<div class="lre-ledger-empty" style="padding:3rem 0;text-align:center;color:#8E929B;font-family:inherit;font-size:0.95rem;">
 							<?php esc_html_e( 'No confidential transactions found in this registry.', 'luxury-re-widgets' ); ?>
 						</div>
 						<?php
@@ -1080,7 +1080,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						</p>
 					</div>
 					<div class="lre-ledger-modal-actions">
-						<a href="/contact/" class="lre-ledger-inquire-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;padding:0.9rem 1.75rem;background:#C9A86A;color:#0D0E10;font-family:var(--font-sans);font-size:0.84rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s ease;">
+						<a href="/contact/" class="lre-ledger-inquire-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;padding:0.9rem 1.75rem;background:#C9A86A;color:#0D0E10;font-family:inherit;font-size:0.84rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s ease;">
 							<span><?php esc_html_e( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' ); ?></span>
 							<span aria-hidden="true">↗</span>
 						</a>

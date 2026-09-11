@@ -16376,7 +16376,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .name {
-  font-family: "Libre Baskerville", serif;
+  font-family: var(--font-serif, "Libre Baskerville", serif);
   font-size: 1.35rem;
   font-weight: 400;
   color: #FFFFFF;
@@ -16461,7 +16461,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .price {
-  font-family: "Libre Baskerville", serif;
+  font-family: var(--font-serif, "Libre Baskerville", serif);
   font-size: 1.22rem;
   font-weight: 400;
   color: #FFFFFF;

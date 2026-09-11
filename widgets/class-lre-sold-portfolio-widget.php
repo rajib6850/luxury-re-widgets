@@ -758,17 +758,6 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'row_border_hover_color',
-			array(
-				'label'     => __( 'Row Hover Border Color', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(201, 168, 106, 0.3)',
-				'selectors' => array(
-					'{{WRAPPER}} .ledger-row:hover, {{WRAPPER}} .lre-ledger-row:hover' => 'border-bottom-color: {{VALUE}};',
-				),
-			)
-		);
 
 		$this->add_control(
 			'row_name_hover_color',

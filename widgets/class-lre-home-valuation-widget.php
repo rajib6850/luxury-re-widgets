@@ -934,21 +934,49 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 		);
 
 		$this->add_responsive_control(
-			'container_padding',
+			'section_padding',
 			array(
-				'label'      => __( 'Container Padding', 'luxury-re-widgets' ),
+				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em', '%' ),
-				'default'    => array(
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'desktop_default' => array(
 					'top'      => '120',
 					'right'    => '20',
-					'bottom'   => '120',
+					'bottom'   => '140',
 					'left'     => '20',
 					'unit'     => 'px',
 					'isLinked' => false,
 				),
+				'tablet_default' => array(
+					'top'      => '80',
+					'right'    => '20',
+					'bottom'   => '100',
+					'left'     => '20',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'mobile_default' => array(
+					'top'      => '60',
+					'right'    => '16',
+					'bottom'   => '80',
+					'left'     => '16',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-home-val' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .lre-home-val' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'container_padding',
+			array(
+				'label'      => __( 'Container Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-container, {{WRAPPER}} .lre-home-val .lre-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);

@@ -9980,14 +9980,14 @@ button.lre-reviews__nav-btn:focus,
 
 @media (max-width: 767px) {
   .lre-reviews {
-    padding: 4.2rem 0 4.8rem !important;
-    overflow-x: hidden !important;
+    padding: 4.2rem 0 4.8rem;
+    overflow-x: hidden;
   }
   .lre-reviews__container {
-    padding: 0 1rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .lre-reviews__header {
     margin-bottom: 2rem !important;
@@ -16067,11 +16067,11 @@ button.lre-insights__filter-btn.active,
 
 @media (max-width: 768px) {
   .lre-home-val {
-    padding: 60px 16px 80px !important;
+    padding: 60px 16px 80px;
   }
   .lre-home-val .lre-container {
-    padding: 0 !important;
-    max-width: 100% !important;
+    padding: 0;
+    max-width: 100%;
   }
   .lre-home-val__header {
     margin-bottom: 32px;
@@ -16230,7 +16230,7 @@ button.lre-insights__filter-btn.active,
 
 @media (max-width: 480px) {
   .lre-home-val {
-    padding: 50px 12px 70px !important;
+    padding: 50px 12px 70px;
   }
   .lre-home-val__card {
     padding: 20px 14px !important;

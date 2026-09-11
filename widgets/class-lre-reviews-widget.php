@@ -500,7 +500,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'section_padding',
 			array(
-				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
@@ -512,7 +512,19 @@ class LRE_Reviews_Widget extends Widget_Base {
 					'isLinked' => false,
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .lre-reviews' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'container_padding',
+			array(
+				'label'      => __( 'Container Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-reviews__container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);

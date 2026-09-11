@@ -1885,17 +1885,19 @@
                 // Watermark Scroll Parallax (Permanently Centered Horizontally)
                 if ( ! prefersReducedMotion ) {
                     var watermark = section.querySelector( '.lre-guide__watermark' );
-                    var header    = section.querySelector( '.lre-guide__header' ) || section;
                     if ( watermark && ! watermark._lreParallaxAttached ) {
                         watermark._lreParallaxAttached = true;
                         var updateGuideParallax = function () {
-                            var rect = header.getBoundingClientRect();
+                            var rect = section.getBoundingClientRect();
                             var winH = window.innerHeight;
-                            if ( rect.bottom >= -200 && rect.top <= winH + 200 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                            if ( rect.bottom >= 0 && rect.top <= winH ) {
+                                var scrollOffset = winH - rect.top;
                                 var isMobile = window.innerWidth <= 768;
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 36 : 80 );
-                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                                var yShift = ( scrollOffset - winH * 0.65 ) * ( isMobile ? 0.08 : 0.15 );
+                                var maxShift = isMobile ? 35 : 75;
+                                if ( yShift < -maxShift ) yShift = -maxShift;
+                                if ( yShift > maxShift ) yShift = maxShift;
+                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(1) + 'px, 0)';
                             }
                         };
                         window.addEventListener( 'scroll', updateGuideParallax, { passive: true } );
@@ -1921,17 +1923,19 @@
                 // Watermark Scroll Parallax (Permanently Centered Horizontally)
                 if ( ! prefersReducedMotion ) {
                     var watermark = section.querySelector( '.lre-sguide__watermark' );
-                    var header    = section.querySelector( '.lre-sguide__header' ) || section;
                     if ( watermark && ! watermark._lreParallaxAttached ) {
                         watermark._lreParallaxAttached = true;
                         var updateSguideParallax = function () {
-                            var rect = header.getBoundingClientRect();
+                            var rect = section.getBoundingClientRect();
                             var winH = window.innerHeight;
-                            if ( rect.bottom >= -200 && rect.top <= winH + 200 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
+                            if ( rect.bottom >= 0 && rect.top <= winH ) {
+                                var scrollOffset = winH - rect.top;
                                 var isMobile = window.innerWidth <= 768;
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 36 : 80 );
-                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
+                                var yShift = ( scrollOffset - winH * 0.65 ) * ( isMobile ? 0.08 : 0.15 );
+                                var maxShift = isMobile ? 35 : 75;
+                                if ( yShift < -maxShift ) yShift = -maxShift;
+                                if ( yShift > maxShift ) yShift = maxShift;
+                                watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(1) + 'px, 0)';
                             }
                         };
                         window.addEventListener( 'scroll', updateSguideParallax, { passive: true } );

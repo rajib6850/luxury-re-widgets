@@ -16282,7 +16282,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-subtitle {
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: var(--font-size-section-subtitle, 0.92rem);
   color: var(--color-text-muted, #9EA2AA);
   max-width: 480px;
@@ -16305,7 +16305,7 @@ button.lre-insights__filter-btn.active,
   border-radius: 0 !important;
   color: #8E929B;
   padding: 0.65rem 1.45rem;
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -16363,7 +16363,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .ledger-row .num {
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
   color: #656972;
@@ -16391,7 +16391,7 @@ button.lre-insights__filter-btn.active,
 
 .ledger-row .name small {
   display: block;
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.78rem;
   color: #8A8D96;
   font-weight: 400;
@@ -16407,7 +16407,7 @@ button.lre-insights__filter-btn.active,
 
 /* --- Bed, Bath & SqFt Meta with Luxury SVG Icons --- */
 .ledger-row .meta {
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.85rem;
   color: #A3A7AF;
   font-weight: 500;
@@ -16426,10 +16426,14 @@ button.lre-insights__filter-btn.active,
   align-items: center;
   gap: 0.35rem;
   color: #A3A7AF;
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 500;
   transition: color 0.3s ease;
+}
+
+.lre-spec-item span {
+  font-family: inherit;
 }
 
 .ledger-row:hover .lre-spec-item {
@@ -16572,7 +16576,7 @@ button.lre-insights__filter-btn.active,
   border: 1px solid transparent;
   border-radius: 0 !important;
   color: var(--color-text-muted, #9EA2AA);
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -16678,7 +16682,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-modal-location {
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.85rem;
   color: #8A8D96;
   margin-bottom: 0.5rem;
@@ -16695,7 +16699,7 @@ button.lre-insights__filter-btn.active,
 
 .lre-ledger-modal-specs {
   display: inline-block;
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -16708,7 +16712,7 @@ button.lre-insights__filter-btn.active,
 }
 
 .lre-ledger-modal-desc {
-  font-family: var(--font-sans, inherit);
+  font-family: inherit;
   font-size: 0.92rem;
   color: #A3A7AF;
   line-height: 1.65;

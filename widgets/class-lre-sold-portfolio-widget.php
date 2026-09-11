@@ -648,7 +648,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'name'     => 'row_meta_typo',
 				'label'    => __( 'Specs / Meta Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item, {{WRAPPER}} .ledger-row .num',
+				'selector' => '{{WRAPPER}} .ledger-row .meta, {{WRAPPER}} .lre-spec-item, {{WRAPPER}} .lre-spec-item span, {{WRAPPER}} .ledger-row .num',
 			)
 		);
 

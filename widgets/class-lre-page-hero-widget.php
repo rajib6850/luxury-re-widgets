@@ -279,58 +279,6 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- BREADCRUMB ---
-		$this->start_controls_section(
-			'section_breadcrumb',
-			array(
-				'label' => __( 'Breadcrumb', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'show_breadcrumb',
-			array(
-				'label'        => __( 'Show Breadcrumb', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'no',
-			)
-		);
-
-		$this->add_control(
-			'breadcrumb_home_label',
-			array(
-				'label'     => __( 'Home Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Home',
-				'condition' => array( 'show_breadcrumb' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'breadcrumb_home_url',
-			array(
-				'label'     => __( 'Home URL', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::URL,
-				'default'   => array( 'url' => '/' ),
-				'condition' => array( 'show_breadcrumb' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'breadcrumb_current',
-			array(
-				'label'     => __( 'Current Page Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'About Us',
-				'dynamic'   => array( 'active' => true ),
-				'condition' => array( 'show_breadcrumb' => 'yes' ),
-			)
-		);
-
-		$this->end_controls_section();
-
 		// =================================================================
 		// TAB: STYLE
 		// =================================================================
@@ -805,10 +753,6 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 		$cta_url     = ! empty( $settings['cta_url']['url'] ) ? esc_url( $settings['cta_url']['url'] ) : '/contact/';
 		$cta_target  = ! empty( $settings['cta_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 		$cta_variant = esc_attr( $settings['cta_variant'] ?? 'btn--outline-white' );
-		$show_bc     = $settings['show_breadcrumb'] ?? 'no';
-		$bc_home     = esc_html( $settings['breadcrumb_home_label'] ?? 'Home' );
-		$bc_home_url = ! empty( $settings['breadcrumb_home_url']['url'] ) ? esc_url( $settings['breadcrumb_home_url']['url'] ) : '/';
-		$bc_current  = esc_html( $settings['breadcrumb_current'] ?? $title );
 		$show_overlay = ( 'yes' === ( $settings['show_overlay'] ?? 'yes' ) );
 		?>
 
@@ -859,19 +803,6 @@ class LRE_Page_Hero_Widget extends Widget_Base {
 
 				</div><!-- /.lre-phero__content -->
 			</div><!-- /.lre-phero__inner -->
-
-			<!-- Breadcrumb -->
-			<?php if ( 'yes' === $show_bc ) : ?>
-				<nav class="lre-phero__breadcrumb" aria-label="<?php esc_attr_e( 'Breadcrumb navigation', 'luxury-re-widgets' ); ?>">
-					<ol class="lre-phero__breadcrumb-list">
-						<li><a href="<?php echo $bc_home_url; ?>"><?php echo $bc_home; ?></a></li>
-						<li aria-hidden="true" class="lre-phero__bc-sep">
-							<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-						</li>
-						<li aria-current="page"><?php echo $bc_current; ?></li>
-					</ol>
-				</nav>
-			<?php endif; ?>
 
 			<!-- Scroll hint -->
 			<div class="lre-phero__scroll-hint" aria-hidden="true">

@@ -1216,19 +1216,19 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 
 		$this->end_controls_tab();
 
-		// Hover / Focus Tab
+		// Focus State Tab
 		$this->start_controls_tab(
 			'tab_input_focus',
-			array( 'label' => __( 'Hover / Focus', 'luxury-re-widgets' ) )
+			array( 'label' => __( 'Focus State', 'luxury-re-widgets' ) )
 		);
 
 		$this->add_control(
 			'input_focus_bg',
 			array(
-				'label'     => __( 'Focus / Hover Background', 'luxury-re-widgets' ),
+				'label'     => __( 'Focus Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .lre-home-val__check-item:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1236,10 +1236,10 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 		$this->add_control(
 			'input_focus_text_color',
 			array(
-				'label'     => __( 'Focus / Hover Text Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Focus Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .lre-home-val__check-item:hover .lre-home-val__check-label' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1247,11 +1247,10 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 		$this->add_control(
 			'input_focus_border_color',
 			array(
-				'label'     => __( 'Focus / Hover Border Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Focus Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#a8916f',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .lre-home-val__check-item:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1260,7 +1259,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_focus_box_shadow',
-				'selector' => '{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .lre-home-val__check-item:hover',
+				'selector' => '{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus',
 			)
 		);
 
@@ -1648,7 +1647,14 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 										<button class="lre-home-val__step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
 											<span class="lre-home-val__step-badge"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
 											<span class="lre-home-val__step-meta">
-												<span class="lre-home-val__step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
+												<?php 
+												$phase = trim( $st['step_phase'] ?? '' );
+												// If phase tag is just a duplicate bare number (e.g. '01', '1', '02') matching the badge number, omit it so numbers don't appear double
+												$is_dup_number = preg_match( '/^0*\d+$/', $phase );
+												if ( ! empty( $phase ) && ! $is_dup_number ) : 
+												?>
+													<span class="lre-home-val__step-phase"><?php echo esc_html( $phase ); ?></span>
+												<?php endif; ?>
 												<span class="lre-home-val__step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
 											</span>
 										</button>
@@ -1696,12 +1702,12 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 											</div><!-- /.lre-home-val__grid -->
 											<div class="lre-home-val__btn-row">
 												<?php if ( $step_index > 1 ) : ?>
-													<button type="button" class="btn lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
+													<button type="button" class="lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 												<?php else : ?>
 													<div></div>
 												<?php endif; ?>
 												
-												<button type="button" class="btn lre-home-val__btn lre-home-val__btn--next" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
+												<button type="button" class="lre-home-val__btn lre-home-val__btn--next" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
 													<span class="lre-home-val__btn-text"><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'luxury-re-widgets' ) ); ?></span>
 													<span class="lre-home-val__btn-arrow">→</span>
 												</button>
@@ -1837,12 +1843,12 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 
 								<div class="lre-home-val__btn-row">
 									<?php if ( $step_index > 1 ) : ?>
-										<button type="button" class="btn lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
+										<button type="button" class="lre-home-val__btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 									<?php else : ?>
 										<div></div>
 									<?php endif; ?>
 
-									<button type="submit" class="btn lre-home-val__btn lre-home-val__btn--submit">
+									<button type="submit" class="lre-home-val__btn lre-home-val__btn--submit">
 										<span class="lre-home-val__btn-text"><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'luxury-re-widgets' ) ); ?></span>
 										<span class="lre-home-val__btn-arrow">→</span>
 									</button>
@@ -1867,7 +1873,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 							</div>
 							<h3 class="lre-home-val__success-title"><?php echo esc_html( $s['success_title'] ?? __( 'Valuation Request Received', 'luxury-re-widgets' ) ); ?></h3>
 							<p class="lre-home-val__success-desc"><?php echo nl2br( esc_html( $s['success_message'] ?? __( 'Thank you. Adolfo Aguirre and our analytics team have initiated your sub-market comparative study. Your confidential property dossier is being assembled.', 'luxury-re-widgets' ) ) ); ?></p>
-							<button type="button" class="btn lre-home-val__reset-btn">
+							<button type="button" class="lre-home-val__reset-btn">
 								<span><?php echo esc_html( $s['reset_btn_text'] ?? __( 'Submit Another Property', 'luxury-re-widgets' ) ); ?></span>
 							</button>
 						</div>

@@ -341,9 +341,9 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 .lre-sguide__btn,
 .lre-comm-spotlight__action .btn,
 .lre-comm-no-results .btn,
-.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
-.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
-.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn) {
+.elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]),
+.elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]),
+.elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]) {
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -424,9 +424,9 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 }
 
 /* High-specificity override for per-widget Elementor compiled rules */
-body .elementor-element .btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
-body .elementor-element a.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
-body .elementor-element button.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
+body .elementor-element .btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]),
+body .elementor-element a.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]),
+body .elementor-element button.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn):not([class*="lre-home-val"]),
 body .elementor-element .listings__cta-group .btn,
 body .elementor-element .about .btn,
 body .elementor-element .cta__buttons .btn,

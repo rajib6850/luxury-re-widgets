@@ -15159,18 +15159,22 @@ button.lre-insights__filter-btn.active,
 
 /* Presets */
 .lre-home-val--light {
-  background-color: var(--color-light-warm, #faf8f5) !important;
-  color: var(--color-primary, #0a0a0a) !important;
+  background-color: var(--color-light-warm, #faf8f5);
+  color: var(--color-primary, #0a0a0a);
 }
 
 .lre-home-val--dark {
-  background-color: var(--color-primary, #0a0a0a) !important;
-  color: #ffffff !important;
+  background-color: var(--color-primary, #0a0a0a);
+  color: #ffffff;
 }
 
 .lre-home-val--taupe {
-  background-color: #f4f0ea !important;
-  color: #1a1812 !important;
+  background-color: #f4f0ea;
+  color: #1a1812;
+}
+
+.lre-home-val--custom {
+  background-color: transparent;
 }
 
 .lre-home-val .lre-container {

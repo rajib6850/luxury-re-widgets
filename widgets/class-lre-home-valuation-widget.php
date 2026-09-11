@@ -770,10 +770,166 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'light',
 				'options' => array(
-					'light' => __( 'Minimalist Light (Ivory & White)', 'luxury-re-widgets' ),
-					'dark'  => __( 'Dark Luxury (Architectural Ink)', 'luxury-re-widgets' ),
-					'taupe' => __( 'Warm Taupe & Bronze', 'luxury-re-widgets' ),
+					'light'  => __( 'Minimalist Light (Ivory & White)', 'luxury-re-widgets' ),
+					'dark'   => __( 'Dark Luxury (Architectural Ink)', 'luxury-re-widgets' ),
+					'taupe'  => __( 'Warm Taupe & Bronze', 'luxury-re-widgets' ),
+					'custom' => __( 'Custom Colors', 'luxury-re-widgets' ),
 				),
+			)
+		);
+
+		$this->add_control(
+			'heading_preset_colors',
+			array(
+				'label'     => __( 'Theme & Preset Colors', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'container_bg_color',
+			array(
+				'label'     => __( 'Section Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val, {{WRAPPER}} .lre-home-val-section, {{WRAPPER}} .lre-home-val.lre-home-val--light, {{WRAPPER}} .lre-home-val.lre-home-val--dark, {{WRAPPER}} .lre-home-val.lre-home-val--taupe, {{WRAPPER}} .lre-home-val.lre-home-val--custom' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_bg_color',
+			array(
+				'label'     => __( 'Form Card Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__card, {{WRAPPER}} .lre-home-val--light .lre-home-val__card, {{WRAPPER}} .lre-home-val--dark .lre-home-val__card, {{WRAPPER}} .lre-home-val--taupe .lre-home-val__card, {{WRAPPER}} .lre-home-val--custom .lre-home-val__card' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'card_border_color',
+			array(
+				'label'     => __( 'Form Card Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__card, {{WRAPPER}} .lre-home-val--dark .lre-home-val__card, {{WRAPPER}} .lre-home-val--taupe .lre-home-val__card, {{WRAPPER}} .lre-home-val--custom .lre-home-val__card' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'theme_accent_color',
+			array(
+				'label'     => __( 'Accent / Highlight Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val' => '--color-secondary: {{VALUE}} !important; --color-accent: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__step-tab.active .lre-home-val__step-badge' => 'background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__step-tab.active' => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__eyebrow-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__progress-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'step_border_color',
+			array(
+				'label'     => __( 'Step Tabs Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__steps-wrapper, {{WRAPPER}} .lre-home-val--dark .lre-home-val__steps-wrapper, {{WRAPPER}} .lre-home-val--taupe .lre-home-val__steps-wrapper' => 'border-bottom-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'step_phase_color',
+			array(
+				'label'     => __( 'Step Phase (Small Text)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__step-phase' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'step_name_color',
+			array(
+				'label'     => __( 'Step Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__step-name, {{WRAPPER}} .lre-home-val--dark .lre-home-val__step-name, {{WRAPPER}} .lre-home-val--taupe .lre-home-val__step-name' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'step_badge_border_color',
+			array(
+				'label'     => __( 'Step Inactive Badge Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__step-badge, {{WRAPPER}} .lre-home-val--dark .lre-home-val__step-badge' => 'border-color: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'step_active_badge_text_color',
+			array(
+				'label'     => __( 'Step Active Badge Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-home-val__step-tab.active .lre-home-val__step-badge' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'card_box_shadow',
+				'label'    => __( 'Form Card Shadow', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-home-val__card',
+			)
+		);
+
+		$this->add_responsive_control(
+			'card_border_radius',
+			array(
+				'label'      => __( 'Form Card Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-home-val__card' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'card_padding',
+			array(
+				'label'      => __( 'Form Card Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-home-val__card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_layout_spacing',
+			array(
+				'label'     => __( 'Layout & Sizing', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 
@@ -1551,6 +1707,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			$preset_class .= ' lre-home-val--on-dark';
 		} elseif ( 'taupe' === $preset ) {
 			$preset_class .= ' lre-home-val--taupe';
+		} elseif ( 'custom' === $preset ) {
+			$preset_class .= ' lre-home-val--custom';
 		}
 
 		// ReCAPTCHA Keys

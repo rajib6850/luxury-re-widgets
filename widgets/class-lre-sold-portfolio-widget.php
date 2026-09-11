@@ -15,8 +15,13 @@ use Elementor\Group_Control_Border;
  *
  * "The Private Ledger" — An ultra-exclusive, quiet-luxury off-market registry
  * and past sales archive inspired by Section 5 of the signature design.
- * Features an asymmetric editorial table, GPU-accelerated hover image reveals,
- * confidential timeline indexing, and an interactive property dossier modal.
+ * Features:
+ * - Dynamic data source selection (Sold Portfolio CPT vs Manual Repeater)
+ * - AJAX pagination (Numbered & Load More)
+ * - Luxury Bed, Bath & SqFt architectural line icons
+ * - Cohesive typography & color system matching the plugin tokens
+ * - Sharp architectural borders (Zero border-radius)
+ * - Interactive property dossier modal dialog
  *
  * @package Luxury_RE_Widgets
  */
@@ -109,115 +114,84 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Subtitle / Narrative', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => __( 'Six confidential entries currently active in our private collection, ordered by acquisition timeline. Hover any row for a discreet first look.', 'luxury-re-widgets' ),
+				'default'     => __( 'A confidential registry of landmark estate representation, architectural stewardship, and record sales closed across Pasadena, San Marino, and Greater Los Angeles. Hover any row for a discreet first look.', 'luxury-re-widgets' ),
 				'condition'   => array( 'show_header' => 'yes' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		// --- 2. OPTIONAL STATS RIBBON ---
+		// --- 2. DATA SOURCE & QUERY SETTINGS ---
 		$this->start_controls_section(
-			'section_stats_ribbon',
+			'section_data_source',
 			array(
-				'label' => __( 'Proven Track Record Stats', 'luxury-re-widgets' ),
+				'label' => __( 'Data Source & Query', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'show_stats',
+			'content_source',
 			array(
-				'label'        => __( 'Show Stats Ribbon', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'no',
-				'return_value' => 'yes',
+				'label'   => __( 'Content Source', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'cpt',
+				'options' => array(
+					'cpt'      => __( 'Sold Portfolio CPT (Dynamic)', 'luxury-re-widgets' ),
+					'repeater' => __( 'Manual Custom Entries (Repeater)', 'luxury-re-widgets' ),
+				),
 			)
 		);
 
 		$this->add_control(
-			'stat_1_val',
+			'posts_per_page',
 			array(
-				'label'     => __( 'Stat 1 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '$49M+',
-				'condition' => array( 'show_stats' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'stat_1_lbl',
-			array(
-				'label'     => __( 'Stat 1 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Career Closed Volume',
-				'condition' => array( 'show_stats' => 'yes' ),
+				'label'     => __( 'Properties Per Page', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 6,
+				'min'       => 1,
+				'max'       => 30,
+				'step'      => 1,
+				'condition' => array( 'content_source' => 'cpt' ),
 			)
 		);
 
 		$this->add_control(
-			'stat_2_val',
+			'orderby',
 			array(
-				'label'     => __( 'Stat 2 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '50+',
-				'condition' => array( 'show_stats' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'stat_2_lbl',
-			array(
-				'label'     => __( 'Stat 2 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Private Sales Closed',
-				'condition' => array( 'show_stats' => 'yes' ),
+				'label'     => __( 'Order By', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'date',
+				'options'   => array(
+					'date'  => __( 'Date Published / Closed', 'luxury-re-widgets' ),
+					'title' => __( 'Property Title', 'luxury-re-widgets' ),
+					'price' => __( 'Sold Price / Valuation', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'content_source' => 'cpt' ),
 			)
 		);
 
 		$this->add_control(
-			'stat_3_val',
+			'order',
 			array(
-				'label'     => __( 'Stat 3 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '14 Days',
-				'condition' => array( 'show_stats' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'stat_3_lbl',
-			array(
-				'label'     => __( 'Stat 3 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Average Market Timeline',
-				'condition' => array( 'show_stats' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'stat_4_val',
-			array(
-				'label'     => __( 'Stat 4 Value', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '100%',
-				'condition' => array( 'show_stats' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'stat_4_lbl',
-			array(
-				'label'     => __( 'Stat 4 Label', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Client Discretion & Trust',
-				'condition' => array( 'show_stats' => 'yes' ),
+				'label'     => __( 'Order Direction', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'DESC',
+				'options'   => array(
+					'DESC' => __( 'Descending (Latest / Highest First)', 'luxury-re-widgets' ),
+					'ASC'  => __( 'Ascending', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'content_source' => 'cpt' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		// --- 3. FILTER TABS ---
+		// --- 3. FILTER TABS & AJAX PAGINATION ---
 		$this->start_controls_section(
-			'section_filters',
+			'section_filters_pagination',
 			array(
-				'label' => __( 'Filter Tabs', 'luxury-re-widgets' ),
+				'label' => __( 'Filters & AJAX Pagination', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -225,9 +199,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->add_control(
 			'show_filters',
 			array(
-				'label'        => __( 'Show Filter Tabs', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Location Filter Tabs', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'no',
+				'default'      => 'yes',
 				'return_value' => 'yes',
 			)
 		);
@@ -242,14 +216,25 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'show_pagination',
+			array(
+				'label'        => __( 'Enable AJAX Pagination', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
 		$this->end_controls_section();
 
-		// --- 4. LEDGER ENTRIES (REPEATER) ---
+		// --- 4. MANUAL REPEATER (WHEN REPEATER IS SELECTED) ---
 		$this->start_controls_section(
-			'section_ledger_entries',
+			'section_ledger_repeater',
 			array(
-				'label' => __( 'The Ledger Entries', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
+				'label'     => __( 'Manual Ledger Entries', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array( 'content_source' => 'repeater' ),
 			)
 		);
 
@@ -260,7 +245,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Estate / Property Name', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Villa Serrano', 'luxury-re-widgets' ),
+				'default'     => __( '788 S Grand Avenue — The Villetta', 'luxury-re-widgets' ),
 				'label_block' => true,
 			)
 		);
@@ -270,16 +255,25 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Location / Enclave', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Laguna Beach, California', 'luxury-re-widgets' ),
+				'default' => __( 'Pasadena, California', 'luxury-re-widgets' ),
 			)
 		);
 
 		$repeater->add_control(
-			'beds_baths',
+			'beds',
 			array(
-				'label'   => __( 'Bedrooms & Baths', 'luxury-re-widgets' ),
+				'label'   => __( 'Bedrooms', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( '5 BD • 6 BA', 'luxury-re-widgets' ),
+				'default' => '4',
+			)
+		);
+
+		$repeater->add_control(
+			'baths',
+			array(
+				'label'   => __( 'Bathrooms', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '3',
 			)
 		);
 
@@ -288,7 +282,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Square Footage', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( '6,420 SQFT', 'luxury-re-widgets' ),
+				'default' => '4,497',
 			)
 		);
 
@@ -297,7 +291,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Closed Price / Valuation', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( '$18,400,000', 'luxury-re-widgets' ),
+				'default' => '$3,800,000',
 			)
 		);
 
@@ -317,8 +311,8 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Category Slug (for filter tabs)', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => 'coastal',
-				'placeholder' => 'e.g. pasadena, modern, coastal',
+				'default'     => 'pasadena',
+				'placeholder' => 'e.g. pasadena, greater-la, gateway-cities',
 			)
 		);
 
@@ -327,7 +321,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Confidential Dossier Summary', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => __( 'A landmark private estate offering sweeping ocean vistas, bespoke imported stone craftsmanship, and private subterranean wine cellar.', 'luxury-re-widgets' ),
+				'default'     => __( 'A landmark private estate offering sweeping vistas, bespoke craftsmanship, and discreet private representation under SERHANT.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -340,110 +334,72 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'title_field' => '{{{ title }}} — {{{ price }}}',
 				'default'     => array(
 					array(
-						'title'       => 'Villa Serrano',
-						'location'    => 'Laguna Beach, California',
-						'beds_baths'  => '5 BD • 6 BA',
-						'sqft'        => '6,420 SQFT',
-						'price'       => '$18,400,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=900&auto=format&fit=crop' ),
-						'category'    => 'coastal',
-						'description' => 'A landmark private coastal estate offering sweeping ocean vistas, bespoke craftsmanship, and private security detail.',
-					),
-					array(
-						'title'       => 'Casa Bellamare',
-						'location'    => 'Positano, Amalfi Coast',
-						'beds_baths'  => '4 BD • 5 BA',
-						'sqft'        => '4,980 SQFT',
-						'price'       => '€14,200,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop' ),
-						'category'    => 'historic',
-						'description' => 'Cliffside panoramic sanctuary with tiered botanical gardens, heated infinity plunge pool, and private funicular access.',
-					),
-					array(
-						'title'       => 'The Marin Glasshouse',
-						'location'    => 'Sausalito, California',
-						'beds_baths'  => '3 BD • 4 BA',
-						'sqft'        => '3,860 SQFT',
-						'price'       => '$9,750,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=900&auto=format&fit=crop' ),
-						'category'    => 'modern',
-						'description' => 'Mid-century modernist steel and glass masterpiece cantilevered among mature redwoods with views of San Francisco Bay.',
-					),
-					array(
-						'title'       => 'Villa dei Pini',
-						'location'    => 'Ravello, Amalfi Coast',
-						'beds_baths'  => '6 BD • 7 BA',
-						'sqft'        => '7,110 SQFT',
-						'price'       => '€21,900,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900&auto=format&fit=crop' ),
-						'category'    => 'historic',
-						'description' => 'Centuries-old stone estate restored to modern museum-quality standards with private olive groves and helipad.',
-					),
-					array(
-						'title'       => 'Rancho Quiet Water',
-						'location'    => 'Montecito, California',
-						'beds_baths'  => '5 BD • 6 BA',
-						'sqft'        => '8,240 SQFT',
-						'price'       => '$24,600,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=900&auto=format&fit=crop' ),
+						'title'       => '788 S Grand Avenue — The Villetta',
+						'location'    => 'Pasadena, California',
+						'beds'        => '4',
+						'baths'       => '3',
+						'sqft'        => '4,497',
+						'price'       => '$3,800,000',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/788-S-Grand-Avenue.jpg' ),
 						'category'    => 'pasadena',
-						'description' => 'Sprawling private gated compound featuring equestrian facilities, championship tennis court, and organic orchards.',
+						'description' => 'A landmark Italianate villa estate in Pasadena closed all-cash in 16 days with discreet representation.',
 					),
 					array(
-						'title'       => 'Casa Limone',
-						'location'    => 'Sorrento, Amalfi Coast',
-						'beds_baths'  => '4 BD • 4 BA',
-						'sqft'        => '4,120 SQFT',
-						'price'       => '€11,300,000',
-						'image'       => array( 'url' => 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=900&auto=format&fit=crop' ),
-						'category'    => 'historic',
-						'description' => 'Sun-drenched Mediterranean villa overlooking the Bay of Naples, with restored vaulted ceilings and private sea cove.',
+						'title'       => '555 S Grand Avenue — Arts & Crafts Landmark',
+						'location'    => 'Pasadena, California',
+						'beds'        => '6',
+						'baths'       => '4',
+						'sqft'        => '3,927',
+						'price'       => '$2,900,000',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/555-S-Grand-Avenue.jpg' ),
+						'category'    => 'pasadena',
+						'description' => 'Historic Arts & Crafts architectural jewel closed $100K over asking in 6 days.',
+					),
+					array(
+						'title'       => '1065 Locust Street — Restored 1908 Craftsman',
+						'location'    => 'Pasadena, California',
+						'beds'        => '3',
+						'baths'       => '2',
+						'sqft'        => '1,997',
+						'price'       => '$1,450,000',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/1065-Locust-Street.jpg' ),
+						'category'    => 'pasadena',
+						'description' => 'Museum-quality restored 1908 Craftsman with original millwork, Batchelder tile fireplace, and lush grounds.',
+					),
+					array(
+						'title'       => '1841 N Garfield Avenue — Character Compound',
+						'location'    => 'Pasadena, California',
+						'beds'        => '3',
+						'baths'       => '2',
+						'sqft'        => '1,615',
+						'price'       => '$1,210,000',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/1841-N-Garfield-Avenue.jpg' ),
+						'category'    => 'pasadena',
+						'description' => 'Private gated character compound with detached creative studio, closed over asking.',
+					),
+					array(
+						'title'       => '14477 Badger Lane — Grand Executive Residence',
+						'location'    => 'Greater Los Angeles',
+						'beds'        => '5',
+						'baths'       => '3.5',
+						'sqft'        => '3,294',
+						'price'       => '$1,099,888',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/14477-Badger-Lane.jpg' ),
+						'category'    => 'greater-los-angeles',
+						'description' => 'Record-breaking sale of an executive estate featuring resort-style pool and canyon vistas.',
+					),
+					array(
+						'title'       => '317 N 19th Street — Private Compound & Garages',
+						'location'    => 'Greater Los Angeles',
+						'beds'        => '3',
+						'baths'       => '1.5',
+						'sqft'        => '1,127',
+						'price'       => '$750,000',
+						'image'       => array( 'url' => 'http://test.test/wp-content/uploads/2026/09/317-N-19th-Street.jpg' ),
+						'category'    => 'greater-los-angeles',
+						'description' => 'Private residential compound with multi-car garage capacity and custom upgrades.',
 					),
 				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// --- 5. FOOTER CTA ---
-		$this->start_controls_section(
-			'section_footer_cta',
-			array(
-				'label' => __( 'Footer Action Button', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'show_footer',
-			array(
-				'label'        => __( 'Show Footer Button', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'cta_text',
-			array(
-				'label'     => __( 'Button Text', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Request Complete Archive & Dossier', 'luxury-re-widgets' ),
-				'condition' => array( 'show_footer' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'cta_link',
-			array(
-				'label'       => __( 'Button Link', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://...',
-				'default'     => array(
-					'url' => '/contact/',
-				),
-				'condition'   => array( 'show_footer' => 'yes' ),
 			)
 		);
 
@@ -481,9 +437,10 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1F2127',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-section' => 'border-top-color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-					'{{WRAPPER}} .ledger'        => 'border-top-color: {{VALUE}};',
-					'{{WRAPPER}} .ledger-row'    => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-section'        => 'border-top-color: {{VALUE}}; border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger'               => 'border-top-color: {{VALUE}};',
+					'{{WRAPPER}} .ledger-row'           => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-pagination'=> 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -616,6 +573,18 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'icon_color',
+			array(
+				'label'     => __( 'Bed & Bath Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#C9A86A',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-meta-icon' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
 			'row_hover_bg',
 			array(
 				'label'     => __( 'Row Hover Background', 'luxury-re-widgets' ),
@@ -629,47 +598,47 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- 4. SIGNATURE BUTTON STYLE ---
+		// --- 4. AJAX PAGINATION STYLE ---
 		$this->start_controls_section(
-			'style_button',
+			'style_pagination',
 			array(
-				'label' => __( 'Signature Pill Button', 'luxury-re-widgets' ),
+				'label' => __( 'AJAX Pagination Style', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$this->add_control(
-			'btn_bg',
+			'page_btn_color',
 			array(
-				'label'     => __( 'Button Background', 'luxury-re-widgets' ),
+				'label'     => __( 'Page Button Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'default'   => '#9EA2AA',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-foot .btn-pill' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn' => 'color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->add_control(
-			'btn_color',
+			'page_btn_active_bg',
 			array(
-				'label'     => __( 'Button Text Color', 'luxury-re-widgets' ),
+				'label'     => __( 'Active Page Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#111111',
+				'default'   => '#C9A86A',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-foot .btn-pill' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->add_control(
-			'btn_hover_bg',
+			'page_btn_active_color',
 			array(
-				'label'     => __( 'Button Hover Background', 'luxury-re-widgets' ),
+				'label'     => __( 'Active Page Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#F0EDE6',
+				'default'   => '#0D0E10',
 				'selectors' => array(
-					'{{WRAPPER}} .ledger-foot .btn-pill:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-ledger-page-btn.is-active' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -677,40 +646,284 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Helper method to render a single ledger row HTML.
+	 * Used by both render() and handle_load_sold_portfolio() AJAX handler.
+	 *
+	 * @param array $item Property array.
+	 * @param int   $index Row index.
+	 * @param int   $offset Pagination offset.
+	 * @return string HTML output.
+	 */
+	public static function render_ledger_row_html( $item, $index, $offset = 0 ) {
+		$num_str  = sprintf( '%03d', $offset + $index + 1 );
+		$title    = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
+		$loc      = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
+		$price    = ! empty( $item['price'] ) ? $item['price'] : 'Confidential';
+		$beds     = ! empty( $item['beds'] ) ? $item['beds'] : '';
+		$baths    = ! empty( $item['baths'] ) ? $item['baths'] : '';
+		$sqft     = ! empty( $item['sqft'] ) ? $item['sqft'] : '';
+		$cat      = ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '';
+		$desc     = ! empty( $item['description'] ) ? $item['description'] : '';
+		$img      = ! empty( $item['image_url'] ) ? $item['image_url'] : '';
+
+		$specs_arr = array();
+		if ( $beds )  $specs_arr[] = $beds . ( is_numeric( $beds ) ? ' BD' : '' );
+		if ( $baths ) $specs_arr[] = $baths . ( is_numeric( $baths ) ? ' BA' : '' );
+		if ( $sqft )  $specs_arr[] = $sqft . ( is_numeric( str_replace( array( ',', ' ' ), '', $sqft ) ) ? ' SQFT' : '' );
+		$specs_str = implode( ' • ', $specs_arr );
+
+		ob_start();
+		?>
+		<div class="ledger-row lre-ledger-row trigger-prop-modal"
+			data-category="<?php echo esc_attr( $cat ); ?>"
+			data-title="<?php echo esc_attr( $title ); ?>"
+			data-price="<?php echo esc_attr( $price ); ?>"
+			data-location="<?php echo esc_attr( $loc ); ?>"
+			data-specs="<?php echo esc_attr( $specs_str ); ?>"
+			data-desc="<?php echo esc_attr( $desc ); ?>"
+			data-img="<?php echo esc_url( $img ); ?>"
+			tabindex="0"
+			role="button"
+			aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $title, $price ) ); ?>">
+
+			<span class="num"><?php echo esc_html( $num_str ); ?></span>
+
+			<span class="name">
+				<?php echo esc_html( $title ); ?>
+				<small><?php echo esc_html( $loc ); ?></small>
+			</span>
+
+			<span class="meta lre-meta-specs">
+				<?php if ( ! empty( $beds ) ) : ?>
+					<span class="lre-spec-item" title="<?php esc_attr_e( 'Bedrooms', 'luxury-re-widgets' ); ?>">
+						<span class="lre-meta-icon" aria-hidden="true">
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M3 7v11M21 7v11M3 13h18M5 13V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 10h3M14 10h3"/>
+							</svg>
+						</span>
+						<span><?php echo esc_html( $beds ); ?> <?php echo is_numeric( $beds ) ? 'BD' : ''; ?></span>
+					</span>
+				<?php endif; ?>
+				<?php if ( ! empty( $beds ) && ! empty( $baths ) ) : ?>
+					<span class="lre-meta-sep">•</span>
+				<?php endif; ?>
+				<?php if ( ! empty( $baths ) ) : ?>
+					<span class="lre-spec-item" title="<?php esc_attr_e( 'Bathrooms', 'luxury-re-widgets' ); ?>">
+						<span class="lre-meta-icon" aria-hidden="true">
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/>
+								<path d="M6 12V5a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v2"/>
+								<path d="M4 21l1-2M20 21l-1-2"/>
+							</svg>
+						</span>
+						<span><?php echo esc_html( $baths ); ?> <?php echo is_numeric( $baths ) ? 'BA' : ''; ?></span>
+					</span>
+				<?php endif; ?>
+			</span>
+
+			<span class="meta lre-meta-sqft">
+				<?php if ( ! empty( $sqft ) ) : ?>
+					<span class="lre-spec-item" title="<?php esc_attr_e( 'Square Footage', 'luxury-re-widgets' ); ?>">
+						<span class="lre-meta-icon" aria-hidden="true">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+								<rect x="3" y="3" width="18" height="18"></rect>
+								<path d="M3 9h18M9 21V9"/>
+							</svg>
+						</span>
+						<span><?php echo esc_html( $sqft ); ?> <?php echo is_numeric( str_replace( array( ',', ' ' ), '', $sqft ) ) ? 'SQFT' : ''; ?></span>
+					</span>
+				<?php endif; ?>
+			</span>
+
+			<span class="price"><?php echo esc_html( $price ); ?></span>
+
+			<span class="ledger-arrow">
+				<span class="btn-circle-icon" aria-hidden="true">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+						<line x1="7" y1="17" x2="17" y2="7"></line>
+						<polyline points="7 7 17 7 17 17"></polyline>
+					</svg>
+				</span>
+			</span>
+
+			<?php if ( ! empty( $img ) ) : ?>
+				<div class="ledger-thumb" aria-hidden="true">
+					<img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy" />
+				</div>
+				<div class="ledger-mobile-thumb" aria-hidden="true">
+					<img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy" />
+				</div>
+			<?php endif; ?>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Helper method to render AJAX pagination HTML.
+	 *
+	 * @param int $paged Current page.
+	 * @param int $max_pages Max pages.
+	 * @return string HTML output.
+	 */
+	public static function render_pagination_html( $paged, $max_pages ) {
+		if ( $max_pages <= 1 ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+		<nav class="lre-ledger-pagination" aria-label="<?php esc_attr_e( 'Private Ledger Pagination', 'luxury-re-widgets' ); ?>">
+			<button class="lre-ledger-page-btn lre-prev-btn<?php echo ( $paged <= 1 ) ? ' is-disabled' : ''; ?>"
+				data-page="<?php echo esc_attr( $paged - 1 ); ?>"
+				<?php echo ( $paged <= 1 ) ? 'disabled' : ''; ?>
+				aria-label="<?php esc_attr_e( 'Previous Page', 'luxury-re-widgets' ); ?>">
+				« <?php esc_html_e( 'Prev', 'luxury-re-widgets' ); ?>
+			</button>
+
+			<?php for ( $i = 1; $i <= $max_pages; $i++ ) : ?>
+				<button class="lre-ledger-page-btn<?php echo ( $i === $paged ) ? ' is-active' : ''; ?>"
+					data-page="<?php echo esc_attr( $i ); ?>"
+					aria-current="<?php echo ( $i === $paged ) ? 'page' : 'false'; ?>">
+					<?php echo esc_html( $i ); ?>
+				</button>
+			<?php endfor; ?>
+
+			<button class="lre-ledger-page-btn lre-next-btn<?php echo ( $paged >= $max_pages ) ? ' is-disabled' : ''; ?>"
+				data-page="<?php echo esc_attr( $paged + 1 ); ?>"
+				<?php echo ( $paged >= $max_pages ) ? 'disabled' : ''; ?>
+				aria-label="<?php esc_attr_e( 'Next Page', 'luxury-re-widgets' ); ?>">
+				<?php esc_html_e( 'Next', 'luxury-re-widgets' ); ?> »
+			</button>
+		</nav>
+		<?php
+		return ob_get_clean();
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$show_header  = ! empty( $settings['show_header'] ) && 'yes' === $settings['show_header'];
-		$eyebrow      = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : '';
-		$title        = ! empty( $settings['title'] ) ? $settings['title'] : 'The Private Ledger';
-		$title_tag    = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2';
-		$subtitle     = ! empty( $settings['subtitle'] ) ? $settings['subtitle'] : '';
+		$show_header     = ! empty( $settings['show_header'] ) && 'yes' === $settings['show_header'];
+		$eyebrow         = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : '';
+		$title           = ! empty( $settings['title'] ) ? $settings['title'] : 'The Private Ledger';
+		$title_tag       = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2';
+		$subtitle        = ! empty( $settings['subtitle'] ) ? $settings['subtitle'] : '';
 
-		$show_stats   = ! empty( $settings['show_stats'] ) && 'yes' === $settings['show_stats'];
-		$show_filters = ! empty( $settings['show_filters'] ) && 'yes' === $settings['show_filters'];
-		$show_footer  = ! empty( $settings['show_footer'] ) && 'yes' === $settings['show_footer'];
+		$source          = ! empty( $settings['content_source'] ) ? $settings['content_source'] : 'cpt';
+		$posts_per_page  = ! empty( $settings['posts_per_page'] ) ? max( 1, intval( $settings['posts_per_page'] ) ) : 6;
+		$orderby         = ! empty( $settings['orderby'] ) ? $settings['orderby'] : 'date';
+		$order           = ! empty( $settings['order'] ) ? $settings['order'] : 'DESC';
 
-		$ledger_items = ! empty( $settings['ledger_items'] ) ? $settings['ledger_items'] : array();
+		$show_filters    = ! empty( $settings['show_filters'] ) && 'yes' === $settings['show_filters'];
+		$show_pagination = ! empty( $settings['show_pagination'] ) && 'yes' === $settings['show_pagination'];
 
-		// Collect unique categories if filters enabled
+		$paged      = 1;
+		$max_pages  = 1;
+		$entries    = array();
 		$categories = array();
-		if ( $show_filters && ! empty( $ledger_items ) ) {
-			foreach ( $ledger_items as $item ) {
-				if ( ! empty( $item['category'] ) ) {
-					$cat_slug = sanitize_title( $item['category'] );
-					$cat_name = ucwords( str_replace( array( '-', '_' ), ' ', $cat_slug ) );
-					$categories[ $cat_slug ] = $cat_name;
+
+		// 1. Fetch from CPT
+		if ( 'cpt' === $source ) {
+			$args = array(
+				'post_type'      => 'lre_sold_property',
+				'post_status'    => 'publish',
+				'posts_per_page' => $posts_per_page,
+				'paged'          => $paged,
+			);
+
+			if ( 'price' === $orderby ) {
+				$args['meta_key'] = '_lre_sold_price';
+				$args['orderby']  = 'meta_value_num';
+				$args['order']    = $order;
+			} elseif ( 'title' === $orderby ) {
+				$args['orderby'] = 'title';
+				$args['order']   = $order;
+			} else {
+				$args['orderby'] = 'date';
+				$args['order']   = $order;
+			}
+
+			$query = new \WP_Query( $args );
+			$max_pages = $query->max_num_pages;
+
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+					$pid       = get_the_ID();
+					$img_url   = get_the_post_thumbnail_url( $pid, 'large' );
+					$terms     = wp_get_post_terms( $pid, 'sold_location', array( 'fields' => 'slugs' ) );
+					$cat_slug  = ! empty( $terms ) ? implode( ' ', $terms ) : '';
+					$loc_names = wp_get_post_terms( $pid, 'sold_location', array( 'fields' => 'names' ) );
+					$city      = get_post_meta( $pid, '_lre_city', true );
+					$location  = ! empty( $loc_names ) ? implode( ', ', $loc_names ) : ( $city ? $city . ', California' : 'Pasadena, California' );
+					$desc      = get_the_excerpt() ? get_the_excerpt() : wp_trim_words( get_post_field( 'post_content', $pid ), 25 );
+
+					$entries[] = array(
+						'title'       => get_the_title(),
+						'price'       => get_post_meta( $pid, '_lre_sold_price', true ) ?: 'Confidential',
+						'beds'        => get_post_meta( $pid, '_lre_beds', true ) ?: '',
+						'baths'       => get_post_meta( $pid, '_lre_baths', true ) ?: '',
+						'sqft'        => get_post_meta( $pid, '_lre_sqft', true ) ?: '',
+						'location'    => $location,
+						'category'    => $cat_slug,
+						'image_url'   => $img_url ?: '',
+						'description' => $desc,
+					);
+				}
+				wp_reset_postdata();
+			}
+
+			// Taxonomies for filter tabs
+			if ( $show_filters ) {
+				$tax_terms = get_terms( array( 'taxonomy' => 'sold_location', 'hide_empty' => true ) );
+				if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
+					foreach ( $tax_terms as $t ) {
+						$categories[ $t->slug ] = $t->name;
+					}
+				}
+			}
+		} else {
+			// 2. Fetch from Repeater
+			$repeater_items = ! empty( $settings['ledger_items'] ) ? $settings['ledger_items'] : array();
+			$total_repeater = count( $repeater_items );
+			$max_pages      = ceil( $total_repeater / $posts_per_page );
+			$paged_items    = array_slice( $repeater_items, 0, $posts_per_page );
+
+			foreach ( $paged_items as $item ) {
+				$entries[] = array(
+					'title'       => ! empty( $item['title'] ) ? $item['title'] : '',
+					'price'       => ! empty( $item['price'] ) ? $item['price'] : 'Confidential',
+					'beds'        => ! empty( $item['beds'] ) ? $item['beds'] : '',
+					'baths'       => ! empty( $item['baths'] ) ? $item['baths'] : '',
+					'sqft'        => ! empty( $item['sqft'] ) ? $item['sqft'] : '',
+					'location'    => ! empty( $item['location'] ) ? $item['location'] : '',
+					'category'    => ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '',
+					'image_url'   => ! empty( $item['image']['url'] ) ? $item['image']['url'] : '',
+					'description' => ! empty( $item['description'] ) ? $item['description'] : '',
+				);
+			}
+
+			if ( $show_filters && ! empty( $repeater_items ) ) {
+				foreach ( $repeater_items as $item ) {
+					if ( ! empty( $item['category'] ) ) {
+						$cslug = sanitize_title( $item['category'] );
+						$categories[ $cslug ] = ucwords( str_replace( array( '-', '_' ), ' ', $cslug ) );
+					}
 				}
 			}
 		}
 
-		$cta_text = ! empty( $settings['cta_text'] ) ? $settings['cta_text'] : __( 'Request Complete Archive & Dossier', 'luxury-re-widgets' );
-		$cta_url  = ! empty( $settings['cta_link']['url'] ) ? $settings['cta_link']['url'] : '/contact/';
-		$cta_target = ! empty( $settings['cta_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : '';
-
 		$section_id = 'ledger-' . $this->get_id();
 		?>
-		<section class="ledger-section lre-ledger-section" id="<?php echo esc_attr( $section_id ); ?>">
+		<section class="ledger-section lre-ledger-section"
+			id="<?php echo esc_attr( $section_id ); ?>"
+			data-source="<?php echo esc_attr( $source ); ?>"
+			data-posts-per-page="<?php echo esc_attr( $posts_per_page ); ?>"
+			data-orderby="<?php echo esc_attr( $orderby ); ?>"
+			data-order="<?php echo esc_attr( $order ); ?>"
+			data-max-pages="<?php echo esc_attr( $max_pages ); ?>">
+
 			<div class="container lre-ledger-container">
 
 				<?php if ( $show_header ) : ?>
@@ -731,27 +944,6 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $show_stats ) : ?>
-					<div class="lre-ledger-stats">
-						<div class="lre-ledger-stat-item">
-							<div class="lre-ledger-stat-val"><?php echo esc_html( $settings['stat_1_val'] ); ?></div>
-							<div class="lre-ledger-stat-lbl"><?php echo esc_html( $settings['stat_1_lbl'] ); ?></div>
-						</div>
-						<div class="lre-ledger-stat-item">
-							<div class="lre-ledger-stat-val"><?php echo esc_html( $settings['stat_2_val'] ); ?></div>
-							<div class="lre-ledger-stat-lbl"><?php echo esc_html( $settings['stat_2_lbl'] ); ?></div>
-						</div>
-						<div class="lre-ledger-stat-item">
-							<div class="lre-ledger-stat-val"><?php echo esc_html( $settings['stat_3_val'] ); ?></div>
-							<div class="lre-ledger-stat-lbl"><?php echo esc_html( $settings['stat_3_lbl'] ); ?></div>
-						</div>
-						<div class="lre-ledger-stat-item">
-							<div class="lre-ledger-stat-val"><?php echo esc_html( $settings['stat_4_val'] ); ?></div>
-							<div class="lre-ledger-stat-lbl"><?php echo esc_html( $settings['stat_4_lbl'] ); ?></div>
-						</div>
-					</div>
-				<?php endif; ?>
-
 				<?php if ( $show_filters && ! empty( $categories ) ) : ?>
 					<div class="lre-ledger-filters" role="tablist">
 						<button class="lre-ledger-filter is-active" data-filter="all" role="tab" aria-selected="true">
@@ -767,77 +959,23 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 				<div class="ledger lre-ledger">
 					<?php
-					if ( ! empty( $ledger_items ) ) :
-						foreach ( $ledger_items as $index => $item ) :
-							$num_str  = sprintf( '%03d', $index + 1 );
-							$i_title  = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
-							$i_loc    = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
-							$i_beds   = ! empty( $item['beds_baths'] ) ? $item['beds_baths'] : '4 BD • 5 BA';
-							$i_sqft   = ! empty( $item['sqft'] ) ? $item['sqft'] : '5,200 SQFT';
-							$i_price  = ! empty( $item['price'] ) ? $item['price'] : 'Confidential';
-							$i_cat    = ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '';
-							$i_desc   = ! empty( $item['description'] ) ? $item['description'] : '';
-							$i_img    = ! empty( $item['image']['url'] ) ? $item['image']['url'] : '';
-							?>
-							<div class="ledger-row lre-ledger-row trigger-prop-modal"
-								data-category="<?php echo esc_attr( $i_cat ); ?>"
-								data-title="<?php echo esc_attr( $i_title ); ?>"
-								data-price="<?php echo esc_attr( $i_price ); ?>"
-								data-location="<?php echo esc_attr( $i_loc ); ?>"
-								data-specs="<?php echo esc_attr( $i_beds . ' • ' . $i_sqft ); ?>"
-								data-desc="<?php echo esc_attr( $i_desc ); ?>"
-								data-img="<?php echo esc_url( $i_img ); ?>"
-								tabindex="0"
-								role="button"
-								aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $i_title, $i_price ) ); ?>">
-
-								<span class="num"><?php echo esc_html( $num_str ); ?></span>
-
-								<span class="name">
-									<?php echo esc_html( $i_title ); ?>
-									<small><?php echo esc_html( $i_loc ); ?></small>
-								</span>
-
-								<span class="meta"><?php echo esc_html( $i_beds ); ?></span>
-								<span class="meta"><?php echo esc_html( $i_sqft ); ?></span>
-								<span class="price"><?php echo esc_html( $i_price ); ?></span>
-
-								<span class="ledger-arrow">
-									<span class="btn-circle-icon" aria-hidden="true">
-										<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-											<line x1="7" y1="17" x2="17" y2="7"></line>
-											<polyline points="7 7 17 7 17 17"></polyline>
-										</svg>
-									</span>
-								</span>
-
-								<?php if ( ! empty( $i_img ) ) : ?>
-									<div class="ledger-thumb" aria-hidden="true">
-										<img src="<?php echo esc_url( $i_img ); ?>" alt="<?php echo esc_attr( $i_title ); ?>" loading="lazy" />
-									</div>
-									<div class="ledger-mobile-thumb" aria-hidden="true">
-										<img src="<?php echo esc_url( $i_img ); ?>" alt="<?php echo esc_attr( $i_title ); ?>" loading="lazy" />
-									</div>
-								<?php endif; ?>
-
-							</div>
-							<?php
+					if ( ! empty( $entries ) ) :
+						foreach ( $entries as $index => $item ) :
+							echo self::render_ledger_row_html( $item, $index, 0 );
 						endforeach;
+					else :
+						?>
+						<div class="lre-ledger-empty" style="padding:3rem 0;text-align:center;color:#8E929B;font-family:var(--font-sans);font-size:0.95rem;">
+							<?php esc_html_e( 'No confidential transactions found in this registry.', 'luxury-re-widgets' ); ?>
+						</div>
+						<?php
 					endif;
 					?>
 				</div>
 
-				<?php if ( $show_footer ) : ?>
-					<div class="ledger-foot">
-						<a href="<?php echo esc_url( $cta_url ); ?>" class="btn-pill btn-pill-light"<?php echo $cta_target; ?>>
-							<span><?php echo esc_html( $cta_text ); ?></span>
-							<span class="btn-circle-icon" aria-hidden="true">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-									<line x1="7" y1="17" x2="17" y2="7"></line>
-									<polyline points="7 7 17 7 17 17"></polyline>
-								</svg>
-							</span>
-						</a>
+				<?php if ( $show_pagination && $max_pages > 1 ) : ?>
+					<div class="lre-ledger-pagination-wrap">
+						<?php echo self::render_pagination_html( $paged, $max_pages ); ?>
 					</div>
 				<?php endif; ?>
 
@@ -860,14 +998,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						</p>
 					</div>
 					<div class="lre-ledger-modal-actions">
-						<a href="<?php echo esc_url( $cta_url ); ?>" class="btn-pill btn-pill-light" style="width:100%; justify-content:center;">
+						<a href="/contact/" class="lre-ledger-inquire-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;padding:0.9rem 1.75rem;background:#C9A86A;color:#0D0E10;font-family:var(--font-sans);font-size:0.84rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s ease;">
 							<span><?php esc_html_e( 'Inquire Regarding Similar Acquisitions', 'luxury-re-widgets' ); ?></span>
-							<span class="btn-circle-icon" aria-hidden="true">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-									<line x1="7" y1="17" x2="17" y2="7"></line>
-									<polyline points="7 7 17 7 17 17"></polyline>
-								</svg>
-							</span>
+							<span aria-hidden="true">↗</span>
 						</a>
 					</div>
 				</div>

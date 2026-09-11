@@ -2347,47 +2347,19 @@
                     if ( sec._ledgerInit ) return;
                     sec._ledgerInit = true;
 
-                    // 1. Filter Tabs
-                    var filterBtns = sec.querySelectorAll( '.lre-ledger-filter, .ledger-filter-btn, .lre-sold-filter-btn' );
-                    var rows = sec.querySelectorAll( '.ledger-row, .lre-ledger-row, .lre-sold-card' );
+                    var source = sec.getAttribute( 'data-source' ) || 'cpt';
+                    var postsPerPage = parseInt( sec.getAttribute( 'data-posts-per-page' ) || '6', 10 );
+                    var orderby = sec.getAttribute( 'data-orderby' ) || 'date';
+                    var order = sec.getAttribute( 'data-order' ) || 'DESC';
 
-                    for ( var b = 0; b < filterBtns.length; b++ ) {
-                        filterBtns[b].addEventListener( 'click', function () {
-                            for ( var ob = 0; ob < filterBtns.length; ob++ ) {
-                                filterBtns[ob].classList.remove( 'is-active' );
-                                filterBtns[ob].setAttribute( 'aria-selected', 'false' );
-                            }
-                            this.classList.add( 'is-active' );
-                            this.setAttribute( 'aria-selected', 'true' );
+                    var ledgerWrap = sec.querySelector( '.lre-ledger' );
+                    var paginationWrap = sec.querySelector( '.lre-ledger-pagination-wrap' );
+                    var modal = sec.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' ) || document.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' );
 
-                            var filter = this.getAttribute( 'data-filter' );
-                            for ( var r = 0; r < rows.length; r++ ) {
-                                var row = rows[r];
-                                var cat = row.getAttribute( 'data-category' ) || '';
-                                if ( filter === 'all' || cat.indexOf( filter ) !== -1 ) {
-                                    row.classList.remove( 'is-hidden' );
-                                    row.style.opacity = '0';
-                                    ( function ( el ) {
-                                        setTimeout( function () {
-                                            el.style.transition = 'opacity 0.35s ease';
-                                            el.style.opacity = '1';
-                                        }, 20 );
-                                    } )( row );
-                                } else {
-                                    row.classList.add( 'is-hidden' );
-                                }
-                            }
-                        } );
-                    }
-
-                    // 2. Property Dossier Modal
-                    var modal = sec.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' );
-                    if ( ! modal ) modal = document.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' );
-
-                    if ( modal ) {
+                    // Modal Helpers
+                    function bindModalTriggers() {
+                        if ( ! modal ) return;
                         var openBtns = sec.querySelectorAll( '.trigger-prop-modal, .js-open-sold-modal' );
-                        var closeBtns = modal.querySelectorAll( '.lre-ledger-modal-close, #close-prop-modal, .js-close-sold-modal' );
-
                         var modalTitle = modal.querySelector( '#prop-modal-title, #lreModalTitle' );
                         var modalPrice = modal.querySelector( '#prop-modal-price, #lreModalPrice' );
                         var modalLoc   = modal.querySelector( '#prop-modal-location, #lreModalCity' );
@@ -2395,54 +2367,53 @@
                         var modalDesc  = modal.querySelector( '#prop-modal-desc, #lreModalDesc' );
                         var modalImg   = modal.querySelector( '#prop-modal-img, #lreModalImg' );
 
-                        var openModal = function ( row ) {
-                            var title = row.getAttribute( 'data-title' ) || '';
-                            var price = row.getAttribute( 'data-price' ) || '';
-                            var loc   = row.getAttribute( 'data-location' ) || '';
-                            var specs = row.getAttribute( 'data-specs' ) || '';
-                            var desc  = row.getAttribute( 'data-desc' ) || '';
-                            var img   = row.getAttribute( 'data-img' ) || row.getAttribute( 'data-image' ) || '';
-
-                            if ( modalTitle ) modalTitle.textContent = title;
-                            if ( modalPrice ) modalPrice.textContent = price;
-                            if ( modalLoc )   modalLoc.textContent = loc;
-                            if ( modalSpecs ) modalSpecs.textContent = specs;
-                            if ( modalDesc )  modalDesc.textContent = desc;
-                            if ( modalImg && img ) modalImg.src = img;
-
-                            if ( typeof modal.showModal === 'function' ) {
-                                modal.showModal();
-                            } else {
-                                modal.classList.add( 'is-active' );
-                            }
-                            document.body.style.overflow = 'hidden';
-                        };
-
-                        var closeModal = function () {
-                            if ( typeof modal.close === 'function' ) {
-                                modal.close();
-                            }
-                            modal.classList.remove( 'is-active' );
-                            document.body.style.overflow = '';
-                        };
-
                         for ( var ob = 0; ob < openBtns.length; ob++ ) {
-                            openBtns[ob].addEventListener( 'click', function ( e ) {
-                                // If target is a link inside the row (not row itself), let it navigate
+                            openBtns[ob].onclick = function ( e ) {
                                 if ( e.target.closest( 'a:not(.trigger-prop-modal)' ) ) return;
                                 e.preventDefault();
-                                openModal( this );
-                            } );
-                        }
+                                var row = this;
+                                var title = row.getAttribute( 'data-title' ) || '';
+                                var price = row.getAttribute( 'data-price' ) || '';
+                                var loc   = row.getAttribute( 'data-location' ) || '';
+                                var specs = row.getAttribute( 'data-specs' ) || '';
+                                var desc  = row.getAttribute( 'data-desc' ) || '';
+                                var img   = row.getAttribute( 'data-img' ) || row.getAttribute( 'data-image' ) || '';
 
+                                if ( modalTitle ) modalTitle.textContent = title;
+                                if ( modalPrice ) modalPrice.textContent = price;
+                                if ( modalLoc )   modalLoc.textContent = loc;
+                                if ( modalSpecs ) modalSpecs.textContent = specs;
+                                if ( modalDesc )  modalDesc.textContent = desc;
+                                if ( modalImg && img ) modalImg.src = img;
+
+                                if ( typeof modal.showModal === 'function' ) {
+                                    modal.showModal();
+                                } else {
+                                    modal.classList.add( 'is-active' );
+                                }
+                                document.body.style.overflow = 'hidden';
+                            };
+                        }
+                    }
+
+                    function closeModal() {
+                        if ( ! modal ) return;
+                        if ( typeof modal.close === 'function' ) {
+                            modal.close();
+                        }
+                        modal.classList.remove( 'is-active' );
+                        document.body.style.overflow = '';
+                    }
+
+                    if ( modal && ! modal._modalInit ) {
+                        modal._modalInit = true;
+                        var closeBtns = modal.querySelectorAll( '.lre-ledger-modal-close, #close-prop-modal, .js-close-sold-modal' );
                         for ( var cb = 0; cb < closeBtns.length; cb++ ) {
                             closeBtns[cb].addEventListener( 'click', function ( e ) {
                                 e.preventDefault();
                                 closeModal();
                             } );
                         }
-
-                        // Close on backdrop click (for <dialog>)
                         modal.addEventListener( 'click', function ( e ) {
                             var rect = modal.getBoundingClientRect();
                             var isInDialog = (
@@ -2455,10 +2426,140 @@
                                 closeModal();
                             }
                         } );
-
                         document.addEventListener( 'keydown', function ( e ) {
                             if ( e.key === 'Escape' ) {
                                 closeModal();
+                            }
+                        } );
+                    }
+
+                    bindModalTriggers();
+
+                    // AJAX Pagination and Filtering
+                    function fetchPage( page, category ) {
+                        var ajaxUrl = ( typeof LREData !== 'undefined' && LREData.ajaxUrl ) ? LREData.ajaxUrl : '/wp-admin/admin-ajax.php';
+                        if ( ledgerWrap ) {
+                            ledgerWrap.classList.add( 'is-loading' );
+                        }
+
+                        var formData = new FormData();
+                        formData.append( 'action', 'lre_load_sold_portfolio' );
+                        formData.append( 'paged', page );
+                        formData.append( 'posts_per_page', postsPerPage );
+                        formData.append( 'category', category );
+                        formData.append( 'orderby', orderby );
+                        formData.append( 'order', order );
+
+                        fetch( ajaxUrl, {
+                            method: 'POST',
+                            body: formData
+                        } )
+                        .then( function ( res ) { return res.json(); } )
+                        .then( function ( data ) {
+                            if ( ledgerWrap ) {
+                                ledgerWrap.classList.remove( 'is-loading' );
+                            }
+                            if ( data && data.success && data.data ) {
+                                if ( ledgerWrap ) {
+                                    ledgerWrap.innerHTML = data.data.html;
+                                }
+                                if ( paginationWrap ) {
+                                    paginationWrap.innerHTML = data.data.pagination_html;
+                                }
+                                bindModalTriggers();
+                                bindPaginationEvents();
+
+                                // Smooth gentle scroll into view
+                                var rect = sec.getBoundingClientRect();
+                                if ( rect.top < 0 ) {
+                                    sec.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+                                }
+                            }
+                        } )
+                        .catch( function ( err ) {
+                            if ( ledgerWrap ) {
+                                ledgerWrap.classList.remove( 'is-loading' );
+                            }
+                            console.error( 'LRE Sold Portfolio AJAX Error:', err );
+                        } );
+                    }
+
+                    function bindPaginationEvents() {
+                        if ( ! paginationWrap ) return;
+                        var pageBtns = paginationWrap.querySelectorAll( '.lre-ledger-page-btn:not(.is-disabled)' );
+                        for ( var i = 0; i < pageBtns.length; i++ ) {
+                            pageBtns[i].onclick = function ( e ) {
+                                e.preventDefault();
+                                var page = parseInt( this.getAttribute( 'data-page' ) || '1', 10 );
+                                if ( ! page || this.classList.contains( 'is-active' ) ) return;
+
+                                var activeCat = sec.querySelector( '.lre-ledger-filter.is-active' );
+                                var cat = activeCat ? ( activeCat.getAttribute( 'data-filter' ) || 'all' ) : 'all';
+
+                                if ( source === 'cpt' ) {
+                                    fetchPage( page, cat );
+                                } else {
+                                    // Client-side repeater pagination
+                                    paginateRepeater( page );
+                                }
+                            };
+                        }
+                    }
+
+                    function paginateRepeater( page ) {
+                        var rows = sec.querySelectorAll( '.ledger-row, .lre-ledger-row' );
+                        var total = rows.length;
+                        var start = ( page - 1 ) * postsPerPage;
+                        var end = start + postsPerPage;
+
+                        for ( var i = 0; i < total; i++ ) {
+                            if ( i >= start && i < end ) {
+                                rows[i].classList.remove( 'is-hidden' );
+                            } else {
+                                rows[i].classList.add( 'is-hidden' );
+                            }
+                        }
+
+                        // Update active state in pagination buttons
+                        var pageBtns = paginationWrap ? paginationWrap.querySelectorAll( '.lre-ledger-page-btn' ) : [];
+                        for ( var j = 0; j < pageBtns.length; j++ ) {
+                            var btnPage = parseInt( pageBtns[j].getAttribute( 'data-page' ), 10 );
+                            if ( btnPage === page ) {
+                                pageBtns[j].classList.add( 'is-active' );
+                            } else {
+                                pageBtns[j].classList.remove( 'is-active' );
+                            }
+                        }
+                    }
+
+                    bindPaginationEvents();
+
+                    // Filter Tabs
+                    var filterBtns = sec.querySelectorAll( '.lre-ledger-filter, .ledger-filter-btn' );
+                    for ( var b = 0; b < filterBtns.length; b++ ) {
+                        filterBtns[b].addEventListener( 'click', function ( e ) {
+                            e.preventDefault();
+                            for ( var ob = 0; ob < filterBtns.length; ob++ ) {
+                                filterBtns[ob].classList.remove( 'is-active' );
+                                filterBtns[ob].setAttribute( 'aria-selected', 'false' );
+                            }
+                            this.classList.add( 'is-active' );
+                            this.setAttribute( 'aria-selected', 'true' );
+
+                            var filter = this.getAttribute( 'data-filter' ) || 'all';
+
+                            if ( source === 'cpt' ) {
+                                fetchPage( 1, filter );
+                            } else {
+                                var allRows = sec.querySelectorAll( '.ledger-row, .lre-ledger-row' );
+                                for ( var r = 0; r < allRows.length; r++ ) {
+                                    var rCat = allRows[r].getAttribute( 'data-category' ) || '';
+                                    if ( filter === 'all' || rCat.indexOf( filter ) !== -1 ) {
+                                        allRows[r].classList.remove( 'is-hidden' );
+                                    } else {
+                                        allRows[r].classList.add( 'is-hidden' );
+                                    }
+                                }
                             }
                         } );
                     }

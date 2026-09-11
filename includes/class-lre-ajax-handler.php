@@ -30,6 +30,10 @@ class LRE_Ajax_Handler {
 		add_action( 'wp_ajax_nopriv_lre_home_valuation_submit', array( $this, 'handle_home_valuation' ) );
 		add_action( 'wp_ajax_lre_home_evaluation_submit',       array( $this, 'handle_home_valuation' ) );
 		add_action( 'wp_ajax_nopriv_lre_home_evaluation_submit',array( $this, 'handle_home_valuation' ) );
+
+		// Sold Portfolio / The Private Ledger AJAX pagination & filtering.
+		add_action( 'wp_ajax_lre_load_sold_portfolio',        array( $this, 'handle_load_sold_portfolio' ) );
+		add_action( 'wp_ajax_nopriv_lre_load_sold_portfolio', array( $this, 'handle_load_sold_portfolio' ) );
 	}
 
 	// =========================================================================
@@ -605,6 +609,111 @@ class LRE_Ajax_Handler {
 		wp_send_json_success( array(
 			"message" => __( "Thank you. Your valuation request has been received. Adolfo Aguirre will prepare your confidential property dossier.", "luxury-re-widgets" ),
 		) );
+	}
+
+	/**
+	 * Handles AJAX loading and pagination for The Private Ledger (Sold Portfolio).
+	 */
+	public function handle_load_sold_portfolio() {
+		$paged          = isset( $_POST['paged'] ) ? max( 1, intval( $_POST['paged'] ) ) : 1;
+		$posts_per_page = isset( $_POST['posts_per_page'] ) ? max( 1, intval( $_POST['posts_per_page'] ) ) : 6;
+		$category       = isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : 'all';
+		$orderby        = isset( $_POST['orderby'] ) ? sanitize_text_field( wp_unslash( $_POST['orderby'] ) ) : 'date';
+		$order          = isset( $_POST['order'] ) ? sanitize_text_field( wp_unslash( $_POST['order'] ) ) : 'DESC';
+
+		$args = array(
+			'post_type'      => 'lre_sold_property',
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+			'paged'          => $paged,
+		);
+
+		if ( 'price' === $orderby ) {
+			$args['meta_key'] = '_lre_sold_price';
+			$args['orderby']  = 'meta_value_num';
+			$args['order']    = $order;
+		} elseif ( 'title' === $orderby ) {
+			$args['orderby'] = 'title';
+			$args['order']   = $order;
+		} else {
+			$args['orderby'] = 'date';
+			$args['order']   = $order;
+		}
+
+		if ( ! empty( $category ) && 'all' !== $category ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'sold_location',
+					'field'    => 'slug',
+					'terms'    => $category,
+				),
+			);
+		}
+
+		$query = new \WP_Query( $args );
+		$html  = '';
+		$offset = ( $paged - 1 ) * $posts_per_page;
+
+		if ( ! class_exists( 'LRE_Sold_Portfolio_Widget' ) && defined( 'LRE_PATH' ) ) {
+			require_once LRE_PATH . 'widgets/class-lre-sold-portfolio-widget.php';
+		}
+
+		if ( $query->have_posts() ) {
+			$index = 0;
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$post_id   = get_the_ID();
+				$title     = get_the_title();
+				$price     = get_post_meta( $post_id, '_lre_sold_price', true );
+				$beds      = get_post_meta( $post_id, '_lre_beds', true );
+				$baths     = get_post_meta( $post_id, '_lre_baths', true );
+				$sqft      = get_post_meta( $post_id, '_lre_sqft', true );
+				$city      = get_post_meta( $post_id, '_lre_city', true );
+				$badge     = get_post_meta( $post_id, '_lre_badge', true );
+				$img_url   = get_the_post_thumbnail_url( $post_id, 'large' );
+				$terms     = wp_get_post_terms( $post_id, 'sold_location', array( 'fields' => 'slugs' ) );
+				$cat_slug  = ! empty( $terms ) ? implode( ' ', $terms ) : '';
+				$loc_names = wp_get_post_terms( $post_id, 'sold_location', array( 'fields' => 'names' ) );
+				$location  = ! empty( $loc_names ) ? implode( ', ', $loc_names ) : ( $city ? $city . ', California' : 'Pasadena, California' );
+				$desc      = get_the_excerpt() ? get_the_excerpt() : wp_trim_words( get_post_field( 'post_content', $post_id ), 25 );
+
+				$item = array(
+					'title'       => $title,
+					'price'       => $price ?: 'Confidential',
+					'beds'        => $beds ?: '',
+					'baths'       => $baths ?: '',
+					'sqft'        => $sqft ?: '',
+					'location'    => $location,
+					'category'    => $cat_slug,
+					'image_url'   => $img_url ?: '',
+					'description' => $desc,
+				);
+
+				if ( class_exists( 'LRE_Sold_Portfolio_Widget' ) && method_exists( 'LRE_Sold_Portfolio_Widget', 'render_ledger_row_html' ) ) {
+					$html .= LRE_Sold_Portfolio_Widget::render_ledger_row_html( $item, $index, $offset );
+				}
+				$index++;
+			}
+			wp_reset_postdata();
+		} else {
+			$html = '<div class="lre-ledger-empty" style="padding:3rem 0;text-align:center;color:#8E929B;font-family:var(--font-sans);font-size:0.95rem;">' . esc_html__( 'No confidential transactions found in this registry category.', 'luxury-re-widgets' ) . '</div>';
+		}
+
+		$max_pages = $query->max_num_pages;
+		$pagination_html = '';
+		if ( class_exists( 'LRE_Sold_Portfolio_Widget' ) && method_exists( 'LRE_Sold_Portfolio_Widget', 'render_pagination_html' ) ) {
+			$pagination_html = LRE_Sold_Portfolio_Widget::render_pagination_html( $paged, $max_pages );
+		}
+
+		wp_send_json_success(
+			array(
+				'html'            => $html,
+				'pagination_html' => $pagination_html,
+				'current_page'    => $paged,
+				'max_pages'       => $max_pages,
+				'total_found'     => $query->found_posts,
+			)
+		);
 	}
 
 }

@@ -309,6 +309,7 @@ p {
    ========================================================================== */
 
 /* Universal Eyebrow Container / Wrapper */
+.lre-home-val__eyebrow-wrap,
 .lre-guide__eyebrow-wrap,
 .lre-sguide__eyebrow-wrap,
 .lre-contact__eyebrow-wrap,
@@ -333,6 +334,7 @@ p {
 }
 
 /* Universal Eyebrow Gold Accent Bar */
+.lre-home-val__eyebrow-bar,
 .lre-guide__eyebrow-bar,
 .lre-sguide__eyebrow-bar,
 .lre-contact__eyebrow-bar,
@@ -363,6 +365,7 @@ p {
 
 /* Universal Eyebrow Text Standard */
 .section-label,
+.lre-home-val__eyebrow,
 .lre-guide__eyebrow,
 .lre-sguide__eyebrow,
 .lre-contact__eyebrow,
@@ -453,6 +456,7 @@ p {
    ========================================================================== */
 
 /* Universal Section Subtitle / Description */
+.lre-home-val__desc,
 .lre-guide__description,
 .lre-sguide__description,
 .lre-contact__description,
@@ -472,6 +476,7 @@ p {
 }
 
 /* Center-Aligned Subtitles */
+.lre-home-val__desc,
 .lre-guide__description,
 .lre-sguide__description,
 .lre-contact__description,
@@ -494,6 +499,7 @@ p {
 }
 
 /* Dark Luxury Theme Section Subtitles */
+.lre-home-val__desc,
 .lre-guide__description,
 .lre-sguide__description,
 .lre-contact__description,
@@ -13106,7 +13112,8 @@ body.elementor-editor-active .lre-contact__left {
     font-size: clamp(1.75rem, 7.5vw, 2.2rem) !important;
     margin-bottom: 1rem;
   }
-  .lre-guide__description,
+  .lre-home-val__desc,
+.lre-guide__description,
   .lre-sguide__description {
     font-size: 0.85rem !important;
     line-height: 1.7;
@@ -16029,3 +16036,519 @@ textarea.wss-home-eval-input:focus {
     font-size: 14px !important;
   }
 }
+
+
+/* ==========================================================================
+   LRE HOME VALUATION — SIGNATURE LUXURY DESIGN SYSTEM
+   Strictly unified with luxury-re-widgets design language & tokens
+   ========================================================================== */
+
+.lre-home-val {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-light-warm, #faf8f5);
+  padding: 120px 0 140px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.lre-home-val .lre-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header & Typography */
+.lre-home-val__header {
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto 52px;
+}
+
+.lre-home-val__eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.lre-home-val__eyebrow-bar {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.lre-home-val__eyebrow {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-secondary, #c5a047);
+  line-height: 1;
+  margin: 0;
+}
+
+.lre-home-val__title {
+  font-family: var(--font-accent, var(--font-serif, 'Cormorant Garamond', serif));
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: var(--font-weight-primary, 400);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-primary, #0a0a0a);
+  margin: 0 0 1.25rem;
+}
+
+.lre-home-val__desc {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: var(--font-size-section-subtitle, 0.92rem);
+  line-height: 1.85;
+  font-weight: 400;
+  color: var(--color-text-muted, #6b6b6b);
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Trust Pills */
+.lre-home-val__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.lre-home-val__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  background: rgba(10, 10, 10, 0.035);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: 9999px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary, #0a0a0a);
+  transition: all 0.3s ease;
+}
+
+.lre-home-val__pill:hover {
+  background: rgba(10, 10, 10, 0.06);
+  border-color: rgba(10, 10, 10, 0.16);
+}
+
+.lre-home-val__pill svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--color-secondary, #c5a047);
+  flex-shrink: 0;
+}
+
+/* Multi-Step Luxury Card */
+.lre-home-val__card {
+  background: #ffffff;
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+  padding: 56px 64px 60px;
+  position: relative;
+  transition: box-shadow 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Step Tabs & Progress */
+.lre-home-val__steps-wrapper {
+  margin-bottom: 40px;
+}
+
+.lre-home-val__steps-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.lre-home-val__step-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.lre-home-val__step-tab.active {
+  background: rgba(10, 10, 10, 0.03);
+  border-bottom: 2px solid var(--color-primary, #0a0a0a);
+}
+
+.lre-home-val__step-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(10, 10, 10, 0.2);
+  background: #ffffff;
+  color: var(--color-text-muted, #6b6b6b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.35s ease;
+}
+
+.lre-home-val__step-tab.active .lre-home-val__step-badge {
+  background: var(--color-primary, #0a0a0a);
+  border-color: var(--color-primary, #0a0a0a);
+  color: #ffffff;
+}
+
+.lre-home-val__step-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lre-home-val__step-phase {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #999999);
+}
+
+.lre-home-val__step-name {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary, #0a0a0a);
+}
+
+.lre-home-val__progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(10, 10, 10, 0.08);
+  margin-top: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lre-home-val__progress-bar {
+  height: 100%;
+  background: var(--color-primary, #0a0a0a);
+  transition: width 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Form Fields & Grid */
+.lre-home-val__grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.lre-home-val__field {
+  padding: 0 10px;
+  margin-bottom: 22px;
+  box-sizing: border-box;
+}
+
+.lre-home-val__field.wss-col-100 { width: 100%; }
+.lre-home-val__field.wss-col-50  { width: 50%; }
+.lre-home-val__field.wss-col-33  { width: 33.333%; }
+.lre-home-val__field.wss-col-25  { width: 25%; }
+.lre-home-val__field.wss-col-66  { width: 66.666%; }
+.lre-home-val__field.wss-col-75  { width: 75%; }
+
+.lre-home-val__label {
+  display: block;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary, #0a0a0a);
+  margin-bottom: 8px;
+}
+
+.lre-home-val__label .lre-req {
+  color: var(--color-secondary, #c5a047);
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+.lre-home-val__input,
+.lre-home-val__select,
+.lre-home-val__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 400;
+  padding: 14px 18px;
+  background-color: #f3f2ee;
+  border: 1px solid rgba(10, 10, 10, 0.06);
+  border-radius: 3px;
+  color: var(--color-primary, #0a0a0a);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.lre-home-val__input::placeholder,
+.lre-home-val__textarea::placeholder {
+  color: rgba(10, 10, 10, 0.38);
+  font-weight: 300;
+}
+
+.lre-home-val__input:focus,
+.lre-home-val__select:focus,
+.lre-home-val__textarea:focus {
+  border-color: var(--color-primary, #0a0a0a) !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 1px var(--color-primary, #0a0a0a) !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   BUTTON CONSISTENCY (SLIDING FILL + DIAGONAL SHIMMER + ARROW TRANSLATE)
+   ========================================================================== */
+.lre-home-val__btn-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(10, 10, 10, 0.08);
+}
+
+/* Universal Button Architecture */
+.lre-home-val__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 1.05rem 2.8rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Next / Continue Button (Pill Outline -> Black Sliding Fill) */
+.lre-home-val__btn--next {
+  background-color: transparent;
+  color: var(--color-primary, #0a0a0a);
+  border: 1.5px solid var(--color-primary, #0a0a0a);
+  --btn-val-hover-bg: var(--color-primary, #0a0a0a);
+}
+
+.lre-home-val__btn--next::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--btn-val-hover-bg, #0a0a0a);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  z-index: 0;
+}
+
+.lre-home-val__btn--next:hover::before {
+  transform: translateY(0);
+}
+
+.lre-home-val__btn--next:hover {
+  color: #ffffff !important;
+  border-color: var(--btn-val-hover-bg, #0a0a0a) !important;
+}
+
+/* Diagonal reflection shine effect (Exact parity with .lre-contact__submit-btn & global .btn::after) */
+.lre-home-val__btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+  z-index: 2;
+}
+
+.lre-home-val__btn:hover::after {
+  left: 140%;
+  transition: left 0.85s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.lre-home-val__btn-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+  font-family: inherit;
+  color: inherit;
+}
+
+.lre-home-val__btn-arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  margin-left: 2px;
+}
+
+.lre-home-val__btn:hover .lre-home-val__btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Previous / Back Button */
+.lre-home-val__btn-back {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #6b6b6b);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.lre-home-val__btn-back:hover {
+  color: var(--color-primary, #0a0a0a) !important;
+}
+
+.lre-home-val__btn-arrow-back {
+  display: inline-block;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.lre-home-val__btn-back:hover .lre-home-val__btn-arrow-back {
+  transform: translateX(-4px);
+}
+
+/* Submit Button (Primary Dark -> Gold Sliding Fill) */
+.lre-home-val__btn--submit {
+  background-color: var(--color-primary, #0a0a0a);
+  color: #ffffff;
+  border: 1.5px solid var(--color-primary, #0a0a0a);
+  --btn-val-submit-hover: var(--color-secondary, #c5a047);
+}
+
+.lre-home-val__btn--submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--btn-val-submit-hover, #c5a047);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  z-index: 0;
+}
+
+.lre-home-val__btn--submit:hover::before {
+  transform: translateY(0);
+}
+
+.lre-home-val__btn--submit:hover {
+  color: #ffffff !important;
+  border-color: var(--btn-val-submit-hover, #c5a047) !important;
+}
+
+/* Privacy Badge */
+.lre-home-val .wss-home-eval-privacy-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted, #888888);
+}
+
+.lre-home-val .wss-home-eval-privacy-badge svg {
+  stroke: var(--color-secondary, #c5a047);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .lre-home-val__card {
+    padding: 40px 28px;
+  }
+  .lre-home-val__step-tab {
+    padding: 12px 10px;
+  }
+}
+
+@media (max-width: 680px) {
+  .lre-home-val {
+    padding: 80px 0 90px;
+  }
+  .lre-home-val__steps-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .lre-home-val__field.wss-col-50,
+  .lre-home-val__field.wss-col-33,
+  .lre-home-val__field.wss-col-25 {
+    width: 100%;
+  }
+  .lre-home-val__btn-row {
+    flex-direction: column-reverse;
+    gap: 16px;
+  }
+  .lre-home-val__btn--next,
+  .lre-home-val__btn--submit {
+    width: 100%;
+  }
+}
+

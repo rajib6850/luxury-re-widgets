@@ -2118,12 +2118,12 @@
                 if ( section.getAttribute( 'data-eval-initialized' ) === 'true' ) return;
                 section.setAttribute( 'data-eval-initialized', 'true' );
 
-                var form = section.querySelector( '.wss-home-eval-form, .lre-home-eval-form' );
-                var tabs = section.querySelectorAll( '.wss-home-eval-step-tab, .lre-home-eval-step-tab' );
-                var panes = section.querySelectorAll( '.wss-home-eval-step-pane, .lre-home-eval-step-pane' );
+                var form = section.querySelector( '.lre-home-val__form, .wss-home-eval-form, .lre-home-eval-form' );
+                var tabs = section.querySelectorAll( '.lre-home-val__step-tab, .wss-home-eval-step-tab, .lre-home-eval-step-tab' );
+                var panes = section.querySelectorAll( '.lre-home-val__step-pane, .wss-home-eval-step-pane, .lre-home-eval-step-pane' );
                 var successBox = section.querySelector( '.wss-home-eval-success-state, .lre-home-eval-success-state' );
                 var resetBtn = section.querySelector( '.wss-home-eval-reset-btn, .lre-home-eval-reset-btn' );
-                var progressFill = section.querySelector( '.wss-home-eval-progress-fill, .lre-home-eval-progress-fill' );
+                var progressFill = section.querySelector( '.lre-home-val__progress-bar, .wss-home-eval-progress-fill, .lre-home-eval-progress-fill' );
 
                 function goToStep( targetStep ) {
                     tabs.forEach( function ( tab ) {
@@ -2160,7 +2160,7 @@
                 }
 
                 function validateStep( currentStep ) {
-                    var currentPane = section.querySelector( '.wss-home-eval-step-pane[data-step-pane="' + currentStep + '"], .lre-home-eval-step-pane[data-step-pane="' + currentStep + '"]' );
+                    var currentPane = section.querySelector( '.lre-home-val__step-pane[data-step-pane="' + currentStep + '"], .wss-home-eval-step-pane[data-step-pane="' + currentStep + '"], .lre-home-eval-step-pane[data-step-pane="' + currentStep + '"]' );
                     if ( ! currentPane ) return true;
 
                     var requiredInputs = currentPane.querySelectorAll( '[required]' );
@@ -2188,7 +2188,7 @@
                 tabs.forEach( function ( tab ) {
                     tab.addEventListener( 'click', function () {
                         var targetStep = parseInt( tab.getAttribute( 'data-step' ), 10 );
-                        var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active, .wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
                         var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 1;
 
                         if ( targetStep > currentStep ) {
@@ -2199,7 +2199,7 @@
                 } );
 
                 // Next buttons
-                var nextBtns = section.querySelectorAll( '.wss-home-eval-next-btn, .lre-home-eval-next-btn' );
+                var nextBtns = section.querySelectorAll( '.lre-home-val__btn--next, .wss-home-eval-next-btn, .lre-home-eval-next-btn' );
                 nextBtns.forEach( function ( btn ) {
                     btn.addEventListener( 'click', function () {
                         var nextStep = parseInt( btn.getAttribute( 'data-next' ), 10 );
@@ -2211,7 +2211,7 @@
                 } );
 
                 // Back buttons
-                var backBtns = section.querySelectorAll( '.wss-btn-back, .lre-btn-back' );
+                var backBtns = section.querySelectorAll( '.lre-home-val__btn-back, .lre-home-val__btn--prev, .wss-btn-back, .lre-btn-back' );
                 backBtns.forEach( function ( btn ) {
                     btn.addEventListener( 'click', function () {
                         var prevStep = parseInt( btn.getAttribute( 'data-prev' ), 10 );
@@ -2254,11 +2254,11 @@
                     form.addEventListener( 'submit', function ( e ) {
                         e.preventDefault();
 
-                        var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active, .wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
                         var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 3;
                         if ( ! validateStep( currentStep ) ) return;
 
-                        var submitBtn = form.querySelector( '.wss-home-eval-submit-btn, .lre-home-eval-submit-btn' );
+                        var submitBtn = form.querySelector( '.lre-home-val__btn--submit, .wss-home-eval-submit-btn, .lre-home-eval-submit-btn' );
                         var originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
 
                         if ( submitBtn ) {

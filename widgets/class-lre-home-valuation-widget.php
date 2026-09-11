@@ -833,7 +833,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-eyebrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-home-val__eyebrow, {{WRAPPER}} .wss-home-eval-eyebrow' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -842,7 +842,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'eyebrow_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-eyebrow',
+				'selector' => '{{WRAPPER}} .lre-home-val__eyebrow, {{WRAPPER}} .wss-home-eval-eyebrow',
 			)
 		);
 
@@ -852,7 +852,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Heading Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span, {{WRAPPER}} .wss-home-eval-heading h1, {{WRAPPER}} .wss-home-eval-heading h2, {{WRAPPER}} .wss-home-eval-heading h3, {{WRAPPER}} .wss-home-eval-heading h4, {{WRAPPER}} .wss-home-eval-heading h5, {{WRAPPER}} .wss-home-eval-heading h6' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__title, {{WRAPPER}} .lre-home-val__title .title-mask > span, {{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -861,7 +861,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span, {{WRAPPER}} .wss-home-eval-heading h1, {{WRAPPER}} .wss-home-eval-heading h2, {{WRAPPER}} .wss-home-eval-heading h3, {{WRAPPER}} .wss-home-eval-heading h4, {{WRAPPER}} .wss-home-eval-heading h5, {{WRAPPER}} .wss-home-eval-heading h6',
+				'selector' => '{{WRAPPER}} .lre-home-val__title, {{WRAPPER}} .lre-home-val__title .title-mask > span, {{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span',
 			)
 		);
 
@@ -871,7 +871,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Description Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-home-val__desc, {{WRAPPER}} .wss-home-eval-desc' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -880,7 +880,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'desc_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-desc',
+				'selector' => '{{WRAPPER}} .lre-home-val__desc, {{WRAPPER}} .wss-home-eval-desc',
 			)
 		);
 
@@ -919,7 +919,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				),
 				'default'   => 'center',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'justify-content: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__pills, {{WRAPPER}} .wss-home-eval-trust-pills' => 'justify-content: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -928,7 +928,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'trust_pill_typography',
-				'selector' => '{{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span',
+				'selector' => '{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .lre-home-val__pill span, {{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span',
 			)
 		);
 
@@ -947,7 +947,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .lre-home-val__pill span, {{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -958,7 +958,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-trust-pill svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill svg, {{WRAPPER}} .wss-trust-pill svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-trust-pill i'   => 'color: {{VALUE}} !important;',
 				),
 			)
@@ -970,7 +970,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-trust-pill' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .wss-trust-pill' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -981,7 +981,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-trust-pill' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .wss-trust-pill' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1052,7 +1052,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'size_units' => array( 'px', 'em', '%' ),
 				'separator'  => 'before',
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-trust-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .wss-trust-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1065,7 +1065,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-trust-pill' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__pill, {{WRAPPER}} .wss-trust-pill' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1078,7 +1078,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'size_units' => array( 'px', 'em' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'gap: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__pills, {{WRAPPER}} .wss-home-eval-trust-pills' => 'gap: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1091,7 +1091,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'size_units' => array( 'px', 'em' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__pills, {{WRAPPER}} .wss-home-eval-trust-pills' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1122,7 +1122,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Label Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-field-label' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__label, {{WRAPPER}} .wss-field-label' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1131,7 +1131,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'label_typography',
-				'selector' => '{{WRAPPER}} .wss-field-label',
+				'selector' => '{{WRAPPER}} .lre-home-val__label, {{WRAPPER}} .wss-field-label',
 			)
 		);
 
@@ -1150,7 +1150,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			array(
 				'name'     => 'input_typography',
 				'label'    => __( 'Input Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-label',
+				'selector' => '{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input',
 			)
 		);
 
@@ -1168,7 +1168,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1179,7 +1179,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-label' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1201,7 +1201,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1210,7 +1210,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_box_shadow',
-				'selector' => '{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box',
+				'selector' => '{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input',
 			)
 		);
 
@@ -1228,7 +1228,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Focus / Hover Background', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .wss-home-eval-input:focus' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1251,7 +1251,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#a8916f',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .wss-home-eval-input:focus' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1260,7 +1260,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_focus_box_shadow',
-				'selector' => '{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover',
+				'selector' => '{{WRAPPER}} .lre-home-val__input:focus, {{WRAPPER}} .lre-home-val__select:focus, {{WRAPPER}} .lre-home-val__textarea:focus, {{WRAPPER}} .wss-home-eval-input:focus',
 			)
 		);
 
@@ -1318,7 +1318,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'default'    => array( 'size' => 5, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__input, {{WRAPPER}} .lre-home-val__select, {{WRAPPER}} .lre-home-val__textarea, {{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1359,7 +1359,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'btn_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
+				'selector' => '{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
 			)
 		);
 
@@ -1370,7 +1370,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1403,7 +1403,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Text / Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-home-eval-submit-btn svg, {{WRAPPER}} .wss-home-eval-next-btn svg, {{WRAPPER}} .wss-home-eval-reset-btn svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
@@ -1415,7 +1415,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1426,7 +1426,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1435,7 +1435,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'btn_shadow',
-				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
+				'selector' => '{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
 			)
 		);
 
@@ -1453,7 +1453,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Hover Text / Icon Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn:hover, {{WRAPPER}} .lre-home-val__btn--next:hover, {{WRAPPER}} .lre-home-val__btn--submit:hover, {{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-home-eval-submit-btn:hover svg, {{WRAPPER}} .wss-home-eval-next-btn:hover svg, {{WRAPPER}} .wss-home-eval-reset-btn:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
@@ -1466,7 +1466,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-home-eval-submit-btn::before, {{WRAPPER}} .wss-home-eval-next-btn::before, {{WRAPPER}} .wss-home-eval-reset-btn::before, {{WRAPPER}} .wss-home-eval-submit-btn:hover::before, {{WRAPPER}} .wss-home-eval-next-btn:hover::before, {{WRAPPER}} .wss-home-eval-reset-btn:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => '--wss-btn-hover-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn, {{WRAPPER}} .lre-home-val__btn--next, {{WRAPPER}} .lre-home-val__btn--submit, {{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => '--wss-btn-hover-bg: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1477,7 +1477,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn:hover, {{WRAPPER}} .lre-home-val__btn--next:hover, {{WRAPPER}} .lre-home-val__btn--submit:hover, {{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1486,7 +1486,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'btn_hover_shadow',
-				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover',
+				'selector' => '{{WRAPPER}} .lre-home-val__btn:hover, {{WRAPPER}} .lre-home-val__btn--next:hover, {{WRAPPER}} .lre-home-val__btn--submit:hover, {{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover',
 			)
 		);
 
@@ -1507,7 +1507,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'back_btn_typography',
-				'selector' => '{{WRAPPER}} .wss-btn-back',
+				'selector' => '{{WRAPPER}} .lre-home-val__btn-back, {{WRAPPER}} .lre-home-val__btn--prev, {{WRAPPER}} .wss-btn-back',
 			)
 		);
 
@@ -1517,7 +1517,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Back Button Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-btn-back' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back, {{WRAPPER}} .lre-home-val__btn--prev, {{WRAPPER}} .wss-btn-back' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1528,7 +1528,7 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 				'label'     => __( 'Back Button Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-btn-back:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-home-val__btn-back:hover, {{WRAPPER}} .lre-home-val__btn--prev:hover, {{WRAPPER}} .wss-btn-back:hover' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1578,26 +1578,31 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 			$total_steps = 1;
 		}
 		?>
-		<div class="wss-scope">
-			<section class="wss-home-eval-section <?php echo esc_attr( $preset_class ); ?>" data-lre-widget="lre-home-valuation" data-wss-widget="wss-home-evaluation">
-				<div class="wss-container">
+		<div class="lre-scope wss-scope">
+			<section class="lre-home-val lre-home-val-section wss-home-eval-section <?php echo esc_attr( $preset_class ); ?>" data-lre-widget="lre-home-valuation" data-wss-widget="wss-home-evaluation">
+				<div class="lre-container wss-container">
 					
 					<!-- Section Header -->
-					<div class="wss-home-eval-header wss-reveal">
+					<div class="lre-home-val__header wss-home-eval-header wss-reveal">
 						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-							<span class="wss-home-eval-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+							<div class="lre-home-val__eyebrow-wrap wss-home-eval-eyebrow-wrap">
+								<span class="lre-home-val__eyebrow-bar wss-home-eval-eyebrow-bar"></span>
+								<span class="lre-home-val__eyebrow wss-home-eval-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+							</div>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $s['heading'] ) ) : ?>
-							<<?php echo esc_attr( $tag ); ?> class="wss-home-eval-title">
-								<span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
+							<<?php echo esc_attr( $tag ); ?> class="lre-home-val__title section-title wss-home-eval-title">
+								<span class="title-mask wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
 							</<?php echo esc_attr( $tag ); ?>>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $s['description'] ) ) : ?>
-							<p class="wss-home-eval-desc">
-								<?php echo nl2br( esc_html( $s['description'] ) ); ?>
-							</p>
+							<div class="lre-home-val__desc-wrap">
+								<p class="lre-home-val__desc wss-home-eval-desc">
+									<?php echo nl2br( esc_html( $s['description'] ) ); ?>
+								</p>
+							</div>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $s['show_trust_pills'] ) && 'yes' === $s['show_trust_pills'] ) : ?>
@@ -1609,10 +1614,10 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 							);
 							?>
 							<?php if ( ! empty( $trust_pills ) ) : ?>
-								<div class="wss-home-eval-trust-pills">
+								<div class="lre-home-val__pills wss-home-eval-trust-pills">
 									<?php foreach ( $trust_pills as $pill ) : ?>
 										<?php if ( ! empty( $pill['text'] ) ) : ?>
-											<span class="wss-trust-pill">
+											<span class="lre-home-val__pill wss-trust-pill">
 												<?php echo $this->render_trust_pill_icon( $pill['icon_type'] ?? 'shield', $pill['custom_icon'] ?? array() ); ?>
 												<span><?php echo esc_html( $pill['text'] ); ?></span>
 											</span>
@@ -1624,30 +1629,30 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 					</div>
 
 					<!-- Form Box Container -->
-					<div class="wss-home-eval-box wss-reveal wss-r1">
+					<div class="lre-home-val__card wss-home-eval-box wss-reveal wss-r1">
 						
 						<!-- Step Tabs Progress Navigation (Rendered if multi-step) -->
 						<?php if ( $has_steps && $total_steps > 1 ) : ?>
-							<div class="wss-home-eval-steps-wrapper">
-								<div class="wss-home-eval-steps-nav">
+							<div class="lre-home-val__steps-wrapper wss-home-eval-steps-wrapper">
+								<div class="lre-home-val__steps-nav wss-home-eval-steps-nav">
 									<?php foreach ( $steps as $idx => $st ) : ?>
-										<button class="wss-home-eval-step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
-											<span class="wss-step-num"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
-											<span class="wss-step-details">
-												<span class="wss-step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
-												<span class="wss-step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
+										<button class="lre-home-val__step-tab wss-home-eval-step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
+											<span class="lre-home-val__step-badge wss-step-num"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
+											<span class="lre-home-val__step-meta wss-step-details">
+												<span class="lre-home-val__step-phase wss-step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
+												<span class="lre-home-val__step-name wss-step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
 											</span>
 										</button>
 									<?php endforeach; ?>
 								</div>
-								<div class="wss-home-eval-progress-track">
-									<div class="wss-home-eval-progress-fill" style="width: <?php echo esc_attr( round( 100 / $total_steps, 2 ) ); ?>%;"></div>
+								<div class="lre-home-val__progress-track wss-home-eval-progress-track">
+									<div class="lre-home-val__progress-bar wss-home-eval-progress-fill" style="width: <?php echo esc_attr( round( 100 / $total_steps, 2 ) ); ?>%;"></div>
 								</div>
 							</div>
 						<?php endif; ?>
 
 						<!-- Master Form -->
-						<form class="wss-home-eval-form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
+						<form class="lre-home-val__form wss-home-eval-form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							
 							<input type="hidden" name="action" value="lre_home_valuation_submit">
 							<input type="hidden" name="lre_val_nonce" value="<?php echo esc_attr( wp_create_nonce( 'lre_home_valuation_nonce' ) ); ?>">
@@ -1680,16 +1685,16 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 									if ( $in_step ) :
 										?>
 											</div><!-- /.wss-form-grid-wrap -->
-											<div class="wss-btn-nav-row">
+											<div class="lre-home-val__btn-row wss-btn-nav-row">
 												<?php if ( $step_index > 1 ) : ?>
-													<button type="button" class="wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>">← <?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></button>
+													<button type="button" class="lre-home-val__btn-back wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 												<?php else : ?>
 													<div></div>
 												<?php endif; ?>
 												
-												<button type="button" class="wss-home-eval-next-btn" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
-													<span><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'luxury-re-widgets' ) ); ?></span>
-													<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+												<button type="button" class="lre-home-val__btn lre-home-val__btn--next wss-home-eval-next-btn" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
+													<span class="lre-home-val__btn-text"><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'luxury-re-widgets' ) ); ?></span>
+													<span class="lre-home-val__btn-arrow">→</span>
 												</button>
 											</div>
 										</div><!-- /.wss-home-eval-step-pane -->
@@ -1700,8 +1705,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 									$in_step = true;
 									$is_active = ( 1 === $step_index );
 									?>
-									<div class="wss-home-eval-step-pane <?php echo $is_active ? 'active' : ''; ?>" data-step-pane="<?php echo esc_attr( $step_index ); ?>" style="<?php echo $is_active ? '' : 'display:none;'; ?>">
-										<div class="wss-form-grid-wrap">
+									<div class="lre-home-val__step-pane wss-home-eval-step-pane <?php echo $is_active ? 'active' : ''; ?>" data-step-pane="<?php echo esc_attr( $step_index ); ?>" style="<?php echo $is_active ? '' : 'display:none;'; ?>">
+										<div class="lre-home-val__grid wss-form-grid-wrap">
 									<?php
 									continue;
 								endif;
@@ -1711,37 +1716,37 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 									$step_index = 1;
 									$in_step = true;
 									?>
-									<div class="wss-home-eval-step-pane active" data-step-pane="1">
-										<div class="wss-form-grid-wrap">
+									<div class="lre-home-val__step-pane wss-home-eval-step-pane active" data-step-pane="1">
+										<div class="lre-home-val__grid wss-form-grid-wrap">
 									<?php
 								}
 								?>
 
-								<div class="wss-form-col wss-col-<?php echo esc_attr( $col ); ?> elementor-repeater-item-<?php echo esc_attr( $f_id ); ?>">
+								<div class="lre-home-val__field wss-form-col wss-col-<?php echo esc_attr( $col ); ?> elementor-repeater-item-<?php echo esc_attr( $f_id ); ?>">
 									
 									<?php if ( ! empty( $label ) && 'html' !== $type && 'checkbox' !== $type && 'radio' !== $type ) : ?>
-										<label class="wss-field-label" for="wss_in_<?php echo esc_attr( $f_id ); ?>">
-											<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+										<label class="lre-home-val__label wss-field-label" for="wss_in_<?php echo esc_attr( $f_id ); ?>">
+											<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="lre-req wss-req">*</span>'; ?>
 										</label>
 									<?php endif; ?>
 
 									<?php if ( 'text' === $type ) : ?>
-										<input type="text" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
+										<input type="text" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
 									<?php elseif ( 'email' === $type ) : ?>
-										<input type="email" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
+										<input type="email" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
 									<?php elseif ( 'tel' === $type ) : ?>
-										<input type="tel" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
+										<input type="tel" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
 									<?php elseif ( 'number' === $type ) : ?>
-										<input type="number" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
+										<input type="number" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
 									<?php elseif ( 'textarea' === $type ) : ?>
-										<textarea id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" rows="3" placeholder="<?php echo esc_attr( $pl ); ?>" <?php echo $req ? 'required' : ''; ?>><?php echo esc_textarea( $def ); ?></textarea>
+										<textarea id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input wss-home-eval-input" rows="3" placeholder="<?php echo esc_attr( $pl ); ?>" <?php echo $req ? 'required' : ''; ?>><?php echo esc_textarea( $def ); ?></textarea>
 
 									<?php elseif ( 'select' === $type ) : ?>
-										<select id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input wss-home-eval-select" <?php echo $req ? 'required' : ''; ?>>
+										<select id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="lre-home-val__input lre-home-val__select wss-home-eval-input wss-home-eval-select" <?php echo $req ? 'required' : ''; ?>>
 											<?php if ( ! empty( $pl ) ) : ?>
 												<option value="" disabled <?php echo empty( $def ) ? 'selected' : ''; ?>><?php echo esc_html( $pl ); ?></option>
 											<?php endif; ?>
@@ -1752,8 +1757,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 
 									<?php elseif ( 'checkbox' === $type ) : ?>
 										<?php if ( ! empty( $label ) ) : ?>
-											<label class="wss-field-label">
-												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+											<label class="lre-home-val__label wss-field-label">
+												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="lre-req wss-req">*</span>'; ?>
 											</label>
 										<?php endif; ?>
 										<div class="wss-amenity-grid">
@@ -1770,8 +1775,8 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 
 									<?php elseif ( 'radio' === $type ) : ?>
 										<?php if ( ! empty( $label ) ) : ?>
-											<label class="wss-field-label">
-												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+											<label class="lre-home-val__label wss-field-label">
+												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="lre-req wss-req">*</span>'; ?>
 											</label>
 										<?php endif; ?>
 										<div class="wss-amenity-grid">
@@ -1821,16 +1826,16 @@ REALLY WORTH?', 'luxury-re-widgets' ),
 									</script>
 								<?php endif; ?>
 
-								<div class="wss-btn-nav-row">
+								<div class="lre-home-val__btn-row wss-btn-nav-row">
 									<?php if ( $step_index > 1 ) : ?>
-										<button type="button" class="wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>">← <?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></button>
+										<button type="button" class="lre-home-val__btn-back wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>"><span class="lre-home-val__btn-arrow-back">←</span> <span><?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'luxury-re-widgets' ) ); ?></span></button>
 									<?php else : ?>
 										<div></div>
 									<?php endif; ?>
 
-									<button type="submit" class="wss-home-eval-submit-btn">
-										<span><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'luxury-re-widgets' ) ); ?></span>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+									<button type="submit" class="lre-home-val__btn lre-home-val__btn--submit wss-home-eval-submit-btn">
+										<span class="lre-home-val__btn-text"><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'luxury-re-widgets' ) ); ?></span>
+										<span class="lre-home-val__btn-arrow">→</span>
 									</button>
 								</div>
 

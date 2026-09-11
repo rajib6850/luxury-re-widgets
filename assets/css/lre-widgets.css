@@ -12761,19 +12761,20 @@ body.elementor-editor-active .lre-contact__left {
 /* ── Typographic Watermark (Matching About, Team & About Services) ── */
 .lre-sguide__watermark {
   position: absolute;
-  top: 3.2rem;
+  top: 3.5rem;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-family: var(--font-serif, 'Libre Baskerville', serif);
-  font-size: clamp(3.6rem, 8vw, 7.2rem);
+  font-size: var(--font-size-watermark, clamp(4.8rem, 11vw, 9.5rem));
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.032);
+  color: rgba(255, 255, 255, 0.048);
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
   line-height: 1;
+  text-align: center;
   z-index: 0;
   will-change: transform;
 }

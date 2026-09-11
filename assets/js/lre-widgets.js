@@ -1879,21 +1879,22 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            var root = $scope ? $scope[0] : document;
-            var guideSections = root.querySelectorAll( '.lre-guide' );
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var guideSections = ( root.matches && root.matches( '.lre-guide' ) ) ? [ root ] : root.querySelectorAll( '.lre-guide' );
             guideSections.forEach( function ( section ) {
                 // Watermark Scroll Parallax (Permanently Centered Horizontally)
                 if ( ! prefersReducedMotion ) {
                     var watermark = section.querySelector( '.lre-guide__watermark' );
+                    var header    = section.querySelector( '.lre-guide__header' ) || section;
                     if ( watermark && ! watermark._lreParallaxAttached ) {
                         watermark._lreParallaxAttached = true;
                         var updateGuideParallax = function () {
-                            var rect = section.getBoundingClientRect();
+                            var rect = header.getBoundingClientRect();
                             var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                            if ( rect.bottom >= -200 && rect.top <= winH + 200 ) {
                                 var progress = ( winH - rect.top ) / ( winH + rect.height );
                                 var isMobile = window.innerWidth <= 768;
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 36 : 80 );
                                 watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
                             }
                         };
@@ -1914,21 +1915,22 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            var root = $scope ? $scope[0] : document;
-            var sguideSections = root.querySelectorAll( '.lre-sguide' );
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var sguideSections = ( root.matches && root.matches( '.lre-sguide' ) ) ? [ root ] : root.querySelectorAll( '.lre-sguide' );
             sguideSections.forEach( function ( section ) {
                 // Watermark Scroll Parallax (Permanently Centered Horizontally)
                 if ( ! prefersReducedMotion ) {
                     var watermark = section.querySelector( '.lre-sguide__watermark' );
+                    var header    = section.querySelector( '.lre-sguide__header' ) || section;
                     if ( watermark && ! watermark._lreParallaxAttached ) {
                         watermark._lreParallaxAttached = true;
                         var updateSguideParallax = function () {
-                            var rect = section.getBoundingClientRect();
+                            var rect = header.getBoundingClientRect();
                             var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
+                            if ( rect.bottom >= -200 && rect.top <= winH + 200 ) {
                                 var progress = ( winH - rect.top ) / ( winH + rect.height );
                                 var isMobile = window.innerWidth <= 768;
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 36 : 80 );
                                 watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
                             }
                         };
@@ -1941,14 +1943,6 @@
         }
     };
 
-    // =========================================================================
-    // 20. PRESS & RECOGNITION - Reveal & Interactivity
-    // =========================================================================
-    LREWidgets.Press = {
-        init: function ( $scope ) {
-            LREWidgets.initReveals( $scope );
-        }
-    };
 
     // =========================================================================
     // 21. GLOBAL NEWSLETTER - AJAX Lead Capture
@@ -2064,7 +2058,7 @@
     // =========================================================================
     LREWidgets.Press = {
         init: function ( $scope ) {
-            var $strip = $scope ? $( $scope ).find( '.lre-press-strip' ) : $( '.lre-press-strip' );
+            var $strip = $scope ? ( $( $scope ).hasClass( 'lre-press-strip' ) ? $( $scope ) : $( $scope ).find( '.lre-press-strip' ) ) : $( '.lre-press-strip' );
             if ( ! $strip.length ) {
                 return;
             }
@@ -2086,7 +2080,7 @@
                             if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
                                 var progress = ( winH - rect.top ) / ( winH + rect.height );
                                 var isMobile = window.innerWidth <= 768;
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 20 : 44 );
+                                var yShift = ( progress - 0.5 ) * ( isMobile ? 24 : 50 );
                                 watermark.style.transform = 'translate3d(-50%, ' + yShift.toFixed(2) + 'px, 0)';
                             }
                         };

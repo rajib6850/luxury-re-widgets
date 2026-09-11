@@ -2337,19 +2337,19 @@
     LREWidgets.SoldPortfolio = {
         init: function ( $scope ) {
             var root = $scope ? ( $scope[0] || $scope ) : document;
-            var portfolios = root.querySelectorAll ? root.querySelectorAll( '.lre-sold-portfolio' ) : [];
-            if ( ! portfolios.length && root.classList && root.classList.contains( 'lre-sold-portfolio' ) ) {
-                portfolios = [ root ];
+            var sections = root.querySelectorAll ? root.querySelectorAll( '.ledger-section, .lre-ledger-section, .lre-sold-portfolio' ) : [];
+            if ( ! sections.length && root.classList && ( root.classList.contains( 'ledger-section' ) || root.classList.contains( 'lre-ledger-section' ) || root.classList.contains( 'lre-sold-portfolio' ) ) ) {
+                sections = [ root ];
             }
 
-            for ( var p = 0; p < portfolios.length; p++ ) {
-                ( function ( port ) {
-                    if ( port._soldInit ) return;
-                    port._soldInit = true;
+            for ( var p = 0; p < sections.length; p++ ) {
+                ( function ( sec ) {
+                    if ( sec._ledgerInit ) return;
+                    sec._ledgerInit = true;
 
                     // 1. Filter Tabs
-                    var filterBtns = port.querySelectorAll( '.lre-sold-filter-btn' );
-                    var cards = port.querySelectorAll( '.lre-sold-card' );
+                    var filterBtns = sec.querySelectorAll( '.lre-ledger-filter, .ledger-filter-btn, .lre-sold-filter-btn' );
+                    var rows = sec.querySelectorAll( '.ledger-row, .lre-ledger-row, .lre-sold-card' );
 
                     for ( var b = 0; b < filterBtns.length; b++ ) {
                         filterBtns[b].addEventListener( 'click', function () {
@@ -2361,88 +2361,77 @@
                             this.setAttribute( 'aria-selected', 'true' );
 
                             var filter = this.getAttribute( 'data-filter' );
-                            for ( var c = 0; c < cards.length; c++ ) {
-                                var card = cards[c];
-                                var cat = card.getAttribute( 'data-category' ) || '';
+                            for ( var r = 0; r < rows.length; r++ ) {
+                                var row = rows[r];
+                                var cat = row.getAttribute( 'data-category' ) || '';
                                 if ( filter === 'all' || cat.indexOf( filter ) !== -1 ) {
-                                    card.classList.remove( 'is-hidden' );
-                                    card.style.opacity = '0';
-                                    card.style.transform = 'translateY(15px)';
+                                    row.classList.remove( 'is-hidden' );
+                                    row.style.opacity = '0';
                                     ( function ( el ) {
                                         setTimeout( function () {
-                                            el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                                            el.style.transition = 'opacity 0.35s ease';
                                             el.style.opacity = '1';
-                                            el.style.transform = 'translateY(0)';
-                                        }, 30 );
-                                    } )( card );
+                                        }, 20 );
+                                    } )( row );
                                 } else {
-                                    card.classList.add( 'is-hidden' );
+                                    row.classList.add( 'is-hidden' );
                                 }
                             }
                         } );
                     }
 
-                    // 2. Case Study Modal / Drawer
-                    var modal = port.querySelector( '.lre-sold-modal' );
-                    if ( ! modal ) modal = document.querySelector( '.lre-sold-modal' );
+                    // 2. Property Dossier Modal
+                    var modal = sec.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' );
+                    if ( ! modal ) modal = document.querySelector( '.lre-ledger-modal, #property-modal, .lre-sold-modal' );
 
                     if ( modal ) {
-                        var openBtns = port.querySelectorAll( '.js-open-sold-modal' );
-                        var closeBtns = modal.querySelectorAll( '.js-close-sold-modal' );
+                        var openBtns = sec.querySelectorAll( '.trigger-prop-modal, .js-open-sold-modal' );
+                        var closeBtns = modal.querySelectorAll( '.lre-ledger-modal-close, #close-prop-modal, .js-close-sold-modal' );
 
-                        var modalImg     = modal.querySelector( '#lreModalImg' );
-                        var modalBadge   = modal.querySelector( '#lreModalBadge' );
-                        var modalArch    = modal.querySelector( '#lreModalArch' );
-                        var modalPrice   = modal.querySelector( '#lreModalPrice' );
-                        var modalTitle   = modal.querySelector( '#lreModalTitle' );
-                        var modalCity    = modal.querySelector( '#lreModalCity' );
-                        var modalBeds    = modal.querySelector( '#lreModalBeds' );
-                        var modalBaths   = modal.querySelector( '#lreModalBaths' );
-                        var modalSqft    = modal.querySelector( '#lreModalSqft' );
-                        var modalYear    = modal.querySelector( '#lreModalYear' );
-                        var modalDesc    = modal.querySelector( '#lreModalDesc' );
-                        var modalSerhant = modal.querySelector( '#lreModalSerhant' );
+                        var modalTitle = modal.querySelector( '#prop-modal-title, #lreModalTitle' );
+                        var modalPrice = modal.querySelector( '#prop-modal-price, #lreModalPrice' );
+                        var modalLoc   = modal.querySelector( '#prop-modal-location, #lreModalCity' );
+                        var modalSpecs = modal.querySelector( '#prop-modal-specs, #lreModalBeds' );
+                        var modalDesc  = modal.querySelector( '#prop-modal-desc, #lreModalDesc' );
+                        var modalImg   = modal.querySelector( '#prop-modal-img, #lreModalImg' );
 
-                        var openModal = function ( card ) {
-                            if ( modalImg )     modalImg.src = card.getAttribute( 'data-image' ) || '';
-                            if ( modalBadge )   modalBadge.textContent = card.getAttribute( 'data-badge' ) || '';
-                            if ( modalArch )    modalArch.textContent = card.getAttribute( 'data-arch' ) || 'ARCHITECTURAL RECORD';
-                            if ( modalPrice )   modalPrice.textContent = card.getAttribute( 'data-price' ) || '';
-                            if ( modalTitle )   modalTitle.textContent = card.getAttribute( 'data-address' ) || card.getAttribute( 'data-title' ) || '';
-                            if ( modalCity )    modalCity.textContent = card.getAttribute( 'data-city' ) || '';
-                            if ( modalBeds )    modalBeds.textContent = ( card.getAttribute( 'data-beds' ) || '—' ) + ' Beds';
-                            if ( modalBaths )   modalBaths.textContent = ( card.getAttribute( 'data-baths' ) || '—' ) + ' Baths';
-                            if ( modalSqft )    modalSqft.textContent = ( card.getAttribute( 'data-sqft' ) || '—' ) + ' Sq Ft';
-                            if ( modalYear )    modalYear.textContent = card.getAttribute( 'data-year' ) || '—';
-                            if ( modalDesc )    modalDesc.textContent = card.getAttribute( 'data-desc' ) || '';
+                        var openModal = function ( row ) {
+                            var title = row.getAttribute( 'data-title' ) || '';
+                            var price = row.getAttribute( 'data-price' ) || '';
+                            var loc   = row.getAttribute( 'data-location' ) || '';
+                            var specs = row.getAttribute( 'data-specs' ) || '';
+                            var desc  = row.getAttribute( 'data-desc' ) || '';
+                            var img   = row.getAttribute( 'data-img' ) || row.getAttribute( 'data-image' ) || '';
 
-                            var sUrl = card.getAttribute( 'data-serhant' );
-                            if ( modalSerhant ) {
-                                if ( sUrl ) {
-                                    modalSerhant.href = sUrl;
-                                    modalSerhant.style.display = 'inline-flex';
-                                } else {
-                                    modalSerhant.style.display = 'none';
-                                }
+                            if ( modalTitle ) modalTitle.textContent = title;
+                            if ( modalPrice ) modalPrice.textContent = price;
+                            if ( modalLoc )   modalLoc.textContent = loc;
+                            if ( modalSpecs ) modalSpecs.textContent = specs;
+                            if ( modalDesc )  modalDesc.textContent = desc;
+                            if ( modalImg && img ) modalImg.src = img;
+
+                            if ( typeof modal.showModal === 'function' ) {
+                                modal.showModal();
+                            } else {
+                                modal.classList.add( 'is-active' );
                             }
-
-                            modal.classList.add( 'is-active' );
-                            modal.setAttribute( 'aria-hidden', 'false' );
                             document.body.style.overflow = 'hidden';
                         };
 
                         var closeModal = function () {
+                            if ( typeof modal.close === 'function' ) {
+                                modal.close();
+                            }
                             modal.classList.remove( 'is-active' );
-                            modal.setAttribute( 'aria-hidden', 'true' );
                             document.body.style.overflow = '';
                         };
 
                         for ( var ob = 0; ob < openBtns.length; ob++ ) {
                             openBtns[ob].addEventListener( 'click', function ( e ) {
+                                // If target is a link inside the row (not row itself), let it navigate
+                                if ( e.target.closest( 'a:not(.trigger-prop-modal)' ) ) return;
                                 e.preventDefault();
-                                e.stopPropagation();
-                                var card = this.closest( '.lre-sold-card' );
-                                if ( card ) openModal( card );
+                                openModal( this );
                             } );
                         }
 
@@ -2453,13 +2442,27 @@
                             } );
                         }
 
+                        // Close on backdrop click (for <dialog>)
+                        modal.addEventListener( 'click', function ( e ) {
+                            var rect = modal.getBoundingClientRect();
+                            var isInDialog = (
+                                rect.top <= e.clientY &&
+                                e.clientY <= rect.top + rect.height &&
+                                rect.left <= e.clientX &&
+                                e.clientX <= rect.left + rect.width
+                            );
+                            if ( ! isInDialog ) {
+                                closeModal();
+                            }
+                        } );
+
                         document.addEventListener( 'keydown', function ( e ) {
-                            if ( e.key === 'Escape' && modal.classList.contains( 'is-active' ) ) {
+                            if ( e.key === 'Escape' ) {
                                 closeModal();
                             }
                         } );
                     }
-                } )( portfolios[p] );
+                } )( sections[p] );
             }
         }
     };

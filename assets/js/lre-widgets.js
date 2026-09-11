@@ -2102,6 +2102,239 @@
     // =========================================================================
     // ELEMENTOR HOOK BINDINGS
     // =========================================================================
+    
+    // =========================================================================
+    // HOME VALUATION & MULTI-STEP VALUATION ENGINE
+    // =========================================================================
+    LREWidgets.HomeValuation = LREWidgets.HomeEvaluation = {
+        init: function ( $scope ) {
+            var context = ( $scope && $scope[0] ) ? $scope[0] : document;
+            var sections = context.querySelectorAll( '[data-lre-widget="lre-home-valuation"], [data-wss-widget="wss-home-evaluation"], [data-lre-widget="lre-home-evaluation"]' );
+            if ( ! sections.length && context.classList && ( context.classList.contains( 'wss-home-eval-section' ) || context.classList.contains( 'lre-home-eval-section' ) ) ) {
+                sections = [ context ];
+            }
+
+            sections.forEach( function ( section ) {
+                if ( section.getAttribute( 'data-eval-initialized' ) === 'true' ) return;
+                section.setAttribute( 'data-eval-initialized', 'true' );
+
+                var form = section.querySelector( '.wss-home-eval-form, .lre-home-eval-form' );
+                var tabs = section.querySelectorAll( '.wss-home-eval-step-tab, .lre-home-eval-step-tab' );
+                var panes = section.querySelectorAll( '.wss-home-eval-step-pane, .lre-home-eval-step-pane' );
+                var successBox = section.querySelector( '.wss-home-eval-success-state, .lre-home-eval-success-state' );
+                var resetBtn = section.querySelector( '.wss-home-eval-reset-btn, .lre-home-eval-reset-btn' );
+                var progressFill = section.querySelector( '.wss-home-eval-progress-fill, .lre-home-eval-progress-fill' );
+
+                function goToStep( targetStep ) {
+                    tabs.forEach( function ( tab ) {
+                        var stepNum = parseInt( tab.getAttribute( 'data-step' ), 10 );
+                        if ( stepNum === targetStep ) {
+                            tab.classList.add( 'active' );
+                        } else {
+                            tab.classList.remove( 'active' );
+                        }
+                    } );
+
+                    if ( progressFill && tabs.length > 0 ) {
+                        var percent = ( targetStep / tabs.length ) * 100;
+                        progressFill.style.width = percent + '%';
+                    }
+
+                    panes.forEach( function ( pane ) {
+                        var paneNum = parseInt( pane.getAttribute( 'data-step-pane' ), 10 );
+                        if ( paneNum === targetStep ) {
+                            pane.style.display = 'block';
+                            pane.style.opacity = '0';
+                            pane.style.transform = 'translateY(12px)';
+                            setTimeout( function () {
+                                pane.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                                pane.style.opacity = '1';
+                                pane.style.transform = 'translateY(0)';
+                                pane.classList.add( 'active' );
+                            }, 20 );
+                        } else {
+                            pane.style.display = 'none';
+                            pane.classList.remove( 'active' );
+                        }
+                    } );
+                }
+
+                function validateStep( currentStep ) {
+                    var currentPane = section.querySelector( '.wss-home-eval-step-pane[data-step-pane="' + currentStep + '"], .lre-home-eval-step-pane[data-step-pane="' + currentStep + '"]' );
+                    if ( ! currentPane ) return true;
+
+                    var requiredInputs = currentPane.querySelectorAll( '[required]' );
+                    var isValid = true;
+                    var firstInvalid = null;
+
+                    requiredInputs.forEach( function ( input ) {
+                        if ( ! input.value || ! input.value.trim() ) {
+                            isValid = false;
+                            input.classList.add( 'wss-input-error' );
+                            if ( ! firstInvalid ) firstInvalid = input;
+                        } else {
+                            input.classList.remove( 'wss-input-error' );
+                        }
+                    } );
+
+                    if ( ! isValid && firstInvalid ) {
+                        firstInvalid.focus();
+                    }
+
+                    return isValid;
+                }
+
+                // Tab clicks
+                tabs.forEach( function ( tab ) {
+                    tab.addEventListener( 'click', function () {
+                        var targetStep = parseInt( tab.getAttribute( 'data-step' ), 10 );
+                        var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 1;
+
+                        if ( targetStep > currentStep ) {
+                            if ( ! validateStep( currentStep ) ) return;
+                        }
+                        goToStep( targetStep );
+                    } );
+                } );
+
+                // Next buttons
+                var nextBtns = section.querySelectorAll( '.wss-home-eval-next-btn, .lre-home-eval-next-btn' );
+                nextBtns.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function () {
+                        var nextStep = parseInt( btn.getAttribute( 'data-next' ), 10 );
+                        var currentStep = nextStep - 1;
+                        if ( validateStep( currentStep ) ) {
+                            goToStep( nextStep );
+                        }
+                    } );
+                } );
+
+                // Back buttons
+                var backBtns = section.querySelectorAll( '.wss-btn-back, .lre-btn-back' );
+                backBtns.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function () {
+                        var prevStep = parseInt( btn.getAttribute( 'data-prev' ), 10 );
+                        goToStep( prevStep );
+                    } );
+                } );
+
+                // Amenity Box Sync
+                var amenityBoxes = section.querySelectorAll( '.wss-home-eval-amenity-box, .lre-home-eval-amenity-box' );
+                amenityBoxes.forEach( function ( box ) {
+                    var input = box.querySelector( 'input' );
+                    if ( ! input ) return;
+
+                    function syncBox() {
+                        if ( input.type === 'radio' ) {
+                            var group = section.querySelectorAll( 'input[name="' + input.name + '"]' );
+                            group.forEach( function ( r ) {
+                                var p = r.closest( '.wss-home-eval-amenity-box, .lre-home-eval-amenity-box' );
+                                if ( p ) p.classList.toggle( 'is-checked', r.checked );
+                            } );
+                        } else {
+                            box.classList.toggle( 'is-checked', input.checked );
+                        }
+                    }
+
+                    input.addEventListener( 'change', syncBox );
+                    syncBox();
+                } );
+
+                // Input error clear
+                var allInputs = section.querySelectorAll( '.wss-home-eval-input, .lre-home-eval-input' );
+                allInputs.forEach( function ( input ) {
+                    input.addEventListener( 'input', function () {
+                        input.classList.remove( 'wss-input-error' );
+                    } );
+                } );
+
+                // Form AJAX Submit
+                if ( form ) {
+                    form.addEventListener( 'submit', function ( e ) {
+                        e.preventDefault();
+
+                        var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active, .lre-home-eval-step-tab.active' );
+                        var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 3;
+                        if ( ! validateStep( currentStep ) ) return;
+
+                        var submitBtn = form.querySelector( '.wss-home-eval-submit-btn, .lre-home-eval-submit-btn' );
+                        var originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+                        if ( submitBtn ) {
+                            submitBtn.disabled = true;
+                            submitBtn.innerHTML = '<span>Processing Valuation...</span>';
+                        }
+
+                        var ajaxUrl = ( window.LREData && window.LREData.ajaxUrl )
+                            ? window.LREData.ajaxUrl
+                            : ( ( window.wss_ajax_obj && window.wss_ajax_obj.ajax_url )
+                                ? window.wss_ajax_obj.ajax_url
+                                : ( form.getAttribute( 'action' ) || ( window.location.origin + '/wp-admin/admin-ajax.php' ) ) );
+
+                        var formData = new FormData( form );
+
+                        fetch( ajaxUrl, {
+                            method: 'POST',
+                            body: formData,
+                            credentials: 'same-origin'
+                        } )
+                        .then( function ( response ) {
+                            return response.json();
+                        } )
+                        .then( function ( data ) {
+                            if ( data && data.success ) {
+                                form.style.display = 'none';
+                                if ( successBox ) {
+                                    successBox.style.display = 'block';
+                                    successBox.style.opacity = '0';
+                                    successBox.style.transform = 'translateY(16px)';
+                                    setTimeout( function () {
+                                        successBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                                        successBox.style.opacity = '1';
+                                        successBox.style.transform = 'translateY(0)';
+                                    }, 30 );
+                                }
+                                section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+                            } else {
+                                var errMsg = ( data && data.data && data.data.message ) ? data.data.message : 'An error occurred. Please try again.';
+                                alert( errMsg );
+                                if ( submitBtn ) {
+                                    submitBtn.disabled = false;
+                                    submitBtn.innerHTML = originalBtnHtml;
+                                }
+                            }
+                        } )
+                        .catch( function ( err ) {
+                            console.error( 'Home Evaluation Submit Error:', err );
+                            alert( 'Submission could not be completed. Please try again.' );
+                            if ( submitBtn ) {
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = originalBtnHtml;
+                            }
+                        } );
+                    } );
+                }
+
+                // Reset
+                if ( resetBtn ) {
+                    resetBtn.addEventListener( 'click', function () {
+                        if ( form ) {
+                            form.reset();
+                            form.style.display = 'block';
+                            amenityBoxes.forEach( function ( b ) {
+                                b.classList.remove( 'is-checked' );
+                            } );
+                        }
+                        if ( successBox ) {
+                            successBox.style.display = 'none';
+                        }
+                        goToStep( 1 );
+                    } );
+                }
+            } );
+        }
+    };
     function lreBindElementorHooks() {
         if ( typeof elementorFrontend === 'undefined' || ! elementorFrontend.hooks ) {
             return;
@@ -2128,6 +2361,9 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sellers_guide.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_press.default',                function ( $scope ) { LREWidgets.Press.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_valuation.default',     function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/wss_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
     }
 
     // Auto-run on DOM ready
@@ -2152,6 +2388,7 @@
         if ( LREWidgets.SellersGuide )        LREWidgets.SellersGuide.init();
         if ( LREWidgets.Press )               LREWidgets.Press.init();
         if ( LREWidgets.Newsletter )          LREWidgets.Newsletter.init();
+        if ( LREWidgets.HomeValuation )       LREWidgets.HomeValuation.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

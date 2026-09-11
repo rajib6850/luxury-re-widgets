@@ -46,6 +46,8 @@ class LRE_Widgets_Loader {
 		'class-lre-newsletter-widget.php'     => 'LRE_Newsletter_Widget',
 		// Market Insights Suite
 		'class-lre-insights-widget.php'       => 'LRE_Insights_Widget',
+		// Home Valuation Suite
+		'class-lre-home-valuation-widget.php' => 'LRE_Home_Valuation_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

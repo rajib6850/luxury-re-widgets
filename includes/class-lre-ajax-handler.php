@@ -24,6 +24,14 @@ class LRE_Ajax_Handler {
 		// Newsletter / email capture.
 		add_action( 'wp_ajax_lre_newsletter_submit',        array( $this, 'handle_newsletter' ) );
 		add_action( 'wp_ajax_nopriv_lre_newsletter_submit', array( $this, 'handle_newsletter' ) );
+
+		// Home valuation form submission.
+		add_action( 'wp_ajax_lre_home_valuation_submit',        array( $this, 'handle_home_valuation' ) );
+		add_action( 'wp_ajax_nopriv_lre_home_valuation_submit', array( $this, 'handle_home_valuation' ) );
+		add_action( 'wp_ajax_lre_home_evaluation_submit',       array( $this, 'handle_home_valuation' ) );
+		add_action( 'wp_ajax_nopriv_lre_home_evaluation_submit',array( $this, 'handle_home_valuation' ) );
+		add_action( 'wp_ajax_wss_home_evaluation_submit',       array( $this, 'handle_home_valuation' ) );
+		add_action( 'wp_ajax_nopriv_wss_home_evaluation_submit',array( $this, 'handle_home_valuation' ) );
 	}
 
 	// =========================================================================
@@ -462,4 +470,143 @@ class LRE_Ajax_Handler {
 			'redirect_url' => $redirect_url,
 		) );
 	}
+
+	/** Processes the Multi-Step Home Valuation form submission. */
+	public function handle_home_valuation() {
+		// Nonce verification with caching resilience
+		$nonce = isset( $_POST["lre_val_nonce"] ) ? sanitize_text_field( wp_unslash( $_POST["lre_val_nonce"] ) ) : ( isset( $_POST["wss_eval_nonce"] ) ? sanitize_text_field( wp_unslash( $_POST["wss_eval_nonce"] ) ) : "" );
+		if ( ! empty( $nonce ) && ! wp_verify_nonce( $nonce, "lre_home_valuation_nonce" ) && ! wp_verify_nonce( $nonce, "lre_home_evaluation_nonce" ) && ! wp_verify_nonce( $nonce, "wss_home_evaluation_nonce" ) ) {
+			if ( ! check_ajax_referer( "lre_home_valuation_nonce", "lre_val_nonce", false ) && ! check_ajax_referer( "wss_home_evaluation_nonce", "wss_eval_nonce", false ) && ! is_user_logged_in() ) {
+				if ( empty( $_POST["wss_fields"] ) && empty( $_POST["lre_fields"] ) ) {
+					wp_send_json_error( array( "message" => __( "Security verification expired. Please refresh the page and try again.", "luxury-re-widgets" ) ) );
+				}
+			}
+		}
+
+		// Collect Fields
+		$raw_fields = isset( $_POST["wss_fields"] ) ? $_POST["wss_fields"] : ( isset( $_POST["lre_fields"] ) ? $_POST["lre_fields"] : array() );
+		$submitted_fields = array();
+		$client_name  = "";
+		$client_first = "";
+		$client_last  = "";
+		$client_email = "";
+		$client_phone = "";
+		$address_val  = "";
+		$property_type = "";
+		$property_specs = "";
+		$timeline_val = "";
+		$notes_val    = "";
+
+		if ( is_array( $raw_fields ) ) {
+			foreach ( $raw_fields as $raw_label => $raw_value ) {
+				$label = sanitize_text_field( wp_unslash( $raw_label ) );
+				if ( is_array( $raw_value ) ) {
+					$val_clean = implode( ", ", array_map( "sanitize_text_field", wp_unslash( $raw_value ) ) );
+				} else {
+					$val_clean = sanitize_textarea_field( wp_unslash( $raw_value ) );
+				}
+				$submitted_fields[ $label ] = $val_clean;
+
+				$lower = strtolower( $label );
+				if ( strpos( $lower, "first" ) !== false && empty( $client_first ) ) {
+					$client_first = $val_clean;
+				} elseif ( strpos( $lower, "last" ) !== false && empty( $client_last ) ) {
+					$client_last = $val_clean;
+				} elseif ( ( strpos( $lower, "name" ) !== false || strpos( $lower, "client" ) !== false ) && empty( $client_name ) ) {
+					$client_name = $val_clean;
+				}
+
+				if ( strpos( $lower, "email" ) !== false && empty( $client_email ) && is_email( $val_clean ) ) {
+					$client_email = $val_clean;
+				}
+				if ( ( strpos( $lower, "phone" ) !== false || strpos( $lower, "tel" ) !== false || strpos( $lower, "mobile" ) !== false ) && empty( $client_phone ) ) {
+					$client_phone = $val_clean;
+				}
+				if ( ( strpos( $lower, "address" ) !== false || strpos( $lower, "street" ) !== false ) && empty( $address_val ) ) {
+					$address_val = $val_clean;
+				}
+				if ( ( strpos( $lower, "category" ) !== false || strpos( $lower, "type" ) !== false ) && empty( $property_type ) ) {
+					$property_type = $val_clean;
+				}
+				if ( strpos( $lower, "timeline" ) !== false && empty( $timeline_val ) ) {
+					$timeline_val = $val_clean;
+				}
+				if ( ( strpos( $lower, "notes" ) !== false || strpos( $lower, "upgrade" ) !== false || strpos( $lower, "amenities" ) !== false ) && empty( $notes_val ) ) {
+					$notes_val = $val_clean;
+				}
+			}
+		}
+
+		if ( empty( $client_name ) && ( ! empty( $client_first ) || ! empty( $client_last ) ) ) {
+			$client_name = trim( $client_first . " " . $client_last );
+		}
+
+		// Follow Up Boss Lead Sync
+		if ( class_exists( "LRE_FollowUpBoss" ) && method_exists( "LRE_FollowUpBoss", "instance" ) ) {
+			$fub = LRE_FollowUpBoss::instance();
+			if ( $fub->is_configured() ) {
+				$fub_note = "=== HOME VALUATION REQUEST ===\n";
+				foreach ( $submitted_fields as $k => $v ) {
+					$fub_note .= $k . ": " . $v . "\n";
+				}
+				$fub->create_lead( array(
+					"firstName"  => ! empty( $client_first ) ? $client_first : $client_name,
+					"lastName"   => $client_last,
+					"name"       => $client_name,
+					"emails"     => array( array( "value" => $client_email ) ),
+					"phones"     => ! empty( $client_phone ) ? array( array( "value" => $client_phone ) ) : array(),
+					"source"     => "Website - Home Valuation Page",
+					"stage"      => "Lead",
+					"tags"       => array( "Website Lead", "Home Valuation Request", "Adolfo Aguirre", "Seller Lead" ),
+					"note"       => $fub_note,
+					"propertyAddress" => $address_val,
+				) );
+			}
+		}
+
+		// Email notification to Admin
+		$admin_email_to = ! empty( $_POST["admin_email_to"] ) ? sanitize_email( wp_unslash( $_POST["admin_email_to"] ) ) : get_option( "admin_email" );
+		$subject = ! empty( $_POST["admin_email_subject"] ) ? sanitize_text_field( wp_unslash( $_POST["admin_email_subject"] ) ) : ( "New Home Valuation Request: " . ( $address_val ? $address_val : $client_name ) );
+
+		$message_body = "<h2>New Home Valuation Request</h2>\n<p><strong>Client:</strong> " . esc_html( $client_name ) . "</p>\n<p><strong>Email:</strong> " . esc_html( $client_email ) . "</p>\n<p><strong>Phone:</strong> " . esc_html( $client_phone ) . "</p>\n<hr>\n<h3>Submitted Property Details:</h3>\n<ul>";
+		foreach ( $submitted_fields as $lbl => $val ) {
+			$message_body .= "<li><strong>" . esc_html( $lbl ) . ":</strong> " . esc_html( $val ) . "</li>\n";
+		}
+		$message_body .= "</ul>";
+
+		$headers = array(
+			"Content-Type: text/html; charset=UTF-8",
+			"From: " . get_bloginfo( "name" ) . " <" . get_option( "admin_email" ) . ">",
+		);
+		if ( ! empty( $client_email ) ) {
+			$headers[] = "Reply-To: " . ( $client_name ? $client_name : $client_email ) . " <" . $client_email . ">";
+		}
+
+		wp_mail( $admin_email_to, $subject, $message_body, $headers );
+
+		// Client Autoresponder
+		$enable_auto = isset( $_POST["enable_client_autoresponder"] ) ? sanitize_text_field( wp_unslash( $_POST["enable_client_autoresponder"] ) ) : "yes";
+		if ( "yes" === $enable_auto && ! empty( $client_email ) ) {
+			$client_subj = ! empty( $_POST["client_email_subject"] ) ? sanitize_text_field( wp_unslash( $_POST["client_email_subject"] ) ) : "Valuation Request Received | Adolfo Aguirre Private Advisory";
+			$sender_name = ! empty( $_POST["client_sender_name"] ) ? sanitize_text_field( wp_unslash( $_POST["client_sender_name"] ) ) : "Adolfo Aguirre";
+			$sender_email = ! empty( $_POST["client_sender_email"] ) ? sanitize_email( wp_unslash( $_POST["client_sender_email"] ) ) : "adolfo@serhant.com";
+
+			$auto_msg = "<p>Dear " . esc_html( $client_first ? $client_first : $client_name ) . ",</p>\n"
+				. "<p>Thank you for requesting a confidential market valuation for your property" . ( $address_val ? " at <strong>" . esc_html( $address_val ) . "</strong>" : "" ) . ".</p>\n"
+				. "<p>Your property details have been securely received. Adolfo Aguirre is personally conducting a precision micro-market analysis, accounting for recent comparable sales, architectural provenance, and current buyer velocity in your community.</p>\n"
+				. "<p>A comprehensive valuation dossier will be prepared and delivered to you within 24–48 hours.</p>\n"
+				. "<br><p>Warm regards,<br><strong>Adolfo Aguirre</strong><br>SERHANT. Los Angeles<br>DRE #02096534<br>(310) 346-6380</p>";
+
+			$auto_headers = array(
+				"Content-Type: text/html; charset=UTF-8",
+				"From: " . $sender_name . " <" . $sender_email . ">",
+			);
+			wp_mail( $client_email, $client_subj, $auto_msg, $auto_headers );
+		}
+
+		wp_send_json_success( array(
+			"message" => __( "Thank you. Your valuation request has been received. Adolfo Aguirre will prepare your confidential property dossier.", "luxury-re-widgets" ),
+		) );
+	}
+
 }

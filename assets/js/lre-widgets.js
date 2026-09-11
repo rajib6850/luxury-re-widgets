@@ -489,26 +489,10 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark Scroll Parallax
-            if ( ! prefersReducedMotion ) {
-                var aboutSec = root.querySelector( '.about' ) || root;
-                var watermark = root.querySelector( '.about__watermark' );
-
-                if ( aboutSec && watermark ) {
-                    var updateParallax = function () {
-                        var rect = aboutSec.getBoundingClientRect();
-                        var winH = window.innerHeight;
-                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                            var progress = ( winH - rect.top ) / ( winH + rect.height );
-                            var isMobile = window.innerWidth <= 768;
-                            var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                            watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                        }
-                    };
-                    window.addEventListener( 'scroll', updateParallax, { passive: true } );
-                    updateParallax();
-                }
+            // Watermark: permanently centered, no scroll drift or jitter
+            var watermark = root.querySelector( '.about__watermark' );
+            if ( watermark ) {
+                watermark.style.transform = 'translate3d(-50%, 0, 0)';
             }
         }
     };
@@ -1066,24 +1050,10 @@
                 var nextBtn  = section.querySelector( '.lre-team__arrow--next' );
                 var modal    = section.querySelector( '.lre-team-modal' );
 
-                // Watermark Scroll Parallax (matching About widget)
-                if ( ! prefersReducedMotion ) {
-                    var teamWatermark = section.querySelector( '.lre-team__watermark' );
-                    if ( teamWatermark ) {
-                        var updateTeamParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                teamWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateTeamParallax, { passive: true } );
-                        updateTeamParallax();
-                    }
+                // Watermark: permanently centered, no scroll drift or jitter
+                var teamWatermark = section.querySelector( '.lre-team__watermark' );
+                if ( teamWatermark ) {
+                    teamWatermark.style.transform = 'translate3d(-50%, 0, 0)';
                 }
 
                 // Super-Luxury Person Details Modal
@@ -1389,26 +1359,10 @@
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
-            // Watermark Scroll Parallax (matching About & Team widgets)
-            if ( ! prefersReducedMotion ) {
-                var storySec = root.querySelector( '.lre-story' ) || ( ( root.classList && root.classList.contains( 'lre-story' ) ) ? root : document.querySelector( '.lre-story' ) );
-                var watermark = root.querySelector( '.lre-story__watermark' ) || ( storySec ? storySec.querySelector( '.lre-story__watermark' ) : null );
-
-                if ( storySec && watermark ) {
-                    var updateStoryParallax = function () {
-                        var rect = storySec.getBoundingClientRect();
-                        var winH = window.innerHeight;
-                        if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                            var progress = ( winH - rect.top ) / ( winH + rect.height );
-                            var isMobile = window.innerWidth <= 768;
-                            var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                            var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                            watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                        }
-                    };
-                    window.addEventListener( 'scroll', updateStoryParallax, { passive: true } );
-                    updateStoryParallax();
-                }
+            // Watermark: permanently centered, no scroll drift or jitter
+            var watermark = root.querySelector( '.lre-story__watermark' );
+            if ( watermark ) {
+                watermark.style.transform = 'translate3d(-50%, 0, 0)';
             }
         }
     };
@@ -1428,24 +1382,10 @@
             }
 
             aservSections.forEach( function ( section ) {
-                // Watermark Scroll Parallax (matching Team widget)
-                if ( ! prefersReducedMotion ) {
-                    var aservWatermark = section.querySelector( '.lre-aserv__watermark' );
-                    if ( aservWatermark ) {
-                        var updateAservParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                aservWatermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateAservParallax, { passive: true } );
-                        updateAservParallax();
-                    }
+                // Watermark: permanently centered, no scroll drift or jitter
+                var aservWatermark = section.querySelector( '.lre-aserv__watermark' );
+                if ( aservWatermark ) {
+                    aservWatermark.style.transform = 'translate3d(-50%, 0, 0)';
                 }
             } );
 
@@ -1880,23 +1820,10 @@
             var root = $scope ? $scope[0] : document;
             var guideSections = root.querySelectorAll( '.lre-guide' );
             guideSections.forEach( function ( section ) {
-                if ( ! prefersReducedMotion ) {
-                    var watermark = section.querySelector( '.lre-guide__watermark' );
-                    if ( watermark ) {
-                        var updateGuideParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateGuideParallax, { passive: true } );
-                        updateGuideParallax();
-                    }
+                // Watermark: permanently centered, no scroll drift or jitter
+                var watermark = section.querySelector( '.lre-guide__watermark' );
+                if ( watermark ) {
+                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
                 }
             } );
         }
@@ -1913,23 +1840,10 @@
             var root = $scope ? $scope[0] : document;
             var sguideSections = root.querySelectorAll( '.lre-sguide' );
             sguideSections.forEach( function ( section ) {
-                if ( ! prefersReducedMotion ) {
-                    var watermark = section.querySelector( '.lre-sguide__watermark' );
-                    if ( watermark ) {
-                        var updateSguideParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 16 : 36 );
-                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updateSguideParallax, { passive: true } );
-                        updateSguideParallax();
-                    }
+                // Watermark: permanently centered, no scroll drift or jitter
+                var watermark = section.querySelector( '.lre-sguide__watermark' );
+                if ( watermark ) {
+                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
                 }
             } );
         }
@@ -2067,30 +1981,13 @@
                 LREWidgets.initReveals();
             }
 
-            // Watermark Scroll Parallax (matching About, Team, Story & Services widgets)
-            if ( ! prefersReducedMotion ) {
-                $strip.each( function () {
-                    var section = this;
-                    var watermark = section.querySelector( '.lre-press-strip__watermark' );
-                    if ( watermark && ! watermark._lreParallaxAttached ) {
-                        watermark._lreParallaxAttached = true;
-                        var updatePressParallax = function () {
-                            var rect = section.getBoundingClientRect();
-                            var winH = window.innerHeight;
-                            if ( rect.bottom >= -100 && rect.top <= winH + 100 ) {
-                                var progress = ( winH - rect.top ) / ( winH + rect.height );
-                                var isMobile = window.innerWidth <= 768;
-                                var xShift = isMobile ? -50 : ( -50 + ( progress - 0.5 ) * 20 );
-                                var yShift = ( progress - 0.5 ) * ( isMobile ? 14 : 32 );
-                                watermark.style.transform = 'translate3d(' + xShift + '%, ' + yShift + 'px, 0)';
-                            }
-                        };
-                        window.addEventListener( 'scroll', updatePressParallax, { passive: true } );
-                        window.addEventListener( 'resize', updatePressParallax, { passive: true } );
-                        updatePressParallax();
-                    }
-                } );
-            }
+            // Watermark: permanently centered, no scroll drift or jitter
+            $strip.each( function () {
+                var watermark = this.querySelector( '.lre-press-strip__watermark' );
+                if ( watermark ) {
+                    watermark.style.transform = 'translate3d(-50%, 0, 0)';
+                }
+            } );
 
             // If in Elementor editor mode, immediately show revealed items
             if ( $( 'body' ).hasClass( 'elementor-editor-active' ) || $( 'body' ).hasClass( 'elementor-edit-mode' ) ) {

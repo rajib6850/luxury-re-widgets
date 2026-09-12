@@ -59,7 +59,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'right bottom'  => __( 'Right Bottom', 'luxury-re-widgets' ),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__image-col img' => 'object-position: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__image-col img' => 'object-position: {{VALUE}};',
 				),
 			)
 		);
@@ -174,7 +174,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'vh' => array( 'min' => 20,  'max' => 90 ),
 			),
 			'selectors'  => array(
-				'{{WRAPPER}} .testimonial__image-col' => 'min-height: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				'{{WRAPPER}} .testimonial__image-col' => 'min-height: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 			),
 		) );
 		$this->add_responsive_control( 'content_padding', array(
@@ -197,9 +197,9 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial'             => 'background-color: {{VALUE}} !important; --testimonial-bg: {{VALUE}};',
-					'{{WRAPPER}} .testimonial__content-col' => 'background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .testimonial__image-col'   => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial'             => 'background-color: {{VALUE}}; --testimonial-bg: {{VALUE}};',
+					'{{WRAPPER}} .testimonial__content-col' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .testimonial__image-col'   => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -220,7 +220,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__eyebrow, {{WRAPPER}} .testimonial__eyebrow-wrap .section-label, {{WRAPPER}} .testimonial .testimonial__eyebrow, {{WRAPPER}} .testimonial .section-label' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --testimonial-eyebrow-color: {{VALUE}};',
+					'{{WRAPPER}} .testimonial__eyebrow, {{WRAPPER}} .testimonial__eyebrow-wrap .section-label, {{WRAPPER}} .testimonial .testimonial__eyebrow, {{WRAPPER}} .testimonial .section-label' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}}; --testimonial-eyebrow-color: {{VALUE}};',
 				),
 			)
 		);
@@ -235,7 +235,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'rem' => array( 'min' => 0, 'max' => 5, 'step' => 0.1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .testimonial__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .testimonial__eyebrow-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -259,7 +259,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'show_gold_bar' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'background: {{VALUE}}; background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -275,7 +275,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'px' => array( 'min' => 8, 'max' => 120, 'step' => 2 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'width: {{SIZE}}px !important; min-width: {{SIZE}}px !important;',
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'width: {{SIZE}}px; min-width: {{SIZE}}px;',
 				),
 			)
 		);
@@ -291,7 +291,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'px' => array( 'min' => 1, 'max' => 10, 'step' => 1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'height: {{SIZE}}px !important;',
+					'{{WRAPPER}} .testimonial__gold-bar, {{WRAPPER}} .testimonial__eyebrow-bar' => 'height: {{SIZE}}px;',
 				),
 			)
 		);
@@ -313,7 +313,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Main Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__heading-main' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__heading-main' => 'color: {{VALUE}}; -webkit-text-fill-color: {{VALUE}};',
 				),
 			)
 		);
@@ -348,19 +348,19 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			'enable_brand_shimmer',
 			array(
 				'label'        => __( 'Brand Shimmer Animation', 'luxury-re-widgets' ),
-				'description'  => __( 'Animates a luxury gleaming light sweep across the text (works with custom/global colors as well as default gold).', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'On', 'luxury-re-widgets' ),
-				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
+				'label_on'     => __( 'Enable', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Disable', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+				'description'  => __( 'Applies the luxury sweeping gold shimmer reflection across the brand name.', 'luxury-re-widgets' ),
 			)
 		);
 
 		$this->add_responsive_control(
 			'heading_spacing',
 			array(
-				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'label'      => __( 'Heading Bottom Spacing', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'range'      => array(
@@ -368,7 +368,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'rem' => array( 'min' => 0, 'max' => 6, 'step' => 0.1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .testimonial__heading' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .testimonial__heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -390,7 +390,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Quote Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__quote' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__quote' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -406,7 +406,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 					'rem' => array( 'min' => 0, 'max' => 4, 'step' => 0.1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .testimonial__quote' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .testimonial__quote' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -433,7 +433,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Client Name Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__author-name' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__author-name' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -452,7 +452,7 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'label'     => __( 'Result Subtitle Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .testimonial__author-result' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .testimonial__author-result' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -508,8 +508,8 @@ class LRE_Testimonials_Widget extends Widget_Base {
 
 		// Robust color resolution supporting both manual hex/rgb and Elementor Global Colors
 		$bg_color      = $this->get_resolved_color( $settings, 'section_bg', '' );
-		$bg_style      = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . ' !important; --testimonial-bg: ' . esc_attr( $bg_color ) . ';"' : '';
-		$col_style     = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . ' !important;"' : '';
+		$bg_style      = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . '; --testimonial-bg: ' . esc_attr( $bg_color ) . ';"' : '';
+		$col_style     = $bg_color ? ' style="background-color: ' . esc_attr( $bg_color ) . ';"' : '';
 		$fade_style    = $bg_color ? ' style="background: linear-gradient(to right, transparent 65%, ' . esc_attr( $bg_color ) . ' 100%), linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 40%);"' : '';
 
 		$is_shimmer  = ( ! isset( $settings['enable_brand_shimmer'] ) || 'yes' === $settings['enable_brand_shimmer'] );
@@ -528,17 +528,17 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		} else {
 			// Shimmer turned OFF: clean solid color
 			$brand_class = 'testimonial__heading-brand no-shimmer';
-			$brand_style = ! empty( $brand_color ) ? ' style="color: ' . esc_attr( $brand_color ) . ' !important; -webkit-text-fill-color: ' . esc_attr( $brand_color ) . ' !important;"' : '';
+			$brand_style = ! empty( $brand_color ) ? ' style="color: ' . esc_attr( $brand_color ) . '; -webkit-text-fill-color: ' . esc_attr( $brand_color ) . ';"' : '';
 		}
 
 		$main_color    = $this->get_resolved_color( $settings, 'heading_main_color', '' );
-		$main_style    = $main_color ? ' style="color: ' . esc_attr( $main_color ) . ' !important;"' : '';
+		$main_style    = $main_color ? ' style="color: ' . esc_attr( $main_color ) . ';"' : '';
 
 		$eyebrow_color = $this->get_resolved_color( $settings, 'eyebrow_color', '' );
-		$eyebrow_style = $eyebrow_color ? ' style="color: ' . esc_attr( $eyebrow_color ) . ' !important;"' : '';
+		$eyebrow_style = $eyebrow_color ? ' style="color: ' . esc_attr( $eyebrow_color ) . ';"' : '';
 
 		$bar_color     = $this->get_resolved_color( $settings, 'gold_bar_color', '' );
-		$bar_style     = $bar_color ? ' style="background: ' . esc_attr( $bar_color ) . ' !important; background-color: ' . esc_attr( $bar_color ) . ' !important;"' : '';
+		$bar_style     = $bar_color ? ' style="background: ' . esc_attr( $bar_color ) . '; background-color: ' . esc_attr( $bar_color ) . ';"' : '';
 		?>
 		<section class="testimonial<?php echo esc_attr( $overlay_class ); ?>" id="testimonial" aria-label="<?php esc_attr_e( 'Client testimonial', 'luxury-re-widgets' ); ?>"<?php echo $bg_style; ?>>
 			<div class="testimonial__image-col image-reveal"<?php echo $col_style; ?>>

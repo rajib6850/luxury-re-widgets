@@ -349,8 +349,6 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 .lre-aserv__card-action .btn,
 .lre-aserv__mono-action .btn,
 .lre-aserv__btn,
-.listings__cta-group .btn,
-.listings__cta-group a,
 .cta__buttons .btn,
 .cta__buttons a,
 .cta .btn,
@@ -368,28 +366,28 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 .elementor-widget .btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
 .elementor-widget a.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn),
 .elementor-widget button.btn:not(.lre-newsletter-white__btn):not(.lre-contact__submit-btn):not(.lre-phero__btn):not(.lre-reviews__nav-btn) {
-  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
-  font-size: 0.65rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 2.5px !important;
-  text-transform: uppercase !important;
-  line-height: 1 !important;
-  padding: 1.3rem 2.2rem !important;
-  min-height: 54px !important;
-  border-width: 1px !important;
-  border-style: solid !important;
-  border-radius: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-decoration: none !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  position: relative !important;
-  overflow: hidden !important;
-  vertical-align: middle !important;
-  white-space: nowrap !important;
-  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease !important;
+  font-family: var(--font-sans, "Montserrat", sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 1.3rem 2.2rem;
+  min-height: 54px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
 }
 
 /* Base button font inherit for customized widgets */
@@ -451,19 +449,18 @@ input[type="submit"].btn:not(.lre-contact__submit-btn):not(.lre-reviews__nav-btn
 body .elementor-element .btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
 body .elementor-element a.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
 body .elementor-element button.btn:not(.lre-newsletter-white__btn):not(.lre-story__btn):not(.lre-reviews__nav-btn),
-body .elementor-element .listings__cta-group .btn,
 body .elementor-element .about .btn,
 body .elementor-element .cta__buttons .btn,
 body .elementor-element .cta__buttons a.btn,
 body .elementor-element .lre-dual-cta__btn,
 body .elementor-element .lre-aserv .btn,
 body .elementor-element .lre-phero__actions .btn {
-  padding: 1.3rem 2.2rem !important;
-  min-height: 54px !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 2.5px !important;
-  line-height: 1 !important;
-  box-sizing: border-box !important;
+  padding: 1.3rem 2.2rem;
+  min-height: 54px;
+  font-size: 0.65rem;
+  letter-spacing: 2.5px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 /* Newsletter Submit Button (Reduced / Compact Capsule Sizing with Full Elementor Control) */
@@ -934,20 +931,36 @@ body .elementor-element .lre-phero__actions .btn {
   color: #08080c;
 }
 
-/* Mobile responsive sizing across all buttons */
+/* Mobile responsive sizing across buttons */
 @media (max-width: 767px) {
   .hero__cta-group .btn,
   .about .btn,
   .about__text .btn,
-  .listings__cta-group .btn,
   .cta__buttons .btn {
-    padding: 0.8rem 1.4rem !important;
-    font-size: 0.62rem !important;
-    letter-spacing: 2px !important;
-    width: 100% !important;
-    max-width: 320px !important;
-    text-align: center !important;
-    justify-content: center !important;
+    padding: 0.8rem 1.4rem;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    justify-content: center;
+  }
+  .listings__cta-group {
+    width: 100%;
+    max-width: 100%;
+  }
+  .listings__cta-group .btn,
+  .listings__cta-group a.btn,
+  .listings__cta-group a {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    padding: 1.15rem 1.5rem;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
   }
 }
 

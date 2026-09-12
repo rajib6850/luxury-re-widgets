@@ -8,6 +8,7 @@ use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
 
 /**
  * LRE_Community_Widget
@@ -136,83 +137,60 @@ class LRE_Community_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- 2. INTELLIGENCE STRIP ---
+		// --- 2. ARCHITECTURAL NARRATIVE ---
 		$this->start_controls_section(
-			'section_intelligence',
+			'section_story',
 			array(
-				'label' => __( '2. Intelligence Strip (4 Metrics)', 'luxury-re-widgets' ),
+				'label' => __( '2. Architectural Narrative', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
-		$repeater_metrics = new Repeater();
-
-		$repeater_metrics->add_control(
-			'label',
+		$this->add_control(
+			'story_eyebrow',
 			array(
-				'label'   => __( 'Metric Label', 'luxury-re-widgets' ),
+				'label'   => __( 'Story Eyebrow', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'MEDIAN ESTATE VALUATION',
-			)
-		);
-
-		$repeater_metrics->add_control(
-			'value',
-			array(
-				'label'   => __( 'Metric Value', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '$2.4M – $14.5M+',
-			)
-		);
-
-		$repeater_metrics->add_control(
-			'detail',
-			array(
-				'label'   => __( 'Subtle Detail', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Historic Craftsman & Revival premiums',
+				'default' => 'LOCAL HERITAGE & DISCRETION',
 			)
 		);
 
 		$this->add_control(
-			'intelligence_metrics',
+			'story_title',
 			array(
-				'label'       => __( 'Metrics Items', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater_metrics->get_controls(),
-				'default'     => array(
-					array(
-						'label'  => 'MEDIAN ESTATE VALUATION',
-						'value'  => '$2.4M – $14.5M+',
-						'detail' => 'Historic Craftsman & Revival premiums',
-					),
-					array(
-						'label'  => 'ARCHITECTURAL PEDIGREE',
-						'value'  => 'Greene & Greene • Blick',
-						'detail' => 'Wallace Neff & Mid-Century icons',
-					),
-					array(
-						'label'  => 'ENCLAVE CHARACTER',
-						'value'  => 'Historic Arroyo & Manors',
-						'detail' => 'Canopied avenues & bluff estates',
-					),
-					array(
-						'label'  => 'REPRESENTATION RECORD',
-						'value'  => '$49M+ Career Volume',
-						'detail' => 'Landmark 6-day sale at 555 S. Grand',
-					),
-				),
-				'title_field' => '{{{ label }}}: {{{ value }}}',
+				'label'   => __( 'Story Title (H2)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Preserving Provenance in Southern California’s Cultural Capital',
+			)
+		);
+
+		$this->add_control(
+			'story_p1',
+			array(
+				'label'   => __( 'Narrative Paragraph 1', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 4,
+				'default' => 'Framed by the San Gabriel Mountains and the dramatic Arroyo Seco bluffs, Pasadena stands as Southern California’s premier sanctuary of preserved architectural integrity. Unlike homogenized suburban developments, Pasadena’s streetscapes are an evolving dialogue between early 20th-century visionary architects and contemporary custodians.',
+			)
+		);
+
+		$this->add_control(
+			'story_p2',
+			array(
+				'label'   => __( 'Narrative Paragraph 2', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 4,
+				'default' => 'With over 50 closed transactions and $49 Million+ in career sales volume, Adolfo Aguirre provides private clients, family trusts, and fiduciary principals with discreet, high-caliber representation. From securing competitive off-market acquisitions along South Orange Grove to orchestrating record-setting campaigns—such as 555 S. Grand Ave, which closed in just 6 days for $100,000 over asking price—every transaction is executed with bespoke strategy and global SERHANT. media power.',
 			)
 		);
 
 		$this->end_controls_section();
 
-		// --- 3. ARCHITECTURAL NARRATIVE & INSIDER HERITAGE ---
+		// --- 3. CURATOR'S PERSPECTIVE QUOTE ---
 		$this->start_controls_section(
-			'section_narrative',
+			'section_quote',
 			array(
-				'label' => __( '3. Narrative & Insider Heritage', 'luxury-re-widgets' ),
+				'label' => __( '3. Curator’s Statement Quote', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -254,41 +232,14 @@ class LRE_Community_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'story_eyebrow',
-			array(
-				'label'   => __( 'Story Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'LOCAL HERITAGE & DISCRETION',
-			)
-		);
+		$this->end_controls_section();
 
-		$this->add_control(
-			'story_title',
+		// --- 4. KEY HERITAGE METRICS ---
+		$this->start_controls_section(
+			'section_stats',
 			array(
-				'label'   => __( 'Story Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Preserving Provenance in Southern California’s Cultural Capital',
-			)
-		);
-
-		$this->add_control(
-			'story_p1',
-			array(
-				'label'   => __( 'Narrative Paragraph 1', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 4,
-				'default' => 'Framed by the San Gabriel Mountains and the dramatic Arroyo Seco bluffs, Pasadena stands as Southern California’s premier sanctuary of preserved architectural integrity. Unlike homogenized suburban developments, Pasadena’s streetscapes are an evolving dialogue between early 20th-century visionary architects and contemporary custodians.',
-			)
-		);
-
-		$this->add_control(
-			'story_p2',
-			array(
-				'label'   => __( 'Narrative Paragraph 2', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 4,
-				'default' => 'With over 50 closed transactions and $49 Million+ in career sales volume, Adolfo Aguirre provides private clients, family trusts, and fiduciary principals with discreet, high-caliber representation. From securing competitive off-market acquisitions along South Orange Grove to orchestrating record-setting campaigns—such as 555 S. Grand Ave, which closed in just 6 days for $100,000 over asking price—every transaction is executed with bespoke strategy and global SERHANT. media power.',
+				'label' => __( '4. Heritage Metrics & Stats', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
@@ -348,480 +299,11 @@ class LRE_Community_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- 4. ENCLAVES DIRECTORY ---
-		$this->start_controls_section(
-			'section_enclaves',
-			array(
-				'label' => __( '4. Micro-Enclaves Directory', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'enclaves_eyebrow',
-			array(
-				'label'   => __( 'Enclaves Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'DISTRICT DOSSIER',
-			)
-		);
-
-		$this->add_control(
-			'enclaves_title',
-			array(
-				'label'   => __( 'Enclaves Section Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Curated Micro-Enclaves & Neighborhoods',
-			)
-		);
-
-		$this->add_control(
-			'enclaves_subtitle',
-			array(
-				'label'   => __( 'Enclaves Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'Explore the distinct architectural signatures, lot scales, and community ambiance that define Pasadena’s most distinguished residential territories.',
-			)
-		);
-
-		$repeater_enclaves = new Repeater();
-
-		$repeater_enclaves->add_control(
-			'index_num',
-			array(
-				'label'   => __( 'Index Number', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '01',
-			)
-		);
-
-		$repeater_enclaves->add_control(
-			'name',
-			array(
-				'label'   => __( 'Enclave Name', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'South Grand & Arroyo Seco',
-			)
-		);
-
-		$repeater_enclaves->add_control(
-			'tag',
-			array(
-				'label'   => __( 'Enclave Tag / Moniker', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'ESTATE ROW • BLUFF SANCTUARY',
-			)
-		);
-
-		$repeater_enclaves->add_control(
-			'description',
-			array(
-				'label'   => __( 'Description', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'Perched above the dramatic Arroyo Seco bluffs, South Grand Avenue is celebrated for grand Craftsman, Tudor, and Mediterranean revival estates crafted by master architects J.J. Blick, Myron Hunt, and Greene & Greene. Site of Adolfo’s landmark sales at 555 and 788 S. Grand Ave.',
-			)
-		);
-
-		$repeater_enclaves->add_control(
-			'style',
-			array(
-				'label'   => __( 'Architectural Style', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Craftsman, Prairie & Spanish Revival',
-			)
-		);
-
-		$repeater_enclaves->add_control(
-			'image',
-			array(
-				'label'   => __( 'Enclave Image', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
-					'url' => lre_asset_url( 'images/property-1.jpg' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'enclaves_list',
-			array(
-				'label'       => __( 'Enclaves List', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater_enclaves->get_controls(),
-				'default'     => array(
-					array(
-						'index_num'   => '01',
-						'name'        => 'South Grand & Arroyo Seco',
-						'tag'         => 'ESTATE ROW • BLUFF SANCTUARY',
-						'description' => 'Perched above the historic Arroyo Seco bluffs, South Grand Avenue is celebrated for grand Craftsman, Tudor, and Mediterranean revival estates crafted by master architects J.J. Blick, Myron Hunt, and Greene & Greene. Site of Adolfo’s landmark sales at 555 and 788 S. Grand Ave.',
-						'style'       => 'Craftsman, Prairie & Spanish Revival',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
-					),
-					array(
-						'index_num'   => '02',
-						'name'        => 'South Orange Grove Boulevard',
-						'tag'         => 'MILLIONAIRE\'S ROW • GARDEN ESTATES',
-						'description' => 'Historically revered as Pasadena’s "Millionaire’s Row", this majestic palm-lined avenue showcases expansive luxury garden estates, classic architectural pedigree, and direct proximity to the historic Tournament House.',
-						'style'       => 'Mid-Century Modern & Grand Traditional',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
-					),
-					array(
-						'index_num'   => '03',
-						'name'        => 'Madison Heights',
-						'tag'         => 'CANOPIED OAKS • ARCHITECTURAL CHARM',
-						'description' => 'One of Pasadena’s most sought-after neighborhood pockets, characterized by towering jacaranda and live oak canopies, pristine Craftsman bungalows, and gracious Colonial Revival family estates.',
-						'style'       => 'Ultimate Craftsman & Colonial Revival',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ),
-					),
-					array(
-						'index_num'   => '04',
-						'name'        => 'Linda Vista & Annandale',
-						'tag'         => 'HILLSIDE DISCRETION • GOLF VIEWS',
-						'description' => 'Tucked into the western hills overlooking the Rose Bowl and Annandale Golf Club, Linda Vista offers secluded privacy, generous acreage, and dramatic Mid-Century Modern architectural view properties.',
-						'style'       => 'Post-and-Beam & Contemporary Hillside',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-7.jpg' ) ),
-					),
-				),
-				'title_field' => '{{{ index_num }}} — {{{ name }}}',
-			)
-		);
-
-		$this->end_controls_section();
-
-		// --- 5. LOCAL SALES LEDGER ---
-		$this->start_controls_section(
-			'section_sales',
-			array(
-				'label' => __( '5. Local Landmark Sales Ledger', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'sales_eyebrow',
-			array(
-				'label'   => __( 'Sales Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'LOCAL PROVENANCE • RECORD SALES',
-			)
-		);
-
-		$this->add_control(
-			'sales_title',
-			array(
-				'label'   => __( 'Sales Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Landmark Pasadena Transactions',
-			)
-		);
-
-		$this->add_control(
-			'sales_subtitle',
-			array(
-				'label'   => __( 'Sales Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'A verified record of discreet representation, record prices, and swift dispositions across Pasadena’s most storied avenues.',
-			)
-		);
-
-		$repeater_sales = new Repeater();
-
-		$repeater_sales->add_control(
-			'address',
-			array(
-				'label'   => __( 'Property Address', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '555 S. Grand Ave, Pasadena',
-			)
-		);
-
-		$repeater_sales->add_control(
-			'price',
-			array(
-				'label'   => __( 'Sold Price / Record', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '$2,500,000+',
-			)
-		);
-
-		$repeater_sales->add_control(
-			'badge',
-			array(
-				'label'   => __( 'Achievement Badge', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'SOLD IN 6 DAYS • $100K OVER ASKING',
-			)
-		);
-
-		$repeater_sales->add_control(
-			'specs',
-			array(
-				'label'   => __( 'Property Specs', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '5 BEDS • 4.5 BATHS • 4,820 SQFT • 1910 J.J. BLICK',
-			)
-		);
-
-		$repeater_sales->add_control(
-			'narrative',
-			array(
-				'label'   => __( 'Transaction Insight', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => '1910 J.J. Blick Landmark Estate. Dual agency representation (Buyer & Seller). Generated intense competitive private interest and closed over asking price.',
-			)
-		);
-
-		$repeater_sales->add_control(
-			'image',
-			array(
-				'label'   => __( 'Property Photo', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
-					'url' => lre_asset_url( 'images/property-6.jpg' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'sales_list',
-			array(
-				'label'       => __( 'Landmark Transactions', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater_sales->get_controls(),
-				'default'     => array(
-					array(
-						'address'   => '555 S. Grand Ave, Pasadena',
-						'price'     => '$2,500,000+',
-						'badge'     => 'SOLD IN 6 DAYS • $100K OVER ASKING',
-						'specs'     => '5 BEDS • 4.5 BATHS • 4,820 SQFT • 1910 J.J. BLICK',
-						'narrative' => '1910 J.J. Blick Landmark Estate. Dual agency representation (Buyer & Seller). Generated intense competitive private interest and closed over asking price.',
-						'image'     => array( 'url' => lre_asset_url( 'images/property-6.jpg' ) ),
-					),
-					array(
-						'address'   => 'The Villetta — 788 S. Grand Ave, Pasadena',
-						'price'     => '$3,800,000',
-						'badge'     => 'CLOSED IN 16 DAYS • ALL-CASH',
-						'specs'     => 'HISTORIC MEDITERRANEAN ESTATE • SOUTH GRAND',
-						'narrative' => 'Represented the Buyer on an ultra-rare architectural treasure. Coordinated discreet sovereign escrow protocol and secured prompt 16-day closing.',
-						'image'     => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
-					),
-					array(
-						'address'   => '1485 Lombardy Rd, Pasadena',
-						'price'     => '$4,600,000',
-						'badge'     => 'PREMIER ESTATE CORRIDOR',
-						'specs'     => 'ESTATE GROUNDS • POOL • PRIVATE GROVE',
-						'narrative' => 'Prime estate corridor representation with uncompromising client discretion and contract execution.',
-						'image'     => array( 'url' => lre_asset_url( 'images/property-8.jpg' ) ),
-					),
-					array(
-						'address'   => '1205 S. Orange Grove Blvd, Pasadena',
-						'price'     => '$2,150,000',
-						'badge'     => 'MILLIONAIRE’S ROW RECORD',
-						'specs'     => '3 BEDS • 3 BATHS • LUXURY RESIDENCE',
-						'narrative' => 'Represented Sellers on Millionaire’s Row, generating competitive multi-buyer interest through targeted media distribution.',
-						'image'     => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
-					),
-				),
-				'title_field' => '{{{ address }}} — {{{ price }}}',
-			)
-		);
-
-		$this->end_controls_section();
-
-		// --- 6. LIFESTYLE & CULTURAL FABRIC ---
-		$this->start_controls_section(
-			'section_lifestyle',
-			array(
-				'label' => __( '6. Lifestyle & Cultural Fabric', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'lifestyle_eyebrow',
-			array(
-				'label'   => __( 'Lifestyle Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'THE PASADENA MANNER',
-			)
-		);
-
-		$this->add_control(
-			'lifestyle_title',
-			array(
-				'label'   => __( 'Lifestyle Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Institutions, Culture & Private Leisure',
-			)
-		);
-
-		$this->add_control(
-			'lifestyle_subtitle',
-			array(
-				'label'   => __( 'Lifestyle Subtitle', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 2,
-				'default' => 'Life in Pasadena is anchored by storied private athletic clubs, internationally renowned cultural institutions, and effortless proximity to natural preserves.',
-			)
-		);
-
-		$repeater_life = new Repeater();
-
-		$repeater_life->add_control(
-			'category',
-			array(
-				'label'   => __( 'Pillar Category', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'PRIVATE CLUBS & RECREATION',
-			)
-		);
-
-		$repeater_life->add_control(
-			'title',
-			array(
-				'label'   => __( 'Pillar Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'The Valley Hunt Club & Annandale',
-			)
-		);
-
-		$repeater_life->add_control(
-			'description',
-			array(
-				'label'   => __( 'Description', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'Founded in 1888 (the birthplace of the Rose Parade), The Valley Hunt Club and the private fairways of Annandale Golf Club anchor Pasadena’s quiet, multi-generational social calendar.',
-			)
-		);
-
-		$repeater_life->add_control(
-			'image',
-			array(
-				'label'   => __( 'Pillar Image', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
-					'url' => lre_asset_url( 'images/property-9.jpg' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'lifestyle_list',
-			array(
-				'label'       => __( 'Lifestyle Pillars', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater_life->get_controls(),
-				'default'     => array(
-					array(
-						'category'    => 'PRIVATE CLUBS & RECREATION',
-						'title'       => 'The Valley Hunt Club & Annandale',
-						'description' => 'Founded in 1888 (the birthplace of the Rose Parade), The Valley Hunt Club and the private fairways of Annandale Golf Club anchor Pasadena’s quiet, multi-generational social calendar.',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-9.jpg' ) ),
-					),
-					array(
-						'category'    => 'CULTURAL MASTERPIECES',
-						'title'       => 'The Norton Simon & Gamble House',
-						'description' => 'Home to one of the world’s most distinguished European and Asian art collections, alongside Greene & Greene’s ultimate architectural masterpiece, The Gamble House, and the historic Pasadena Playhouse.',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
-					),
-					array(
-						'category'    => 'NATURAL PRESERVES & BOTANY',
-						'title'       => 'Arroyo Seco Trails & Huntington Border',
-						'description' => 'Miles of secluded equestrian and hiking trails through the dramatic Arroyo Seco basin, moments away from the 120-acre botanical sanctuaries of the adjacent Huntington Library.',
-						'image'       => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
-					),
-				),
-				'title_field' => '{{{ title }}}',
-			)
-		);
-
-		$this->end_controls_section();
-
-		// --- 7. PRIVATE VALUATION & ADVISORY CTA ---
-		$this->start_controls_section(
-			'section_cta',
-			array(
-				'label' => __( '7. Private Advisory & Valuation CTA', 'luxury-re-widgets' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'cta_eyebrow',
-			array(
-				'label'   => __( 'CTA Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'CONFIDENTIAL ESTATE REPRESENTATION • SERHANT.',
-			)
-		);
-
-		$this->add_control(
-			'cta_title',
-			array(
-				'label'   => __( 'CTA Title', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Considering Acquiring or Representing an Estate in Pasadena?',
-			)
-		);
-
-		$this->add_control(
-			'cta_description',
-			array(
-				'label'   => __( 'CTA Description', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'rows'    => 3,
-				'default' => 'Whether orchestrating a confidential probate disposition, evaluating an off-market architectural treasure, or assessing current market liquidity, Adolfo Aguirre offers bespoke private advisory backed by the global reach of SERHANT.',
-			)
-		);
-
-		$this->add_control(
-			'cta_btn1_text',
-			array(
-				'label'   => __( 'Primary Button Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'REQUEST CONFIDENTIAL VALUATION',
-			)
-		);
-
-		$this->add_control(
-			'cta_btn1_url',
-			array(
-				'label'   => __( 'Primary Button URL', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::URL,
-				'default' => array( 'url' => home_url( '/home-valuation/' ) ),
-			)
-		);
-
-		$this->add_control(
-			'cta_btn2_text',
-			array(
-				'label'   => __( 'Secondary Button Text', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'SCHEDULE A PRIVATE CONVERSATION',
-			)
-		);
-
-		$this->add_control(
-			'cta_btn2_url',
-			array(
-				'label'   => __( 'Secondary Button URL', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::URL,
-				'default' => array( 'url' => home_url( '/contact/' ) ),
-			)
-		);
-
-		$this->end_controls_section();
-
-		// --- 8. SISTER ENCLAVES SWITCHER ---
+		// --- 5. SISTER ENCLAVES SWITCHER ---
 		$this->start_controls_section(
 			'section_switcher',
 			array(
-				'label' => __( '8. Sister Enclaves Switcher', 'luxury-re-widgets' ),
+				'label' => __( '5. Sister Territories Switcher', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -916,6 +398,1310 @@ class LRE_Community_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// =================================================================
+		// TAB: STYLE
+		// =================================================================
+
+		// --- STYLE 1: HERO LAYOUT & OVERLAY ---
+		$this->start_controls_section(
+			'style_hero_layout',
+			array(
+				'label' => __( '1. Hero Layout & Overlay', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_min_height',
+			array(
+				'label'      => __( 'Minimum Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'vh', 'px', '%' ),
+				'range'      => array(
+					'vh' => array( 'min' => 40, 'max' => 120, 'step' => 1 ),
+					'px' => array( 'min' => 400, 'max' => 1400, 'step' => 10 ),
+				),
+				'default'    => array(
+					'size' => 90,
+					'unit' => 'vh',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__hero' => 'min-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__hero' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hero_scrim_opacity',
+			array(
+				'label'     => __( 'Overlay Darkness (Scrim Opacity)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0, 'max' => 1, 'step' => 0.05 ),
+				),
+				'default'   => array( 'size' => 1 ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__hero-scrim' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hero_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__hero' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 2: BREADCRUMBS NAVIGATION ---
+		$this->start_controls_section(
+			'style_hero_breadcrumbs',
+			array(
+				'label' => __( '2. Hero Breadcrumbs', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'breadcrumbs_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__breadcrumbs, {{WRAPPER}} .lre-community__crumb',
+			)
+		);
+
+		$this->add_control(
+			'breadcrumbs_color',
+			array(
+				'label'     => __( 'Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__crumb' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'breadcrumbs_active_color',
+			array(
+				'label'     => __( 'Active Crumb Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__crumb--active' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'breadcrumbs_sep_color',
+			array(
+				'label'     => __( 'Separator Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__crumb-sep' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 3: MASTHEAD TYPOGRAPHY ---
+		$this->start_controls_section(
+			'style_hero_typography',
+			array(
+				'label' => __( '3. Masthead Typography', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Hero Eyebrow
+		$this->add_control(
+			'heading_style_hero_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'hero_eyebrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'hero_eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_eyebrow_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Hero Title (H1)
+		$this->add_control(
+			'heading_style_hero_title',
+			array(
+				'label'     => __( 'Title (H1)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'hero_title_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__title',
+			)
+		);
+
+		$this->add_control(
+			'hero_title_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_title_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Hero Tagline (Paragraph)
+		$this->add_control(
+			'heading_style_hero_tagline',
+			array(
+				'label'     => __( 'Subtitle / Tagline (Paragraph)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'hero_tagline_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__tagline',
+			)
+		);
+
+		$this->add_control(
+			'hero_tagline_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__tagline' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_tagline_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__tagline' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hero_tagline_max_width',
+			array(
+				'label'      => __( 'Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 300, 'max' => 1200, 'step' => 10 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__tagline' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 4: WATERMARK / SHADOW TEXT ---
+		$this->start_controls_section(
+			'style_hero_watermark',
+			array(
+				'label' => __( '4. Watermark (Shadow Text)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'watermark_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__watermark',
+			)
+		);
+
+		$this->add_control(
+			'watermark_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__watermark' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'watermark_stroke_color',
+			array(
+				'label'     => __( 'Outline / Stroke Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__watermark' => '-webkit-text-stroke-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'watermark_top',
+			array(
+				'label'      => __( 'Top Position (%)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%' ),
+				'range'      => array(
+					'%' => array( 'min' => 0, 'max' => 50, 'step' => 0.5 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__watermark' => 'top: {{SIZE}}%;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'watermark_opacity',
+			array(
+				'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0, 'max' => 1, 'step' => 0.02 ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__watermark' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 5: COORDINATES BADGE ---
+		$this->start_controls_section(
+			'style_hero_coordinates',
+			array(
+				'label' => __( '5. Coordinates Badge', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'coordinates_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__coordinates',
+			)
+		);
+
+		$this->add_control(
+			'coordinates_color',
+			array(
+				'label'     => __( 'Text & Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__coordinates' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'coordinates_dot_color',
+			array(
+				'label'     => __( 'Dot Accent Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__coord-dot' => 'background-color: {{VALUE}}; box-shadow: 0 0 8px {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'coordinates_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__coordinates' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'coordinates_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__coordinates' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'coordinates_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__coordinates' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 6: ARCHITECTURAL NARRATIVE LAYOUT ---
+		$this->start_controls_section(
+			'style_narrative_layout',
+			array(
+				'label' => __( '6. Narrative Section Layout', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'narrative_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__narrative' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'narrative_padding',
+			array(
+				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__narrative' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'narrative_grid_gap',
+			array(
+				'label'      => __( 'Grid Columns Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'rem' => array( 'min' => 1, 'max' => 10, 'step' => 0.5 ),
+					'px'  => array( 'min' => 16, 'max' => 140, 'step' => 4 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__narrative-grid' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 7: STORY HEADINGS ---
+		$this->start_controls_section(
+			'style_narrative_headings',
+			array(
+				'label' => __( '7. Story Headings', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_style_story_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'story_eyebrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__story-content .lre-community__section-eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'story_eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__story-content .lre-community__section-eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_style_narrative_title',
+			array(
+				'label'     => __( 'Story Title (H2)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'narrative_title_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__story-content .lre-community__section-title',
+			)
+		);
+
+		$this->add_control(
+			'narrative_title_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__story-content .lre-community__section-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'narrative_title_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__story-content .lre-community__section-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 8: STORY BODY TEXT (PARAGRAPHS) ---
+		$this->start_controls_section(
+			'style_narrative_prose',
+			array(
+				'label' => __( '8. Story Body Text (Paragraphs)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_style_narrative_body',
+			array(
+				'label' => __( 'Paragraphs Typography & Colors', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'narrative_body_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__prose, {{WRAPPER}} .lre-community__prose p',
+			)
+		);
+
+		$this->add_control(
+			'narrative_body_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__prose'   => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-community__prose p' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'narrative_body_spacing',
+			array(
+				'label'      => __( 'Paragraph Spacing (Margin Bottom)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'rem' => array( 'min' => 0.5, 'max' => 4, 'step' => 0.1 ),
+					'px'  => array( 'min' => 8, 'max' => 60, 'step' => 2 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__prose p' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'narrative_body_max_width',
+			array(
+				'label'      => __( 'Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%', 'ch' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__prose' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 9: STATEMENT QUOTE CARD BOX ---
+		$this->start_controls_section(
+			'style_quote_card',
+			array(
+				'label' => __( '9. Quote Card Box', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'quote_card_bg',
+			array(
+				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-card' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'quote_card_border_color',
+			array(
+				'label'     => __( 'Card Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-card' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'quote_card_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__quote-card' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'quote_card_padding',
+			array(
+				'label'      => __( 'Card Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__quote-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'quote_card_shadow',
+				'selector' => '{{WRAPPER}} .lre-community__quote-card',
+			)
+		);
+
+		$this->add_control(
+			'quote_line_color',
+			array(
+				'label'     => __( 'Accent Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'separator' => 'before',
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__gold-line' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'quote_line_width',
+			array(
+				'label'      => __( 'Accent Line Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array( 'min' => 10, 'max' => 120, 'step' => 2 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__gold-line' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 10: STATEMENT QUOTE TYPOGRAPHY ---
+		$this->start_controls_section(
+			'style_quote_typography',
+			array(
+				'label' => __( '10. Quote Typography', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_style_quote_eyebrow',
+			array(
+				'label' => __( 'Quote Eyebrow', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_eyebrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__quote-eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'quote_eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Quote Body
+		$this->add_control(
+			'heading_style_quote',
+			array(
+				'label'     => __( 'Quote Body Text (Paragraph)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_body_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__quote-body, {{WRAPPER}} .lre-community__quote-body p',
+			)
+		);
+
+		$this->add_control(
+			'quote_body_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-body'   => 'color: {{VALUE}};',
+					'{{WRAPPER}} .lre-community__quote-body p' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'quote_body_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__quote-body'   => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .lre-community__quote-body p' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Author Citation
+		$this->add_control(
+			'heading_style_quote_author',
+			array(
+				'label'     => __( 'Author & Subtitle', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_author_typography',
+				'label'    => __( 'Author Name Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__quote-cite strong',
+			)
+		);
+
+		$this->add_control(
+			'quote_author_color',
+			array(
+				'label'     => __( 'Author Name Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-cite strong' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quote_author_sub_typography',
+				'label'    => __( 'Subtitle / Role Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__quote-cite span',
+			)
+		);
+
+		$this->add_control(
+			'quote_author_sub_color',
+			array(
+				'label'     => __( 'Subtitle / Role Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__quote-cite span' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 11: HERITAGE METRICS & STATS ---
+		$this->start_controls_section(
+			'style_stats',
+			array(
+				'label' => __( '11. Heritage Metrics & Stats', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'stats_border_color',
+			array(
+				'label'     => __( 'Top Divider Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__stats-row' => 'border-top-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'stats_spacing_top',
+			array(
+				'label'      => __( 'Top Spacing & Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__stats-row' => 'margin-top: {{SIZE}}{{UNIT}}; padding-top: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_style_stats',
+			array(
+				'label'     => __( 'Stat Numbers', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'stat_num_typography',
+				'label'    => __( 'Number Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__stat-num',
+			)
+		);
+
+		$this->add_control(
+			'stat_num_color',
+			array(
+				'label'     => __( 'Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__stat-num' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'stat_num_spacing',
+			array(
+				'label'      => __( 'Number Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__stat-num' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_style_stat_labels',
+			array(
+				'label'     => __( 'Stat Labels', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'stat_label_typography',
+				'label'    => __( 'Label Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__stat-label',
+			)
+		);
+
+		$this->add_control(
+			'stat_label_color',
+			array(
+				'label'     => __( 'Label Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__stat-label' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 12: SISTER TERRITORIES SWITCHER LAYOUT ---
+		$this->start_controls_section(
+			'style_switcher_layout',
+			array(
+				'label' => __( '12. Sister Territories Layout', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'switcher_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__switcher' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'switcher_padding',
+			array(
+				'label'      => __( 'Section Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__switcher' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'switcher_border_top_color',
+			array(
+				'label'     => __( 'Top Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__switcher' => 'border-top-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'switcher_eyebrow_typography',
+				'label'    => __( 'Eyebrow Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__switcher .lre-community__section-eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'switcher_eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__switcher .lre-community__section-eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_style_sister_title',
+			array(
+				'label'     => __( 'Section Title (H2)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'switcher_title_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__switcher .lre-community__section-title',
+			)
+		);
+
+		$this->add_control(
+			'switcher_title_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__switcher .lre-community__section-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'switcher_header_spacing',
+			array(
+				'label'      => __( 'Header Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__switcher-head' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE 13: SISTER TERRITORY CARDS ---
+		$this->start_controls_section(
+			'style_sister_cards',
+			array(
+				'label' => __( '13. Sister Territory Cards', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'sister_card_height',
+			array(
+				'label'      => __( 'Card Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array( 'min' => 250, 'max' => 600, 'step' => 10 ),
+				),
+				'default'    => array(
+					'size' => 390,
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__sister-card' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sister_card_bg',
+			array(
+				'label'     => __( 'Card Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-card' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sister_card_border_color',
+			array(
+				'label'     => __( 'Card Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-card' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sister_card_hover_accent',
+			array(
+				'label'     => __( 'Hover Accent & Top Line', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-card:hover'   => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-community__sister-card::before' => 'background: linear-gradient(90deg, transparent, {{VALUE}}, transparent);',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'sister_card_radius',
+			array(
+				'label'      => __( 'Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__sister-card' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sister_scrim_opacity',
+			array(
+				'label'     => __( 'Gradient Scrim Darkness', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array( 'min' => 0.2, 'max' => 1, 'step' => 0.05 ),
+				),
+				'default'   => array( 'size' => 0.95 ),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-scrim' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		// Card Eyebrow
+		$this->add_control(
+			'heading_style_sister_eyebrow',
+			array(
+				'label'     => __( 'Card Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'sister_eyebrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__sister-eyebrow',
+			)
+		);
+
+		$this->add_control(
+			'sister_eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Card Name (H3)
+		$this->add_control(
+			'heading_style_sister_name',
+			array(
+				'label'     => __( 'Card Title (H3)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'sister_name_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__sister-name',
+			)
+		);
+
+		$this->add_control(
+			'sister_name_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-name' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'sister_name_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__sister-name' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Card Tagline (Paragraph)
+		$this->add_control(
+			'heading_style_sister_tagline',
+			array(
+				'label'     => __( 'Card Tagline (Paragraph)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'sister_tagline_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__sister-tagline',
+			)
+		);
+
+		$this->add_control(
+			'sister_tagline_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-tagline' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'sister_tagline_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-community__sister-tagline' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Card Arrow / Explore Link
+		$this->add_control(
+			'heading_style_sister_arrow',
+			array(
+				'label'     => __( 'Explore Link & Arrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'sister_arrow_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-community__sister-arrow',
+			)
+		);
+
+		$this->add_control(
+			'sister_arrow_color',
+			array(
+				'label'     => __( 'Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-arrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sister_arrow_hover_color',
+			array(
+				'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-community__sister-card:hover .lre-community__sister-arrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 	}
 
 	protected function render() {
@@ -968,26 +1754,7 @@ class LRE_Community_Widget extends Widget_Base {
 			</header>
 
 			<!-- =================================================================
-			     2. MINIMALIST 4-POINT INTELLIGENCE STRIP
-			================================================================== -->
-			<?php if ( ! empty( $settings['intelligence_metrics'] ) ) : ?>
-				<section class="lre-community__intel" aria-label="Community Market Intelligence">
-					<div class="lre-community__intel-grid">
-						<?php foreach ( $settings['intelligence_metrics'] as $metric ) : ?>
-							<div class="lre-community__intel-item">
-								<span class="lre-community__intel-label"><?php echo esc_html( $metric['label'] ); ?></span>
-								<span class="lre-community__intel-val"><?php echo esc_html( $metric['value'] ); ?></span>
-								<?php if ( ! empty( $metric['detail'] ) ) : ?>
-									<span class="lre-community__intel-detail"><?php echo esc_html( $metric['detail'] ); ?></span>
-								<?php endif; ?>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				</section>
-			<?php endif; ?>
-
-			<!-- =================================================================
-			     3. ARCHITECTURAL NARRATIVE & INSIDER HERITAGE
+			     2. ARCHITECTURAL NARRATIVE & INSIDER HERITAGE
 			================================================================== -->
 			<section class="lre-community__narrative">
 				<div class="lre-community__container">
@@ -1042,166 +1809,7 @@ class LRE_Community_Widget extends Widget_Base {
 			</section>
 
 			<!-- =================================================================
-			     4. MICRO-ENCLAVES DIRECTORY
-			================================================================== -->
-			<?php if ( ! empty( $settings['enclaves_list'] ) ) : ?>
-				<section class="lre-community__enclaves" id="enclaves">
-					<div class="lre-community__container">
-						<div class="lre-community__section-head">
-							<?php if ( ! empty( $settings['enclaves_eyebrow'] ) ) : ?>
-								<span class="lre-community__section-eyebrow"><?php echo esc_html( $settings['enclaves_eyebrow'] ); ?></span>
-							<?php endif; ?>
-							<h2 class="lre-community__section-title"><?php echo esc_html( $settings['enclaves_title'] ); ?></h2>
-							<?php if ( ! empty( $settings['enclaves_subtitle'] ) ) : ?>
-								<p class="lre-community__section-sub"><?php echo esc_html( $settings['enclaves_subtitle'] ); ?></p>
-							<?php endif; ?>
-						</div>
-
-						<div class="lre-community__enclaves-grid">
-							<?php foreach ( $settings['enclaves_list'] as $enclave ) : 
-								$enc_img = ! empty( $enclave['image']['url'] ) ? lre_resolve_image_url( $enclave['image']['url'] ) : lre_asset_url( 'images/property-1.jpg' );
-							?>
-								<div class="lre-community__enclave-card">
-									<div class="lre-community__enclave-media">
-										<img src="<?php echo esc_url( $enc_img ); ?>" alt="<?php echo esc_attr( $enclave['name'] ); ?>" class="lre-community__enclave-img" loading="lazy" />
-										<span class="lre-community__enclave-num"><?php echo esc_html( $enclave['index_num'] ); ?></span>
-									</div>
-									<div class="lre-community__enclave-content">
-										<span class="lre-community__enclave-tag"><?php echo esc_html( $enclave['tag'] ); ?></span>
-										<h3 class="lre-community__enclave-name"><?php echo esc_html( $enclave['name'] ); ?></h3>
-										<p class="lre-community__enclave-desc"><?php echo esc_html( $enclave['description'] ); ?></p>
-										<?php if ( ! empty( $enclave['style'] ) ) : ?>
-											<div class="lre-community__enclave-style">
-												<span class="lre-community__style-label">ARCHITECTURAL SIGNATURE</span>
-												<span class="lre-community__style-val"><?php echo esc_html( $enclave['style'] ); ?></span>
-											</div>
-										<?php endif; ?>
-									</div>
-								</div>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</section>
-			<?php endif; ?>
-
-			<!-- =================================================================
-			     5. LOCAL LANDMARK SALES LEDGER
-			================================================================== -->
-			<?php if ( ! empty( $settings['sales_list'] ) ) : ?>
-				<section class="lre-community__sales" id="notable-sales">
-					<div class="lre-community__container">
-						<div class="lre-community__section-head lre-community__section-head--center">
-							<?php if ( ! empty( $settings['sales_eyebrow'] ) ) : ?>
-								<span class="lre-community__section-eyebrow"><?php echo esc_html( $settings['sales_eyebrow'] ); ?></span>
-							<?php endif; ?>
-							<h2 class="lre-community__section-title"><?php echo esc_html( $settings['sales_title'] ); ?></h2>
-							<?php if ( ! empty( $settings['sales_subtitle'] ) ) : ?>
-								<p class="lre-community__section-sub"><?php echo esc_html( $settings['sales_subtitle'] ); ?></p>
-							<?php endif; ?>
-						</div>
-
-						<div class="lre-community__sales-grid">
-							<?php foreach ( $settings['sales_list'] as $sale ) : 
-								$sale_img = ! empty( $sale['image']['url'] ) ? lre_resolve_image_url( $sale['image']['url'] ) : lre_asset_url( 'images/property-6.jpg' );
-							?>
-								<div class="lre-community__sale-card">
-									<div class="lre-community__sale-media">
-										<img src="<?php echo esc_url( $sale_img ); ?>" alt="<?php echo esc_attr( $sale['address'] ); ?>" class="lre-community__sale-img" loading="lazy" />
-										<?php if ( ! empty( $sale['badge'] ) ) : ?>
-											<span class="lre-community__sale-badge"><?php echo esc_html( $sale['badge'] ); ?></span>
-										<?php endif; ?>
-									</div>
-									<div class="lre-community__sale-content">
-										<div class="lre-community__sale-top">
-											<h3 class="lre-community__sale-address"><?php echo esc_html( $sale['address'] ); ?></h3>
-											<span class="lre-community__sale-price"><?php echo esc_html( $sale['price'] ); ?></span>
-										</div>
-										<?php if ( ! empty( $sale['specs'] ) ) : ?>
-											<div class="lre-community__sale-specs"><?php echo esc_html( $sale['specs'] ); ?></div>
-										<?php endif; ?>
-										<p class="lre-community__sale-narrative"><?php echo esc_html( $sale['narrative'] ); ?></p>
-									</div>
-								</div>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</section>
-			<?php endif; ?>
-
-			<!-- =================================================================
-			     6. LIFESTYLE & CULTURAL FABRIC
-			================================================================== -->
-			<?php if ( ! empty( $settings['lifestyle_list'] ) ) : ?>
-				<section class="lre-community__lifestyle">
-					<div class="lre-community__container">
-						<div class="lre-community__section-head">
-							<?php if ( ! empty( $settings['lifestyle_eyebrow'] ) ) : ?>
-								<span class="lre-community__section-eyebrow"><?php echo esc_html( $settings['lifestyle_eyebrow'] ); ?></span>
-							<?php endif; ?>
-							<h2 class="lre-community__section-title"><?php echo esc_html( $settings['lifestyle_title'] ); ?></h2>
-							<?php if ( ! empty( $settings['lifestyle_subtitle'] ) ) : ?>
-								<p class="lre-community__section-sub"><?php echo esc_html( $settings['lifestyle_subtitle'] ); ?></p>
-							<?php endif; ?>
-						</div>
-
-						<div class="lre-community__life-grid">
-							<?php foreach ( $settings['lifestyle_list'] as $pillar ) : 
-								$life_img = ! empty( $pillar['image']['url'] ) ? lre_resolve_image_url( $pillar['image']['url'] ) : lre_asset_url( 'images/property-9.jpg' );
-							?>
-								<div class="lre-community__life-card">
-									<div class="lre-community__life-media">
-										<img src="<?php echo esc_url( $life_img ); ?>" alt="<?php echo esc_attr( $pillar['title'] ); ?>" class="lre-community__life-img" loading="lazy" />
-									</div>
-									<div class="lre-community__life-body">
-										<span class="lre-community__life-cat"><?php echo esc_html( $pillar['category'] ); ?></span>
-										<h3 class="lre-community__life-title"><?php echo esc_html( $pillar['title'] ); ?></h3>
-										<p class="lre-community__life-desc"><?php echo esc_html( $pillar['description'] ); ?></p>
-									</div>
-								</div>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</section>
-			<?php endif; ?>
-
-			<!-- =================================================================
-			     7. PRIVATE ADVISORY & VALUATION CTA
-			================================================================== -->
-			<section class="lre-community__cta">
-				<div class="lre-community__container">
-					<div class="lre-community__cta-card">
-						<div class="lre-community__cta-glow"></div>
-						<div class="lre-community__cta-content">
-							<?php if ( ! empty( $settings['cta_eyebrow'] ) ) : ?>
-								<span class="lre-community__cta-eyebrow"><?php echo esc_html( $settings['cta_eyebrow'] ); ?></span>
-							<?php endif; ?>
-							<h2 class="lre-community__cta-title"><?php echo esc_html( $settings['cta_title'] ); ?></h2>
-							<p class="lre-community__cta-desc"><?php echo esc_html( $settings['cta_description'] ); ?></p>
-							
-							<div class="lre-community__cta-actions">
-								<?php if ( ! empty( $settings['cta_btn1_text'] ) ) : 
-									$btn1_url = ! empty( $settings['cta_btn1_url']['url'] ) ? esc_url( $settings['cta_btn1_url']['url'] ) : home_url( '/home-valuation/' );
-								?>
-									<a href="<?php echo $btn1_url; ?>" class="lre-community__btn lre-community__btn--primary">
-										<span><?php echo esc_html( $settings['cta_btn1_text'] ); ?></span>
-									</a>
-								<?php endif; ?>
-
-								<?php if ( ! empty( $settings['cta_btn2_text'] ) ) : 
-									$btn2_url = ! empty( $settings['cta_btn2_url']['url'] ) ? esc_url( $settings['cta_btn2_url']['url'] ) : home_url( '/contact/' );
-								?>
-									<a href="<?php echo $btn2_url; ?>" class="lre-community__btn lre-community__btn--secondary">
-										<span><?php echo esc_html( $settings['cta_btn2_text'] ); ?></span>
-									</a>
-								<?php endif; ?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- =================================================================
-			     8. SISTER ENCLAVES SWITCHER
+			     3. SISTER TERRITORIES SWITCHER
 			================================================================== -->
 			<?php if ( ! empty( $settings['switcher_list'] ) ) : ?>
 				<section class="lre-community__switcher">

@@ -2615,6 +2615,48 @@
         }
     };
 
+    // =========================================================================
+    // COMMUNITY MONOGRAPH WIDGET (Fit-to-Screen Watermark & Dynamic Scaling)
+    // =========================================================================
+    LREWidgets.Community = {
+        init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
+            var watermarks = root.querySelectorAll( '.lre-community__watermark' );
+            if ( ! watermarks.length && root.classList && root.classList.contains( 'lre-community__watermark' ) ) {
+                watermarks = [ root ];
+            }
+
+            if ( ! watermarks.length ) {
+                return;
+            }
+
+            var fitAllWatermarks = function () {
+                watermarks.forEach( function ( wm ) {
+                    var hero = wm.closest( '.lre-community__hero' ) || wm.parentElement;
+                    if ( ! hero ) return;
+
+                    // Temporarily remove transform scale to measure unscaled natural scroll width
+                    wm.style.transform = 'translateX(-50%) scale(1)';
+                    var availWidth = hero.clientWidth * 0.90; // 90% max width: guaranteed 5% safe breathing space on each side
+                    var textWidth = wm.scrollWidth;
+
+                    if ( textWidth > availWidth && textWidth > 0 ) {
+                        var scale = availWidth / textWidth;
+                        wm.style.transform = 'translateX(-50%) scale(' + scale.toFixed(4) + ')';
+                    } else {
+                        wm.style.transform = 'translateX(-50%) scale(1)';
+                    }
+                } );
+            };
+
+            fitAllWatermarks();
+            window.addEventListener( 'resize', fitAllWatermarks );
+            if ( document.fonts && document.fonts.ready ) {
+                document.fonts.ready.then( fitAllWatermarks );
+            }
+        }
+    };
+
     function lreBindElementorHooks() {
         if ( typeof elementorFrontend === 'undefined' || ! elementorFrontend.hooks ) {
             return;
@@ -2628,6 +2670,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_properties.default',           function ( $scope ) { LREWidgets.Properties.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_testimonials.default',         function ( $scope ) { LREWidgets.Testimonials.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_communities.default',          function ( $scope ) { LREWidgets.Communities.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_community.default',            function ( $scope ) { LREWidgets.Community.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_team.default',                 function ( $scope ) { LREWidgets.Team.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_cta.default',                  function ( $scope ) { LREWidgets.CTA.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_footer.default',               function ( $scope ) { LREWidgets.Footer.init( $scope ); } );
@@ -2655,6 +2698,7 @@
         if ( LREWidgets.Properties )          LREWidgets.Properties.init();
         if ( LREWidgets.Testimonials )        LREWidgets.Testimonials.init();
         if ( LREWidgets.Communities )         LREWidgets.Communities.init();
+        if ( LREWidgets.Community )           LREWidgets.Community.init();
         if ( LREWidgets.Team )                LREWidgets.Team.init();
         if ( LREWidgets.CTA )                 LREWidgets.CTA.init();
         if ( LREWidgets.Concierge )           LREWidgets.Concierge.init();

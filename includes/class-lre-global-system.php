@@ -511,6 +511,8 @@ body .elementor-element .lre-phero__actions .btn {
 .lre-reviews p,
 .lre-reviews blockquote,
 .lre-reviews .lre-reviews__quote-text,
+.lre-community .lre-community__quote-body,
+.lre-community blockquote,
 .lre-reviews .lre-reviews__quote-mark,
 .lre-reviews .lre-reviews__eyebrow,
 .lre-reviews .lre-reviews__seal-top,
@@ -1454,7 +1456,11 @@ button.navbar__mobile-toggle:active,
 .about__eyebrow,
 .communities__eyebrow,
 .testimonial__eyebrow,
-.services__eyebrow-text {
+.services__eyebrow-text,
+.lre-community__eyebrow,
+.lre-community__quote-eyebrow,
+.lre-community__section-eyebrow,
+.lre-community__sister-eyebrow {
   font-family: inherit;
   font-size: 0.72rem;
   font-weight: 600;
@@ -1510,6 +1516,14 @@ button.navbar__mobile-toggle:active,
 .lre-sguide .lre-sguide__eyebrow,
 .lre-sguide__eyebrow-wrap .lre-sguide__eyebrow {
   color: var(--sguide-eyebrow-color, var(--color-secondary, #c5a047));
+  -webkit-text-fill-color: currentColor;
+}
+
+.lre-community .lre-community__eyebrow,
+.lre-community .lre-community__section-eyebrow,
+.lre-community .lre-community__quote-eyebrow,
+.lre-community .lre-community__sister-eyebrow {
+  color: var(--community-eyebrow-color, var(--color-secondary, #c5a047));
   -webkit-text-fill-color: currentColor;
 }
 

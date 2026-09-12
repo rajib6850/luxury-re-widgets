@@ -5646,6 +5646,79 @@ header.site-header.header-full-width {
   padding: 0 !important;
 }
 
+/* WordPress Admin Bar Offsets for Logged-In Users & Admins */
+body.admin-bar .site-header--dark,
+body.admin-bar .site-header--light,
+.admin-bar .site-header--dark,
+.admin-bar .site-header--light {
+  top: 32px;
+}
+
+body.admin-bar .navbar--sticky,
+.admin-bar .navbar--sticky {
+  top: 32px !important;
+}
+
+body.admin-bar .elementor-widget-lre_header:has(.site-header--transparent),
+body.admin-bar .elementor-widget-lre_header .site-header--transparent,
+body.admin-bar .site-header--transparent,
+.admin-bar .elementor-widget-lre_header:has(.site-header--transparent),
+.admin-bar .elementor-widget-lre_header .site-header--transparent,
+.admin-bar .site-header--transparent {
+  top: 32px !important;
+}
+
+body.admin-bar .navbar__mobile-dropdown,
+.admin-bar .navbar__mobile-dropdown {
+  top: calc(var(--nav-height, 64px) + 32px) !important;
+  max-height: calc(100vh - var(--nav-height, 64px) - 32px) !important;
+  max-height: calc(100dvh - var(--nav-height, 64px) - 32px) !important;
+}
+
+body.admin-bar .side-menu,
+.admin-bar .side-menu {
+  top: 32px !important;
+  height: calc(100vh - 32px) !important;
+  height: calc(100dvh - 32px) !important;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .site-header--dark,
+  body.admin-bar .site-header--light,
+  .admin-bar .site-header--dark,
+  .admin-bar .site-header--light {
+    top: 46px;
+  }
+
+  body.admin-bar .navbar--sticky,
+  .admin-bar .navbar--sticky {
+    top: 46px !important;
+  }
+
+  body.admin-bar .elementor-widget-lre_header:has(.site-header--transparent),
+  body.admin-bar .elementor-widget-lre_header .site-header--transparent,
+  body.admin-bar .site-header--transparent,
+  .admin-bar .elementor-widget-lre_header:has(.site-header--transparent),
+  .admin-bar .elementor-widget-lre_header .site-header--transparent,
+  .admin-bar .site-header--transparent {
+    top: 46px !important;
+  }
+
+  body.admin-bar .navbar__mobile-dropdown,
+  .admin-bar .navbar__mobile-dropdown {
+    top: calc(var(--nav-height, 64px) + 46px) !important;
+    max-height: calc(100vh - var(--nav-height, 64px) - 46px) !important;
+    max-height: calc(100dvh - var(--nav-height, 64px) - 46px) !important;
+  }
+
+  body.admin-bar .side-menu,
+  .admin-bar .side-menu {
+    top: 46px !important;
+    height: calc(100vh - 46px) !important;
+    height: calc(100dvh - 46px) !important;
+  }
+}
+
 /* Sticky vs Static Navigation */
 .navbar--sticky {
   position: fixed !important;

@@ -3,10 +3,9 @@
  * Template Name: Luxury Real Estate — Single Post / Market Insights
  * Template Post Type: post
  *
- * Ultra-luxury editorial single post template for Crestwood & Associates.
- * Features cinematic header, reading metrics, executive author dossier,
- * interactive social sharing, auto-generated table of contents, and
- * related market intelligence dispatch cards.
+ * Ultra-luxury editorial single post template for Adolfo Aguirre | SERHANT.
+ * Features cinematic header, reading metrics, executive advisory dossier,
+ * interactive social sharing, and related market intelligence dispatch cards.
  *
  * @package Luxury_RE_Widgets
  */
@@ -44,15 +43,14 @@ while ( have_posts() ) :
 	}
 	$caption = $has_thumb ? wp_get_attachment_caption( $thumb_id ) : '';
 
-	// Author Information
+	// Author Information (Adolfo Aguirre | SERHANT. Los Angeles)
 	$author_id    = get_the_author_meta( 'ID' );
-	$author_name  = get_the_author();
-	$author_bio   = get_the_author_meta( 'description' );
-	$author_email = get_the_author_meta( 'user_email' );
-
-	if ( empty( $author_bio ) ) {
-		$author_bio = __( 'Adolfo Aguirre specializes in prime luxury architectural estates, confidential family office representation, and discreet off-market transactions across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' );
-	}
+	$author_name  = 'Adolfo Aguirre';
+	$author_bio   = __( 'With over 50 closed transactions and $49 Million+ in career sales volume, Adolfo Aguirre provides private clients, family trusts, and fiduciary principals with discreet, high-caliber representation across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' );
+	$author_phone = '(310) 346-6380';
+	$author_email = 'adolfo@serhant.com';
+	$author_dre   = 'DRE #02148920';
+	$author_role  = __( 'Luxury Real Estate Advisor | SERHANT. Los Angeles', 'luxury-re-widgets' );
 
 	// Share URLs
 	$share_title = rawurlencode( $post_title );
@@ -60,20 +58,7 @@ while ( have_posts() ) :
 	$twitter_url = 'https://twitter.com/intent/tweet?text=' . $share_title . '&url=' . $share_url;
 	$linkedin_url = 'https://www.linkedin.com/sharing/share-offsite/?url=' . $share_url;
 	$whatsapp_url = 'https://api.whatsapp.com/send?text=' . $share_title . '%20' . $share_url;
-	$email_url    = 'mailto:?subject=' . $share_title . '&body=' . rawurlencode( sprintf( __( 'Read this intelligence report from Crestwood & Associates: %s', 'luxury-re-widgets' ), $permalink ) );
-
-	// Parse H2 headings for Table of Contents
-	$toc_items = array();
-	if ( preg_match_all( '/<h2[^>]*>(.*?)<\/h2>/i', $raw_content, $matches, PREG_SET_ORDER ) ) {
-		foreach ( $matches as $index => $match ) {
-			$heading_text = wp_strip_all_tags( $match[1] );
-			$anchor_id    = 'section-' . ( $index + 1 ) . '-' . sanitize_title( $heading_text );
-			$toc_items[]  = array(
-				'id'    => $anchor_id,
-				'title' => $heading_text,
-			);
-		}
-	}
+	$email_url    = 'mailto:?subject=' . $share_title . '&body=' . rawurlencode( sprintf( __( 'Read this market insight from Adolfo Aguirre | SERHANT.: %s', 'luxury-re-widgets' ), $permalink ) );
 	?>
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'lre-single-post' ); ?>>
@@ -84,8 +69,8 @@ while ( have_posts() ) :
 		<header class="lre-single-post__hero">
 			<div class="lre-single-post__container">
 
-				<!-- Breadcrumbs -->
-				<nav class="lre-single-post__breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'luxury-re-widgets' ); ?>">
+				<!-- Breadcrumbs with Reveal Animation -->
+				<nav class="lre-single-post__breadcrumbs reveal" aria-label="<?php esc_attr_e( 'Breadcrumb', 'luxury-re-widgets' ); ?>">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="lre-single-post__breadcrumb-link"><?php esc_html_e( 'Home', 'luxury-re-widgets' ); ?></a>
 					<span class="lre-single-post__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
 					<a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>" class="lre-single-post__breadcrumb-link"><?php esc_html_e( 'Market Insights', 'luxury-re-widgets' ); ?></a>
@@ -95,8 +80,9 @@ while ( have_posts() ) :
 					<?php endif; ?>
 				</nav>
 
-				<!-- Eyebrow & Intelligence Badge -->
-				<div class="lre-single-post__eyebrow-wrap">
+				<!-- Eyebrow & Intelligence Badge with Reveal Animation -->
+				<div class="lre-single-post__eyebrow-wrap reveal delay-1">
+					<span class="lre-single-post__gold-line" aria-hidden="true"></span>
 					<?php if ( ! empty( $categories ) ) : ?>
 						<div class="lre-single-post__categories">
 							<?php foreach ( $categories as $cat ) : ?>
@@ -112,20 +98,20 @@ while ( have_posts() ) :
 					<span class="lre-single-post__reading-time"><?php echo esc_html( sprintf( __( '%d MIN READ', 'luxury-re-widgets' ), $reading_time ) ); ?></span>
 				</div>
 
-				<!-- Main Headline -->
-				<h1 class="lre-single-post__title">
+				<!-- Main Headline with Reveal Animation -->
+				<h1 class="lre-single-post__title reveal delay-2">
 					<?php the_title(); ?>
 				</h1>
 
-				<!-- Executive Summary / Excerpt -->
+				<!-- Executive Summary / Excerpt with Reveal Animation -->
 				<?php if ( ! empty( $excerpt ) ) : ?>
-					<p class="lre-single-post__lead">
+					<p class="lre-single-post__lead reveal delay-3">
 						<?php echo esc_html( $excerpt ); ?>
 					</p>
 				<?php endif; ?>
 
-				<!-- Author & Publication Meta Bar -->
-				<div class="lre-single-post__meta-bar">
+				<!-- Author & Publication Meta Bar with Reveal Animation -->
+				<div class="lre-single-post__meta-bar reveal delay-3">
 					<div class="lre-single-post__author-block">
 						<div class="lre-single-post__author-avatar-wrap">
 							<?php
@@ -139,7 +125,7 @@ while ( have_posts() ) :
 						</div>
 						<div class="lre-single-post__author-details">
 							<span class="lre-single-post__author-name"><?php echo esc_html( $author_name ); ?></span>
-							<span class="lre-single-post__author-title"><?php esc_html_e( 'Founding Principal | Luxury Real Estate Advisor', 'luxury-re-widgets' ); ?></span>
+							<span class="lre-single-post__author-title"><?php echo esc_html( $author_role ); ?></span>
 						</div>
 					</div>
 
@@ -158,28 +144,28 @@ while ( have_posts() ) :
 						<div class="lre-single-post__share-pill" data-share-url="<?php echo esc_url( $permalink ); ?>" data-share-title="<?php echo esc_attr( $post_title ); ?>">
 							<span class="lre-single-post__share-label"><?php esc_html_e( 'SHARE:', 'luxury-re-widgets' ); ?></span>
 							<button type="button" class="lre-single-post__share-btn lre-single-post__share-btn--copy" title="<?php esc_attr_e( 'Copy link to clipboard', 'luxury-re-widgets' ); ?>" aria-label="<?php esc_attr_e( 'Copy Link', 'luxury-re-widgets' ); ?>">
-								<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 								<span class="lre-single-post__tooltip"><?php esc_html_e( 'Copied!', 'luxury-re-widgets' ); ?></span>
 							</button>
 							<a href="<?php echo esc_url( $linkedin_url ); ?>" target="_blank" rel="noopener noreferrer" class="lre-single-post__share-btn" title="<?php esc_attr_e( 'Share on LinkedIn', 'luxury-re-widgets' ); ?>" aria-label="LinkedIn">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 1.64 1.64 1.65 1.65 0 0 0-1.64-1.64z"/></svg>
+								<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 1.64 1.64 1.65 1.65 0 0 0-1.64-1.64z"/></svg>
 							</a>
 							<a href="<?php echo esc_url( $twitter_url ); ?>" target="_blank" rel="noopener noreferrer" class="lre-single-post__share-btn" title="<?php esc_attr_e( 'Share on X (Twitter)', 'luxury-re-widgets' ); ?>" aria-label="X">
-								<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+								<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 							</a>
 							<a href="<?php echo esc_url( $whatsapp_url ); ?>" target="_blank" rel="noopener noreferrer" class="lre-single-post__share-btn" title="<?php esc_attr_e( 'Share via WhatsApp', 'luxury-re-widgets' ); ?>" aria-label="WhatsApp">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.18 8.18 0 0 1-5.83 2.41c-1.47 0-2.93-.39-4.21-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.25-8.24m4.52 11.66c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.18-.47-.3"/></svg>
+								<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.18 8.18 0 0 1-5.83 2.41c-1.47 0-2.93-.39-4.21-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.25-8.24m4.52 11.66c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.18-.47-.3"/></svg>
 							</a>
 							<a href="<?php echo esc_url( $email_url ); ?>" class="lre-single-post__share-btn" title="<?php esc_attr_e( 'Share via Email', 'luxury-re-widgets' ); ?>" aria-label="Email">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+								<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 							</a>
 						</div>
 					</div>
 				</div>
 
-				<!-- Cinematic Featured Image Frame -->
+				<!-- Cinematic Featured Image Frame with Shutter Reveal Animation -->
 				<?php if ( $has_thumb && ! empty( $thumb_url ) ) : ?>
-					<figure class="lre-single-post__featured-frame">
+					<figure class="lre-single-post__featured-frame image-reveal reveal delay-4">
 						<img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( $thumb_alt ); ?>" class="lre-single-post__featured-img" loading="eager">
 						<?php if ( ! empty( $caption ) ) : ?>
 							<figcaption class="lre-single-post__featured-caption">
@@ -194,7 +180,7 @@ while ( have_posts() ) :
 		</header>
 
 		<!-- ===================================================================
-		     2. EDITORIAL TWO-COLUMN GRID: BODY & ADVISORY SIDEBAR
+		     2. EDITORIAL TWO-COLUMN GRID: BODY & SERHANT. ADVISORY SIDEBAR
 		     =================================================================== -->
 		<div class="lre-single-post__body-section">
 			<div class="lre-single-post__container lre-single-post__grid">
@@ -203,18 +189,7 @@ while ( have_posts() ) :
 				<main class="lre-single-post__main-col">
 					<div class="lre-single-post__content entry-content">
 						<?php
-						// Inject IDs into <h2> tags for Table of Contents anchors
-						$content = apply_filters( 'the_content', get_the_content() );
-						if ( ! empty( $toc_items ) ) {
-							$idx = 0;
-							$content = preg_replace_callback( '/<h2([^>]*)>(.*?)<\/h2>/i', function ( $m ) use ( &$idx, $toc_items ) {
-								$item = isset( $toc_items[ $idx ] ) ? $toc_items[ $idx ] : null;
-								$idx++;
-								$anchor_attr = $item ? ' id="' . esc_attr( $item['id'] ) . '"' : '';
-								return '<h2' . $m[1] . $anchor_attr . '>' . $m[2] . '</h2>';
-							}, $content );
-						}
-						echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						the_content();
 						?>
 					</div>
 
@@ -223,7 +198,7 @@ while ( have_posts() ) :
 					$tags = get_the_tags();
 					if ( ! empty( $tags ) ) :
 						?>
-						<div class="lre-single-post__tags-strip">
+						<div class="lre-single-post__tags-strip reveal">
 							<span class="lre-single-post__tags-title"><?php esc_html_e( 'FILED UNDER:', 'luxury-re-widgets' ); ?></span>
 							<div class="lre-single-post__tag-list">
 								<?php foreach ( $tags as $tag ) : ?>
@@ -235,32 +210,8 @@ while ( have_posts() ) :
 						</div>
 					<?php endif; ?>
 
-					<!-- Article Bottom Share Bar -->
-					<div class="lre-single-post__bottom-share">
-						<div class="lre-single-post__bottom-share-text">
-							<span class="lre-single-post__bottom-share-label"><?php esc_html_e( 'SHARE THIS INTELLIGENCE REPORT', 'luxury-re-widgets' ); ?></span>
-							<p><?php esc_html_e( 'Forward confidential analysis to partners, family office fiduciaries, or counsel.', 'luxury-re-widgets' ); ?></p>
-						</div>
-						<div class="lre-single-post__bottom-share-actions">
-							<button type="button" class="lre-single-post__action-btn lre-single-post__share-btn--copy">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-								<span><?php esc_html_e( 'Copy Link', 'luxury-re-widgets' ); ?></span>
-							</button>
-							<a href="<?php echo esc_url( $linkedin_url ); ?>" target="_blank" rel="noopener noreferrer" class="lre-single-post__action-btn">
-								<span>LinkedIn</span>
-							</a>
-							<a href="<?php echo esc_url( $twitter_url ); ?>" target="_blank" rel="noopener noreferrer" class="lre-single-post__action-btn">
-								<span>X / Twitter</span>
-							</a>
-							<button type="button" class="lre-single-post__action-btn" onclick="window.print();">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-								<span><?php esc_html_e( 'Print Dossier', 'luxury-re-widgets' ); ?></span>
-							</button>
-						</div>
-					</div>
-
-					<!-- Executive Author Card -->
-					<div class="lre-single-post__author-card">
+					<!-- Executive Author Card (Adolfo Aguirre | SERHANT.) -->
+					<div class="lre-single-post__author-card reveal">
 						<div class="lre-single-post__author-card-avatar">
 							<?php
 							if ( $avatar ) {
@@ -273,14 +224,16 @@ while ( have_posts() ) :
 						<div class="lre-single-post__author-card-content">
 							<span class="lre-single-post__author-card-eyebrow"><?php esc_html_e( 'ADVISORY LEAD & AUTHOR', 'luxury-re-widgets' ); ?></span>
 							<h3 class="lre-single-post__author-card-name"><?php echo esc_html( $author_name ); ?></h3>
-							<p class="lre-single-post__author-card-role"><?php esc_html_e( 'Founding Principal & Luxury Real Estate Advisor | DRE #01902023', 'luxury-re-widgets' ); ?></p>
+							<p class="lre-single-post__author-card-role"><?php echo esc_html( $author_role . ' | ' . $author_dre ); ?></p>
 							<p class="lre-single-post__author-card-bio"><?php echo esc_html( $author_bio ); ?></p>
 							<div class="lre-single-post__author-card-actions">
-								<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="lre-single-post__card-btn">
-									<?php esc_html_e( 'Request Private Consultation', 'luxury-re-widgets' ); ?> &rarr;
+								<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn--gold">
+									<span class="btn__text"><?php esc_html_e( 'Request Private Consultation', 'luxury-re-widgets' ); ?></span>
+									<span class="btn__icon" aria-hidden="true">&rarr;</span>
 								</a>
-								<a href="tel:6263903498" class="lre-single-post__card-phone">
-									(626) 390-3498
+								<a href="tel:3103466380" class="lre-single-post__card-phone">
+									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+									<span><?php echo esc_html( $author_phone ); ?></span>
 								</a>
 							</div>
 						</div>
@@ -292,67 +245,33 @@ while ( have_posts() ) :
 				<aside class="lre-single-post__sidebar-col">
 					<div class="lre-single-post__sidebar-sticky">
 
-						<!-- 1. Private Representation Dossier Card -->
-						<div class="lre-single-post__widget-card lre-single-post__widget-card--advisory">
-							<div class="lre-single-post__card-gold-icon" aria-hidden="true">
-								<svg viewBox="0 0 40 48" width="28" height="34" fill="currentColor">
-									<rect x="2" y="2" width="36" height="4" rx="1"></rect>
-									<rect x="6" y="8" width="5" height="30" rx="1"></rect>
-									<rect x="17.5" y="8" width="5" height="30" rx="1"></rect>
-									<rect x="29" y="8" width="5" height="30" rx="1"></rect>
-									<rect x="2" y="40" width="36" height="4" rx="1"></rect>
-									<line x1="0" y1="46" x2="40" y2="46" stroke="currentColor" stroke-width="2"></line>
-								</svg>
+						<!-- SERHANT. Advisory Representation Card -->
+						<div class="lre-single-post__widget-card lre-single-post__widget-card--advisory reveal delay-2">
+							<div class="lre-single-post__card-serhant-brand">
+								<span class="lre-single-post__brand-wordmark">SERHANT.</span>
+								<span class="lre-single-post__brand-sub">LOS ANGELES</span>
 							</div>
-							<span class="lre-single-post__widget-eyebrow"><?php esc_html_e( 'CRESTWOOD & ASSOCIATES', 'luxury-re-widgets' ); ?></span>
-							<h4 class="lre-single-post__widget-title"><?php esc_html_e( 'Private Advisory & Discreet Representation', 'luxury-re-widgets' ); ?></h4>
+							<span class="lre-single-post__widget-eyebrow"><?php esc_html_e( 'PRIVATE REAL ESTATE ADVISORY', 'luxury-re-widgets' ); ?></span>
+							<h4 class="lre-single-post__widget-title"><?php esc_html_e( 'Adolfo Aguirre', 'luxury-re-widgets' ); ?></h4>
+							<p class="lre-single-post__widget-role"><?php esc_html_e( 'Luxury Real Estate Advisor | DRE #02148920', 'luxury-re-widgets' ); ?></p>
 							<p class="lre-single-post__widget-desc">
-								<?php esc_html_e( 'Direct confidential fiduciary representation for trophy estates, off-market acquisitions, and architectural landmarks in Pasadena & Greater Los Angeles.', 'luxury-re-widgets' ); ?>
+								<?php esc_html_e( 'Discreet fiduciary representation for luxury architectural estates, off-market trophy properties, and prime acquisitions across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' ); ?>
 							</p>
 							<div class="lre-single-post__advisor-contact">
-								<a href="tel:6263903498" class="lre-single-post__advisor-tel">
+								<a href="tel:3103466380" class="lre-single-post__advisor-tel">
 									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-									<span>(626) 390-3498</span>
+									<span><?php echo esc_html( $author_phone ); ?></span>
 								</a>
-								<span class="lre-single-post__advisor-meta"><?php esc_html_e( 'Direct Principal Line | 24/7 Fiduciary Response', 'luxury-re-widgets' ); ?></span>
+								<a href="mailto:adolfo@serhant.com" class="lre-single-post__advisor-email">
+									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+									<span><?php echo esc_html( $author_email ); ?></span>
+								</a>
+								<span class="lre-single-post__advisor-meta"><?php esc_html_e( 'Direct Principal Line | Los Angeles, CA', 'luxury-re-widgets' ); ?></span>
 							</div>
-							<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="lre-single-post__sidebar-btn">
-								<?php esc_html_e( 'Initiate Confidential Inquiry', 'luxury-re-widgets' ); ?>
+							<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn--gold lre-single-post__sidebar-btn">
+								<span class="btn__text"><?php esc_html_e( 'Initiate Confidential Inquiry', 'luxury-re-widgets' ); ?></span>
+								<span class="btn__icon" aria-hidden="true">&rarr;</span>
 							</a>
-						</div>
-
-						<!-- 2. Table of Contents (if 2+ headings) -->
-						<?php if ( ! empty( $toc_items ) ) : ?>
-							<div class="lre-single-post__widget-card lre-single-post__widget-card--toc">
-								<span class="lre-single-post__widget-eyebrow"><?php esc_html_e( 'REPORT NAVIGATION', 'luxury-re-widgets' ); ?></span>
-								<h4 class="lre-single-post__widget-title"><?php esc_html_e( 'Key Sections', 'luxury-re-widgets' ); ?></h4>
-								<ol class="lre-single-post__toc-list">
-									<?php foreach ( $toc_items as $i => $item ) : ?>
-										<li class="lre-single-post__toc-item">
-											<a href="#<?php echo esc_attr( $item['id'] ); ?>" class="lre-single-post__toc-link">
-												<span class="lre-single-post__toc-num"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
-												<span class="lre-single-post__toc-text"><?php echo esc_html( $item['title'] ); ?></span>
-											</a>
-										</li>
-									<?php endforeach; ?>
-								</ol>
-							</div>
-						<?php endif; ?>
-
-						<!-- 3. The Private Registry Newsletter Dispatch -->
-						<div class="lre-single-post__widget-card lre-single-post__widget-card--newsletter">
-							<span class="lre-single-post__widget-eyebrow"><?php esc_html_e( 'OFF-MARKET INTELLIGENCE', 'luxury-re-widgets' ); ?></span>
-							<h4 class="lre-single-post__widget-title"><?php esc_html_e( 'The Private Registry', 'luxury-re-widgets' ); ?></h4>
-							<p class="lre-single-post__widget-desc">
-								<?php esc_html_e( 'Receive quarterly liquidity benchmarks, pocket listing notifications, and sovereign transaction briefs delivered privately.', 'luxury-re-widgets' ); ?>
-							</p>
-							<form class="lre-single-post__registry-form" onsubmit="event.preventDefault(); alert('Thank you. You have been added to The Private Registry.');">
-								<div class="lre-single-post__form-group">
-									<input type="email" class="lre-single-post__form-input" placeholder="<?php esc_attr_e( 'Enter your private email', 'luxury-re-widgets' ); ?>" required>
-									<button type="submit" class="lre-single-post__form-btn" aria-label="<?php esc_attr_e( 'Subscribe', 'luxury-re-widgets' ); ?>">&rarr;</button>
-								</div>
-								<span class="lre-single-post__form-privacy"><?php esc_html_e( 'Strict non-disclosure. We never distribute contact details.', 'luxury-re-widgets' ); ?></span>
-							</form>
 						</div>
 
 					</div>
@@ -362,42 +281,7 @@ while ( have_posts() ) :
 		</div>
 
 		<!-- ===================================================================
-		     3. PREVIOUS / NEXT INTELLIGENCE RECORD NAVIGATION
-		     =================================================================== -->
-		<?php
-		$prev_post = get_previous_post();
-		$next_post = get_next_post();
-		if ( $prev_post || $next_post ) :
-			?>
-			<nav class="lre-single-post__pagination" aria-label="<?php esc_attr_e( 'Article Navigation', 'luxury-re-widgets' ); ?>">
-				<div class="lre-single-post__container lre-single-post__pagination-grid">
-					<?php if ( $prev_post ) : ?>
-						<a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>" class="lre-single-post__nav-card lre-single-post__nav-card--prev">
-							<div class="lre-single-post__nav-arrow" aria-hidden="true">&larr;</div>
-							<div class="lre-single-post__nav-meta">
-								<span class="lre-single-post__nav-label"><?php esc_html_e( 'PREVIOUS DOSSIER', 'luxury-re-widgets' ); ?></span>
-								<h5 class="lre-single-post__nav-title"><?php echo esc_html( get_the_title( $prev_post->ID ) ); ?></h5>
-							</div>
-						</a>
-					<?php else : ?>
-						<div class="lre-single-post__nav-card lre-single-post__nav-card--empty"></div>
-					<?php endif; ?>
-
-					<?php if ( $next_post ) : ?>
-						<a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>" class="lre-single-post__nav-card lre-single-post__nav-card--next">
-							<div class="lre-single-post__nav-meta">
-								<span class="lre-single-post__nav-label"><?php esc_html_e( 'NEXT DOSSIER', 'luxury-re-widgets' ); ?></span>
-								<h5 class="lre-single-post__nav-title"><?php echo esc_html( get_the_title( $next_post->ID ) ); ?></h5>
-							</div>
-							<div class="lre-single-post__nav-arrow" aria-hidden="true">&rarr;</div>
-						</a>
-					<?php endif; ?>
-				</div>
-			</nav>
-		<?php endif; ?>
-
-		<!-- ===================================================================
-		     4. RELATED MARKET INTELLIGENCE (MATCHING WIDGET DESIGN)
+		     3. RELATED MARKET INTELLIGENCE (MATCHING WIDGET DESIGN)
 		     =================================================================== -->
 		<?php
 		$related_args = array(
@@ -425,7 +309,7 @@ while ( have_posts() ) :
 			?>
 			<section class="lre-single-post__related-section" aria-labelledby="related-insights-title">
 				<div class="lre-single-post__container">
-					<div class="lre-single-post__related-header">
+					<div class="lre-single-post__related-header reveal">
 						<div class="lre-single-post__related-badge-wrap">
 							<span class="lre-single-post__related-badge"><?php esc_html_e( 'EDITORIAL DISPATCH', 'luxury-re-widgets' ); ?></span>
 						</div>
@@ -433,14 +317,16 @@ while ( have_posts() ) :
 							<?php esc_html_e( 'Related Market Intelligence & Analysis', 'luxury-re-widgets' ); ?>
 						</h3>
 						<p class="lre-single-post__related-subtitle">
-							<?php esc_html_e( 'Curated research and confidential insights from Adolfo Aguirre and the Crestwood advisory team.', 'luxury-re-widgets' ); ?>
+							<?php esc_html_e( 'Curated research and confidential market insights from Adolfo Aguirre and the SERHANT. Los Angeles advisory team.', 'luxury-re-widgets' ); ?>
 						</p>
 					</div>
 
 					<div class="lre-single-post__related-grid">
 						<?php
+						$card_i = 0;
 						while ( $related_query->have_posts() ) :
 							$related_query->the_post();
+							$card_i++;
 							$r_id      = get_the_ID();
 							$r_link    = get_permalink();
 							$r_title   = get_the_title();
@@ -450,9 +336,10 @@ while ( have_posts() ) :
 							$r_cat     = ! empty( $r_cats ) ? $r_cats[0]->name : 'Advisory';
 							$r_time    = max( 1, (int) ceil( str_word_count( wp_strip_all_tags( get_the_content() ) ) / 220 ) );
 							$r_excerpt = has_excerpt() ? get_the_excerpt() : wp_trim_words( wp_strip_all_tags( get_the_content() ), 16, '...' );
+							$delay_cls = 'delay-' . $card_i;
 							?>
-							<article class="lre-single-post__related-card">
-								<a href="<?php echo esc_url( $r_link ); ?>" class="lre-single-post__card-media">
+							<article class="lre-single-post__related-card reveal <?php echo esc_attr( $delay_cls ); ?>">
+								<a href="<?php echo esc_url( $r_link ); ?>" class="lre-single-post__card-media image-reveal">
 									<?php if ( $r_has_img && ! empty( $r_img_url ) ) : ?>
 										<img src="<?php echo esc_url( $r_img_url ); ?>" alt="<?php echo esc_attr( $r_title ); ?>" class="lre-single-post__card-img" loading="lazy">
 									<?php else : ?>

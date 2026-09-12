@@ -49,7 +49,7 @@
         }
 
         // Immediate smooth reveal for Hero section on page load / element ready
-        var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group, .lre-phero .reveal, .lre-contact, .lre-contact .reveal, .lre-contact .title-mask' );
+        var heroEls = root.querySelectorAll( '.hero .reveal, .hero.reveal, .hero__content, .hero__content .reveal, .hero__cta-group, .lre-phero .reveal, .lre-contact, .lre-contact .reveal, .lre-contact .title-mask, .lre-single-post__hero .reveal, .lre-single-post__featured-frame' );
         heroEls.forEach( function ( el ) {
             setTimeout( function () {
                 triggerElementReveal( el );

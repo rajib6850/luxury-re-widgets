@@ -51,6 +51,31 @@ final class LRE_Global_System {
 	 * @return string CSS string.
 	 */
 	public function get_bridge_css() {
+		$kit_id       = get_option( 'elementor_active_kit' );
+		$heading_font = '';
+		$heading_wt   = '';
+		if ( ! empty( $kit_id ) ) {
+			$kit_settings = get_post_meta( (int) $kit_id, '_elementor_page_settings', true );
+			if ( is_array( $kit_settings ) ) {
+				$heading_font = $kit_settings['h1_typography_font_family']
+					?? $kit_settings['h2_typography_font_family']
+					?? $kit_settings['h3_typography_font_family']
+					?? '';
+				$heading_wt   = $kit_settings['h1_typography_font_weight']
+					?? $kit_settings['h2_typography_font_weight']
+					?? $kit_settings['h3_typography_font_weight']
+					?? '';
+			}
+		}
+
+		$font_heading_decl = ! empty( $heading_font )
+			? "  --font-heading: '" . esc_attr( $heading_font ) . "', serif;\n  --font-serif: '" . esc_attr( $heading_font ) . "', var(--e-global-typography-primary-font-family, 'Libre Baskerville', serif);"
+			: "  --font-serif: var(--e-global-typography-primary-font-family, 'Libre Baskerville', 'Baskerville Old Face', 'Baskerville', Garamond, serif);\n  --font-heading: var(--font-serif);";
+
+		$font_weight_decl = ! empty( $heading_wt )
+			? "  --font-weight-heading: " . esc_attr( $heading_wt ) . ";\n  --font-weight-primary: var(--e-global-typography-primary-font-weight, " . esc_attr( $heading_wt ) . ");"
+			: "  --font-weight-primary: var(--e-global-typography-primary-font-weight, 400);\n  --font-weight-heading: var(--font-weight-primary);";
+
 		return '
 /* --- LRE ELEMENTOR GLOBAL SYSTEM DYNAMIC BRIDGE --- */
 :root,
@@ -67,15 +92,14 @@ body,
   --color-text-muted: var(--e-global-color-text, #6b6b6b);
   --color-accent: var(--e-global-color-accent, #c5a047);
 
-  --font-serif: var(--e-global-typography-primary-font-family, \'Libre Baskerville\', \'Baskerville Old Face\', \'Baskerville\', Garamond, serif);
+' . $font_heading_decl . '
   --font-sans: var(--e-global-typography-text-font-family, \'Montserrat\', \'Helvetica Neue\', sans-serif);
   --font-accent: var(--e-global-typography-accent-font-family, \'Cormorant Garamond\', \'Georgia\', serif);
   --font-secondary: var(--e-global-typography-secondary-font-family, var(--font-sans));
-  --font-heading: var(--font-serif);
   --font-primary: var(--font-sans);
   --font-body: var(--font-sans);
 
-  --font-weight-primary: var(--e-global-typography-primary-font-weight, 400);
+' . $font_weight_decl . '
   --font-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
   --font-weight-text: var(--e-global-typography-text-font-weight, 400);
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);

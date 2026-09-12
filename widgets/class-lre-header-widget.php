@@ -1440,7 +1440,7 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'name'     => 'drawer_title_typography',
 				'label'    => __( 'Box Titles Typography (All Boxes)', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__col-title',
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__col-title, {{WRAPPER}} .side-menu .side-menu__col-title a',
 			)
 		);
 
@@ -1449,7 +1449,7 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'name'     => 'drawer_cat_typography',
 				'label'    => __( 'Category Title Typography (Override)', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link',
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__category-heading, {{WRAPPER}} .side-menu h3.side-menu__category-heading a',
 			)
 		);
 
@@ -1459,7 +1459,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Category Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__category-link' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__category-heading a' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1470,7 +1470,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Category Title Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__category-link:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .side-menu a.side-menu__category-link:hover, {{WRAPPER}} .side-menu h3.side-menu__category-heading a:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1480,7 +1480,7 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'name'     => 'drawer_col_typography',
 				'label'    => __( 'Column Title Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .side-menu h3.side-menu__col-title',
+				'selector' => '{{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link, {{WRAPPER}} .side-menu .side-menu__col-title a',
 			)
 		);
 
@@ -1490,7 +1490,18 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Column Title Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu h3.side-menu__col-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_col_hover_color',
+			array(
+				'label'     => __( 'Column Title Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__title-link:hover, {{WRAPPER}} .side-menu h3.side-menu__col-title a:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1500,7 +1511,7 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'name'     => 'drawer_links_typography',
 				'label'    => __( 'Sub-Links Typography', 'luxury-re-widgets' ),
-				'selector' => '{{WRAPPER}} .side-menu a.side-menu__link',
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__link, {{WRAPPER}} .side-menu .side-menu__link',
 			)
 		);
 
@@ -1510,7 +1521,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Sub-Links Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__link' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .side-menu a.side-menu__link, {{WRAPPER}} .side-menu .side-menu__link' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1521,7 +1532,7 @@ class LRE_Header_Widget extends Widget_Base {
 				'label'     => __( 'Sub-Links Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .side-menu a.side-menu__link:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .side-menu a.side-menu__link:hover, {{WRAPPER}} .side-menu .side-menu__link:hover' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -2099,7 +2110,7 @@ class LRE_Header_Widget extends Widget_Base {
 										echo '</div>';
 									} else {
 										echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
-										echo '<a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__category-link">' . $top_title . '</a>';
+										echo '<h3 class="side-menu__col-title side-menu__category-heading"><a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__category-link">' . $top_title . '</a></h3>';
 										echo '</div>';
 									}
 
@@ -2137,12 +2148,12 @@ class LRE_Header_Widget extends Widget_Base {
 									$cat_url = ! empty( $box['category_url']['url'] ) ? $box['category_url']['url'] : '#';
 									$cat_tar = ! empty( $box['category_url']['is_external'] ) ? '_blank' : '_self';
 									echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
-									echo '<a href="' . esc_url( $cat_url ) . '" target="' . esc_attr( $cat_tar ) . '" class="side-menu__category-link">';
+									echo '<h3 class="side-menu__col-title side-menu__category-heading"><a href="' . esc_url( $cat_url ) . '" target="' . esc_attr( $cat_tar ) . '" class="side-menu__category-link">';
 									echo esc_html( $box_title );
 									if ( ! empty( $box['category_sub'] ) ) {
 										echo '<span class="side-menu__category-sub">' . esc_html( $box['category_sub'] ) . '</span>';
 									}
-									echo '</a>';
+									echo '</a></h3>';
 									echo '</div>';
 								} else {
 									// Links list box

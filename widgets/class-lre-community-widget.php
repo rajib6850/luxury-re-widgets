@@ -419,11 +419,15 @@ class LRE_Community_Widget extends Widget_Base {
 				'size_units' => array( 'vh', 'px', '%' ),
 				'range'      => array(
 					'vh' => array( 'min' => 40, 'max' => 120, 'step' => 1 ),
-					'px' => array( 'min' => 400, 'max' => 1400, 'step' => 10 ),
+					'px' => array( 'min' => 0, 'max' => 1400, 'step' => 10 ),
 				),
 				'default'    => array(
 					'size' => 90,
 					'unit' => 'vh',
+				),
+				'mobile_default' => array(
+					'size' => 0,
+					'unit' => 'px',
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-community__hero' => 'min-height: {{SIZE}}{{UNIT}};',

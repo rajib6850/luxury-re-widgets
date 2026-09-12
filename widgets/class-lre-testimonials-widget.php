@@ -155,12 +155,13 @@ class LRE_Testimonials_Widget extends Widget_Base {
 		$this->add_responsive_control( 'section_min_height', array(
 			'label'      => __( 'Section Min Height (px)', 'luxury-re-widgets' ),
 			'type'       => Controls_Manager::SLIDER,
-			'size_units' => array( 'px', 'vh' ),
+			'size_units' => array( 'px', 'vh', 'auto' ),
 			'range'      => array(
-				'px' => array( 'min' => 350, 'max' => 900, 'step' => 10 ),
-				'vh' => array( 'min' => 30,  'max' => 100 ),
+				'px' => array( 'min' => 0, 'max' => 900, 'step' => 10 ),
+				'vh' => array( 'min' => 0, 'max' => 100 ),
 			),
 			'default'    => array( 'unit' => 'px', 'size' => 540 ),
+			'mobile_default' => array( 'unit' => 'px', 'size' => 0 ),
 			'selectors'  => array(
 				'{{WRAPPER}} .testimonial' => 'min-height: {{SIZE}}{{UNIT}};',
 			),
@@ -188,6 +189,14 @@ class LRE_Testimonials_Widget extends Widget_Base {
 				'left'     => '4.5',
 				'unit'     => 'rem',
 				'isLinked' => true,
+			),
+			'mobile_default' => array(
+				'top'      => '3',
+				'right'    => '1.25',
+				'bottom'   => '3.5',
+				'left'     => '1.25',
+				'unit'     => 'rem',
+				'isLinked' => false,
 			),
 			'selectors'  => array( '{{WRAPPER}} .testimonial__content-col' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
 		) );

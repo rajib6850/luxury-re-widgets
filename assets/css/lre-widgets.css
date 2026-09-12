@@ -4865,14 +4865,15 @@ button.btn {
   }
 
   .testimonial__content-col,
+  .elementor-widget-lre_testimonials .testimonial__content-col,
   [class*="elementor-element"] .testimonial__content-col {
-    padding: 3rem 1.25rem 3.5rem;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 3rem 1.25rem 3.5rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .testimonial__inner {
@@ -5430,12 +5431,13 @@ button.btn {
   }
 
   .testimonial__content-col,
+  .elementor-widget-lre_testimonials .testimonial__content-col,
   [class*="elementor-element"] .testimonial__content-col {
-    padding: 2.5rem 1rem 3rem;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    padding: 2.5rem 1rem 3rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .testimonial__card-frame {

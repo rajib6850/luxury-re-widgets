@@ -17804,7 +17804,7 @@ button.lre-insights__filter-btn.active,
   gap: 2rem;
 }
 
-/* BUTTER-SMOOTH BOX HOVER ANIMATION */
+/* SISTER ENCLAVES CARDS */
 .lre-community__sister-card {
   position: relative;
   height: 390px;
@@ -17813,44 +17813,13 @@ button.lre-insights__filter-btn.active,
   align-items: flex-end;
   text-decoration: none;
   background-color: var(--color-dark-card, #141414);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  will-change: transform;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s ease;
-}
-
-.lre-community__sister-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--e-global-color-secondary, var(--color-secondary, #C5A059)), transparent);
-  opacity: 0;
-  transform: scaleX(0.3);
-  transform-origin: center;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-  z-index: 3;
-}
-
-.lre-community__sister-card:hover::before {
-  opacity: 1;
-  transform: scaleX(1);
+  transition: box-shadow 0.4s ease;
 }
 
 .lre-community__sister-card:hover {
-  transform: translate3d(0, -8px, 0);
-  -webkit-transform: translate3d(0, -8px, 0);
-  border-color: rgba(197, 160, 89, 0.5);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(197, 160, 89, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
 .lre-community__sister-media {
@@ -17858,12 +17827,19 @@ button.lre-insights__filter-btn.active,
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .lre-community__sister-img {
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
   object-fit: cover;
+  object-position: center;
+  display: block;
   transform: scale(1) translateZ(0);
   filter: brightness(0.72) contrast(1.05);
   will-change: transform;
@@ -18127,9 +18103,7 @@ button.lre-insights__filter-btn.active,
 /* Touch device active feedback */
 @media (hover: none) {
   .lre-community__sister-card:active {
-    transform: scale(0.98);
-    border-color: rgba(197, 160, 89, 0.5);
-    transition: transform 0.15s ease;
+    opacity: 0.95;
   }
 }
 

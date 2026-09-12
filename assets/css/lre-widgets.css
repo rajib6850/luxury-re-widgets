@@ -6484,43 +6484,45 @@ button.listings__arrow:hover svg,
 
 
 /* ==========================================================================
-   -- TESTIMONIAL SECTION - COMPACT SPACING MATCHING HTML TEMPLATE --
+   -- TESTIMONIAL SECTION - COMPACT SPACING MATCHING HTML TEMPLATE (DESKTOP) --
    ========================================================================== */
-.testimonial {
-  min-height: 520px;
-  max-height: none;
-}
+@media (min-width: 769px) {
+  .testimonial {
+    min-height: 520px;
+    max-height: none;
+  }
 
-.testimonial__content-col {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  padding: 3rem 3.5rem !important;
-}
+  .testimonial__content-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 3.5rem;
+  }
 
-.testimonial__inner {
-  max-width: 620px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-}
+  .testimonial__inner {
+    max-width: 620px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-.testimonial__heading {
-  margin-bottom: 1.5rem !important;
-}
+  .testimonial__heading {
+    margin-bottom: 1.5rem;
+  }
 
-.testimonial__card-frame {
-  margin-top: 0 !important;
-  margin-bottom: 1.2rem !important;
-  padding: 1.8rem 2.2rem !important;
-}
+  .testimonial__card-frame {
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    padding: 1.8rem 2.2rem;
+  }
 
-.testimonial__quote {
-  margin-bottom: 1.2rem !important;
-}
+  .testimonial__quote {
+    margin-bottom: 1.2rem;
+  }
 
-.testimonial__controls {
-  margin-top: 0.5rem !important;
-  padding-top: 0 !important;
+  .testimonial__controls {
+    margin-top: 0.5rem;
+    padding-top: 0;
+  }
 }
 
 /* --- CLASSIC MOBILE SLIDE-DOWN DROPDOWN MENU --- */

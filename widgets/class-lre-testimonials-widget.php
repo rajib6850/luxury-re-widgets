@@ -41,6 +41,28 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			'default' => array( 'url' => $default_portrait ),
 			'dynamic' => array( 'active' => true ),
 		) );
+		$this->add_responsive_control(
+			'image_object_position',
+			array(
+				'label'     => __( 'Image Object Position', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'luxury-re-widgets' ),
+					'center top'    => __( 'Center Top', 'luxury-re-widgets' ),
+					'center bottom' => __( 'Center Bottom', 'luxury-re-widgets' ),
+					'left center'   => __( 'Left Center', 'luxury-re-widgets' ),
+					'left top'      => __( 'Left Top', 'luxury-re-widgets' ),
+					'left bottom'   => __( 'Left Bottom', 'luxury-re-widgets' ),
+					'right center'  => __( 'Right Center', 'luxury-re-widgets' ),
+					'right top'     => __( 'Right Top', 'luxury-re-widgets' ),
+					'right bottom'  => __( 'Right Bottom', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .testimonial__image-col img' => 'object-position: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->add_control(
 			'show_image_overlay',
 			array(
@@ -141,7 +163,18 @@ class LRE_Testimonials_Widget extends Widget_Base {
 			'default'    => array( 'unit' => 'px', 'size' => 540 ),
 			'selectors'  => array(
 				'{{WRAPPER}} .testimonial' => 'min-height: {{SIZE}}{{UNIT}};',
-				'{{WRAPPER}} .testimonial__image-col' => 'min-height: {{SIZE}}{{UNIT}};',
+			),
+		) );
+		$this->add_responsive_control( 'image_height', array(
+			'label'      => __( 'Image Height (Mobile/Tablet)', 'luxury-re-widgets' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => array( 'px', 'vh' ),
+			'range'      => array(
+				'px' => array( 'min' => 200, 'max' => 700, 'step' => 10 ),
+				'vh' => array( 'min' => 20,  'max' => 90 ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .testimonial__image-col' => 'min-height: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
 			),
 		) );
 		$this->add_responsive_control( 'content_padding', array(

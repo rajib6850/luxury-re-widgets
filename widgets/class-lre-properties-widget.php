@@ -797,6 +797,18 @@ class LRE_Properties_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'carousel_padding',
+			array(
+				'label'      => __( 'Carousel Side Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .listings__carousel-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// =========================================================================

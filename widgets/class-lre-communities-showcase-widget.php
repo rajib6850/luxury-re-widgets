@@ -355,6 +355,14 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					'unit'     => 'px',
 					'isLinked' => false,
 				),
+				'mobile_default' => array(
+					'top'      => '50',
+					'right'    => '0',
+					'bottom'   => '50',
+					'left'     => '0',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-comm-showcase' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),

@@ -315,6 +315,20 @@ class LRE_Header_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'hide_phone_mobile',
+			array(
+				'label'        => __( 'Hide Phone on Mobile', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => __( 'Automatically hide the phone number on mobile viewports for a clean header layout.', 'luxury-re-widgets' ),
+				'selectors'    => array(
+					'(mobile){{WRAPPER}} .navbar__phone, (mobile){{WRAPPER}} .navbar a.navbar__phone, (mobile){{WRAPPER}} .navbar__right .navbar__phone, (mobile){{WRAPPER}} .navbar__right a.navbar__phone' => 'display: none !important;',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- SIDE DRAWER MENU (DYNAMIC REPEATER BOXES) ---
@@ -323,6 +337,32 @@ class LRE_Header_Widget extends Widget_Base {
 			array(
 				'label' => __( 'Side Drawer Menu Boxes', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'drawer_source',
+			array(
+				'label'       => __( 'Popup Menu Source', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'wp_menu',
+				'options'     => array(
+					'wp_menu' => __( 'WordPress Menu (Main / Primary Menu)', 'luxury-re-widgets' ),
+					'custom'  => __( 'Custom Column Boxes (Repeater)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Automatically reflects your WordPress Main/Primary Menu structure with child links and luxury backdrops.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_wp_menu_id',
+			array(
+				'label'       => __( 'Select Menu for Popup', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => $this->get_wp_menus_options(),
+				'default'     => '',
+				'condition'   => array( 'drawer_source' => 'wp_menu' ),
+				'description' => __( 'Leave blank to mirror the Primary/Main Menu selected above.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -1981,137 +2021,167 @@ class LRE_Header_Widget extends Widget_Base {
 
 				<div class="side-menu__columns">
 					<?php
-					$drawer_boxes = $settings['drawer_boxes'] ?? array();
+					$drawer_source = $settings['drawer_source'] ?? 'wp_menu';
+					$has_rendered  = false;
 
-					// If repeater has items, render dynamically
-					if ( ! empty( $drawer_boxes ) && is_array( $drawer_boxes ) ) {
-						$box_index = 0;
-						foreach ( $drawer_boxes as $box ) {
-							$box_index++;
-							$box_type  = $box['box_type'] ?? 'category';
-							$box_title = $box['box_title'] ?? '';
-							$box_width = $box['box_width'] ?? 'standard';
-							$wide_cls  = ( 'wide' === $box_width ) ? ' side-menu__box--wide' : '';
-
-							$img_url = ! empty( $box['box_img']['url'] ) ? $box['box_img']['url'] : '';
-							if ( empty( $img_url ) && ! empty( $box['box_img']['id'] ) ) {
-								$img_url = wp_get_attachment_image_url( $box['box_img']['id'], 'full' );
+					if ( 'wp_menu' === $drawer_source ) {
+						$popup_menu_id = ! empty( $settings['drawer_wp_menu_id'] ) ? $settings['drawer_wp_menu_id'] : ( $settings['wp_menu_id'] ?? '' );
+						if ( empty( $popup_menu_id ) ) {
+							$menus = wp_get_nav_menus();
+							if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+								$popup_menu_id = $menus[0]->term_id;
 							}
-							$img_url = lre_resolve_image_url( $img_url, 'images/property-1.jpg' );
+						}
 
-							echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
-							echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $box_title ) . '" loading="lazy"></div>';
-							echo '<div class="side-menu__box-overlay"></div>';
+						$menu_items = ! empty( $popup_menu_id ) ? wp_get_nav_menu_items( (int) $popup_menu_id ) : array();
+						if ( empty( $menu_items ) || is_wp_error( $menu_items ) ) {
+							$menu_items = ! empty( $popup_menu_id ) ? wp_get_nav_menu_items( $popup_menu_id ) : array();
+						}
 
-							if ( 'category' === $box_type ) {
-								$cat_url = ! empty( $box['category_url']['url'] ) ? $box['category_url']['url'] : '#';
-								$cat_tar = ! empty( $box['category_url']['is_external'] ) ? '_blank' : '_self';
-								echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
-								echo '<a href="' . esc_url( $cat_url ) . '" target="' . esc_attr( $cat_tar ) . '" class="side-menu__category-link">';
-								echo esc_html( $box_title );
-								if ( ! empty( $box['category_sub'] ) ) {
-									echo '<span class="side-menu__category-sub">' . esc_html( $box['category_sub'] ) . '</span>';
+						if ( ! empty( $menu_items ) && ! is_wp_error( $menu_items ) ) {
+							$tree = array();
+							foreach ( $menu_items as $it ) {
+								$p = (int) $it->menu_item_parent;
+								if ( ! isset( $tree[ $p ] ) ) {
+									$tree[ $p ] = array();
 								}
-								echo '</a>';
-								echo '</div>';
-							} else {
-								// Links list box
-								echo '<div class="side-menu__box-content side-menu__box-content--center">';
-								if ( ! empty( $box_title ) ) {
-									echo '<h3 class="side-menu__col-title">' . esc_html( $box_title ) . '</h3>';
-								}
+								$tree[ $p ][] = $it;
+							}
 
-								$raw_links = $box['column_links'] ?? '';
-								if ( ! empty( $raw_links ) ) {
-									$lines = explode( "\n", str_replace( "\r", '', $raw_links ) );
-									echo '<div class="side-menu__links">';
-									foreach ( $lines as $line ) {
-										$line = trim( $line );
-										if ( empty( $line ) ) {
-											continue;
-										}
-										$parts = explode( '|', $line );
-										$l_text = trim( $parts[0] ?? '' );
-										$l_url  = trim( $parts[1] ?? '#' );
-										if ( ! empty( $l_text ) ) {
-											echo '<a href="' . esc_url( $l_url ) . '" class="side-menu__link">' . esc_html( $l_text ) . '</a>';
-										}
+							$top_items = $tree[0] ?? array();
+							$default_imgs = array(
+								1 => 'images/property-9.jpg',
+								2 => 'images/property-1.jpg',
+								3 => 'images/property-8.jpg',
+								4 => 'images/property-3.jpg',
+								5 => 'images/property-2.jpg',
+								6 => 'images/property-4.jpg',
+								7 => 'images/property-5.jpg',
+								8 => 'images/property-6.jpg',
+								9 => 'images/property-7.jpg',
+							);
+
+							if ( ! empty( $top_items ) ) {
+								$has_rendered = true;
+								$box_index    = 0;
+								foreach ( $top_items as $top ) {
+									$box_index++;
+									$has_children = ! empty( $tree[ $top->ID ] );
+									$wide_cls     = $has_children ? ' side-menu__box--wide' : '';
+									$top_url      = ! empty( $top->url ) ? $top->url : '#';
+									$top_target   = ! empty( $top->target ) ? ' target="' . esc_attr( $top->target ) . '"' : '';
+									$top_title    = esc_html( html_entity_decode( $top->title, ENT_QUOTES, 'UTF-8' ) );
+
+									$post_thumb = ( ! empty( $top->object_id ) && 'page' === $top->object ) ? get_the_post_thumbnail_url( (int) $top->object_id, 'full' ) : '';
+									if ( empty( $post_thumb ) ) {
+										$img_rel = $default_imgs[ $box_index ] ?? 'images/property-1.jpg';
+										$img_url = lre_asset_url( $img_rel );
+									} else {
+										$img_url = $post_thumb;
 									}
+
+									echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
+									echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $top_title ) . '" loading="lazy"></div>';
+									echo '<div class="side-menu__box-overlay"></div>';
+
+									if ( $has_children ) {
+										echo '<div class="side-menu__box-content side-menu__box-content--center">';
+										echo '<h3 class="side-menu__col-title"><a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__title-link">' . $top_title . '</a></h3>';
+										echo '<div class="side-menu__links">';
+										foreach ( $tree[ $top->ID ] as $child ) {
+											$c_url    = ! empty( $child->url ) ? $child->url : '#';
+											$c_target = ! empty( $child->target ) ? ' target="' . esc_attr( $child->target ) . '"' : '';
+											$c_title  = esc_html( html_entity_decode( $child->title, ENT_QUOTES, 'UTF-8' ) );
+											echo '<a href="' . esc_url( $c_url ) . '"' . $c_target . ' class="side-menu__link">' . $c_title . '</a>';
+										}
+										echo '</div>';
+										echo '<a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__find-btn"><span>' . sprintf( esc_html__( 'Explore %s', 'luxury-re-widgets' ), $top_title ) . '</span></a>';
+										echo '</div>';
+									} else {
+										echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
+										echo '<a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__category-link">' . $top_title . '</a>';
+										echo '</div>';
+									}
+
+									echo '</div>';
+								}
+							}
+						}
+					}
+
+					// Custom Repeater Boxes (Fallback or when drawer_source === 'custom')
+					if ( ! $has_rendered ) {
+						$drawer_boxes = $settings['drawer_boxes'] ?? array();
+
+						// If repeater has items, render dynamically
+						if ( ! empty( $drawer_boxes ) && is_array( $drawer_boxes ) ) {
+							$box_index = 0;
+							foreach ( $drawer_boxes as $box ) {
+								$box_index++;
+								$box_type  = $box['box_type'] ?? 'category';
+								$box_title = $box['box_title'] ?? '';
+								$box_width = $box['box_width'] ?? 'standard';
+								$wide_cls  = ( 'wide' === $box_width ) ? ' side-menu__box--wide' : '';
+
+								$img_url = ! empty( $box['box_img']['url'] ) ? $box['box_img']['url'] : '';
+								if ( empty( $img_url ) && ! empty( $box['box_img']['id'] ) ) {
+									$img_url = wp_get_attachment_image_url( $box['box_img']['id'], 'full' );
+								}
+								$img_url = lre_resolve_image_url( $img_url, 'images/property-1.jpg' );
+
+								echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
+								echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $box_title ) . '" loading="lazy"></div>';
+								echo '<div class="side-menu__box-overlay"></div>';
+
+								if ( 'category' === $box_type ) {
+									$cat_url = ! empty( $box['category_url']['url'] ) ? $box['category_url']['url'] : '#';
+									$cat_tar = ! empty( $box['category_url']['is_external'] ) ? '_blank' : '_self';
+									echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
+									echo '<a href="' . esc_url( $cat_url ) . '" target="' . esc_attr( $cat_tar ) . '" class="side-menu__category-link">';
+									echo esc_html( $box_title );
+									if ( ! empty( $box['category_sub'] ) ) {
+										echo '<span class="side-menu__category-sub">' . esc_html( $box['category_sub'] ) . '</span>';
+									}
+									echo '</a>';
+									echo '</div>';
+								} else {
+									// Links list box
+									echo '<div class="side-menu__box-content side-menu__box-content--center">';
+									if ( ! empty( $box_title ) ) {
+										echo '<h3 class="side-menu__col-title">' . esc_html( $box_title ) . '</h3>';
+									}
+
+									$raw_links = $box['column_links'] ?? '';
+									if ( ! empty( $raw_links ) ) {
+										$lines = explode( "\n", str_replace( "\r", '', $raw_links ) );
+										echo '<div class="side-menu__links">';
+										foreach ( $lines as $line ) {
+											$line = trim( $line );
+											if ( empty( $line ) ) {
+												continue;
+											}
+											$parts = explode( '|', $line );
+											$l_text = trim( $parts[0] ?? '' );
+											$l_url  = trim( $parts[1] ?? '#' );
+											if ( ! empty( $l_text ) ) {
+												echo '<a href="' . esc_url( $l_url ) . '" class="side-menu__link">' . esc_html( $l_text ) . '</a>';
+											}
+										}
+										echo '</div>';
+									}
+
+									if ( ! empty( $box['btn_text'] ) ) {
+										$b_url = ! empty( $box['btn_url']['url'] ) ? $box['btn_url']['url'] : '#';
+										$b_tar = ! empty( $box['btn_url']['is_external'] ) ? '_blank' : '_self';
+										echo '<a href="' . esc_url( $b_url ) . '" target="' . esc_attr( $b_tar ) . '" class="side-menu__find-btn"><span>' . esc_html( $box['btn_text'] ) . '</span></a>';
+									}
+
 									echo '</div>';
 								}
 
-								if ( ! empty( $box['btn_text'] ) ) {
-									$b_url = ! empty( $box['btn_url']['url'] ) ? $box['btn_url']['url'] : '#';
-									$b_tar = ! empty( $box['btn_url']['is_external'] ) ? '_blank' : '_self';
-									echo '<a href="' . esc_url( $b_url ) . '" target="' . esc_attr( $b_tar ) . '" class="side-menu__find-btn"><span>' . esc_html( $box['btn_text'] ) . '</span></a>';
-								}
-
 								echo '</div>';
 							}
-
-							echo '</div>';
 						}
-					} else {
-						// Backward compatibility fallback for legacy Box 1 to 5
-						$b1_img = lre_resolve_image_url( $settings['drawer_box1_img']['url'] ?? '', 'images/property-2.jpg' );
-						$b2_img = lre_resolve_image_url( $settings['drawer_box2_img']['url'] ?? '', 'images/property-3.jpg' );
-						$b3_img = lre_resolve_image_url( $settings['drawer_box3_img']['url'] ?? '', 'images/property-1.jpg' );
-						$b4_img = lre_resolve_image_url( $settings['drawer_box4_img']['url'] ?? '', 'images/property-8.jpg' );
-						$b5_img = lre_resolve_image_url( $settings['drawer_box5_img']['url'] ?? '', 'images/property-9.jpg' );
-						?>
-						<div class="side-menu__box" data-delay="1">
-							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b1_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box1_title'] ?? 'Buyers' ); ?>" loading="lazy"></div>
-							<div class="side-menu__box-overlay"></div>
-							<div class="side-menu__box-content side-menu__box-content--bottom">
-								<a href="<?php echo esc_url( $settings['drawer_box1_url']['url'] ?? '#listings' ); ?>" class="side-menu__category-link"><?php echo esc_html( $settings['drawer_box1_title'] ?? 'Buyers' ); ?></a>
-							</div>
-						</div>
-						<div class="side-menu__box" data-delay="2">
-							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b2_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box2_title'] ?? 'Sellers' ); ?>" loading="lazy"></div>
-							<div class="side-menu__box-overlay"></div>
-							<div class="side-menu__box-content side-menu__box-content--bottom">
-								<a href="<?php echo esc_url( $settings['drawer_box2_url']['url'] ?? '#contact' ); ?>" class="side-menu__category-link"><?php echo esc_html( $settings['drawer_box2_title'] ?? 'Sellers' ); ?></a>
-							</div>
-						</div>
-						<div class="side-menu__box" data-delay="3">
-							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b3_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box3_title'] ?? 'Investors' ); ?>" loading="lazy"></div>
-							<div class="side-menu__box-overlay"></div>
-							<div class="side-menu__box-content side-menu__box-content--bottom">
-								<a href="<?php echo esc_url( $settings['drawer_box3_url']['url'] ?? '#services' ); ?>" class="side-menu__category-link"><?php echo esc_html( $settings['drawer_box3_title'] ?? 'Investors' ); ?></a>
-							</div>
-						</div>
-						<div class="side-menu__box side-menu__box--wide" data-delay="4">
-							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b4_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box4_title'] ?? 'Neighborhoods' ); ?>" loading="lazy"></div>
-							<div class="side-menu__box-overlay"></div>
-							<div class="side-menu__box-content side-menu__box-content--center">
-								<h3 class="side-menu__col-title"><?php echo esc_html( $settings['drawer_box4_title'] ?? 'Neighborhoods' ); ?></h3>
-								<div class="side-menu__links">
-									<a href="#communities" class="side-menu__link">Pacific Palisades</a>
-									<a href="#communities" class="side-menu__link">Bel Air</a>
-									<a href="#communities" class="side-menu__link">Brentwood</a>
-									<a href="#communities" class="side-menu__link">Malibu</a>
-									<a href="#communities" class="side-menu__link">Holmby Hills</a>
-									<a href="#communities" class="side-menu__link">Beverly Hills</a>
-								</div>
-								<a href="#communities" class="side-menu__find-btn"><span>Find Your Neighborhood</span></a>
-							</div>
-						</div>
-						<div class="side-menu__box side-menu__box--wide" data-delay="5">
-							<div class="side-menu__box-bg"><img src="<?php echo esc_url( $b5_img ); ?>" alt="<?php echo esc_attr( $settings['drawer_box5_title'] ?? 'About Us' ); ?>" loading="lazy"></div>
-							<div class="side-menu__box-overlay"></div>
-							<div class="side-menu__box-content side-menu__box-content--center">
-								<h3 class="side-menu__col-title"><?php echo esc_html( $settings['drawer_box5_title'] ?? 'About Us' ); ?></h3>
-								<div class="side-menu__links">
-									<a href="#about" class="side-menu__link">Our Story</a>
-									<a href="#about" class="side-menu__link">Meet The Team</a>
-									<a href="#listings" class="side-menu__link">Featured Listings</a>
-									<a href="#testimonial" class="side-menu__link">Client Reviews</a>
-									<a href="#contact" class="side-menu__link">Connect With Us</a>
-									<a href="#services" class="side-menu__link">Market Insights</a>
-								</div>
-							</div>
-						</div>
-						<?php
 					}
 					?>
 				</div>

@@ -943,8 +943,8 @@ button.btn {
 .navbar a.navbar__email,
 .navbar__btn,
 .navbar a.navbar__btn {
-  display: inline-flex !important;
-  align-items: center !important;
+  display: inline-flex;
+  align-items: center;
   gap: var(--lre-right-icon-gap, 0.5rem);
   vertical-align: middle;
 }
@@ -1338,6 +1338,22 @@ button.btn {
   margin-bottom: 1.8rem;
 }
 
+.side-menu a.side-menu__title-link,
+.side-menu .side-menu__col-title a,
+.side-menu h3.side-menu__col-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.side-menu a.side-menu__title-link:hover,
+.side-menu .side-menu__col-title a:hover,
+.side-menu h3.side-menu__col-title a:hover {
+  color: var(--color-secondary, #c5a047);
+  transform: translateY(-2px);
+}
+
 /* Links list */
 .side-menu__links {
   display: flex;
@@ -1719,7 +1735,13 @@ button.btn {
   color: #ffffff;
   text-shadow: none !important;
   box-shadow: none !important;
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 3rem;
+  line-height: 1.6;
+  text-wrap: balance;
   opacity: 0;
   transform: translateY(20px);
   animation: heroFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) 0.65s forwards;
@@ -4308,7 +4330,18 @@ button.btn {
     padding: 0 1.25rem;
   }
 
-  .navbar__phone {
+  .navbar__phone,
+  .navbar a.navbar__phone,
+  .navbar__right .navbar__phone,
+  .navbar__right a.navbar__phone,
+  .site-header .navbar__phone,
+  .site-header .navbar a.navbar__phone,
+  .site-header .navbar__right .navbar__phone,
+  .site-header .navbar__right a.navbar__phone,
+  [class*="elementor-kit-"] .navbar .navbar__phone,
+  [class*="elementor-kit-"] .navbar a.navbar__phone,
+  [class*="elementor-kit-"] .navbar__right .navbar__phone,
+  [class*="elementor-kit-"] .navbar__right a.navbar__phone {
     display: none !important;
   }
 

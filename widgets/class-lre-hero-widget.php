@@ -482,6 +482,44 @@ class LRE_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'subtitle_max_width',
+			array(
+				'label'      => __( 'Width / Max Width', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'rem', 'vw' ),
+				'range'      => array(
+					'px'  => array( 'min' => 200, 'max' => 1400, 'step' => 10 ),
+					'%'   => array( 'min' => 10,  'max' => 100 ),
+					'rem' => array( 'min' => 10,  'max' => 80 ),
+					'vw'  => array( 'min' => 10,  'max' => 100 ),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 680,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__subtitle' => 'max-width: {{SIZE}}{{UNIT}}; width: 100%; margin-left: auto; margin-right: auto;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'subtitle_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem', 'em' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 120, 'step' => 2 ),
+					'rem' => array( 'min' => 0, 'max' => 8, 'step' => 0.25 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__subtitle' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- Buttons Style ---

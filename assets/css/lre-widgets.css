@@ -11352,12 +11352,37 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   .lre-phero__inner { padding: 5rem 2rem 4.5rem; }
 }
 @media (max-width: 767px) {
-  .lre-phero { min-height: 65vmin; }
-  .lre-phero__inner { padding: 5rem 1.5rem 5rem; }
+  .lre-phero,
+  .elementor-widget-lre_page_hero .lre-phero,
+  [class*="elementor-widget-lre_page_hero"] .lre-phero {
+    min-height: auto !important;
+    height: auto !important;
+  }
+  .lre-phero__inner {
+    padding-top: clamp(6rem, 14vw, 8rem) !important;
+    padding-bottom: clamp(3.5rem, 8vw, 4.5rem) !important;
+    padding-left: clamp(1rem, 4vw, 1.5rem) !important;
+    padding-right: clamp(1rem, 4vw, 1.5rem) !important;
+  }
   .lre-phero__subtitle { font-size: 0.9rem; }
   .lre-phero__lines,
   .lre-phero__scroll-hint { display: none; }
   .lre-phero__actions .btn { padding: 0.85rem 1.6rem !important; font-size: 0.63rem !important; }
+}
+
+@media (max-width: 480px) {
+  .lre-phero,
+  .elementor-widget-lre_page_hero .lre-phero,
+  [class*="elementor-widget-lre_page_hero"] .lre-phero {
+    min-height: auto !important;
+    height: auto !important;
+  }
+  .lre-phero__inner {
+    padding-top: clamp(5.2rem, 15vw, 7rem) !important;
+    padding-bottom: clamp(2.8rem, 8vw, 4rem) !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -18458,9 +18483,9 @@ button.lre-insights__filter-btn.active,
   .lre-community__hero,
   .elementor-widget-lre_community .lre-community__hero,
   [class*="elementor-widget-lre_community"] .lre-community__hero {
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
-    padding: clamp(5.5rem, 12vw, 7.5rem) clamp(1.25rem, 4vw, 2rem) clamp(2.5rem, 6vw, 3.5rem) !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: clamp(6.5rem, 14vw, 8.5rem) clamp(1.25rem, 4vw, 2rem) clamp(3.5rem, 8vw, 5rem) !important;
   }
 
   .lre-community__hero-bg {
@@ -18586,9 +18611,9 @@ button.lre-insights__filter-btn.active,
   .lre-community__hero,
   .elementor-widget-lre_community .lre-community__hero,
   [class*="elementor-widget-lre_community"] .lre-community__hero {
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
-    padding: clamp(4.8rem, 12vw, 6.2rem) 1rem clamp(2rem, 5vw, 2.75rem) !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: clamp(5.5rem, 15vw, 7.5rem) 1rem clamp(3rem, 8vw, 4.5rem) !important;
   }
 
   .lre-community__title {

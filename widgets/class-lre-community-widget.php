@@ -425,10 +425,6 @@ class LRE_Community_Widget extends Widget_Base {
 					'size' => 90,
 					'unit' => 'vh',
 				),
-				'mobile_default' => array(
-					'size' => 100,
-					'unit' => 'vh',
-				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-community__hero' => 'min-height: {{SIZE}}{{UNIT}};',
 				),

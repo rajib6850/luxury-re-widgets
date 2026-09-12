@@ -511,8 +511,16 @@ class LRE_Reviews_Widget extends Widget_Base {
 					'unit'     => 'rem',
 					'isLinked' => false,
 				),
+				'mobile_default' => array(
+					'top'      => '4',
+					'right'    => '0',
+					'bottom'   => '4',
+					'left'     => '0',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-reviews' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -524,7 +532,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-reviews__container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .lre-reviews__container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);

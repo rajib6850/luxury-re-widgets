@@ -10413,15 +10413,23 @@ button.lre-reviews__nav-btn:focus,
 }
 
 @media (max-width: 767px) {
-  .lre-reviews {
-    padding: 4.2rem 0 4.8rem;
+  .lre-reviews,
+  .elementor-widget-lre_reviews .lre-reviews,
+  [class*="elementor-widget-lre_reviews"] .lre-reviews {
+    padding-top: 4rem !important;
+    padding-bottom: 4.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     overflow-x: hidden;
   }
-  .lre-reviews__container {
-    padding: 0 1rem;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  .lre-reviews__container,
+  .lre-reviews .lre-reviews__container,
+  .lre-reviews .container.lre-reviews__container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   .lre-reviews__header {
     margin-bottom: 2rem !important;
@@ -10687,7 +10695,7 @@ button.lre-reviews__nav-btn:focus,
   }
 
   .lre-reviews__dossier-body {
-    padding: 1.4rem 1.1rem 1.4rem !important;
+    padding: 1.35rem 1rem 1.35rem !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -10777,39 +10785,72 @@ button.lre-reviews__nav-btn:focus,
     white-space: normal !important;
   }
 
+  /* Mobile 2-line Dossier Controls (Line 1: Review Counter, Line 2: Navigation Actions) */
   .lre-reviews__controls {
-    margin-top: 1.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.15rem !important;
+    margin-top: 1.5rem !important;
     padding: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .lre-reviews__counter {
-    font-size: 1.05rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: baseline !important;
+    gap: 8px !important;
+    font-size: 1.15rem !important;
+    width: 100% !important;
+    text-align: center !important;
   }
 
   .lre-reviews__nav-actions {
-    gap: 0.5rem !important;
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    box-sizing: border-box !important;
   }
 
+  .lre-reviews__nav-actions .lre-reviews__nav-btn,
   .lre-reviews__nav-btn {
-    padding: var(--lre-rev-nav-btn-padding, 0.55rem 1rem);
-    font-size: 0.6rem;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0.75rem 0.85rem !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
   }
 }
 
 @media (max-width: 480px) {
-  .lre-reviews {
-    padding: 3.2rem 0 3.8rem !important;
+  .lre-reviews,
+  .elementor-widget-lre_reviews .lre-reviews,
+  [class*="elementor-widget-lre_reviews"] .lre-reviews {
+    padding-top: 3.2rem !important;
+    padding-bottom: 3.8rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
-  .lre-reviews__container {
-    padding: 0 0.85rem !important;
+  .lre-reviews__container,
+  .lre-reviews .lre-reviews__container,
+  .lre-reviews .container.lre-reviews__container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
   }
   .lre-reviews__header {
     margin-bottom: 1.8rem !important;
   }
   .lre-reviews__trust-pillar {
-    padding: 1.1rem 0.85rem !important;
+    padding: 1.1rem 0.75rem !important;
   }
   .lre-reviews__seal-wrap {
     gap: 0.7rem !important;
@@ -10835,11 +10876,27 @@ button.lre-reviews__nav-btn:focus,
     height: 160px !important;
   }
   .lre-reviews__dossier-body {
-    padding: 1.2rem 0.9rem 1.2rem !important;
+    padding: 1.15rem 0.75rem 1.15rem !important;
   }
   .lre-reviews__quote-text {
     font-size: 1rem !important;
     line-height: 1.55 !important;
+  }
+  .lre-reviews__controls {
+    gap: 1rem !important;
+    margin-top: 1.25rem !important;
+  }
+  .lre-reviews__counter {
+    font-size: 1.05rem !important;
+  }
+  .lre-reviews__nav-actions {
+    gap: 0.6rem !important;
+  }
+  .lre-reviews__nav-actions .lre-reviews__nav-btn,
+  .lre-reviews__nav-btn {
+    padding: 0.65rem 0.5rem !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 1.5px !important;
   }
 }
 

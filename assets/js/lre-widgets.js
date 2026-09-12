@@ -2689,6 +2689,82 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sold_portfolio.default',      function ( $scope ) { LREWidgets.SoldPortfolio.init( $scope ); } );
     }
 
+    LREWidgets.SinglePost = {
+        init: function ( $scope ) {
+            var root = ( $scope && $scope.length ) ? $scope[0] : document;
+            var copyBtns = root.querySelectorAll( '.lre-single-post__share-btn--copy' );
+            if ( copyBtns.length ) {
+                copyBtns.forEach( function ( btn ) {
+                    btn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        var url = window.location.href;
+                        var pill = btn.closest( '.lre-single-post__share-pill' );
+                        if ( pill && pill.getAttribute( 'data-share-url' ) ) {
+                            url = pill.getAttribute( 'data-share-url' );
+                        }
+
+                        if ( navigator.clipboard && navigator.clipboard.writeText ) {
+                            navigator.clipboard.writeText( url ).then( function () {
+                                showTooltip( btn );
+                            } ).catch( function () {
+                                fallbackCopy( url, btn );
+                            } );
+                        } else {
+                            fallbackCopy( url, btn );
+                        }
+                    } );
+                } );
+            }
+
+            function showTooltip( btn ) {
+                var tooltip = btn.querySelector( '.lre-single-post__tooltip' );
+                if ( ! tooltip ) {
+                    var actionSpan = btn.querySelector( 'span' );
+                    if ( actionSpan ) {
+                        var orig = actionSpan.textContent;
+                        actionSpan.textContent = 'Copied!';
+                        setTimeout( function () { actionSpan.textContent = orig; }, 2000 );
+                    }
+                    return;
+                }
+                tooltip.classList.add( 'show' );
+                setTimeout( function () {
+                    tooltip.classList.remove( 'show' );
+                }, 2000 );
+            }
+
+            function fallbackCopy( text, btn ) {
+                var textArea = document.createElement( 'textarea' );
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild( textArea );
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand( 'copy' );
+                    showTooltip( btn );
+                } catch ( err ) {}
+                document.body.removeChild( textArea );
+            }
+
+            // Smooth scroll for Table of Contents links
+            var tocLinks = root.querySelectorAll( '.lre-single-post__toc-link' );
+            tocLinks.forEach( function ( link ) {
+                link.addEventListener( 'click', function ( e ) {
+                    var targetId = link.getAttribute( 'href' );
+                    if ( targetId && targetId.indexOf( '#' ) === 0 ) {
+                        var targetEl = document.querySelector( targetId );
+                        if ( targetEl ) {
+                            e.preventDefault();
+                            targetEl.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+                        }
+                    }
+                } );
+            } );
+        }
+    };
+
     // Auto-run on DOM ready
     function lreInitAllWidgets() {
         LREWidgets.initReveals();
@@ -2714,6 +2790,7 @@
         if ( LREWidgets.Newsletter )          LREWidgets.Newsletter.init();
         if ( LREWidgets.HomeValuation )       LREWidgets.HomeValuation.init();
         if ( LREWidgets.SoldPortfolio )       LREWidgets.SoldPortfolio.init();
+        if ( LREWidgets.SinglePost )          LREWidgets.SinglePost.init();
     }
 
     if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {

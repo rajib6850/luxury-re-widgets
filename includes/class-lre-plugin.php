@@ -94,6 +94,10 @@ final class LRE_Plugin {
 		require_once LRE_PATH . 'includes/class-lre-post-types.php';
 		LRE_Post_Types::instance();
 
+		// 10. Load Single Post & Template System.
+		require_once LRE_PATH . 'includes/class-lre-templates.php';
+		LRE_Templates::instance();
+
 		// 8. Enqueue assets.
 		add_action( 'wp_enqueue_scripts',               array( $this, 'enqueue_styles' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_styles' ) );

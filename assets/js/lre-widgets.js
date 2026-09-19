@@ -1995,6 +1995,10 @@
                     if ( submitBtn ) {
                         submitBtn.classList.add( 'is-loading' );
                         submitBtn.disabled = true;
+                        var sp = submitBtn.querySelector( '.lre-newsletter__spinner' );
+                        if ( sp ) {
+                            sp.style.setProperty( 'display', 'inline-block', 'important' );
+                        }
                     }
                     if ( msgBox ) {
                         msgBox.className = 'lre-newsletter__message';
@@ -2020,6 +2024,10 @@
                         if ( submitBtn ) {
                             submitBtn.classList.remove( 'is-loading' );
                             submitBtn.disabled = false;
+                            var sp = submitBtn.querySelector( '.lre-newsletter__spinner' );
+                            if ( sp ) {
+                                sp.style.setProperty( 'display', 'none', 'important' );
+                            }
                         }
                         if ( msgBox ) {
                             if ( data && data.success ) {
@@ -2042,6 +2050,10 @@
                         if ( submitBtn ) {
                             submitBtn.classList.remove( 'is-loading' );
                             submitBtn.disabled = false;
+                            var sp = submitBtn.querySelector( '.lre-newsletter__spinner' );
+                            if ( sp ) {
+                                sp.style.setProperty( 'display', 'none', 'important' );
+                            }
                         }
                         if ( msgBox ) {
                             msgBox.textContent = 'A connection error occurred. Please try again.';

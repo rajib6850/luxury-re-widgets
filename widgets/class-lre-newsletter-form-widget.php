@@ -147,16 +147,16 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		$this->add_control(
 			'button_variant',
 			array(
-				'label'   => __( 'Button Style (Master Theme Parity)', 'luxury-re-widgets' ),
+				'label'   => __( 'Button Style', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'btn--outline',
+				'default' => 'newsletter_navy',
 				'options' => array(
-					'btn--outline'              => __( 'Outline Dark (Site Master Default - White/Light BG)', 'luxury-re-widgets' ),
-					'btn--outline-white'        => __( 'Outline White (Transparent on Dark BG)', 'luxury-re-widgets' ),
-					'btn--primary'              => __( 'Solid Deep Navy (Master SERHANT Navy)', 'luxury-re-widgets' ),
-					'btn--gold'                 => __( 'SERHANT Gold (Luxury Gold Fill)', 'luxury-re-widgets' ),
-					'btn--secondary'            => __( 'Secondary Outline (Fine 1px Outline)', 'luxury-re-widgets' ),
-					'lre-newsletter-white__btn' => __( 'Newsletter Style (Navy with Gold Slide Hover)', 'luxury-re-widgets' ),
+					'newsletter_navy'    => __( 'SERHANT Navy with Gold Slide-Up (Newsletter Default)', 'luxury-re-widgets' ),
+					'btn--outline'       => __( 'Outline Dark (#02293F Border & Text)', 'luxury-re-widgets' ),
+					'btn--primary'       => __( 'Solid Deep Navy (White Text)', 'luxury-re-widgets' ),
+					'btn--gold'          => __( 'SERHANT Gold (Luxury Gold Fill)', 'luxury-re-widgets' ),
+					'btn--outline-white' => __( 'Outline White (For Dark Popups)', 'luxury-re-widgets' ),
+					'btn--secondary'     => __( 'Secondary Outline (White on Dark)', 'luxury-re-widgets' ),
 				),
 			)
 		);
@@ -651,8 +651,9 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
 				'selectors' => array(
-					'{{WRAPPER}} .btn' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn, {{WRAPPER}} .lre-standalone-form .btn .btn__text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -662,8 +663,9 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#02293F',
 				'selectors' => array(
-					'{{WRAPPER}} .btn' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -673,8 +675,9 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#02293F',
 				'selectors' => array(
-					'{{WRAPPER}} .btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -691,8 +694,9 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn:hover, {{WRAPPER}} .lre-standalone-form .btn:hover .btn__text' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -702,9 +706,11 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#827A4A',
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .btn::before' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn' => '--btn-hover-bg: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn::before' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -714,8 +720,9 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#827A4A',
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-standalone-form .btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -796,7 +803,11 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 
 		// Button classes using the master `.btn` classes
 		$btn_classes   = array( 'btn', 'lre-newsletter__btn' );
-		$btn_classes[] = ! empty( $settings['button_variant'] ) ? $settings['button_variant'] : 'btn--outline';
+		$variant       = ! empty( $settings['button_variant'] ) ? $settings['button_variant'] : 'newsletter_navy';
+		$btn_classes[] = $variant;
+		if ( 'newsletter_navy' === $variant ) {
+			$btn_classes[] = 'lre-newsletter-white__btn';
+		}
 
 		if ( ! empty( $settings['button_size'] ) && 'btn--sm' === $settings['button_size'] ) {
 			$btn_classes[] = 'btn--sm';
@@ -874,7 +885,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 									<span class="btn__icon" aria-hidden="true">↗</span>
 								<?php endif; ?>
 							<?php endif; ?>
-							<span class="lre-newsletter__spinner" aria-hidden="true"></span>
+							<span class="lre-newsletter__spinner" aria-hidden="true" style="display:none !important;"></span>
 						</button>
 					<?php endif; ?>
 				</div>
@@ -909,7 +920,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 									<span class="btn__icon" aria-hidden="true">↗</span>
 								<?php endif; ?>
 							<?php endif; ?>
-							<span class="lre-newsletter__spinner" aria-hidden="true"></span>
+							<span class="lre-newsletter__spinner" aria-hidden="true" style="display:none !important;"></span>
 						</button>
 					</div>
 				<?php endif; ?>

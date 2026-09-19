@@ -51,6 +51,12 @@ class LRE_Widgets_Loader {
 		'class-lre-home-valuation-widget.php' => 'LRE_Home_Valuation_Widget',
 		// Sold Portfolio Suite
 		'class-lre-sold-portfolio-widget.php' => 'LRE_Sold_Portfolio_Widget',
+		// Standalone & Atomic Suite (Title, Description, Button, Image, Standalone Form)
+		'class-lre-title-widget.php'           => 'LRE_Title_Widget',
+		'class-lre-description-widget.php'     => 'LRE_Description_Widget',
+		'class-lre-button-widget.php'          => 'LRE_Button_Widget',
+		'class-lre-image-widget.php'           => 'LRE_Image_Widget',
+		'class-lre-newsletter-form-widget.php' => 'LRE_Newsletter_Form_Widget',
 	);
 
 	/** Constructor — hooks into Elementor. */

@@ -2684,6 +2684,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sellers_guide.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_press.default',                function ( $scope ) { LREWidgets.Press.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter_form.default',      function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_valuation.default',     function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_home_evaluation.default',    function ( $scope ) { LREWidgets.HomeValuation.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sold_portfolio.default',      function ( $scope ) { LREWidgets.SoldPortfolio.init( $scope ); } );
@@ -2805,6 +2806,12 @@
 
     if ( typeof jQuery !== 'undefined' ) {
         jQuery( window ).on( 'elementor/frontend/init', lreBindElementorHooks );
+        jQuery( document ).on( 'elementor/popup/show', function ( event, id, instance ) {
+            var $popup = instance && instance.$element ? instance.$element : jQuery( '.elementor-popup-modal' );
+            if ( $popup.length && LREWidgets.Newsletter ) {
+                LREWidgets.Newsletter.init( $popup );
+            }
+        } );
     }
 
 }( window, document, typeof jQuery !== 'undefined' ? jQuery : null ));

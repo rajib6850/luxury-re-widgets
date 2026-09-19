@@ -6,15 +6,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
 
 /**
  * LRE_Newsletter_Form_Widget
  *
  * Standalone Luxury Newsletter & Lead Capture Form Widget.
- * Designed specifically to be inserted anywhere: inside Elementor Popups,
+ * Specifically designed to be placed anywhere: inside Elementor Popups,
  * modal dialogs, column splits, sidebars, or custom page sections.
- * Automatically integrated with Follow Up Boss (FUB) CRM and AJAX submission.
+ *
+ * Fully equipped with:
+ * - Actions After Submit (Email, Autoresponder, Redirect, FUB CRM)
+ * - Email Notification (Admin)
+ * - Subscriber Welcome / Auto-Responder Email
+ * - Follow Up Boss (FUB) Integration
+ * - Custom Success, Error, and Validation Messages
+ * - Full parity with the master `.btn` styling and AJAX submission engine.
  *
  * @package Luxury_RE_Widgets
  */
@@ -37,7 +43,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'newsletter', 'form', 'popup', 'lead', 'fub', 'subscribe', 'tcpa', 'email' );
+		return array( 'newsletter', 'form', 'popup', 'lead', 'fub', 'subscribe', 'tcpa', 'email', 'autoresponder' );
 	}
 
 	protected function register_controls() {
@@ -46,7 +52,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		// TAB: CONTENT
 		// =================================================================
 
-		// --- 1. FORM LAYOUT & FIELDS ---
+		// --- 1. FORM LAYOUT & INPUTS ---
 		$this->start_controls_section(
 			'section_form_fields',
 			array(
@@ -139,17 +145,31 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'button_preset',
+			'button_variant',
 			array(
-				'label'   => __( 'Button Style Preset', 'luxury-re-widgets' ),
+				'label'   => __( 'Button Style (Master Theme Parity)', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'outline_dark',
+				'default' => 'btn--outline',
 				'options' => array(
-					'outline_dark'  => __( 'Minimal Dark Outline (Exact Popup Style)', 'luxury-re-widgets' ),
-					'solid_gold'    => __( 'Solid Gold (Signature Sliding Shimmer)', 'luxury-re-widgets' ),
-					'solid_navy'    => __( 'Solid Navy (Deep Luxury)', 'luxury-re-widgets' ),
-					'outline_gold'  => __( 'Outline Gold', 'luxury-re-widgets' ),
-					'outline_white' => __( 'Outline White (For Dark Popups)', 'luxury-re-widgets' ),
+					'btn--outline'              => __( 'Outline Dark (Site Master Default - White/Light BG)', 'luxury-re-widgets' ),
+					'btn--outline-white'        => __( 'Outline White (Transparent on Dark BG)', 'luxury-re-widgets' ),
+					'btn--primary'              => __( 'Solid Deep Navy (Master SERHANT Navy)', 'luxury-re-widgets' ),
+					'btn--gold'                 => __( 'SERHANT Gold (Luxury Gold Fill)', 'luxury-re-widgets' ),
+					'btn--secondary'            => __( 'Secondary Outline (Fine 1px Outline)', 'luxury-re-widgets' ),
+					'lre-newsletter-white__btn' => __( 'Newsletter Style (Navy with Gold Slide Hover)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'button_size',
+			array(
+				'label'   => __( 'Button Size', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => array(
+					'default' => __( 'Default Luxury (Min-Height 54px)', 'luxury-re-widgets' ),
+					'btn--sm' => __( 'Compact / Small (Min-Height 44px)', 'luxury-re-widgets' ),
 				),
 			)
 		);
@@ -163,6 +183,20 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
 				'label_off'    => __( 'No', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'button_icon_type',
+			array(
+				'label'     => __( 'Arrow Icon Type', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'diagonal',
+				'options'   => array(
+					'diagonal'    => '↗ ' . __( 'Diagonal Arrow (Portfolio / Ledger Style)', 'luxury-re-widgets' ),
+					'arrow_right' => '→ ' . __( 'Right Arrow SVG (Newsletter Style)', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'show_button_icon' => 'yes' ),
 			)
 		);
 
@@ -180,7 +214,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- 3. TCPA CONSENT & LEGAL DISCLAIMER ---
+		// --- 3. LEGAL CONSENT & TCPA CHECKBOX ---
 		$this->start_controls_section(
 			'section_consent',
 			array(
@@ -192,11 +226,11 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		$this->add_control(
 			'show_consent',
 			array(
-				'label'        => __( 'Show TCPA Consent Checkbox', 'luxury-re-widgets' ),
+				'label'        => __( 'Show Legal Consent Checkbox', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
-				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
-				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
 			)
 		);
@@ -204,7 +238,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		$this->add_control(
 			'consent_text',
 			array(
-				'label'       => __( 'Consent Text', 'luxury-re-widgets' ),
+				'label'       => __( 'Legal Consent Text', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
 				'default'     => __( 'I agree to be contacted by Adolfo Aguirre via call, email, and text for real estate services. To opt out, you can reply \'stop\' at any time or reply \'help\' for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary.', 'luxury-re-widgets' ),
@@ -235,19 +269,19 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- 4. CRM & FOLLOW UP BOSS (FUB) SETTINGS ---
+		// --- 4. ACTIONS AFTER SUBMIT ---
 		$this->start_controls_section(
-			'section_crm_fub',
+			'section_actions_after_submit',
 			array(
-				'label' => __( 'CRM & Follow Up Boss (FUB)', 'luxury-re-widgets' ),
+				'label' => __( 'Actions After Submit', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'enable_fub',
+			'enable_email_notification',
 			array(
-				'label'        => __( 'Sync Leads to Follow Up Boss', 'luxury-re-widgets' ),
+				'label'        => __( 'Send Admin Email Notification', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -255,41 +289,262 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'fub_source',
+			'enable_client_autoresponder',
 			array(
-				'label'     => __( 'Lead Source', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Website - Popup Lead',
-				'condition' => array( 'enable_fub' => 'yes' ),
+				'label'        => __( 'Send Subscriber Welcome Email', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
 			)
 		);
 
 		$this->add_control(
-			'fub_tags',
+			'enable_redirect',
 			array(
-				'label'     => __( 'Lead Tags (Comma Separated)', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Popup Subscriber, Website Lead, Tailored Listings',
-				'condition' => array( 'enable_fub' => 'yes' ),
+				'label'        => __( 'Redirect After Submit', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
 			)
 		);
 
 		$this->add_control(
-			'success_message',
+			'enable_fub',
 			array(
-				'label'       => __( 'Success Notification Message', 'luxury-re-widgets' ),
+				'label'        => __( 'Send Subscriber to Follow Up Boss (FUB)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 5. EMAIL NOTIFICATION (ADMIN) ---
+		$this->start_controls_section(
+			'section_email_settings',
+			array(
+				'label'     => __( 'Email Notification (Admin)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_email_notification' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'email_to',
+			array(
+				'label'       => __( 'To Email(s)', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Thank you. You have been added to our private registry.', 'luxury-re-widgets' ),
-				'dynamic'     => array( 'active' => true ),
+				'placeholder' => get_option( 'admin_email' ),
+				'description' => __( 'Comma-separated list of emails. Defaults to WordPress admin email.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'email_subject',
+			array(
+				'label'   => __( 'Subject', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'New VIP Newsletter Subscriber: {{email}}', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_name',
+			array(
+				'label'       => __( 'From Name', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_bloginfo( 'name' ),
+			)
+		);
+
+		$this->add_control(
+			'sender_email',
+			array(
+				'label'       => __( 'From Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => get_option( 'admin_email' ),
+			)
+		);
+
+		$this->add_control(
+			'email_cc',
+			array(
+				'label'       => __( 'Cc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'cc@example.com',
+			)
+		);
+
+		$this->add_control(
+			'email_bcc',
+			array(
+				'label'       => __( 'Bcc Email', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => 'bcc@example.com',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 6. SUBSCRIBER AUTO-RESPONDER EMAIL ---
+		$this->start_controls_section(
+			'section_autoresponder_settings',
+			array(
+				'label'     => __( 'Subscriber Auto-Responder Email', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_client_autoresponder' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_subject',
+			array(
+				'label'   => __( 'Subject', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Welcome to The Aguirre Report | Private Market Intelligence', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'autoresponder_message',
+			array(
+				'label'   => __( 'Message Body (HTML Allowed)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'rows'    => 6,
+				'default' => __( "Dear Subscriber,\n\nThank you for subscribing to The Aguirre Report.\n\nYou now have priority access to curated off-market architectural acquisitions, private quarterly market insights, and Southern California luxury intelligence delivered discreetly.\n\nWarm regards,\nAdolfo Aguirre | SERHANT.", 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 7. REDIRECT SETTINGS ---
+		$this->start_controls_section(
+			'section_redirect_settings',
+			array(
+				'label'     => __( 'Redirect Settings', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_redirect' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
 			'redirect_url',
 			array(
-				'label'       => __( 'Redirect URL on Success (Optional)', 'luxury-re-widgets' ),
+				'label'       => __( 'Redirect URL', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::URL,
-				'placeholder' => 'https://adolfoaguirrere.com/thank-you/',
+				'placeholder' => 'https://adolfoaguirrere.com/thank-you',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 8. FOLLOW UP BOSS (FUB CRM) ---
+		$this->start_controls_section(
+			'section_fub_settings',
+			array(
+				'label'     => __( 'Follow Up Boss (FUB CRM)', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'enable_fub' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_api_key',
+			array(
+				'label'       => __( 'FUB API Key (Optional Override)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Leave blank to use Global API Key', 'luxury-re-widgets' ),
+				'description' => __( 'Leave empty to inherit the global API key configured in WordPress Settings > General.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_source',
+			array(
+				'label'   => __( 'Lead Source', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Website - Popup Lead',
+			)
+		);
+
+		$this->add_control(
+			'fub_type',
+			array(
+				'label'   => __( 'Event Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'Registration',
+				'options' => array(
+					'Registration'            => __( 'Registration', 'luxury-re-widgets' ),
+					'General Inquiry'         => __( 'General Inquiry', 'luxury-re-widgets' ),
+					'Newsletter Subscription' => __( 'Newsletter Subscription', 'luxury-re-widgets' ),
+					'Market Report'           => __( 'Market Report', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'fub_tags',
+			array(
+				'label'       => __( 'Tags (Comma-Separated)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'Popup Subscriber, Website Lead, Tailored Listings',
+				'description' => __( 'Tags automatically applied to the subscriber in Follow Up Boss.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'fub_stage',
+			array(
+				'label'   => __( 'Lead Stage', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Lead',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- 9. CUSTOM MESSAGES ---
+		$this->start_controls_section(
+			'section_custom_messages',
+			array(
+				'label' => __( 'Custom Messages', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'success_message',
+			array(
+				'label'   => __( 'Success Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Thank you for subscribing. Welcome to The Aguirre Report.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'error_message',
+			array(
+				'label'   => __( 'Error Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'An error occurred while submitting your request. Please try again.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'invalid_email_message',
+			array(
+				'label'   => __( 'Invalid Email Message', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Please enter a valid email address.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -371,7 +626,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_button',
 			array(
-				'label' => __( 'Submit Button Styling', 'luxury-re-widgets' ),
+				'label' => __( 'Submit Button Overrides', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -380,7 +635,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
-				'selector' => '{{WRAPPER}} .lre-standalone-btn',
+				'selector' => '{{WRAPPER}} .btn',
 			)
 		);
 
@@ -397,7 +652,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -408,7 +663,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -419,7 +674,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -437,7 +692,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -448,7 +703,8 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn::before' => 'background: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -459,7 +715,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-standalone-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -476,7 +732,7 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'separator'  => 'before',
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-standalone-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -533,15 +789,21 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 		$settings     = $this->get_settings_for_display();
 		$layout       = $settings['layout_type'] ?? 'stacked';
 		$style        = $settings['input_design_style'] ?? 'underline';
-		$btn_preset   = $settings['button_preset'] ?? 'outline_dark';
 
 		$form_classes  = 'lre-newsletter__form lre-standalone-form';
 		$form_classes .= ' lre-form--' . sanitize_html_class( $layout );
 		$form_classes .= ' lre-form--' . sanitize_html_class( $style );
 
-		$btn_classes   = 'lre-standalone-btn btn lre-btn--' . sanitize_html_class( $btn_preset );
+		// Button classes using the master `.btn` classes
+		$btn_classes   = array( 'btn', 'lre-newsletter__btn' );
+		$btn_classes[] = ! empty( $settings['button_variant'] ) ? $settings['button_variant'] : 'btn--outline';
+
+		if ( ! empty( $settings['button_size'] ) && 'btn--sm' === $settings['button_size'] ) {
+			$btn_classes[] = 'btn--sm';
+		}
+
 		if ( 'yes' === ( $settings['btn_full_width'] ?? 'no' ) ) {
-			$btn_classes .= ' lre-standalone-btn--fullwidth';
+			$btn_classes[] = 'btn--fullwidth';
 		}
 		?>
 		<div class="lre-standalone-form-wrap">
@@ -551,12 +813,29 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 				<input type="hidden" name="widget_id" value="<?php echo esc_attr( $this->get_id() ); ?>">
 				<input type="hidden" name="post_id" value="<?php echo esc_attr( get_the_ID() ); ?>">
 
-				<!-- FUB Hidden Data -->
-				<input type="hidden" name="enable_fub" value="<?php echo esc_attr( $settings['enable_fub'] ?? 'yes' ); ?>">
-				<input type="hidden" name="fub_source" value="<?php echo esc_attr( $settings['fub_source'] ?? 'Website - Popup Lead' ); ?>">
-				<input type="hidden" name="fub_tags" value="<?php echo esc_attr( $settings['fub_tags'] ?? 'Popup Subscriber, Website Lead' ); ?>">
-				<input type="hidden" name="success_message" value="<?php echo esc_attr( $settings['success_message'] ?? '' ); ?>">
+				<!-- Passing Configurations for Email & Notifications -->
+				<input type="hidden" name="enable_email_notification" value="<?php echo esc_attr( $settings['enable_email_notification'] ?? 'yes' ); ?>">
+				<input type="hidden" name="email_to" value="<?php echo esc_attr( $settings['email_to'] ?? '' ); ?>">
+				<input type="hidden" name="email_subject" value="<?php echo esc_attr( $settings['email_subject'] ?? '' ); ?>">
+				<input type="hidden" name="sender_name" value="<?php echo esc_attr( $settings['sender_name'] ?? '' ); ?>">
+				<input type="hidden" name="sender_email" value="<?php echo esc_attr( $settings['sender_email'] ?? '' ); ?>">
+				<input type="hidden" name="email_cc" value="<?php echo esc_attr( $settings['email_cc'] ?? '' ); ?>">
+				<input type="hidden" name="email_bcc" value="<?php echo esc_attr( $settings['email_bcc'] ?? '' ); ?>">
+				<input type="hidden" name="enable_autoresponder" value="<?php echo esc_attr( $settings['enable_client_autoresponder'] ?? 'yes' ); ?>">
+				<input type="hidden" name="autoresponder_subject" value="<?php echo esc_attr( $settings['autoresponder_subject'] ?? '' ); ?>">
+				<input type="hidden" name="autoresponder_message" value="<?php echo esc_attr( $settings['autoresponder_message'] ?? '' ); ?>">
 				<input type="hidden" name="redirect_url" value="<?php echo esc_attr( $settings['redirect_url']['url'] ?? '' ); ?>">
+				<input type="hidden" name="success_message" value="<?php echo esc_attr( $settings['success_message'] ?? '' ); ?>">
+				<input type="hidden" name="error_message" value="<?php echo esc_attr( $settings['error_message'] ?? '' ); ?>">
+				<input type="hidden" name="invalid_email_message" value="<?php echo esc_attr( $settings['invalid_email_message'] ?? '' ); ?>">
+
+				<!-- Follow Up Boss (FUB CRM) -->
+				<input type="hidden" name="enable_fub" value="<?php echo esc_attr( $settings['enable_fub'] ?? 'yes' ); ?>">
+				<input type="hidden" name="fub_api_key" value="<?php echo esc_attr( $settings['fub_api_key'] ?? '' ); ?>">
+				<input type="hidden" name="fub_source" value="<?php echo esc_attr( $settings['fub_source'] ?? 'Website - Popup Lead' ); ?>">
+				<input type="hidden" name="fub_type" value="<?php echo esc_attr( $settings['fub_type'] ?? 'Registration' ); ?>">
+				<input type="hidden" name="fub_tags" value="<?php echo esc_attr( $settings['fub_tags'] ?? 'Popup Subscriber, Website Lead, Tailored Listings' ); ?>">
+				<input type="hidden" name="fub_stage" value="<?php echo esc_attr( $settings['fub_stage'] ?? 'Lead' ); ?>">
 
 				<div class="lre-standalone-inputs-row">
 					<?php if ( 'yes' === ( $settings['show_name_field'] ?? 'no' ) ) : ?>
@@ -583,13 +862,17 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 					</div>
 
 					<?php if ( 'horizontal' === $layout ) : ?>
-						<button type="submit" class="<?php echo esc_attr( $btn_classes ); ?>">
-							<span class="lre-newsletter__btn-text"><?php echo esc_html( $settings['button_text'] ); ?></span>
+						<button type="submit" class="<?php echo esc_attr( implode( ' ', $btn_classes ) ); ?>">
+							<span class="btn__text lre-newsletter__btn-text"><?php echo esc_html( $settings['button_text'] ); ?></span>
 							<?php if ( 'yes' === ( $settings['show_button_icon'] ?? 'no' ) ) : ?>
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-standalone-btn__icon" aria-hidden="true">
-									<line x1="5" y1="12" x2="19" y2="12"></line>
-									<polyline points="12 5 19 12 12 19"></polyline>
-								</svg>
+								<?php if ( 'arrow_right' === ( $settings['button_icon_type'] ?? 'diagonal' ) ) : ?>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-newsletter__btn-icon btn__icon" aria-hidden="true">
+										<line x1="5" y1="12" x2="19" y2="12"></line>
+										<polyline points="12 5 19 12 12 19"></polyline>
+									</svg>
+								<?php else : ?>
+									<span class="btn__icon" aria-hidden="true">↗</span>
+								<?php endif; ?>
 							<?php endif; ?>
 							<span class="lre-newsletter__spinner" aria-hidden="true"></span>
 						</button>
@@ -614,13 +897,17 @@ class LRE_Newsletter_Form_Widget extends Widget_Base {
 
 				<?php if ( 'stacked' === $layout ) : ?>
 					<div class="lre-standalone-action-wrap">
-						<button type="submit" class="<?php echo esc_attr( $btn_classes ); ?>">
-							<span class="lre-newsletter__btn-text"><?php echo esc_html( $settings['button_text'] ); ?></span>
+						<button type="submit" class="<?php echo esc_attr( implode( ' ', $btn_classes ) ); ?>">
+							<span class="btn__text lre-newsletter__btn-text"><?php echo esc_html( $settings['button_text'] ); ?></span>
 							<?php if ( 'yes' === ( $settings['show_button_icon'] ?? 'no' ) ) : ?>
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-standalone-btn__icon" aria-hidden="true">
-									<line x1="5" y1="12" x2="19" y2="12"></line>
-									<polyline points="12 5 19 12 12 19"></polyline>
-								</svg>
+								<?php if ( 'arrow_right' === ( $settings['button_icon_type'] ?? 'diagonal' ) ) : ?>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-newsletter__btn-icon btn__icon" aria-hidden="true">
+										<line x1="5" y1="12" x2="19" y2="12"></line>
+										<polyline points="12 5 19 12 12 19"></polyline>
+									</svg>
+								<?php else : ?>
+									<span class="btn__icon" aria-hidden="true">↗</span>
+								<?php endif; ?>
 							<?php endif; ?>
 							<span class="lre-newsletter__spinner" aria-hidden="true"></span>
 						</button>

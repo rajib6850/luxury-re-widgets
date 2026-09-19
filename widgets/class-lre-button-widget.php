@@ -6,14 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
 
 /**
  * LRE_Button_Widget
  *
  * Standalone Universal Luxury Button Widget.
- * Engineered for Adolfo Aguirre (SERHANT.) with identical sliding-fill shimmer
- * animations, hover transitions, and typography matching all section buttons.
+ * Uses the exact master `.btn` class hierarchy (`.btn--outline`, `.btn--outline-white`,
+ * `.btn--gold`, `.btn--primary`) with vertical sliding fill (`::before`) and
+ * luxury diagonal light reflection shimmer (`::after`) matching all sections.
  *
  * @package Luxury_RE_Widgets
  */
@@ -59,8 +59,36 @@ class LRE_Button_Widget extends Widget_Base {
 				'label'       => __( 'Button Text', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => __( 'SUBMIT', 'luxury-re-widgets' ),
-				'placeholder' => __( 'e.g. SUBMIT, REQUEST ACCESS', 'luxury-re-widgets' ),
+				'placeholder' => __( 'e.g. SUBMIT, SCHEDULE A CONVERSATION', 'luxury-re-widgets' ),
 				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'html_tag',
+			array(
+				'label'   => __( 'Button Element Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'a',
+				'options' => array(
+					'a'      => '<a> ' . __( 'Link / URL Navigation', 'luxury-re-widgets' ),
+					'button' => '<button> ' . __( 'Button / Form Submit / Modal Trigger', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'button_type',
+			array(
+				'label'     => __( 'Button Type', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'button',
+				'options'   => array(
+					'button' => __( 'Button (Modal / Trigger)', 'luxury-re-widgets' ),
+					'submit' => __( 'Submit (Form Submission)', 'luxury-re-widgets' ),
+					'reset'  => __( 'Reset', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'html_tag' => 'button' ),
 			)
 		);
 
@@ -72,22 +100,36 @@ class LRE_Button_Widget extends Widget_Base {
 				'default'     => array( 'url' => '#contact' ),
 				'dynamic'     => array( 'active' => true ),
 				'placeholder' => 'https://adolfoaguirrere.com/contact/',
+				'condition'   => array( 'html_tag' => 'a' ),
 			)
 		);
 
 		$this->add_control(
-			'style_preset',
+			'button_variant',
 			array(
-				'label'   => __( 'Luxury Style Preset', 'luxury-re-widgets' ),
+				'label'   => __( 'Button Style (Master Theme Parity)', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'outline_dark',
+				'default' => 'btn--outline',
 				'options' => array(
-					'outline_dark'  => __( 'Minimal Dark Outline (Exact Popup Style)', 'luxury-re-widgets' ),
-					'solid_gold'    => __( 'Solid Gold (Signature Sliding Shimmer)', 'luxury-re-widgets' ),
-					'solid_navy'    => __( 'Solid Navy (Deep Luxury)', 'luxury-re-widgets' ),
-					'outline_gold'  => __( 'Outline Gold', 'luxury-re-widgets' ),
-					'outline_white' => __( 'Outline White (For Dark Backgrounds)', 'luxury-re-widgets' ),
-					'underline'     => __( 'Architectural Underline Link', 'luxury-re-widgets' ),
+					'btn--outline'              => __( 'Outline Dark (Site Master Default - White/Light BG)', 'luxury-re-widgets' ),
+					'btn--outline-white'        => __( 'Outline White (Transparent on Dark BG)', 'luxury-re-widgets' ),
+					'btn--primary'              => __( 'Solid Deep Navy (Master SERHANT Navy)', 'luxury-re-widgets' ),
+					'btn--gold'                 => __( 'SERHANT Gold (Luxury Gold Fill)', 'luxury-re-widgets' ),
+					'btn--secondary'            => __( 'Secondary Outline (Fine 1px Outline)', 'luxury-re-widgets' ),
+					'lre-newsletter-white__btn' => __( 'Newsletter Style (Navy with Gold Slide Hover)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'button_size',
+			array(
+				'label'   => __( 'Button Size', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => array(
+					'default' => __( 'Default Luxury (Min-Height 54px)', 'luxury-re-widgets' ),
+					'btn--sm' => __( 'Compact / Small (Min-Height 44px)', 'luxury-re-widgets' ),
 				),
 			)
 		);
@@ -104,6 +146,20 @@ class LRE_Button_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'icon_type',
+			array(
+				'label'     => __( 'Arrow Icon Type', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'diagonal',
+				'options'   => array(
+					'diagonal'    => '↗ ' . __( 'Diagonal Arrow (Portfolio / Ledger Style)', 'luxury-re-widgets' ),
+					'arrow_right' => '→ ' . __( 'Right Arrow SVG (Newsletter Style)', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'show_icon' => 'yes' ),
+			)
+		);
+
 		$this->add_responsive_control(
 			'full_width',
 			array(
@@ -113,7 +169,6 @@ class LRE_Button_Widget extends Widget_Base {
 				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
 				'label_off'    => __( 'No', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
-				'prefix_class' => 'lre-btn-fullwidth-',
 			)
 		);
 
@@ -149,7 +204,7 @@ class LRE_Button_Widget extends Widget_Base {
 				'label'       => __( 'Custom Attributes / Modal Trigger', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => 'data-lre-modal="contact"',
-				'description' => __( 'Add custom attributes like data-lre-fub-trigger="popup" if needed.', 'luxury-re-widgets' ),
+				'description' => __( 'Optional HTML attributes (e.g. data-lre-fub-trigger="popup").', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -162,7 +217,7 @@ class LRE_Button_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style',
 			array(
-				'label' => __( 'Button Styling & Colors', 'luxury-re-widgets' ),
+				'label' => __( 'Custom Overrides (Optional)', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -171,7 +226,7 @@ class LRE_Button_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'typography',
-				'selector' => '{{WRAPPER}} .lre-atomic-btn',
+				'selector' => '{{WRAPPER}} .btn',
 			)
 		);
 
@@ -180,41 +235,38 @@ class LRE_Button_Widget extends Widget_Base {
 		// NORMAL
 		$this->start_controls_tab(
 			'tab_button_normal',
-			array(
-				'label' => __( 'Normal', 'luxury-re-widgets' ),
-			)
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
 		);
 
 		$this->add_control(
-			'text_color',
+			'custom_text_color',
 			array(
 				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-atomic-btn svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'background_color',
+			'custom_bg_color',
 			array(
 				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'border_color',
+			'custom_border_color',
 			array(
 				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -224,42 +276,39 @@ class LRE_Button_Widget extends Widget_Base {
 		// HOVER
 		$this->start_controls_tab(
 			'tab_button_hover',
-			array(
-				'label' => __( 'Hover', 'luxury-re-widgets' ),
-			)
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
 		);
 
 		$this->add_control(
-			'hover_text_color',
+			'custom_hover_text_color',
 			array(
 				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-atomic-btn:hover svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'hover_background_color',
+			'custom_hover_bg_color',
 			array(
 				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn:hover' => 'background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .lre-atomic-btn::before' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn::before' => 'background: {{VALUE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'hover_border_color',
+			'custom_hover_border_color',
 			array(
 				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .lre-atomic-btn:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .btn:hover' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -276,7 +325,7 @@ class LRE_Button_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'separator'  => 'before',
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-atomic-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -288,7 +337,7 @@ class LRE_Button_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'rem' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .lre-atomic-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -309,24 +358,53 @@ class LRE_Button_Widget extends Widget_Base {
 		$target   = ! empty( $url_data['is_external'] ) ? ' target="_blank"' : '';
 		$nofollow = ! empty( $url_data['nofollow'] ) ? ' rel="nofollow"' : '';
 
-		$style_preset = $settings['style_preset'] ?? 'outline_dark';
-		$btn_class    = 'lre-atomic-btn btn lre-btn--' . sanitize_html_class( $style_preset );
+		// Core master button classes
+		$classes   = array( 'btn' );
+		$classes[] = ! empty( $settings['button_variant'] ) ? $settings['button_variant'] : 'btn--outline';
+
+		if ( ! empty( $settings['button_size'] ) && 'btn--sm' === $settings['button_size'] ) {
+			$classes[] = 'btn--sm';
+		}
+
 		if ( 'yes' === ( $settings['full_width'] ?? 'no' ) ) {
-			$btn_class .= ' lre-atomic-btn--fullwidth';
+			$classes[] = 'btn--fullwidth';
 		}
 
 		$custom_attr = ! empty( $settings['custom_attr'] ) ? ' ' . esc_attr( $settings['custom_attr'] ) : '';
+		$tag         = ( isset( $settings['html_tag'] ) && 'button' === $settings['html_tag'] ) ? 'button' : 'a';
+		$btn_type    = ! empty( $settings['button_type'] ) ? esc_attr( $settings['button_type'] ) : 'button';
+		$icon_type   = $settings['icon_type'] ?? 'diagonal';
 		?>
 		<div class="lre-atomic-btn-wrap">
-			<a href="<?php echo $url; ?>" class="<?php echo esc_attr( $btn_class ); ?>"<?php echo $target . $nofollow . $custom_attr; ?>>
-				<span class="lre-atomic-btn__text"><?php echo esc_html( $settings['text'] ); ?></span>
-				<?php if ( 'yes' === ( $settings['show_icon'] ?? 'no' ) ) : ?>
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-atomic-btn__icon" aria-hidden="true">
-						<line x1="5" y1="12" x2="19" y2="12"></line>
-						<polyline points="12 5 19 12 12 19"></polyline>
-					</svg>
-				<?php endif; ?>
-			</a>
+			<?php if ( 'button' === $tag ) : ?>
+				<button type="<?php echo $btn_type; ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"<?php echo $custom_attr; ?>>
+					<span class="btn__text"><?php echo esc_html( $settings['text'] ); ?></span>
+					<?php if ( 'yes' === ( $settings['show_icon'] ?? 'no' ) ) : ?>
+						<?php if ( 'arrow_right' === $icon_type ) : ?>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-newsletter__btn-icon btn__icon" aria-hidden="true">
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+						<?php else : ?>
+							<span class="btn__icon" aria-hidden="true">↗</span>
+						<?php endif; ?>
+					<?php endif; ?>
+				</button>
+			<?php else : ?>
+				<a href="<?php echo $url; ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"<?php echo $target . $nofollow . $custom_attr; ?>>
+					<span class="btn__text"><?php echo esc_html( $settings['text'] ); ?></span>
+					<?php if ( 'yes' === ( $settings['show_icon'] ?? 'no' ) ) : ?>
+						<?php if ( 'arrow_right' === $icon_type ) : ?>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="lre-newsletter__btn-icon btn__icon" aria-hidden="true">
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+						<?php else : ?>
+							<span class="btn__icon" aria-hidden="true">↗</span>
+						<?php endif; ?>
+					<?php endif; ?>
+				</a>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

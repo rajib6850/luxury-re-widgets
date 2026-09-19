@@ -17216,15 +17216,18 @@ button.lre-insights__filter-btn.active,
 }
 
 /* --- Property Quick Detail Modal (Sharp Architecture, Zero Radius) --- */
+dialog.lre-ledger-modal,
 .lre-ledger-modal {
   border: none;
   border-radius: 0;
   padding: 0;
   background: transparent;
-  max-width: 620px;
-  width: 90%;
+  max-width: 880px;
+  width: 92%;
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85);
   margin: auto;
+  max-height: 90vh;
+  overflow: hidden;
 }
 
 .lre-ledger-modal.is-editor-preview {
@@ -17248,10 +17251,14 @@ button.lre-insights__filter-btn.active,
   background: #14161A;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0;
-  padding: 2.25rem;
+  padding: 2.5rem 2.75rem;
   color: #FFFFFF;
   position: relative;
   box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 160, 71, 0.4) rgba(255, 255, 255, 0.04);
 }
 
 .lre-ledger-modal-close {
@@ -17281,8 +17288,8 @@ button.lre-insights__filter-btn.active,
 .lre-ledger-modal-img-wrap {
   border-radius: 0;
   overflow: hidden;
-  height: 270px;
-  margin-bottom: 1.5rem;
+  height: clamp(260px, 32vw, 360px);
+  margin-bottom: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -17335,8 +17342,59 @@ button.lre-insights__filter-btn.active,
   font-family: inherit;
   font-size: var(--e-global-typography-text-font-size, 1rem);
   color: #A3A7AF;
-  line-height: 1.65;
-  margin: 0 0 1.5rem;
+  line-height: 1.75;
+  margin: 0 0 1.75rem;
+}
+
+.lre-ledger-modal-desc p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.75;
+  color: inherit;
+  margin: 0 0 1.15rem;
+}
+
+.lre-ledger-modal-desc p:last-child {
+  margin-bottom: 0;
+}
+
+.lre-ledger-modal-desc h2,
+.lre-ledger-modal-desc h3,
+.lre-ledger-modal-desc h4,
+.lre-ledger-modal-desc h5 {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 1.5rem 0 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.lre-ledger-modal-desc h2:first-child,
+.lre-ledger-modal-desc h3:first-child,
+.lre-ledger-modal-desc h4:first-child,
+.lre-ledger-modal-desc h5:first-child {
+  margin-top: 0;
+}
+
+.lre-ledger-modal-desc strong,
+.lre-ledger-modal-desc b {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.lre-ledger-modal-desc ul,
+.lre-ledger-modal-desc ol {
+  margin: 0 0 1.25rem 1.35rem;
+  padding: 0;
+  color: inherit;
+  line-height: 1.7;
+}
+
+.lre-ledger-modal-desc li {
+  margin-bottom: 0.35rem;
 }
 
 /* --- Modal Action Button (Integrated with site-wide luxury .btn system) --- */
@@ -17832,6 +17890,21 @@ button.lre-insights__filter-btn.active,
 .lre-ledger--theme-white .lre-ledger-modal-desc,
 .lre-ledger-theme-white .lre-ledger-modal-desc {
   color: #4B5563 !important;
+}
+
+.lre-ledger--theme-white .lre-ledger-modal-desc h2,
+.lre-ledger--theme-white .lre-ledger-modal-desc h3,
+.lre-ledger--theme-white .lre-ledger-modal-desc h4,
+.lre-ledger--theme-white .lre-ledger-modal-desc h5,
+.lre-ledger--theme-white .lre-ledger-modal-desc strong,
+.lre-ledger--theme-white .lre-ledger-modal-desc b,
+.lre-ledger-theme-white .lre-ledger-modal-desc h2,
+.lre-ledger-theme-white .lre-ledger-modal-desc h3,
+.lre-ledger-theme-white .lre-ledger-modal-desc h4,
+.lre-ledger-theme-white .lre-ledger-modal-desc h5,
+.lre-ledger-theme-white .lre-ledger-modal-desc strong,
+.lre-ledger-theme-white .lre-ledger-modal-desc b {
+  color: #111215 !important;
 }
 
 .lre-ledger--theme-white .lre-ledger-inquire-btn,

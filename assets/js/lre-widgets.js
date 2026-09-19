@@ -2391,11 +2391,27 @@
                                 var desc  = row.getAttribute( 'data-desc' ) || '';
                                 var img   = row.getAttribute( 'data-img' ) || row.getAttribute( 'data-image' ) || '';
 
+                                var descElem = row.querySelector( '.lre-ledger-row-full-desc' );
+                                var descHtml = ( descElem && descElem.innerHTML.trim() ) ? descElem.innerHTML : desc;
+
                                 if ( modalTitle ) modalTitle.textContent = title;
                                 if ( modalPrice ) modalPrice.textContent = price;
                                 if ( modalLoc )   modalLoc.textContent = loc;
                                 if ( modalSpecs ) modalSpecs.textContent = specs;
-                                if ( modalDesc )  modalDesc.textContent = desc || modalDesc.getAttribute( 'data-default-desc' ) || '';
+                                if ( modalDesc ) {
+                                    if ( descHtml ) {
+                                        if ( ! /<[a-z][\s\S]*>/i.test( descHtml ) ) {
+                                            modalDesc.innerHTML = descHtml.split( /\n\s*\n/ ).map( function ( p ) {
+                                                return '<p>' + p.replace( /\n/g, '<br>' ) + '</p>';
+                                            } ).join( '' );
+                                        } else {
+                                            modalDesc.innerHTML = descHtml;
+                                        }
+                                    } else {
+                                        var fallback = modalDesc.getAttribute( 'data-default-desc' ) || '';
+                                        modalDesc.innerHTML = fallback ? '<p>' + fallback + '</p>' : '';
+                                    }
+                                }
                                 if ( modalImg ) {
                                     if ( img ) {
                                         modalImg.src = img;

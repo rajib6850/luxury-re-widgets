@@ -675,7 +675,16 @@ class LRE_Ajax_Handler {
 				$cat_slug  = ! empty( $terms ) ? implode( ' ', $terms ) : '';
 				$loc_names = wp_get_post_terms( $post_id, 'sold_location', array( 'fields' => 'names' ) );
 				$location  = ! empty( $loc_names ) ? implode( ', ', $loc_names ) : ( $city ? $city . ', California' : 'Pasadena, California' );
-				$desc      = get_the_excerpt() ? get_the_excerpt() : wp_trim_words( get_post_field( 'post_content', $post_id ), 25 );
+				$post_obj     = get_post( $post_id );
+				$raw_content  = $post_obj ? $post_obj->post_content : '';
+				$raw_excerpt  = $post_obj ? $post_obj->post_excerpt : '';
+				if ( ! empty( $raw_content ) ) {
+					$desc = apply_filters( 'the_content', $raw_content );
+				} elseif ( ! empty( $raw_excerpt ) ) {
+					$desc = wpautop( $raw_excerpt );
+				} else {
+					$desc = '';
+				}
 
 				$item = array(
 					'title'       => $title,

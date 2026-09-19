@@ -1161,12 +1161,17 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Card Max Width', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
+				'size_units' => array( 'px', 'vw', '%' ),
 				'range'      => array(
 					'px' => array(
-						'min'  => 320,
-						'max'  => 1100,
+						'min'  => 300,
+						'max'  => 1400,
 						'step' => 10,
+					),
+					'vw' => array(
+						'min'  => 20,
+						'max'  => 95,
+						'step' => 1,
 					),
 					'%'  => array(
 						'min' => 40,
@@ -1175,7 +1180,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				),
 				'default'    => array(
 					'unit' => 'px',
-					'size' => 620,
+					'size' => 880,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-ledger-modal' => 'max-width: {{SIZE}}{{UNIT}};',
@@ -1425,13 +1430,13 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'range'      => array(
 					'px' => array(
 						'min'  => 120,
-						'max'  => 600,
-						'step' => 5,
+						'max'  => 650,
+						'step' => 10,
 					),
 				),
 				'default'    => array(
 					'unit' => 'px',
-					'size' => 270,
+					'size' => 340,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .lre-ledger-modal-img-wrap' => 'height: {{SIZE}}px;',
@@ -2061,13 +2066,17 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			data-price="<?php echo esc_attr( $price ); ?>"
 			data-location="<?php echo esc_attr( $loc ); ?>"
 			data-specs="<?php echo esc_attr( $specs_str ); ?>"
-			data-desc="<?php echo esc_attr( $desc ); ?>"
+			data-desc="<?php echo esc_attr( wp_strip_all_tags( $desc ) ); ?>"
 			data-img="<?php echo esc_url( $img ); ?>"
 			<?php if ( $enable_modal ) : ?>
 			tabindex="0"
 			role="button"
 			aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $title, $price ) ); ?>"
 			<?php endif; ?>>
+
+			<?php if ( ! empty( $desc ) ) : ?>
+				<div class="lre-ledger-row-full-desc" style="display: none;" aria-hidden="true"><?php echo wp_kses_post( $desc ); ?></div>
+			<?php endif; ?>
 
 			<span class="num"><?php echo esc_html( $num_str ); ?></span>
 
@@ -2256,7 +2265,16 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					$loc_names = wp_get_post_terms( $pid, 'sold_location', array( 'fields' => 'names' ) );
 					$city      = get_post_meta( $pid, '_lre_city', true );
 					$location  = ! empty( $loc_names ) ? implode( ', ', $loc_names ) : ( $city ? $city . ', California' : 'Pasadena, California' );
-					$desc      = get_the_excerpt() ? get_the_excerpt() : wp_trim_words( get_post_field( 'post_content', $pid ), 25 );
+					$post_obj     = get_post( $pid );
+					$raw_content  = $post_obj ? $post_obj->post_content : '';
+					$raw_excerpt  = $post_obj ? $post_obj->post_excerpt : '';
+					if ( ! empty( $raw_content ) ) {
+						$desc = apply_filters( 'the_content', $raw_content );
+					} elseif ( ! empty( $raw_excerpt ) ) {
+						$desc = wpautop( $raw_excerpt );
+					} else {
+						$desc = '';
+					}
 
 					$entries[] = array(
 						'title'       => get_the_title(),
@@ -2299,7 +2317,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					'location'    => ! empty( $item['location'] ) ? $item['location'] : '',
 					'category'    => ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '',
 					'image_url'   => ! empty( $item['image']['url'] ) ? $item['image']['url'] : '',
-					'description' => ! empty( $item['description'] ) ? $item['description'] : '',
+					'description' => ! empty( $item['description'] ) ? wpautop( $item['description'] ) : '',
 				);
 			}
 
@@ -2577,9 +2595,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						<?php endif; ?>
 
 						<?php if ( 'yes' === $show_desc ) : ?>
-						<p id="prop-modal-desc" class="lre-ledger-modal-desc" data-default-desc="<?php echo esc_attr( $fallback_desc ); ?>">
-							<?php echo esc_html( $modal_preview && ! empty( $entries[0]['description'] ) ? $entries[0]['description'] : $fallback_desc ); ?>
-						</p>
+						<div id="prop-modal-desc" class="lre-ledger-modal-desc" data-default-desc="<?php echo esc_attr( $fallback_desc ); ?>">
+							<?php echo wp_kses_post( $modal_preview && ! empty( $entries[0]['description'] ) ? $entries[0]['description'] : ( ! empty( $fallback_desc ) ? '<p>' . esc_html( $fallback_desc ) . '</p>' : '' ) ); ?>
+						</div>
 						<?php endif; ?>
 					</div>
 

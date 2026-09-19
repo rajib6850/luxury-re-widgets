@@ -35,38 +35,10 @@ final class LRE_Global_System {
 
 	/** Constructor - registers actions. */
 	private function __construct() {
-		add_action( 'wp_enqueue_scripts',               array( $this, 'align_theme_typography' ), 1 );
 		add_action( 'wp_head',                          array( $this, 'inject_global_bridge_css' ), 99 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_bridge_css' ), 99 );
 		add_action( 'admin_init',                       array( $this, 'handle_admin_actions' ) );
 		add_action( 'admin_notices',                    array( $this, 'render_admin_notice' ) );
-	}
-
-	/**
-	 * Aligns theme options (Houzez) with Elementor Site Settings body font size before Houzez enqueues inline CSS.
-	 */
-	public function align_theme_typography() {
-		global $houzez_options;
-		$kit_id = get_option( 'elementor_active_kit' );
-		if ( empty( $kit_id ) ) {
-			return;
-		}
-		$kit_settings = get_post_meta( (int) $kit_id, '_elementor_page_settings', true );
-		if ( ! is_array( $kit_settings ) ) {
-			return;
-		}
-
-		$body_size = '';
-		if ( ! empty( $kit_settings['body_typography_font_size']['size'] ) ) {
-			$unit = ! empty( $kit_settings['body_typography_font_size']['unit'] ) ? $kit_settings['body_typography_font_size']['unit'] : 'px';
-			$body_size = $kit_settings['body_typography_font_size']['size'] . $unit;
-		}
-
-		if ( ! empty( $body_size ) && isset( $houzez_options ) && is_array( $houzez_options ) ) {
-			if ( isset( $houzez_options['typo-body'] ) && is_array( $houzez_options['typo-body'] ) ) {
-				$houzez_options['typo-body']['font-size'] = $body_size;
-			}
-		}
 	}
 
 	/** Prevent cloning & unserializing */
@@ -158,10 +130,9 @@ body,
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
 }
 
-/* --- MASTER SITE-WIDE BODY TYPOGRAPHY (DEFEATS THEME 15PX OVERRIDE) --- */
+/* --- MASTER SITE-WIDE BODY TYPOGRAPHY CASCADE --- */
 body,
 body.elementor-page,
-body.houzez-theme,
 [class*="elementor-kit-"] {
   font-size: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ') !important;
 }
@@ -173,16 +144,56 @@ p,
 .lre-atomic-desc,
 .lre-atomic-desc p,
 .about__description,
+.about__description p,
+.cta__description,
+.cta__description p,
+.listings__description,
+.listings__description p,
+.service-item__desc,
+.service-item__desc p,
+.services__description,
 .services__card-desc,
-.listing-card__address,
+.lre-aserv__desc,
+.lre-aserv__card-desc,
+.lre-aserv__mono-desc,
+.lre-aserv__card-text,
+.lre-guide__description,
+.lre-guide__description p,
+.lre-guide__chapter-narrative,
+.lre-guide__chapter-narrative p,
+.lre-sguide__description,
+.lre-sguide__description p,
+.lre-sguide__chapter-narrative,
+.lre-sguide__chapter-narrative p,
+.lre-contact__desc,
+.lre-contact__desc p,
+.lre-story__text,
+.lre-story__text p,
+.lre-story__desc,
+.lre-team__desc,
+.lre-team-modal__bio,
+.lre-team-modal__bio p,
+.lre-home-val__desc,
+.lre-home-val__desc p,
+.lre-home-val__success-desc,
+.lre-insights__desc,
+.lre-insights__desc p,
+.lre-dual-cta__desc,
+.lre-dual-cta__desc p,
+.lre-dual-cta__subtitle,
+.ledger-subtitle,
+.lre-ledger-modal-desc,
+.lre-newsletter-white__subtitle,
+.lre-newsletter__desc,
+.lre-phero__subtitle,
+.lre-community__desc,
+.lre-community__text,
+.lre-cshow__desc,
+.testimonial__quote,
+.testimonial__quote p,
 .footer__col-text,
 .footer__info-text,
-.cta__description,
-.testimonial__quote,
-.lre-contact__desc,
-.lre-guide__description,
-.lre-sguide__description,
-.lre-reviews__dossier-body,
+.listing-card__address,
 .post-content-wrap p {
   font-size: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ');
 }

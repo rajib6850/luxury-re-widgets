@@ -35,10 +35,38 @@ final class LRE_Global_System {
 
 	/** Constructor - registers actions. */
 	private function __construct() {
+		add_action( 'wp_enqueue_scripts',               array( $this, 'align_theme_typography' ), 1 );
 		add_action( 'wp_head',                          array( $this, 'inject_global_bridge_css' ), 99 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_bridge_css' ), 99 );
 		add_action( 'admin_init',                       array( $this, 'handle_admin_actions' ) );
 		add_action( 'admin_notices',                    array( $this, 'render_admin_notice' ) );
+	}
+
+	/**
+	 * Aligns theme options (Houzez) with Elementor Site Settings body font size before Houzez enqueues inline CSS.
+	 */
+	public function align_theme_typography() {
+		global $houzez_options;
+		$kit_id = get_option( 'elementor_active_kit' );
+		if ( empty( $kit_id ) ) {
+			return;
+		}
+		$kit_settings = get_post_meta( (int) $kit_id, '_elementor_page_settings', true );
+		if ( ! is_array( $kit_settings ) ) {
+			return;
+		}
+
+		$body_size = '';
+		if ( ! empty( $kit_settings['body_typography_font_size']['size'] ) ) {
+			$unit = ! empty( $kit_settings['body_typography_font_size']['unit'] ) ? $kit_settings['body_typography_font_size']['unit'] : 'px';
+			$body_size = $kit_settings['body_typography_font_size']['size'] . $unit;
+		}
+
+		if ( ! empty( $body_size ) && isset( $houzez_options ) && is_array( $houzez_options ) ) {
+			if ( isset( $houzez_options['typo-body'] ) && is_array( $houzez_options['typo-body'] ) ) {
+				$houzez_options['typo-body']['font-size'] = $body_size;
+			}
+		}
 	}
 
 	/** Prevent cloning & unserializing */
@@ -51,9 +79,11 @@ final class LRE_Global_System {
 	 * @return string CSS string.
 	 */
 	public function get_bridge_css() {
-		$kit_id       = get_option( 'elementor_active_kit' );
-		$heading_font = '';
-		$heading_wt   = '';
+		$kit_id           = get_option( 'elementor_active_kit' );
+		$heading_font     = '';
+		$heading_wt       = '';
+		$body_font_size   = '';
+		$body_line_height = '';
 		if ( ! empty( $kit_id ) ) {
 			$kit_settings = get_post_meta( (int) $kit_id, '_elementor_page_settings', true );
 			if ( is_array( $kit_settings ) ) {
@@ -65,7 +95,19 @@ final class LRE_Global_System {
 					?? $kit_settings['h2_typography_font_weight']
 					?? $kit_settings['h3_typography_font_weight']
 					?? '';
+				if ( ! empty( $kit_settings['body_typography_font_size']['size'] ) ) {
+					$unit = ! empty( $kit_settings['body_typography_font_size']['unit'] ) ? $kit_settings['body_typography_font_size']['unit'] : 'px';
+					$body_font_size = $kit_settings['body_typography_font_size']['size'] . $unit;
+				}
+				if ( ! empty( $kit_settings['body_typography_line_height']['size'] ) ) {
+					$lh_unit = ! empty( $kit_settings['body_typography_line_height']['unit'] ) ? $kit_settings['body_typography_line_height']['unit'] : '';
+					$body_line_height = $kit_settings['body_typography_line_height']['size'] . $lh_unit;
+				}
 			}
+		}
+
+		if ( empty( $body_font_size ) ) {
+			$body_font_size = '16px';
 		}
 
 		$font_heading_decl = ! empty( $heading_font )
@@ -78,6 +120,17 @@ final class LRE_Global_System {
 
 		return '
 /* --- LRE ELEMENTOR GLOBAL SYSTEM DYNAMIC BRIDGE --- */
+:root {
+  --e-global-typography-text-font-size: ' . esc_attr( $body_font_size ) . ';
+  --font-size-body: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ');
+  --font-size-base: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ');
+  --font-size-section-subtitle: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ');
+}
+
+html {
+  font-size: 16px !important;
+}
+
 :root,
 body,
 [class*="elementor-kit-"] {
@@ -103,6 +156,35 @@ body,
   --font-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
   --font-weight-text: var(--e-global-typography-text-font-weight, 400);
   --font-weight-accent: var(--e-global-typography-accent-font-weight, 600);
+}
+
+/* --- MASTER SITE-WIDE BODY TYPOGRAPHY (DEFEATS THEME 15PX OVERRIDE) --- */
+body,
+body.elementor-page,
+body.houzez-theme,
+[class*="elementor-kit-"] {
+  font-size: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ') !important;
+}
+
+/* Universal Body Normal Text & Paragraphs Hierarchy */
+p,
+.elementor-widget-text-editor,
+.elementor-widget-text-editor p,
+.lre-atomic-desc,
+.lre-atomic-desc p,
+.about__description,
+.services__card-desc,
+.listing-card__address,
+.footer__col-text,
+.footer__info-text,
+.cta__description,
+.testimonial__quote,
+.lre-contact__desc,
+.lre-guide__description,
+.lre-sguide__description,
+.lre-reviews__dossier-body,
+.post-content-wrap p {
+  font-size: var(--e-global-typography-text-font-size, ' . esc_attr( $body_font_size ) . ');
 }
 
 /* --- UNIVERSAL ANTI-THEME PINK & ACCENT OVERRIDE --- */
@@ -1858,6 +1940,11 @@ body.elementor-editor-active .lre-sguide__milestones-section,
 				'typography_typography'  => 'custom',
 				'typography_font_family' => 'Montserrat',
 				'typography_font_weight' => '400',
+				'typography_font_size'   => array(
+					'unit'  => 'px',
+					'size'  => 16,
+					'sizes' => array(),
+				),
 			),
 			array(
 				'_id'                    => 'accent',
@@ -1874,6 +1961,11 @@ body.elementor-editor-active .lre-sguide__milestones-section,
 		$meta['body_typography_typography']   = 'custom';
 		$meta['body_typography_font_family']  = 'Montserrat';
 		$meta['body_typography_font_weight']  = '400';
+		$meta['body_typography_font_size']    = array(
+			'unit'  => 'px',
+			'size'  => 16,
+			'sizes' => array(),
+		);
 
 		// 4. Theme Style Typography: Link
 		$meta['link_normal_color']                  = '#2c2c2c';

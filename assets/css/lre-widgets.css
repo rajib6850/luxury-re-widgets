@@ -19951,8 +19951,8 @@ body.admin-bar .lre-single-post__sidebar-sticky {
 }
 
 .lre-atomic-desc {
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 1.02rem;
+  font-family: var(--font-sans, 'Hanken Grotesk', sans-serif);
+  font-size: var(--e-global-typography-text-font-size, 16px);
   line-height: 1.76;
   color: #404b50;
   margin: 0 0 1.5rem;
@@ -19974,7 +19974,7 @@ body.admin-bar .lre-single-post__sidebar-sticky {
 .lre-atomic-desc.lre-desc--uppercase p {
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.92rem;
+  font-size: var(--e-global-typography-text-font-size, 16px);
   line-height: 1.65;
   color: #2c3539;
 }
@@ -20328,7 +20328,7 @@ body.admin-bar .lre-single-post__sidebar-sticky {
   border-radius: 0 !important;
   padding: 0.95rem 1.25rem !important;
   font-family: 'Hanken Grotesk', sans-serif !important;
-  font-size: 0.95rem !important;
+  font-size: var(--e-global-typography-text-font-size, 16px) !important;
   color: #02293F !important;
   outline: none !important;
   transition: border-color 0.35s ease !important;
@@ -20347,7 +20347,7 @@ body.admin-bar .lre-single-post__sidebar-sticky {
   border-radius: 0 !important;
   padding: 0.95rem 1.25rem !important;
   font-family: 'Hanken Grotesk', sans-serif !important;
-  font-size: 0.95rem !important;
+  font-size: var(--e-global-typography-text-font-size, 16px) !important;
   color: #02293F !important;
   outline: none !important;
   box-sizing: border-box !important;

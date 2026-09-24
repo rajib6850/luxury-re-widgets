@@ -44,13 +44,35 @@ while ( have_posts() ) :
 	$caption = $has_thumb ? wp_get_attachment_caption( $thumb_id ) : '';
 
 	// Author Information (Adolfo Aguirre | SERHANT. Los Angeles)
-	$author_id    = get_the_author_meta( 'ID' );
-	$author_name  = 'Adolfo Aguirre';
-	$author_bio   = __( 'With over 50 closed transactions and $49 Million+ in career sales volume, Adolfo Aguirre provides private clients, family trusts, and fiduciary principals with discreet, high-caliber representation across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' );
-	$author_phone = '(310) 346-6380';
-	$author_email = 'adolfo@serhant.com';
-	$author_dre   = 'DRE #02148920';
-	$author_role  = __( 'Luxury Real Estate Advisor | SERHANT. Los Angeles', 'luxury-re-widgets' );
+	$author_id       = get_the_author_meta( 'ID' );
+	$author_name     = get_option( 'lre_author_name', 'Adolfo Aguirre' );
+	$author_role     = get_option( 'lre_author_role', __( 'Luxury Real Estate Advisor | SERHANT. Los Angeles', 'luxury-re-widgets' ) );
+	$author_dre      = get_option( 'lre_author_dre', 'DRE #02094212' );
+	$author_bio      = get_option( 'lre_author_bio', __( 'With over 50 closed transactions and $49 Million+ in career sales volume, Adolfo Aguirre provides private clients, family trusts, and fiduciary principals with discreet, high-caliber representation across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' ) );
+	$author_phone    = get_option( 'lre_author_phone', '(310) 346-6380' );
+	$author_email    = get_option( 'lre_author_email', 'adolfo@serhant.com' );
+	$author_btn_txt  = get_option( 'lre_author_btn_text', __( 'Request Private Consultation', 'luxury-re-widgets' ) );
+	$author_btn_url  = get_option( 'lre_author_btn_url', '' );
+	if ( empty( $author_btn_url ) ) {
+		$author_btn_url = home_url( '/contact/' );
+	}
+
+	// Sidebar Advisory Card Information
+	$sidebar_brand    = get_option( 'lre_sidebar_brand', 'SERHANT.' );
+	$sidebar_subbrand = get_option( 'lre_sidebar_subbrand', 'LOS ANGELES' );
+	$sidebar_eyebrow  = get_option( 'lre_sidebar_eyebrow', __( 'PRIVATE REAL ESTATE ADVISORY', 'luxury-re-widgets' ) );
+	$sidebar_name     = get_option( 'lre_sidebar_name', 'Adolfo Aguirre' );
+	$sidebar_role     = get_option( 'lre_sidebar_role', __( 'Luxury Real Estate Advisor | DRE #02094212', 'luxury-re-widgets' ) );
+	$sidebar_desc     = get_option( 'lre_sidebar_desc', __( 'Discreet fiduciary representation for luxury architectural estates, off-market trophy properties, and prime acquisitions across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' ) );
+	$sidebar_meta     = get_option( 'lre_sidebar_meta', __( 'Direct Principal Line | Los Angeles, CA', 'luxury-re-widgets' ) );
+	$sidebar_btn_txt  = get_option( 'lre_sidebar_btn_text', __( 'Initiate Confidential Inquiry', 'luxury-re-widgets' ) );
+	$sidebar_btn_url  = get_option( 'lre_sidebar_btn_url', '' );
+	if ( empty( $sidebar_btn_url ) ) {
+		$sidebar_btn_url = home_url( '/contact/' );
+	}
+
+	// Dynamic phone URI for tel: links
+	$phone_clean = preg_replace( '/[^0-9+]/', '', $author_phone );
 
 	// Share URLs
 	$share_title = rawurlencode( $post_title );
@@ -119,7 +141,13 @@ while ( have_posts() ) :
 							if ( $avatar ) {
 								echo $avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							} else {
-								echo '<span class="lre-single-post__author-fallback">AA</span>';
+								$words = explode( ' ', trim( $author_name ) );
+								$initials = '';
+								foreach ( $words as $w ) {
+									$initials .= strtoupper( substr( $w, 0, 1 ) );
+								}
+								$initials = substr( $initials, 0, 2 );
+								echo '<span class="lre-single-post__author-fallback">' . esc_html( ! empty( $initials ) ? $initials : 'AA' ) . '</span>';
 							}
 							?>
 						</div>
@@ -217,7 +245,13 @@ while ( have_posts() ) :
 							if ( $avatar ) {
 								echo $avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							} else {
-								echo '<div class="lre-single-post__author-card-initials">AA</div>';
+								$words = explode( ' ', trim( $author_name ) );
+								$initials = '';
+								foreach ( $words as $w ) {
+									$initials .= strtoupper( substr( $w, 0, 1 ) );
+								}
+								$initials = substr( $initials, 0, 2 );
+								echo '<div class="lre-single-post__author-card-initials">' . esc_html( ! empty( $initials ) ? $initials : 'AA' ) . '</div>';
 							}
 							?>
 						</div>
@@ -227,11 +261,11 @@ while ( have_posts() ) :
 							<p class="lre-single-post__author-card-role"><?php echo esc_html( $author_role . ' | ' . $author_dre ); ?></p>
 							<p class="lre-single-post__author-card-bio"><?php echo esc_html( $author_bio ); ?></p>
 							<div class="lre-single-post__author-card-actions">
-								<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn--gold">
-									<span class="btn__text"><?php esc_html_e( 'Request Private Consultation', 'luxury-re-widgets' ); ?></span>
+								<a href="<?php echo esc_url( $author_btn_url ); ?>" class="btn btn--gold">
+									<span class="btn__text"><?php echo esc_html( $author_btn_txt ); ?></span>
 									<span class="btn__icon" aria-hidden="true">&rarr;</span>
 								</a>
-								<a href="tel:3103466380" class="lre-single-post__card-phone">
+								<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="lre-single-post__card-phone">
 									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
 									<span><?php echo esc_html( $author_phone ); ?></span>
 								</a>
@@ -248,28 +282,28 @@ while ( have_posts() ) :
 						<!-- SERHANT. Advisory Representation Card -->
 						<div class="lre-single-post__widget-card lre-single-post__widget-card--advisory reveal delay-2">
 							<div class="lre-single-post__card-serhant-brand">
-								<span class="lre-single-post__brand-wordmark">SERHANT.</span>
-								<span class="lre-single-post__brand-sub">LOS ANGELES</span>
+								<span class="lre-single-post__brand-wordmark"><?php echo esc_html( $sidebar_brand ); ?></span>
+								<span class="lre-single-post__brand-sub"><?php echo esc_html( $sidebar_subbrand ); ?></span>
 							</div>
-							<span class="lre-single-post__widget-eyebrow"><?php esc_html_e( 'PRIVATE REAL ESTATE ADVISORY', 'luxury-re-widgets' ); ?></span>
-							<h4 class="lre-single-post__widget-title"><?php esc_html_e( 'Adolfo Aguirre', 'luxury-re-widgets' ); ?></h4>
-							<p class="lre-single-post__widget-role"><?php esc_html_e( 'Luxury Real Estate Advisor | DRE #02148920', 'luxury-re-widgets' ); ?></p>
+							<span class="lre-single-post__widget-eyebrow"><?php echo esc_html( $sidebar_eyebrow ); ?></span>
+							<h4 class="lre-single-post__widget-title"><?php echo esc_html( $sidebar_name ); ?></h4>
+							<p class="lre-single-post__widget-role"><?php echo esc_html( $sidebar_role ); ?></p>
 							<p class="lre-single-post__widget-desc">
-								<?php esc_html_e( 'Discreet fiduciary representation for luxury architectural estates, off-market trophy properties, and prime acquisitions across Pasadena, San Marino, and Greater Los Angeles.', 'luxury-re-widgets' ); ?>
+								<?php echo esc_html( $sidebar_desc ); ?>
 							</p>
 							<div class="lre-single-post__advisor-contact">
-								<a href="tel:3103466380" class="lre-single-post__advisor-tel">
+								<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="lre-single-post__advisor-tel">
 									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
 									<span><?php echo esc_html( $author_phone ); ?></span>
 								</a>
-								<a href="mailto:adolfo@serhant.com" class="lre-single-post__advisor-email">
+								<a href="mailto:<?php echo esc_attr( $author_email ); ?>" class="lre-single-post__advisor-email">
 									<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 									<span><?php echo esc_html( $author_email ); ?></span>
 								</a>
-								<span class="lre-single-post__advisor-meta"><?php esc_html_e( 'Direct Principal Line | Los Angeles, CA', 'luxury-re-widgets' ); ?></span>
+								<span class="lre-single-post__advisor-meta"><?php echo esc_html( $sidebar_meta ); ?></span>
 							</div>
-							<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn btn--gold lre-single-post__sidebar-btn">
-								<span class="btn__text"><?php esc_html_e( 'Initiate Confidential Inquiry', 'luxury-re-widgets' ); ?></span>
+							<a href="<?php echo esc_url( $sidebar_btn_url ); ?>" class="btn btn--gold lre-single-post__sidebar-btn">
+								<span class="btn__text"><?php echo esc_html( $sidebar_btn_txt ); ?></span>
 								<span class="btn__icon" aria-hidden="true">&rarr;</span>
 							</a>
 						</div>

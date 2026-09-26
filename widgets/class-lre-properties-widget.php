@@ -469,16 +469,49 @@ class LRE_Properties_Widget extends Widget_Base {
 		$this->add_control(
 			'sold_card_link',
 			array(
-				'label'     => __( 'Card Link Destination', 'luxury-re-widgets' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'permalink',
-				'options'   => array(
-					'permalink' => __( 'Single Property Permalinks', 'luxury-re-widgets' ),
+				'label'       => __( 'Card Click Action', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'modal',
+				'options'     => array(
+					'modal'     => __( 'Open Quick Detail Popup (Modal)', 'luxury-re-widgets' ),
+					'permalink' => __( 'Single Property Page (Permalink)', 'luxury-re-widgets' ),
 					'sold_page' => __( 'Sold Portfolio Page (/sold-portfolio/)', 'luxury-re-widgets' ),
-					'none'      => __( 'None (No Link)', 'luxury-re-widgets' ),
+					'none'      => __( 'None (No Link / Action)', 'luxury-re-widgets' ),
 				),
-				'condition' => array(
+				'description' => __( 'Choose whether clicking a sold property opens the dossier popup or navigates to a page.', 'luxury-re-widgets' ),
+				'condition'   => array(
 					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_modal_btn_text',
+			array(
+				'label'       => __( 'Modal CTA Button Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Request Private Consultation', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+					'sold_card_link'    => 'modal',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_modal_btn_url',
+			array(
+				'label'       => __( 'Modal CTA Button URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => home_url( '/contact/' ),
+				'default'     => array(
+					'url'         => home_url( '/contact/' ),
+					'is_external' => false,
+					'nofollow'    => false,
+				),
+				'condition'   => array(
+					'properties_source' => 'sold',
+					'sold_card_link'    => 'modal',
 				),
 			)
 		);
@@ -2365,6 +2398,30 @@ class LRE_Properties_Widget extends Widget_Base {
 				$baths = get_post_meta( $pid, '_lre_baths', true );
 				$sqft  = get_post_meta( $pid, '_lre_sqft', true );
 
+				// Location
+				$loc_names = wp_get_post_terms( $pid, 'sold_location', array( 'fields' => 'names' ) );
+				$city      = get_post_meta( $pid, '_lre_city', true );
+				$location  = ! empty( $loc_names ) ? implode( ', ', $loc_names ) : ( $city ? $city . ', California' : 'Pasadena, California' );
+
+				// Description (full rich HTML with paragraph formatting)
+				$post_obj     = get_post( $pid );
+				$raw_content  = $post_obj ? $post_obj->post_content : '';
+				$raw_excerpt  = $post_obj ? $post_obj->post_excerpt : '';
+				if ( ! empty( $raw_content ) ) {
+					$desc = apply_filters( 'the_content', $raw_content );
+				} elseif ( ! empty( $raw_excerpt ) ) {
+					$desc = wpautop( $raw_excerpt );
+				} else {
+					$desc = '';
+				}
+
+				// Specs string for modal
+				$specs_arr = array();
+				if ( $beds )  $specs_arr[] = $beds . ( is_numeric( $beds ) ? ' BD' : '' );
+				if ( $baths ) $specs_arr[] = $baths . ( is_numeric( $baths ) ? ' BA' : '' );
+				if ( $sqft )  $specs_arr[] = $sqft . ( is_numeric( str_replace( array( ',', ' ' ), '', $sqft ) ) ? ' SQFT' : '' );
+				$specs_str = implode( ' • ', $specs_arr );
+
 				// Badge
 				$badge = get_post_meta( $pid, '_lre_badge', true );
 				if ( empty( $badge ) ) {
@@ -2374,7 +2431,8 @@ class LRE_Properties_Widget extends Widget_Base {
 				// Gold badge style
 				$is_gold = $badge_gold || ( false !== stripos( $badge, 'OVER ASKING' ) || false !== stripos( $badge, 'RECORD' ) || false !== stripos( $badge, 'ALL-CASH' ) );
 
-				// Link URL
+				// Card action / URL
+				$is_modal = ( empty( $card_link_type ) || 'modal' === $card_link_type );
 				$link_url = '#';
 				if ( 'permalink' === $card_link_type ) {
 					$link_url = get_permalink( $pid );
@@ -2385,15 +2443,20 @@ class LRE_Properties_Widget extends Widget_Base {
 				}
 
 				$listings[] = array(
-					'prop_image'   => $img_url,
-					'prop_price'   => $price,
-					'prop_address' => get_the_title( $pid ),
-					'prop_beds'    => ! empty( $beds ) ? absint( $beds ) : 0,
-					'prop_baths'   => ! empty( $baths ) ? $baths : 0,
-					'prop_sqft'    => ! empty( $sqft ) ? $sqft : '—',
-					'prop_badge'   => $badge,
-					'prop_is_gold' => $is_gold ? 'yes' : '',
-					'prop_url'     => array(
+					'prop_image'       => $img_url,
+					'prop_price'       => $price,
+					'prop_address'     => get_the_title( $pid ),
+					'prop_beds'        => ! empty( $beds ) ? absint( $beds ) : 0,
+					'prop_baths'       => ! empty( $baths ) ? $baths : 0,
+					'prop_sqft'        => ! empty( $sqft ) ? $sqft : '—',
+					'prop_badge'       => $badge,
+					'prop_is_gold'     => $is_gold ? 'yes' : '',
+					'prop_location'    => $location,
+					'prop_description' => $desc,
+					'prop_specs_str'   => $specs_str,
+					'is_sold'          => true,
+					'open_modal'       => $is_modal,
+					'prop_url'         => array(
 						'url'         => $link_url,
 						'is_external' => '',
 						'nofollow'    => '',
@@ -2431,6 +2494,7 @@ class LRE_Properties_Widget extends Widget_Base {
 		$is_gold     = ! empty( $prop['prop_is_gold'] ) && 'yes' === $prop['prop_is_gold'];
 		$badge_class = $is_gold ? 'listing-card__badge listing-card__badge--gold' : 'listing-card__badge';
 
+		$is_modal    = ! empty( $prop['open_modal'] );
 		$has_url     = ! empty( $prop['prop_url']['url'] ) && '#' !== $prop['prop_url']['url'];
 		$target_attr = ( ! empty( $prop['prop_url']['is_external'] ) ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 		$url         = $has_url ? esc_url( $prop['prop_url']['url'] ) : '';
@@ -2439,17 +2503,39 @@ class LRE_Properties_Widget extends Widget_Base {
 		if ( ! empty( $extra_classes ) ) {
 			$card_classes[] = trim( $extra_classes );
 		}
+
+		$modal_attrs = '';
+		if ( $is_modal ) {
+			$card_classes[] = 'trigger-prop-modal js-open-sold-modal';
+			$title     = ! empty( $prop['prop_address'] ) ? $prop['prop_address'] : '';
+			$price     = ! empty( $prop['prop_price'] ) ? $prop['prop_price'] : '';
+			$loc       = ! empty( $prop['prop_location'] ) ? $prop['prop_location'] : '';
+			$specs_str = ! empty( $prop['prop_specs_str'] ) ? $prop['prop_specs_str'] : '';
+			$desc      = ! empty( $prop['prop_description'] ) ? $prop['prop_description'] : '';
+
+			$modal_attrs = ' data-title="' . esc_attr( $title ) . '"'
+				. ' data-price="' . esc_attr( $price ) . '"'
+				. ' data-location="' . esc_attr( $loc ) . '"'
+				. ' data-specs="' . esc_attr( $specs_str ) . '"'
+				. ' data-desc="' . esc_attr( wp_strip_all_tags( $desc ) ) . '"'
+				. ' data-img="' . esc_url( $img_url ) . '"'
+				. ' role="button" tabindex="0" aria-label="' . esc_attr( sprintf( __( 'View dossier for %s', 'luxury-re-widgets' ), $title ) ) . '"';
+		}
+
 		$data_page_attr = $page_num > 0 ? ' data-page="' . esc_attr( $page_num ) . '"' : '';
 		?>
-		<article class="<?php echo esc_attr( implode( ' ', $card_classes ) ); ?>"<?php echo $data_page_attr; ?>>
+		<article class="<?php echo esc_attr( implode( ' ', $card_classes ) ); ?>"<?php echo $data_page_attr; ?><?php echo $modal_attrs; // phpcs:ignore ?>>
+			<?php if ( $is_modal && ! empty( $prop['prop_description'] ) ) : ?>
+				<div class="lre-ledger-row-full-desc" style="display: none;" aria-hidden="true"><?php echo wp_kses_post( $prop['prop_description'] ); ?></div>
+			<?php endif; ?>
 			<div class="listing-card__image image-reveal">
-				<?php if ( $has_url ) : ?>
-				<a href="<?php echo $url; ?>" class="listing-card__img-link"<?php echo $target_attr; ?> tabindex="-1" aria-label="<?php echo esc_attr( $prop['prop_address'] ); ?>">
+				<?php if ( $has_url || $is_modal ) : ?>
+				<a href="<?php echo $is_modal ? '#' : $url; ?>" class="listing-card__img-link<?php echo $is_modal ? ' trigger-prop-modal js-open-sold-modal' : ''; ?>"<?php echo $target_attr; ?> tabindex="-1" aria-label="<?php echo esc_attr( $prop['prop_address'] ); ?>">
 				<?php endif; ?>
 					<img src="<?php echo esc_url( $img_url ); ?>"
 					     alt="<?php echo esc_attr( $prop['prop_address'] ); ?>"
 					     loading="lazy" width="600" height="450">
-				<?php if ( $has_url ) : ?>
+				<?php if ( $has_url || $is_modal ) : ?>
 				</a>
 				<?php endif; ?>
 
@@ -2469,8 +2555,8 @@ class LRE_Properties_Widget extends Widget_Base {
 			<div class="listing-card__price"><?php echo esc_html( $prop['prop_price'] ); ?></div>
 
 			<div class="listing-card__address">
-				<?php if ( $has_url ) : ?>
-				<a href="<?php echo $url; ?>" class="listing-card__title-link"<?php echo $target_attr; ?>>
+				<?php if ( $has_url || $is_modal ) : ?>
+				<a href="<?php echo $is_modal ? '#' : $url; ?>" class="listing-card__title-link<?php echo $is_modal ? ' trigger-prop-modal js-open-sold-modal' : ''; ?>"<?php echo $target_attr; ?>>
 					<?php echo esc_html( $prop['prop_address'] ); ?>
 				</a>
 				<?php else : ?>
@@ -2710,6 +2796,42 @@ class LRE_Properties_Widget extends Widget_Base {
 					<?php endif; ?>
 				</div>
 				<?php endif; ?>
+			<?php endif; ?>
+
+			<?php
+			$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'modal';
+			if ( 'sold' === $source && 'modal' === $card_link_type ) :
+				$modal_btn_text = ! empty( $settings['sold_modal_btn_text'] ) ? $settings['sold_modal_btn_text'] : __( 'Request Private Consultation', 'luxury-re-widgets' );
+				$modal_btn_url  = ! empty( $settings['sold_modal_btn_url']['url'] ) ? $settings['sold_modal_btn_url']['url'] : home_url( '/contact/' );
+				$modal_target   = ! empty( $settings['sold_modal_btn_url']['is_external'] ) ? ' target="_blank"' : '';
+				$modal_rel      = ! empty( $settings['sold_modal_btn_url']['nofollow'] ) ? ' rel="nofollow"' : '';
+				$widget_id      = $this->get_id();
+			?>
+			<!-- Built-in Property Quick Detail Modal (Dialog) -->
+			<dialog id="property-modal-<?php echo esc_attr( $widget_id ); ?>" class="custom-modal lre-ledger-modal" aria-labelledby="prop-modal-title-<?php echo esc_attr( $widget_id ); ?>">
+				<div class="modal-card lre-ledger-modal-card">
+					<button class="modal-close-btn lre-ledger-modal-close" id="close-prop-modal" aria-label="<?php esc_attr_e( 'Close dossier dialog', 'luxury-re-widgets' ); ?>">✕</button>
+					
+					<div class="lre-ledger-modal-img-wrap">
+						<img id="prop-modal-img" src="" alt="<?php esc_attr_e( 'Property Preview', 'luxury-re-widgets' ); ?>" />
+					</div>
+
+					<div class="modal-header lre-ledger-modal-header">
+						<h3 id="prop-modal-title"></h3>
+						<div id="prop-modal-location" class="lre-ledger-modal-location"></div>
+						<div id="prop-modal-price" class="lre-ledger-modal-price"></div>
+						<div id="prop-modal-specs" class="lre-ledger-modal-specs"></div>
+						<div id="prop-modal-desc" class="lre-ledger-modal-desc"></div>
+					</div>
+
+					<div class="lre-ledger-modal-actions">
+						<a href="<?php echo esc_url( $modal_btn_url ); ?>" class="btn btn--gold lre-ledger-inquire-btn"<?php echo $modal_target . $modal_rel; ?>>
+							<span class="btn__text"><?php echo esc_html( $modal_btn_text ); ?></span>
+							<span class="btn__icon" aria-hidden="true">↗</span>
+						</a>
+					</div>
+				</div>
+			</dialog>
 			<?php endif; ?>
 		</section>
 		<?php

@@ -555,6 +555,8 @@
             var root = ( $scope && $scope.length ) ? $scope[0] : ( ( $scope && $scope.nodeType ) ? $scope : document );
             if ( ! root ) return;
 
+            var hasDragged = false;
+
             LREWidgets.initReveals( $scope );
             LREWidgets.initImageZoom( $scope );
 
@@ -630,8 +632,9 @@
                 var startX, scrollLeftVal;
 
                 carousel.addEventListener( 'mousedown', function ( e ) {
-                    if ( e.target.closest( '.listing-card__like-btn' ) || e.target.closest( 'a' ) ) return;
+                    if ( e.target.closest( '.listing-card__like-btn' ) ) return;
                     isDown = true;
+                    hasDragged = false;
                     carousel.style.cursor = 'grabbing';
                     carousel.style.userSelect = 'none';
                     startX = e.pageX - carousel.offsetLeft;
@@ -648,12 +651,16 @@
                     isDown = false;
                     carousel.style.cursor = '';
                     carousel.style.userSelect = '';
+                    setTimeout( function () { hasDragged = false; }, 80 );
                 } );
 
                 carousel.addEventListener( 'mousemove', function ( e ) {
                     if ( ! isDown ) return;
-                    e.preventDefault();
                     var x = e.pageX - carousel.offsetLeft;
+                    if ( Math.abs( x - startX ) > 6 ) {
+                        hasDragged = true;
+                    }
+                    e.preventDefault();
                     var walk = ( x - startX ) * 1.5;
                     carousel.scrollLeft = scrollLeftVal - walk;
                 } );
@@ -823,6 +830,104 @@
                         } );
                     }
                 }
+            }
+
+            // --- D. Sold Property Quick Detail Modal ---
+            var modal = root.querySelector( '.lre-ledger-modal, #property-modal' ) || document.querySelector( '.lre-ledger-modal, #property-modal' );
+            var openBtns = root.querySelectorAll( '.trigger-prop-modal, .js-open-sold-modal' );
+
+            if ( modal && openBtns.length ) {
+                var modalTitle = modal.querySelector( '#prop-modal-title, #lreModalTitle' );
+                var modalPrice = modal.querySelector( '#prop-modal-price, #lreModalPrice' );
+                var modalLoc   = modal.querySelector( '#prop-modal-location, #lreModalCity' );
+                var modalSpecs = modal.querySelector( '#prop-modal-specs, #lreModalBeds' );
+                var modalDesc  = modal.querySelector( '#prop-modal-desc, #lreModalDesc' );
+                var modalImg   = modal.querySelector( '#prop-modal-img, #lreModalImg' );
+                var closeBtn   = modal.querySelector( '#close-prop-modal, .lre-ledger-modal-close' );
+
+                var closeModal = function () {
+                    if ( typeof modal.close === 'function' ) {
+                        modal.close();
+                    }
+                    modal.classList.remove( 'is-active' );
+                    document.body.style.overflow = '';
+                };
+
+                if ( closeBtn && ! closeBtn._boundClose ) {
+                    closeBtn._boundClose = true;
+                    closeBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        closeModal();
+                    } );
+                }
+
+                if ( ! modal._boundBackdrop ) {
+                    modal._boundBackdrop = true;
+                    modal.addEventListener( 'click', function ( e ) {
+                        if ( e.target === modal ) {
+                            closeModal();
+                        }
+                    } );
+                    modal.addEventListener( 'cancel', function () {
+                        document.body.style.overflow = '';
+                    } );
+                }
+
+                openBtns.forEach( function ( btn ) {
+                    if ( btn._boundModal ) return;
+                    btn._boundModal = true;
+                    btn.addEventListener( 'click', function ( e ) {
+                        if ( hasDragged ) return;
+                        if ( e.target.closest( '.listing-card__like-btn' ) ) return;
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        var row = btn.closest( '.listing-card[data-title]' ) || btn;
+                        var title = row.getAttribute( 'data-title' ) || '';
+                        var price = row.getAttribute( 'data-price' ) || '';
+                        var loc   = row.getAttribute( 'data-location' ) || '';
+                        var specs = row.getAttribute( 'data-specs' ) || '';
+                        var desc  = row.getAttribute( 'data-desc' ) || '';
+                        var img   = row.getAttribute( 'data-img' ) || row.getAttribute( 'data-image' ) || '';
+
+                        var descElem = row.querySelector( '.lre-ledger-row-full-desc' );
+                        var descHtml = ( descElem && descElem.innerHTML.trim() ) ? descElem.innerHTML : desc;
+
+                        if ( modalTitle ) modalTitle.textContent = title;
+                        if ( modalPrice ) modalPrice.textContent = price;
+                        if ( modalLoc )   modalLoc.textContent = loc;
+                        if ( modalSpecs ) modalSpecs.textContent = specs;
+                        if ( modalDesc ) {
+                            if ( descHtml ) {
+                                if ( ! /<[a-z][\s\S]*>/i.test( descHtml ) ) {
+                                    modalDesc.innerHTML = descHtml.split( /\n\s*\n/ ).map( function ( p ) {
+                                        return '<p>' + p.replace( /\n/g, '<br>' ) + '</p>';
+                                    } ).join( '' );
+                                } else {
+                                    modalDesc.innerHTML = descHtml;
+                                }
+                            } else {
+                                var fallback = modalDesc.getAttribute( 'data-default-desc' ) || '';
+                                modalDesc.innerHTML = fallback ? '<p>' + fallback + '</p>' : '';
+                            }
+                        }
+                        if ( modalImg ) {
+                            if ( img ) {
+                                modalImg.src = img;
+                                if ( modalImg.parentElement ) modalImg.parentElement.style.display = '';
+                            } else {
+                                if ( modalImg.parentElement ) modalImg.parentElement.style.display = 'none';
+                            }
+                        }
+
+                        if ( typeof modal.showModal === 'function' ) {
+                            modal.showModal();
+                        } else {
+                            modal.classList.add( 'is-active' );
+                        }
+                        document.body.style.overflow = 'hidden';
+                    } );
+                } );
             }
         }
     };

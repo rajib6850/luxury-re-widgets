@@ -350,12 +350,136 @@ class LRE_Properties_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// --- Property Listings (Repeater) ---
+		// --- Property Listings (Repeater / Dynamic CPT) ---
 		$this->start_controls_section(
 			'section_listings',
 			array(
 				'label' => __( 'Property Listings', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'properties_source',
+			array(
+				'label'       => __( 'Properties Source', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'manual',
+				'options'     => array(
+					'manual' => __( 'Manual Custom Listings (Repeater)', 'luxury-re-widgets' ),
+					'sold'   => __( 'Sold Properties (Dynamic CPT)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Choose whether to display custom listings entered below or query automatically from Sold Properties.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sold_posts_limit',
+			array(
+				'label'       => __( 'Number of Sold Properties', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 9,
+				'min'         => 1,
+				'max'         => 50,
+				'step'        => 1,
+				'description' => __( 'Total number of sold properties to query and display.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_location',
+			array(
+				'label'       => __( 'Filter by Location', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '',
+				'options'     => $this->get_sold_location_options(),
+				'description' => __( 'Filter sold properties by location taxonomy or display all.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_orderby',
+			array(
+				'label'     => __( 'Order By', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'date',
+				'options'   => array(
+					'date'  => __( 'Date Published / Closed', 'luxury-re-widgets' ),
+					'title' => __( 'Property Title', 'luxury-re-widgets' ),
+					'price' => __( 'Sold Price / Valuation', 'luxury-re-widgets' ),
+					'rand'  => __( 'Random', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_order',
+			array(
+				'label'     => __( 'Order Direction', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'DESC',
+				'options'   => array(
+					'DESC' => __( 'Descending (Latest / Highest First)', 'luxury-re-widgets' ),
+					'ASC'  => __( 'Ascending (Oldest / Lowest First)', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_default_badge',
+			array(
+				'label'       => __( 'Default Badge Label', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'SOLD',
+				'placeholder' => 'SOLD',
+				'description' => __( 'Fallback badge label if property has no milestone badge.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_badge_gold',
+			array(
+				'label'        => __( 'Gold Badge Style for Sold Properties', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Gold', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Default', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_card_link',
+			array(
+				'label'     => __( 'Card Link Destination', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'permalink',
+				'options'   => array(
+					'permalink' => __( 'Single Property Permalinks', 'luxury-re-widgets' ),
+					'sold_page' => __( 'Sold Portfolio Page (/sold-portfolio/)', 'luxury-re-widgets' ),
+					'none'      => __( 'None (No Link)', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'properties_source' => 'sold',
+				),
 			)
 		);
 
@@ -455,6 +579,9 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label'       => __( 'Listings', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
+				'condition'   => array(
+					'properties_source' => 'manual',
+				),
 				'default'     => array(
 					array(
 						'prop_image'   => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
@@ -2140,6 +2267,146 @@ class LRE_Properties_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get locations for sold property filter dropdown.
+	 *
+	 * @return array
+	 */
+	protected function get_sold_location_options() {
+		$options = array(
+			'' => __( 'All Locations', 'luxury-re-widgets' ),
+		);
+
+		if ( taxonomy_exists( 'sold_location' ) ) {
+			$terms = get_terms( array(
+				'taxonomy'   => 'sold_location',
+				'hide_empty' => false,
+			) );
+
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$options[ $term->slug ] = $term->name;
+				}
+			}
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Fetch properties from 'lre_sold_property' Custom Post Type.
+	 *
+	 * @param array $settings Widget settings.
+	 * @return array
+	 */
+	protected function get_sold_properties_listings( $settings ) {
+		$posts_per_page = ! empty( $settings['sold_posts_limit'] ) ? intval( $settings['sold_posts_limit'] ) : 9;
+		$orderby        = ! empty( $settings['sold_orderby'] ) ? $settings['sold_orderby'] : 'date';
+		$order          = ! empty( $settings['sold_order'] ) ? $settings['sold_order'] : 'DESC';
+		$location       = ! empty( $settings['sold_location'] ) ? $settings['sold_location'] : '';
+		$default_badge  = ! empty( $settings['sold_default_badge'] ) ? $settings['sold_default_badge'] : 'SOLD';
+		$badge_gold     = ! empty( $settings['sold_badge_gold'] ) && 'yes' === $settings['sold_badge_gold'];
+		$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'permalink';
+
+		$query_args = array(
+			'post_type'      => 'lre_sold_property',
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+		);
+
+		if ( 'price' === $orderby ) {
+			$query_args['meta_key'] = '_lre_sold_price';
+			$query_args['orderby']  = 'meta_value_num';
+			$query_args['order']    = $order;
+		} elseif ( 'title' === $orderby ) {
+			$query_args['orderby'] = 'title';
+			$query_args['order']   = $order;
+		} elseif ( 'rand' === $orderby ) {
+			$query_args['orderby'] = 'rand';
+		} else {
+			$query_args['orderby'] = 'date';
+			$query_args['order']   = $order;
+		}
+
+		if ( ! empty( $location ) ) {
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'sold_location',
+					'field'    => 'slug',
+					'terms'    => $location,
+				),
+			);
+		}
+
+		$query = new \WP_Query( $query_args );
+		$listings = array();
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$pid = get_the_ID();
+
+				// Featured Image
+				$img_url = '';
+				if ( has_post_thumbnail( $pid ) ) {
+					$img_url = get_the_post_thumbnail_url( $pid, 'full' );
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = lre_asset_url( 'images/property-2.jpg' );
+				}
+
+				// Price
+				$price = get_post_meta( $pid, '_lre_sold_price', true );
+				if ( empty( $price ) ) {
+					$price = __( 'Confidential', 'luxury-re-widgets' );
+				}
+
+				// Beds / Baths / SqFt
+				$beds  = get_post_meta( $pid, '_lre_beds', true );
+				$baths = get_post_meta( $pid, '_lre_baths', true );
+				$sqft  = get_post_meta( $pid, '_lre_sqft', true );
+
+				// Badge
+				$badge = get_post_meta( $pid, '_lre_badge', true );
+				if ( empty( $badge ) ) {
+					$badge = $default_badge;
+				}
+
+				// Gold badge style
+				$is_gold = $badge_gold || ( false !== stripos( $badge, 'OVER ASKING' ) || false !== stripos( $badge, 'RECORD' ) || false !== stripos( $badge, 'ALL-CASH' ) );
+
+				// Link URL
+				$link_url = '#';
+				if ( 'permalink' === $card_link_type ) {
+					$link_url = get_permalink( $pid );
+				} elseif ( 'sold_page' === $card_link_type ) {
+					$link_url = home_url( '/sold-portfolio/' );
+				} elseif ( 'none' === $card_link_type ) {
+					$link_url = '#';
+				}
+
+				$listings[] = array(
+					'prop_image'   => $img_url,
+					'prop_price'   => $price,
+					'prop_address' => get_the_title( $pid ),
+					'prop_beds'    => ! empty( $beds ) ? absint( $beds ) : 0,
+					'prop_baths'   => ! empty( $baths ) ? $baths : 0,
+					'prop_sqft'    => ! empty( $sqft ) ? $sqft : '—',
+					'prop_badge'   => $badge,
+					'prop_is_gold' => $is_gold ? 'yes' : '',
+					'prop_url'     => array(
+						'url'         => $link_url,
+						'is_external' => '',
+						'nofollow'    => '',
+					),
+				);
+			}
+			wp_reset_postdata();
+		}
+
+		return $listings;
+	}
+
+	/**
 	 * Render a single listing card
 	 *
 	 * @param array  $prop Card settings array.
@@ -2218,12 +2485,12 @@ class LRE_Properties_Widget extends Widget_Base {
 					</svg>
 					<span><?php printf( esc_html__( '%d Beds', 'luxury-re-widgets' ), absint( $prop['prop_beds'] ) ); ?></span>
 				</span>
-				<span class="listing-card__meta-item" title="<?php printf( esc_attr__( '%d Bathrooms', 'luxury-re-widgets' ), absint( $prop['prop_baths'] ) ); ?>">
+				<span class="listing-card__meta-item" title="<?php printf( esc_attr__( '%s Bathrooms', 'luxury-re-widgets' ), esc_attr( $prop['prop_baths'] ) ); ?>">
 					<svg class="listing-card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 						<path d="M4 12h16a1 1 0 0 1 1 1v2a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-2a1 1 0 0 1 1-1zM6 12V5a2 2 0 0 1 2-2h1"/>
 						<path d="M4 19l-1 2M20 19l1 2"/>
 					</svg>
-					<span><?php printf( esc_html__( '%d Baths', 'luxury-re-widgets' ), absint( $prop['prop_baths'] ) ); ?></span>
+					<span><?php echo esc_html( $prop['prop_baths'] ); ?> <?php esc_html_e( 'Baths', 'luxury-re-widgets' ); ?></span>
 				</span>
 				<span class="listing-card__meta-item" title="<?php printf( esc_attr__( '%s Square Feet', 'luxury-re-widgets' ), esc_attr( $prop['prop_sqft'] ) ); ?>">
 					<svg class="listing-card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -2247,7 +2514,13 @@ class LRE_Properties_Widget extends Widget_Base {
 		$show_heading     = $show_header && ( ! isset( $settings['show_heading'] ) || 'yes' === $settings['show_heading'] );
 		$show_description = $show_header && ( ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'] );
 		$layout_type      = ! empty( $settings['layout_type'] ) ? $settings['layout_type'] : 'slider';
-		$listings         = ! empty( $settings['listings'] ) ? $settings['listings'] : array();
+		$source           = ! empty( $settings['properties_source'] ) ? $settings['properties_source'] : 'manual';
+
+		if ( 'sold' === $source ) {
+			$listings = $this->get_sold_properties_listings( $settings );
+		} else {
+			$listings = ! empty( $settings['listings'] ) ? $settings['listings'] : array();
+		}
 		$listings_count   = count( $listings );
 
 		// Slider-specific settings

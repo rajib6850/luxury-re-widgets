@@ -20769,3 +20769,64 @@ body.admin-bar .lre-single-post__sidebar-sticky {
 
 
 
+
+/* ==========================================================================
+   THE PRIVATE LEDGER: SHOW / HIDE NUMERIC LABELS (001, 002, 003...)
+   ========================================================================== */
+.lre-ledger--hide-numbers .ledger-row .num,
+.lre-ledger--hide-numbers .lre-ledger-row .num,
+.lre-ledger-num-no .ledger-row .num,
+.lre-ledger-num-no .lre-ledger-row .num,
+.elementor-widget-lre_sold_portfolio.lre-ledger-num-no .ledger-row .num,
+.ledger-row.lre-row--no-num .num,
+.lre-ledger-row.lre-row--no-num .num {
+  display: none !important;
+}
+
+.lre-ledger--hide-numbers .ledger-row,
+.lre-ledger--hide-numbers .lre-ledger-row,
+.lre-ledger-num-no .ledger-row,
+.lre-ledger-num-no .lre-ledger-row,
+.elementor-widget-lre_sold_portfolio.lre-ledger-num-no .ledger-row,
+.elementor-widget-lre_sold_portfolio.lre-ledger-num-no .lre-ledger-row,
+.ledger-row.lre-row--no-num,
+.lre-ledger-row.lre-row--no-num {
+  grid-template-columns: 1.8fr 1.2fr 1fr 1.2fr 44px !important;
+}
+
+@media (max-width: 1024px) {
+  .lre-ledger--hide-numbers .ledger-row,
+  .lre-ledger--hide-numbers .lre-ledger-row,
+  .lre-ledger-num-no .ledger-row,
+  .lre-ledger-num-no .lre-ledger-row,
+  .elementor-widget-lre_sold_portfolio.lre-ledger-num-no .ledger-row,
+  .elementor-widget-lre_sold_portfolio.lre-ledger-num-no .lre-ledger-row,
+  .ledger-row.lre-row--no-num,
+  .lre-ledger-row.lre-row--no-num {
+    grid-template-columns: minmax(180px, 1.8fr) minmax(110px, 1fr) minmax(90px, 0.9fr) minmax(110px, 1fr) 38px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .lre-ledger--hide-numbers .ledger-row,
+  .lre-ledger--hide-numbers .lre-ledger-row,
+  .lre-ledger-num-no .ledger-row,
+  .lre-ledger-num-no .lre-ledger-row,
+  .elementor-widget-lre_sold_portfolio.lre-ledger-num-no .ledger-row,
+  .elementor-widget-lre_sold_portfolio.lre-ledger-num-no .lre-ledger-row,
+  .ledger-row.lre-row--no-num,
+  .lre-ledger-row.lre-row--no-num {
+    grid-template-columns: 1fr !important;
+  }
+  .lre-ledger--hide-numbers .ledger-row .name,
+  .lre-ledger--hide-numbers .ledger-row .meta,
+  .lre-ledger--hide-numbers .ledger-row .price,
+  .lre-ledger-num-no .ledger-row .name,
+  .lre-ledger-num-no .ledger-row .meta,
+  .lre-ledger-num-no .ledger-row .price,
+  .ledger-row.lre-row--no-num .name,
+  .ledger-row.lre-row--no-num .meta,
+  .ledger-row.lre-row--no-num .price {
+    grid-column: 1 !important;
+  }
+}

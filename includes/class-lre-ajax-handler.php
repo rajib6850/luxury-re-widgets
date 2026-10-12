@@ -620,6 +620,7 @@ class LRE_Ajax_Handler {
 		$category       = isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : 'all';
 		$orderby        = isset( $_POST['orderby'] ) ? sanitize_text_field( wp_unslash( $_POST['orderby'] ) ) : 'date';
 		$order          = isset( $_POST['order'] ) ? sanitize_text_field( wp_unslash( $_POST['order'] ) ) : 'DESC';
+		$show_num       = ! isset( $_POST['show_num'] ) || 'no' !== $_POST['show_num'];
 
 		$args = array(
 			'post_type'      => 'lre_sold_property',
@@ -699,7 +700,7 @@ class LRE_Ajax_Handler {
 				);
 
 				if ( class_exists( 'LRE_Sold_Portfolio_Widget' ) && method_exists( 'LRE_Sold_Portfolio_Widget', 'render_ledger_row_html' ) ) {
-					$html .= LRE_Sold_Portfolio_Widget::render_ledger_row_html( $item, $index, $offset );
+					$html .= LRE_Sold_Portfolio_Widget::render_ledger_row_html( $item, $index, $offset, true, $show_num );
 				}
 				$index++;
 			}

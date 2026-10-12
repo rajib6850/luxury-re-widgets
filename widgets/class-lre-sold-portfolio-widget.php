@@ -185,6 +185,21 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'show_numeric_labels',
+			array(
+				'label'        => __( 'Show Numeric Labels (001, 002...)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'prefix_class' => 'lre-ledger-num-',
+				'description'  => __( 'Show or hide the row numeric labels (such as 001, 002, 003 etc.) on each transaction row.', 'luxury-re-widgets' ),
+				'separator'    => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- 3. FILTER TABS & AJAX PAGINATION ---
@@ -864,6 +879,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'label'     => __( 'Number Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
+				'condition' => array( 'show_numeric_labels' => 'yes' ),
 				'selectors' => array(
 					'{{WRAPPER}} .ledger-row .num' => 'color: {{VALUE}} !important;',
 				),
@@ -983,6 +999,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'label'     => __( 'Number Hover Color', 'luxury-re-widgets' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
+				'condition' => array( 'show_numeric_labels' => 'yes' ),
 				'selectors' => array(
 					'{{WRAPPER}} .ledger-row:hover .num' => 'color: {{VALUE}} !important;',
 				),
@@ -2040,7 +2057,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 	 * @param int   $offset Pagination offset.
 	 * @return string HTML output.
 	 */
-	public static function render_ledger_row_html( $item, $index, $offset = 0, $enable_modal = true ) {
+	public static function render_ledger_row_html( $item, $index, $offset = 0, $enable_modal = true, $show_num = true ) {
 		$num_str  = sprintf( '%03d', $offset + $index + 1 );
 		$title    = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
 		$loc      = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
@@ -2060,7 +2077,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		ob_start();
 		?>
-		<div class="ledger-row lre-ledger-row<?php echo $enable_modal ? ' trigger-prop-modal' : ''; ?>"
+		<div class="ledger-row lre-ledger-row<?php echo $enable_modal ? ' trigger-prop-modal' : ''; ?><?php echo ! $show_num ? ' lre-row--no-num' : ''; ?>"
 			data-category="<?php echo esc_attr( $cat ); ?>"
 			data-title="<?php echo esc_attr( $title ); ?>"
 			data-price="<?php echo esc_attr( $price ); ?>"
@@ -2078,7 +2095,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				<div class="lre-ledger-row-full-desc" style="display: none;" aria-hidden="true"><?php echo wp_kses_post( $desc ); ?></div>
 			<?php endif; ?>
 
-			<span class="num"><?php echo esc_html( $num_str ); ?></span>
+			<?php if ( $show_num ) : ?>
+				<span class="num"><?php echo esc_html( $num_str ); ?></span>
+			<?php endif; ?>
 
 			<span class="name">
 				<?php echo esc_html( $title ); ?>
@@ -2209,6 +2228,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		$show_filters    = ! empty( $settings['show_filters'] ) && 'yes' === $settings['show_filters'];
 		$show_pagination = ! empty( $settings['show_pagination'] ) && 'yes' === $settings['show_pagination'];
+		$show_numbers    = ! isset( $settings['show_numeric_labels'] ) || 'yes' === $settings['show_numeric_labels'];
 
 		$enable_modal   = ! empty( $settings['enable_property_modal'] ) ? $settings['enable_property_modal'] : 'yes';
 		$modal_preview  = ! empty( $settings['modal_preview_in_editor'] ) && 'yes' === $settings['modal_preview_in_editor'] && \Elementor\Plugin::$instance->editor->is_edit_mode();
@@ -2497,13 +2517,47 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			</style>
 			<?php
 		}
+
+		if ( ! $show_numbers ) {
+			$sid = esc_attr( $section_id );
+			?>
+			<style>
+				#<?php echo $sid; ?> .ledger-row .num,
+				#<?php echo $sid; ?> .lre-ledger-row .num {
+					display: none !important;
+				}
+				#<?php echo $sid; ?> .ledger-row,
+				#<?php echo $sid; ?> .lre-ledger-row {
+					grid-template-columns: 1.8fr 1.2fr 1fr 1.2fr 44px !important;
+				}
+				@media (max-width: 1024px) {
+					#<?php echo $sid; ?> .ledger-row,
+					#<?php echo $sid; ?> .lre-ledger-row {
+						grid-template-columns: minmax(180px, 1.8fr) minmax(110px, 1fr) minmax(90px, 0.9fr) minmax(110px, 1fr) 38px !important;
+					}
+				}
+				@media (max-width: 767px) {
+					#<?php echo $sid; ?> .ledger-row,
+					#<?php echo $sid; ?> .lre-ledger-row {
+						grid-template-columns: 1fr !important;
+					}
+					#<?php echo $sid; ?> .ledger-row .name,
+					#<?php echo $sid; ?> .ledger-row .meta,
+					#<?php echo $sid; ?> .ledger-row .price {
+						grid-column: 1 !important;
+					}
+				}
+			</style>
+			<?php
+		}
 		?>
-		<section class="ledger-section lre-ledger-section lre-ledger--theme-<?php echo esc_attr( $theme_preset ); ?>"
+		<section class="ledger-section lre-ledger-section lre-ledger--theme-<?php echo esc_attr( $theme_preset ); ?><?php echo ! $show_numbers ? ' lre-ledger--hide-numbers' : ''; ?>"
 			id="<?php echo esc_attr( $section_id ); ?>"
 			data-source="<?php echo esc_attr( $source ); ?>"
 			data-posts-per-page="<?php echo esc_attr( $posts_per_page ); ?>"
 			data-orderby="<?php echo esc_attr( $orderby ); ?>"
 			data-order="<?php echo esc_attr( $order ); ?>"
+			data-show-numbers="<?php echo $show_numbers ? 'yes' : 'no'; ?>"
 			data-max-pages="<?php echo esc_attr( $max_pages ); ?>">
 
 			<div class="container lre-ledger-container">
@@ -2545,7 +2599,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					<?php
 					if ( ! empty( $entries ) ) :
 						foreach ( $entries as $index => $item ) :
-							echo self::render_ledger_row_html( $item, $index, 0, ( 'yes' === $enable_modal ) );
+							echo self::render_ledger_row_html( $item, $index, 0, ( 'yes' === $enable_modal ), $show_numbers );
 						endforeach;
 					else :
 						?>

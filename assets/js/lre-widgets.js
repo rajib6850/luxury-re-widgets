@@ -2621,6 +2621,7 @@
                             ledgerWrap.classList.add( 'is-loading' );
                         }
 
+                        var showNum = sec.getAttribute( 'data-show-numbers' ) || ( sec.classList.contains( 'lre-ledger--hide-numbers' ) ? 'no' : 'yes' );
                         var formData = new FormData();
                         formData.append( 'action', 'lre_load_sold_portfolio' );
                         formData.append( 'paged', page );
@@ -2628,6 +2629,7 @@
                         formData.append( 'category', category );
                         formData.append( 'orderby', orderby );
                         formData.append( 'order', order );
+                        formData.append( 'show_num', showNum );
 
                         fetch( ajaxUrl, {
                             method: 'POST',

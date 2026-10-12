@@ -20830,3 +20830,37 @@ body.admin-bar .lre-single-post__sidebar-sticky {
     grid-column: 1 !important;
   }
 }
+
+/* ── Proven Results Structured Breakdown (The Challenge | Our Approach | The Result) ── */
+.lre-presults__breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.lre-presults__block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.lre-presults__block-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #c5a047;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+}
+.lre-presults__block-text {
+  font-size: var(--e-global-typography-text-font-size, 1rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0;
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.lre-presults__result-box {
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

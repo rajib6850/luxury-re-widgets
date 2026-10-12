@@ -2823,6 +2823,7 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_contact.default',              function ( $scope ) { LREWidgets.Contact.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_buying_guide.default',         function ( $scope ) { LREWidgets.BuyingGuide.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_sellers_guide.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_proven_results.default',        function ( $scope ) { LREWidgets.SellersGuide.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_press.default',                function ( $scope ) { LREWidgets.Press.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter.default',           function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/lre_newsletter_form.default',      function ( $scope ) { LREWidgets.Newsletter.init( $scope ); } );

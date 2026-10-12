@@ -253,6 +253,133 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// --- 2B. DOSSIER INDEX & LEFT LEDGER TABS ---
+		$this->start_controls_section(
+			'section_ledger_tabs',
+			array(
+				'label' => __( 'Dossier Index & Left Ledger Tabs', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_tab_index',
+			array(
+				'label'        => __( 'Show Entire Left Ledger Tabs', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'heading_ledger_header',
+			array(
+				'label'     => __( 'Dossier Header Bar (Red Part)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_index_header',
+			array(
+				'label'        => __( 'Show Header Bar ("VERIFIED CLIENT DOSSIERS")', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'index_title',
+			array(
+				'label'     => __( 'Header Title Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'VERIFIED CLIENT DOSSIERS',
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'show_tab_index'    => 'yes',
+					'show_index_header' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_index_count',
+			array(
+				'label'        => __( 'Show Record Count ("05 RECORDS")', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'show_tab_index'    => 'yes',
+					'show_index_header' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'index_count_label',
+			array(
+				'label'     => __( 'Counter Label Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'RECORDS',
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'show_tab_index'    => 'yes',
+					'show_index_header' => 'yes',
+					'show_index_count'  => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_ledger_tab_items',
+			array(
+				'label'     => __( 'Tab Buttons & Badges', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_tab_num',
+			array(
+				'label'        => __( 'Show Tab Numbers (01, 02...)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_tab_badges',
+			array(
+				'label'        => __( 'Show Property Badges on Tabs', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// --- 3. CLIENT DOSSIERS (REVIEWS REPEATER) ---
 		$this->start_controls_section(
 			'section_reviews_list',
@@ -571,55 +698,6 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'show_tab_index',
-			array(
-				'label'        => __( 'Show Left Ledger Index (Dossiers)', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'show_index_header',
-			array(
-				'label'        => __( 'Show Dossier Header ("VERIFIED CLIENT DOSSIERS / 05 RECORDS")', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
-				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
-				'return_value' => 'yes',
-				'condition'    => array( 'show_tab_index' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'show_tab_badges',
-			array(
-				'label'        => __( 'Show Property Badges on Left Tabs', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
-				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
-				'return_value' => 'yes',
-				'condition'    => array( 'show_tab_index' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'show_tab_num',
-			array(
-				'label'        => __( 'Show Tab Index Numbers (01, 02...)', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
-				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
-				'return_value' => 'yes',
-				'condition'    => array( 'show_tab_index' => 'yes' ),
 			)
 		);
 
@@ -985,6 +1063,67 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .lre-reviews__author-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// 5B. Dossier Index Header Bar (Red Part)
+		$this->add_control(
+			'heading_style_index_header',
+			array(
+				'label'     => __( 'Dossier Index Header Bar (Red Part)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'index_title_typography',
+				'label'    => __( 'Header Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__index-title',
+			)
+		);
+
+		$this->add_control(
+			'index_title_color',
+			array(
+				'label'     => __( 'Header Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__index-title' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'index_count_typography',
+				'label'    => __( 'Record Count Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .lre-reviews__index-count',
+			)
+		);
+
+		$this->add_control(
+			'index_count_color',
+			array(
+				'label'     => __( 'Record Count Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__index-count' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'index_header_border_color',
+			array(
+				'label'     => __( 'Header Border Bottom Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__index-header' => 'border-bottom-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1359,6 +1498,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$show_counter            = ( $settings['show_counter'] ?? 'yes' ) === 'yes';
 		$show_tab_index          = ( $settings['show_tab_index'] ?? 'yes' ) === 'yes';
 		$show_index_header       = ! isset( $settings['show_index_header'] ) || 'yes' === $settings['show_index_header'];
+		$index_title             = ! empty( $settings['index_title'] ) ? esc_html( $settings['index_title'] ) : esc_html__( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' );
+		$show_index_count        = ! isset( $settings['show_index_count'] ) || 'yes' === $settings['show_index_count'];
+		$index_count_label       = ! empty( $settings['index_count_label'] ) ? esc_html( $settings['index_count_label'] ) : esc_html__( 'RECORDS', 'luxury-re-widgets' );
 		$show_tab_badges         = ! isset( $settings['show_tab_badges'] ) || 'yes' === $settings['show_tab_badges'];
 		$show_tab_num            = ! isset( $settings['show_tab_num'] ) || 'yes' === $settings['show_tab_num'];
 		$prev_text               = esc_html( ! empty( $settings['prev_text'] ) ? $settings['prev_text'] : 'PREV' );
@@ -1475,8 +1617,10 @@ class LRE_Reviews_Widget extends Widget_Base {
 								<div class="lre-reviews__ledger-index" role="tablist" aria-label="<?php esc_attr_e( 'Client Dossier Index', 'luxury-re-widgets' ); ?>">
 									<?php if ( $show_index_header ) : ?>
 									<div class="lre-reviews__index-header">
-										<span class="lre-reviews__index-title"><?php esc_html_e( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' ); ?></span>
-										<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php esc_html_e( 'RECORDS', 'luxury-re-widgets' ); ?></span>
+										<span class="lre-reviews__index-title"><?php echo $index_title; ?></span>
+										<?php if ( $show_index_count ) : ?>
+											<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php echo $index_count_label; ?></span>
+										<?php endif; ?>
 									</div>
 									<?php endif; ?>
 

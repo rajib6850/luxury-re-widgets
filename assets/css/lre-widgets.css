@@ -10424,6 +10424,35 @@ button.lre-reviews__nav-btn:focus,
   transform: translateY(0) scale(0.97);
 }
 
+/* Minimalist & Visibility State Adaptations */
+.lre-reviews.lre-reviews--no-tabs .lre-reviews__stage {
+  grid-template-columns: 1fr;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lre-reviews__record-id {
+  margin-left: auto;
+}
+
+.lre-reviews__prop-visual.lre-reviews__prop-visual--badges-only {
+  height: auto;
+  padding: 1.8rem 2.8rem 0;
+  border-bottom: none;
+}
+
+.lre-reviews__prop-visual.lre-reviews__prop-visual--badges-only .lre-reviews__prop-meta {
+  position: static;
+  margin-bottom: 0;
+}
+
+.lre-reviews__trust-pillar.lre-reviews__trust-pillar--no-metrics .lre-reviews__seal-wrap {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .lre-reviews {

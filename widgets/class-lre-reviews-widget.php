@@ -65,6 +65,33 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_eyebrow',
+			array(
+				'label'        => __( 'Show Eyebrow Label', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_gold_bar',
+			array(
+				'label'        => __( 'Show Eyebrow Line (Gold Accent)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'show_eyebrow' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'title',
 			array(
 				'label'       => __( 'Main Headline (Supports <br> or newline)', 'luxury-re-widgets' ),
@@ -107,11 +134,57 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_trust_pillar',
+			array(
+				'label'        => __( 'Show Trust Pillar Card', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_seal',
+			array(
+				'label'        => __( 'Show Fiduciary Seal SVG', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'show_trust_pillar' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_metrics',
+			array(
+				'label'        => __( 'Show Trust Metrics (3 Stats)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'show_trust_pillar' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'seal_text_top',
 			array(
-				'label'   => __( 'Seal Label (Top)', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'PRIVATE WEALTH ADVISORY',
+				'label'     => __( 'Seal Label (Top)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'PRIVATE WEALTH ADVISORY',
+				'condition' => array(
+					'show_trust_pillar' => 'yes',
+					'show_seal'         => 'yes',
+				),
 			)
 		);
 
@@ -364,6 +437,114 @@ class LRE_Reviews_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// --- 3B. TESTIMONIAL CARD ELEMENTS & DECORATION ---
+		$this->start_controls_section(
+			'section_card_elements',
+			array(
+				'label' => __( 'Card Elements & Decoration', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_stars',
+			array(
+				'label'        => __( 'Show Star Rating (5 Stars)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_record_id',
+			array(
+				'label'        => __( 'Show Record Ref ID (#0142)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_quote_mark',
+			array(
+				'label'        => __( 'Show Decorative Quote Icon', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_verification_badge',
+			array(
+				'label'        => __( 'Show "Verified Transaction" Badge', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_property_image',
+			array(
+				'label'        => __( 'Show Property Backdrop Photo', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_property_badges',
+			array(
+				'label'        => __( 'Show Property & Transaction Badges', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Toggle badges like "Seller - 117-Year-Old Historic Home in Pasadena" on card photo.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'show_avatar',
+			array(
+				'label'        => __( 'Show Client Avatar / Monogram', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_client_title',
+			array(
+				'label'        => __( 'Show Client Title / Profession', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
 		// --- 4. NAVIGATION & CAROUSEL CONTROLS ---
 		$this->start_controls_section(
 			'section_navigation',
@@ -400,6 +581,45 @@ class LRE_Reviews_Widget extends Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'show_index_header',
+			array(
+				'label'        => __( 'Show Dossier Header ("VERIFIED CLIENT DOSSIERS / 05 RECORDS")', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_tab_badges',
+			array(
+				'label'        => __( 'Show Property Badges on Left Tabs', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'show_tab_num',
+			array(
+				'label'        => __( 'Show Tab Index Numbers (01, 02...)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array( 'show_tab_index' => 'yes' ),
 			)
 		);
 
@@ -1127,16 +1347,40 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$m3_lbl         = esc_html( $settings['metric_3_lbl'] ?? 'UHNW Families Entrusted' );
 
 		// Navigation & Control Settings
-		$show_nav        = ( $settings['show_nav'] ?? 'yes' ) === 'yes';
-		$show_counter    = ( $settings['show_counter'] ?? 'yes' ) === 'yes';
-		$show_tab_index  = ( $settings['show_tab_index'] ?? 'yes' ) === 'yes';
-		$prev_text       = esc_html( ! empty( $settings['prev_text'] ) ? $settings['prev_text'] : 'PREV' );
-		$next_text       = esc_html( ! empty( $settings['next_text'] ) ? $settings['next_text'] : 'NEXT' );
-		$enable_autoplay = ( $settings['enable_autoplay'] ?? 'no' ) === 'yes' ? 'yes' : 'no';
-		$autoplay_speed  = intval( $settings['autoplay_speed'] ?? 5000 );
-		$pause_on_hover  = ( $settings['pause_on_hover'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
-		$infinite_loop   = ( $settings['infinite_loop'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
-		$fallback_avatar = ! empty( $settings['fallback_avatar']['url'] ) ? esc_url( $settings['fallback_avatar']['url'] ) : '';
+		// Display & Decoration Controls
+		$show_eyebrow            = ! isset( $settings['show_eyebrow'] ) || 'yes' === $settings['show_eyebrow'];
+		$show_gold_bar           = ! isset( $settings['show_gold_bar'] ) || 'yes' === $settings['show_gold_bar'];
+		$show_trust_pillar       = ! isset( $settings['show_trust_pillar'] ) || 'yes' === $settings['show_trust_pillar'];
+		$show_seal               = ! isset( $settings['show_seal'] ) || 'yes' === $settings['show_seal'];
+		$show_metrics            = ! isset( $settings['show_metrics'] ) || 'yes' === $settings['show_metrics'];
+
+		// Navigation & Control Settings
+		$show_nav                = ( $settings['show_nav'] ?? 'yes' ) === 'yes';
+		$show_counter            = ( $settings['show_counter'] ?? 'yes' ) === 'yes';
+		$show_tab_index          = ( $settings['show_tab_index'] ?? 'yes' ) === 'yes';
+		$show_index_header       = ! isset( $settings['show_index_header'] ) || 'yes' === $settings['show_index_header'];
+		$show_tab_badges         = ! isset( $settings['show_tab_badges'] ) || 'yes' === $settings['show_tab_badges'];
+		$show_tab_num            = ! isset( $settings['show_tab_num'] ) || 'yes' === $settings['show_tab_num'];
+		$prev_text               = esc_html( ! empty( $settings['prev_text'] ) ? $settings['prev_text'] : 'PREV' );
+		$next_text               = esc_html( ! empty( $settings['next_text'] ) ? $settings['next_text'] : 'NEXT' );
+		$enable_autoplay         = ( $settings['enable_autoplay'] ?? 'no' ) === 'yes' ? 'yes' : 'no';
+		$autoplay_speed          = intval( $settings['autoplay_speed'] ?? 5000 );
+		$pause_on_hover          = ( $settings['pause_on_hover'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
+		$infinite_loop           = ( $settings['infinite_loop'] ?? 'yes' ) === 'yes' ? 'yes' : 'no';
+		$fallback_avatar         = ! empty( $settings['fallback_avatar']['url'] ) ? esc_url( $settings['fallback_avatar']['url'] ) : '';
+
+		// Testimonial Card Display Options
+		$show_stars              = ! isset( $settings['show_stars'] ) || 'yes' === $settings['show_stars'];
+		$show_record_id          = ! isset( $settings['show_record_id'] ) || 'yes' === $settings['show_record_id'];
+		$show_quote_mark         = ! isset( $settings['show_quote_mark'] ) || 'yes' === $settings['show_quote_mark'];
+		$show_verification_badge = ! isset( $settings['show_verification_badge'] ) || 'yes' === $settings['show_verification_badge'];
+		$show_property_image     = ! isset( $settings['show_property_image'] ) || 'yes' === $settings['show_property_image'];
+		$show_property_badges    = ! isset( $settings['show_property_badges'] ) || 'yes' === $settings['show_property_badges'];
+		$show_avatar             = ! isset( $settings['show_avatar'] ) || 'yes' === $settings['show_avatar'];
+		$show_client_title       = ! isset( $settings['show_client_title'] ) || 'yes' === $settings['show_client_title'];
+
+		$has_trust_pillar        = $show_trust_pillar && ( $show_seal || $show_metrics );
+		$has_left_column         = $show_tab_index || $has_trust_pillar;
 
 		$reviews        = ! empty( $settings['reviews'] ) ? $settings['reviews'] : array();
 		$total_reviews  = count( $reviews );
@@ -1151,7 +1395,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		}
 		?>
 
-		<section class="lre-reviews <?php echo ! $show_tab_index ? 'lre-reviews--no-tabs' : ''; ?>"
+		<section class="lre-reviews <?php echo ! $has_left_column ? 'lre-reviews--no-tabs' : ''; ?>"
 			id="client-reviews"
 			data-autoplay="<?php echo esc_attr( $enable_autoplay ); ?>"
 			data-speed="<?php echo esc_attr( $autoplay_speed ); ?>"
@@ -1161,9 +1405,11 @@ class LRE_Reviews_Widget extends Widget_Base {
 			<div class="container lre-reviews__container">
 				<!-- Section Header -->
 				<div class="lre-reviews__header reveal">
-					<?php if ( ! empty( $eyebrow ) ) : ?>
+					<?php if ( $show_eyebrow && ! empty( $eyebrow ) ) : ?>
 						<div class="lre-reviews__eyebrow-wrap">
-							<span class="lre-reviews__gold-bar" aria-hidden="true"></span>
+							<?php if ( $show_gold_bar ) : ?>
+								<span class="lre-reviews__gold-bar" aria-hidden="true"></span>
+							<?php endif; ?>
 							<span class="lre-reviews__eyebrow"><?php echo $eyebrow; ?></span>
 						</div>
 					<?php endif; ?>
@@ -1181,9 +1427,12 @@ class LRE_Reviews_Widget extends Widget_Base {
 				<?php if ( ! empty( $reviews ) ) : ?>
 					<div class="lre-reviews__stage reveal">
 						<!-- LEFT: Fiduciary Ledger Pillar & Navigation Index -->
+						<?php if ( $has_left_column ) : ?>
 						<aside class="lre-reviews__ledger">
 							<!-- Fiduciary Seal & Metrics Card -->
-							<div class="lre-reviews__trust-pillar">
+							<?php if ( $has_trust_pillar ) : ?>
+							<div class="lre-reviews__trust-pillar<?php echo ! $show_metrics ? ' lre-reviews__trust-pillar--no-metrics' : ''; ?>">
+								<?php if ( $show_seal ) : ?>
 								<div class="lre-reviews__seal-wrap">
 									<div class="lre-reviews__seal-ring">
 										<svg class="lre-reviews__seal-svg" viewBox="0 0 100 100" width="80" height="80">
@@ -1199,7 +1448,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 										<span class="lre-reviews__seal-bottom"><?php echo $seal_bottom; ?></span>
 									</div>
 								</div>
+								<?php endif; ?>
 
+								<?php if ( $show_metrics ) : ?>
 								<!-- Live Trust Metrics -->
 								<div class="lre-reviews__metrics-grid">
 									<div class="lre-reviews__metric-item">
@@ -1215,15 +1466,19 @@ class LRE_Reviews_Widget extends Widget_Base {
 										<span class="lre-reviews__metric-lbl"><?php echo $m3_lbl; ?></span>
 									</div>
 								</div>
+								<?php endif; ?>
 							</div>
+							<?php endif; ?>
 
 							<!-- Ledger Dossier Selector Tabs -->
 							<?php if ( $show_tab_index ) : ?>
 								<div class="lre-reviews__ledger-index" role="tablist" aria-label="<?php esc_attr_e( 'Client Dossier Index', 'luxury-re-widgets' ); ?>">
+									<?php if ( $show_index_header ) : ?>
 									<div class="lre-reviews__index-header">
 										<span class="lre-reviews__index-title"><?php esc_html_e( 'VERIFIED CLIENT DOSSIERS', 'luxury-re-widgets' ); ?></span>
 										<span class="lre-reviews__index-count"><?php echo sprintf( '%02d', $total_reviews ); ?> <?php esc_html_e( 'RECORDS', 'luxury-re-widgets' ); ?></span>
 									</div>
+									<?php endif; ?>
 
 									<div class="lre-reviews__index-items">
 										<?php
@@ -1262,7 +1517,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 												aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>"
 												aria-controls="lre-dossier-<?php echo $idx; ?>"
 												data-index="<?php echo $idx; ?>">
-												<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
+												<?php if ( $show_tab_num ) : ?>
+													<span class="lre-reviews__tab-num"><?php echo sprintf( '%02d', $idx + 1 ); ?></span>
+												<?php endif; ?>
 												<span class="lre-reviews__tab-avatar">
 													<?php if ( $has_avatar ) : ?>
 														<img src="<?php echo $final_avatar; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
@@ -1271,7 +1528,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 												</span>
 												<span class="lre-reviews__tab-content">
 													<strong class="lre-reviews__tab-name"><?php echo $name; ?></strong>
-													<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
+													<?php if ( $show_tab_badges && ! empty( $tx_badge ) ) : ?>
+														<span class="lre-reviews__tab-tx"><?php echo $tx_badge; ?></span>
+													<?php endif; ?>
 												</span>
 												<span class="lre-reviews__tab-arrow" aria-hidden="true">&rarr;</span>
 											</button>
@@ -1280,6 +1539,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 								</div>
 							<?php endif; ?>
 						</aside>
+						<?php endif; ?>
 
 						<!-- RIGHT: The Primary Testimonial Stage & Showcase -->
 						<div class="lre-reviews__stage-main">
@@ -1317,6 +1577,9 @@ class LRE_Reviews_Widget extends Widget_Base {
 									$user_avatar  = ! empty( $r['client_avatar']['url'] ) ? esc_url( $r['client_avatar']['url'] ) : '';
 									$final_avatar = ! empty( $user_avatar ) ? $user_avatar : $fallback_avatar;
 									$has_avatar   = ( 'monogram' !== $avatar_mode ) && ! empty( $final_avatar );
+
+									$has_prop_img    = $show_property_image && ! empty( $prop_img );
+									$has_prop_badges = $show_property_badges && ( ! empty( $tx_badge ) || ! empty( $timing ) );
 									?>
 									<article id="lre-dossier-<?php echo $idx; ?>"
 										class="lre-reviews__dossier-card <?php echo $is_first ? 'is-active' : ''; ?>"
@@ -1325,43 +1588,60 @@ class LRE_Reviews_Widget extends Widget_Base {
 										data-index="<?php echo $idx; ?>">
 
 										<!-- Property Visual Anchor (Atmospheric Luxury Inset) -->
-										<div class="lre-reviews__prop-visual">
-											<?php if ( ! empty( $prop_img ) ) : ?>
+										<?php if ( $has_prop_img || $has_prop_badges ) :
+											$visual_cls = 'lre-reviews__prop-visual';
+											if ( ! $has_prop_img ) {
+												$visual_cls .= ' lre-reviews__prop-visual--badges-only';
+											}
+										?>
+										<div class="<?php echo esc_attr( $visual_cls ); ?>">
+											<?php if ( $has_prop_img ) : ?>
 												<div class="lre-reviews__prop-img-wrap">
 													<img src="<?php echo $prop_img; ?>" alt="<?php echo esc_attr( $tx_badge ); ?>" loading="lazy">
 													<div class="lre-reviews__prop-overlay"></div>
 												</div>
 											<?php endif; ?>
 
-											<div class="lre-reviews__prop-meta">
-												<?php if ( ! empty( $tx_badge ) ) : ?>
-													<span class="lre-reviews__prop-badge">
-														<span class="lre-reviews__badge-dot"></span>
-														<?php echo $tx_badge; ?>
-													</span>
-												<?php endif; ?>
+											<?php if ( $has_prop_badges ) : ?>
+												<div class="lre-reviews__prop-meta">
+													<?php if ( ! empty( $tx_badge ) ) : ?>
+														<span class="lre-reviews__prop-badge">
+															<span class="lre-reviews__badge-dot"></span>
+															<?php echo $tx_badge; ?>
+														</span>
+													<?php endif; ?>
 
-												<?php if ( ! empty( $timing ) ) : ?>
-													<span class="lre-reviews__timing-badge"><?php echo $timing; ?></span>
-												<?php endif; ?>
-											</div>
+													<?php if ( ! empty( $timing ) ) : ?>
+														<span class="lre-reviews__timing-badge"><?php echo $timing; ?></span>
+													<?php endif; ?>
+												</div>
+											<?php endif; ?>
 										</div>
+										<?php endif; ?>
 
 										<!-- Testimonial Editorial Body -->
 										<div class="lre-reviews__dossier-body">
 											<!-- Stars & Monogram Header -->
-											<div class="lre-reviews__dossier-head">
-												<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( sprintf( __( '%d out of 5 stars', 'luxury-re-widgets' ), $stars_count ) ); ?>">
-													<?php for ( $i = 0; $i < $stars_count; $i++ ) : ?>
-														<span class="lre-reviews__star" aria-hidden="true">&#9733;</span>
-													<?php endfor; ?>
+											<?php if ( $show_stars || $show_record_id ) : ?>
+												<div class="lre-reviews__dossier-head">
+													<?php if ( $show_stars ) : ?>
+														<div class="lre-reviews__stars" aria-label="<?php echo esc_attr( sprintf( __( '%d out of 5 stars', 'luxury-re-widgets' ), $stars_count ) ); ?>">
+															<?php for ( $i = 0; $i < $stars_count; $i++ ) : ?>
+																<span class="lre-reviews__star" aria-hidden="true">&#9733;</span>
+															<?php endfor; ?>
+														</div>
+													<?php endif; ?>
+													<?php if ( $show_record_id ) : ?>
+														<span class="lre-reviews__record-id"><?php esc_html_e( 'RECORD REF #', 'luxury-re-widgets' ); ?><?php echo sprintf( '%04d', ( $idx + 1 ) * 142 ); ?></span>
+													<?php endif; ?>
 												</div>
-												<span class="lre-reviews__record-id"><?php esc_html_e( 'RECORD REF #', 'luxury-re-widgets' ); ?><?php echo sprintf( '%04d', ( $idx + 1 ) * 142 ); ?></span>
-											</div>
+											<?php endif; ?>
 
 											<!-- Quote -->
 											<div class="lre-reviews__quote-wrap">
-												<span class="lre-reviews__quote-mark" aria-hidden="true">&ldquo;</span>
+												<?php if ( $show_quote_mark ) : ?>
+													<span class="lre-reviews__quote-mark" aria-hidden="true">&ldquo;</span>
+												<?php endif; ?>
 												<blockquote class="lre-reviews__quote-text">
 													<?php echo $quote; ?>
 												</blockquote>
@@ -1370,30 +1650,34 @@ class LRE_Reviews_Widget extends Widget_Base {
 											<!-- Client Credentials & Notary Verification -->
 											<div class="lre-reviews__author-bar">
 												<div class="lre-reviews__author-left">
-													<div class="lre-reviews__avatar">
-														<?php if ( $has_avatar ) : ?>
-															<img src="<?php echo $final_avatar; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
-														<?php endif; ?>
-														<span class="lre-reviews__monogram" style="<?php echo $has_avatar ? 'display:none;' : 'display:flex;'; ?>"><?php echo $monogram; ?></span>
-													</div>
+													<?php if ( $show_avatar ) : ?>
+														<div class="lre-reviews__avatar">
+															<?php if ( $has_avatar ) : ?>
+																<img src="<?php echo $final_avatar; ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
+															<?php endif; ?>
+															<span class="lre-reviews__monogram" style="<?php echo $has_avatar ? 'display:none;' : 'display:flex;'; ?>"><?php echo $monogram; ?></span>
+														</div>
+													<?php endif; ?>
 
 													<div class="lre-reviews__author-info">
 														<h4 class="lre-reviews__author-name"><?php echo $name; ?></h4>
-														<?php if ( ! empty( $ctitle ) ) : ?>
+														<?php if ( $show_client_title && ! empty( $ctitle ) ) : ?>
 															<span class="lre-reviews__author-title"><?php echo $ctitle; ?></span>
 														<?php endif; ?>
 													</div>
 												</div>
 
 												<!-- Verified Seal Badge (Security Green) -->
-												<div class="lre-reviews__verification-pill" title="<?php esc_attr_e( 'Verified Closing Escrow File', 'luxury-re-widgets' ); ?>">
-													<span class="lre-reviews__verification-dot" aria-hidden="true"></span>
-													<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-														<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-														<path d="m9 12 2 2 4-4"/>
-													</svg>
-													<span><?php esc_html_e( 'VERIFIED TRANSACTION', 'luxury-re-widgets' ); ?></span>
-												</div>
+												<?php if ( $show_verification_badge ) : ?>
+													<div class="lre-reviews__verification-pill" title="<?php esc_attr_e( 'Verified Closing Escrow File', 'luxury-re-widgets' ); ?>">
+														<span class="lre-reviews__verification-dot" aria-hidden="true"></span>
+														<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+															<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+															<path d="m9 12 2 2 4-4"/>
+														</svg>
+														<span><?php esc_html_e( 'VERIFIED TRANSACTION', 'luxury-re-widgets' ); ?></span>
+													</div>
+												<?php endif; ?>
 											</div>
 										</div>
 									</article>

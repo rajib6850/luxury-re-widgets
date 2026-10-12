@@ -176,6 +176,63 @@ class LRE_Reviews_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_pillar_top_border',
+			array(
+				'label'        => __( 'Show Top Decorative Border (Gold Line)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'show_trust_pillar' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'pillar_top_border_color',
+			array(
+				'label'     => __( 'Top Border Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__trust-pillar' => '--lre-rev-pillar-bar-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'show_trust_pillar'      => 'yes',
+					'show_pillar_top_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'pillar_top_border_height',
+			array(
+				'label'      => __( 'Top Border Line Height (px)', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 1,
+						'max'  => 10,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 2,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-reviews__trust-pillar::before' => 'height: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array(
+					'show_trust_pillar'      => 'yes',
+					'show_pillar_top_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'seal_text_top',
 			array(
 				'label'     => __( 'Seal Label (Top)', 'luxury-re-widgets' ),
@@ -906,6 +963,16 @@ class LRE_Reviews_Widget extends Widget_Base {
 				),
 			)
 		);
+		$this->add_control(
+			'pillar_top_border_color_style',
+			array(
+				'label'     => __( 'Trust Pillar Top Accent Line Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .lre-reviews__trust-pillar' => '--lre-rev-pillar-bar-color: {{VALUE}};',
+				),
+			)
+		);
 
 		$this->end_controls_section();
 
@@ -1492,6 +1559,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 		$show_trust_pillar       = ! isset( $settings['show_trust_pillar'] ) || 'yes' === $settings['show_trust_pillar'];
 		$show_seal               = ! isset( $settings['show_seal'] ) || 'yes' === $settings['show_seal'];
 		$show_metrics            = ! isset( $settings['show_metrics'] ) || 'yes' === $settings['show_metrics'];
+		$show_pillar_top_border  = ! isset( $settings['show_pillar_top_border'] ) || 'yes' === $settings['show_pillar_top_border'];
 
 		// Navigation & Control Settings
 		$show_nav                = ( $settings['show_nav'] ?? 'yes' ) === 'yes';
@@ -1573,7 +1641,7 @@ class LRE_Reviews_Widget extends Widget_Base {
 						<aside class="lre-reviews__ledger">
 							<!-- Fiduciary Seal & Metrics Card -->
 							<?php if ( $has_trust_pillar ) : ?>
-							<div class="lre-reviews__trust-pillar<?php echo ! $show_metrics ? ' lre-reviews__trust-pillar--no-metrics' : ''; ?>">
+							<div class="lre-reviews__trust-pillar<?php echo ! $show_metrics ? ' lre-reviews__trust-pillar--no-metrics' : ''; ?><?php echo ! $show_pillar_top_border ? ' lre-reviews__trust-pillar--no-top-bar' : ''; ?>">
 								<?php if ( $show_seal ) : ?>
 								<div class="lre-reviews__seal-wrap">
 									<div class="lre-reviews__seal-ring">

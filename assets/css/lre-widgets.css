@@ -9682,7 +9682,11 @@ body.elementor-editor-active .lre-aserv__watermark {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--rev-gold, #c5a047), rgba(197, 160, 71, 0.15)) !important;
+  background: linear-gradient(90deg, var(--lre-rev-pillar-bar-color, var(--rev-gold, #c5a047)), rgba(197, 160, 71, 0.15)) !important;
+}
+
+.lre-reviews__trust-pillar.lre-reviews__trust-pillar--no-top-bar::before {
+  display: none !important;
 }
 
 .lre-reviews__seal-wrap {

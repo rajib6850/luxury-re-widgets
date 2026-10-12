@@ -186,6 +186,41 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'sold_min_price',
+			array(
+				'label'       => __( 'Minimum Sold Price ($)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => '1000000 or 1M',
+				'description' => __( 'Show only properties sold at or above this amount (e.g. 1000000 or 1M for $1M+). Leave blank to show all prices.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sold_max_price',
+			array(
+				'label'       => __( 'Maximum Sold Price ($)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'e.g. 5000000 or 5M',
+				'description' => __( 'Optional maximum price ceiling. Leave blank for no upper limit.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'sold_exclude_confidential',
+			array(
+				'label'        => __( 'Exclude Confidential Prices', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Hide properties where the sold price is marked Confidential when price filtering is active.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
 			'show_numeric_labels',
 			array(
 				'label'        => __( 'Show Numeric Labels (001, 002...)', 'luxury-re-widgets' ),
@@ -2049,6 +2084,33 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Parse raw price string to pure float value for numeric comparison and sorting.
+	 * Supports formats like '$1,450,000', '1.5M', '$1M', '$850k', '49 Million', etc.
+	 *
+	 * @param string $price_str Raw price text.
+	 * @return float
+	 */
+	public static function parse_price_numeric( $price_str ) {
+		if ( empty( $price_str ) ) {
+			return 0.0;
+		}
+		$str = trim( strtolower( (string) $price_str ) );
+		// Match millions e.g. 1.5M, $1M, 2 million
+		if ( preg_match( '/([\d,.]+)\s*(m|million)/i', $str, $matches ) ) {
+			$num = floatval( str_replace( ',', '', $matches[1] ) );
+			return $num * 1000000.0;
+		}
+		// Match thousands e.g. 850k, 900 thousand
+		if ( preg_match( '/([\d,.]+)\s*(k|thousand)/i', $str, $matches ) ) {
+			$num = floatval( str_replace( ',', '', $matches[1] ) );
+			return $num * 1000.0;
+		}
+		// Standard currency string with commas / dollar signs
+		$clean = preg_replace( '/[^0-9.]/', '', $str );
+		return ! empty( $clean ) ? floatval( $clean ) : 0.0;
+	}
+
+	/**
 	 * Helper method to render a single ledger row HTML.
 	 * Used by both render() and handle_load_sold_portfolio() AJAX handler.
 	 *
@@ -2224,7 +2286,13 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$source          = ! empty( $settings['content_source'] ) ? $settings['content_source'] : 'cpt';
 		$posts_per_page  = ! empty( $settings['posts_per_page'] ) ? max( 1, intval( $settings['posts_per_page'] ) ) : 6;
 		$orderby         = ! empty( $settings['orderby'] ) ? $settings['orderby'] : 'date';
-		$order           = ! empty( $settings['order'] ) ? $settings['order'] : 'DESC';
+		$order           = ! empty( $settings['order'] ) ? strtoupper( $settings['order'] ) : 'DESC';
+
+		$min_price_raw   = ! empty( $settings['sold_min_price'] ) ? trim( $settings['sold_min_price'] ) : '';
+		$max_price_raw   = ! empty( $settings['sold_max_price'] ) ? trim( $settings['sold_max_price'] ) : '';
+		$min_price       = self::parse_price_numeric( $min_price_raw );
+		$max_price       = self::parse_price_numeric( $max_price_raw );
+		$exclude_conf    = ! isset( $settings['sold_exclude_confidential'] ) || 'yes' === $settings['sold_exclude_confidential'];
 
 		$show_filters    = ! empty( $settings['show_filters'] ) && 'yes' === $settings['show_filters'];
 		$show_pagination = ! empty( $settings['show_pagination'] ) && 'yes' === $settings['show_pagination'];
@@ -2256,29 +2324,48 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			$args = array(
 				'post_type'      => 'lre_sold_property',
 				'post_status'    => 'publish',
-				'posts_per_page' => $posts_per_page,
-				'paged'          => $paged,
+				'posts_per_page' => -1, // Candidate set for accurate PHP price filtering & sorting
 			);
 
-			if ( 'price' === $orderby ) {
-				$args['meta_key'] = '_lre_sold_price';
-				$args['orderby']  = 'meta_value_num';
-				$args['order']    = $order;
-			} elseif ( 'title' === $orderby ) {
-				$args['orderby'] = 'title';
-				$args['order']   = $order;
-			} else {
-				$args['orderby'] = 'date';
-				$args['order']   = $order;
-			}
-
 			$query = new \WP_Query( $args );
-			$max_pages = $query->max_num_pages;
+			$all_items = array();
 
 			if ( $query->have_posts() ) {
 				while ( $query->have_posts() ) {
 					$query->the_post();
 					$pid       = get_the_ID();
+					$price     = get_post_meta( $pid, '_lre_sold_price', true );
+					$price_num = self::parse_price_numeric( $price );
+
+					// Parity sync with DB
+					$existing_num = get_post_meta( $pid, '_lre_sold_price_num', true );
+					if ( '' === $existing_num || floatval( $existing_num ) !== $price_num ) {
+						update_post_meta( $pid, '_lre_sold_price_num', $price_num );
+					}
+
+					$is_confidential = ( $price_num <= 0.0 || ( ! empty( $price ) && false !== stripos( (string) $price, 'confidential' ) ) );
+
+					// Filter by Minimum Price (e.g. $1M+)
+					if ( $min_price > 0 ) {
+						if ( $is_confidential ) {
+							if ( $exclude_conf ) {
+								continue;
+							}
+						} elseif ( $price_num < $min_price ) {
+							continue;
+						}
+					}
+
+					// Filter by Maximum Price
+					if ( $max_price > 0 && $price_num > $max_price ) {
+						continue;
+					}
+
+					// Filter: Exclude confidential if requested without explicit price threshold
+					if ( $exclude_conf && $is_confidential && $min_price <= 0 && $max_price <= 0 && ( empty( $price ) || false !== stripos( (string) $price, 'confidential' ) ) ) {
+						continue;
+					}
+
 					$img_url   = get_the_post_thumbnail_url( $pid, 'large' );
 					$terms     = wp_get_post_terms( $pid, 'sold_location', array( 'fields' => 'slugs' ) );
 					$cat_slug  = ! empty( $terms ) ? implode( ' ', $terms ) : '';
@@ -2296,9 +2383,11 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						$desc = '';
 					}
 
-					$entries[] = array(
+					$all_items[] = array(
 						'title'       => get_the_title(),
-						'price'       => get_post_meta( $pid, '_lre_sold_price', true ) ?: 'Confidential',
+						'price'       => ! empty( $price ) ? $price : __( 'Confidential', 'luxury-re-widgets' ),
+						'price_num'   => $price_num,
+						'post_date'   => get_post_time( 'U', true, $pid ),
 						'beds'        => get_post_meta( $pid, '_lre_beds', true ) ?: '',
 						'baths'       => get_post_meta( $pid, '_lre_baths', true ) ?: '',
 						'sqft'        => get_post_meta( $pid, '_lre_sqft', true ) ?: '',
@@ -2310,6 +2399,38 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				}
 				wp_reset_postdata();
 			}
+
+			// Sort accurately in PHP
+			if ( 'price' === $orderby ) {
+				usort( $all_items, function ( $a, $b ) use ( $order ) {
+					if ( $a['price_num'] == $b['price_num'] ) {
+						return 0;
+					}
+					if ( 'ASC' === $order ) {
+						return ( $a['price_num'] < $b['price_num'] ) ? -1 : 1;
+					}
+					return ( $a['price_num'] > $b['price_num'] ) ? -1 : 1;
+				} );
+			} elseif ( 'title' === $orderby ) {
+				usort( $all_items, function ( $a, $b ) use ( $order ) {
+					$res = strcasecmp( $a['title'], $b['title'] );
+					return ( 'ASC' === $order ) ? $res : -$res;
+				} );
+			} else {
+				// Default 'date'
+				usort( $all_items, function ( $a, $b ) use ( $order ) {
+					if ( $a['post_date'] == $b['post_date'] ) {
+						return 0;
+					}
+					if ( 'ASC' === $order ) {
+						return ( $a['post_date'] < $b['post_date'] ) ? -1 : 1;
+					}
+					return ( $a['post_date'] > $b['post_date'] ) ? -1 : 1;
+				} );
+			}
+
+			$max_pages = ceil( count( $all_items ) / $posts_per_page );
+			$entries   = array_slice( $all_items, 0, $posts_per_page );
 
 			// Taxonomies for filter tabs
 			if ( $show_filters ) {
@@ -2323,14 +2444,31 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		} else {
 			// 2. Fetch from Repeater
 			$repeater_items = ! empty( $settings['ledger_items'] ) ? $settings['ledger_items'] : array();
-			$total_repeater = count( $repeater_items );
-			$max_pages      = ceil( $total_repeater / $posts_per_page );
-			$paged_items    = array_slice( $repeater_items, 0, $posts_per_page );
+			$all_items = array();
 
-			foreach ( $paged_items as $item ) {
-				$entries[] = array(
+			foreach ( $repeater_items as $item ) {
+				$raw_p     = ! empty( $item['price'] ) ? $item['price'] : '';
+				$price_num = self::parse_price_numeric( $raw_p );
+				$is_conf   = ( $price_num <= 0.0 || ( ! empty( $raw_p ) && false !== stripos( (string) $raw_p, 'confidential' ) ) );
+
+				if ( $min_price > 0 ) {
+					if ( $is_conf ) {
+						if ( $exclude_conf ) continue;
+					} elseif ( $price_num < $min_price ) {
+						continue;
+					}
+				}
+				if ( $max_price > 0 && $price_num > $max_price ) {
+					continue;
+				}
+				if ( $exclude_conf && $is_conf && $min_price <= 0 && $max_price <= 0 && ( empty( $raw_p ) || false !== stripos( (string) $raw_p, 'confidential' ) ) ) {
+					continue;
+				}
+
+				$all_items[] = array(
 					'title'       => ! empty( $item['title'] ) ? $item['title'] : '',
 					'price'       => ! empty( $item['price'] ) ? $item['price'] : 'Confidential',
+					'price_num'   => $price_num,
 					'beds'        => ! empty( $item['beds'] ) ? $item['beds'] : '',
 					'baths'       => ! empty( $item['baths'] ) ? $item['baths'] : '',
 					'sqft'        => ! empty( $item['sqft'] ) ? $item['sqft'] : '',
@@ -2341,8 +2479,20 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				);
 			}
 
-			if ( $show_filters && ! empty( $repeater_items ) ) {
-				foreach ( $repeater_items as $item ) {
+			if ( 'price' === $orderby ) {
+				usort( $all_items, function ( $a, $b ) use ( $order ) {
+					if ( $a['price_num'] == $b['price_num'] ) return 0;
+					if ( 'ASC' === $order ) return ( $a['price_num'] < $b['price_num'] ) ? -1 : 1;
+					return ( $a['price_num'] > $b['price_num'] ) ? -1 : 1;
+				} );
+			}
+
+			$total_repeater = count( $all_items );
+			$max_pages      = ceil( $total_repeater / $posts_per_page );
+			$entries        = array_slice( $all_items, 0, $posts_per_page );
+
+			if ( $show_filters && ! empty( $all_items ) ) {
+				foreach ( $all_items as $item ) {
 					if ( ! empty( $item['category'] ) ) {
 						$cslug = sanitize_title( $item['category'] );
 						$categories[ $cslug ] = ucwords( str_replace( array( '-', '_' ), ' ', $cslug ) );
@@ -2557,6 +2707,9 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			data-posts-per-page="<?php echo esc_attr( $posts_per_page ); ?>"
 			data-orderby="<?php echo esc_attr( $orderby ); ?>"
 			data-order="<?php echo esc_attr( $order ); ?>"
+			data-min-price="<?php echo esc_attr( $min_price_raw ); ?>"
+			data-max-price="<?php echo esc_attr( $max_price_raw ); ?>"
+			data-exclude-conf="<?php echo $exclude_conf ? 'yes' : 'no'; ?>"
 			data-show-numbers="<?php echo $show_numbers ? 'yes' : 'no'; ?>"
 			data-max-pages="<?php echo esc_attr( $max_pages ); ?>">
 

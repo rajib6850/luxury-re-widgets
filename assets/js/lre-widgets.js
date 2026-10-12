@@ -2621,6 +2621,9 @@
                             ledgerWrap.classList.add( 'is-loading' );
                         }
 
+                        var minPrice = sec.getAttribute( 'data-min-price' ) || '';
+                        var maxPrice = sec.getAttribute( 'data-max-price' ) || '';
+                        var excludeConf = sec.getAttribute( 'data-exclude-conf' ) || 'yes';
                         var showNum = sec.getAttribute( 'data-show-numbers' ) || ( sec.classList.contains( 'lre-ledger--hide-numbers' ) ? 'no' : 'yes' );
                         var formData = new FormData();
                         formData.append( 'action', 'lre_load_sold_portfolio' );
@@ -2629,6 +2632,9 @@
                         formData.append( 'category', category );
                         formData.append( 'orderby', orderby );
                         formData.append( 'order', order );
+                        formData.append( 'min_price', minPrice );
+                        formData.append( 'max_price', maxPrice );
+                        formData.append( 'exclude_conf', excludeConf );
                         formData.append( 'show_num', showNum );
 
                         fetch( ajaxUrl, {

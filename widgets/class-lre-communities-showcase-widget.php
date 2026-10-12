@@ -140,9 +140,10 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		$repeater->add_control(
 			'index_num',
 			array(
-				'label'   => __( 'Index Number (e.g. 01, 02)', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '01',
+				'label'       => __( 'Index Number (e.g. 01, 02)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'Leave blank to omit (e.g. 01)', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -967,7 +968,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 						$img_url   = ! empty( $c['image']['url'] ) ? $c['image']['url'] : lre_asset_url( 'images/property-1.jpg' );
 						$link_url  = ! empty( $c['link']['url'] ) ? esc_url( $c['link']['url'] ) : '#contact';
 						$target    = ! empty( $c['link']['is_external'] ) ? '_blank' : '_self';
-						$index_num = ! empty( $c['index_num'] ) ? $c['index_num'] : sprintf( '%02d', $c_idx + 1 );
+						$index_num = isset( $c['index_num'] ) ? trim( (string) $c['index_num'] ) : '';
 					?>
 					<article class="lre-comm-frame <?php echo esc_attr( $reveal_class ); ?>" data-category="<?php echo esc_attr( $cat_slug ); ?>">
 						<a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="lre-comm-frame__link">
@@ -982,7 +983,9 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 							<!-- Top Corner Index -->
 							<div class="lre-comm-frame__header">
+								<?php if ( '' !== $index_num ) : ?>
 								<span class="lre-comm-frame__index"><?php echo esc_html( $index_num ); ?></span>
+								<?php endif; ?>
 								<?php if ( ! empty( $c['category_label'] ) ) : ?>
 								<span class="lre-comm-frame__category"><?php echo esc_html( $c['category_label'] ); ?></span>
 								<?php endif; ?>

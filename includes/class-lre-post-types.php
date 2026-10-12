@@ -211,12 +211,13 @@ class LRE_Post_Types {
 	 */
 	public function register_meta_fields() {
 		$fields = array(
-			'_lre_sold_price' => 'string',
-			'_lre_beds'       => 'string',
-			'_lre_baths'      => 'string',
-			'_lre_sqft'       => 'string',
-			'_lre_badge'      => 'string',
-			'_lre_city'       => 'string',
+			'_lre_sold_price'     => 'string',
+			'_lre_sold_price_num' => 'number',
+			'_lre_beds'           => 'string',
+			'_lre_baths'          => 'string',
+			'_lre_sqft'           => 'string',
+			'_lre_badge'          => 'string',
+			'_lre_city'           => 'string',
 		);
 
 		foreach ( $fields as $key => $type ) {
@@ -381,6 +382,22 @@ class LRE_Post_Types {
 				$val = call_user_func( $sanitizer, wp_unslash( $_POST[ $form_key ] ) );
 				update_post_meta( $post_id, $meta_key, $val );
 			}
+		}
+
+		// Automatically compute and sync numeric price for fast, accurate SQL querying and filtering
+		if ( isset( $_POST['lre_sold_price'] ) ) {
+			$raw_p = sanitize_text_field( wp_unslash( $_POST['lre_sold_price'] ) );
+			$num_p = 0.0;
+			$str   = trim( strtolower( (string) $raw_p ) );
+			if ( preg_match( '/([\d,.]+)\s*(m|million)/i', $str, $matches ) ) {
+				$num_p = floatval( str_replace( ',', '', $matches[1] ) ) * 1000000.0;
+			} elseif ( preg_match( '/([\d,.]+)\s*(k|thousand)/i', $str, $matches ) ) {
+				$num_p = floatval( str_replace( ',', '', $matches[1] ) ) * 1000.0;
+			} else {
+				$clean = preg_replace( '/[^0-9.]/', '', $str );
+				$num_p = ! empty( $clean ) ? floatval( $clean ) : 0.0;
+			}
+			update_post_meta( $post_id, '_lre_sold_price_num', $num_p );
 		}
 	}
 

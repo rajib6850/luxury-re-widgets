@@ -438,6 +438,50 @@ class LRE_Properties_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'sold_min_price',
+			array(
+				'label'       => __( 'Minimum Sold Price ($)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => '1000000 or 1M',
+				'description' => __( 'Show only properties sold at or above this amount (e.g. 1000000 or 1M for $1M+). Leave blank to show all prices.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_max_price',
+			array(
+				'label'       => __( 'Maximum Sold Price ($)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => 'e.g. 5000000 or 5M',
+				'description' => __( 'Optional maximum price ceiling. Leave blank for no upper limit.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sold_exclude_confidential',
+			array(
+				'label'        => __( 'Exclude Confidential Prices', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Hide properties where the sold price is marked Confidential when price filtering is active.', 'luxury-re-widgets' ),
+				'condition'    => array(
+					'properties_source' => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
 			'sold_default_badge',
 			array(
 				'label'       => __( 'Default Badge Label', 'luxury-re-widgets' ),
@@ -2326,7 +2370,34 @@ class LRE_Properties_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Fetch properties from 'lre_sold_property' Custom Post Type.
+	 * Parse raw price string to pure float value for numeric comparison and sorting.
+	 * Supports formats like '$1,450,000', '1.5M', '$1M', '$850k', '49 Million', etc.
+	 *
+	 * @param string $price_str Raw price text.
+	 * @return float
+	 */
+	protected function parse_price_numeric( $price_str ) {
+		if ( empty( $price_str ) ) {
+			return 0.0;
+		}
+		$str = trim( strtolower( (string) $price_str ) );
+		// Match millions e.g. 1.5M, $1M, 2 million
+		if ( preg_match( '/([\d,.]+)\s*(m|million)/i', $str, $matches ) ) {
+			$num = floatval( str_replace( ',', '', $matches[1] ) );
+			return $num * 1000000.0;
+		}
+		// Match thousands e.g. 850k, 900 thousand
+		if ( preg_match( '/([\d,.]+)\s*(k|thousand)/i', $str, $matches ) ) {
+			$num = floatval( str_replace( ',', '', $matches[1] ) );
+			return $num * 1000.0;
+		}
+		// Standard currency string with commas / dollar signs
+		$clean = preg_replace( '/[^0-9.]/', '', $str );
+		return ! empty( $clean ) ? floatval( $clean ) : 0.0;
+	}
+
+	/**
+	 * Fetch properties from 'lre_sold_property' Custom Post Type with price threshold filtering.
 	 *
 	 * @param array $settings Widget settings.
 	 * @return array
@@ -2334,31 +2405,23 @@ class LRE_Properties_Widget extends Widget_Base {
 	protected function get_sold_properties_listings( $settings ) {
 		$posts_per_page = ! empty( $settings['sold_posts_limit'] ) ? intval( $settings['sold_posts_limit'] ) : 9;
 		$orderby        = ! empty( $settings['sold_orderby'] ) ? $settings['sold_orderby'] : 'date';
-		$order          = ! empty( $settings['sold_order'] ) ? $settings['sold_order'] : 'DESC';
+		$order          = ! empty( $settings['sold_order'] ) ? strtoupper( $settings['sold_order'] ) : 'DESC';
 		$location       = ! empty( $settings['sold_location'] ) ? $settings['sold_location'] : '';
 		$default_badge  = ! empty( $settings['sold_default_badge'] ) ? $settings['sold_default_badge'] : 'SOLD';
 		$badge_gold     = ! empty( $settings['sold_badge_gold'] ) && 'yes' === $settings['sold_badge_gold'];
-		$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'permalink';
+		$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'modal';
+
+		$min_price_raw  = ! empty( $settings['sold_min_price'] ) ? trim( $settings['sold_min_price'] ) : '';
+		$max_price_raw  = ! empty( $settings['sold_max_price'] ) ? trim( $settings['sold_max_price'] ) : '';
+		$min_price      = $this->parse_price_numeric( $min_price_raw );
+		$max_price      = $this->parse_price_numeric( $max_price_raw );
+		$exclude_conf   = ! isset( $settings['sold_exclude_confidential'] ) || 'yes' === $settings['sold_exclude_confidential'];
 
 		$query_args = array(
 			'post_type'      => 'lre_sold_property',
 			'post_status'    => 'publish',
-			'posts_per_page' => $posts_per_page,
+			'posts_per_page' => -1, // Query candidate set for accurate PHP price filtering & sorting
 		);
-
-		if ( 'price' === $orderby ) {
-			$query_args['meta_key'] = '_lre_sold_price';
-			$query_args['orderby']  = 'meta_value_num';
-			$query_args['order']    = $order;
-		} elseif ( 'title' === $orderby ) {
-			$query_args['orderby'] = 'title';
-			$query_args['order']   = $order;
-		} elseif ( 'rand' === $orderby ) {
-			$query_args['orderby'] = 'rand';
-		} else {
-			$query_args['orderby'] = 'date';
-			$query_args['order']   = $order;
-		}
 
 		if ( ! empty( $location ) ) {
 			$query_args['tax_query'] = array(
@@ -2371,12 +2434,44 @@ class LRE_Properties_Widget extends Widget_Base {
 		}
 
 		$query = new \WP_Query( $query_args );
-		$listings = array();
+		$raw_items = array();
 
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$pid = get_the_ID();
+
+				// Price parsing & DB numeric parity
+				$price     = get_post_meta( $pid, '_lre_sold_price', true );
+				$price_num = $this->parse_price_numeric( $price );
+
+				$existing_num = get_post_meta( $pid, '_lre_sold_price_num', true );
+				if ( '' === $existing_num || floatval( $existing_num ) !== $price_num ) {
+					update_post_meta( $pid, '_lre_sold_price_num', $price_num );
+				}
+
+				$is_confidential = ( $price_num <= 0.0 || ( ! empty( $price ) && false !== stripos( (string) $price, 'confidential' ) ) );
+
+				// Filter by Minimum Price (e.g. $1M+)
+				if ( $min_price > 0 ) {
+					if ( $is_confidential ) {
+						if ( $exclude_conf ) {
+							continue;
+						}
+					} elseif ( $price_num < $min_price ) {
+						continue;
+					}
+				}
+
+				// Filter by Maximum Price
+				if ( $max_price > 0 && $price_num > $max_price ) {
+					continue;
+				}
+
+				// Filter: Exclude confidential if requested without explicit price threshold
+				if ( $exclude_conf && $is_confidential && $min_price <= 0 && $max_price <= 0 && ( empty( $price ) || false !== stripos( (string) $price, 'confidential' ) ) ) {
+					continue;
+				}
 
 				// Featured Image
 				$img_url = '';
@@ -2387,8 +2482,6 @@ class LRE_Properties_Widget extends Widget_Base {
 					$img_url = lre_asset_url( 'images/property-2.jpg' );
 				}
 
-				// Price
-				$price = get_post_meta( $pid, '_lre_sold_price', true );
 				if ( empty( $price ) ) {
 					$price = __( 'Confidential', 'luxury-re-widgets' );
 				}
@@ -2442,9 +2535,10 @@ class LRE_Properties_Widget extends Widget_Base {
 					$link_url = '#';
 				}
 
-				$listings[] = array(
+				$raw_items[] = array(
 					'prop_image'       => $img_url,
 					'prop_price'       => $price,
+					'prop_price_num'   => $price_num,
 					'prop_address'     => get_the_title( $pid ),
 					'prop_beds'        => ! empty( $beds ) ? absint( $beds ) : 0,
 					'prop_baths'       => ! empty( $baths ) ? $baths : 0,
@@ -2454,6 +2548,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'prop_location'    => $location,
 					'prop_description' => $desc,
 					'prop_specs_str'   => $specs_str,
+					'post_date'        => get_post_time( 'U', true, $pid ),
 					'is_sold'          => true,
 					'open_modal'       => $is_modal,
 					'prop_url'         => array(
@@ -2464,6 +2559,44 @@ class LRE_Properties_Widget extends Widget_Base {
 				);
 			}
 			wp_reset_postdata();
+		}
+
+		// Sort accurately in PHP
+		if ( 'price' === $orderby ) {
+			usort( $raw_items, function ( $a, $b ) use ( $order ) {
+				if ( $a['prop_price_num'] == $b['prop_price_num'] ) {
+					return 0;
+				}
+				if ( 'ASC' === $order ) {
+					return ( $a['prop_price_num'] < $b['prop_price_num'] ) ? -1 : 1;
+				}
+				return ( $a['prop_price_num'] > $b['prop_price_num'] ) ? -1 : 1;
+			} );
+		} elseif ( 'title' === $orderby ) {
+			usort( $raw_items, function ( $a, $b ) use ( $order ) {
+				$res = strcasecmp( $a['prop_address'], $b['prop_address'] );
+				return ( 'ASC' === $order ) ? $res : -$res;
+			} );
+		} elseif ( 'rand' === $orderby ) {
+			shuffle( $raw_items );
+		} else {
+			// Default 'date'
+			usort( $raw_items, function ( $a, $b ) use ( $order ) {
+				if ( $a['post_date'] == $b['post_date'] ) {
+					return 0;
+				}
+				if ( 'ASC' === $order ) {
+					return ( $a['post_date'] < $b['post_date'] ) ? -1 : 1;
+				}
+				return ( $a['post_date'] > $b['post_date'] ) ? -1 : 1;
+			} );
+		}
+
+		// Slice to the requested posts limit
+		if ( $posts_per_page > 0 ) {
+			$listings = array_slice( $raw_items, 0, $posts_per_page );
+		} else {
+			$listings = $raw_items;
 		}
 
 		return $listings;

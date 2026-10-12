@@ -972,26 +972,28 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					?>
 					<article class="lre-comm-frame <?php echo esc_attr( $reveal_class ); ?>" data-category="<?php echo esc_attr( $cat_slug ); ?>">
 						<a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="lre-comm-frame__link">
-							<!-- Architectural Image with Subtle Slow Zoom -->
+							<!-- Upper Dedicated Image Section -->
 							<div class="lre-comm-frame__media">
 								<img src="<?php echo esc_url( $img_url ); ?>"
 								     alt="<?php echo esc_attr( $c['name'] ); ?>"
 								     class="lre-comm-frame__img"
 								     loading="lazy" width="800" height="1060">
 								<div class="lre-comm-frame__vignette"></div>
+
+								<!-- Top Corner Index & Category (Floats on image) -->
+								<?php if ( '' !== $index_num || ! empty( $c['category_label'] ) ) : ?>
+								<div class="lre-comm-frame__header">
+									<?php if ( '' !== $index_num ) : ?>
+									<span class="lre-comm-frame__index"><?php echo esc_html( $index_num ); ?></span>
+									<?php endif; ?>
+									<?php if ( ! empty( $c['category_label'] ) ) : ?>
+									<span class="lre-comm-frame__category"><?php echo esc_html( $c['category_label'] ); ?></span>
+									<?php endif; ?>
+								</div>
+								<?php endif; ?>
 							</div>
 
-							<!-- Top Corner Index -->
-							<div class="lre-comm-frame__header">
-								<?php if ( '' !== $index_num ) : ?>
-								<span class="lre-comm-frame__index"><?php echo esc_html( $index_num ); ?></span>
-								<?php endif; ?>
-								<?php if ( ! empty( $c['category_label'] ) ) : ?>
-								<span class="lre-comm-frame__category"><?php echo esc_html( $c['category_label'] ); ?></span>
-								<?php endif; ?>
-							</div>
-
-							<!-- Bottom Minimal Narrative -->
+							<!-- Lower Dedicated Content Section -->
 							<div class="lre-comm-frame__footer">
 								<h3 class="lre-comm-frame__name"><?php echo esc_html( $c['name'] ); ?></h3>
 

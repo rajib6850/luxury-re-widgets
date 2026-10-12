@@ -18,9 +18,10 @@ use Elementor\Group_Control_Box_Shadow;
  *
  * Characteristics:
  * - Ultra-minimalist fine-art monograph layout (The Challenge | Our Approach | The Result).
+ * - Multi-image architectural gallery: Top 1 full-width (100%) + Bottom 2 split (50% / 50%).
+ * - Fully adaptive: seamlessly supports 1 image, 2 images, or 3 images per case study.
  * - Generous architectural breathing room and deep obsidian atmosphere.
  * - Sequential alternating editorial chapters (01, 02, 03, 04, 05).
- * - Large-format museum architectural photography with filmic aspect ratios.
  * - Pre-loaded with Adolfo Aguirre's 5 landmark case studies from the Credentials PDF.
  * - 100% Elementor live editor visibility guarantee (zero black screen).
  *
@@ -252,21 +253,56 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 			)
 		);
 
+		// --- Gallery Images (1, 2, or 3 images) ---
+		$repeater->add_control(
+			'heading_gallery_images',
+			array(
+				'label'     => __( 'Photography Gallery (1 to 3 Images)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
 		$repeater->add_control(
 			'chapter_image',
 			array(
-				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array(
+				'label'       => __( 'Image 1 (Main / Top Full Width)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
 					'url' => content_url( 'uploads/2026/09/788-S-Grand-Avenue.jpg' ),
 				),
+				'description' => __( 'Featured photograph. Displays 100% full width at top.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_image_2',
+			array(
+				'label'       => __( 'Image 2 (Bottom Left 50% - Optional)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
+				),
+				'description' => __( 'Optional. Leave empty if you only want 1 image.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_image_3',
+			array(
+				'label'       => __( 'Image 3 (Bottom Right 50% - Optional)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
+					'url' => lre_asset_url( 'images/property-3.jpg' ),
+				),
+				'description' => __( 'Optional. Leave empty if using only 1 or 2 images.', 'luxury-re-widgets' ),
 			)
 		);
 
 		$repeater->add_control(
 			'image_align',
 			array(
-				'label'   => __( 'Media Alignment', 'luxury-re-widgets' ),
+				'label'   => __( 'Media Column Alignment', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => array(
 					'left'  => __( 'Media Left / Narrative Right', 'luxury-re-widgets' ),
@@ -296,6 +332,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						'chapter_detail_label' => 'The Result',
 						'chapter_detail_val'   => 'All-cash sale with a 16-day close; 20+ private showings.',
 						'chapter_image'        => array( 'url' => content_url( 'uploads/2026/09/788-S-Grand-Avenue.jpg' ) ),
+						'chapter_image_2'      => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
+						'chapter_image_3'      => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -310,6 +348,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						'chapter_detail_label' => 'The Result',
 						'chapter_detail_val'   => 'Sold in six days, $100,000 over asking, with 50+ showings.',
 						'chapter_image'        => array( 'url' => content_url( 'uploads/2026/09/555-S-Grand-Avenue.jpg' ) ),
+						'chapter_image_2'      => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
+						'chapter_image_3'      => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ),
 						'image_align'          => 'right',
 					),
 					array(
@@ -324,6 +364,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						'chapter_detail_label' => 'The Result',
 						'chapter_detail_val'   => 'Under contract in 48 hours; sold $150,000 over asking.',
 						'chapter_image'        => array( 'url' => content_url( 'uploads/2026/09/1065-Locust-Street.jpg' ) ),
+						'chapter_image_2'      => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
+						'chapter_image_3'      => array( 'url' => lre_asset_url( 'images/property-7.jpg' ) ),
 						'image_align'          => 'left',
 					),
 					array(
@@ -338,6 +380,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						'chapter_detail_label' => 'The Result',
 						'chapter_detail_val'   => 'Previously listed for six months without offers; relaunched, received multiple offers, and sold $46,000 over asking.',
 						'chapter_image'        => array( 'url' => content_url( 'uploads/2026/09/1841-N-Garfield-Avenue.jpg' ) ),
+						'chapter_image_2'      => array( 'url' => lre_asset_url( 'images/property-8.jpg' ) ),
+						'chapter_image_3'      => array( 'url' => lre_asset_url( 'images/property-9.jpg' ) ),
 						'image_align'          => 'right',
 					),
 					array(
@@ -352,6 +396,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						'chapter_detail_label' => 'The Result',
 						'chapter_detail_val'   => 'Challenging hillside parcel; full-price, all-cash offer secured in about 60 days.',
 						'chapter_image'        => array( 'url' => content_url( 'uploads/2026/09/SOKA_view.jpg' ) ),
+						'chapter_image_2'      => array( 'url' => lre_asset_url( 'images/property-6.jpg' ) ),
+						'chapter_image_3'      => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
 						'image_align'          => 'left',
 					),
 				),
@@ -546,7 +592,8 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#c5a047',
 				'selectors' => array(
-					'{{WRAPPER}} .lre-sguide__eyebrow, {{WRAPPER}} .lre-sguide .lre-sguide__eyebrow' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-sguide__eyebrow, {{WRAPPER}} .lre-sguide .lre-sguide__eyebrow' => 'color: {{VALUE}} !important; -webkit-text-fill-color: {{VALUE}} !important; --sguide-eyebrow-color: {{VALUE}};',
+					'{{WRAPPER}} .lre-sguide__eyebrow-bar, {{WRAPPER}} .lre-sguide .lre-sguide__eyebrow-bar' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1017,20 +1064,42 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		// =================================================================
-		// TAB_STYLE: 8. MUSEUM PHOTOGRAPHY & MEDIA FRAME
+		// TAB_STYLE: 8. MUSEUM PHOTOGRAPHY & MULTI-IMAGE GALLERY
 		// =================================================================
 		$this->start_controls_section(
 			'style_media',
 			array(
-				'label' => __( 'Museum Photography Frame', 'luxury-re-widgets' ),
+				'label' => __( 'Museum Photography Gallery (1, 2 or 3 Images)', 'luxury-re-widgets' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'gallery_gap',
+			array(
+				'label'      => __( 'Gallery Grid Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 4,  'max' => 36 ),
+					'rem' => array( 'min' => 0.2, 'max' => 2.5 ),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 12,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-presults__gallery--2'    => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .lre-presults__gallery--3'    => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .lre-presults__gallery-sub'   => 'gap: {{SIZE}}{{UNIT}};',
+				),
 			)
 		);
 
 		$this->add_responsive_control(
 			'media_aspect_ratio',
 			array(
-				'label'   => __( 'Aspect Ratio', 'luxury-re-widgets' ),
+				'label'   => __( 'Main / Top Image Aspect Ratio', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '16 / 10',
 				'options' => array(
@@ -1041,7 +1110,26 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 					'1 / 1'   => '1:1 Square',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .lre-sguide__media-frame' => 'aspect-ratio: {{VALUE}} !important;',
+					'{{WRAPPER}} .lre-presults__media-frame--main, {{WRAPPER}} .lre-presults__media-frame--single' => 'aspect-ratio: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'sub_media_aspect_ratio',
+			array(
+				'label'   => __( 'Bottom Sub-Images Aspect Ratio', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '16 / 10',
+				'options' => array(
+					'16 / 10' => '16:10 Wide Film (Standard)',
+					'16 / 9'  => '16:9 Cinema Wide',
+					'4 / 3'   => '4:3 Fine Art',
+					'3 / 2'   => '3:2 Classic 35mm',
+					'1 / 1'   => '1:1 Square',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-presults__media-frame--sub, {{WRAPPER}} .lre-presults__gallery--2 .lre-sguide__media-frame' => 'aspect-ratio: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1162,7 +1250,6 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 					<?php foreach ( $chapters as $c_idx => $ch ) :
 						$align        = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
 						$c_num        = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
-						$c_img        = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : lre_asset_url( 'images/property-2.jpg' );
 						$format_mode  = ! empty( $ch['format_mode'] ) ? $ch['format_mode'] : 'breakdown';
 						$det_label    = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : __( 'The Result', 'luxury-re-widgets' );
 						$det_val      = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
@@ -1171,16 +1258,76 @@ class LRE_Proven_Results_Widget extends Widget_Base {
 						$app_label    = ! empty( $ch['approach_label'] ) ? $ch['approach_label'] : __( 'Our Approach', 'luxury-re-widgets' );
 						$app_text     = ! empty( $ch['approach_text'] ) ? $ch['approach_text'] : '';
 						$narrative    = ! empty( $ch['chapter_narrative'] ) ? $ch['chapter_narrative'] : '';
+
+						// Collect valid images (supports 1, 2, or 3 images per item)
+						$img_1 = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : '';
+						$img_2 = ! empty( $ch['chapter_image_2']['url'] ) ? $ch['chapter_image_2']['url'] : '';
+						$img_3 = ! empty( $ch['chapter_image_3']['url'] ) ? $ch['chapter_image_3']['url'] : '';
+
+						$valid_imgs = array();
+						if ( ! empty( $img_1 ) ) {
+							$valid_imgs[] = $img_1;
+						}
+						if ( ! empty( $img_2 ) ) {
+							$valid_imgs[] = $img_2;
+						}
+						if ( ! empty( $img_3 ) ) {
+							$valid_imgs[] = $img_3;
+						}
+						if ( empty( $valid_imgs ) ) {
+							$valid_imgs[] = lre_asset_url( 'images/property-2.jpg' );
+						}
+						$img_count = count( $valid_imgs );
 					?>
 					<article class="lre-sguide__chapter lre-sguide__chapter--<?php echo esc_attr( $align ); ?> <?php echo esc_attr( $reveal_class ); ?>">
 						
-						<!-- Media Column (with signature .image-reveal shutter curtain) -->
-						<div class="lre-sguide__chapter-media">
-							<div class="lre-sguide__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
-								<img src="<?php echo esc_url( $c_img ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
-								<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
-								<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
-							</div>
+						<!-- Media Column (Supports 1, 2, or 3 Images Gallery) -->
+						<div class="lre-sguide__chapter-media lre-presults__media-wrap lre-presults__media-wrap--<?php echo esc_attr( $img_count ); ?>">
+							
+							<?php if ( 1 === $img_count ) : ?>
+								<!-- 1 Image: Full Width Museum Frame -->
+								<div class="lre-sguide__media-frame lre-presults__media-frame lre-presults__media-frame--single image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+									<img src="<?php echo esc_url( $valid_imgs[0] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
+									<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+									<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
+								</div>
+
+							<?php elseif ( 2 === $img_count ) : ?>
+								<!-- 2 Images: 50% / 50% Side-by-Side Gallery -->
+								<div class="lre-presults__gallery lre-presults__gallery--2">
+									<div class="lre-sguide__media-frame lre-presults__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+										<img src="<?php echo esc_url( $valid_imgs[0] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
+										<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+										<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
+									</div>
+									<div class="lre-sguide__media-frame lre-presults__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+										<img src="<?php echo esc_url( $valid_imgs[1] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?> (Secondary)" loading="lazy" class="lre-sguide__chapter-img">
+										<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+									</div>
+								</div>
+
+							<?php else : ?>
+								<!-- 3 Images: Top Full Width (100%) + Bottom 2 Split (50% / 50%) -->
+								<div class="lre-presults__gallery lre-presults__gallery--3">
+									<div class="lre-sguide__media-frame lre-presults__media-frame lre-presults__media-frame--main image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+										<img src="<?php echo esc_url( $valid_imgs[0] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-sguide__chapter-img">
+										<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+										<span class="lre-sguide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
+									</div>
+									<div class="lre-presults__gallery-sub">
+										<div class="lre-sguide__media-frame lre-presults__media-frame lre-presults__media-frame--sub image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+											<img src="<?php echo esc_url( $valid_imgs[1] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?> (Detail 1)" loading="lazy" class="lre-sguide__chapter-img">
+											<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+										</div>
+										<div class="lre-sguide__media-frame lre-presults__media-frame lre-presults__media-frame--sub image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+											<img src="<?php echo esc_url( $valid_imgs[2] ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?> (Detail 2)" loading="lazy" class="lre-sguide__chapter-img">
+											<div class="lre-sguide__chapter-scrim" aria-hidden="true"></div>
+										</div>
+									</div>
+								</div>
+
+							<?php endif; ?>
+
 						</div>
 
 						<!-- Narrative Column -->

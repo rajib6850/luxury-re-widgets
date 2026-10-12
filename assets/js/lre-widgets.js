@@ -2395,7 +2395,13 @@
                             credentials: 'same-origin'
                         } )
                         .then( function ( response ) {
-                            return response.json();
+                            return response.text().then( function ( text ) {
+                                try {
+                                    return JSON.parse( text );
+                                } catch ( parseErr ) {
+                                    throw new Error( text || 'Invalid server response' );
+                                }
+                            } );
                         } )
                         .then( function ( data ) {
                             if ( data && data.success ) {

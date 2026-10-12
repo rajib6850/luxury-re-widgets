@@ -109,6 +109,65 @@ class LRE_FollowUpBoss {
 	}
 
 	/**
+	 * Checks if Follow Up Boss integration is configured with an active API key.
+	 *
+	 * @param string $override_key Optional widget-level key override.
+	 * @return bool
+	 */
+	public function is_configured( $override_key = '' ) {
+		$key = $this->get_api_key( $override_key );
+		return ! empty( $key );
+	}
+
+	/**
+	 * Creates or updates a lead in Follow Up Boss via the Events API.
+	 * Acts as a resilient bridge for lead ingestion across all widgets.
+	 *
+	 * @param array  $lead_data Raw lead payload.
+	 * @param string $override_key Optional widget-level key override.
+	 * @return array Result array from send_event.
+	 */
+	public function create_lead( $lead_data, $override_key = '' ) {
+		if ( ! is_array( $lead_data ) ) {
+			return array(
+				'success' => false,
+				'message' => __( 'Invalid lead data.', 'luxury-re-widgets' ),
+			);
+		}
+
+		$event_data = $lead_data;
+
+		// Map alternate keys to standard event_data keys
+		if ( empty( $event_data['email'] ) && ! empty( $lead_data['emails'] ) && is_array( $lead_data['emails'] ) ) {
+			$first_email = reset( $lead_data['emails'] );
+			$event_data['email'] = is_array( $first_email ) && isset( $first_email['value'] ) ? $first_email['value'] : ( is_string( $first_email ) ? $first_email : '' );
+		}
+
+		if ( empty( $event_data['phone'] ) && ! empty( $lead_data['phones'] ) && is_array( $lead_data['phones'] ) ) {
+			$first_phone = reset( $lead_data['phones'] );
+			$event_data['phone'] = is_array( $first_phone ) && isset( $first_phone['value'] ) ? $first_phone['value'] : ( is_string( $first_phone ) ? $first_phone : '' );
+		}
+
+		if ( empty( $event_data['first_name'] ) && ! empty( $lead_data['firstName'] ) ) {
+			$event_data['first_name'] = $lead_data['firstName'];
+		}
+
+		if ( empty( $event_data['last_name'] ) && ! empty( $lead_data['lastName'] ) ) {
+			$event_data['last_name'] = $lead_data['lastName'];
+		}
+
+		if ( empty( $event_data['description'] ) && ! empty( $lead_data['note'] ) ) {
+			$event_data['description'] = $lead_data['note'];
+		}
+
+		if ( empty( $event_data['type'] ) ) {
+			$event_data['type'] = 'Valuation Request';
+		}
+
+		return $this->send_event( $event_data, $override_key );
+	}
+
+	/**
 	 * Transmits an Event to Follow Up Boss.
 	 * Follow Up Boss Events API creates or updates the person, records the message,
 	 * applies tags, and triggers action plans.
@@ -193,6 +252,14 @@ class LRE_FollowUpBoss {
 			'description' => ! empty( $event_data['description'] ) ? sanitize_textarea_field( $event_data['description'] ) : '',
 			'person'      => $person,
 		);
+
+		if ( ! empty( $event_data['property'] ) && is_array( $event_data['property'] ) ) {
+			$payload['property'] = $event_data['property'];
+		} elseif ( ! empty( $event_data['propertyAddress'] ) ) {
+			$payload['property'] = array(
+				'street' => sanitize_text_field( $event_data['propertyAddress'] ),
+			);
+		}
 
 		$endpoint = self::API_BASE_URL . 'events';
 

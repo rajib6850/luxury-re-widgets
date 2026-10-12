@@ -545,24 +545,32 @@ class LRE_Ajax_Handler {
 
 		// Follow Up Boss Lead Sync
 		if ( class_exists( "LRE_FollowUpBoss" ) && method_exists( "LRE_FollowUpBoss", "instance" ) ) {
-			$fub = LRE_FollowUpBoss::instance();
-			if ( $fub->is_configured() ) {
-				$fub_note = "=== HOME VALUATION REQUEST ===\n";
-				foreach ( $submitted_fields as $k => $v ) {
-					$fub_note .= $k . ": " . $v . "\n";
+			try {
+				$fub = LRE_FollowUpBoss::instance();
+				if ( $fub->is_configured() ) {
+					$fub_note = "=== HOME VALUATION REQUEST ===\n";
+					foreach ( $submitted_fields as $k => $v ) {
+						$fub_note .= $k . ": " . $v . "\n";
+					}
+					$fub->send_event( array(
+						'first_name'      => ! empty( $client_first ) ? $client_first : $client_name,
+						'last_name'       => $client_last,
+						'name'            => $client_name,
+						'email'           => $client_email,
+						'phone'           => $client_phone,
+						'source'          => 'Website - Home Valuation Page',
+						'type'            => 'Valuation Request',
+						'stage'           => 'Lead',
+						'tags'            => array( 'Website Lead', 'Home Valuation Request', 'Adolfo Aguirre', 'Seller Lead' ),
+						'message'         => 'Valuation Request' . ( $address_val ? ' for ' . $address_val : '' ),
+						'description'     => $fub_note,
+						'propertyAddress' => $address_val,
+					) );
 				}
-				$fub->create_lead( array(
-					"firstName"  => ! empty( $client_first ) ? $client_first : $client_name,
-					"lastName"   => $client_last,
-					"name"       => $client_name,
-					"emails"     => array( array( "value" => $client_email ) ),
-					"phones"     => ! empty( $client_phone ) ? array( array( "value" => $client_phone ) ) : array(),
-					"source"     => "Website - Home Valuation Page",
-					"stage"      => "Lead",
-					"tags"       => array( "Website Lead", "Home Valuation Request", "Adolfo Aguirre", "Seller Lead" ),
-					"note"       => $fub_note,
-					"propertyAddress" => $address_val,
-				) );
+			} catch ( \Throwable $fub_err ) {
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					error_log( 'LRE Home Valuation FUB sync error: ' . $fub_err->getMessage() );
+				}
 			}
 		}
 
@@ -584,7 +592,13 @@ class LRE_Ajax_Handler {
 			$headers[] = "Reply-To: " . ( $client_name ? $client_name : $client_email ) . " <" . $client_email . ">";
 		}
 
-		wp_mail( $admin_email_to, $subject, $message_body, $headers );
+		try {
+			wp_mail( $admin_email_to, $subject, $message_body, $headers );
+		} catch ( \Throwable $mail_err ) {
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				error_log( 'LRE Home Valuation admin mail error: ' . $mail_err->getMessage() );
+			}
+		}
 
 		// Client Autoresponder
 		$enable_auto = isset( $_POST["enable_client_autoresponder"] ) ? sanitize_text_field( wp_unslash( $_POST["enable_client_autoresponder"] ) ) : "yes";
@@ -597,13 +611,19 @@ class LRE_Ajax_Handler {
 				. "<p>Thank you for requesting a confidential market valuation for your property" . ( $address_val ? " at <strong>" . esc_html( $address_val ) . "</strong>" : "" ) . ".</p>\n"
 				. "<p>Your property details have been securely received. Adolfo Aguirre is personally conducting a precision micro-market analysis, accounting for recent comparable sales, architectural provenance, and current buyer velocity in your community.</p>\n"
 				. "<p>A comprehensive valuation dossier will be prepared and delivered to you within 24–48 hours.</p>\n"
-				. "<br><p>Warm regards,<br><strong>Adolfo Aguirre</strong><br>SERHANT. Los Angeles<br>DRE #02096534<br>(310) 346-6380</p>";
+				. "<br><p>Warm regards,<br><strong>Adolfo Aguirre</strong><br>SERHANT. Los Angeles<br>DRE #02094212<br>(310) 346-6380</p>";
 
 			$auto_headers = array(
 				"Content-Type: text/html; charset=UTF-8",
 				"From: " . $sender_name . " <" . $sender_email . ">",
 			);
-			wp_mail( $client_email, $client_subj, $auto_msg, $auto_headers );
+			try {
+				wp_mail( $client_email, $client_subj, $auto_msg, $auto_headers );
+			} catch ( \Throwable $auto_err ) {
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					error_log( 'LRE Home Valuation client autoresponder mail error: ' . $auto_err->getMessage() );
+				}
+			}
 		}
 
 		wp_send_json_success( array(

@@ -821,6 +821,315 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		// --- STYLE: ENCLAVE IMAGE & MEDIA ---
+		$this->start_controls_section(
+			'style_image',
+			array(
+				'label' => __( 'Enclave Image & Media', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// 1. Image Height / Sizing
+		$this->add_responsive_control(
+			'image_height',
+			array(
+				'label'       => __( 'Image Height (Optional Override)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', 'vh', 'rem', 'em' ),
+				'range'       => array(
+					'px'  => array(
+						'min'  => 180,
+						'max'  => 700,
+						'step' => 5,
+					),
+					'vh'  => array(
+						'min'  => 20,
+						'max'  => 80,
+						'step' => 1,
+					),
+					'rem' => array(
+						'min'  => 12,
+						'max'  => 50,
+						'step' => 1,
+					),
+				),
+				'description' => __( 'Explicit height overrides aspect ratio. Leave empty to use aspect ratio.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-comm-frame__media' => 'height: {{SIZE}}{{UNIT}} !important; min-height: {{SIZE}}{{UNIT}} !important; aspect-ratio: unset !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_aspect_ratio',
+			array(
+				'label'     => __( 'Aspect Ratio', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '16/11.5',
+				'options'   => array(
+					'16/11.5' => __( '16:11.5 (Taller Luxury - Default)', 'luxury-re-widgets' ),
+					'16/10'   => __( '16:10 (Original Landscape)', 'luxury-re-widgets' ),
+					'4/3'     => __( '4:3 (Classic Editorial)', 'luxury-re-widgets' ),
+					'1/1'     => __( '1:1 (Square)', 'luxury-re-widgets' ),
+					'3/4'     => __( '3:4 (Portrait Tall)', 'luxury-re-widgets' ),
+					'16/9'    => __( '16:9 (Cinema Widescreen)', 'luxury-re-widgets' ),
+					'custom'  => __( 'Custom Aspect Ratio', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__media' => 'aspect-ratio: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_aspect_ratio_custom',
+			array(
+				'label'       => __( 'Custom Aspect Ratio Formula', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => '16/12 or 3/2',
+				'condition'   => array(
+					'image_aspect_ratio' => 'custom',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .lre-comm-frame__media' => 'aspect-ratio: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		// 2. Object Fit & Position
+		$this->add_responsive_control(
+			'image_object_fit',
+			array(
+				'label'     => __( 'Object Fit', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'cover',
+				'options'   => array(
+					'cover'   => __( 'Cover (Fill & Crop)', 'luxury-re-widgets' ),
+					'contain' => __( 'Contain (Fit Whole Image)', 'luxury-re-widgets' ),
+					'fill'    => __( 'Fill (Stretch to Edges)', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__img' => 'object-fit: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_object_position',
+			array(
+				'label'     => __( 'Object Position', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'luxury-re-widgets' ),
+					'top center'    => __( 'Top Center', 'luxury-re-widgets' ),
+					'bottom center' => __( 'Bottom Center', 'luxury-re-widgets' ),
+					'center left'   => __( 'Center Left', 'luxury-re-widgets' ),
+					'center right'  => __( 'Center Right', 'luxury-re-widgets' ),
+					'top left'      => __( 'Top Left', 'luxury-re-widgets' ),
+					'top right'     => __( 'Top Right', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__img' => 'object-position: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		// 3. Border Radius
+		$this->add_responsive_control(
+			'image_border_radius',
+			array(
+				'label'      => __( 'Image Container Border Radius', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-comm-frame__media' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		// 4. Hover Animation & Zoom
+		$this->add_control(
+			'heading_image_hover_anim',
+			array(
+				'label'     => __( 'Hover Animation & Scale', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'image_hover_zoom',
+			array(
+				'label'        => __( 'Enable Hover Zoom Effect', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
+				'label_off'    => __( 'No', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'image_hover_scale',
+			array(
+				'label'     => __( 'Hover Scale Factor', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 1.0,
+						'max'  => 1.3,
+						'step' => 0.01,
+					),
+				),
+				'default'   => array(
+					'size' => 1.05,
+				),
+				'condition' => array(
+					'image_hover_zoom' => 'yes',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__img' => 'transform: scale({{SIZE}}) !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'image_hover_duration',
+			array(
+				'label'     => __( 'Zoom Transition Duration (seconds)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.3,
+						'max'  => 3.0,
+						'step' => 0.1,
+					),
+				),
+				'default'   => array(
+					'size' => 1.2,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__img' => 'transition-duration: {{SIZE}}s !important;',
+				),
+			)
+		);
+
+		// 5. Brightness & Filter
+		$this->add_control(
+			'heading_image_filters',
+			array(
+				'label'     => __( 'Brightness & Tone', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'image_brightness',
+			array(
+				'label'     => __( 'Normal Brightness', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.4,
+						'max'  => 1.5,
+						'step' => 0.05,
+					),
+				),
+				'default'   => array(
+					'size' => 0.95,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__img' => 'filter: brightness({{SIZE}}) !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'image_hover_brightness',
+			array(
+				'label'     => __( 'Hover Brightness', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.4,
+						'max'  => 1.5,
+						'step' => 0.05,
+					),
+				),
+				'default'   => array(
+					'size' => 1.0,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame:hover .lre-comm-frame__img' => 'filter: brightness({{SIZE}}) !important;',
+				),
+			)
+		);
+
+		// 6. Vignette / Dark Overlay
+		$this->add_control(
+			'heading_image_overlay',
+			array(
+				'label'     => __( 'Dark Gradient Overlay (Vignette)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'show_image_vignette',
+			array(
+				'label'        => __( 'Show Gradient Vignette', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'vignette_opacity',
+			array(
+				'label'     => __( 'Overlay Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1,
+						'step' => 0.05,
+					),
+				),
+				'default'   => array(
+					'size' => 1,
+				),
+				'condition' => array(
+					'show_image_vignette' => 'yes',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__vignette' => 'opacity: {{SIZE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'vignette_bottom_color',
+			array(
+				'label'     => __( 'Bottom Shadow Tint', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'show_image_vignette' => 'yes',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lre-comm-frame__vignette' => 'background: linear-gradient(180deg, rgba(8, 8, 12, 0.35) 0%, rgba(8, 8, 12, 0.15) 40%, {{VALUE}} 100%) !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -978,7 +1287,9 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 								     alt="<?php echo esc_attr( $c['name'] ); ?>"
 								     class="lre-comm-frame__img"
 								     loading="lazy" width="800" height="1060">
+								<?php if ( ! isset( $settings['show_image_vignette'] ) || 'yes' === $settings['show_image_vignette'] ) : ?>
 								<div class="lre-comm-frame__vignette"></div>
+								<?php endif; ?>
 
 								<!-- Top Corner Index & Category (Floats on image) -->
 								<?php if ( '' !== $index_num || ! empty( $c['category_label'] ) ) : ?>

@@ -11655,7 +11655,8 @@ body.elementor-editor-active .lre-phero__scroll-hint {
 .lre-comm-frame__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 11.5;
+  min-height: 270px;
   overflow: hidden;
   flex-shrink: 0;
   background-color: #121218;
@@ -11666,12 +11667,12 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.92);
+  filter: brightness(0.95);
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
 }
 
 .lre-comm-frame:hover .lre-comm-frame__img {
-  transform: scale(1.04);
+  transform: scale(1.05);
   filter: brightness(1);
 }
 
@@ -11680,6 +11681,7 @@ body.elementor-editor-active .lre-phero__scroll-hint {
   inset: 0;
   background: linear-gradient(180deg, rgba(8, 8, 12, 0.35) 0%, rgba(8, 8, 12, 0.15) 40%, rgba(8, 8, 12, 0.92) 100%);
   transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 /* Top Corner Index & Category (Floats on image) */
@@ -11801,9 +11803,6 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  .lre-comm-frame {
-    aspect-ratio: 4 / 5;
-  }
 }
 
 @media (max-width: 767px) {
@@ -11866,12 +11865,6 @@ body.elementor-editor-active .lre-phero__scroll-hint {
     gap: 1.35rem;
     max-width: 100%;
     margin: 0 auto;
-  }
-  .lre-comm-frame {
-    aspect-ratio: 4 / 5;
-  }
-  .lre-comm-frame__link {
-    padding: 1.75rem 1.4rem;
   }
   .lre-comm-frame__name {
     font-size: 1.45rem;

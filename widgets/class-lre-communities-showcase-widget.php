@@ -648,6 +648,40 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'card_height',
+			array(
+				'label'      => __( 'Card Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vh', 'rem' ),
+				'range'      => array(
+					'px'  => array(
+						'min'  => 250,
+						'max'  => 900,
+						'step' => 5,
+					),
+					'%'   => array(
+						'min'  => 10,
+						'max'  => 100,
+						'step' => 1,
+					),
+					'vh'  => array(
+						'min'  => 20,
+						'max'  => 100,
+						'step' => 1,
+					),
+					'rem' => array(
+						'min'  => 15,
+						'max'  => 60,
+						'step' => 1,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lre-comm-frame' => 'height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_card_box' );
 
 		// Normal Tab
@@ -931,12 +965,17 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Image Height (Optional Override)', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::SLIDER,
-				'size_units'  => array( 'px', 'vh', 'rem', 'em' ),
+				'size_units'  => array( 'px', '%', 'vh', 'rem', 'em' ),
 				'range'       => array(
 					'px'  => array(
 						'min'  => 180,
 						'max'  => 700,
 						'step' => 5,
+					),
+					'%'   => array(
+						'min'  => 10,
+						'max'  => 100,
+						'step' => 1,
 					),
 					'vh'  => array(
 						'min'  => 20,
@@ -944,6 +983,11 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 						'step' => 1,
 					),
 					'rem' => array(
+						'min'  => 12,
+						'max'  => 50,
+						'step' => 1,
+					),
+					'em'  => array(
 						'min'  => 12,
 						'max'  => 50,
 						'step' => 1,

@@ -579,9 +579,12 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Card Height', 'luxury-re-widgets' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'vh' ),
+				'size_units' => array( 'px', '%', 'vh', 'rem' ),
 				'range'      => array(
-					'px' => array( 'min' => 250, 'max' => 650, 'step' => 10 ),
+					'px'  => array( 'min' => 200, 'max' => 800, 'step' => 10 ),
+					'%'   => array( 'min' => 10,  'max' => 100, 'step' => 1 ),
+					'vh'  => array( 'min' => 15,  'max' => 100, 'step' => 1 ),
+					'rem' => array( 'min' => 15,  'max' => 60,  'step' => 1 ),
 				),
 				'default'    => array(
 					'size' => 390,

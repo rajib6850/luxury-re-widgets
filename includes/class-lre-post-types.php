@@ -99,6 +99,45 @@ class LRE_Post_Types {
 		);
 
 		register_post_type( 'lre_sold_property', $args );
+
+		// Fallback registration for 'neighborhoods' CPT if not already registered (e.g. if ACF is inactive or during migration)
+		if ( ! post_type_exists( 'neighborhoods' ) ) {
+			$labels_neigh = array(
+				'name'                  => _x( 'Neighborhoods', 'Post type general name', 'luxury-re-widgets' ),
+				'singular_name'         => _x( 'Neighborhood', 'Post type singular name', 'luxury-re-widgets' ),
+				'menu_name'             => _x( 'Neighborhoods', 'Admin Menu text', 'luxury-re-widgets' ),
+				'name_admin_bar'        => _x( 'Neighborhood', 'Add New on Toolbar', 'luxury-re-widgets' ),
+				'add_new'               => __( 'Add New', 'luxury-re-widgets' ),
+				'add_new_item'          => __( 'Add New Neighborhood', 'luxury-re-widgets' ),
+				'new_item'              => __( 'New Neighborhood', 'luxury-re-widgets' ),
+				'edit_item'             => __( 'Edit Neighborhood', 'luxury-re-widgets' ),
+				'view_item'             => __( 'View Neighborhood', 'luxury-re-widgets' ),
+				'all_items'             => __( 'All Neighborhoods', 'luxury-re-widgets' ),
+				'search_items'          => __( 'Search Neighborhoods', 'luxury-re-widgets' ),
+				'not_found'             => __( 'No neighborhoods found.', 'luxury-re-widgets' ),
+				'not_found_in_trash'    => __( 'No neighborhoods found in Trash.', 'luxury-re-widgets' ),
+			);
+
+			register_post_type(
+				'neighborhoods',
+				array(
+					'labels'             => $labels_neigh,
+					'public'             => true,
+					'publicly_queryable' => true,
+					'show_ui'            => true,
+					'show_in_menu'       => true,
+					'query_var'          => true,
+					'rewrite'            => array( 'slug' => 'neighborhoods', 'with_front' => false ),
+					'capability_type'    => 'post',
+					'has_archive'        => true,
+					'hierarchical'       => false,
+					'menu_position'      => 22,
+					'menu_icon'          => 'dashicons-location-alt',
+					'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+					'show_in_rest'       => true,
+				)
+			);
+		}
 	}
 
 	/**

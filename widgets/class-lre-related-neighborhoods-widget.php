@@ -130,10 +130,10 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'auto',
 				'options'     => array(
-					'auto'   => __( 'Automatic (Dynamic Context - Exclude Current)', 'luxury-re-widgets' ),
+					'auto'   => __( 'Automatic (ACF CPT: Neighborhoods)', 'luxury-re-widgets' ),
 					'manual' => __( 'Manual Custom List (Repeater)', 'luxury-re-widgets' ),
 				),
-				'description' => __( 'Automatic mode queries sibling communities under /communities/, smartly excludes the active page, and pulls featured images & taglines.', 'luxury-re-widgets' ),
+				'description' => __( 'Automatic mode queries published posts from the custom post type "neighborhoods" (created via ACF), safely reads the "subtitle" field (with ACF & postmeta fallbacks), and displays featured photography.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -153,14 +153,49 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'orderby',
+			array(
+				'label'     => __( 'Order By', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'menu_order',
+				'options'   => array(
+					'menu_order' => __( 'Menu Order', 'luxury-re-widgets' ),
+					'title'      => __( 'Title (A-Z)', 'luxury-re-widgets' ),
+					'date'       => __( 'Date Published', 'luxury-re-widgets' ),
+					'rand'       => __( 'Random', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'query_mode' => 'auto',
+				),
+			)
+		);
+
+		$this->add_control(
+			'order',
+			array(
+				'label'     => __( 'Order Direction', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'ASC',
+				'options'   => array(
+					'ASC'  => __( 'Ascending (ASC)', 'luxury-re-widgets' ),
+					'DESC' => __( 'Descending (DESC)', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'query_mode' => 'auto',
+				),
+			)
+		);
+
+		$this->add_control(
 			'exclude_current',
 			array(
-				'label'        => __( 'Exclude Current Community', 'luxury-re-widgets' ),
+				'label'        => __( 'Exclude Current Neighborhood Post', 'luxury-re-widgets' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'label_on'     => __( 'Yes', 'luxury-re-widgets' ),
 				'label_off'    => __( 'No', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
+				'description'  => __( 'When viewed on a single neighborhood page, automatically omits itself from the related cards.', 'luxury-re-widgets' ),
 				'condition'    => array(
 					'query_mode' => 'auto',
 				),
@@ -814,7 +849,8 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Resolves community items automatically based on current page and WordPress database.
+	 * Resolves neighborhood items automatically from the 'neighborhoods' Custom Post Type.
+	 * Reads title, permalink, featured photography, and the ACF 'subtitle' field safely.
 	 *
 	 * @param array $settings
 	 * @return array
@@ -824,124 +860,63 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 		$exclude_current = ( $settings['exclude_current'] ?? 'yes' ) === 'yes';
 		$target_count    = ! empty( $settings['posts_per_page'] ) ? intval( $settings['posts_per_page'] ) : 3;
 		$include_hub     = ( $settings['include_hub_card'] ?? 'yes' ) === 'yes';
+		$orderby         = ! empty( $settings['orderby'] ) ? sanitize_key( $settings['orderby'] ) : 'menu_order';
+		$order           = ! empty( $settings['order'] ) ? sanitize_key( $settings['order'] ) : 'ASC';
 
-		// Curated fallback metadata map for Southern California enclaves
-		$known_metadata = array(
-			'pasadena' => array(
-				'name'    => 'Pasadena',
-				'tagline' => 'Historic Craftsman Enclaves, Arroyo Seco Seclusion & Landmark Cultural Heritage',
-				'image'   => lre_asset_url( 'images/property-1.jpg' ),
-			),
-			'san-marino' => array(
-				'name'    => 'San Marino',
-				'tagline' => 'Stately Acreage, Huntington District Pedigree & Timeless Generational Wealth',
-				'image'   => lre_asset_url( 'images/property-4.jpg' ),
-			),
-			'los-angeles' => array(
-				'name'    => 'Los Angeles',
-				'tagline' => 'Iconic Hillside Panoramas, Modernist Masterpieces & Private Westside Compounds',
-				'image'   => lre_asset_url( 'images/property-5.jpg' ),
-			),
-			'pacific-palisades' => array(
-				'name'    => 'Pacific Palisades',
-				'tagline' => 'Dramatic Ocean Bluffs, Coastal Solitude & Riviera Acreage',
-				'image'   => lre_asset_url( 'images/property-2.jpg' ),
-			),
-			'bel-air' => array(
-				'name'    => 'Bel Air',
-				'tagline' => 'Legendary Acreage, Guard-Gated Privacy & Storied Pedigree',
-				'image'   => lre_asset_url( 'images/property-6.jpg' ),
-			),
-			'beverly-hills' => array(
-				'name'    => 'Beverly Hills',
-				'tagline' => 'Historic Manors, Palm-Lined Grandeur & World-Renowned Refinement',
-				'image'   => lre_asset_url( 'images/property-7.jpg' ),
-			),
-			'malibu' => array(
-				'name'    => 'Malibu',
-				'tagline' => 'Barefoot Splendor, Private Waterfront Compounds & Pacific Sunsets',
-				'image'   => lre_asset_url( 'images/property-8.jpg' ),
-			),
-			'brentwood' => array(
-				'name'    => 'Brentwood Park',
-				'tagline' => 'Sycamore Compounds, Country Ambience & Timeless Calm',
-				'image'   => lre_asset_url( 'images/property-9.jpg' ),
-			),
-		);
+		// Calculate how many CPT items to query before appending hub card
+		$max_cpt_items = $include_hub ? max( 1, $target_count - 1 ) : $target_count;
 
-		// Determine parent community hub page
-		$parent_id = $current_id ? wp_get_post_parent_id( $current_id ) : 0;
-		if ( ! $parent_id ) {
-			$comm_hub = get_page_by_path( 'communities' );
-			if ( $comm_hub ) {
-				$parent_id = $comm_hub->ID;
-			}
+		$exclude_ids = array();
+		if ( $exclude_current && $current_id ) {
+			$exclude_ids[] = (int) $current_id;
 		}
 
+		// 1. Query Custom Post Type 'neighborhoods' (supports plural and singular)
 		$query_args = array(
-			'post_type'      => 'page',
+			'post_type'      => array( 'neighborhoods', 'neighborhood' ),
 			'post_status'    => 'publish',
-			'posts_per_page' => 12,
-			'orderby'        => 'menu_order title',
-			'order'          => 'ASC',
+			'posts_per_page' => $max_cpt_items,
+			'orderby'        => $orderby,
+			'order'          => $order,
+			'post__not_in'   => $exclude_ids,
 		);
 
-		if ( $parent_id ) {
-			$query_args['post_parent'] = $parent_id;
-		} else {
-			$query_args['post_name__in'] = array_keys( $known_metadata );
-		}
-
-		$pages = get_posts( $query_args );
+		$posts = get_posts( $query_args );
 		$items = array();
 
-		// Calculate how many sibling community items to take before appending hub
-		$max_sibling_items = $include_hub ? max( 1, $target_count - 1 ) : $target_count;
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $p ) {
+				$post_id = $p->ID;
+				$name    = get_the_title( $post_id );
+				$url     = get_permalink( $post_id );
 
-		if ( ! empty( $pages ) ) {
-			foreach ( $pages as $p ) {
-				// Exclude current community page if enabled
-				if ( $exclude_current && (int) $p->ID === (int) $current_id ) {
-					continue;
-				}
-
-				$slug    = $p->post_name;
-				$name    = $p->post_title;
-				$url     = get_permalink( $p->ID );
+				// 1. Safely resolve Subtitle (ACF Safeguard)
 				$tagline = '';
-				$img_url = '';
-
-				// 1. Resolve Tagline
-				if ( ! empty( $p->post_excerpt ) ) {
-					$tagline = $p->post_excerpt;
-				} elseif ( ! empty( $known_metadata[ $slug ]['tagline'] ) ) {
-					$tagline = $known_metadata[ $slug ]['tagline'];
-				} else {
-					$tagline = __( 'Exclusive Architectural Enclaves & Prestigious Acreage', 'luxury-re-widgets' );
-				}
-
-				// 2. Resolve Image
-				$thumb_id = get_post_thumbnail_id( $p->ID );
-				if ( $thumb_id ) {
-					$img_url = wp_get_attachment_image_url( $thumb_id, 'full' );
-				}
-
-				// Check known metadata mapping for local uploads
-				if ( empty( $img_url ) && ! empty( $known_metadata[ $slug ]['image'] ) ) {
-					$img_url = $known_metadata[ $slug ]['image'];
-				}
-
-				// If still empty, check Elementor postmeta for hero_image
-				if ( empty( $img_url ) ) {
-					$elem_data = get_post_meta( $p->ID, '_elementor_data', true );
-					if ( is_string( $elem_data ) && false !== strpos( $elem_data, 'hero_image' ) ) {
-						if ( preg_match( '/"hero_image"\s*:\s*\{[^}]*"url"\s*:\s*"([^"]+)"/i', $elem_data, $match ) ) {
-							$img_url = stripslashes( $match[1] );
-						}
+				if ( function_exists( 'get_field' ) ) {
+					try {
+						$tagline = get_field( 'subtitle', $post_id );
+					} catch ( \Throwable $e ) {
+						$tagline = '';
 					}
 				}
+				// Fallback to standard postmeta if ACF is inactive or get_field returns empty
+				if ( empty( $tagline ) ) {
+					$tagline = get_post_meta( $post_id, 'subtitle', true );
+				}
+				// Fallback to post excerpt if subtitle meta is empty
+				if ( empty( $tagline ) ) {
+					$tagline = $p->post_excerpt;
+				}
 
-				// Global fallback
+				// 2. Resolve Featured Image
+				$img_url = get_the_post_thumbnail_url( $post_id, 'full' );
+				if ( empty( $img_url ) ) {
+					$thumb_id = get_post_meta( $post_id, '_thumbnail_id', true );
+					if ( $thumb_id ) {
+						$img_url = wp_get_attachment_image_url( $thumb_id, 'full' );
+					}
+				}
+				// Default fallback luxury image
 				if ( empty( $img_url ) ) {
 					$img_url = lre_asset_url( 'images/property-4.jpg' );
 				}
@@ -952,35 +927,45 @@ class LRE_Related_Neighborhoods_Widget extends Widget_Base {
 					'link'    => array( 'url' => $url ),
 					'image'   => array( 'url' => lre_resolve_image_url( $img_url ) ),
 				);
-
-				if ( count( $items ) >= $max_sibling_items ) {
-					break;
-				}
 			}
 		}
 
-		// If no child pages found or testing in preview, fallback gracefully to known metadata
+		// 2. Preview & Initial Setup Fallback (if CPT has no published posts yet)
 		if ( empty( $items ) ) {
+			$fallback_portfolio = array(
+				array(
+					'name'    => 'San Marino',
+					'tagline' => 'Enduring Prestige, Generational Acreage & Quiet Grandeur',
+					'link'    => array( 'url' => home_url( '/neighborhoods/san-marino/' ) ),
+					'image'   => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
+				),
+				array(
+					'name'    => 'Los Angeles',
+					'tagline' => 'Iconic Modernism, Hillside Sanctuaries & Cultural Capital',
+					'link'    => array( 'url' => home_url( '/neighborhoods/los-angeles/' ) ),
+					'image'   => array( 'url' => lre_asset_url( 'images/property-5.jpg' ) ),
+				),
+				array(
+					'name'    => 'Pasadena',
+					'tagline' => 'Historic Craftsman Enclaves, Arroyo Seco Seclusion & Landmark Heritage',
+					'link'    => array( 'url' => home_url( '/neighborhoods/pasadena/' ) ),
+					'image'   => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
+				),
+			);
+
 			$current_slug = $current_id ? get_post_field( 'post_name', $current_id ) : '';
-			foreach ( $known_metadata as $slug => $meta ) {
-				if ( $exclude_current && $slug === $current_slug ) {
+			foreach ( $fallback_portfolio as $fb ) {
+				if ( $exclude_current && ! empty( $current_slug ) && false !== stripos( $fb['link']['url'], $current_slug ) ) {
 					continue;
 				}
-
-				$items[] = array(
-					'name'    => $meta['name'],
-					'tagline' => $meta['tagline'],
-					'link'    => array( 'url' => home_url( '/communities/' . $slug . '/' ) ),
-					'image'   => array( 'url' => lre_resolve_image_url( $meta['image'] ) ),
-				);
-
-				if ( count( $items ) >= $max_sibling_items ) {
+				$items[] = $fb;
+				if ( count( $items ) >= $max_cpt_items ) {
 					break;
 				}
 			}
 		}
 
-		// Append "All Communities Hub" card as final card if enabled
+		// 3. Append "All Communities / Neighborhoods Hub" card as final card if enabled
 		if ( $include_hub ) {
 			$hub_title   = ! empty( $settings['hub_title'] ) ? $settings['hub_title'] : __( 'All Communities Hub', 'luxury-re-widgets' );
 			$hub_tagline = ! empty( $settings['hub_tagline'] ) ? $settings['hub_tagline'] : __( 'View Full Southern California Architectural Enclaves', 'luxury-re-widgets' );

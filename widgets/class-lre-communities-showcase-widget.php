@@ -135,6 +135,97 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'source_type',
+			array(
+				'label'       => __( 'Communities Source', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'custom',
+				'options'     => array(
+					'neighborhoods' => __( 'Neighborhoods (Post Type)', 'luxury-re-widgets' ),
+					'custom'        => __( 'Custom / Manual List (Repeater)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Select whether to dynamically query enclaves from the "neighborhoods" Custom Post Type or use the manual custom list.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'cpt_posts_per_page',
+			array(
+				'label'       => __( 'Number of Neighborhoods to Show', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => -1,
+				'min'         => -1,
+				'max'         => 50,
+				'step'        => 1,
+				'description' => __( 'Set to -1 to display all published neighborhoods.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_orderby',
+			array(
+				'label'     => __( 'Order By', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'menu_order',
+				'options'   => array(
+					'menu_order' => __( 'Menu Order', 'luxury-re-widgets' ),
+					'title'      => __( 'Title (A-Z)', 'luxury-re-widgets' ),
+					'date'       => __( 'Date Published', 'luxury-re-widgets' ),
+					'rand'       => __( 'Random', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_order',
+			array(
+				'label'     => __( 'Order Direction', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'ASC',
+				'options'   => array(
+					'ASC'  => __( 'Ascending (ASC)', 'luxury-re-widgets' ),
+					'DESC' => __( 'Descending (DESC)', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_show_index_numbers',
+			array(
+				'label'        => __( 'Display Index Numbers (01, 02...)', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'condition'    => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_button_text',
+			array(
+				'label'     => __( 'Action Button Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Explore Enclave',
+				'condition' => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -299,6 +390,9 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					),
 				),
 				'title_field' => '{{{ index_num }}} — {{{ name }}} ({{{ category_label }}})',
+				'condition'   => array(
+					'source_type' => 'custom',
+				),
 			)
 		);
 
@@ -1132,21 +1226,13 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
-	protected function render() {
-		$settings     = $this->get_settings_for_display();
-		$tag          = esc_attr( $settings['heading_tag'] ?? 'h2' );
-		$tag          = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
-		$show_button  = ! isset( $settings['show_button'] ) || 'yes' === $settings['show_button'];
-
-		// Detect if inside Elementor editor / preview mode
-		$is_edit_mode = false;
-		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
-			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
-		}
-		$reveal_class = $is_edit_mode ? 'revealed' : 'reveal';
-
-		// Fallback communities if empty
-		$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array(
+	/**
+	 * Resolves default enclaves if repeater is empty.
+	 *
+	 * @return array
+	 */
+	protected function get_default_communities() {
+		return array(
 			array(
 				'index_num'      => '01',
 				'name'           => 'Bel Air',
@@ -1208,6 +1294,126 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'link_text'      => 'Explore Enclave',
 			),
 		);
+	}
+
+	/**
+	 * Queries enclaves dynamically from the 'neighborhoods' Custom Post Type.
+	 *
+	 * @param array $settings
+	 * @return array
+	 */
+	protected function get_neighborhoods_from_cpt( $settings ) {
+		$posts_per_page = ! empty( $settings['cpt_posts_per_page'] ) ? intval( $settings['cpt_posts_per_page'] ) : -1;
+		$orderby        = ! empty( $settings['cpt_orderby'] ) ? sanitize_key( $settings['cpt_orderby'] ) : 'menu_order';
+		$order          = ! empty( $settings['cpt_order'] ) ? sanitize_key( $settings['cpt_order'] ) : 'ASC';
+		$show_numbers   = ( $settings['cpt_show_index_numbers'] ?? 'yes' ) === 'yes';
+		$btn_text       = ! empty( $settings['cpt_button_text'] ) ? $settings['cpt_button_text'] : __( 'Explore Enclave', 'luxury-re-widgets' );
+
+		$query_args = array(
+			'post_type'      => array( 'neighborhoods', 'neighborhood' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+			'orderby'        => $orderby,
+			'order'          => $order,
+		);
+
+		$posts = get_posts( $query_args );
+		$communities = array();
+
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $idx => $p ) {
+				$post_id = $p->ID;
+				$name    = get_the_title( $post_id );
+				$url     = get_permalink( $post_id );
+
+				// 1. Tagline / Subtitle (ACF Safeguard)
+				$tagline = '';
+				if ( function_exists( 'get_field' ) ) {
+					try {
+						$tagline = get_field( 'subtitle', $post_id );
+					} catch ( \Throwable $e ) {
+						$tagline = '';
+					}
+				}
+				if ( empty( $tagline ) ) {
+					$tagline = get_post_meta( $post_id, 'subtitle', true );
+				}
+				if ( empty( $tagline ) ) {
+					$tagline = $p->post_excerpt;
+				}
+
+				// 2. Featured Image
+				$img_url = get_the_post_thumbnail_url( $post_id, 'full' );
+				if ( empty( $img_url ) ) {
+					$thumb_id = get_post_meta( $post_id, '_thumbnail_id', true );
+					if ( $thumb_id ) {
+						$img_url = wp_get_attachment_image_url( $thumb_id, 'full' );
+					}
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = lre_asset_url( 'images/property-1.jpg' );
+				}
+
+				// 3. Category / Taxonomy (if any taxonomy is registered on neighborhoods)
+				$cat_slug  = '';
+				$cat_label = '';
+				$taxonomies = get_object_taxonomies( 'neighborhoods', 'objects' );
+				if ( ! empty( $taxonomies ) ) {
+					foreach ( $taxonomies as $tax_name => $tax_obj ) {
+						$terms = get_the_terms( $post_id, $tax_name );
+						if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+							$first_term = reset( $terms );
+							$cat_slug   = $first_term->slug;
+							$cat_label  = $first_term->name;
+							break;
+						}
+					}
+				}
+
+				// 4. Index number formatting (01, 02...)
+				$index_num = $show_numbers ? sprintf( '%02d', $idx + 1 ) : '';
+
+				$communities[] = array(
+					'index_num'      => $index_num,
+					'name'           => $name,
+					'category'       => $cat_slug,
+					'category_label' => $cat_label,
+					'tagline'        => $tagline,
+					'image'          => array( 'url' => lre_resolve_image_url( $img_url ) ),
+					'link'           => array( 'url' => $url ),
+					'show_button'    => 'yes',
+					'link_text'      => $btn_text,
+				);
+			}
+		}
+
+		return $communities;
+	}
+
+	protected function render() {
+		$settings     = $this->get_settings_for_display();
+		$tag          = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag          = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
+		$show_button  = ! isset( $settings['show_button'] ) || 'yes' === $settings['show_button'];
+
+		// Detect if inside Elementor editor / preview mode
+		$is_edit_mode = false;
+		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
+			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		}
+		$reveal_class = $is_edit_mode ? 'revealed' : 'reveal';
+
+		// Resolve communities based on source_type
+		$source_type = $settings['source_type'] ?? 'custom';
+
+		if ( 'neighborhoods' === $source_type ) {
+			$communities = $this->get_neighborhoods_from_cpt( $settings );
+			if ( empty( $communities ) ) {
+				$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
+			}
+		} else {
+			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
+		}
 
 		// Collect unique categories for minimal filter tabs
 		$categories = array();

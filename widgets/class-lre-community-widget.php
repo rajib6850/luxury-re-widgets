@@ -309,11 +309,27 @@ class LRE_Community_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_switcher',
+			array(
+				'label'        => __( 'Show Sister Territories Section', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'Show', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Turn off if you are using the standalone "LRE — Related Neighborhoods" widget.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
 			'switcher_eyebrow',
 			array(
-				'label'   => __( 'Switcher Eyebrow', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'REGIONAL PORTFOLIO',
+				'label'     => __( 'Switcher Eyebrow', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'REGIONAL PORTFOLIO',
+				'condition' => array(
+					'show_switcher' => 'yes',
+				),
 			)
 		);
 
@@ -1815,7 +1831,7 @@ class LRE_Community_Widget extends Widget_Base {
 			<!-- =================================================================
 			     3. SISTER TERRITORIES SWITCHER
 			================================================================== -->
-			<?php if ( ! empty( $settings['switcher_list'] ) ) : ?>
+			<?php if ( ( ! isset( $settings['show_switcher'] ) || 'yes' === $settings['show_switcher'] ) && ! empty( $settings['switcher_list'] ) ) : ?>
 				<section class="lre-community__switcher">
 					<div class="lre-community__container">
 						<div class="lre-community__switcher-head">

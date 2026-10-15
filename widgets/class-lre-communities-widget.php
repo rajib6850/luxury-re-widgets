@@ -49,6 +49,70 @@ class LRE_Communities_Widget extends Widget_Base {
 		// --- COMMUNITIES REPEATER ---
 		$this->start_controls_section( 'section_communities', array( 'label' => __( 'Communities', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_CONTENT ) );
 
+		$this->add_control(
+			'source_type',
+			array(
+				'label'       => __( 'Communities Source', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'custom',
+				'options'     => array(
+					'neighborhoods' => __( 'Neighborhoods (Post Type)', 'luxury-re-widgets' ),
+					'custom'        => __( 'Custom / Manual List (Repeater)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Select whether to dynamically query enclaves from the "neighborhoods" Custom Post Type or use the manual custom list.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'cpt_posts_per_page',
+			array(
+				'label'       => __( 'Number of Neighborhoods to Show', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => -1,
+				'min'         => -1,
+				'max'         => 50,
+				'step'        => 1,
+				'description' => __( 'Set to -1 to display all published neighborhoods.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_orderby',
+			array(
+				'label'     => __( 'Order By', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'menu_order',
+				'options'   => array(
+					'menu_order' => __( 'Menu Order', 'luxury-re-widgets' ),
+					'title'      => __( 'Title (A-Z)', 'luxury-re-widgets' ),
+					'date'       => __( 'Date Published', 'luxury-re-widgets' ),
+					'rand'       => __( 'Random', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'cpt_order',
+			array(
+				'label'     => __( 'Order Direction', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'ASC',
+				'options'   => array(
+					'ASC'  => __( 'Ascending (ASC)', 'luxury-re-widgets' ),
+					'DESC' => __( 'Descending (DESC)', 'luxury-re-widgets' ),
+				),
+				'condition' => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
 		$repeater = new Repeater();
 		$repeater->add_control( 'comm_image', array( 'label' => __( 'Community Image', 'luxury-re-widgets' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ), 'dynamic' => array( 'active' => true ) ) );
 		$repeater->add_control( 'comm_name',  array( 'label' => __( 'Community Name',  'luxury-re-widgets' ), 'type' => Controls_Manager::TEXT,  'default' => 'Pacific Palisades', 'dynamic' => array( 'active' => true ) ) );
@@ -67,6 +131,9 @@ class LRE_Communities_Widget extends Widget_Base {
 				array( 'comm_name' => 'Beverly Hills',     'comm_image' => array( 'url' => lre_asset_url( 'images/property-7.jpg' ) ) ),
 			),
 			'title_field' => '{{{ comm_name }}}',
+			'condition'   => array(
+				'source_type' => 'custom',
+			),
 		) );
 
 		$this->add_control(
@@ -304,6 +371,23 @@ class LRE_Communities_Widget extends Widget_Base {
 
 		// --- STYLE: Card Typography & Colors ---
 		$this->start_controls_section( 'style_cards', array( 'label' => __( 'Community Cards', 'luxury-re-widgets' ), 'tab' => Controls_Manager::TAB_STYLE ) );
+		$this->add_responsive_control(
+			'card_height',
+			array(
+				'label'      => __( 'Card Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vh', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 200, 'max' => 800, 'step' => 10 ),
+					'%'   => array( 'min' => 10,  'max' => 100, 'step' => 1 ),
+					'vh'  => array( 'min' => 15,  'max' => 100, 'step' => 1 ),
+					'rem' => array( 'min' => 15,  'max' => 60,  'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .community-card' => 'height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'card_typography', 'selector' => '{{WRAPPER}} .community-card__name' ) );
 		$this->add_control( 'card_title_color', array( 'label' => __( 'Title Color', 'luxury-re-widgets' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .community-card__name' => 'color: {{VALUE}};' ) ) );
 		$this->end_controls_section();
@@ -432,11 +516,74 @@ class LRE_Communities_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Queries enclaves dynamically from the 'neighborhoods' Custom Post Type.
+	 *
+	 * @param array $settings
+	 * @return array
+	 */
+	protected function get_neighborhoods_from_cpt( $settings ) {
+		$posts_per_page = ! empty( $settings['cpt_posts_per_page'] ) ? intval( $settings['cpt_posts_per_page'] ) : -1;
+		$orderby        = ! empty( $settings['cpt_orderby'] ) ? sanitize_key( $settings['cpt_orderby'] ) : 'menu_order';
+		$order          = ! empty( $settings['cpt_order'] ) ? sanitize_key( $settings['cpt_order'] ) : 'ASC';
+
+		$query_args = array(
+			'post_type'      => array( 'neighborhoods', 'neighborhood' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+			'orderby'        => $orderby,
+			'order'          => $order,
+		);
+
+		$posts = get_posts( $query_args );
+		$communities = array();
+
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $p ) {
+				$post_id = $p->ID;
+				$name    = get_the_title( $post_id );
+				$url     = get_permalink( $post_id );
+
+				// Featured Image
+				$img_url = get_the_post_thumbnail_url( $post_id, 'full' );
+				if ( empty( $img_url ) ) {
+					$thumb_id = get_post_meta( $post_id, '_thumbnail_id', true );
+					if ( $thumb_id ) {
+						$img_url = wp_get_attachment_image_url( $thumb_id, 'full' );
+					}
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = lre_asset_url( 'images/property-1.jpg' );
+				}
+
+				$communities[] = array(
+					'comm_name'  => $name,
+					'comm_image' => array( 'url' => lre_resolve_image_url( $img_url ) ),
+					'comm_link'  => array( 'url' => $url ),
+				);
+			}
+		}
+
+		return $communities;
+	}
+
 	protected function render() {
 		$settings    = $this->get_settings_for_display();
 		$tag         = esc_attr( $settings['heading_tag'] ?? 'h2' );
 		$tag         = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' ), true ) ? $tag : 'h2';
-		$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array();
+
+		// Resolve communities based on source_type
+		$source_type = $settings['source_type'] ?? 'custom';
+
+		if ( 'neighborhoods' === $source_type ) {
+			$communities = $this->get_neighborhoods_from_cpt( $settings );
+			if ( empty( $communities ) ) {
+				$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array();
+			}
+		} else {
+			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : array();
+		}
+
 		$comm_count  = count( $communities );
 
 		$slider_mode = $settings['slider_mode'] ?? 'auto';

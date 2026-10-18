@@ -136,17 +136,20 @@ class LRE_Communities_Widget extends Widget_Base {
 			),
 		) );
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'slider_mode',
 			array(
-				'label'   => __( 'Slider Mode', 'luxury-re-widgets' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'auto',
-				'options' => array(
+				'label'          => __( 'Slider Mode', 'luxury-re-widgets' ),
+				'type'           => Controls_Manager::SELECT,
+				'default'        => 'auto',
+				'tablet_default' => 'auto',
+				'mobile_default' => 'disable',
+				'options'        => array(
 					'auto'    => __( 'Auto (Slide if 4+ items, Grid if 3 or less)', 'luxury-re-widgets' ),
 					'enable'  => __( 'Always Slide', 'luxury-re-widgets' ),
 					'disable' => __( 'Always Grid (No Slide)', 'luxury-re-widgets' ),
 				),
+				'description'    => __( 'Choose whether to display as an interactive slider or a static grid per device. Defaults to Grid on Mobile.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -586,18 +589,23 @@ class LRE_Communities_Widget extends Widget_Base {
 
 		$comm_count  = count( $communities );
 
-		$slider_mode = $settings['slider_mode'] ?? 'auto';
-		if ( 'enable' === $slider_mode ) {
-			$is_slider = true;
-		} elseif ( 'disable' === $slider_mode ) {
-			$is_slider = false;
-		} else {
-			// Auto: 4 or more items slide; 3 or fewer do not slide.
-			$is_slider = ( $comm_count > 3 );
-		}
+		// Responsive Slider Modes
+		$mode_desktop = $settings['slider_mode'] ?? 'auto';
+		$mode_tablet  = ! empty( $settings['slider_mode_tablet'] ) ? $settings['slider_mode_tablet'] : $mode_desktop;
+		$mode_mobile  = ! empty( $settings['slider_mode_mobile'] ) ? $settings['slider_mode_mobile'] : 'disable';
+
+		$is_slider_desktop = ( 'enable' === $mode_desktop ) || ( 'auto' === $mode_desktop && $comm_count > 3 );
+		$is_slider_tablet  = ( 'enable' === $mode_tablet )  || ( 'auto' === $mode_tablet && $comm_count > 3 );
+		$is_slider_mobile  = ( 'enable' === $mode_mobile )  || ( 'auto' === $mode_mobile && $comm_count > 3 );
+
+		$has_any_slider = $is_slider_desktop || $is_slider_tablet || $is_slider_mobile;
+		$is_slider      = $is_slider_desktop; // default desktop fallback
 
 		$section_classes   = array( 'communities' );
-		$section_classes[] = $is_slider ? 'communities--has-slider' : 'communities--no-slider';
+		$section_classes[] = $is_slider_desktop ? 'communities--has-slider' : 'communities--no-slider';
+		$section_classes[] = $is_slider_desktop ? 'communities--slider-desktop' : 'communities--grid-desktop';
+		$section_classes[] = $is_slider_tablet  ? 'communities--slider-tablet'  : 'communities--grid-tablet';
+		$section_classes[] = $is_slider_mobile  ? 'communities--slider-mobile'  : 'communities--grid-mobile';
 		$comm_style_var    = '--comm-count: ' . max( 1, min( 3, $comm_count ) ) . ';';
 		?>
 		<section class="<?php echo esc_attr( implode( ' ', $section_classes ) ); ?>" id="communities" style="<?php echo esc_attr( $comm_style_var ); ?>" aria-label="<?php esc_attr_e( 'Featured communities', 'luxury-re-widgets' ); ?>">
@@ -627,7 +635,7 @@ class LRE_Communities_Widget extends Widget_Base {
 					</<?php echo $tag; ?>>
 				</div>
 
-				<?php if ( $is_slider ) : ?>
+				<?php if ( $has_any_slider ) : ?>
 				<div class="communities__arrows">
 					<button class="communities__arrow" id="communities-prev" aria-label="<?php esc_attr_e( 'Previous communities', 'luxury-re-widgets' ); ?>">
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -639,7 +647,11 @@ class LRE_Communities_Widget extends Widget_Base {
 				<?php endif; ?>
 			</div>
 
-			<div class="communities__slider" id="communities-slider" data-slide-enabled="<?php echo $is_slider ? 'true' : 'false'; ?>">
+			<div class="communities__slider" id="communities-slider"
+			     data-slide-enabled="<?php echo $is_slider_desktop ? 'true' : 'false'; ?>"
+			     data-slide-desktop="<?php echo $is_slider_desktop ? 'true' : 'false'; ?>"
+			     data-slide-tablet="<?php echo $is_slider_tablet ? 'true' : 'false'; ?>"
+			     data-slide-mobile="<?php echo $is_slider_mobile ? 'true' : 'false'; ?>">
 				<div class="communities__track" id="communities-track">
 					<?php if ( ! empty( $communities ) ) :
 						foreach ( $communities as $c ) :

@@ -994,12 +994,32 @@
                     return;
                 }
 
-                var rawCards = Array.prototype.slice.call( communitiesTrack.children );
-                var baseCount = rawCards.length;
-                var slideDisabled = communitiesSlider.getAttribute( 'data-slide-enabled' ) === 'false';
+                var baseCards = Array.prototype.slice.call( communitiesTrack.children );
+                var baseCount = baseCards.length;
 
-                // 3 or fewer items or slide disabled: static luxury grid, no slider needed
-                if ( baseCount <= 3 || slideDisabled ) {
+                // Responsive viewport mode checker
+                var isSlideActive = function () {
+                    var w = window.innerWidth || document.documentElement.clientWidth;
+                    if ( w < 768 ) {
+                        // Mobile
+                        var m = communitiesSlider.getAttribute( 'data-slide-mobile' );
+                        if ( m !== null ) return m === 'true';
+                        return false; // Default mobile is Grid (no slide)
+                    } else if ( w <= 1024 ) {
+                        // Tablet
+                        var t = communitiesSlider.getAttribute( 'data-slide-tablet' );
+                        if ( t !== null ) return t === 'true';
+                        return communitiesSlider.getAttribute( 'data-slide-enabled' ) !== 'false';
+                    } else {
+                        // Desktop
+                        var d = communitiesSlider.getAttribute( 'data-slide-desktop' );
+                        if ( d !== null ) return d === 'true';
+                        return communitiesSlider.getAttribute( 'data-slide-enabled' ) !== 'false';
+                    }
+                };
+
+                // 3 or fewer items: static luxury grid, no slider needed
+                if ( baseCount <= 3 ) {
                     communitiesTrack.dataset.sliderInit = 'static';
                     communitiesSlider.style.cursor = 'default';
                     return;
@@ -1007,145 +1027,157 @@
 
                 communitiesTrack.dataset.sliderInit = 'true';
 
-                if ( baseCount > 0 ) {
-                    rawCards.forEach( function ( card ) {
-                        communitiesTrack.appendChild( card.cloneNode( true ) );
-                    } );
+                // NOTE: DO NOT clone baseCards! Cloning caused duplicate cards to appear.
+                var isAnimating = false;
+                var activeDotIndex = 0;
+                var animationTimer = null;
 
-                    var isAnimating = false;
-                    var activeDotIndex = 0;
-                    var animationTimer = null;
+                var getCardStep = function () {
+                    var card = communitiesTrack.querySelector( '.community-card' );
+                    var trackStyle = window.getComputedStyle( communitiesTrack );
+                    var gap = parseFloat( trackStyle.gap ) || 20;
+                    return card ? card.offsetWidth + gap : 280;
+                };
 
-                    var getCardStep = function () {
-                        var card = communitiesTrack.querySelector( '.community-card' );
-                        var trackStyle = window.getComputedStyle( communitiesTrack );
-                        var gap = parseFloat( trackStyle.gap ) || 20;
-                        return card ? card.offsetWidth + gap : 280;
-                    };
-
-                    var updateDots = function () {
-                        if ( communityDots.length === 0 ) return;
-                        communityDots.forEach( function ( dot, idx ) {
-                            dot.classList.toggle( 'active', idx === ( activeDotIndex % communityDots.length ) );
-                        } );
-                    };
-
-                    var slideNext = function () {
-                        if ( isAnimating ) return;
-                        isAnimating = true;
-                        clearTimeout( animationTimer );
-
-                        var step = getCardStep();
-                        communitiesTrack.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-                        communitiesTrack.style.transform = 'translateX(-' + step + 'px)';
-
-                        animationTimer = setTimeout( function () {
-                            communitiesTrack.appendChild( communitiesTrack.firstElementChild );
-                            communitiesTrack.style.transition = 'none';
-                            communitiesTrack.style.transform = 'translateX(0)';
-                            void communitiesTrack.offsetHeight;
-                            activeDotIndex = ( activeDotIndex + 1 ) % baseCount;
-                            updateDots();
-                            isAnimating = false;
-                        }, 460 );
-                    };
-
-                    var slidePrev = function () {
-                        if ( isAnimating ) return;
-                        isAnimating = true;
-                        clearTimeout( animationTimer );
-
-                        var step = getCardStep();
-                        communitiesTrack.insertBefore( communitiesTrack.lastElementChild, communitiesTrack.firstElementChild );
-                        communitiesTrack.style.transition = 'none';
-                        communitiesTrack.style.transform = 'translateX(-' + step + 'px)';
-                        void communitiesTrack.offsetHeight;
-
-                        requestAnimationFrame( function () {
-                            communitiesTrack.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-                            communitiesTrack.style.transform = 'translateX(0)';
-                        } );
-
-                        animationTimer = setTimeout( function () {
-                            communitiesTrack.style.transition = 'none';
-                            activeDotIndex = ( activeDotIndex - 1 + baseCount ) % baseCount;
-                            updateDots();
-                            isAnimating = false;
-                        }, 460 );
-                    };
-
-                    if ( communityNextBtn ) {
-                        communityNextBtn.addEventListener( 'click', function ( e ) {
-                            e.preventDefault();
-                            slideNext();
-                        } );
-                    }
-
-                    if ( communityPrevBtn ) {
-                        communityPrevBtn.addEventListener( 'click', function ( e ) {
-                            e.preventDefault();
-                            slidePrev();
-                        } );
-                    }
-
+                var updateDots = function () {
+                    if ( communityDots.length === 0 ) return;
                     communityDots.forEach( function ( dot, idx ) {
-                        dot.addEventListener( 'click', function ( e ) {
-                            e.preventDefault();
-                            if ( isAnimating ) return;
-                            var currentDot = activeDotIndex % communityDots.length;
-                            if ( idx === currentDot ) return;
-                            if ( idx > currentDot ) {
-                                slideNext();
-                            } else {
-                                slidePrev();
-                            }
-                        } );
+                        dot.classList.toggle( 'active', idx === ( activeDotIndex % communityDots.length ) );
+                    } );
+                };
+
+                var slideNext = function () {
+                    if ( ! isSlideActive() || isAnimating ) return;
+                    isAnimating = true;
+                    clearTimeout( animationTimer );
+
+                    var step = getCardStep();
+                    communitiesTrack.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+                    communitiesTrack.style.transform = 'translateX(-' + step + 'px)';
+
+                    animationTimer = setTimeout( function () {
+                        communitiesTrack.appendChild( communitiesTrack.firstElementChild );
+                        communitiesTrack.style.transition = 'none';
+                        communitiesTrack.style.transform = 'translateX(0)';
+                        void communitiesTrack.offsetHeight;
+                        activeDotIndex = ( activeDotIndex + 1 ) % baseCount;
+                        updateDots();
+                        isAnimating = false;
+                    }, 460 );
+                };
+
+                var slidePrev = function () {
+                    if ( ! isSlideActive() || isAnimating ) return;
+                    isAnimating = true;
+                    clearTimeout( animationTimer );
+
+                    var step = getCardStep();
+                    communitiesTrack.insertBefore( communitiesTrack.lastElementChild, communitiesTrack.firstElementChild );
+                    communitiesTrack.style.transition = 'none';
+                    communitiesTrack.style.transform = 'translateX(-' + step + 'px)';
+                    void communitiesTrack.offsetHeight;
+
+                    requestAnimationFrame( function () {
+                        communitiesTrack.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+                        communitiesTrack.style.transform = 'translateX(0)';
                     } );
 
-                    var isDragging = false;
-                    var startX = 0;
-                    var currentX = 0;
-
-                    var onDragStart = function ( e ) {
-                        if ( isAnimating ) return;
-                        isDragging = true;
-                        communitiesSlider.style.cursor = 'grabbing';
-                        startX = e.type.indexOf( 'touch' ) !== -1 ? e.touches[0].clientX : e.clientX;
-                        currentX = startX;
+                    animationTimer = setTimeout( function () {
                         communitiesTrack.style.transition = 'none';
-                    };
+                        activeDotIndex = ( activeDotIndex - 1 + baseCount ) % baseCount;
+                        updateDots();
+                        isAnimating = false;
+                    }, 460 );
+                };
 
-                    var onDragMove = function ( e ) {
-                        if ( ! isDragging || isAnimating ) return;
-                        currentX = e.type.indexOf( 'touch' ) !== -1 ? e.touches[0].clientX : e.clientX;
-                        var delta = currentX - startX;
-                        communitiesTrack.style.transform = 'translateX(' + delta + 'px)';
-                    };
-
-                    var onDragEnd = function () {
-                        if ( ! isDragging ) return;
-                        isDragging = false;
-                        communitiesSlider.style.cursor = 'grab';
-                        var delta = currentX - startX;
-
-                        if ( delta < -45 ) {
-                            slideNext();
-                        } else if ( delta > 45 ) {
-                            slidePrev();
-                        } else {
-                            communitiesTrack.style.transition = 'transform 0.35s ease';
-                            communitiesTrack.style.transform = 'translateX(0)';
-                        }
-                    };
-
-                    communitiesSlider.addEventListener( 'mousedown', onDragStart );
-                    window.addEventListener( 'mousemove', onDragMove );
-                    window.addEventListener( 'mouseup', onDragEnd );
-
-                    communitiesSlider.addEventListener( 'touchstart', onDragStart, { passive: true } );
-                    communitiesSlider.addEventListener( 'touchmove', onDragMove, { passive: true } );
-                    communitiesSlider.addEventListener( 'touchend', onDragEnd, { passive: true } );
+                if ( communityNextBtn ) {
+                    communityNextBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        slideNext();
+                    } );
                 }
+
+                if ( communityPrevBtn ) {
+                    communityPrevBtn.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        slidePrev();
+                    } );
+                }
+
+                communityDots.forEach( function ( dot, idx ) {
+                    dot.addEventListener( 'click', function ( e ) {
+                        e.preventDefault();
+                        if ( isAnimating || ! isSlideActive() ) return;
+                        var currentDot = activeDotIndex % communityDots.length;
+                        if ( idx === currentDot ) return;
+                        if ( idx > currentDot ) {
+                            slideNext();
+                        } else {
+                            slidePrev();
+                        }
+                    } );
+                } );
+
+                var isDragging = false;
+                var startX = 0;
+                var currentX = 0;
+
+                var onDragStart = function ( e ) {
+                    if ( ! isSlideActive() || isAnimating ) return;
+                    isDragging = true;
+                    communitiesSlider.style.cursor = 'grabbing';
+                    startX = e.type.indexOf( 'touch' ) !== -1 ? e.touches[0].clientX : e.clientX;
+                    currentX = startX;
+                    communitiesTrack.style.transition = 'none';
+                };
+
+                var onDragMove = function ( e ) {
+                    if ( ! isDragging || isAnimating || ! isSlideActive() ) return;
+                    currentX = e.type.indexOf( 'touch' ) !== -1 ? e.touches[0].clientX : e.clientX;
+                    var delta = currentX - startX;
+                    communitiesTrack.style.transform = 'translateX(' + delta + 'px)';
+                };
+
+                var onDragEnd = function () {
+                    if ( ! isDragging ) return;
+                    isDragging = false;
+                    communitiesSlider.style.cursor = isSlideActive() ? 'grab' : 'default';
+                    if ( ! isSlideActive() ) {
+                        communitiesTrack.style.transform = '';
+                        return;
+                    }
+                    var delta = currentX - startX;
+
+                    if ( delta < -45 ) {
+                        slideNext();
+                    } else if ( delta > 45 ) {
+                        slidePrev();
+                    } else {
+                        communitiesTrack.style.transition = 'transform 0.35s ease';
+                        communitiesTrack.style.transform = 'translateX(0)';
+                    }
+                };
+
+                communitiesSlider.addEventListener( 'mousedown', onDragStart );
+                window.addEventListener( 'mousemove', onDragMove );
+                window.addEventListener( 'mouseup', onDragEnd );
+
+                communitiesSlider.addEventListener( 'touchstart', onDragStart, { passive: true } );
+                communitiesSlider.addEventListener( 'touchmove', onDragMove, { passive: true } );
+                communitiesSlider.addEventListener( 'touchend', onDragEnd, { passive: true } );
+
+                var syncMode = function () {
+                    if ( ! isSlideActive() ) {
+                        communitiesTrack.style.transform = '';
+                        communitiesTrack.style.transition = '';
+                        communitiesSlider.style.cursor = 'default';
+                    } else {
+                        communitiesSlider.style.cursor = 'grab';
+                    }
+                };
+
+                window.addEventListener( 'resize', syncMode );
+                syncMode();
             }
         }
     };

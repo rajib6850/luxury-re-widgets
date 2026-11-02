@@ -47,6 +47,16 @@ class LRE_Post_Types {
 			// Quick Edit support
 			add_action( 'quick_edit_custom_box', array( $this, 'render_quick_edit_fields' ), 10, 2 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+
+			// Category Image fields for 'neighborhood_category'
+			add_action( 'neighborhood_category_add_form_fields', array( $this, 'add_category_image_field' ) );
+			add_action( 'neighborhood_category_edit_form_fields', array( $this, 'edit_category_image_field' ), 10, 2 );
+			add_action( 'created_neighborhood_category', array( $this, 'save_category_image' ) );
+			add_action( 'edited_neighborhood_category', array( $this, 'save_category_image' ) );
+
+			// Category Image column in taxonomy table list
+			add_filter( 'manage_edit-neighborhood_category_columns', array( $this, 'register_category_columns' ) );
+			add_filter( 'manage_neighborhood_category_custom_column', array( $this, 'render_category_columns' ), 10, 3 );
 		}
 	}
 
@@ -525,12 +535,23 @@ class LRE_Post_Types {
 	}
 
 	/**
-	 * Enqueue admin scripts for Quick Edit on lre_sold_property post type list screen.
+	 * Enqueue admin scripts for Quick Edit on lre_sold_property post type list screen,
+	 * and Media Uploader on neighborhood_category taxonomy edit screens.
 	 *
 	 * @param string $hook Admin page hook.
 	 */
 	public function enqueue_admin_scripts( $hook ) {
 		global $post_type;
+
+		// Media Uploader on neighborhood_category taxonomy screens
+		if ( 'edit-tags.php' === $hook || 'term.php' === $hook ) {
+			$taxonomy = isset( $_GET['taxonomy'] ) ? sanitize_key( $_GET['taxonomy'] ) : '';
+			if ( 'neighborhood_category' === $taxonomy ) {
+				wp_enqueue_media();
+				add_action( 'admin_footer', array( $this, 'render_category_image_script' ) );
+			}
+		}
+
 		if ( 'edit.php' === $hook && 'lre_sold_property' === $post_type ) {
 			add_action(
 				'admin_footer',
@@ -571,5 +592,194 @@ class LRE_Post_Types {
 				}
 			);
 		}
+	}
+
+	/**
+	 * Output Image field on "Add New Category" screen.
+	 */
+	public function add_category_image_field() {
+		?>
+		<div class="form-field term-image-wrap">
+			<label for="lre_cat_image_id"><?php esc_html_e( 'Category Photo / Image', 'luxury-re-widgets' ); ?></label>
+			<input type="hidden" id="lre_cat_image_id" name="lre_cat_image_id" value="" />
+			<input type="hidden" id="lre_cat_image_url" name="lre_cat_image_url" value="" />
+			<div id="lre_cat_image_preview" style="margin-bottom: 10px;"></div>
+			<p>
+				<button type="button" class="button button-secondary" id="lre_cat_upload_image_btn">
+					<?php esc_html_e( 'Upload / Select Image', 'luxury-re-widgets' ); ?>
+				</button>
+				<button type="button" class="button button-link-delete" id="lre_cat_remove_image_btn" style="display: none; margin-left: 10px;">
+					<?php esc_html_e( 'Remove Image', 'luxury-re-widgets' ); ?>
+				</button>
+			</p>
+			<p class="description">
+				<?php esc_html_e( 'Upload architectural photography for this category to appear on Communities Showcase cards and category archive page.', 'luxury-re-widgets' ); ?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Output Image field on "Edit Category" screen.
+	 *
+	 * @param \WP_Term $term Current taxonomy term object.
+	 */
+	public function edit_category_image_field( $term ) {
+		$image_id  = get_term_meta( $term->term_id, 'image_id', true );
+		$image_url = '';
+		if ( $image_id ) {
+			$image_url = wp_get_attachment_image_url( $image_id, 'medium' );
+		}
+		if ( empty( $image_url ) ) {
+			$image_url = get_term_meta( $term->term_id, 'image', true );
+		}
+		?>
+		<tr class="form-field term-image-wrap">
+			<th scope="row">
+				<label for="lre_cat_image_id"><?php esc_html_e( 'Category Photo / Image', 'luxury-re-widgets' ); ?></label>
+			</th>
+			<td>
+				<input type="hidden" id="lre_cat_image_id" name="lre_cat_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
+				<input type="hidden" id="lre_cat_image_url" name="lre_cat_image_url" value="<?php echo esc_attr( $image_url ); ?>" />
+				<div id="lre_cat_image_preview" style="margin-bottom: 10px;">
+					<?php if ( ! empty( $image_url ) ) : ?>
+						<img src="<?php echo esc_url( $image_url ); ?>" style="max-width: 260px; height: auto; border-radius: 4px; border: 1px solid #c3c4c7; display: block;" />
+					<?php endif; ?>
+				</div>
+				<p>
+					<button type="button" class="button button-secondary" id="lre_cat_upload_image_btn">
+						<?php echo ! empty( $image_url ) ? esc_html__( 'Change Image', 'luxury-re-widgets' ) : esc_html__( 'Upload / Select Image', 'luxury-re-widgets' ); ?>
+					</button>
+					<button type="button" class="button button-link-delete" id="lre_cat_remove_image_btn" style="<?php echo empty( $image_url ) ? 'display: none;' : ''; ?> margin-left: 10px;">
+						<?php esc_html_e( 'Remove Image', 'luxury-re-widgets' ); ?>
+					</button>
+				</p>
+				<p class="description">
+					<?php esc_html_e( 'Upload architectural photography for this category to appear on Communities Showcase cards and category archive page.', 'luxury-re-widgets' ); ?>
+				</p>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * Saves category image when a term is created or updated.
+	 *
+	 * @param int $term_id Term ID.
+	 */
+	public function save_category_image( $term_id ) {
+		if ( isset( $_POST['lre_cat_image_id'] ) ) {
+			$image_id = intval( $_POST['lre_cat_image_id'] );
+			if ( $image_id > 0 ) {
+				update_term_meta( $term_id, 'image_id', $image_id );
+				$img_url = wp_get_attachment_image_url( $image_id, 'full' );
+				if ( $img_url ) {
+					update_term_meta( $term_id, 'image', $img_url );
+				}
+			} else {
+				delete_term_meta( $term_id, 'image_id' );
+				if ( ! empty( $_POST['lre_cat_image_url'] ) ) {
+					update_term_meta( $term_id, 'image', esc_url_raw( wp_unslash( $_POST['lre_cat_image_url'] ) ) );
+				} else {
+					delete_term_meta( $term_id, 'image' );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Register Category Image column in term list table.
+	 */
+	public function register_category_columns( $columns ) {
+		$new_columns = array();
+		if ( isset( $columns['cb'] ) ) {
+			$new_columns['cb'] = $columns['cb'];
+		}
+		$new_columns['cat_thumb'] = __( 'Photo', 'luxury-re-widgets' );
+		foreach ( $columns as $k => $v ) {
+			if ( 'cb' !== $k ) {
+				$new_columns[ $k ] = $v;
+			}
+		}
+		return $new_columns;
+	}
+
+	/**
+	 * Render Category Image column.
+	 */
+	public function render_category_columns( $content, $column_name, $term_id ) {
+		if ( 'cat_thumb' === $column_name ) {
+			$img_id  = get_term_meta( $term_id, 'image_id', true );
+			$img_url = '';
+			if ( $img_id ) {
+				$img_url = wp_get_attachment_image_url( $img_id, array( 60, 45 ) );
+			}
+			if ( empty( $img_url ) ) {
+				$img_url = get_term_meta( $term_id, 'image', true );
+			}
+			if ( ! empty( $img_url ) ) {
+				return '<img src="' . esc_url( $img_url ) . '" style="width:60px;height:45px;object-fit:cover;border-radius:3px;border:1px solid #ddd;" />';
+			} else {
+				return '<span style="color:#aaa;font-size:12px;">' . esc_html__( 'No photo', 'luxury-re-widgets' ) . '</span>';
+			}
+		}
+		return $content;
+	}
+
+	/**
+	 * Inline JS for Media Uploader on neighborhood_category screen.
+	 */
+	public function render_category_image_script() {
+		?>
+		<script>
+		jQuery(document).ready(function($) {
+			var mediaUploader;
+
+			$('#lre_cat_upload_image_btn').on('click', function(e) {
+				e.preventDefault();
+				if (mediaUploader) {
+					mediaUploader.open();
+					return;
+				}
+				mediaUploader = wp.media({
+					title: '<?php echo esc_js( __( 'Select Category Photo', 'luxury-re-widgets' ) ); ?>',
+					button: {
+						text: '<?php echo esc_js( __( 'Use this photo', 'luxury-re-widgets' ) ); ?>'
+					},
+					multiple: false
+				});
+				mediaUploader.on('select', function() {
+					var attachment = mediaUploader.state().get('selection').first().toJSON();
+					$('#lre_cat_image_id').val(attachment.id);
+					$('#lre_cat_image_url').val(attachment.url);
+					$('#lre_cat_image_preview').html('<img src="' + attachment.url + '" style="max-width:260px;height:auto;border-radius:4px;border:1px solid #c3c4c7;display:block;" />');
+					$('#lre_cat_remove_image_btn').show();
+					$('#lre_cat_upload_image_btn').text('<?php echo esc_js( __( 'Change Image', 'luxury-re-widgets' ) ); ?>');
+				});
+				mediaUploader.open();
+			});
+
+			$('#lre_cat_remove_image_btn').on('click', function(e) {
+				e.preventDefault();
+				$('#lre_cat_image_id').val('');
+				$('#lre_cat_image_url').val('');
+				$('#lre_cat_image_preview').html('');
+				$(this).hide();
+				$('#lre_cat_upload_image_btn').text('<?php echo esc_js( __( 'Upload / Select Image', 'luxury-re-widgets' ) ); ?>');
+			});
+
+			// Reset preview after standard AJAX add-tag action
+			$(document).ajaxComplete(function(event, xhr, settings) {
+				if (settings.data && settings.data.indexOf('action=add-tag') !== -1) {
+					$('#lre_cat_image_id').val('');
+					$('#lre_cat_image_url').val('');
+					$('#lre_cat_image_preview').html('');
+					$('#lre_cat_remove_image_btn').hide();
+					$('#lre_cat_upload_image_btn').text('<?php echo esc_js( __( 'Upload / Select Image', 'luxury-re-widgets' ) ); ?>');
+				}
+			});
+		});
+		</script>
+		<?php
 	}
 }

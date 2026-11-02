@@ -20,6 +20,10 @@ $term_name = $term ? $term->name : __( 'Neighborhoods', 'luxury-re-widgets' );
 $term_desc = $term ? $term->description : '';
 $term_slug = $term ? $term->slug : '';
 
+// Retrieve category photo if uploaded
+$term_img_id = ( $term && isset( $term->term_id ) ) ? get_term_meta( $term->term_id, 'image_id', true ) : 0;
+$term_img    = $term_img_id ? wp_get_attachment_image_url( $term_img_id, 'full' ) : ( ( $term && isset( $term->term_id ) ) ? get_term_meta( $term->term_id, 'image', true ) : '' );
+
 $query = new WP_Query( array(
 	'post_type'      => array( 'neighborhoods', 'neighborhood' ),
 	'post_status'    => 'publish',
@@ -66,6 +70,13 @@ $query = new WP_Query( array(
 				<?php printf( _n( '%s Featured Enclave', '%s Featured Enclaves', $query->found_posts, 'luxury-re-widgets' ), number_format_i18n( $query->found_posts ) ); ?>
 			</p>
 		</header>
+
+		<?php if ( ! empty( $term_img ) ) : ?>
+		<div class="lre-comm-archive__hero-banner" style="position: relative; width: 100%; height: 340px; margin-bottom: 3.5rem; overflow: hidden; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.25);">
+			<img src="<?php echo esc_url( $term_img ); ?>" alt="<?php echo esc_attr( $term_name ); ?>" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.88);" />
+			<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 8, 12, 0.15) 0%, rgba(8, 8, 12, 0.75) 100%); pointer-events: none;"></div>
+		</div>
+		<?php endif; ?>
 
 		<!-- MINIMALIST ARCHITECTURAL GALLERY GRID (Same exact markup & style as Showcase Widget) -->
 		<?php if ( $query->have_posts() ) : ?>

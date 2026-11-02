@@ -1484,9 +1484,16 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					$link = home_url( '/neighborhood-category/' . $slug . '/' );
 				}
 
-				// Check term image (ACF or term meta)
+				// Check term image (term meta image_id or image, or ACF)
 				$img_url = '';
-				if ( function_exists( 'get_field' ) ) {
+				$img_id  = get_term_meta( $term->term_id, 'image_id', true );
+				if ( $img_id ) {
+					$img_url = wp_get_attachment_image_url( $img_id, 'full' );
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = get_term_meta( $term->term_id, 'image', true );
+				}
+				if ( empty( $img_url ) && function_exists( 'get_field' ) ) {
 					try {
 						$acf_img = get_field( 'image', $term );
 						if ( is_array( $acf_img ) && ! empty( $acf_img['url'] ) ) {
@@ -1497,9 +1504,6 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					} catch ( \Throwable $e ) {
 						$img_url = '';
 					}
-				}
-				if ( empty( $img_url ) ) {
-					$img_url = get_term_meta( $term->term_id, 'image', true );
 				}
 
 				// If no term image, borrow image of the first neighborhood in this category

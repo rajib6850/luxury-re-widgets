@@ -41,6 +41,9 @@ class LRE_Templates {
 
 		// Register dedicated admin menu under Settings > Luxury Single Post
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ) );
+
+		// Register Elementor Theme Builder condition for neighborhood_category taxonomy
+		add_action( 'elementor/theme/register_conditions', array( $this, 'register_elementor_conditions' ) );
 	}
 
 	/** Prevent cloning */
@@ -105,6 +108,52 @@ class LRE_Templates {
 			}
 		}
 		return $template;
+	}
+
+	/**
+	 * Registers 'neighborhood_category' taxonomy condition in Elementor Pro Theme Builder.
+	 *
+	 * Allows users to create custom Elementor Archive templates specifically for
+	 * Neighborhood Categories (All or individual categories) in Theme Builder.
+	 *
+	 * @param \ElementorPro\Modules\ThemeBuilder\Classes\Conditions_Manager $conditions_manager
+	 */
+	public function register_elementor_conditions( $conditions_manager ) {
+		if ( ! taxonomy_exists( 'neighborhood_category' ) ) {
+			return;
+		}
+
+		$archive_condition = $conditions_manager->get_condition( 'archive' );
+		if ( ! $archive_condition ) {
+			return;
+		}
+
+		if ( ! class_exists( '\ElementorPro\Modules\ThemeBuilder\Conditions\Taxonomy' ) ) {
+			return;
+		}
+
+		$tax_obj   = get_taxonomy( 'neighborhood_category' );
+		$condition = new \ElementorPro\Modules\ThemeBuilder\Conditions\Taxonomy( array(
+			'object' => $tax_obj,
+		) );
+
+		if ( ! empty( $tax_obj->hierarchical ) ) {
+			if ( class_exists( '\ElementorPro\Modules\ThemeBuilder\Conditions\Child_Of_Term' ) ) {
+				$child_of = new \ElementorPro\Modules\ThemeBuilder\Conditions\Child_Of_Term( array(
+					'object' => $tax_obj,
+				) );
+				$condition->register_sub_condition( $child_of );
+			}
+
+			if ( class_exists( '\ElementorPro\Modules\ThemeBuilder\Conditions\Any_Child_Of_Term' ) ) {
+				$any_child_of = new \ElementorPro\Modules\ThemeBuilder\Conditions\Any_Child_Of_Term( array(
+					'object' => $tax_obj,
+				) );
+				$condition->register_sub_condition( $any_child_of );
+			}
+		}
+
+		$archive_condition->register_sub_condition( $condition );
 	}
 
 	/**

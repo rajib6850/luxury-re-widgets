@@ -1,0 +1,2203 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+use Elementor\Widget_Base;
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Background;
+use Elementor\Repeater;
+
+/**
+ * LRE_Header_Widget
+ * Full Luxury Navigation Bar with 3 Modes (Transparent, White/Light, Dark),
+ * WordPress Menu Integration, Dynamic Repeater for Right Info/Contact,
+ * Dynamic Repeater for 5-Column Side Drawer, Dual Mobile Menu (Drawer vs Dropdown),
+ * and Full Elementor Global System Controls.
+ *
+ * @package Luxury_RE_Widgets
+ */
+class LRE_Header_Widget extends Widget_Base {
+
+	public function get_name() {
+		return 'lre_header';
+	}
+
+	public function get_title() {
+		return __( 'LRE — Luxury Navigation Bar', 'luxury-re-widgets' );
+	}
+
+	public function get_icon() {
+		return 'eicon-nav-menu';
+	}
+
+	public function get_categories() {
+		return array( 'luxury-re-widgets' );
+	}
+
+	public function get_keywords() {
+		return array( 'header', 'navbar', 'menu', 'drawer', 'transparent', 'white', 'dark', 'navigation', 'luxury', 'real estate', 'mobile' );
+	}
+
+	/**
+	 * Retrieve list of WordPress registered menus.
+	 *
+	 * @return array
+	 */
+	protected function get_wp_menus_options() {
+		$menus   = wp_get_nav_menus();
+		$options = array(
+			'' => esc_html__( '— Select a WordPress Menu —', 'luxury-re-widgets' ),
+		);
+		if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+			foreach ( $menus as $menu ) {
+				$options[ (string) $menu->term_id ] = $menu->name;
+			}
+		}
+		return $options;
+	}
+
+	protected function register_controls() {
+
+		// =================================================================
+		// TAB: CONTENT
+		// =================================================================
+
+		// --- HEADER VARIATION & LAYOUT ---
+		$this->start_controls_section(
+			'section_nav_mode',
+			array(
+				'label' => __( 'Navigation Mode & Layout', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'navbar_mode',
+			array(
+				'label'       => __( 'Navigation Variation', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'transparent',
+				'options'     => array(
+					'transparent' => __( '1. Transparent (Overlay on Hero Banner)', 'luxury-re-widgets' ),
+					'light'       => __( '2. White / Light Background', 'luxury-re-widgets' ),
+					'dark'        => __( '3. Dark Luxury Background', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Select your desired navigation bar style variation.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'is_sticky',
+			array(
+				'label'        => __( 'Sticky On Scroll', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => __( 'Keeps the navigation bar visible at top while scrolling.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'mobile_menu_type',
+			array(
+				'label'       => __( 'Mobile Menu Type', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'drawer',
+				'options'     => array(
+					'drawer'   => __( '1. Fullscreen Cinematic Side Drawer (Default)', 'luxury-re-widgets' ),
+					'dropdown' => __( '2. Classic Mobile Slide-Down Dropdown', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Choose how navigation appears on mobile devices when menu button is clicked.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- MAIN NAVIGATION MENU ---
+		$this->start_controls_section(
+			'section_menu',
+			array(
+				'label' => __( 'Main Navigation Menu', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$wp_menus = $this->get_wp_menus_options();
+		$default_menu = '';
+		$menu_keys = array_keys( $wp_menus );
+		if ( count( $menu_keys ) > 1 ) {
+			$default_menu = (string) $menu_keys[1];
+		}
+
+		$this->add_control(
+			'wp_menu_id',
+			array(
+				'label'       => __( 'Select WordPress Menu', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => $wp_menus,
+				'default'     => $default_menu,
+				'description' => __( 'Select a menu created in Appearance > Menus. Sub-items will automatically render as luxury dropdowns.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- BRAND LOGO ---
+		$this->start_controls_section(
+			'section_logo',
+			array(
+				'label' => __( 'Brand Logo', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'logo_type',
+			array(
+				'label'   => __( 'Logo Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'text'  => __( 'Text & Luxury Crest SVG', 'luxury-re-widgets' ),
+					'image' => __( 'Custom Image Logo', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'custom_logo_image',
+			array(
+				'label'     => __( 'Logo Image', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array( 'logo_type' => 'image' ),
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'logo_style_tip',
+			array(
+				'type'      => Controls_Manager::RAW_HTML,
+				'raw'       => '<div style="background:rgba(197,160,71,0.08); border-left:3px solid #c5a047; padding:8px 12px; margin:8px 0 14px 0; font-size:12px; line-height:1.4; color:#ffffff;"><strong>Responsive Logo Sizing:</strong> Customize Logo Width, Height, Max Dimensions, and Object Fit for Desktop, Tablet, and Mobile in <strong>Style &gt; Brand Logo</strong>.</div>',
+				'condition' => array( 'logo_type' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'brand_line_1',
+			array(
+				'label'     => __( 'Brand Line 1', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'CRESTWOOD',
+				'condition' => array( 'logo_type' => 'text' ),
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'brand_line_2',
+			array(
+				'label'     => __( 'Brand Line 2', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => '& ASSOCIATES',
+				'condition' => array( 'logo_type' => 'text' ),
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'logo_link',
+			array(
+				'label'   => __( 'Logo Link URL', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::URL,
+				'default' => array( 'url' => '#' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- RIGHT CONTACT & INFO ITEMS (REPEATER) ---
+		$this->start_controls_section(
+			'section_right_items',
+			array(
+				'label' => __( 'Right Info & Contact Items', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$rep_right = new Repeater();
+
+		$rep_right->add_control(
+			'item_type',
+			array(
+				'label'   => __( 'Item Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'text'   => __( 'Text Link (e.g. Portfolio)', 'luxury-re-widgets' ),
+					'phone'  => __( 'Phone Number (Click to Call)', 'luxury-re-widgets' ),
+					'email'  => __( 'Email Address', 'luxury-re-widgets' ),
+					'avatar' => __( 'Avatar / Account Profile Icon', 'luxury-re-widgets' ),
+					'button' => __( 'CTA Button', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$rep_right->add_control(
+			'item_text',
+			array(
+				'label'     => __( 'Label / Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Our Portfolio',
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'item_type!' => array( 'avatar' ),
+				),
+			)
+		);
+
+		$rep_right->add_control(
+			'item_link',
+			array(
+				'label'   => __( 'Link URL', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::URL,
+				'default' => array( 'url' => '#' ),
+			)
+		);
+
+		$rep_right->add_control(
+			'item_icon',
+			array(
+				'label' => __( 'Custom Icon (Optional)', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::ICONS,
+			)
+		);
+
+		$this->add_control(
+			'right_items',
+			array(
+				'label'       => __( 'Contact & Action Items', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $rep_right->get_controls(),
+				'default'     => array(
+					array(
+						'item_type' => 'text',
+						'item_text' => 'Our Portfolio',
+						'item_link' => array( 'url' => '#listings' ),
+					),
+					array(
+						'item_type' => 'phone',
+						'item_text' => '310.555.8200',
+						'item_link' => array( 'url' => 'tel:3105558200' ),
+					),
+					array(
+						'item_type' => 'avatar',
+						'item_text' => '',
+						'item_link' => array( 'url' => '#contact' ),
+					),
+				),
+				'title_field' => '{{{ item_type.toUpperCase() }}}: {{{ item_text }}}',
+			)
+		);
+
+		$this->add_control(
+			'menu_btn_text',
+			array(
+				'label'     => __( 'Menu Button Label', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'MENU',
+				'separator' => 'before',
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'hide_phone_mobile',
+			array(
+				'label'        => __( 'Hide Phone on Mobile', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => __( 'Automatically hide the phone number on mobile viewports for a clean header layout.', 'luxury-re-widgets' ),
+				'selectors'    => array(
+					'(mobile){{WRAPPER}} .navbar__phone, (mobile){{WRAPPER}} .navbar a.navbar__phone, (mobile){{WRAPPER}} .navbar__right .navbar__phone, (mobile){{WRAPPER}} .navbar__right a.navbar__phone' => 'display: none !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SIDE DRAWER MENU (DYNAMIC REPEATER BOXES) ---
+		$this->start_controls_section(
+			'section_drawer_boxes',
+			array(
+				'label' => __( 'Side Drawer Menu Boxes', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'drawer_source',
+			array(
+				'label'       => __( 'Popup Menu Source', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'wp_menu',
+				'options'     => array(
+					'wp_menu' => __( 'WordPress Menu (Main / Primary Menu)', 'luxury-re-widgets' ),
+					'custom'  => __( 'Custom Column Boxes (Repeater)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Automatically reflects your WordPress Main/Primary Menu structure with child links and luxury backdrops.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_wp_menu_id',
+			array(
+				'label'       => __( 'Select Menu for Popup', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => $this->get_wp_menus_options(),
+				'default'     => '',
+				'condition'   => array( 'drawer_source' => 'wp_menu' ),
+				'description' => __( 'Leave blank to mirror the Primary/Main Menu selected above.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$rep_drawer = new Repeater();
+
+		$rep_drawer->add_control(
+			'box_type',
+			array(
+				'label'   => __( 'Box Layout Type', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'category',
+				'options' => array(
+					'category'   => __( 'Category Link (Large Italic Serif)', 'luxury-re-widgets' ),
+					'links_list' => __( 'Links List (Column Title + Links + Button)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'box_title',
+			array(
+				'label'   => __( 'Box Title / Column Heading', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Category Name',
+				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'box_img',
+			array(
+				'label'   => __( 'Background Image', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => lre_asset_url( 'images/property-2.jpg' ),
+				),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'box_width',
+			array(
+				'label'   => __( 'Column Width Ratio', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'standard',
+				'options' => array(
+					'standard' => __( 'Standard (1x flex)', 'luxury-re-widgets' ),
+					'wide'     => __( 'Wide (1.4x flex - Recommended for links)', 'luxury-re-widgets' ),
+				),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'category_url',
+			array(
+				'label'     => __( 'Link URL', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::URL,
+				'default'   => array( 'url' => '#listings' ),
+				'condition' => array( 'box_type' => 'category' ),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'category_sub',
+			array(
+				'label'     => __( 'Optional Subtitle / Tagline', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'condition' => array( 'box_type' => 'category' ),
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'column_links',
+			array(
+				'label'       => __( 'Navigation Links (One per line)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 6,
+				'default'     => "Pacific Palisades | #communities\nBel Air | #communities\nBrentwood | #communities\nMalibu | #communities\nHolmby Hills | #communities\nBeverly Hills | #communities",
+				'description' => __( 'Enter one link per line in format: Label | URL', 'luxury-re-widgets' ),
+				'condition'   => array( 'box_type' => 'links_list' ),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'btn_text',
+			array(
+				'label'     => __( 'Bottom Button Text (Optional)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Find Your Neighborhood',
+				'separator' => 'before',
+				'condition' => array( 'box_type' => 'links_list' ),
+				'dynamic'   => array( 'active' => true ),
+			)
+		);
+
+		$rep_drawer->add_control(
+			'btn_url',
+			array(
+				'label'     => __( 'Button Link URL', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::URL,
+				'default'   => array( 'url' => '#communities' ),
+				'condition' => array( 'box_type' => 'links_list' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_boxes',
+			array(
+				'label'       => __( 'Drawer Column Boxes', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $rep_drawer->get_controls(),
+				'default'     => array(
+					array(
+						'box_type'     => 'category',
+						'box_title'    => 'Buyers',
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
+						'box_width'    => 'standard',
+						'category_url' => array( 'url' => '#listings' ),
+					),
+					array(
+						'box_type'     => 'category',
+						'box_title'    => 'Sellers',
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
+						'box_width'    => 'standard',
+						'category_url' => array( 'url' => '#contact' ),
+					),
+					array(
+						'box_type'     => 'category',
+						'box_title'    => 'Investors',
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
+						'box_width'    => 'standard',
+						'category_url' => array( 'url' => '#services' ),
+					),
+					array(
+						'box_type'     => 'links_list',
+						'box_title'    => 'Neighborhoods',
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-8.jpg' ) ),
+						'box_width'    => 'wide',
+						'column_links' => "Pacific Palisades | #communities\nBel Air | #communities\nBrentwood | #communities\nMalibu | #communities\nHolmby Hills | #communities\nBeverly Hills | #communities",
+						'btn_text'     => 'Find Your Neighborhood',
+						'btn_url'      => array( 'url' => '#communities' ),
+					),
+					array(
+						'box_type'     => 'links_list',
+						'box_title'    => 'About Us',
+						'box_img'      => array( 'url' => lre_asset_url( 'images/property-9.jpg' ) ),
+						'box_width'    => 'wide',
+						'column_links' => "Our Story | #about\nMeet The Team | #about\nFeatured Listings | #listings\nClient Reviews | #testimonial\nConnect With Us | #contact\nMarket Insights | #services",
+						'btn_text'     => '',
+						'btn_url'      => array( 'url' => '#' ),
+					),
+				),
+				'title_field' => '{{{ box_title }}} ({{{ box_type }}})',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// =================================================================
+		// TAB: STYLE
+		// =================================================================
+
+		// --- STYLE: NAVBAR CONTAINER ---
+		$this->start_controls_section(
+			'style_navbar',
+			array(
+				'label' => __( 'Navbar Bar', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'navbar_background',
+				'label'    => __( 'Background Type', 'luxury-re-widgets' ),
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .navbar, {{WRAPPER}} .navbar.navbar--dark, {{WRAPPER}} .navbar.navbar--light, {{WRAPPER}} .navbar.navbar--transparent',
+			)
+		);
+
+		$this->add_control(
+			'navbar_bg_custom',
+			array(
+				'label'     => __( 'Custom Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar'                             => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark'                => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light'               => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--transparent'         => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}} .site-header .navbar'                => 'background: {{VALUE}}; --lre-navbar-bg: {{VALUE}};',
+					'{{WRAPPER}}'                                     => '--lre-navbar-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'navbar_scrolled_bg',
+			array(
+				'label'     => __( 'Scrolled / Sticky Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar.scrolled'                             => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark.scrolled'                => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light.scrolled'               => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--transparent.scrolled'         => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}} .site-header .navbar.scrolled'                => 'background: {{VALUE}}; --lre-navbar-scrolled-bg: {{VALUE}};',
+					'{{WRAPPER}}'                                              => '--lre-navbar-scrolled-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'navbar_border_color',
+			array(
+				'label'     => __( 'Bottom Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar' => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--dark' => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .navbar.navbar--light' => 'border-bottom-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'navbar_height',
+			array(
+				'label'      => __( 'Navbar Height', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array( 'min' => 60, 'max' => 140 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: BRAND LOGO (RESPONSIVE SIZING & TYPOGRAPHY) ---
+		$this->start_controls_section(
+			'style_logo',
+			array(
+				'label' => __( 'Brand Logo', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'heading_image_logo_style',
+			array(
+				'label' => __( 'Image Logo Dimensions', 'luxury-re-widgets' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_width',
+			array(
+				'label'       => __( 'Logo Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw', 'rem' ),
+				'range'       => array(
+					'px'  => array(
+						'min'  => 20,
+						'max'  => 600,
+						'step' => 1,
+					),
+					'%'   => array(
+						'min'  => 5,
+						'max'  => 100,
+					),
+					'vw'  => array(
+						'min'  => 5,
+						'max'  => 60,
+					),
+					'rem' => array(
+						'min'  => 2,
+						'max'  => 40,
+						'step' => 0.5,
+					),
+				),
+				'description' => __( 'Responsive width for Desktop, Tablet, and Mobile.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__center'   => 'max-width: none;',
+					'{{WRAPPER}} .navbar__logo'     => 'max-width: none;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_height',
+			array(
+				'label'       => __( 'Logo Height', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', 'vh', 'rem' ),
+				'range'       => array(
+					'px'  => array(
+						'min'  => 15,
+						'max'  => 250,
+						'step' => 1,
+					),
+					'vh'  => array(
+						'min'  => 2,
+						'max'  => 30,
+					),
+					'rem' => array(
+						'min'  => 1,
+						'max'  => 18,
+						'step' => 0.5,
+					),
+				),
+				'description' => __( 'Responsive height for Desktop, Tablet, and Mobile.', 'luxury-re-widgets' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'height: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__center'   => 'max-width: none;',
+					'{{WRAPPER}} .navbar__logo'     => 'max-width: none;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_max_width',
+			array(
+				'label'       => __( 'Logo Max Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 30,
+						'max' => 800,
+					),
+					'%'  => array(
+						'min' => 10,
+						'max' => 100,
+					),
+					'vw' => array(
+						'min' => 5,
+						'max' => 80,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_max_height',
+			array(
+				'label'       => __( 'Logo Max Height', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', 'vh' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 15,
+						'max' => 200,
+					),
+					'vh' => array(
+						'min' => 2,
+						'max' => 25,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'max-height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_object_fit',
+			array(
+				'label'     => __( 'Object Fit', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'contain',
+				'options'   => array(
+					'contain' => __( 'Contain (Keep Proportions)', 'luxury-re-widgets' ),
+					'cover'   => __( 'Cover', 'luxury-re-widgets' ),
+					'fill'    => __( 'Fill', 'luxury-re-widgets' ),
+					'none'    => __( 'None (Natural Size)', 'luxury-re-widgets' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-img' => 'object-fit: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_center_max_width',
+			array(
+				'label'       => __( 'Center Container Max Width', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => array( 'px', '%', 'vw' ),
+				'range'       => array(
+					'px' => array(
+						'min' => 80,
+						'max' => 600,
+					),
+					'%'  => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .navbar__center' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_padding',
+			array(
+				'label'      => __( 'Padding', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_opacity',
+			array(
+				'label'     => __( 'Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.1,
+						'max'  => 1,
+						'step' => 0.05,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'logo_hover_opacity',
+			array(
+				'label'     => __( 'Hover Opacity', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.1,
+						'max'  => 1,
+						'step' => 0.05,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo:hover' => 'opacity: {{SIZE}};',
+				),
+			)
+		);
+
+		// --- Text & Crest Logo Styling ---
+		$this->add_control(
+			'heading_crest_text_style',
+			array(
+				'label'     => __( 'Text & Crest Logo Styling', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'crest_icon_size',
+			array(
+				'label'      => __( 'Crest Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 16,
+						'max' => 120,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo-icon' => 'width: {{SIZE}}{{UNIT}} !important; height: auto !important; max-width: none !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'crest_icon_color',
+			array(
+				'label'     => __( 'Crest Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-icon' => 'color: {{VALUE}}; fill: {{VALUE}}; --navbar-crest-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'brand_line_1_typography',
+				'label'    => __( 'Brand Line 1 Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar__logo-text span:first-child',
+			)
+		);
+
+		$this->add_control(
+			'brand_line_1_color',
+			array(
+				'label'     => __( 'Brand Line 1 Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-text span:first-child' => 'color: {{VALUE}}; --navbar-brand-l1-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'brand_line_2_typography',
+				'label'    => __( 'Brand Line 2 Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar__logo-text span:last-child',
+			)
+		);
+
+		$this->add_control(
+			'brand_line_2_color',
+			array(
+				'label'     => __( 'Brand Line 2 Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__logo-text span:last-child' => 'color: {{VALUE}}; --navbar-brand-l2-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'brand_lines_gap',
+			array(
+				'label'      => __( 'Text Lines Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 20,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo-text' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'crest_text_gap',
+			array(
+				'label'      => __( 'Icon to Text Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 4,
+						'max' => 40,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__logo' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: MAIN NAVIGATION LINKS ---
+		$this->start_controls_section(
+			'style_nav_links',
+			array(
+				'label' => __( 'Main Navigation Links', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'nav_typography',
+				'selector' => '{{WRAPPER}} .navbar a.navbar__link, {{WRAPPER}} .navbar .navbar__link',
+			)
+		);
+
+		$this->add_responsive_control(
+			'nav_links_gap',
+			array(
+				'label'      => __( 'Links Spacing / Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'rem', 'px' ),
+				'range'      => array(
+					'rem' => array( 'min' => 0.5, 'max' => 4, 'step' => 0.1 ),
+					'px'  => array( 'min' => 8, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__left' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_nav_links_style' );
+
+		$this->start_controls_tab(
+			'tab_nav_links_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'nav_link_color',
+			array(
+				'label'     => __( 'Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__link, {{WRAPPER}} .navbar .navbar__link' => 'color: {{VALUE}}; --navbar-link-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_nav_links_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'nav_link_color_hover',
+			array(
+				'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__link:hover, {{WRAPPER}} .navbar .navbar__dropdown:hover > a.navbar__link' => 'color: {{VALUE}}; --navbar-link-hover-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'nav_underline_color',
+			array(
+				'label'     => __( 'Underline Indicator Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__link::after' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		// --- STYLE: DROPDOWN MENUS ---
+		$this->start_controls_section(
+			'style_dropdown_menu',
+			array(
+				'label' => __( 'Dropdown Menus', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'dropdown_bg',
+			array(
+				'label'     => __( 'Dropdown Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'dropdown_typography',
+				'selector' => '{{WRAPPER}} .navbar__submenu a.navbar__submenu-link',
+			)
+		);
+
+		$this->add_control(
+			'dropdown_link_color',
+			array(
+				'label'     => __( 'Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link' => 'color: {{VALUE}}; --navbar-submenu-link-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'dropdown_link_hover_color',
+			array(
+				'label'     => __( 'Link Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'color: {{VALUE}}; --navbar-submenu-link-hover-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'dropdown_link_hover_bg',
+			array(
+				'label'     => __( 'Link Hover Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu a.navbar__submenu-link:hover' => 'background: {{VALUE}}; --navbar-submenu-link-hover-bg: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'dropdown_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'dropdown_divider_color',
+			array(
+				'label'     => __( 'Divider Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__submenu-divider' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: RIGHT INFO & CONTACT ITEMS ---
+		$this->start_controls_section(
+			'style_right_items_section',
+			array(
+				'label' => __( 'Right Info & Contact Items', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'right_items_gap',
+			array(
+				'label'      => __( 'Items Spacing / Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'rem', 'px' ),
+				'range'      => array(
+					'rem' => array( 'min' => 0.5, 'max' => 4, 'step' => 0.1 ),
+					'px'  => array( 'min' => 8, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__right' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// --- Heading: Item Icons ---
+		$this->add_control(
+			'heading_items_icon_style',
+			array(
+				'label'     => __( 'Item Icons (Phone, Email, Text)', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'right_icon_size',
+			array(
+				'label'      => __( 'Icon Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 8, 'max' => 48 ),
+					'rem' => array( 'min' => 0.5, 'max' => 3, 'step' => 0.1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 14 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i, {{WRAPPER}} .navbar__btn svg, {{WRAPPER}} .navbar__btn i' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important; font-size: {{SIZE}}{{UNIT}} !important; --lre-right-icon-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .navbar__item-icon' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'right_icon_gap',
+			array(
+				'label'      => __( 'Icon to Text Gap', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array( 'min' => 0, 'max' => 30 ),
+					'rem' => array( 'min' => 0, 'max' => 2, 'step' => 0.1 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 8 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__phone, {{WRAPPER}} .navbar__info, {{WRAPPER}} .navbar__email, {{WRAPPER}} .navbar__btn' => 'gap: {{SIZE}}{{UNIT}} !important; --lre-right-icon-gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_right_icon_style' );
+
+		$this->start_controls_tab(
+			'tab_right_icon_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'right_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__item-icon svg, {{WRAPPER}} .navbar__item-icon i, {{WRAPPER}} .navbar__phone svg, {{WRAPPER}} .navbar__phone i, {{WRAPPER}} .navbar__info svg, {{WRAPPER}} .navbar__info i, {{WRAPPER}} .navbar__email svg, {{WRAPPER}} .navbar__email i' => 'color: {{VALUE}}; fill: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_right_icon_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'right_icon_hover_color',
+			array(
+				'label'     => __( 'Icon Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__phone:hover svg, {{WRAPPER}} .navbar__phone:hover i, {{WRAPPER}} .navbar__info:hover svg, {{WRAPPER}} .navbar__info:hover i, {{WRAPPER}} .navbar__email:hover svg, {{WRAPPER}} .navbar__email:hover i, {{WRAPPER}} a:hover .navbar__item-icon svg, {{WRAPPER}} a:hover .navbar__item-icon i' => 'color: {{VALUE}}; fill: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// --- Heading: Phone Number Style ---
+		$this->add_control(
+			'heading_phone_style',
+			array(
+				'label'     => __( 'Phone Number Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'phone_typography',
+				'label'    => __( 'Phone Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone',
+			)
+		);
+
+		$this->add_control(
+			'phone_color',
+			array(
+				'label'     => __( 'Phone Number Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__phone, {{WRAPPER}} .navbar .navbar__phone' => 'color: {{VALUE}}; --navbar-phone-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'phone_hover_color',
+			array(
+				'label'     => __( 'Phone Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__phone:hover, {{WRAPPER}} .navbar .navbar__phone:hover' => 'color: {{VALUE}}; --navbar-phone-hover-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// --- Heading: Text Links Style ---
+		$this->add_control(
+			'heading_right_text_style',
+			array(
+				'label'     => __( 'Text Links Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'right_text_typography',
+				'label'    => __( 'Text Link Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar a.navbar__info, {{WRAPPER}} .navbar .navbar__info',
+			)
+		);
+
+		$this->add_control(
+			'right_text_color',
+			array(
+				'label'     => __( 'Text Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__info, {{WRAPPER}} .navbar .navbar__info' => 'color: {{VALUE}}; --navbar-info-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'right_text_hover_color',
+			array(
+				'label'     => __( 'Text Link Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar a.navbar__info:hover, {{WRAPPER}} .navbar .navbar__info:hover' => 'color: {{VALUE}}; --navbar-info-hover-color: {{VALUE}};',
+				),
+			)
+		);
+
+		// --- Heading: Avatar Style ---
+		$this->add_control(
+			'heading_avatar_style',
+			array(
+				'label'     => __( 'Avatar / Profile Icon', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'avatar_size',
+			array(
+				'label'      => __( 'Avatar Circle Size', 'luxury-re-widgets' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 60 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .navbar__avatar' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important; min-width: {{SIZE}}{{UNIT}} !important; min-height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'avatar_bg',
+			array(
+				'label'     => __( 'Avatar Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__avatar' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'avatar_icon_color',
+			array(
+				'label'     => __( 'Avatar Icon Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__avatar svg, {{WRAPPER}} .navbar__avatar i' => 'color: {{VALUE}}; fill: currentColor;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: MENU BUTTON (TOP RIGHT) ---
+		$this->start_controls_section(
+			'style_menu_btn',
+			array(
+				'label' => __( 'Menu Button (Top Right)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'menu_btn_typography',
+				'label'    => __( 'Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .navbar__menu-btn',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_menu_btn_style' );
+
+		$this->start_controls_tab(
+			'tab_menu_btn_normal',
+			array( 'label' => __( 'Normal', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'menu_btn_color',
+			array(
+				'label'     => __( 'Button Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__menu-btn' => 'color: {{VALUE}}; border: none; background: transparent;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_menu_btn_hover',
+			array( 'label' => __( 'Hover', 'luxury-re-widgets' ) )
+		);
+
+		$this->add_control(
+			'menu_btn_color_hover',
+			array(
+				'label'     => __( 'Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__menu-btn:hover' => 'color: {{VALUE}}; border: none; background: transparent;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		// --- STYLE: SIDE DRAWER MENU ---
+		$this->start_controls_section(
+			'style_side_drawer',
+			array(
+				'label' => __( 'Side Drawer Menu', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'drawer_bg',
+			array(
+				'label'     => __( 'Drawer Backdrop Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'drawer_title_typography',
+				'label'    => __( 'Box Titles Typography (All Boxes)', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__col-title, {{WRAPPER}} .side-menu .side-menu__col-title a',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'drawer_cat_typography',
+				'label'    => __( 'Category Title Typography (Override)', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu .side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__category-heading, {{WRAPPER}} .side-menu h3.side-menu__category-heading a',
+			)
+		);
+
+		$this->add_control(
+			'drawer_cat_color',
+			array(
+				'label'     => __( 'Category Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__category-link, {{WRAPPER}} .side-menu h3.side-menu__category-heading a' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_cat_hover_color',
+			array(
+				'label'     => __( 'Category Title Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__category-link:hover, {{WRAPPER}} .side-menu h3.side-menu__category-heading a:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'drawer_col_typography',
+				'label'    => __( 'Column Title Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link, {{WRAPPER}} .side-menu .side-menu__col-title a',
+			)
+		);
+
+		$this->add_control(
+			'drawer_col_color',
+			array(
+				'label'     => __( 'Column Title Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu h3.side-menu__col-title, {{WRAPPER}} .side-menu h3.side-menu__col-title a, {{WRAPPER}} .side-menu a.side-menu__title-link' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_col_hover_color',
+			array(
+				'label'     => __( 'Column Title Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__title-link:hover, {{WRAPPER}} .side-menu h3.side-menu__col-title a:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'drawer_links_typography',
+				'label'    => __( 'Sub-Links Typography', 'luxury-re-widgets' ),
+				'selector' => '{{WRAPPER}} .side-menu a.side-menu__link, {{WRAPPER}} .side-menu .side-menu__link',
+			)
+		);
+
+		$this->add_control(
+			'drawer_links_color',
+			array(
+				'label'     => __( 'Sub-Links Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__link, {{WRAPPER}} .side-menu .side-menu__link' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_links_hover_color',
+			array(
+				'label'     => __( 'Sub-Links Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__link:hover, {{WRAPPER}} .side-menu .side-menu__link:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_drawer_find_btn',
+			array(
+				'label'     => __( 'Find Button Style', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_drawer_btn_style' );
+
+		// Normal
+		$this->start_controls_tab(
+			'tab_drawer_btn_normal',
+			array(
+				'label' => __( 'Normal', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_text_color',
+			array(
+				'label'     => __( 'Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn, {{WRAPPER}} .side-menu a.side-menu__find-btn span' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover
+		$this->start_controls_tab(
+			'tab_drawer_btn_hover',
+			array(
+				'label' => __( 'Hover', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_text_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover, {{WRAPPER}} .side-menu a.side-menu__find-btn:hover span' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu a.side-menu__find-btn:hover' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_control(
+			'drawer_close_color',
+			array(
+				'label'     => __( 'Close Button Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu__close' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'drawer_close_hover_color',
+			array(
+				'label'     => __( 'Close Button Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .side-menu__close:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- STYLE: MOBILE DROPDOWN (CLASSIC ACCORDION) ---
+		$this->start_controls_section(
+			'style_mobile_dropdown',
+			array(
+				'label'     => __( 'Mobile Dropdown Menu', 'luxury-re-widgets' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'mobile_menu_type' => 'dropdown' ),
+			)
+		);
+
+		$this->add_control(
+			'mobile_dropdown_bg',
+			array(
+				'label'     => __( 'Menu Background Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-dropdown' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_link_color',
+			array(
+				'label'     => __( 'Mobile Link Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-link' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_link_active_color',
+			array(
+				'label'     => __( 'Active / Hover Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-link:hover, {{WRAPPER}} .navbar__mobile-link.active' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_toggle_icon_color',
+			array(
+				'label'     => __( 'Toggle Arrow Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-toggle' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_toggle_icon_active_color',
+			array(
+				'label'     => __( 'Toggle Arrow Active Color', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-item.open .navbar__mobile-toggle, {{WRAPPER}} .navbar__mobile-toggle:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mobile_sub_bg',
+			array(
+				'label'     => __( 'Submenu Container Background', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .navbar__mobile-sub' => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Render dynamic WordPress menu.
+	 *
+	 * @param int|string $menu_id Menu ID.
+	 */
+	protected function render_wp_menu( $menu_id ) {
+		if ( empty( $menu_id ) ) {
+			$menus = wp_get_nav_menus();
+			if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+				$menu_id = $menus[0]->term_id;
+			}
+		}
+
+		if ( empty( $menu_id ) ) {
+			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+				echo '<div class="navbar__left"><span style="color: rgba(255,255,255,0.6); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">' . esc_html__( 'Please select a menu in Widget Settings', 'luxury-re-widgets' ) . '</span></div>';
+			}
+			return;
+		}
+
+		$items = wp_get_nav_menu_items( (int) $menu_id );
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			$items = wp_get_nav_menu_items( $menu_id );
+		}
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			return;
+		}
+
+		// Build parent => children tree
+		$tree = array();
+		foreach ( $items as $item ) {
+			$parent = (int) $item->menu_item_parent;
+			if ( ! isset( $tree[ $parent ] ) ) {
+				$tree[ $parent ] = array();
+			}
+			$tree[ $parent ][] = $item;
+		}
+
+		$top_items = $tree[0] ?? array();
+		if ( empty( $top_items ) ) {
+			return;
+		}
+
+		echo '<div class="navbar__left">';
+		foreach ( $top_items as $item ) {
+			$has_children = ! empty( $tree[ $item->ID ] );
+			$url          = ! empty( $item->url ) ? $item->url : '#';
+			$target       = ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+			$clean_title  = esc_html( html_entity_decode( $item->title, ENT_QUOTES, 'UTF-8' ) );
+
+			if ( $has_children ) {
+				echo '<div class="navbar__dropdown">';
+				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link" aria-haspopup="true" aria-expanded="false">';
+				echo $clean_title;
+				echo '<svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>';
+				echo '</a>';
+
+				echo '<div class="navbar__submenu">';
+				foreach ( $tree[ $item->ID ] as $sub_item ) {
+					$sub_url         = ! empty( $sub_item->url ) ? $sub_item->url : '#';
+					$sub_target      = ! empty( $sub_item->target ) ? ' target="' . esc_attr( $sub_item->target ) . '"' : '';
+					$clean_sub_title = esc_html( html_entity_decode( $sub_item->title, ENT_QUOTES, 'UTF-8' ) );
+					echo '<a href="' . esc_url( $sub_url ) . '"' . $sub_target . ' class="navbar__submenu-link">' . $clean_sub_title . '</a>';
+				}
+				echo '</div>';
+				echo '</div>';
+			} else {
+				echo '<a href="' . esc_url( $url ) . '"' . $target . ' class="navbar__link">' . $clean_title . '</a>';
+			}
+		}
+		echo '</div>';
+	}
+
+	/**
+	 * Render classic mobile dropdown menu.
+	 *
+	 * @param array $settings Widget settings.
+	 */
+	protected function render_mobile_dropdown( $settings ) {
+		$wp_menu_id = $settings['wp_menu_id'] ?? '';
+		if ( empty( $wp_menu_id ) ) {
+			$menus = wp_get_nav_menus();
+			if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+				$wp_menu_id = $menus[0]->term_id;
+			}
+		}
+		if ( empty( $wp_menu_id ) ) {
+			return;
+		}
+
+		$items = wp_get_nav_menu_items( (int) $wp_menu_id );
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			$items = wp_get_nav_menu_items( $wp_menu_id );
+		}
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			return;
+		}
+
+		$tree = array();
+		foreach ( $items as $it ) {
+			$p = (int) $it->menu_item_parent;
+			if ( ! isset( $tree[ $p ] ) ) {
+				$tree[ $p ] = array();
+			}
+			$tree[ $p ][] = $it;
+		}
+
+		$top_items = $tree[0] ?? array();
+		if ( empty( $top_items ) ) {
+			return;
+		}
+		?>
+		<div class="navbar__mobile-dropdown" id="navbar-mobile-dropdown" aria-hidden="true">
+			<div class="navbar__mobile-nav">
+				<?php
+				foreach ( $top_items as $top ) {
+					$has_sub         = ! empty( $tree[ $top->ID ] );
+					$u               = ! empty( $top->url ) ? $top->url : '#';
+					$clean_top_title = esc_html( html_entity_decode( $top->title, ENT_QUOTES, 'UTF-8' ) );
+
+					echo '<div class="navbar__mobile-item' . ( $has_sub ? ' has-children' : '' ) . '">';
+					echo '<a href="' . esc_url( $u ) . '" class="navbar__mobile-link">' . $clean_top_title . '</a>';
+					if ( $has_sub ) {
+						echo '<button class="navbar__mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'luxury-re-widgets' ) . '" style="background:transparent!important;background-color:transparent!important;border:none!important;box-shadow:none!important;outline:none!important;"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>';
+						echo '<div class="navbar__mobile-sub">';
+						foreach ( $tree[ $top->ID ] as $sub ) {
+							$su               = ! empty( $sub->url ) ? $sub->url : '#';
+							$clean_m_sub_title = esc_html( html_entity_decode( $sub->title, ENT_QUOTES, 'UTF-8' ) );
+							echo '<a href="' . esc_url( $su ) . '" class="navbar__mobile-sublink">' . $clean_m_sub_title . '</a>';
+						}
+						echo '</div>';
+					}
+					echo '</div>';
+				}
+				?>
+			</div>
+		</div>
+		<?php
+	}
+
+	protected function render() {
+		$settings         = $this->get_settings_for_display();
+		$mode             = $settings['navbar_mode'] ?? 'transparent';
+		$is_sticky        = 'yes' === ( $settings['is_sticky'] ?? 'yes' );
+		$sticky_class     = $is_sticky ? ' navbar--sticky' : ' navbar--static';
+		$mobile_menu_type = $settings['mobile_menu_type'] ?? 'drawer';
+		$header_class     = 'site-header dynamic-header header-full-width site-header--' . esc_attr( $mode ) . ( $is_sticky ? ' site-header--sticky' : '' ) . ' mobile-type--' . esc_attr( $mobile_menu_type );
+
+		$logo_url    = ! empty( $settings['logo_link']['url'] ) ? $settings['logo_link']['url'] : '#';
+		$logo_target = ! empty( $settings['logo_link']['is_external'] ) ? '_blank' : '_self';
+		
+		$wp_menu_id  = $settings['wp_menu_id'] ?? '';
+		?>
+		<header class="<?php echo esc_attr( $header_class ); ?>" role="banner" data-mobile-type="<?php echo esc_attr( $mobile_menu_type ); ?>">
+			<nav class="navbar navbar--<?php echo esc_attr( $mode . $sticky_class ); ?>" id="navbar" aria-label="<?php esc_attr_e( 'Main navigation', 'luxury-re-widgets' ); ?>">
+				
+				<!-- Left Nav Links with Luxury Mega Dropdowns -->
+				<?php
+				$this->render_wp_menu( $wp_menu_id );
+				?>
+
+				<!-- Center Brand Logo -->
+				<div class="navbar__center">
+					<a href="<?php echo esc_url( $logo_url ); ?>" target="<?php echo esc_attr( $logo_target ); ?>" class="navbar__logo" aria-label="<?php esc_attr_e( 'Homepage', 'luxury-re-widgets' ); ?>">
+						<?php if ( 'image' === ( $settings['logo_type'] ?? 'text' ) && ! empty( $settings['custom_logo_image']['url'] ) ) : ?>
+							<img src="<?php echo esc_url( $settings['custom_logo_image']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="navbar__logo-img">
+						<?php else : ?>
+							<svg class="navbar__logo-icon" viewBox="0 0 40 48" fill="currentColor">
+								<rect x="2" y="2" width="36" height="4" rx="1"/>
+								<rect x="6" y="8" width="5" height="30" rx="1"/>
+								<rect x="17.5" y="8" width="5" height="30" rx="1"/>
+								<rect x="29" y="8" width="5" height="30" rx="1"/>
+								<rect x="2" y="40" width="36" height="4" rx="1"/>
+								<line x1="0" y1="46" x2="40" y2="46" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							<div class="navbar__logo-text">
+								<span><?php echo esc_html( $settings['brand_line_1'] ?? 'CRESTWOOD' ); ?></span>
+								<span><?php echo esc_html( $settings['brand_line_2'] ?? '& ASSOCIATES' ); ?></span>
+							</div>
+						<?php endif; ?>
+					</a>
+				</div>
+
+				<!-- Right Info & Menu Button -->
+				<div class="navbar__right">
+					<?php
+					$right_items = $settings['right_items'] ?? array();
+					if ( ! empty( $right_items ) && is_array( $right_items ) ) {
+						foreach ( $right_items as $item ) {
+							$type   = $item['item_type'] ?? 'text';
+							$text   = $item['item_text'] ?? '';
+							$url    = ! empty( $item['item_link']['url'] ) ? $item['item_link']['url'] : '#';
+							$target = ! empty( $item['item_link']['is_external'] ) ? '_blank' : '_self';
+
+							if ( 'phone' === $type ) {
+								$clean_phone = preg_replace( '/[^0-9+]/', '', $text );
+								echo '<a href="tel:' . esc_attr( $clean_phone ) . '" class="navbar__phone">';
+								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
+									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
+									echo '</span>';
+								}
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
+								echo '</a>';
+							} elseif ( 'email' === $type ) {
+								echo '<a href="mailto:' . esc_attr( $text ) . '" class="navbar__info navbar__email">';
+								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
+									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
+									echo '</span>';
+								}
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
+								echo '</a>';
+							} elseif ( 'avatar' === $type ) {
+								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="navbar__avatar" aria-label="' . esc_attr__( 'Account', 'luxury-re-widgets' ) . '">';
+								if ( ! empty( $item['item_icon']['value'] ) ) {
+									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
+								} else {
+									echo '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>';
+								}
+								echo '</a>';
+							} elseif ( 'button' === $type ) {
+								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="btn btn--outline-white navbar__btn" style="padding: 0.5rem 1.2rem; font-size: 0.65rem; text-decoration: none;">';
+								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
+									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
+									echo '</span>';
+								}
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
+								echo '</a>';
+							} else {
+								// Standard text link
+								echo '<a href="' . esc_url( $url ) . '" target="' . esc_attr( $target ) . '" class="navbar__info">';
+								if ( ! empty( $item['item_icon']['value'] ) ) {
+									echo '<span class="navbar__item-icon" aria-hidden="true">';
+									\Elementor\Icons_Manager::render_icon( $item['item_icon'], array( 'aria-hidden' => 'true' ) );
+									echo '</span>';
+								}
+								if ( ! empty( $text ) ) {
+									echo '<span class="navbar__item-text">' . esc_html( $text ) . '</span>';
+								}
+								echo '</a>';
+							}
+						}
+					} else {
+						// Backward compatibility fallback
+						if ( 'yes' === ( $settings['show_portfolio'] ?? 'yes' ) && ! empty( $settings['portfolio_text'] ) ) {
+							echo '<a href="' . esc_url( $settings['portfolio_link']['url'] ?? '#listings' ) . '" class="navbar__info"><span class="navbar__item-text">' . esc_html( $settings['portfolio_text'] ) . '</span></a>';
+						}
+						if ( 'yes' === ( $settings['show_phone'] ?? 'yes' ) && ! empty( $settings['phone_number'] ) ) {
+							echo '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $settings['phone_number'] ) ) . '" class="navbar__phone"><span class="navbar__item-text">' . esc_html( $settings['phone_number'] ) . '</span></a>';
+						}
+						if ( 'yes' === ( $settings['show_avatar'] ?? 'yes' ) ) {
+							echo '<div class="navbar__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg></div>';
+						}
+					}
+					?>
+
+					<button class="navbar__menu-btn" id="menu-open-btn" aria-label="<?php esc_attr_e( 'Open navigation menu', 'luxury-re-widgets' ); ?>" aria-expanded="false" aria-controls="side-menu">
+						<div class="hamburger" aria-hidden="true">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+						<?php echo esc_html( $settings['menu_btn_text'] ?? 'MENU' ); ?>
+					</button>
+				</div>
+			</nav>
+
+			<?php
+			// Render mobile classic dropdown if enabled
+			if ( 'dropdown' === $mobile_menu_type ) {
+				$this->render_mobile_dropdown( $settings );
+			}
+			?>
+
+			<!-- Fullscreen Side Drawer Menu -->
+			<div class="side-menu" id="side-menu" role="dialog" aria-label="<?php esc_attr_e( 'Navigation menu', 'luxury-re-widgets' ); ?>" aria-hidden="true">
+				<button class="side-menu__close" id="menu-close-btn" aria-label="<?php esc_attr_e( 'Close navigation menu', 'luxury-re-widgets' ); ?>">
+					<span class="side-menu__close-icon">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
+					</span>
+					<?php esc_html_e( 'Close', 'luxury-re-widgets' ); ?>
+				</button>
+
+				<div class="side-menu__columns">
+					<?php
+					$drawer_source = $settings['drawer_source'] ?? 'wp_menu';
+					$has_rendered  = false;
+
+					if ( 'wp_menu' === $drawer_source ) {
+						$popup_menu_id = ! empty( $settings['drawer_wp_menu_id'] ) ? $settings['drawer_wp_menu_id'] : ( $settings['wp_menu_id'] ?? '' );
+						if ( empty( $popup_menu_id ) ) {
+							$menus = wp_get_nav_menus();
+							if ( ! empty( $menus ) && ! is_wp_error( $menus ) ) {
+								$popup_menu_id = $menus[0]->term_id;
+							}
+						}
+
+						$menu_items = ! empty( $popup_menu_id ) ? wp_get_nav_menu_items( (int) $popup_menu_id ) : array();
+						if ( empty( $menu_items ) || is_wp_error( $menu_items ) ) {
+							$menu_items = ! empty( $popup_menu_id ) ? wp_get_nav_menu_items( $popup_menu_id ) : array();
+						}
+
+						if ( ! empty( $menu_items ) && ! is_wp_error( $menu_items ) ) {
+							$tree = array();
+							foreach ( $menu_items as $it ) {
+								$p = (int) $it->menu_item_parent;
+								if ( ! isset( $tree[ $p ] ) ) {
+									$tree[ $p ] = array();
+								}
+								$tree[ $p ][] = $it;
+							}
+
+							$top_items = $tree[0] ?? array();
+							$default_imgs = array(
+								1 => 'images/property-9.jpg',
+								2 => 'images/property-1.jpg',
+								3 => 'images/property-8.jpg',
+								4 => 'images/property-3.jpg',
+								5 => 'images/property-2.jpg',
+								6 => 'images/property-4.jpg',
+								7 => 'images/property-5.jpg',
+								8 => 'images/property-6.jpg',
+								9 => 'images/property-7.jpg',
+							);
+
+							if ( ! empty( $top_items ) ) {
+								$has_rendered = true;
+								$box_index    = 0;
+								foreach ( $top_items as $top ) {
+									$box_index++;
+									$has_children = ! empty( $tree[ $top->ID ] );
+									$wide_cls     = $has_children ? ' side-menu__box--wide' : '';
+									$top_url      = ! empty( $top->url ) ? $top->url : '#';
+									$top_target   = ! empty( $top->target ) ? ' target="' . esc_attr( $top->target ) . '"' : '';
+									$top_title    = esc_html( html_entity_decode( $top->title, ENT_QUOTES, 'UTF-8' ) );
+
+									$post_thumb = ( ! empty( $top->object_id ) && 'page' === $top->object ) ? get_the_post_thumbnail_url( (int) $top->object_id, 'full' ) : '';
+									if ( empty( $post_thumb ) ) {
+										$img_rel = $default_imgs[ $box_index ] ?? 'images/property-1.jpg';
+										$img_url = lre_asset_url( $img_rel );
+									} else {
+										$img_url = $post_thumb;
+									}
+
+									echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
+									echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $top_title ) . '" loading="lazy"></div>';
+									echo '<div class="side-menu__box-overlay"></div>';
+
+									if ( $has_children ) {
+										echo '<div class="side-menu__box-content side-menu__box-content--center">';
+										echo '<h3 class="side-menu__col-title"><a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__title-link">' . $top_title . '</a></h3>';
+										echo '<div class="side-menu__links">';
+										foreach ( $tree[ $top->ID ] as $child ) {
+											$c_url    = ! empty( $child->url ) ? $child->url : '#';
+											$c_target = ! empty( $child->target ) ? ' target="' . esc_attr( $child->target ) . '"' : '';
+											$c_title  = esc_html( html_entity_decode( $child->title, ENT_QUOTES, 'UTF-8' ) );
+											echo '<a href="' . esc_url( $c_url ) . '"' . $c_target . ' class="side-menu__link">' . $c_title . '</a>';
+										}
+										echo '</div>';
+										echo '<a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__find-btn"><span>' . sprintf( esc_html__( 'Explore %s', 'luxury-re-widgets' ), $top_title ) . '</span></a>';
+										echo '</div>';
+									} else {
+										echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
+										echo '<h3 class="side-menu__col-title side-menu__category-heading"><a href="' . esc_url( $top_url ) . '"' . $top_target . ' class="side-menu__category-link">' . $top_title . '</a></h3>';
+										echo '</div>';
+									}
+
+									echo '</div>';
+								}
+							}
+						}
+					}
+
+					// Custom Repeater Boxes (Fallback or when drawer_source === 'custom')
+					if ( ! $has_rendered ) {
+						$drawer_boxes = $settings['drawer_boxes'] ?? array();
+
+						// If repeater has items, render dynamically
+						if ( ! empty( $drawer_boxes ) && is_array( $drawer_boxes ) ) {
+							$box_index = 0;
+							foreach ( $drawer_boxes as $box ) {
+								$box_index++;
+								$box_type  = $box['box_type'] ?? 'category';
+								$box_title = $box['box_title'] ?? '';
+								$box_width = $box['box_width'] ?? 'standard';
+								$wide_cls  = ( 'wide' === $box_width ) ? ' side-menu__box--wide' : '';
+
+								$img_url = ! empty( $box['box_img']['url'] ) ? $box['box_img']['url'] : '';
+								if ( empty( $img_url ) && ! empty( $box['box_img']['id'] ) ) {
+									$img_url = wp_get_attachment_image_url( $box['box_img']['id'], 'full' );
+								}
+								$img_url = lre_resolve_image_url( $img_url, 'images/property-1.jpg' );
+
+								echo '<div class="side-menu__box' . esc_attr( $wide_cls ) . '" data-delay="' . esc_attr( $box_index ) . '">';
+								echo '<div class="side-menu__box-bg"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $box_title ) . '" loading="lazy"></div>';
+								echo '<div class="side-menu__box-overlay"></div>';
+
+								if ( 'category' === $box_type ) {
+									$cat_url = ! empty( $box['category_url']['url'] ) ? $box['category_url']['url'] : '#';
+									$cat_tar = ! empty( $box['category_url']['is_external'] ) ? '_blank' : '_self';
+									echo '<div class="side-menu__box-content side-menu__box-content--bottom">';
+									echo '<h3 class="side-menu__col-title side-menu__category-heading"><a href="' . esc_url( $cat_url ) . '" target="' . esc_attr( $cat_tar ) . '" class="side-menu__category-link">';
+									echo esc_html( $box_title );
+									if ( ! empty( $box['category_sub'] ) ) {
+										echo '<span class="side-menu__category-sub">' . esc_html( $box['category_sub'] ) . '</span>';
+									}
+									echo '</a></h3>';
+									echo '</div>';
+								} else {
+									// Links list box
+									echo '<div class="side-menu__box-content side-menu__box-content--center">';
+									if ( ! empty( $box_title ) ) {
+										echo '<h3 class="side-menu__col-title">' . esc_html( $box_title ) . '</h3>';
+									}
+
+									$raw_links = $box['column_links'] ?? '';
+									if ( ! empty( $raw_links ) ) {
+										$lines = explode( "\n", str_replace( "\r", '', $raw_links ) );
+										echo '<div class="side-menu__links">';
+										foreach ( $lines as $line ) {
+											$line = trim( $line );
+											if ( empty( $line ) ) {
+												continue;
+											}
+											$parts = explode( '|', $line );
+											$l_text = trim( $parts[0] ?? '' );
+											$l_url  = trim( $parts[1] ?? '#' );
+											if ( ! empty( $l_text ) ) {
+												echo '<a href="' . esc_url( $l_url ) . '" class="side-menu__link">' . esc_html( $l_text ) . '</a>';
+											}
+										}
+										echo '</div>';
+									}
+
+									if ( ! empty( $box['btn_text'] ) ) {
+										$b_url = ! empty( $box['btn_url']['url'] ) ? $box['btn_url']['url'] : '#';
+										$b_tar = ! empty( $box['btn_url']['is_external'] ) ? '_blank' : '_self';
+										echo '<a href="' . esc_url( $b_url ) . '" target="' . esc_attr( $b_tar ) . '" class="side-menu__find-btn"><span>' . esc_html( $box['btn_text'] ) . '</span></a>';
+									}
+
+									echo '</div>';
+								}
+
+								echo '</div>';
+							}
+						}
+					}
+					?>
+				</div>
+			</div>
+		</header>
+		<?php
+	}
+}

@@ -1,0 +1,380 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+use Elementor\Widget_Base;
+use Elementor\Controls_Manager;
+use Elementor\Repeater;
+
+/**
+ * LRE_Buying_Guide_Widget
+ * Super-Luxury & Minimal Architectural Estate Acquisition Monograph Widget.
+ * Engineered for Ultra-High-Net-Worth (UHNW) buyers, family offices, and sovereign trustees.
+ * Inspired by Official Partners, Knight Frank Private Office, and Christie's International Real Estate.
+ *
+ * Characteristics:
+ * - Ultra-minimalist fine-art monograph layout (zero cards, zero boxes, zero dashboards).
+ * - Generous architectural breathing room and deep obsidian atmosphere (#08080c).
+ * - Sequential alternating editorial chapters (I, II, III, IV).
+ * - Signature .image-reveal shutter curtain entrance effect and luxury grayscale hover transition.
+ * - 100% Elementor live editor visibility guarantee (zero black screen).
+ *
+ * @package Luxury_RE_Widgets
+ */
+class LRE_Buying_Guide_Widget extends Widget_Base {
+
+	public function get_name() {
+		return 'lre_buying_guide';
+	}
+
+	public function get_title() {
+		return __( 'LRE — Luxury Buying Guide & Protocol', 'luxury-re-widgets' );
+	}
+
+	public function get_icon() {
+		return 'eicon-document-file';
+	}
+
+	public function get_categories() {
+		return array( 'luxury-re-widgets' );
+	}
+
+	public function get_keywords() {
+		return array( 'buyer', 'buying', 'guide', 'protocol', 'acquisition', 'luxury', 'fiduciary', 'monograph', 'minimal', 'quiet luxury' );
+	}
+
+	protected function register_controls() {
+
+		// =================================================================
+		// TAB: CONTENT
+		// =================================================================
+
+		// --- SECTION 1: HEADER & WATERMARK ---
+		$this->start_controls_section(
+			'section_header',
+			array(
+				'label' => __( 'Section Header & Watermark', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_watermark',
+			array(
+				'label'        => __( 'Show Typographic Watermark', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'watermark_text',
+			array(
+				'label'     => __( 'Watermark Text', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'ACQUISITION',
+				'condition' => array( 'show_watermark' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'eyebrow',
+			array(
+				'label'   => __( 'Section Eyebrow', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Acquisition Protocol',
+				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'heading',
+			array(
+				'label'   => __( 'Section Heading (H2)', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'The Art of Sovereign Acquisition',
+				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'heading_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
+				),
+				'default' => 'h2',
+			)
+		);
+
+		$this->add_control(
+			'description',
+			array(
+				'label'   => __( 'Section Description', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'default' => 'Navigating unlisted architectural provenance, private wealth registries, and discreet settlement for premier global estates.',
+				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- SECTION 2: EDITORIAL MONOGRAPH CHAPTERS ---
+		$this->start_controls_section(
+			'section_chapters',
+			array(
+				'label' => __( 'Editorial Chapters (The Monograph)', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'chapter_num',
+			array(
+				'label'   => __( 'Roman Numeral / Number', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'I',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_tag',
+			array(
+				'label'   => __( 'Discipline Tag', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'CURATION & EMBARGO',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_title',
+			array(
+				'label'   => __( 'Chapter Title', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Archival Sourcing & Unlisted Holdings',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_narrative',
+			array(
+				'label'   => __( 'Editorial Narrative', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'default' => 'Over seventy percent of landmark architectural estates never reach public market channels. We unlock private generational trusts, sovereign registries, and unlisted portfolios directly for vetted principals.',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_detail_label',
+			array(
+				'label'   => __( 'Detail Label', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Curation Standard',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_detail_val',
+			array(
+				'label'   => __( 'Detail Statement', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Off-market provenance audit & pre-market institutional syndication',
+			)
+		);
+
+		$repeater->add_control(
+			'chapter_image',
+			array(
+				'label'   => __( 'Museum Photograph', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => lre_asset_url( 'images/property-3.jpg' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'image_align',
+			array(
+				'label'   => __( 'Media Alignment', 'luxury-re-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'left'  => __( 'Media Left / Narrative Right', 'luxury-re-widgets' ),
+					'right' => __( 'Narrative Left / Media Right', 'luxury-re-widgets' ),
+				),
+				'default' => 'left',
+			)
+		);
+
+		$this->add_control(
+			'chapters',
+			array(
+				'label'       => __( 'Chapters', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => array(
+					array(
+						'chapter_num'          => 'I',
+						'chapter_tag'          => 'CURATION & EMBARGO',
+						'chapter_title'        => 'Archival Sourcing & Unlisted Holdings',
+						'chapter_narrative'    => 'Over seventy percent of landmark architectural estates never reach public market channels. We unlock private generational trusts, sovereign registries, and unlisted portfolios directly for vetted principals.',
+						'chapter_detail_label' => 'Curation Standard',
+						'chapter_detail_val'   => 'Off-market provenance forensics & direct family office syndication',
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-3.jpg' ) ),
+						'image_align'          => 'left',
+					),
+					array(
+						'chapter_num'          => 'II',
+						'chapter_tag'          => 'STRUCTURAL INTEGRITY',
+						'chapter_title'        => 'Architectural Pedigree & Forensic Diligence',
+						'chapter_narrative'    => 'Beyond aesthetic grandeur lies structural lineage. We assemble world-tier structural engineers, conservation historians, and municipal land-sovereignty advisors before contractual commitment.',
+						'chapter_detail_label' => 'Advisory Audit',
+						'chapter_detail_val'   => 'Engineering integrity audit, boundary sovereignty & archival provenance',
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-2.jpg' ) ),
+						'image_align'          => 'right',
+					),
+					array(
+						'chapter_num'          => 'III',
+						'chapter_tag'          => 'DISCRETION & SHIELDING',
+						'chapter_title'        => 'Blind Trusts & Sovereign Legal Structuring',
+						'chapter_narrative'    => 'Structuring multi-jurisdictional acquisitions with absolute discretion. We coordinate bilateral non-disclosure frameworks, domestic blind trusts, and confidential multi-currency escrow facilities.',
+						'chapter_detail_label' => 'Legal Architecture',
+						'chapter_detail_val'   => 'Fiduciary entity shielding, foreign tax treaty optimization & private escrow',
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-1.jpg' ) ),
+						'image_align'          => 'left',
+					),
+					array(
+						'chapter_num'          => 'IV',
+						'chapter_tag'          => 'CONCIERGE & SETTLEMENT',
+						'chapter_title'        => 'Confidential Settlement & Archival Handover',
+						'chapter_narrative'    => 'From discreet wire closing to secure biometric key exchange. We orchestrate private physical security transition, staff curation, and perpetual estate management concierge.',
+						'chapter_detail_label' => 'Handover Protocol',
+						'chapter_detail_val'   => 'Direct wire escrow, white-glove archival handover & perpetual concierge retention',
+						'chapter_image'        => array( 'url' => lre_asset_url( 'images/property-4.jpg' ) ),
+						'image_align'          => 'right',
+					),
+				),
+				'title_field' => '{{{ chapter_num }}} — {{{ chapter_title }}}',
+			)
+		);
+
+		$this->end_controls_section();
+
+	}
+
+	protected function render() {
+		$settings = $this->get_settings_for_display();
+		$tag      = esc_attr( $settings['heading_tag'] ?? 'h2' );
+		$tag      = in_array( $tag, array( 'h1', 'h2', 'h3', 'div' ), true ) ? $tag : 'h2';
+
+		// Live Editor preview visibility guarantee
+		$is_edit_mode = false;
+		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
+			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		}
+		$reveal_class = $is_edit_mode ? 'revealed' : 'reveal';
+
+		$show_watermark = ( 'yes' === $settings['show_watermark'] );
+		$watermark_text = ! empty( $settings['watermark_text'] ) ? $settings['watermark_text'] : 'ACQUISITION';
+		$eyebrow        = ! empty( $settings['eyebrow'] ) ? $settings['eyebrow'] : 'Acquisition Protocol';
+		$heading_raw    = ! empty( $settings['heading'] ) ? $settings['heading'] : 'The Art of Sovereign Acquisition';
+		$description    = ! empty( $settings['description'] ) ? $settings['description'] : '';
+
+		// Split heading lines for curtain reveal
+		$clean_heading = html_entity_decode( $heading_raw, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$raw_lines     = preg_split( '/<br\s*\/?>|\n/i', $clean_heading );
+		$heading_lines = array_filter( array_map( 'trim', $raw_lines ) );
+		if ( empty( $heading_lines ) ) {
+			$heading_lines = array( $heading_raw );
+		}
+
+		$chapters = ! empty( $settings['chapters'] ) ? $settings['chapters'] : array();
+		?>
+		<section class="lre-guide lre-guide--monograph" id="acquisition-protocol" aria-label="<?php esc_attr_e( 'Estate Acquisition Protocol', 'luxury-re-widgets' ); ?>">
+
+			<?php if ( $show_watermark && ! empty( $watermark_text ) ) : ?>
+			<div class="lre-guide__watermark" aria-hidden="true"><?php echo esc_html( $watermark_text ); ?></div>
+			<?php endif; ?>
+
+			<div class="container lre-guide__container">
+
+				<!-- --- 1. SECTION HEADER (Center-Aligned, Symmetrical Dual Gold Bars) --- -->
+				<header class="lre-guide__header <?php echo esc_attr( $reveal_class ); ?>">
+					<?php if ( ! empty( $eyebrow ) ) : ?>
+					<div class="lre-guide__eyebrow-wrap">
+						<span class="lre-guide__eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+					</div>
+					<?php endif; ?>
+
+					<<?php echo $tag; ?> class="lre-guide__title">
+						<?php foreach ( $heading_lines as $h_idx => $h_line ) : ?>
+							<span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $h_line ); ?></span></span><?php if ( $h_idx < count( $heading_lines ) - 1 ) : ?><br><?php endif; ?>
+						<?php endforeach; ?>
+					</<?php echo $tag; ?>>
+
+					<?php if ( ! empty( $description ) ) : ?>
+					<p class="lre-guide__description"><?php echo esc_html( $description ); ?></p>
+					<?php endif; ?>
+				</header>
+
+				<!-- --- 2. SEQUENTIAL EDITORIAL MONOGRAPH CHAPTERS --- -->
+				<?php if ( ! empty( $chapters ) ) : ?>
+				<div class="lre-guide__chapters">
+					<?php foreach ( $chapters as $c_idx => $ch ) :
+						$align     = ! empty( $ch['image_align'] ) ? $ch['image_align'] : ( 0 === $c_idx % 2 ? 'left' : 'right' );
+						$c_num     = ! empty( $ch['chapter_num'] ) ? $ch['chapter_num'] : sprintf( '%02d', $c_idx + 1 );
+						$c_img     = ! empty( $ch['chapter_image']['url'] ) ? $ch['chapter_image']['url'] : lre_asset_url( 'images/property-3.jpg' );
+						$det_label = ! empty( $ch['chapter_detail_label'] ) ? $ch['chapter_detail_label'] : '';
+						$det_val   = ! empty( $ch['chapter_detail_val'] ) ? $ch['chapter_detail_val'] : '';
+					?>
+					<article class="lre-guide__chapter lre-guide__chapter--<?php echo esc_attr( $align ); ?> <?php echo esc_attr( $reveal_class ); ?>">
+						
+						<!-- Media Column (with signature .image-reveal shutter curtain) -->
+						<div class="lre-guide__chapter-media">
+							<div class="lre-guide__media-frame image-reveal <?php echo esc_attr( $reveal_class ); ?>">
+								<img src="<?php echo esc_url( $c_img ); ?>" alt="<?php echo esc_attr( $ch['chapter_title'] ); ?>" loading="lazy" class="lre-guide__chapter-img">
+								<div class="lre-guide__chapter-scrim" aria-hidden="true"></div>
+								<span class="lre-guide__chapter-badge-num" aria-hidden="true"><?php echo esc_html( $c_num ); ?></span>
+							</div>
+						</div>
+
+						<!-- Narrative Column -->
+						<div class="lre-guide__chapter-content">
+							<div class="lre-guide__chapter-meta">
+								<span class="lre-guide__chapter-num"><?php echo esc_html( $c_num ); ?></span>
+								<span class="lre-guide__meta-sep" aria-hidden="true">/</span>
+								<span class="lre-guide__chapter-tag"><?php echo esc_html( $ch['chapter_tag'] ); ?></span>
+							</div>
+
+							<h3 class="lre-guide__chapter-title"><span class="title-mask <?php echo $is_edit_mode ? 'revealed' : ''; ?>"><span><?php echo esc_html( $ch['chapter_title'] ); ?></span></span></h3>
+
+							<p class="lre-guide__chapter-narrative"><?php echo esc_html( $ch['chapter_narrative'] ); ?></p>
+
+							<?php if ( ! empty( $det_val ) ) : ?>
+							<div class="lre-guide__chapter-detail">
+								<?php if ( ! empty( $det_label ) ) : ?>
+								<span class="lre-guide__chapter-detail-label"><?php echo esc_html( $det_label ); ?></span>
+								<?php endif; ?>
+								<span class="lre-guide__chapter-detail-val"><?php echo esc_html( $det_val ); ?></span>
+							</div>
+							<?php endif; ?>
+						</div>
+
+					</article>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
+
+			</div>
+		</section>
+		<?php
+	}
+}

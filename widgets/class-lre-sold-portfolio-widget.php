@@ -375,6 +375,20 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			)
 		);
 
+		$repeater->add_control(
+			'disable_popup',
+			array(
+				'label'        => __( 'Disable Popup on Click', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Disable', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Enable', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Turn ON to prevent this property row from opening the quick detail popup when clicked.', 'luxury-re-widgets' ),
+				'separator'    => 'before',
+			)
+		);
+
 		$this->add_control(
 			'ledger_items',
 			array(
@@ -472,6 +486,36 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 				'default'      => 'yes',
 				'return_value' => 'yes',
 				'description'  => __( 'When enabled, clicking a ledger row opens a confidential quick dossier popup.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'disable_modal_properties',
+			array(
+				'label'       => __( 'Disable Popup on Specific Properties', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_all_sold_property_options(),
+				'label_block' => true,
+				'description' => __( 'Select specific sold properties where clicking the row will NOT open the popup.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+					'content_source'        => 'cpt',
+				),
+			)
+		);
+
+		$this->add_control(
+			'disable_modal_manual',
+			array(
+				'label'       => __( 'Disable Popup by Title or ID', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'e.g. 788 S Grand Ave, 1136, Grand Avenue', 'luxury-re-widgets' ),
+				'label_block' => true,
+				'description' => __( 'Comma-separated property titles, addresses, or IDs where the popup should be disabled. Works for both CPT and manual repeater.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+				),
 			)
 		);
 
@@ -2111,25 +2155,57 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Helper to get list of published sold properties for Elementor SELECT2 control.
+	 *
+	 * @return array [ ID => Title ($Price) ]
+	 */
+	protected function get_all_sold_property_options() {
+		$options = array();
+		$posts   = get_posts( array(
+			'post_type'      => 'lre_sold_property',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		) );
+
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $p ) {
+				$price = get_post_meta( $p->ID, '_lre_sold_price', true );
+				$label = $p->post_title;
+				if ( ! empty( $price ) ) {
+					$label .= ' (' . $price . ')';
+				}
+				$options[ (string) $p->ID ] = $label;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Helper method to render a single ledger row HTML.
 	 * Used by both render() and handle_load_sold_portfolio() AJAX handler.
 	 *
 	 * @param array $item Property array.
 	 * @param int   $index Row index.
 	 * @param int   $offset Pagination offset.
+	 * @param bool  $enable_modal Whether modal popup is globally enabled.
+	 * @param bool  $show_num Whether row numbers are visible.
 	 * @return string HTML output.
 	 */
 	public static function render_ledger_row_html( $item, $index, $offset = 0, $enable_modal = true, $show_num = true ) {
-		$num_str  = sprintf( '%03d', $offset + $index + 1 );
-		$title    = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
-		$loc      = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
-		$price    = ! empty( $item['price'] ) ? $item['price'] : 'Confidential';
-		$beds     = ! empty( $item['beds'] ) ? $item['beds'] : '';
-		$baths    = ! empty( $item['baths'] ) ? $item['baths'] : '';
-		$sqft     = ! empty( $item['sqft'] ) ? $item['sqft'] : '';
-		$cat      = ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '';
-		$desc     = ! empty( $item['description'] ) ? $item['description'] : '';
-		$img      = ! empty( $item['image_url'] ) ? $item['image_url'] : '';
+		$row_has_modal = $enable_modal && empty( $item['disable_popup'] );
+		$num_str       = sprintf( '%03d', $offset + $index + 1 );
+		$title         = ! empty( $item['title'] ) ? $item['title'] : 'Confidential Estate';
+		$loc           = ! empty( $item['location'] ) ? $item['location'] : 'Pasadena, California';
+		$price         = ! empty( $item['price'] ) ? $item['price'] : 'Confidential';
+		$beds          = ! empty( $item['beds'] ) ? $item['beds'] : '';
+		$baths         = ! empty( $item['baths'] ) ? $item['baths'] : '';
+		$sqft          = ! empty( $item['sqft'] ) ? $item['sqft'] : '';
+		$cat           = ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '';
+		$desc          = ! empty( $item['description'] ) ? $item['description'] : '';
+		$img           = ! empty( $item['image_url'] ) ? $item['image_url'] : '';
 
 		$specs_arr = array();
 		if ( $beds )  $specs_arr[] = $beds . ( is_numeric( $beds ) ? ' BD' : '' );
@@ -2139,7 +2215,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 
 		ob_start();
 		?>
-		<div class="ledger-row lre-ledger-row<?php echo $enable_modal ? ' trigger-prop-modal' : ''; ?><?php echo ! $show_num ? ' lre-row--no-num' : ''; ?>"
+		<div class="ledger-row lre-ledger-row<?php echo $row_has_modal ? ' trigger-prop-modal' : ' lre-row--no-modal'; ?><?php echo ! $show_num ? ' lre-row--no-num' : ''; ?>"
 			data-category="<?php echo esc_attr( $cat ); ?>"
 			data-title="<?php echo esc_attr( $title ); ?>"
 			data-price="<?php echo esc_attr( $price ); ?>"
@@ -2147,7 +2223,7 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			data-specs="<?php echo esc_attr( $specs_str ); ?>"
 			data-desc="<?php echo esc_attr( wp_strip_all_tags( $desc ) ); ?>"
 			data-img="<?php echo esc_url( $img ); ?>"
-			<?php if ( $enable_modal ) : ?>
+			<?php if ( $row_has_modal ) : ?>
 			tabindex="0"
 			role="button"
 			aria-label="<?php echo esc_attr( sprintf( __( 'View dossier for %s, closed at %s', 'luxury-re-widgets' ), $title, $price ) ); ?>"
@@ -2314,6 +2390,14 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 		$btn_nofollow   = ! empty( $settings['modal_btn_link']['nofollow'] ) ? ' rel="nofollow"' : '';
 		$show_btn_icon  = ! empty( $settings['modal_show_btn_icon'] ) ? $settings['modal_show_btn_icon'] : 'yes';
 
+		// Disabled popup selections
+		$disabled_modal_props      = ! empty( $settings['disable_modal_properties'] ) ? (array) $settings['disable_modal_properties'] : array();
+		$disabled_modal_manual_raw = ! empty( $settings['disable_modal_manual'] ) ? $settings['disable_modal_manual'] : '';
+		$disabled_modal_manual     = array();
+		if ( ! empty( $disabled_modal_manual_raw ) ) {
+			$disabled_modal_manual = array_filter( array_map( 'trim', explode( ',', $disabled_modal_manual_raw ) ) );
+		}
+
 		$paged      = 1;
 		$max_pages  = 1;
 		$entries    = array();
@@ -2383,18 +2467,40 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 						$desc = '';
 					}
 
+					$is_meta_disabled     = 'yes' === get_post_meta( $pid, '_lre_disable_popup', true ) || '1' === get_post_meta( $pid, '_lre_disable_popup', true );
+					$is_selected_disabled = in_array( (string) $pid, $disabled_modal_props, true ) || in_array( $pid, $disabled_modal_props );
+
+					$is_manual_disabled = false;
+					$title_lower        = strtolower( get_the_title() );
+					if ( ! empty( $disabled_modal_manual ) ) {
+						foreach ( $disabled_modal_manual as $term ) {
+							$term_lower = strtolower( trim( $term ) );
+							if ( '' === $term_lower ) {
+								continue;
+							}
+							if ( (string) $pid === $term_lower || false !== strpos( $title_lower, $term_lower ) ) {
+								$is_manual_disabled = true;
+								break;
+							}
+						}
+					}
+
+					$is_disabled_popup = $is_meta_disabled || $is_selected_disabled || $is_manual_disabled;
+
 					$all_items[] = array(
-						'title'       => get_the_title(),
-						'price'       => ! empty( $price ) ? $price : __( 'Confidential', 'luxury-re-widgets' ),
-						'price_num'   => $price_num,
-						'post_date'   => get_post_time( 'U', true, $pid ),
-						'beds'        => get_post_meta( $pid, '_lre_beds', true ) ?: '',
-						'baths'       => get_post_meta( $pid, '_lre_baths', true ) ?: '',
-						'sqft'        => get_post_meta( $pid, '_lre_sqft', true ) ?: '',
-						'location'    => $location,
-						'category'    => $cat_slug,
-						'image_url'   => $img_url ?: '',
-						'description' => $desc,
+						'id'            => $pid,
+						'title'         => get_the_title(),
+						'price'         => ! empty( $price ) ? $price : __( 'Confidential', 'luxury-re-widgets' ),
+						'price_num'     => $price_num,
+						'post_date'     => get_post_time( 'U', true, $pid ),
+						'beds'          => get_post_meta( $pid, '_lre_beds', true ) ?: '',
+						'baths'         => get_post_meta( $pid, '_lre_baths', true ) ?: '',
+						'sqft'          => get_post_meta( $pid, '_lre_sqft', true ) ?: '',
+						'location'      => $location,
+						'category'      => $cat_slug,
+						'image_url'     => $img_url ?: '',
+						'description'   => $desc,
+						'disable_popup' => $is_disabled_popup,
 					);
 				}
 				wp_reset_postdata();
@@ -2465,17 +2571,36 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 					continue;
 				}
 
+				$is_rep_disabled    = ! empty( $item['disable_popup'] ) && ( 'yes' === $item['disable_popup'] || true === $item['disable_popup'] );
+				$is_manual_disabled = false;
+				$rep_title_lower    = strtolower( ! empty( $item['title'] ) ? $item['title'] : '' );
+				if ( ! empty( $disabled_modal_manual ) ) {
+					foreach ( $disabled_modal_manual as $term ) {
+						$term_lower = strtolower( trim( $term ) );
+						if ( '' === $term_lower ) {
+							continue;
+						}
+						if ( false !== strpos( $rep_title_lower, $term_lower ) ) {
+							$is_manual_disabled = true;
+							break;
+						}
+					}
+				}
+
+				$is_disabled_popup = $is_rep_disabled || $is_manual_disabled;
+
 				$all_items[] = array(
-					'title'       => ! empty( $item['title'] ) ? $item['title'] : '',
-					'price'       => ! empty( $item['price'] ) ? $item['price'] : 'Confidential',
-					'price_num'   => $price_num,
-					'beds'        => ! empty( $item['beds'] ) ? $item['beds'] : '',
-					'baths'       => ! empty( $item['baths'] ) ? $item['baths'] : '',
-					'sqft'        => ! empty( $item['sqft'] ) ? $item['sqft'] : '',
-					'location'    => ! empty( $item['location'] ) ? $item['location'] : '',
-					'category'    => ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '',
-					'image_url'   => ! empty( $item['image']['url'] ) ? $item['image']['url'] : '',
-					'description' => ! empty( $item['description'] ) ? wpautop( $item['description'] ) : '',
+					'title'         => ! empty( $item['title'] ) ? $item['title'] : '',
+					'price'         => ! empty( $item['price'] ) ? $item['price'] : 'Confidential',
+					'price_num'     => $price_num,
+					'beds'          => ! empty( $item['beds'] ) ? $item['beds'] : '',
+					'baths'         => ! empty( $item['baths'] ) ? $item['baths'] : '',
+					'sqft'          => ! empty( $item['sqft'] ) ? $item['sqft'] : '',
+					'location'      => ! empty( $item['location'] ) ? $item['location'] : '',
+					'category'      => ! empty( $item['category'] ) ? sanitize_title( $item['category'] ) : '',
+					'image_url'     => ! empty( $item['image']['url'] ) ? $item['image']['url'] : '',
+					'description'   => ! empty( $item['description'] ) ? wpautop( $item['description'] ) : '',
+					'disable_popup' => $is_disabled_popup,
 				);
 			}
 
@@ -2701,6 +2826,16 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			<?php
 		}
 		?>
+		<style>
+			#<?php echo esc_attr( $section_id ); ?> .lre-row--no-modal,
+			#<?php echo esc_attr( $section_id ); ?> .ledger-row:not(.trigger-prop-modal) {
+				cursor: default !important;
+			}
+			#<?php echo esc_attr( $section_id ); ?> .lre-row--no-modal .ledger-arrow,
+			#<?php echo esc_attr( $section_id ); ?> .ledger-row:not(.trigger-prop-modal) .ledger-arrow {
+				visibility: hidden !important;
+			}
+		</style>
 		<section class="ledger-section lre-ledger-section lre-ledger--theme-<?php echo esc_attr( $theme_preset ); ?><?php echo ! $show_numbers ? ' lre-ledger--hide-numbers' : ''; ?>"
 			id="<?php echo esc_attr( $section_id ); ?>"
 			data-source="<?php echo esc_attr( $source ); ?>"
@@ -2711,7 +2846,10 @@ class LRE_Sold_Portfolio_Widget extends Widget_Base {
 			data-max-price="<?php echo esc_attr( $max_price_raw ); ?>"
 			data-exclude-conf="<?php echo $exclude_conf ? 'yes' : 'no'; ?>"
 			data-show-numbers="<?php echo $show_numbers ? 'yes' : 'no'; ?>"
-			data-max-pages="<?php echo esc_attr( $max_pages ); ?>">
+			data-max-pages="<?php echo esc_attr( $max_pages ); ?>"
+			data-enable-modal="<?php echo esc_attr( $enable_modal ); ?>"
+			data-disabled-popups="<?php echo esc_attr( implode( ',', $disabled_modal_props ) ); ?>"
+			data-disabled-manual="<?php echo esc_attr( $disabled_modal_manual_raw ); ?>">
 
 			<div class="container lre-ledger-container">
 

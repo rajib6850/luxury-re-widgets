@@ -642,9 +642,15 @@ class LRE_Ajax_Handler {
 		$order          = isset( $_POST['order'] ) ? sanitize_text_field( wp_unslash( $_POST['order'] ) ) : 'DESC';
 		$show_num       = ! isset( $_POST['show_num'] ) || 'no' !== $_POST['show_num'];
 
-		$min_price_raw  = isset( $_POST['min_price'] ) ? sanitize_text_field( wp_unslash( $_POST['min_price'] ) ) : '';
-		$max_price_raw  = isset( $_POST['max_price'] ) ? sanitize_text_field( wp_unslash( $_POST['max_price'] ) ) : '';
-		$exclude_conf   = ! isset( $_POST['exclude_conf'] ) || 'no' !== $_POST['exclude_conf'];
+		$min_price_raw       = isset( $_POST['min_price'] ) ? sanitize_text_field( wp_unslash( $_POST['min_price'] ) ) : '';
+		$max_price_raw       = isset( $_POST['max_price'] ) ? sanitize_text_field( wp_unslash( $_POST['max_price'] ) ) : '';
+		$exclude_conf        = ! isset( $_POST['exclude_conf'] ) || 'no' !== $_POST['exclude_conf'];
+		$enable_modal_raw    = isset( $_POST['enable_modal'] ) ? sanitize_text_field( wp_unslash( $_POST['enable_modal'] ) ) : 'yes';
+		$enable_modal        = ( 'no' !== $enable_modal_raw && 'false' !== $enable_modal_raw );
+		$disabled_popups_raw = isset( $_POST['disabled_popups'] ) ? sanitize_text_field( wp_unslash( $_POST['disabled_popups'] ) ) : '';
+		$disabled_popups     = ! empty( $disabled_popups_raw ) ? array_filter( array_map( 'trim', explode( ',', $disabled_popups_raw ) ) ) : array();
+		$disabled_manual_raw = isset( $_POST['disabled_manual'] ) ? sanitize_text_field( wp_unslash( $_POST['disabled_manual'] ) ) : '';
+		$disabled_manual     = ! empty( $disabled_manual_raw ) ? array_filter( array_map( 'trim', explode( ',', $disabled_manual_raw ) ) ) : array();
 
 		if ( ! class_exists( 'LRE_Sold_Portfolio_Widget' ) && defined( 'LRE_PATH' ) ) {
 			require_once LRE_PATH . 'widgets/class-lre-sold-portfolio-widget.php';
@@ -728,18 +734,40 @@ class LRE_Ajax_Handler {
 					$desc = '';
 				}
 
+				$is_meta_disabled     = 'yes' === get_post_meta( $post_id, '_lre_disable_popup', true ) || '1' === get_post_meta( $post_id, '_lre_disable_popup', true );
+				$is_selected_disabled = in_array( (string) $post_id, $disabled_popups, true ) || in_array( $post_id, $disabled_popups );
+
+				$is_manual_disabled = false;
+				$title_lower        = strtolower( get_the_title() );
+				if ( ! empty( $disabled_manual ) ) {
+					foreach ( $disabled_manual as $term ) {
+						$term_lower = strtolower( trim( $term ) );
+						if ( '' === $term_lower ) {
+							continue;
+						}
+						if ( (string) $post_id === $term_lower || false !== strpos( $title_lower, $term_lower ) ) {
+							$is_manual_disabled = true;
+							break;
+						}
+					}
+				}
+
+				$is_disabled_popup = $is_meta_disabled || $is_selected_disabled || $is_manual_disabled;
+
 				$all_items[] = array(
-					'title'       => get_the_title(),
-					'price'       => ! empty( $price ) ? $price : __( 'Confidential', 'luxury-re-widgets' ),
-					'price_num'   => $price_num,
-					'post_date'   => get_post_time( 'U', true, $post_id ),
-					'beds'        => $beds ?: '',
-					'baths'       => $baths ?: '',
-					'sqft'        => $sqft ?: '',
-					'location'    => $location,
-					'category'    => $cat_slug,
-					'image_url'   => $img_url ?: '',
-					'description' => $desc,
+					'id'            => $post_id,
+					'title'         => get_the_title(),
+					'price'         => ! empty( $price ) ? $price : __( 'Confidential', 'luxury-re-widgets' ),
+					'price_num'     => $price_num,
+					'post_date'     => get_post_time( 'U', true, $post_id ),
+					'beds'          => $beds ?: '',
+					'baths'         => $baths ?: '',
+					'sqft'          => $sqft ?: '',
+					'location'      => $location,
+					'category'      => $cat_slug,
+					'image_url'     => $img_url ?: '',
+					'description'   => $desc,
+					'disable_popup' => $is_disabled_popup,
 				);
 			}
 			wp_reset_postdata();
@@ -784,7 +812,7 @@ class LRE_Ajax_Handler {
 			$index = 0;
 			foreach ( $page_items as $item ) {
 				if ( class_exists( 'LRE_Sold_Portfolio_Widget' ) && method_exists( 'LRE_Sold_Portfolio_Widget', 'render_ledger_row_html' ) ) {
-					$html .= LRE_Sold_Portfolio_Widget::render_ledger_row_html( $item, $index, $offset, true, $show_num );
+					$html .= LRE_Sold_Portfolio_Widget::render_ledger_row_html( $item, $index, $offset, $enable_modal, $show_num );
 				}
 				$index++;
 			}

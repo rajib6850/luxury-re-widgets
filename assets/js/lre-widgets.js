@@ -2684,6 +2684,9 @@
                         var maxPrice = sec.getAttribute( 'data-max-price' ) || '';
                         var excludeConf = sec.getAttribute( 'data-exclude-conf' ) || 'yes';
                         var showNum = sec.getAttribute( 'data-show-numbers' ) || ( sec.classList.contains( 'lre-ledger--hide-numbers' ) ? 'no' : 'yes' );
+                        var enableModal = sec.getAttribute( 'data-enable-modal' ) || 'yes';
+                        var disabledPopups = sec.getAttribute( 'data-disabled-popups' ) || '';
+                        var disabledManual = sec.getAttribute( 'data-disabled-manual' ) || '';
                         var formData = new FormData();
                         formData.append( 'action', 'lre_load_sold_portfolio' );
                         formData.append( 'paged', page );
@@ -2695,6 +2698,9 @@
                         formData.append( 'max_price', maxPrice );
                         formData.append( 'exclude_conf', excludeConf );
                         formData.append( 'show_num', showNum );
+                        formData.append( 'enable_modal', enableModal );
+                        formData.append( 'disabled_popups', disabledPopups );
+                        formData.append( 'disabled_manual', disabledManual );
 
                         fetch( ajaxUrl, {
                             method: 'POST',

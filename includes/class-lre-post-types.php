@@ -279,6 +279,8 @@ class LRE_Post_Types {
 				echo '<span class="prop_badge_val" style="display:none;">' . esc_html( $badge ) . '</span>';
 				$city = get_post_meta( $post_id, '_lre_city', true );
 				echo '<span class="prop_city_val" style="display:none;">' . esc_html( $city ) . '</span>';
+				$disable_pop = get_post_meta( $post_id, '_lre_disable_popup', true );
+				echo '<span class="prop_disable_popup_val" style="display:none;">' . esc_html( $disable_pop ) . '</span>';
 				break;
 		}
 	}
@@ -303,6 +305,7 @@ class LRE_Post_Types {
 			'_lre_sqft'           => 'string',
 			'_lre_badge'          => 'string',
 			'_lre_city'           => 'string',
+			'_lre_disable_popup'  => 'string',
 		);
 
 		foreach ( $fields as $key => $type ) {
@@ -343,12 +346,13 @@ class LRE_Post_Types {
 	public function render_meta_box( $post ) {
 		wp_nonce_field( 'lre_save_sold_property_meta', 'lre_sold_property_nonce' );
 
-		$price = get_post_meta( $post->ID, '_lre_sold_price', true );
-		$beds  = get_post_meta( $post->ID, '_lre_beds', true );
-		$baths = get_post_meta( $post->ID, '_lre_baths', true );
-		$sqft  = get_post_meta( $post->ID, '_lre_sqft', true );
-		$badge = get_post_meta( $post->ID, '_lre_badge', true );
-		$city  = get_post_meta( $post->ID, '_lre_city', true );
+		$price         = get_post_meta( $post->ID, '_lre_sold_price', true );
+		$beds          = get_post_meta( $post->ID, '_lre_beds', true );
+		$baths         = get_post_meta( $post->ID, '_lre_baths', true );
+		$sqft          = get_post_meta( $post->ID, '_lre_sqft', true );
+		$badge         = get_post_meta( $post->ID, '_lre_badge', true );
+		$city          = get_post_meta( $post->ID, '_lre_city', true );
+		$disable_popup = get_post_meta( $post->ID, '_lre_disable_popup', true );
 		?>
 		<style>
 			.lre-meta-grid {
@@ -432,6 +436,14 @@ class LRE_Post_Types {
 				<input type="text" id="lre_city" name="lre_city" value="<?php echo esc_attr( $city ); ?>" placeholder="<?php esc_attr_e( 'Pasadena, CA or Los Angeles', 'luxury-re-widgets' ); ?>" />
 				<p class="desc"><?php esc_html_e( 'City or locality name used in property subtitles and dossiers.', 'luxury-re-widgets' ); ?></p>
 			</div>
+
+			<div class="lre-meta-field" style="grid-column: 1 / -1; margin-top: 6px; padding-top: 14px; border-top: 1px solid #e0e0e0;">
+				<label for="lre_disable_popup" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+					<input type="checkbox" id="lre_disable_popup" name="lre_disable_popup" value="yes" <?php checked( $disable_popup, 'yes' ); ?> />
+					<strong style="font-size:13px;"><?php esc_html_e( 'Disable Quick Detail Popup / Dossier on Click', 'luxury-re-widgets' ); ?></strong>
+				</label>
+				<p class="desc" style="margin-left:26px;"><?php esc_html_e( 'Check this box to prevent clicking this property row in The Private Ledger from opening the detail dossier popup.', 'luxury-re-widgets' ); ?></p>
+			</div>
 		</div>
 		<?php
 	}
@@ -467,6 +479,13 @@ class LRE_Post_Types {
 				$val = call_user_func( $sanitizer, wp_unslash( $_POST[ $form_key ] ) );
 				update_post_meta( $post_id, $meta_key, $val );
 			}
+		}
+
+		// Disable Popup on Click
+		if ( isset( $_POST['lre_disable_popup'] ) && 'yes' === $_POST['lre_disable_popup'] ) {
+			update_post_meta( $post_id, '_lre_disable_popup', 'yes' );
+		} else {
+			delete_post_meta( $post_id, '_lre_disable_popup' );
 		}
 
 		// Automatically compute and sync numeric price for fast, accurate SQL querying and filtering
@@ -535,6 +554,11 @@ class LRE_Post_Types {
 						<span class="title" style="min-width:90px;font-weight:600;"><?php esc_html_e( 'City', 'luxury-re-widgets' ); ?></span>
 						<span class="input-text-wrap" style="flex:1;"><input type="text" name="lre_city" class="lre-qe-city" value="" placeholder="Pasadena" /></span>
 					</label>
+
+					<label style="margin-top:6px;display:flex;align-items:center;">
+						<input type="checkbox" name="lre_disable_popup" class="lre-qe-disable-popup" value="yes" />
+						<span style="font-weight:600;margin-left:6px;"><?php esc_html_e( 'Disable Dossier Popup', 'luxury-re-widgets' ); ?></span>
+					</label>
 				</div>
 			</fieldset>
 			<?php
@@ -583,6 +607,7 @@ class LRE_Post_Types {
 									var baths = $row.find('.prop_baths_val').text().trim();
 									var sqft  = $row.find('.prop_sqft_val').text().trim();
 									var city  = $row.find('.prop_city_val').text().trim();
+									var disablePop = $row.find('.prop_disable_popup_val').text().trim();
 
 									$editRow.find('.lre-qe-price').val(price);
 									$editRow.find('.lre-qe-badge').val(badge);
@@ -590,6 +615,7 @@ class LRE_Post_Types {
 									$editRow.find('.lre-qe-baths').val(baths);
 									$editRow.find('.lre-qe-sqft').val(sqft);
 									$editRow.find('.lre-qe-city').val(city);
+									$editRow.find('.lre-qe-disable-popup').prop('checked', disablePop === 'yes');
 								}
 							};
 						}

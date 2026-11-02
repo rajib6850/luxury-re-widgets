@@ -17228,6 +17228,16 @@ button.lre-insights__filter-btn.active,
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
 }
 
+.ledger-row.lre-row--no-modal,
+.lre-ledger-row.lre-row--no-modal {
+  cursor: default !important;
+}
+
+.ledger-row.lre-row--no-modal .ledger-arrow,
+.lre-ledger-row.lre-row--no-modal .ledger-arrow {
+  visibility: hidden !important;
+}
+
 .ledger-row .num {
   font-family: inherit;
   font-size: 0.8rem;

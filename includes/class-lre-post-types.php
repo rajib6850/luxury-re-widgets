@@ -31,7 +31,8 @@ class LRE_Post_Types {
 	/** Constructor. */
 	private function __construct() {
 		add_action( 'init', array( $this, 'register_post_types' ), 0 );
-		add_action( 'init', array( $this, 'register_taxonomies' ), 0 );
+		add_action( 'init', array( $this, 'register_neighborhoods_fallback' ), 20 );
+		add_action( 'init', array( $this, 'register_taxonomies' ), 10 );
 		add_action( 'init', array( $this, 'register_meta_fields' ) );
 
 		// Admin customizations & meta boxes
@@ -109,8 +110,14 @@ class LRE_Post_Types {
 		);
 
 		register_post_type( 'lre_sold_property', $args );
+	}
 
-		// Fallback registration for 'neighborhoods' CPT if not already registered (e.g. if ACF is inactive or during migration)
+	/**
+	 * Fallback registration for 'neighborhoods' CPT if not already registered (e.g. by ACF).
+	 * Runs at priority 20 so ACF registers it first. has_archive is false to avoid breaking
+	 * the dedicated WordPress page with slug /neighborhoods/.
+	 */
+	public function register_neighborhoods_fallback() {
 		if ( ! post_type_exists( 'neighborhoods' ) ) {
 			$labels_neigh = array(
 				'name'                  => _x( 'Neighborhoods', 'Post type general name', 'luxury-re-widgets' ),
@@ -139,7 +146,7 @@ class LRE_Post_Types {
 					'query_var'          => true,
 					'rewrite'            => array( 'slug' => 'neighborhoods', 'with_front' => false ),
 					'capability_type'    => 'post',
-					'has_archive'        => true,
+					'has_archive'        => false,
 					'hierarchical'       => false,
 					'menu_position'      => 22,
 					'menu_icon'          => 'dashicons-location-alt',

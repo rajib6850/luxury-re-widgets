@@ -124,19 +124,6 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'included_categories',
-			array(
-				'label'        => __( 'Included Categories', 'luxury-re-widgets' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => '',
-				'label_on'     => __( 'On', 'luxury-re-widgets' ),
-				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
-				'return_value' => 'yes',
-				'description'  => __( 'When turned ON, category collection cards appear at the end with identical design linking directly to each category archive page.', 'luxury-re-widgets' ),
-			)
-		);
-
 		$this->end_controls_section();
 
 		// --- SECTION 3: COMMUNITIES REPEATER ---
@@ -262,6 +249,20 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'placeholder' => __( 'e.g. Bel Air, Malibu Colony, 45', 'luxury-re-widgets' ),
 				'label_block' => true,
 				'description' => __( 'Comma-separated names, slugs, or IDs of enclaves to exclude. Works for both Neighborhoods post type and Custom repeater.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'included_categories',
+			array(
+				'label'        => __( 'Included Categories', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'On', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
+				'description'  => __( 'When turned ON, category collection cards appear at the end with identical design linking directly to each category archive page.', 'luxury-re-widgets' ),
 			)
 		);
 

@@ -1491,13 +1491,15 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		}
 
 		// Category filter (explicit dropdown or automatic on taxonomy archive pages)
-		$cat_filter = ! empty( $settings['cpt_category'] ) ? intval( $settings['cpt_category'] ) : 0;
-		if ( $cat_filter > 0 ) {
+		$cat_filter = $settings['cpt_category'] ?? '';
+		if ( ! empty( $cat_filter ) ) {
+			$field    = is_numeric( $cat_filter ) ? 'term_id' : 'slug';
+			$term_val = is_numeric( $cat_filter ) ? intval( $cat_filter ) : sanitize_title( $cat_filter );
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => 'neighborhood_category',
-					'field'    => 'term_id',
-					'terms'    => $cat_filter,
+					'field'    => $field,
+					'terms'    => $term_val,
 				),
 			);
 		} elseif ( is_tax( 'neighborhood_category' ) ) {
@@ -1788,9 +1790,6 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		if ( 'neighborhoods' === $source_type ) {
 			$communities = $this->get_neighborhoods_from_cpt( $settings );
-			if ( empty( $communities ) ) {
-				$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
-			}
 		} else {
 			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
 		}
@@ -1870,6 +1869,15 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				// Append category cards at the END of the communities list
 				$display_items = array_merge( $communities, $category_cards );
 			}
+		}
+
+		if ( empty( $display_items ) ) {
+			if ( $is_edit_mode ) {
+				echo '<div style="padding:40px 20px;text-align:center;color:#bca371;font-family:sans-serif;font-size:13px;letter-spacing:0.05em;background:rgba(255,255,255,0.02);border:1px dashed rgba(188,163,113,0.3);border-radius:4px;margin:20px 0;">';
+				echo esc_html__( 'No enclaves found matching your filter or exclusion criteria. (Please ensure that your category has published neighborhoods and that they are not selected in "Exclude Enclaves").', 'luxury-re-widgets' );
+				echo '</div>';
+			}
+			return;
 		}
 
 		$show_filters = ( $settings['show_filters'] ?? '' ) === 'yes' && ! empty( $categories );

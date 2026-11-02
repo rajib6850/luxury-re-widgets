@@ -124,6 +124,17 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'included_categories',
+			array(
+				'label'       => __( 'Included Categories', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'e.g. foothills, coastal, architectural', 'luxury-re-widgets' ),
+				'description' => __( 'Comma-separated category slugs to include. Leave blank to show all categories. Matching communities will appear at the bottom.', 'luxury-re-widgets' ),
+				'condition'   => array( 'show_filters' => 'yes' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// --- SECTION 3: COMMUNITIES REPEATER ---
@@ -1459,14 +1470,38 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
 		}
 
+		// Parse included categories filter
+		$included_cats_raw = ! empty( $settings['included_categories'] ) ? $settings['included_categories'] : '';
+		$included_cats     = array();
+		if ( ! empty( $included_cats_raw ) ) {
+			$included_cats = array_filter( array_map( 'sanitize_title', array_map( 'trim', explode( ',', $included_cats_raw ) ) ) );
+		}
+
 		// Collect unique categories for minimal filter tabs
+		// If included_categories is set, only show those categories
+		// Communities matching included_categories will appear at bottom (sorted last)
 		$categories = array();
 		foreach ( $communities as $c ) {
 			$cat_slug = sanitize_title( $c['category'] ?? '' );
 			$cat_lbl  = ! empty( $c['category_label'] ) ? $c['category_label'] : ucfirst( $cat_slug );
 			if ( ! empty( $cat_slug ) && ! isset( $categories[ $cat_slug ] ) ) {
-				$categories[ $cat_slug ] = $cat_lbl;
+				// If included_cats filter is set, only include specified categories
+				if ( empty( $included_cats ) || in_array( $cat_slug, $included_cats, true ) ) {
+					$categories[ $cat_slug ] = $cat_lbl;
+				}
 			}
+		}
+
+		// Sort communities: communities NOT in included_cats appear first, included_cats appear at bottom
+		if ( ! empty( $included_cats ) ) {
+			usort( $communities, function( $a, $b ) use ( $included_cats ) {
+				$a_slug = sanitize_title( $a['category'] ?? '' );
+				$b_slug = sanitize_title( $b['category'] ?? '' );
+				$a_in   = in_array( $a_slug, $included_cats, true );
+				$b_in   = in_array( $b_slug, $included_cats, true );
+				if ( $a_in === $b_in ) return 0;
+				return $a_in ? 1 : -1;
+			} );
 		}
 
 		$show_filters = ( $settings['show_filters'] ?? '' ) === 'yes' && ! empty( $categories );

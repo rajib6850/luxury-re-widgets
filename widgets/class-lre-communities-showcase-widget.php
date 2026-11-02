@@ -127,11 +127,13 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		$this->add_control(
 			'included_categories',
 			array(
-				'label'       => __( 'Included Categories', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'e.g. foothills, coastal, architectural', 'luxury-re-widgets' ),
-				'description' => __( 'Comma-separated neighborhood category slugs to include (from Neighborhood Categories taxonomy). Leave blank to show all. Matching enclaves will appear at the bottom.', 'luxury-re-widgets' ),
-				'condition'   => array( 'show_filters' => 'yes' ),
+				'label'        => __( 'Included Categories', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'On', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'When turned ON, category collection cards appear at the end with identical design linking directly to each category archive page.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -1409,18 +1411,25 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 					$img_url = lre_asset_url( 'images/property-1.jpg' );
 				}
 
-				// 3. Category / Taxonomy (if any taxonomy is registered on neighborhoods)
+				// 3. Category / Taxonomy (e.g. neighborhood_category)
 				$cat_slug  = '';
 				$cat_label = '';
-				$taxonomies = get_object_taxonomies( 'neighborhoods', 'objects' );
-				if ( ! empty( $taxonomies ) ) {
-					foreach ( $taxonomies as $tax_name => $tax_obj ) {
-						$terms = get_the_terms( $post_id, $tax_name );
-						if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-							$first_term = reset( $terms );
-							$cat_slug   = $first_term->slug;
-							$cat_label  = $first_term->name;
-							break;
+				$terms_cat = get_the_terms( $post_id, 'neighborhood_category' );
+				if ( ! empty( $terms_cat ) && ! is_wp_error( $terms_cat ) ) {
+					$first_term = reset( $terms_cat );
+					$cat_slug   = $first_term->slug;
+					$cat_label  = $first_term->name;
+				} else {
+					$taxonomies = get_object_taxonomies( 'neighborhoods', 'objects' );
+					if ( ! empty( $taxonomies ) ) {
+						foreach ( $taxonomies as $tax_name => $tax_obj ) {
+							$terms = get_the_terms( $post_id, $tax_name );
+							if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+								$first_term = reset( $terms );
+								$cat_slug   = $first_term->slug;
+								$cat_label  = $first_term->name;
+								break;
+							}
 						}
 					}
 				}
@@ -1443,6 +1452,154 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		}
 
 		return $communities;
+	}
+
+	/**
+	 * Generates category collection cards with identical styling to display at the end of the showcase grid.
+	 *
+	 * @param array $communities Current enclaves list.
+	 * @param array $settings Widget settings.
+	 * @return array
+	 */
+	protected function get_category_cards( $communities, $settings ) {
+		$source_type    = $settings['source_type'] ?? 'custom';
+		$btn_text       = ! empty( $settings['cpt_button_text'] ) ? $settings['cpt_button_text'] : __( 'Explore Enclave', 'luxury-re-widgets' );
+		$category_cards = array();
+
+		// 1. If taxonomy 'neighborhood_category' exists, attempt to query registered terms
+		$terms = array();
+		if ( taxonomy_exists( 'neighborhood_category' ) ) {
+			$terms = get_terms( array(
+				'taxonomy'   => 'neighborhood_category',
+				'hide_empty' => false,
+			) );
+		}
+
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$slug = $term->slug;
+				$name = $term->name;
+				$link = get_term_link( $term );
+				if ( is_wp_error( $link ) ) {
+					$link = home_url( '/neighborhood-category/' . $slug . '/' );
+				}
+
+				// Check term image (ACF or term meta)
+				$img_url = '';
+				if ( function_exists( 'get_field' ) ) {
+					try {
+						$acf_img = get_field( 'image', $term );
+						if ( is_array( $acf_img ) && ! empty( $acf_img['url'] ) ) {
+							$img_url = $acf_img['url'];
+						} elseif ( is_string( $acf_img ) && ! empty( $acf_img ) ) {
+							$img_url = $acf_img;
+						}
+					} catch ( \Throwable $e ) {
+						$img_url = '';
+					}
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = get_term_meta( $term->term_id, 'image', true );
+				}
+
+				// If no term image, borrow image of the first neighborhood in this category
+				if ( empty( $img_url ) ) {
+					foreach ( $communities as $c ) {
+						if ( sanitize_title( $c['category'] ?? '' ) === $slug && ! empty( $c['image']['url'] ) ) {
+							$img_url = $c['image']['url'];
+							break;
+						}
+					}
+				}
+
+				// If still empty, query one published neighborhood in this category
+				if ( empty( $img_url ) ) {
+					$sample = get_posts( array(
+						'post_type'      => array( 'neighborhoods', 'neighborhood' ),
+						'posts_per_page' => 1,
+						'tax_query'      => array(
+							array(
+								'taxonomy' => 'neighborhood_category',
+								'field'    => 'term_id',
+								'terms'    => $term->term_id,
+							),
+						),
+					) );
+					if ( ! empty( $sample ) && has_post_thumbnail( $sample[0]->ID ) ) {
+						$img_url = get_the_post_thumbnail_url( $sample[0]->ID, 'full' );
+					}
+				}
+
+				if ( empty( $img_url ) ) {
+					$img_url = lre_asset_url( 'images/property-2.jpg' );
+				}
+
+				// Tagline / description
+				$tagline = ! empty( $term->description ) ? $term->description : '';
+				if ( empty( $tagline ) ) {
+					$count = intval( $term->count );
+					if ( $count > 0 ) {
+						$tagline = sprintf( _n( '%s Featured Enclave & Residence', '%s Featured Enclaves & Residences', $count, 'luxury-re-widgets' ), number_format_i18n( $count ) );
+					} else {
+						$tagline = sprintf( __( 'Explore all %s architectural enclaves', 'luxury-re-widgets' ), $name );
+					}
+				}
+
+				$category_cards[] = array(
+					'is_category_card' => true,
+					'name'             => $name,
+					'category'         => $slug,
+					'category_label'   => __( 'COLLECTION', 'luxury-re-widgets' ),
+					'tagline'          => $tagline,
+					'image'            => array( 'url' => lre_resolve_image_url( $img_url ) ),
+					'link'             => array( 'url' => $link ),
+					'show_button'      => 'yes',
+					'link_text'        => $btn_text,
+				);
+			}
+		}
+
+		// 2. Fallback / Custom repeater mode: derive categories from $communities list
+		if ( empty( $category_cards ) && ! empty( $communities ) ) {
+			$seen_slugs = array();
+			foreach ( $communities as $c ) {
+				$slug = sanitize_title( $c['category'] ?? '' );
+				if ( empty( $slug ) || isset( $seen_slugs[ $slug ] ) ) {
+					continue;
+				}
+				$seen_slugs[ $slug ] = true;
+				$name = ! empty( $c['category_label'] ) ? $c['category_label'] : ucfirst( $slug );
+
+				// Archive link
+				$link = home_url( '/neighborhood-category/' . $slug . '/' );
+				if ( taxonomy_exists( 'neighborhood_category' ) ) {
+					$wp_term = get_term_by( 'slug', $slug, 'neighborhood_category' );
+					if ( $wp_term && ! is_wp_error( $wp_term ) ) {
+						$t_link = get_term_link( $wp_term );
+						if ( ! is_wp_error( $t_link ) ) {
+							$link = $t_link;
+						}
+					}
+				}
+
+				$img_url = ! empty( $c['image']['url'] ) ? $c['image']['url'] : lre_asset_url( 'images/property-2.jpg' );
+				$tagline = sprintf( __( 'Explore all %s architectural enclaves & estates', 'luxury-re-widgets' ), $name );
+
+				$category_cards[] = array(
+					'is_category_card' => true,
+					'name'             => $name,
+					'category'         => $slug,
+					'category_label'   => __( 'COLLECTION', 'luxury-re-widgets' ),
+					'tagline'          => $tagline,
+					'image'            => array( 'url' => lre_resolve_image_url( $img_url ) ),
+					'link'             => array( 'url' => $link ),
+					'show_button'      => 'yes',
+					'link_text'        => $btn_text,
+				);
+			}
+		}
+
+		return $category_cards;
 	}
 
 	protected function render() {
@@ -1470,38 +1627,40 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
 		}
 
-		// Parse included categories filter
-		$included_cats_raw = ! empty( $settings['included_categories'] ) ? $settings['included_categories'] : '';
-		$included_cats     = array();
-		if ( ! empty( $included_cats_raw ) ) {
-			$included_cats = array_filter( array_map( 'sanitize_title', array_map( 'trim', explode( ',', $included_cats_raw ) ) ) );
-		}
-
 		// Collect unique categories for minimal filter tabs
-		// If included_categories is set, only show those categories
-		// Communities matching included_categories will appear at bottom (sorted last)
 		$categories = array();
 		foreach ( $communities as $c ) {
 			$cat_slug = sanitize_title( $c['category'] ?? '' );
 			$cat_lbl  = ! empty( $c['category_label'] ) ? $c['category_label'] : ucfirst( $cat_slug );
 			if ( ! empty( $cat_slug ) && ! isset( $categories[ $cat_slug ] ) ) {
-				// If included_cats filter is set, only include specified categories
-				if ( empty( $included_cats ) || in_array( $cat_slug, $included_cats, true ) ) {
-					$categories[ $cat_slug ] = $cat_lbl;
-				}
+				$categories[ $cat_slug ] = $cat_lbl;
 			}
 		}
 
-		// Sort communities: communities NOT in included_cats appear first, included_cats appear at bottom
-		if ( ! empty( $included_cats ) ) {
-			usort( $communities, function( $a, $b ) use ( $included_cats ) {
-				$a_slug = sanitize_title( $a['category'] ?? '' );
-				$b_slug = sanitize_title( $b['category'] ?? '' );
-				$a_in   = in_array( $a_slug, $included_cats, true );
-				$b_in   = in_array( $b_slug, $included_cats, true );
-				if ( $a_in === $b_in ) return 0;
-				return $a_in ? 1 : -1;
-			} );
+		// Included Categories: When ON, category collection cards appear at the end with identical design
+		$include_categories = ( $settings['included_categories'] ?? '' ) === 'yes';
+		$display_items      = $communities;
+
+		if ( $include_categories ) {
+			$category_cards = $this->get_category_cards( $communities, $settings );
+			if ( ! empty( $category_cards ) ) {
+				$show_numbers = ( 'neighborhoods' === $source_type ) ? ( ( $settings['cpt_show_index_numbers'] ?? 'yes' ) === 'yes' ) : true;
+				$start_idx    = count( $communities );
+				foreach ( $category_cards as $k => $cc ) {
+					if ( $show_numbers ) {
+						$category_cards[ $k ]['index_num'] = sprintf( '%02d', $start_idx + $k + 1 );
+					} else {
+						$category_cards[ $k ]['index_num'] = '';
+					}
+					// Ensure this category tab exists in the filter bar
+					$cc_slug = sanitize_title( $cc['category'] ?? '' );
+					if ( ! empty( $cc_slug ) && ! isset( $categories[ $cc_slug ] ) ) {
+						$categories[ $cc_slug ] = $cc['name'];
+					}
+				}
+				// Append category cards at the END of the communities list
+				$display_items = array_merge( $communities, $category_cards );
+			}
 		}
 
 		$show_filters = ( $settings['show_filters'] ?? '' ) === 'yes' && ! empty( $categories );
@@ -1557,7 +1716,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				<!-- --- MINIMALIST ARCHITECTURAL GALLERY GRID --- -->
 				<div class="lre-comm-gallery" id="lre-comm-gallery">
 					<?php
-					foreach ( $communities as $c_idx => $c ) :
+					foreach ( $display_items as $c_idx => $c ) :
 						$cat_slug  = sanitize_title( $c['category'] ?? '' );
 						$img_url   = ! empty( $c['image']['url'] ) ? $c['image']['url'] : lre_asset_url( 'images/property-1.jpg' );
 						$link_url  = ! empty( $c['link']['url'] ) ? esc_url( $c['link']['url'] ) : '#contact';

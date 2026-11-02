@@ -4,6 +4,7 @@
  *
  * Archive template for the 'neighborhood_category' taxonomy.
  * Displays all Neighborhood posts belonging to the current category term.
+ * Formatted with exact parity to the Luxury Communities Showcase design.
  *
  * @package Luxury_RE_Widgets
  */
@@ -35,82 +36,109 @@ $query = new WP_Query( array(
 ) );
 ?>
 
-<div class="lre-neigh-cat-archive" style="background:#08080C;min-height:100vh;padding:80px 20px 100px;">
-	<div class="lre-neigh-cat-archive__container" style="max-width:1200px;margin:0 auto;">
+<section class="lre-comm-showcase lre-comm-archive-page" id="communities-archive" aria-label="<?php echo esc_attr( $term_name ); ?>" style="min-height: 80vh; padding-top: 140px; padding-bottom: 120px; background-color: #08080C;">
+	<div class="lre-comm-showcase__container">
 
-		<!-- Header -->
-		<header class="lre-neigh-cat-archive__header" style="margin-bottom:60px;border-bottom:1px solid rgba(197,160,89,0.3);padding-bottom:40px;">
-			<span class="lre-neigh-cat-archive__eyebrow" style="display:block;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A059;margin-bottom:16px;">
-				<?php esc_html_e( 'Communities', 'luxury-re-widgets' ); ?> &mdash; <?php echo esc_html( $term_name ); ?>
-			</span>
-			<h1 class="lre-neigh-cat-archive__title" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:#F8F4EE;letter-spacing:-0.02em;margin:0 0 20px;line-height:1.1;">
-				<?php echo esc_html( $term_name ); ?>
+		<!-- SECTION HEADER -->
+		<header class="lre-comm-showcase__header revealed" style="margin-bottom: 3.5rem;">
+			<div class="lre-comm-showcase__eyebrow-wrap">
+				<span class="lre-comm-showcase__gold-bar" aria-hidden="true"></span>
+				<span class="section-label lre-comm-showcase__eyebrow">
+					<?php esc_html_e( 'COMMUNITY COLLECTION • ARCHIVE', 'luxury-re-widgets' ); ?>
+				</span>
+			</div>
+
+			<h1 class="lre-comm-showcase__title" style="font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 300; letter-spacing: -0.02em; margin: 0 0 1.25rem; line-height: 1.1;">
+				<span class="title-mask revealed"><span><?php echo esc_html( $term_name ); ?></span></span>
 			</h1>
+
 			<?php if ( ! empty( $term_desc ) ) : ?>
-			<p class="lre-neigh-cat-archive__desc" style="font-size:16px;color:rgba(248,244,238,0.6);max-width:600px;line-height:1.7;margin:0;">
+			<p class="lre-comm-showcase__description" style="max-width: 680px; margin-bottom: 1rem;">
 				<?php echo esc_html( $term_desc ); ?>
 			</p>
+			<?php else : ?>
+			<p class="lre-comm-showcase__description" style="max-width: 680px; margin-bottom: 1rem;">
+				<?php printf( esc_html__( 'An exclusive portfolio of landmark residential territories and private enclaves in %s.', 'luxury-re-widgets' ), esc_html( $term_name ) ); ?>
+			</p>
 			<?php endif; ?>
-			<p class="lre-neigh-cat-archive__count" style="font-size:12px;color:rgba(248,244,238,0.4);margin-top:16px;letter-spacing:0.1em;text-transform:uppercase;">
-				<?php printf( _n( '%s Neighborhood', '%s Neighborhoods', $query->found_posts, 'luxury-re-widgets' ), number_format_i18n( $query->found_posts ) ); ?>
+
+			<p class="lre-comm-archive__count" style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #C5A059; margin-top: 0.75rem; font-weight: 600;">
+				<?php printf( _n( '%s Featured Enclave', '%s Featured Enclaves', $query->found_posts, 'luxury-re-widgets' ), number_format_i18n( $query->found_posts ) ); ?>
 			</p>
 		</header>
 
-		<!-- Neighborhoods Grid -->
+		<!-- MINIMALIST ARCHITECTURAL GALLERY GRID (Same exact markup & style as Showcase Widget) -->
 		<?php if ( $query->have_posts() ) : ?>
-		<div class="lre-neigh-cat-archive__grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px;">
+		<div class="lre-comm-gallery" id="lre-comm-gallery">
 			<?php
 			$idx = 0;
 			while ( $query->have_posts() ) :
 				$query->the_post();
-				$post_id = get_the_ID();
+				$post_id   = get_the_ID();
 				$idx++;
+				$index_num = sprintf( '%02d', $idx );
 
-				// Tagline / subtitle
+				// Tagline
 				$tagline = '';
 				if ( function_exists( 'get_field' ) ) {
-					try { $tagline = get_field( 'subtitle', $post_id ); } catch ( \Throwable $e ) { $tagline = ''; }
+					try {
+						$tagline = get_field( 'subtitle', $post_id );
+					} catch ( \Throwable $e ) {
+						$tagline = '';
+					}
 				}
-				if ( empty( $tagline ) ) { $tagline = get_post_meta( $post_id, 'subtitle', true ); }
-				if ( empty( $tagline ) ) { $tagline = get_the_excerpt(); }
+				if ( empty( $tagline ) ) {
+					$tagline = get_post_meta( $post_id, 'subtitle', true );
+				}
+				if ( empty( $tagline ) ) {
+					$tagline = get_the_excerpt();
+				}
 
-				$img_url = get_the_post_thumbnail_url( $post_id, 'large' );
+				// Image
+				$img_url = get_the_post_thumbnail_url( $post_id, 'full' );
+				if ( empty( $img_url ) ) {
+					$thumb_id = get_post_meta( $post_id, '_thumbnail_id', true );
+					if ( $thumb_id ) {
+						$img_url = wp_get_attachment_image_url( $thumb_id, 'full' );
+					}
+				}
+				if ( empty( $img_url ) ) {
+					$img_url = lre_asset_url( 'images/property-1.jpg' );
+				}
 			?>
-			<article class="lre-neigh-card" style="position:relative;overflow:hidden;background:#0D0D12;border:1px solid rgba(197,160,89,0.12);transition:border-color 0.3s,box-shadow 0.3s;">
-				<a href="<?php the_permalink(); ?>" style="display:block;text-decoration:none;color:inherit;">
-					<!-- Image -->
-					<div class="lre-neigh-card__media" style="position:relative;aspect-ratio:4/3;overflow:hidden;">
-						<?php if ( $img_url ) : ?>
+			<article class="lre-comm-frame revealed" data-category="<?php echo esc_attr( $term_slug ); ?>">
+				<a href="<?php the_permalink(); ?>" class="lre-comm-frame__link">
+					<!-- Upper Dedicated Image Section -->
+					<div class="lre-comm-frame__media">
 						<img src="<?php echo esc_url( $img_url ); ?>"
 						     alt="<?php echo esc_attr( get_the_title() ); ?>"
-						     style="width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease;"
-						     loading="lazy">
-						<?php else : ?>
-						<div style="width:100%;height:100%;background:#1a1a22;display:flex;align-items:center;justify-content:center;">
-							<span style="color:rgba(197,160,89,0.3);font-size:40px;">⌂</span>
+						     class="lre-comm-frame__img"
+						     loading="lazy" width="800" height="1060">
+						<div class="lre-comm-frame__vignette"></div>
+
+						<!-- Top Corner Index & Category (Floats on image) -->
+						<div class="lre-comm-frame__header">
+							<span class="lre-comm-frame__index"><?php echo esc_html( $index_num ); ?></span>
+							<span class="lre-comm-frame__category"><?php echo esc_html( $term_name ); ?></span>
 						</div>
-						<?php endif; ?>
-						<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,12,0.2) 0%,rgba(8,8,12,0.65) 100%);pointer-events:none;"></div>
-						<span style="position:absolute;top:16px;left:16px;font-size:11px;font-weight:700;letter-spacing:0.15em;color:rgba(197,160,89,0.8);"><?php echo sprintf( '%02d', $idx ); ?></span>
 					</div>
 
-					<!-- Content -->
-					<div class="lre-neigh-card__content" style="padding:24px;">
-						<h2 class="lre-neigh-card__title" style="font-size:20px;font-weight:400;color:#F8F4EE;margin:0 0 10px;letter-spacing:-0.01em;line-height:1.2;">
-							<?php the_title(); ?>
-						</h2>
+					<!-- Lower Dedicated Content Section -->
+					<div class="lre-comm-frame__footer">
+						<h3 class="lre-comm-frame__name"><?php the_title(); ?></h3>
+
 						<?php if ( ! empty( $tagline ) ) : ?>
-						<p class="lre-neigh-card__tagline" style="font-size:13px;color:rgba(248,244,238,0.5);margin:0 0 16px;line-height:1.5;">
-							<?php echo esc_html( $tagline ); ?>
-						</p>
+						<p class="lre-comm-frame__tagline"><?php echo esc_html( $tagline ); ?></p>
 						<?php endif; ?>
-						<span style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#C5A059;">
-							<?php esc_html_e( 'Explore Enclave', 'luxury-re-widgets' ); ?>
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;" aria-hidden="true">
+
+						<div class="lre-comm-frame__action">
+							<span class="lre-comm-frame__action-text"><?php esc_html_e( 'Explore Enclave', 'luxury-re-widgets' ); ?></span>
+							<span class="lre-comm-frame__action-line" aria-hidden="true"></span>
+							<svg class="lre-comm-frame__action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
 								<line x1="5" y1="12" x2="19" y2="12"></line>
 								<polyline points="12 5 19 12 12 19"></polyline>
 							</svg>
-						</span>
+						</div>
 					</div>
 				</a>
 			</article>
@@ -118,14 +146,17 @@ $query = new WP_Query( array(
 		</div>
 
 		<?php else : ?>
-		<div style="text-align:center;padding:80px 20px;">
-			<p style="color:rgba(248,244,238,0.4);font-size:16px;"><?php esc_html_e( 'No neighborhoods found in this category.', 'luxury-re-widgets' ); ?></p>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display:inline-block;margin-top:24px;padding:12px 32px;border:1px solid rgba(197,160,89,0.5);color:#C5A059;text-decoration:none;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;"><?php esc_html_e( 'Return Home', 'luxury-re-widgets' ); ?></a>
+		<div style="text-align: center; padding: 5rem 1rem; border: 1px solid rgba(255, 255, 255, 0.08); background: #0c0c12; border-radius: 6px;">
+			<p style="color: rgba(248, 244, 238, 0.6); font-size: 1.1rem; margin-bottom: 2rem;">
+				<?php esc_html_e( 'No enclaves currently registered under this collection.', 'luxury-re-widgets' ); ?>
+			</p>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border: 1px solid #C5A059; color: #C5A059; text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s ease;">
+				<?php esc_html_e( 'Return to Portfolio', 'luxury-re-widgets' ); ?> &rarr;
+			</a>
 		</div>
 		<?php endif; ?>
 
 	</div>
-</div>
+</section>
 
 <?php get_footer(); ?>
-

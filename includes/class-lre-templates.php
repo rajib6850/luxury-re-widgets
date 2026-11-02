@@ -33,7 +33,7 @@ class LRE_Templates {
 		// Front-end template override filter
 		add_filter( 'single_template', array( $this, 'filter_single_template' ), 99 );
 
-		// Taxonomy template override for sold_category
+		// Taxonomy template override for neighborhood_category
 		add_filter( 'taxonomy_template', array( $this, 'filter_taxonomy_template' ), 99 );
 
 		// Register plugin options in wp-admin
@@ -83,23 +83,23 @@ class LRE_Templates {
 
 	/**
 	 * Filters the taxonomy template path for LRE custom taxonomies.
-	 * Supports sold_category (and is extendable to sold_location).
+	 * Supports neighborhood_category taxonomy archive pages.
 	 *
 	 * Theme templates take priority: if the active theme contains
-	 * taxonomy-sold_category.php it is used instead of the plugin's version.
+	 * taxonomy-neighborhood_category.php it is used instead of the plugin's version.
 	 *
 	 * @param string $template Current template file path.
 	 * @return string Modified template file path if a plugin template exists.
 	 */
 	public function filter_taxonomy_template( $template ) {
-		if ( is_tax( 'sold_category' ) ) {
-			// Theme override takes priority (standard WP hierarchy already checked it)
-			$theme_template = locate_template( array( 'taxonomy-sold_category.php' ) );
+		if ( is_tax( 'neighborhood_category' ) ) {
+			// Theme override takes priority
+			$theme_template = locate_template( array( 'taxonomy-neighborhood_category.php' ) );
 			if ( $theme_template ) {
 				return $theme_template;
 			}
 			// Fall back to plugin bundled template
-			$plugin_template = LRE_PATH . 'templates/taxonomy-sold_category.php';
+			$plugin_template = LRE_PATH . 'templates/taxonomy-neighborhood_category.php';
 			if ( file_exists( $plugin_template ) ) {
 				return $plugin_template;
 			}

@@ -130,7 +130,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'label'       => __( 'Included Categories', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => __( 'e.g. foothills, coastal, architectural', 'luxury-re-widgets' ),
-				'description' => __( 'Comma-separated category slugs to include. Leave blank to show all categories. Matching communities will appear at the bottom.', 'luxury-re-widgets' ),
+				'description' => __( 'Comma-separated neighborhood category slugs to include (from Neighborhood Categories taxonomy). Leave blank to show all. Matching enclaves will appear at the bottom.', 'luxury-re-widgets' ),
 				'condition'   => array( 'show_filters' => 'yes' ),
 			)
 		);

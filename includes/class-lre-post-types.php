@@ -173,12 +173,12 @@ class LRE_Post_Types {
 			)
 		);
 
-		// Category Taxonomy (e.g. Residential, Luxury Condo, Estate, Commercial)
-		$labels_cat = array(
-			'name'              => _x( 'Categories', 'taxonomy general name', 'luxury-re-widgets' ),
-			'singular_name'     => _x( 'Category', 'taxonomy singular name', 'luxury-re-widgets' ),
-			'search_items'      => __( 'Search Categories', 'luxury-re-widgets' ),
-			'all_items'         => __( 'All Categories', 'luxury-re-widgets' ),
+		// Neighborhood Category Taxonomy (e.g. Foothills, Coastal, Architectural, Country)
+		$labels_neigh_cat = array(
+			'name'              => _x( 'Neighborhood Categories', 'taxonomy general name', 'luxury-re-widgets' ),
+			'singular_name'     => _x( 'Neighborhood Category', 'taxonomy singular name', 'luxury-re-widgets' ),
+			'search_items'      => __( 'Search Neighborhood Categories', 'luxury-re-widgets' ),
+			'all_items'         => __( 'All Neighborhood Categories', 'luxury-re-widgets' ),
 			'parent_item'       => __( 'Parent Category', 'luxury-re-widgets' ),
 			'parent_item_colon' => __( 'Parent Category:', 'luxury-re-widgets' ),
 			'edit_item'         => __( 'Edit Category', 'luxury-re-widgets' ),
@@ -189,15 +189,15 @@ class LRE_Post_Types {
 		);
 
 		register_taxonomy(
-			'sold_category',
-			array( 'lre_sold_property' ),
+			'neighborhood_category',
+			array( 'neighborhoods', 'neighborhood' ),
 			array(
 				'hierarchical'      => true,
-				'labels'            => $labels_cat,
+				'labels'            => $labels_neigh_cat,
 				'show_ui'           => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
-				'rewrite'           => array( 'slug' => 'sold-category' ),
+				'rewrite'           => array( 'slug' => 'neighborhood-category' ),
 				'show_in_rest'      => true,
 			)
 		);
@@ -215,7 +215,6 @@ class LRE_Post_Types {
 		$new_columns['prop_specs']  = __( 'Beds / Baths / SqFt', 'luxury-re-widgets' );
 		$new_columns['prop_badge']  = __( 'Achievement Badge', 'luxury-re-widgets' );
 		$new_columns['taxonomy-sold_location'] = __( 'Location', 'luxury-re-widgets' );
-		$new_columns['taxonomy-sold_category'] = __( 'Category', 'luxury-re-widgets' );
 		$new_columns['date']        = $columns['date'];
 		return $new_columns;
 	}

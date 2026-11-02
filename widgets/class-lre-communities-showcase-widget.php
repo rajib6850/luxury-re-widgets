@@ -166,6 +166,20 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'cpt_category',
+			array(
+				'label'       => __( 'Filter by Category', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '',
+				'options'     => $this->get_neighborhood_category_options(),
+				'description' => __( 'Choose a category to show, or leave as All / Current Archive to automatically detect on archive templates.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
 			'cpt_orderby',
 			array(
 				'label'     => __( 'Order By', 'luxury-re-widgets' ),
@@ -1348,6 +1362,25 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Helper to get list of neighborhood categories for Elementor SELECT control.
+	 *
+	 * @return array [ ID => Name ]
+	 */
+	protected function get_neighborhood_category_options() {
+		$options = array( '' => __( 'All Categories (Auto-Detect on Archive)', 'luxury-re-widgets' ) );
+		$terms   = get_terms( array(
+			'taxonomy'   => 'neighborhood_category',
+			'hide_empty' => false,
+		) );
+		if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$options[ (string) $term->term_id ] = $term->name;
+			}
+		}
+		return $options;
+	}
+
+	/**
 	 * Resolves default enclaves if repeater is empty.
 	 *
 	 * @return array
@@ -1455,6 +1488,29 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 
 		if ( ! empty( $exclude_ids ) ) {
 			$query_args['post__not_in'] = $exclude_ids;
+		}
+
+		// Category filter (explicit dropdown or automatic on taxonomy archive pages)
+		$cat_filter = ! empty( $settings['cpt_category'] ) ? intval( $settings['cpt_category'] ) : 0;
+		if ( $cat_filter > 0 ) {
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'neighborhood_category',
+					'field'    => 'term_id',
+					'terms'    => $cat_filter,
+				),
+			);
+		} elseif ( is_tax( 'neighborhood_category' ) ) {
+			$queried_obj = get_queried_object();
+			if ( $queried_obj && ! empty( $queried_obj->term_id ) ) {
+				$query_args['tax_query'] = array(
+					array(
+						'taxonomy' => 'neighborhood_category',
+						'field'    => 'term_id',
+						'terms'    => $queried_obj->term_id,
+					),
+				);
+			}
 		}
 
 		$posts = get_posts( $query_args );

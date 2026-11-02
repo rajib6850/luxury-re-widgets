@@ -239,6 +239,32 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'exclude_neighborhoods',
+			array(
+				'label'       => __( 'Exclude Enclaves (Multi-Select)', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_all_neighborhood_options(),
+				'label_block' => true,
+				'description' => __( 'Select specific neighborhoods to exclude from this showcase.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'source_type' => 'neighborhoods',
+				),
+			)
+		);
+
+		$this->add_control(
+			'exclude_enclaves_manual',
+			array(
+				'label'       => __( 'Exclude Enclaves Manually', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'e.g. Bel Air, Malibu Colony, 45', 'luxury-re-widgets' ),
+				'label_block' => true,
+				'description' => __( 'Comma-separated names, slugs, or IDs of enclaves to exclude. Works for both Neighborhoods post type and Custom repeater.', 'luxury-re-widgets' ),
+			)
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -331,6 +357,19 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				'condition' => array(
 					'show_button' => 'yes',
 				),
+			)
+		);
+
+		$repeater->add_control(
+			'exclude_item',
+			array(
+				'label'        => __( 'Exclude / Hide This Enclave', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Hide', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Show', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'separator'    => 'before',
 			)
 		);
 
@@ -1284,6 +1323,30 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Helper to get list of published neighborhoods for Elementor SELECT2 control.
+	 *
+	 * @return array [ ID => Title ]
+	 */
+	protected function get_all_neighborhood_options() {
+		$options = array();
+		$posts   = get_posts( array(
+			'post_type'      => array( 'neighborhoods', 'neighborhood' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		) );
+
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $p ) {
+				$options[ (string) $p->ID ] = $p->post_title;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Resolves default enclaves if repeater is empty.
 	 *
 	 * @return array
@@ -1366,6 +1429,21 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 		$show_numbers   = ( $settings['cpt_show_index_numbers'] ?? 'yes' ) === 'yes';
 		$btn_text       = ! empty( $settings['cpt_button_text'] ) ? $settings['cpt_button_text'] : __( 'Explore Enclave', 'luxury-re-widgets' );
 
+		// Parse exclusions
+		$exclude_select     = ! empty( $settings['exclude_neighborhoods'] ) ? (array) $settings['exclude_neighborhoods'] : array();
+		$exclude_manual_raw = ! empty( $settings['exclude_enclaves_manual'] ) ? $settings['exclude_enclaves_manual'] : '';
+		$exclude_manual     = array();
+		if ( ! empty( $exclude_manual_raw ) ) {
+			$exclude_manual = array_filter( array_map( 'trim', explode( ',', $exclude_manual_raw ) ) );
+		}
+
+		$exclude_ids = array();
+		foreach ( $exclude_select as $val ) {
+			if ( is_numeric( $val ) ) {
+				$exclude_ids[] = intval( $val );
+			}
+		}
+
 		$query_args = array(
 			'post_type'      => array( 'neighborhoods', 'neighborhood' ),
 			'post_status'    => 'publish',
@@ -1374,14 +1452,43 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			'order'          => $order,
 		);
 
+		if ( ! empty( $exclude_ids ) ) {
+			$query_args['post__not_in'] = $exclude_ids;
+		}
+
 		$posts = get_posts( $query_args );
 		$communities = array();
 
 		if ( ! empty( $posts ) ) {
-			foreach ( $posts as $idx => $p ) {
-				$post_id = $p->ID;
-				$name    = get_the_title( $post_id );
-				$url     = get_permalink( $post_id );
+			foreach ( $posts as $p ) {
+				$post_id   = $p->ID;
+				$name      = get_the_title( $post_id );
+				$url       = get_permalink( $post_id );
+				$post_slug = $p->post_name;
+
+				// Check exclusions
+				if ( in_array( (string) $post_id, $exclude_select, true ) || in_array( $post_id, $exclude_select, true ) ) {
+					continue;
+				}
+				if ( ! empty( $exclude_manual ) ) {
+					$matched = false;
+					foreach ( $exclude_manual as $term ) {
+						$t_clean = strtolower( trim( $term ) );
+						if ( empty( $t_clean ) ) {
+							continue;
+						}
+						if ( (string) $post_id === $t_clean
+							|| strtolower( $post_slug ) === sanitize_title( $t_clean )
+							|| strtolower( $name ) === $t_clean
+							|| false !== stripos( $name, $term ) ) {
+							$matched = true;
+							break;
+						}
+					}
+					if ( $matched ) {
+						continue;
+					}
+				}
 
 				// 1. Tagline / Subtitle (ACF Safeguard)
 				$tagline = '';
@@ -1435,7 +1542,7 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 				}
 
 				// 4. Index number formatting (01, 02...)
-				$index_num = $show_numbers ? sprintf( '%02d', $idx + 1 ) : '';
+				$index_num = $show_numbers ? sprintf( '%02d', count( $communities ) + 1 ) : '';
 
 				$communities[] = array(
 					'index_num'      => $index_num,
@@ -1629,6 +1736,47 @@ class LRE_Communities_Showcase_Widget extends Widget_Base {
 			}
 		} else {
 			$communities = ! empty( $settings['communities'] ) ? $settings['communities'] : $this->get_default_communities();
+		}
+
+		// Handle exclusions for Custom Repeater mode
+		$exclude_manual_raw = ! empty( $settings['exclude_enclaves_manual'] ) ? $settings['exclude_enclaves_manual'] : '';
+		$exclude_manual     = array();
+		if ( ! empty( $exclude_manual_raw ) ) {
+			$exclude_manual = array_filter( array_map( 'trim', explode( ',', $exclude_manual_raw ) ) );
+		}
+
+		if ( 'custom' === $source_type && ! empty( $communities ) ) {
+			$filtered = array();
+			$c_count  = 0;
+			foreach ( $communities as $c ) {
+				if ( isset( $c['exclude_item'] ) && 'yes' === $c['exclude_item'] ) {
+					continue;
+				}
+				if ( ! empty( $exclude_manual ) ) {
+					$c_name  = strtolower( trim( $c['name'] ?? '' ) );
+					$c_cat   = strtolower( trim( $c['category'] ?? '' ) );
+					$matched = false;
+					foreach ( $exclude_manual as $term ) {
+						$t_clean = strtolower( trim( $term ) );
+						if ( empty( $t_clean ) ) {
+							continue;
+						}
+						if ( $c_name === $t_clean || false !== stripos( $c_name, $term ) || $c_cat === sanitize_title( $t_clean ) ) {
+							$matched = true;
+							break;
+						}
+					}
+					if ( $matched ) {
+						continue;
+					}
+				}
+				$c_count++;
+				if ( ! empty( $c['index_num'] ) ) {
+					$c['index_num'] = sprintf( '%02d', $c_count );
+				}
+				$filtered[] = $c;
+			}
+			$communities = $filtered;
 		}
 
 		// Collect unique categories for minimal filter tabs

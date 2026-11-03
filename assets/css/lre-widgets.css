@@ -2425,6 +2425,10 @@ button.btn {
   transition: all 0.4s var(--ease-out-expo);
 }
 
+.listing-card.lre-card--no-link {
+  cursor: default !important;
+}
+
 .listing-card__image {
   position: relative;
   width: 100%;

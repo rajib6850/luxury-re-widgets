@@ -172,7 +172,7 @@ class LRE_Templates {
 			'lre_enable_single_post_template' => 'yes',
 			'lre_author_name'                 => 'Adolfo Aguirre',
 			'lre_author_role'                 => 'Real Estate Advisor | SERHANT',
-			'lre_author_dre'                  => 'DRE #02094212',
+			'lre_author_dre'                  => 'DRE #02096534',
 			'lre_author_bio'                  => 'Adolfo Aguirre helps buyers and sellers across Los Angeles and Southern California with thoughtful guidance, strategic marketing, and skilled negotiation.',
 			'lre_author_phone'                => '(310) 346-6380',
 			'lre_author_email'                => 'adolfo@adolfoaguirre.com',
@@ -244,7 +244,7 @@ class LRE_Templates {
 		$enabled          = get_option( 'lre_enable_single_post_template', 'yes' );
 		$author_name      = get_option( 'lre_author_name', 'Adolfo Aguirre' );
 		$author_role      = get_option( 'lre_author_role', 'Real Estate Advisor | SERHANT' );
-		$author_dre       = get_option( 'lre_author_dre', 'DRE #02094212' );
+		$author_dre       = get_option( 'lre_author_dre', 'DRE #02096534' );
 		$author_bio       = get_option( 'lre_author_bio', 'Adolfo Aguirre helps buyers and sellers across Los Angeles and Southern California with thoughtful guidance, strategic marketing, and skilled negotiation.' );
 		$author_phone     = get_option( 'lre_author_phone', '(310) 346-6380' );
 		$author_email     = get_option( 'lre_author_email', 'adolfo@adolfoaguirre.com' );
@@ -313,7 +313,7 @@ class LRE_Templates {
 							<th scope="row"><label for="lre_author_dre"><?php esc_html_e( 'DRE / License #', 'luxury-re-widgets' ); ?></label></th>
 							<td>
 								<input type="text" id="lre_author_dre" name="lre_author_dre" value="<?php echo esc_attr( $author_dre ); ?>" class="regular-text" />
-								<p class="description"><?php esc_html_e( 'e.g. DRE #02094212', 'luxury-re-widgets' ); ?></p>
+								<p class="description"><?php esc_html_e( 'e.g. DRE #02096534', 'luxury-re-widgets' ); ?></p>
 							</td>
 						</tr>
 						<tr>

@@ -510,56 +510,6 @@ class LRE_Properties_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'sold_card_link',
-			array(
-				'label'       => __( 'Card Click Action', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 'modal',
-				'options'     => array(
-					'modal'     => __( 'Open Quick Detail Popup (Modal)', 'luxury-re-widgets' ),
-					'permalink' => __( 'Single Property Page (Permalink)', 'luxury-re-widgets' ),
-					'sold_page' => __( 'Sold Portfolio Page (/sold-portfolio/)', 'luxury-re-widgets' ),
-					'none'      => __( 'None (No Link / Action)', 'luxury-re-widgets' ),
-				),
-				'description' => __( 'Choose whether clicking a sold property opens the dossier popup or navigates to a page.', 'luxury-re-widgets' ),
-				'condition'   => array(
-					'properties_source' => 'sold',
-				),
-			)
-		);
-
-		$this->add_control(
-			'sold_modal_btn_text',
-			array(
-				'label'       => __( 'Modal CTA Button Text', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Schedule a Conversation', 'luxury-re-widgets' ),
-				'condition'   => array(
-					'properties_source' => 'sold',
-					'sold_card_link'    => 'modal',
-				),
-			)
-		);
-
-		$this->add_control(
-			'sold_modal_btn_url',
-			array(
-				'label'       => __( 'Modal CTA Button URL', 'luxury-re-widgets' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => home_url( '/contact/' ),
-				'default'     => array(
-					'url'         => home_url( '/contact/' ),
-					'is_external' => false,
-					'nofollow'    => false,
-				),
-				'condition'   => array(
-					'properties_source' => 'sold',
-					'sold_card_link'    => 'modal',
-				),
-			)
-		);
-
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -647,6 +597,19 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label'   => __( 'Property URL', 'luxury-re-widgets' ),
 				'type'    => Controls_Manager::URL,
 				'default' => array( 'url' => '#' ),
+			)
+		);
+
+		$repeater->add_control(
+			'disable_popup',
+			array(
+				'label'        => __( 'Disable Popup on Click', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'label_on'     => __( 'Disable', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Enable', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Turn ON to prevent this property card from opening the quick detail popup when clicked.', 'luxury-re-widgets' ),
 			)
 		);
 
@@ -761,6 +724,117 @@ class LRE_Properties_Widget extends Widget_Base {
 				'label_off'    => __( 'Hide', 'luxury-re-widgets' ),
 				'return_value' => 'yes',
 				'separator'    => 'before',
+			)
+		);
+
+		$this->end_controls_section();
+
+		// --- Quick Detail Popup / Modal Settings ---
+		$this->start_controls_section(
+			'section_modal',
+			array(
+				'label' => __( 'Quick Detail Popup / Dossier', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'enable_property_modal',
+			array(
+				'label'        => __( 'Enable Quick Detail Popup', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'label_on'     => __( 'On', 'luxury-re-widgets' ),
+				'label_off'    => __( 'Off', 'luxury-re-widgets' ),
+				'return_value' => 'yes',
+				'description'  => __( 'Turn ON to allow clicking property cards to open the confidential quick dossier popup.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'exclude_modal_properties',
+			array(
+				'label'       => __( 'Exclude Specific Properties from Popup', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_all_sold_property_options(),
+				'label_block' => true,
+				'description' => __( 'Select specific sold properties where clicking the card will NOT open the popup.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+					'properties_source'     => 'sold',
+				),
+			)
+		);
+
+		$this->add_control(
+			'exclude_modal_manual',
+			array(
+				'label'       => __( 'Exclude by Title or ID', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'e.g. 788 S Grand Ave, 1136, Grand Avenue', 'luxury-re-widgets' ),
+				'label_block' => true,
+				'description' => __( 'Comma-separated property titles, addresses, or IDs to exclude from opening the popup. Works for both CPT and manual listings.', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_fallback_action',
+			array(
+				'label'       => __( 'Action for Excluded / Non-Popup Cards', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'permalink',
+				'options'     => array(
+					'permalink' => __( 'Single Property Page (Permalink)', 'luxury-re-widgets' ),
+					'sold_page' => __( 'Sold Portfolio Page (/sold-portfolio/)', 'luxury-re-widgets' ),
+					'none'      => __( 'None (No Action / Not Clickable)', 'luxury-re-widgets' ),
+				),
+				'description' => __( 'Choose what happens when clicking a property card where the popup is disabled or excluded.', 'luxury-re-widgets' ),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_text',
+			array(
+				'label'       => __( 'Modal CTA Button Text', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Schedule a Conversation', 'luxury-re-widgets' ),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_url',
+			array(
+				'label'       => __( 'Modal CTA Button URL', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => home_url( '/contact/' ),
+				'default'     => array(
+					'url'         => home_url( '/contact/' ),
+					'is_external' => false,
+					'nofollow'    => false,
+				),
+				'condition'   => array(
+					'enable_property_modal' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_preview_in_editor',
+			array(
+				'label'        => __( 'Preview Modal in Editor', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'description'  => __( 'Turn ON to preview the dossier popup inside the Elementor editor window.', 'luxury-re-widgets' ),
+				'condition'    => array(
+					'enable_property_modal' => 'yes',
+				),
 			)
 		);
 
@@ -2370,6 +2444,35 @@ class LRE_Properties_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Helper to get list of published sold properties for Elementor SELECT2 control.
+	 *
+	 * @return array [ ID => Title ($Price) ]
+	 */
+	protected function get_all_sold_property_options() {
+		$options = array();
+		$posts   = get_posts( array(
+			'post_type'      => 'lre_sold_property',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		) );
+
+		if ( ! empty( $posts ) ) {
+			foreach ( $posts as $p ) {
+				$price = get_post_meta( $p->ID, '_lre_sold_price', true );
+				$label = $p->post_title;
+				if ( ! empty( $price ) ) {
+					$label .= ' (' . $price . ')';
+				}
+				$options[ (string) $p->ID ] = $label;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Parse raw price string to pure float value for numeric comparison and sorting.
 	 * Supports formats like '$1,450,000', '1.5M', '$1M', '$850k', '49 Million', etc.
 	 *
@@ -2409,7 +2512,21 @@ class LRE_Properties_Widget extends Widget_Base {
 		$location       = ! empty( $settings['sold_location'] ) ? $settings['sold_location'] : '';
 		$default_badge  = ! empty( $settings['sold_default_badge'] ) ? $settings['sold_default_badge'] : 'SOLD';
 		$badge_gold     = ! empty( $settings['sold_badge_gold'] ) && 'yes' === $settings['sold_badge_gold'];
-		$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'modal';
+
+		// Modal popup control and exclusion settings
+		$enable_modal = ! isset( $settings['enable_property_modal'] ) || 'yes' === $settings['enable_property_modal'];
+		if ( isset( $settings['sold_card_link'] ) && 'modal' !== $settings['sold_card_link'] && ! isset( $settings['enable_property_modal'] ) ) {
+			$enable_modal = false;
+		}
+
+		$exclude_modal_props      = ! empty( $settings['exclude_modal_properties'] ) ? (array) $settings['exclude_modal_properties'] : array();
+		$exclude_modal_manual_raw = ! empty( $settings['exclude_modal_manual'] ) ? $settings['exclude_modal_manual'] : '';
+		$exclude_modal_manual     = array();
+		if ( ! empty( $exclude_modal_manual_raw ) ) {
+			$exclude_modal_manual = array_filter( array_map( 'trim', explode( ',', $exclude_modal_manual_raw ) ) );
+		}
+
+		$fallback_action = ! empty( $settings['modal_fallback_action'] ) ? $settings['modal_fallback_action'] : ( ! empty( $settings['sold_card_link'] ) && 'modal' !== $settings['sold_card_link'] ? $settings['sold_card_link'] : 'permalink' );
 
 		$min_price_raw  = ! empty( $settings['sold_min_price'] ) ? trim( $settings['sold_min_price'] ) : '';
 		$max_price_raw  = ! empty( $settings['sold_max_price'] ) ? trim( $settings['sold_max_price'] ) : '';
@@ -2524,18 +2641,42 @@ class LRE_Properties_Widget extends Widget_Base {
 				// Gold badge style
 				$is_gold = $badge_gold || ( false !== stripos( $badge, 'OVER ASKING' ) || false !== stripos( $badge, 'RECORD' ) || false !== stripos( $badge, 'ALL-CASH' ) );
 
+				// Check if modal popup is disabled or excluded for this specific property
+				$is_meta_disabled     = 'yes' === get_post_meta( $pid, '_lre_disable_popup', true ) || '1' === get_post_meta( $pid, '_lre_disable_popup', true );
+				$is_selected_excluded = in_array( (string) $pid, $exclude_modal_props, true ) || in_array( $pid, $exclude_modal_props );
+
+				$is_manual_excluded = false;
+				$title_lower        = strtolower( get_the_title( $pid ) );
+				if ( ! empty( $exclude_modal_manual ) ) {
+					foreach ( $exclude_modal_manual as $term ) {
+						$term_lower = strtolower( trim( $term ) );
+						if ( '' === $term_lower ) {
+							continue;
+						}
+						if ( (string) $pid === $term_lower || false !== strpos( $title_lower, $term_lower ) ) {
+							$is_manual_excluded = true;
+							break;
+						}
+					}
+				}
+
+				$is_excluded   = $is_meta_disabled || $is_selected_excluded || $is_manual_excluded;
+				$is_card_modal = $enable_modal && ! $is_excluded;
+
 				// Card action / URL
-				$is_modal = ( empty( $card_link_type ) || 'modal' === $card_link_type );
 				$link_url = '#';
-				if ( 'permalink' === $card_link_type ) {
-					$link_url = get_permalink( $pid );
-				} elseif ( 'sold_page' === $card_link_type ) {
-					$link_url = home_url( '/sold-portfolio/' );
-				} elseif ( 'none' === $card_link_type ) {
-					$link_url = '#';
+				if ( ! $is_card_modal ) {
+					if ( 'permalink' === $fallback_action ) {
+						$link_url = get_permalink( $pid );
+					} elseif ( 'sold_page' === $fallback_action ) {
+						$link_url = home_url( '/sold-portfolio/' );
+					} elseif ( 'none' === $fallback_action ) {
+						$link_url = '#';
+					}
 				}
 
 				$raw_items[] = array(
+					'id'               => $pid,
 					'prop_image'       => $img_url,
 					'prop_price'       => $price,
 					'prop_price_num'   => $price_num,
@@ -2550,7 +2691,7 @@ class LRE_Properties_Widget extends Widget_Base {
 					'prop_specs_str'   => $specs_str,
 					'post_date'        => get_post_time( 'U', true, $pid ),
 					'is_sold'          => true,
-					'open_modal'       => $is_modal,
+					'open_modal'       => $is_card_modal,
 					'prop_url'         => array(
 						'url'         => $link_url,
 						'is_external' => '',
@@ -2653,6 +2794,11 @@ class LRE_Properties_Widget extends Widget_Base {
 				. ' data-desc="' . esc_attr( wp_strip_all_tags( $desc ) ) . '"'
 				. ' data-img="' . esc_url( $img_url ) . '"'
 				. ' role="button" tabindex="0" aria-label="' . esc_attr( sprintf( __( 'View dossier for %s', 'luxury-re-widgets' ), $title ) ) . '"';
+		} else {
+			$card_classes[] = 'lre-card--no-modal';
+			if ( ! $has_url ) {
+				$card_classes[] = 'lre-card--no-link';
+			}
 		}
 
 		$data_page_attr = $page_num > 0 ? ' data-page="' . esc_attr( $page_num ) . '"' : '';
@@ -2738,7 +2884,31 @@ class LRE_Properties_Widget extends Widget_Base {
 		if ( 'sold' === $source ) {
 			$listings = $this->get_sold_properties_listings( $settings );
 		} else {
-			$listings = ! empty( $settings['listings'] ) ? $settings['listings'] : array();
+			$manual_items             = ! empty( $settings['listings'] ) ? $settings['listings'] : array();
+			$enable_modal             = ! isset( $settings['enable_property_modal'] ) || 'yes' === $settings['enable_property_modal'];
+			$exclude_modal_manual_raw = ! empty( $settings['exclude_modal_manual'] ) ? $settings['exclude_modal_manual'] : '';
+			$exclude_modal_manual     = array();
+			if ( ! empty( $exclude_modal_manual_raw ) ) {
+				$exclude_modal_manual = array_filter( array_map( 'trim', explode( ',', $exclude_modal_manual_raw ) ) );
+			}
+			$listings = array();
+			foreach ( $manual_items as $item ) {
+				$addr               = ! empty( $item['prop_address'] ) ? $item['prop_address'] : '';
+				$is_rep_disabled    = ! empty( $item['disable_popup'] ) && 'yes' === $item['disable_popup'];
+				$is_manual_excluded = false;
+				$addr_lower         = strtolower( $addr );
+				if ( ! empty( $exclude_modal_manual ) ) {
+					foreach ( $exclude_modal_manual as $term ) {
+						$term_lower = strtolower( trim( $term ) );
+						if ( '' !== $term_lower && false !== strpos( $addr_lower, $term_lower ) ) {
+							$is_manual_excluded = true;
+							break;
+						}
+					}
+				}
+				$item['open_modal'] = $enable_modal && ! $is_rep_disabled && ! $is_manual_excluded && ! empty( $item['open_modal'] ) && 'yes' === $item['open_modal'];
+				$listings[]         = $item;
+			}
 		}
 		$listings_count   = count( $listings );
 
@@ -2932,29 +3102,36 @@ class LRE_Properties_Widget extends Widget_Base {
 			<?php endif; ?>
 
 			<?php
-			$card_link_type = ! empty( $settings['sold_card_link'] ) ? $settings['sold_card_link'] : 'modal';
-			if ( 'sold' === $source && 'modal' === $card_link_type ) :
-				$modal_btn_text = ! empty( $settings['sold_modal_btn_text'] ) ? $settings['sold_modal_btn_text'] : __( 'Schedule a Conversation', 'luxury-re-widgets' );
-				$modal_btn_url  = ! empty( $settings['sold_modal_btn_url']['url'] ) ? $settings['sold_modal_btn_url']['url'] : home_url( '/contact/' );
-				$modal_target   = ! empty( $settings['sold_modal_btn_url']['is_external'] ) ? ' target="_blank"' : '';
-				$modal_rel      = ! empty( $settings['sold_modal_btn_url']['nofollow'] ) ? ' rel="nofollow"' : '';
-				$widget_id      = $this->get_id();
+			$enable_modal = ! isset( $settings['enable_property_modal'] ) || 'yes' === $settings['enable_property_modal'];
+			if ( isset( $settings['sold_card_link'] ) && 'modal' !== $settings['sold_card_link'] && ! isset( $settings['enable_property_modal'] ) ) {
+				$enable_modal = false;
+			}
+			$is_editor     = class_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$instance->editor && \Elementor\Plugin::$instance->editor->is_edit_mode();
+			$modal_preview = $is_editor && ! empty( $settings['modal_preview_in_editor'] ) && 'yes' === $settings['modal_preview_in_editor'];
+
+			if ( $enable_modal ) :
+				$modal_btn_text    = ! empty( $settings['modal_btn_text'] ) ? $settings['modal_btn_text'] : ( ! empty( $settings['sold_modal_btn_text'] ) ? $settings['sold_modal_btn_text'] : __( 'Schedule a Conversation', 'luxury-re-widgets' ) );
+				$modal_btn_url_arr = ! empty( $settings['modal_btn_url']['url'] ) ? $settings['modal_btn_url'] : ( ! empty( $settings['sold_modal_btn_url']['url'] ) ? $settings['sold_modal_btn_url'] : array( 'url' => home_url( '/contact/' ) ) );
+				$modal_btn_url     = ! empty( $modal_btn_url_arr['url'] ) ? $modal_btn_url_arr['url'] : home_url( '/contact/' );
+				$modal_target      = ! empty( $modal_btn_url_arr['is_external'] ) ? ' target="_blank"' : '';
+				$modal_rel         = ! empty( $modal_btn_url_arr['nofollow'] ) ? ' rel="nofollow"' : '';
+				$widget_id         = $this->get_id();
 			?>
 			<!-- Built-in Property Quick Detail Modal (Dialog) -->
-			<dialog id="property-modal-<?php echo esc_attr( $widget_id ); ?>" class="custom-modal lre-ledger-modal" aria-labelledby="prop-modal-title-<?php echo esc_attr( $widget_id ); ?>">
+			<dialog id="property-modal-<?php echo esc_attr( $widget_id ); ?>" class="custom-modal lre-ledger-modal<?php echo $modal_preview ? ' is-editor-preview' : ''; ?>" aria-labelledby="prop-modal-title-<?php echo esc_attr( $widget_id ); ?>"<?php echo $modal_preview ? ' open' : ''; ?>>
 				<div class="modal-card lre-ledger-modal-card">
 					<button class="modal-close-btn lre-ledger-modal-close" id="close-prop-modal" aria-label="<?php esc_attr_e( 'Close dossier dialog', 'luxury-re-widgets' ); ?>">✕</button>
 					
 					<div class="lre-ledger-modal-img-wrap">
-						<img id="prop-modal-img" src="" alt="<?php esc_attr_e( 'Property Preview', 'luxury-re-widgets' ); ?>" />
+						<img id="prop-modal-img" src="<?php echo esc_url( $modal_preview && ! empty( $listings[0]['prop_image'] ) ? ( is_array( $listings[0]['prop_image'] ) ? $listings[0]['prop_image']['url'] : $listings[0]['prop_image'] ) : '' ); ?>" alt="<?php esc_attr_e( 'Property Preview', 'luxury-re-widgets' ); ?>" />
 					</div>
 
 					<div class="modal-header lre-ledger-modal-header">
-						<h3 id="prop-modal-title"></h3>
-						<div id="prop-modal-location" class="lre-ledger-modal-location"></div>
-						<div id="prop-modal-price" class="lre-ledger-modal-price"></div>
-						<div id="prop-modal-specs" class="lre-ledger-modal-specs"></div>
-						<div id="prop-modal-desc" class="lre-ledger-modal-desc"></div>
+						<h3 id="prop-modal-title"><?php echo esc_html( $modal_preview && ! empty( $listings[0]['prop_address'] ) ? $listings[0]['prop_address'] : '' ); ?></h3>
+						<div id="prop-modal-location" class="lre-ledger-modal-location"><?php echo esc_html( $modal_preview && ! empty( $listings[0]['prop_location'] ) ? $listings[0]['prop_location'] : '' ); ?></div>
+						<div id="prop-modal-price" class="lre-ledger-modal-price"><?php echo esc_html( $modal_preview && ! empty( $listings[0]['prop_price'] ) ? $listings[0]['prop_price'] : '' ); ?></div>
+						<div id="prop-modal-specs" class="lre-ledger-modal-specs"><?php echo esc_html( $modal_preview && ! empty( $listings[0]['prop_specs_str'] ) ? $listings[0]['prop_specs_str'] : '' ); ?></div>
+						<div id="prop-modal-desc" class="lre-ledger-modal-desc"><?php echo wp_kses_post( $modal_preview && ! empty( $listings[0]['prop_description'] ) ? $listings[0]['prop_description'] : '' ); ?></div>
 					</div>
 
 					<div class="lre-ledger-modal-actions">

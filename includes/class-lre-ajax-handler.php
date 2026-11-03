@@ -611,7 +611,7 @@ class LRE_Ajax_Handler {
 				. "<p>Thank you for requesting a confidential market valuation for your property" . ( $address_val ? " at <strong>" . esc_html( $address_val ) . "</strong>" : "" ) . ".</p>\n"
 				. "<p>Your property details have been securely received. Adolfo Aguirre is personally conducting a precision micro-market analysis, accounting for recent comparable sales, architectural provenance, and current buyer velocity in your community.</p>\n"
 				. "<p>A comprehensive valuation dossier will be prepared and delivered to you within 24–48 hours.</p>\n"
-				. "<br><p>Warm regards,<br><strong>Adolfo Aguirre</strong><br>SERHANT. Los Angeles<br>DRE #02094212<br>(310) 346-6380</p>";
+				. "<br><p>Warm regards,<br><strong>Adolfo Aguirre</strong><br>SERHANT. Los Angeles<br>DRE #02096534<br>(310) 346-6380</p>";
 
 			$auto_headers = array(
 				"Content-Type: text/html; charset=UTF-8",

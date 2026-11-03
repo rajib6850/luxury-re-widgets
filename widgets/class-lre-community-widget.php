@@ -79,7 +79,7 @@ class LRE_Community_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Eyebrow', 'luxury-re-widgets' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => 'SOUTHERN CALIFORNIA ARCHITECTURAL ENCLAVE • DRE# 02094212',
+				'default'     => 'SOUTHERN CALIFORNIA ARCHITECTURAL ENCLAVE • DRE# 02096534',
 				'dynamic'     => array( 'active' => true ),
 			)
 		);

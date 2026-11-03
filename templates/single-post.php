@@ -47,7 +47,7 @@ while ( have_posts() ) :
 	$author_id       = get_the_author_meta( 'ID' );
 	$author_name     = get_option( 'lre_author_name', 'Adolfo Aguirre' );
 	$author_role     = get_option( 'lre_author_role', __( 'Real Estate Advisor | SERHANT', 'luxury-re-widgets' ) );
-	$author_dre      = get_option( 'lre_author_dre', 'DRE #02094212' );
+	$author_dre      = get_option( 'lre_author_dre', 'DRE #02096534' );
 	$author_bio      = get_option( 'lre_author_bio', __( 'Adolfo Aguirre helps buyers and sellers across Los Angeles and Southern California with thoughtful guidance, strategic marketing, and skilled negotiation.', 'luxury-re-widgets' ) );
 	$author_phone    = get_option( 'lre_author_phone', '(310) 346-6380' );
 	$author_email    = get_option( 'lre_author_email', 'adolfo@adolfoaguirre.com' );

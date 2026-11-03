@@ -52,6 +52,33 @@ class LRE_Ajax_Handler {
 			}
 		}
 
+		// Optional Google reCAPTCHA Verification
+		$recaptcha_secret = isset( $_POST['recaptcha_secret'] ) ? sanitize_text_field( wp_unslash( $_POST['recaptcha_secret'] ) ) : '';
+		if ( ! empty( $recaptcha_secret ) ) {
+			$recaptcha_token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+			if ( empty( $recaptcha_token ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please complete the Google reCAPTCHA verification.', 'luxury-re-widgets' ) ) );
+			}
+
+			$verify_response = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', array(
+				'timeout' => 15,
+				'body'    => array(
+					'secret'   => $recaptcha_secret,
+					'response' => $recaptcha_token,
+					'remoteip' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
+				),
+			) );
+
+			if ( is_wp_error( $verify_response ) ) {
+				wp_send_json_error( array( 'message' => __( 'Unable to verify reCAPTCHA. Please try again.', 'luxury-re-widgets' ) ) );
+			} else {
+				$verify_body = json_decode( wp_remote_retrieve_body( $verify_response ), true );
+				if ( empty( $verify_body['success'] ) ) {
+					wp_send_json_error( array( 'message' => __( 'Google reCAPTCHA verification failed. Please try again.', 'luxury-re-widgets' ) ) );
+				}
+			}
+		}
+
 		// 1. Collect Form Builder Dynamic Fields
 		$submitted_fields = array();
 		$client_name      = '';
@@ -481,6 +508,33 @@ class LRE_Ajax_Handler {
 			if ( ! check_ajax_referer( "lre_home_valuation_nonce", "lre_val_nonce", false ) && ! is_user_logged_in() ) {
 				if ( empty( $_POST["lre_fields"] ) ) {
 					wp_send_json_error( array( "message" => __( "Security verification expired. Please refresh the page and try again.", "luxury-re-widgets" ) ) );
+				}
+			}
+		}
+
+		// Optional Google reCAPTCHA Verification
+		$recaptcha_secret = isset( $_POST["recaptcha_secret"] ) ? sanitize_text_field( wp_unslash( $_POST["recaptcha_secret"] ) ) : "";
+		if ( ! empty( $recaptcha_secret ) ) {
+			$recaptcha_token = isset( $_POST["g-recaptcha-response"] ) ? sanitize_text_field( wp_unslash( $_POST["g-recaptcha-response"] ) ) : "";
+			if ( empty( $recaptcha_token ) ) {
+				wp_send_json_error( array( "message" => __( "Please complete the Google reCAPTCHA verification.", "luxury-re-widgets" ) ) );
+			}
+
+			$verify_response = wp_remote_post( "https://www.google.com/recaptcha/api/siteverify", array(
+				"timeout" => 15,
+				"body"    => array(
+					"secret"   => $recaptcha_secret,
+					"response" => $recaptcha_token,
+					"remoteip" => isset( $_SERVER["REMOTE_ADDR"] ) ? sanitize_text_field( wp_unslash( $_SERVER["REMOTE_ADDR"] ) ) : "",
+				),
+			) );
+
+			if ( is_wp_error( $verify_response ) ) {
+				wp_send_json_error( array( "message" => __( "Unable to verify reCAPTCHA. Please try again.", "luxury-re-widgets" ) ) );
+			} else {
+				$verify_body = json_decode( wp_remote_retrieve_body( $verify_response ), true );
+				if ( empty( $verify_body["success"] ) ) {
+					wp_send_json_error( array( "message" => __( "Google reCAPTCHA verification failed. Please try again.", "luxury-re-widgets" ) ) );
 				}
 			}
 		}

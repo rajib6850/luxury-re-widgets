@@ -1948,6 +1948,20 @@
                             return;
                         }
 
+                        // Google reCAPTCHA v2 validation check
+                        var recaptchaV2 = form.querySelector( '.g-recaptcha' );
+                        if ( recaptchaV2 && typeof grecaptcha !== 'undefined' ) {
+                            var v2Response = grecaptcha.getResponse();
+                            if ( ! v2Response ) {
+                                if ( feedback ) {
+                                    feedback.className = 'lre-contact__feedback lre-contact__feedback--error';
+                                    feedback.textContent = 'Please complete the Google reCAPTCHA verification.';
+                                    feedback.style.display = 'block';
+                                }
+                                return;
+                            }
+                        }
+
                         // Button Loading State
                         var btnText = btn ? btn.querySelector( '.lre-contact__btn-text' ) : null;
                         var originalText = btnText ? btnText.textContent : 'SUBMIT';
@@ -1996,6 +2010,9 @@
 
                             if ( res.success ) {
                                 form.reset();
+                                if ( typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function' ) {
+                                    try { grecaptcha.reset(); } catch ( reErr ) {}
+                                }
 
                                 // Optional Redirect
                                 if ( res.data && res.data.redirect_url ) {
@@ -2427,6 +2444,16 @@
                         var currentActiveTab = section.querySelector( '.lre-home-val__step-tab.active' );
                         var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 3;
                         if ( ! validateStep( currentStep ) ) return;
+
+                        // Google reCAPTCHA v2 validation check
+                        var recaptchaV2 = form.querySelector( '.g-recaptcha' );
+                        if ( recaptchaV2 && typeof grecaptcha !== 'undefined' ) {
+                            var v2Response = grecaptcha.getResponse();
+                            if ( ! v2Response ) {
+                                alert( 'Please complete the Google reCAPTCHA verification.' );
+                                return;
+                            }
+                        }
 
                         var submitBtn = form.querySelector( '.lre-home-val__btn--submit' );
                         var originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';

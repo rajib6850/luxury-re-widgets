@@ -768,6 +768,61 @@ class LRE_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= CONTENT: RECAPTCHA ================= */
+		$this->start_controls_section(
+			'section_content_recaptcha',
+			array(
+				'label' => __( 'reCAPTCHA', 'luxury-re-widgets' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'enable_recaptcha',
+			array(
+				'label'        => __( 'Enable Google reCAPTCHA', 'luxury-re-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_version',
+			array(
+				'label'     => __( 'reCAPTCHA Version', 'luxury-re-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'v3',
+				'options'   => array(
+					'v3' => __( 'v3 (Invisible Badge)', 'luxury-re-widgets' ),
+					'v2' => __( 'v2 ("I\'m not a robot" Checkbox)', 'luxury-re-widgets' ),
+				),
+				'condition' => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_site_key',
+			array(
+				'label'       => __( 'reCAPTCHA Site Key', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter Google reCAPTCHA Site Key', 'luxury-re-widgets' ),
+				'condition'   => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_secret_key',
+			array(
+				'label'       => __( 'reCAPTCHA Secret Key', 'luxury-re-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter Google reCAPTCHA Secret Key', 'luxury-re-widgets' ),
+				'condition'   => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// --- SECTION: ACTIONS AFTER SUBMIT ---
 		$this->start_controls_section(
 			'section_actions_after_submit',
@@ -1673,6 +1728,12 @@ class LRE_Contact_Widget extends Widget_Base {
 		// Dynamic Form Fields array
 		$form_fields = ! empty( $settings['form_fields'] ) ? $settings['form_fields'] : array();
 
+		// reCAPTCHA Settings
+		$enable_recaptcha = ! empty( $settings['enable_recaptcha'] ) && 'yes' === $settings['enable_recaptcha'];
+		$recaptcha_v      = ! empty( $settings['recaptcha_version'] ) ? $settings['recaptcha_version'] : 'v3';
+		$site_key         = ! empty( $settings['recaptcha_site_key'] ) ? $settings['recaptcha_site_key'] : '';
+		$secret_key       = ! empty( $settings['recaptcha_secret_key'] ) ? $settings['recaptcha_secret_key'] : '';
+
 		// Layout Ordering
 		$desktop_layout = ! empty( $settings['desktop_layout'] ) ? $settings['desktop_layout'] : 'info_left';
 		$tablet_layout  = ! empty( $settings['tablet_stack_order'] ) ? $settings['tablet_stack_order'] : 'form_top';
@@ -1941,6 +2002,7 @@ class LRE_Contact_Widget extends Widget_Base {
 							<input type="hidden" name="fub_type" value="<?php echo esc_attr( $settings['fub_type'] ?? 'General Inquiry' ); ?>">
 							<input type="hidden" name="fub_tags" value="<?php echo esc_attr( $settings['fub_tags'] ?? '' ); ?>">
 							<input type="hidden" name="fub_stage" value="<?php echo esc_attr( $settings['fub_stage'] ?? 'Lead' ); ?>">
+							<input type="hidden" name="recaptcha_secret" value="<?php echo esc_attr( $secret_key ); ?>">
 
 							<div class="lre-contact__form-grid">
 								<?php
@@ -2059,6 +2121,27 @@ class LRE_Contact_Widget extends Widget_Base {
 										</span>
 									</label>
 								</div>
+							<?php endif; ?>
+
+							<!-- Google reCAPTCHA UI -->
+							<?php if ( $enable_recaptcha && 'v2' === $recaptcha_v && ! empty( $site_key ) ) : ?>
+								<div class="lre-contact__recaptcha-wrap" style="margin: 16px 0;">
+									<div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $site_key ); ?>"></div>
+								</div>
+								<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+							<?php elseif ( $enable_recaptcha && 'v3' === $recaptcha_v && ! empty( $site_key ) ) : ?>
+								<input type="hidden" name="g-recaptcha-response" class="lre-contact__recaptcha-token" value="">
+								<script src="https://www.google.com/recaptcha/api.js?render=<?php echo esc_attr( $site_key ); ?>"></script>
+								<script>
+									if (typeof grecaptcha !== 'undefined') {
+										grecaptcha.ready(function() {
+											grecaptcha.execute('<?php echo esc_js( $site_key ); ?>', {action: 'contact_form_submit'}).then(function(token) {
+												var tokens = document.querySelectorAll('.lre-contact__recaptcha-token');
+												tokens.forEach(function(el) { el.value = token; });
+											});
+										});
+									}
+								</script>
 							<?php endif; ?>
 
 							<!-- Submit Action -->

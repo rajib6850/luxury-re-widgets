@@ -4012,10 +4012,13 @@ button.btn {
   white-space: nowrap;
 }
 
+.footer__bottom a.footer__dev-link,
+.footer__copyright a.footer__dev-link,
 .footer__bottom-link.footer__dev-link,
-.footer__dev-link {
+.footer__dev-link,
+.footer__dev-link u {
   text-decoration: underline !important;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px !important;
 }
 
 /* --- 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE --- */

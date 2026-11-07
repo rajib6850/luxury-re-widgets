@@ -858,12 +858,19 @@ body .elementor-element .lre-phero__actions .btn {
   color: var(--lre-footer-nav-hover-color, var(--color-secondary, #c5a047)) !important;
 }
 
-.footer__bottom a,
-.footer__copyright a,
-.footer__bottom-link,
-.footer__legal a {
+.footer__bottom a:not(.footer__dev-link),
+.footer__copyright a:not(.footer__dev-link),
+.footer__bottom-link:not(.footer__dev-link),
+.footer__legal a:not(.footer__dev-link) {
   color: var(--lre-footer-bottom-link-color, inherit) !important;
   text-decoration: none !important;
+}
+.footer__bottom a.footer__dev-link,
+.footer__copyright a.footer__dev-link,
+.footer__dev-link,
+.footer__dev-link u {
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
 }
 .footer__bottom a:hover,
 .footer__copyright a:hover,

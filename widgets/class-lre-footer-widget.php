@@ -1487,6 +1487,8 @@ class LRE_Footer_Widget extends Widget_Base {
 					<a href="<?php echo esc_url( $privacy_url ); ?>" target="<?php echo esc_attr( $privacy_target ); ?>"<?php echo $privacy_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Privacy Policy', 'luxury-re-widgets' ); ?></a> &bull;
 					<a href="<?php echo esc_url( $terms_url ); ?>" target="<?php echo esc_attr( $terms_target ); ?>"<?php echo $terms_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Terms of Service', 'luxury-re-widgets' ); ?></a> &bull;
 					<a href="<?php echo esc_url( $access_url ); ?>" target="<?php echo esc_attr( $access_target ); ?>"<?php echo $access_rel; ?> class="footer__bottom-link"><?php esc_html_e( 'Accessibility', 'luxury-re-widgets' ); ?></a>
+					<span class="footer__dev-pipe">|</span>
+					<span class="footer__dev-credit">Site by <a href="https://digitizegrowth.com/" target="_blank" rel="noopener noreferrer" class="footer__bottom-link footer__dev-link" style="text-decoration: underline; text-underline-offset: 2px;">Digitize Growth</a></span>
 				</span>
 			</div>
 		</footer>

@@ -4001,6 +4001,23 @@ button.btn {
   color: var(--lre-footer-bottom-link-hover-color, var(--color-secondary, #c5a047));
 }
 
+.footer__dev-pipe {
+  display: inline;
+  margin: 0 0.35rem;
+  opacity: 0.8;
+}
+
+.footer__dev-credit {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.footer__bottom-link.footer__dev-link,
+.footer__dev-link {
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+
 /* --- 15. SCROLL REVEAL & PLUGIN-STYLE LUXURY REVEAL SUITE --- */
 .reveal {
   opacity: 0;
@@ -5623,6 +5640,15 @@ button.btn {
   .footer__copyright {
     font-size: 0.62rem;
     line-height: 1.7;
+  }
+
+  .footer__dev-pipe {
+    display: none;
+  }
+
+  .footer__dev-credit {
+    display: block;
+    margin-top: 0.25rem;
   }
 }
 
